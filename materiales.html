@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Materiales · IES Palomares</title>
-<meta name="description" content="Unidad de materiales de Tecnología e Ingeniería (Bachillerato): propiedades, estructura de los metales, ensayos de tracción, dureza y resiliencia, aleaciones, tratamientos y problemas resueltos.">
+<meta name="description" content="Unidad de materiales de Tecnología e Ingeniería (Bachillerato): ensayos de tracción, Brinell, Vickers y resiliencia, con teoría ilustrada y problemas tipo selectividad resueltos.">
 <meta name="author" content="David Rayo Torres">
 <link rel="icon" href="logo-ies-palomares.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -169,8 +169,65 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
 .totop.show{opacity:1;pointer-events:auto}
 .totop svg{width:20px;height:20px}
 
-@media (prefers-reduced-motion:no-preference){.flow{stroke-dasharray:6 6;animation:flow 1.6s linear infinite}}
-@keyframes flow{to{stroke-dashoffset:-24}}
+
+/* ---------- Problemas tipo selectividad ---------- */
+.prob .enun{font-size:16.5px}
+.prob ol.aps{list-style:none;padding:0;margin:0 0 6px}
+.prob ol.aps > li{margin:0 0 4px}
+.prob .q{font-weight:500}
+.prob .q b{color:var(--brand);margin-right:4px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .prob .q b{color:var(--cold)}}
+:root[data-theme="dark"] .prob .q b{color:var(--cold)}
+.datos{background:var(--bg);border-radius:8px;padding:10px 14px;font-size:15px;margin:0 0 14px}
+.datos b{font-weight:600}
+.ap{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
+.ap h4{font-family:var(--display);font-size:21px;font-weight:600;margin:0 0 8px;line-height:1.2}
+.ap h4 span{color:var(--brand);margin-right:6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ap h4 span{color:var(--cold)}}
+:root[data-theme="dark"] .ap h4 span{color:var(--cold)}
+.ap .lbl{font-size:13px;font-weight:600;color:var(--muted);margin:10px 0 4px;display:block}
+.ap ol.steps{margin-bottom:6px}
+.ap ol.steps li{margin-bottom:10px}
+.ap .eq{display:block;font-family:var(--mono);font-size:15px;background:var(--bg);border-radius:6px;padding:6px 10px;margin-top:4px;overflow-x:auto;white-space:nowrap}
+.res{background:var(--work-bg);border-left:4px solid var(--work);border-radius:4px 8px 8px 4px;padding:8px 12px;margin:8px 0 0;font-weight:500}
+.res::before{content:"Resultado: ";font-weight:700;color:var(--work)}
+.prob .com{margin-top:16px}
+.prob .com::before{content:"Comentario. ";font-weight:600;color:var(--ink)}
+.pts{color:var(--muted);font-weight:400;font-size:.92em;white-space:nowrap}
+
+/* ---------- Ilustraciones de ensayos ---------- */
+svg.art{display:block;width:100%;height:auto}
+.hero figure.art-fig{border-radius:14px;overflow:hidden;border:1px solid var(--line);max-width:460px;margin-left:auto}
+.hero figure.art-fig svg{max-width:none;margin:0}
+
+/* ---------- Portada de Materiales ---------- */
+.hub{padding:40px 0 72px}
+.hub > h2{font-family:var(--display);font-size:38px;font-weight:600;margin:0 0 6px}
+.hub > p.sub{color:var(--muted);margin:0 0 24px;max-width:60ch}
+.tests{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;list-style:none;margin:0 0 48px;padding:0}
+.tests li{margin:0}
+.test{display:flex;flex-direction:column;height:100%;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
+.test:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(10,30,40,.16);border-color:var(--brand)}
+@media (prefers-reduced-motion:reduce){.test,.test:hover{transition:none;transform:none}}
+.test .pic{border-bottom:1px solid var(--line)}
+.test .body{padding:18px 22px 22px;display:grid;gap:6px}
+.test h3{font-family:var(--display);font-size:30px;font-weight:700;margin:0;line-height:1}
+.test p{margin:0;color:var(--muted);font-size:15.5px}
+.test .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:14px;font-weight:600;color:var(--brand)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .test .meta{color:var(--cold)}}
+:root[data-theme="dark"] .test .meta{color:var(--cold)}
+.test .meta i{font-style:normal;color:var(--muted);font-weight:500}
+@media (max-width:700px){.tests{grid-template-columns:minmax(0,1fr)}}
+
+/* Otros ensayos al pie de cada subpágina */
+.others{margin-top:8px;padding-top:28px;border-top:1px solid var(--line)}
+.others h2{font-size:28px}
+.others ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;list-style:none;padding:0;margin:0}
+.others li{margin:0}
+.others a{display:block;border:1px solid var(--line);border-radius:10px;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--surface)}
+.others a:hover{border-color:var(--brand)}
+.others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
+@media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- Pie ---------- */
 .site-footer{background:var(--surface);border-top:1px solid var(--line);padding:28px 0 36px;font-size:14.5px;color:var(--muted)}
@@ -251,12 +308,12 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
 <div class="hero" id="top">
   <div class="container">
     <div>
-      <p class="crumbs"><a href="https://sites.google.com/view/harotecno-tecying-bachiller/inicio">Tecnología e Ingeniería</a> / Ciencia de materiales</p>
+      <p class="crumbs"><a href="https://sites.google.com/view/harotecno-tecying-bachiller/inicio">Tecnología e Ingeniería</a> / Ensayos de materiales</p>
       <h1>Materiales</h1>
-      <p class="lead">Qué propiedades tiene cada material, cómo se miden con los ensayos de laboratorio y cómo se usan esos datos para elegir y dimensionar una pieza.</p>
+      <p class="lead">Para elegir un material hay que conocer sus propiedades, y para conocerlas hay que medirlas. En esta unidad estudiamos los cuatro ensayos mecánicos que entran en selectividad.</p>
       <ul class="quick">
-        <li><a class="primary" href="#clasificacion">Empezar la unidad</a></li>
-        <li><a href="#problemas">Problemas resueltos</a></li>
+        <li><a class="primary" href="#ensayos">Ver los ensayos</a></li>
+        <li><a href="ensayo-traccion.html">Empezar por tracción</a></li>
       </ul>
     </div>
     <figure aria-label="Diagrama tensión-deformación">
@@ -283,228 +340,92 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
   </div>
 </div>
 
-<nav class="chips" aria-label="Secciones de la unidad"><ol></ol></nav>
-
-<div class="container layout">
-  <nav class="toc" aria-label="Índice de la unidad">
-    <h2>Contenido de la unidad</h2>
-    <ol>
-      <li><a href="#clasificacion">Clasificación</a></li>
-      <li><a href="#propiedades">Propiedades</a></li>
-      <li><a href="#estructura">Estructura de los metales</a></li>
-      <li><a href="#traccion">Ensayo de tracción</a></li>
-      <li><a href="#dureza">Ensayos de dureza</a></li>
-      <li><a href="#resiliencia">Ensayo de resiliencia</a></li>
-      <li><a href="#aleaciones">Aleaciones y diagramas</a></li>
-      <li><a href="#tratamientos">Tratamientos</a></li>
-      <li><a href="#problemas">Problemas resueltos</a></li>
-    </ol>
-    <div class="tools">
-      <button type="button" data-act="open">Mostrar todas las soluciones</button>
-      <button type="button" data-act="print">Imprimir o guardar en PDF</button>
-    </div>
-  </nav>
-
-  <main id="contenido">
-<section id="clasificacion">
-  <h2><span class="n">1</span>Clasificación de los materiales</h2>
-  <p>Un <strong>material</strong> es una materia prima transformada que se usa para fabricar objetos. Elegir bien el material de una pieza es una decisión técnica: depende de los esfuerzos que soportará, del entorno en que trabajará, del proceso de fabricación y del coste.</p>
+<div class="container hub" id="contenido">
+  <h2 id="ensayos">Los cuatro ensayos</h2>
+  <p class="sub">Elige un ensayo para ver su teoría ilustrada y diez problemas tipo selectividad resueltos paso a paso.</p>
+  <ul class="tests">
+    <li><a class="test" href="ensayo-traccion.html">
+      <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo de tracción</title><desc>Probeta sujeta entre las mordazas de la máquina, estirada por dos fuerzas opuestas, con un estrechamiento en el centro.</desc>
+<rect width="400" height="260" style="fill:var(--cold-bg)"/>
+<g style="stroke:var(--cold);stroke-width:1;opacity:.35"><line x1="0" y1="65" x2="400" y2="65"/><line x1="0" y1="130" x2="400" y2="130"/><line x1="0" y1="195" x2="400" y2="195"/><line x1="100" y1="0" x2="100" y2="260"/><line x1="300" y1="0" x2="300" y2="260"/></g>
+<path d="M30 236 L52 168 Q56 160 64 162 Q92 166 112 150 Q124 142 132 156 Q138 168 142 184" style="fill:none;stroke:var(--cold);stroke-width:3;stroke-linecap:round"/>
+<path d="M170 40 H230 V86 C230 100 216 96 216 110 V122 Q200 130 216 138 V150 C216 164 230 160 230 174 V220 H170 V174 C170 160 184 164 184 150 V138 Q200 130 184 122 V110 C184 96 170 100 170 86 Z" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
+<g style="stroke:var(--hot);stroke-width:3"><line x1="176" y1="112" x2="190" y2="112"/><line x1="176" y1="148" x2="190" y2="148"/></g>
+<rect x="148" y="8" width="104" height="52" rx="5" style="fill:var(--ink)"/>
+<rect x="148" y="200" width="104" height="52" rx="5" style="fill:var(--ink)"/>
+<g style="stroke:var(--bg);stroke-width:2;opacity:.5"><line x1="160" y1="22" x2="240" y2="22"/><line x1="160" y1="34" x2="240" y2="34"/><line x1="160" y1="46" x2="240" y2="46"/><line x1="160" y1="214" x2="240" y2="214"/><line x1="160" y1="226" x2="240" y2="226"/><line x1="160" y1="238" x2="240" y2="238"/></g>
+<g style="fill:var(--hot)"><rect x="296" y="30" width="8" height="70"/><polygon points="286,34 314,34 300,10"/><rect x="296" y="160" width="8" height="70"/><polygon points="286,226 314,226 300,250"/></g>
+<text x="318" y="70" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
+<text x="318" y="206" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
+</svg></div>
+      <div class="body"><h3>Ensayo de tracción</h3><p>Se estira una probeta hasta romperla para conocer su rigidez, su límite elástico, su resistencia y su ductilidad.</p><div class="meta">Abrir el ensayo <i>Teoría · 10 problemas</i></div></div>
+    </a></li>
+    <li><a class="test" href="ensayo-brinell.html">
+      <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Brinell</title><desc>Una bola de acero empujada por una carga se hunde en el material y deja una huella redonda.</desc>
+<rect width="400" height="260" style="fill:var(--work-bg)"/>
+<path d="M0 176 H150.4 A58 58 0 0 0 249.6 176 H400 V260 H0 Z" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
+<g style="stroke:var(--work);stroke-width:1.5;opacity:.45"><line x1="20" y1="200" x2="60" y2="240"/><line x1="60" y1="200" x2="100" y2="240"/><line x1="100" y1="200" x2="140" y2="240"/><line x1="290" y1="200" x2="330" y2="240"/><line x1="330" y1="200" x2="370" y2="240"/></g>
+<rect x="178" y="0" width="44" height="74" style="fill:var(--ink)"/>
+<path d="M164 74 H236 L224 92 H176 Z" style="fill:var(--ink)"/>
+<circle cx="200" cy="146" r="58" style="fill:var(--bg);stroke:var(--ink);stroke-width:2.5"/>
+<circle cx="182" cy="126" r="16" style="fill:var(--surface);opacity:.9"/>
+<path d="M150.4 176 A58 58 0 0 0 249.6 176" style="fill:none;stroke:var(--work);stroke-width:5;stroke-linecap:round"/>
+<g style="fill:var(--hot)"><rect x="306" y="20" width="8" height="70"/><polygon points="296,86 324,86 310,110"/></g>
+<text x="326" y="64" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
+<text x="40" y="60" style="fill:var(--work);font:700 44px var(--display)">HB</text>
+</svg></div>
+      <div class="body"><h3>Ensayo Brinell</h3><p>Una bola de acero se hunde en la pieza; el tamaño de la huella indica su dureza.</p><div class="meta">Abrir el ensayo <i>Teoría · 10 problemas</i></div></div>
+    </a></li>
+    <li><a class="test" href="ensayo-vickers.html">
+      <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Un diamante en forma de pirámide se clava en el material y deja una huella cuadrada; se miden sus dos diagonales.</desc>
+<rect width="400" height="260" style="fill:var(--brand-soft)"/>
+<rect x="0" y="180" width="230" height="80" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
+<rect x="96" y="0" width="38" height="70" style="fill:var(--ink)"/>
+<polygon points="78,70 152,70 115,196" style="fill:var(--bg);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
+<polygon points="115,70 152,70 115,196" style="fill:var(--brand);opacity:.25"/>
+<path d="M101 150 A40 40 0 0 0 129 150" style="fill:none;stroke:var(--hot);stroke-width:2"/>
+<text x="115" y="140" text-anchor="middle" style="fill:var(--hot);font:700 15px var(--mono)">136°</text>
+<g transform="translate(312 130)">
+<polygon points="0,-82 82,0 0,82 -82,0" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
+<polygon points="0,-82 82,0 0,0" style="fill:var(--brand);opacity:.18"/><polygon points="0,82 -82,0 0,0" style="fill:var(--brand);opacity:.18"/>
+<line x1="-82" y1="0" x2="82" y2="0" style="stroke:var(--hot);stroke-width:3;stroke-dasharray:7 5"/>
+<line x1="0" y1="-82" x2="0" y2="82" style="stroke:var(--cold);stroke-width:3;stroke-dasharray:7 5"/>
+<text x="46" y="-8" style="fill:var(--hot);font:700 17px var(--mono)">d₁</text>
+<text x="8" y="58" style="fill:var(--cold);font:700 17px var(--mono)">d₂</text>
+</g>
+<text x="20" y="42" style="fill:var(--brand);font:700 44px var(--display)">HV</text>
+</svg></div>
+      <div class="body"><h3>Ensayo Vickers</h3><p>Una pirámide de diamante deja una huella cuadrada. Sirve para cualquier material, incluso muy duro o muy fino.</p><div class="meta">Abrir el ensayo <i>Teoría · 10 problemas</i></div></div>
+    </a></li>
+    <li><a class="test" href="ensayo-resiliencia.html">
+      <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo de resiliencia Charpy</title><desc>Un péndulo pesado cae desde lo alto, rompe la probeta entallada apoyada en la parte baja y sigue subiendo por el otro lado.</desc>
+<rect width="400" height="260" style="fill:var(--hot-bg)"/>
+<path d="M52 24 A150 150 0 0 0 330 125" style="fill:none;stroke:var(--hot);stroke-width:2.5;stroke-dasharray:8 7"/>
+<polygon points="322,112 340,118 328,134" style="fill:var(--hot)"/>
+<g style="opacity:.3"><line x1="200" y1="50" x2="64" y2="35" style="stroke:var(--ink);stroke-width:6"/><circle cx="52" cy="24" r="20" style="fill:var(--ink)"/></g>
+<rect x="150" y="228" width="100" height="14" style="fill:var(--ink)"/>
+<rect x="160" y="210" width="16" height="20" style="fill:var(--ink)"/><rect x="224" y="210" width="16" height="20" style="fill:var(--ink)"/>
+<rect x="156" y="200" width="88" height="12" rx="2" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
+<polygon points="194,212 206,212 200,204" style="fill:var(--hot-bg);stroke:var(--ink);stroke-width:1.5"/>
+<line x1="200" y1="50" x2="200" y2="170" style="stroke:var(--ink);stroke-width:7"/>
+<path d="M170 168 H230 L214 196 H186 Z" style="fill:var(--hot);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
+<circle cx="200" cy="50" r="12" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
+<g style="stroke:var(--hot);stroke-width:3;stroke-linecap:round"><line x1="168" y1="214" x2="150" y2="196"/><line x1="232" y1="214" x2="252" y2="198"/><line x1="200" y1="228" x2="200" y2="246"/></g>
+<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/cm²</text>
+</svg></div>
+      <div class="body"><h3>Ensayo de resiliencia</h3><p>Un péndulo rompe de un golpe una probeta entallada para medir la energía que absorbe: su tenacidad.</p><div class="meta">Abrir el ensayo <i>Teoría · 10 problemas</i></div></div>
+    </a></li>
+  </ul>
+  <h2>Qué mide cada ensayo</h2>
   <div class="tbl"><table>
-    <thead><tr><th>Grupo</th><th>Ejemplos</th><th>Rasgos principales</th></tr></thead>
+    <thead><tr><th>Ensayo</th><th>Propiedad</th><th>Cómo se hace</th><th>Resultado</th></tr></thead>
     <tbody>
-      <tr><td>Metales férricos</td><td>Hierro, aceros, fundiciones</td><td>Resistentes, tenaces, baratos; se oxidan</td></tr>
-      <tr><td>Metales no férricos</td><td>Aluminio, cobre, titanio, cinc</td><td>Ligeros o buenos conductores; resisten la corrosión</td></tr>
-      <tr><td>Polímeros (plásticos)</td><td>PVC, PE, PET, nailon, caucho</td><td>Ligeros, aislantes, fáciles de moldear; poco resistentes al calor</td></tr>
-      <tr><td>Cerámicos y vidrios</td><td>Porcelana, ladrillo, alúmina, vidrio</td><td>Duros, refractarios y aislantes; frágiles</td></tr>
-      <tr><td>Materiales compuestos</td><td>Fibra de carbono, fibra de vidrio, hormigón armado</td><td>Combinan una matriz y un refuerzo para sumar propiedades</td></tr>
+      <tr><td><a href="ensayo-traccion.html">Tracción</a></td><td>Resistencia, rigidez y ductilidad</td><td>Se estira una probeta hasta romperla</td><td>E, σₑ, σᵣ (MPa); A, Z (%)</td></tr>
+      <tr><td><a href="ensayo-brinell.html">Brinell</a></td><td>Dureza</td><td>Bola de acero presionada con F = K · D²</td><td>HB</td></tr>
+      <tr><td><a href="ensayo-vickers.html">Vickers</a></td><td>Dureza</td><td>Pirámide de diamante de 136°</td><td>HV</td></tr>
+      <tr><td><a href="ensayo-resiliencia.html">Resiliencia</a></td><td>Tenacidad frente a golpes</td><td>Péndulo de Charpy contra una probeta entallada</td><td>ρ (J/cm²)</td></tr>
     </tbody>
   </table></div>
-  <p class="note">Hoy se valoran también los criterios de sostenibilidad: energía necesaria para obtener el material, posibilidad de reciclarlo y residuos que genera al final de su vida útil.</p>
-</section>
-
-<section id="propiedades">
-  <h2><span class="n">2</span>Propiedades de los materiales</h2>
-  <h3>Propiedades mecánicas</h3>
-  <ul>
-    <li><strong>Elasticidad</strong>: capacidad de recuperar la forma al retirar la carga. <strong>Plasticidad</strong>: capacidad de deformarse de forma permanente sin romperse (si es en hilos, ductilidad; si es en láminas, maleabilidad).</li>
-    <li><strong>Dureza</strong>: resistencia a ser rayado o penetrado.</li>
-    <li><strong>Tenacidad</strong>: capacidad de absorber energía antes de romperse. Lo contrario es la <strong>fragilidad</strong>.</li>
-    <li><strong>Resistencia mecánica</strong>: tensión máxima que soporta antes de romperse.</li>
-    <li><strong>Fatiga</strong>: rotura bajo cargas variables repetidas, aunque sean menores que la resistencia del material.</li>
-  </ul>
-  <h3>Otras propiedades</h3>
-  <ul>
-    <li><strong>Térmicas</strong>: conductividad térmica, dilatación (<code>ΔL = α · L₀ · ΔT</code>), temperatura de fusión.</li>
-    <li><strong>Eléctricas</strong>: resistividad ρ (<code>R = ρ · L / S</code>); conductores, semiconductores y aislantes.</li>
-    <li><strong>Químicas</strong>: resistencia a la oxidación y a la corrosión.</li>
-    <li><strong>Tecnológicas</strong>: facilidad para ser fundido (colabilidad), soldado, mecanizado o conformado.</li>
-  </ul>
-</section>
-
-<section id="estructura">
-  <h2><span class="n">3</span>Estructura interna de los metales</h2>
-  <p>Los metales son sólidos cristalinos: sus átomos se ordenan en una red que se repite en el espacio. La celda más pequeña que se repite es la <strong>celda unidad</strong>. Las tres más frecuentes en los metales son:</p>
-  <div class="tbl"><table>
-    <thead><tr><th>Red</th><th>Átomos por celda</th><th>Índice de coordinación</th><th>Ejemplos</th></tr></thead>
-    <tbody>
-      <tr><td>Cúbica centrada en el cuerpo (BCC)</td><td>2</td><td>8</td><td>Fe α, Cr, W</td></tr>
-      <tr><td>Cúbica centrada en las caras (FCC)</td><td>4</td><td>12</td><td>Fe γ, Al, Cu, Ni</td></tr>
-      <tr><td>Hexagonal compacta (HC)</td><td>6</td><td>12</td><td>Mg, Zn, Ti</td></tr>
-    </tbody>
-  </table></div>
-  <p>Los metales con red FCC suelen ser más dúctiles, porque tienen más planos por los que los átomos pueden deslizar. Algunos metales, como el hierro, cambian de red al variar la temperatura (<strong>alotropía</strong>), y en eso se basan los tratamientos térmicos del acero.</p>
-</section>
-
-<section id="traccion">
-  <h2><span class="n">4</span>Ensayo de tracción</h2>
-  <p>Una probeta normalizada se estira lentamente hasta romperla mientras se registran la fuerza y el alargamiento. Es el ensayo que más información da sobre el comportamiento mecánico de un material.</p>
-  <div class="f">σ = F / S₀ &nbsp;&nbsp;|&nbsp;&nbsp; ε = ΔL / L₀<span>Tensión σ en MPa (N/mm²) con F en N y S₀ en mm². Deformación unitaria ε sin unidades (×100 para expresarla en %).</span></div>
-  <div class="f">σ = E · ε<span>Ley de Hooke, válida en la zona proporcional. E es el módulo de elasticidad o de Young: acero ≈ 210 000 MPa; aluminio ≈ 70 000 MPa; cobre ≈ 120 000 MPa.</span></div>
-  <h3>Zonas del diagrama tensión‑deformación</h3>
-  <ol class="steps">
-    <li><span class="cold">Zona elástica</span>: al retirar la carga la probeta recupera su longitud. Llega hasta el límite elástico σₑ.</li>
-    <li><span class="hot">Zona plástica</span>: las deformaciones son permanentes. La tensión sube hasta la resistencia a la tracción σᵣ (máximo de la curva).</li>
-    <li><strong>Estricción y rotura</strong>: la sección se estrecha en un punto y la probeta rompe.</li>
-  </ol>
-  <div class="f">A = (L<sub>f</sub> − L₀) / L₀ · 100 &nbsp;&nbsp;|&nbsp;&nbsp; Z = (S₀ − S<sub>f</sub>) / S₀ · 100<span>Alargamiento y estricción en la rotura (%). Cuanto mayores, más dúctil es el material.</span></div>
-  <div class="f">σ<sub>trabajo</sub> = σₑ / n<span>Tensión de trabajo admisible con un coeficiente de seguridad n &gt; 1. Las piezas se dimensionan para no salir de la zona elástica.</span></div>
-</section>
-
-<section id="dureza">
-  <h2><span class="n">5</span>Ensayos de dureza</h2>
-  <p>Miden la resistencia a la penetración: un penetrador se apoya sobre la pieza con una carga conocida y se mide la huella. Son rápidos y casi no dañan la pieza.</p>
-  <figure>
-    <svg viewBox="0 0 360 170" role="img"><title>Ensayo Brinell</title><desc>Una bola de diámetro D presionada con la carga F deja en la pieza una huella de diámetro d y profundidad f.</desc>
-      <line x1="180" y1="8" x2="180" y2="40" style="stroke:var(--hot);stroke-width:3"/>
-      <polygon points="172,36 188,36 180,48" style="fill:var(--hot)"/>
-      <text x="192" y="28" style="fill:var(--hot);font:600 14px var(--mono)">F</text>
-      <rect x="20" y="104" width="320" height="56" style="fill:var(--bg);stroke:var(--line)"/>
-      <path d="M135 104 A60 60 0 0 0 225 104" style="fill:var(--surface);stroke:var(--line)"/>
-      <circle cx="180" cy="94" r="44" style="fill:var(--cold-bg);stroke:var(--cold);stroke-width:2"/>
-      <line x1="136" y1="94" x2="224" y2="94" style="stroke:var(--cold);stroke-dasharray:3 3"/>
-      <text x="180" y="88" text-anchor="middle" style="fill:var(--cold);font:600 13px var(--mono)">D</text>
-      <line x1="141" y1="148" x2="219" y2="148" style="stroke:var(--ink)"/>
-      <line x1="141" y1="142" x2="141" y2="154" style="stroke:var(--ink)"/><line x1="219" y1="142" x2="219" y2="154" style="stroke:var(--ink)"/>
-      <text x="180" y="166" text-anchor="middle" style="fill:var(--ink);font:600 12px var(--mono)">d</text>
-      <line x1="248" y1="104" x2="248" y2="138" style="stroke:var(--muted)"/>
-      <text x="256" y="126" style="fill:var(--muted);font:600 12px var(--mono)">f</text>
-    </svg>
-    <figcaption>Ensayo Brinell: la bola deja un casquete esférico de diámetro d.</figcaption>
-  </figure>
-  <h3>Brinell (HB)</h3>
-  <div class="f">HB = F / (π · D · f) = 2F / (π · D · (D − √(D² − d²)))<span>F en kp y D, d en mm. La carga se elige con F = K · D² (K = 30 para aceros, 10 para cobre y aluminio). La huella es válida si 0,25·D &lt; d &lt; 0,6·D.</span></div>
-  <h3>Vickers (HV)</h3>
-  <div class="f">HV = 1,854 · F / d²<span>Penetrador de pirámide de diamante con 136° entre caras. d es la media de las diagonales de la huella (mm). Sirve para materiales blandos y muy duros.</span></div>
-  <h3>Rockwell (HRC, HRB)</h3>
-  <div class="f">HRC = 100 − e / 0,002 &nbsp;&nbsp;|&nbsp;&nbsp; HRB = 130 − e / 0,002<span>Se mide la profundidad e (mm) que queda tras retirar la carga adicional. Cono de diamante (C) para materiales duros, bola de acero (B) para blandos.</span></div>
-</section>
-
-<section id="resiliencia">
-  <h2><span class="n">6</span>Ensayo de resiliencia (Charpy)</h2>
-  <p>Mide la <strong>tenacidad</strong> frente a un golpe. Un péndulo de masa m se suelta desde una altura h₀, rompe una probeta entallada y sigue subiendo hasta h₁. La energía que ha perdido es la que ha absorbido la probeta.</p>
-  <div class="f">E<sub>abs</sub> = m · g · (h₀ − h₁) &nbsp;&nbsp;|&nbsp;&nbsp; ρ = E<sub>abs</sub> / S<span>Resiliencia ρ en J/cm² (o J/mm²), con S la sección de la probeta en la entalla.</span></div>
-  <p class="note">La temperatura cambia mucho el resultado: muchos aceros pasan de tenaces a frágiles por debajo de cierta temperatura, llamada de transición dúctil‑frágil.</p>
-  <h3>Otros ensayos</h3>
-  <ul>
-    <li><strong>Fatiga</strong>: cargas alternas repetidas hasta la rotura; se obtiene el límite de fatiga.</li>
-    <li><strong>Ensayos no destructivos</strong>: líquidos penetrantes, partículas magnéticas, ultrasonidos y rayos X para buscar grietas sin dañar la pieza.</li>
-  </ul>
-</section>
-
-<section id="aleaciones">
-  <h2><span class="n">7</span>Aleaciones y diagramas de equilibrio</h2>
-  <p>Una <strong>aleación</strong> es la mezcla de un metal con otros elementos, metálicos o no, para mejorar sus propiedades. El acero es hierro con menos del 2,11 % de carbono; por encima se habla de fundición.</p>
-  <p>El <strong>diagrama de equilibrio</strong> indica, para cada composición y temperatura, qué fases hay. En la zona de dos fases (líquido + sólido) la <strong>regla de la palanca</strong> da la proporción de cada una:</p>
-  <figure>
-    <svg viewBox="0 0 360 200" role="img"><title>Regla de la palanca</title><desc>Sobre una isoterma en la zona líquido más sólido se marcan la composición del líquido C_L, la de la aleación C₀ y la del sólido C_S.</desc>
-      <line x1="40" y1="170" x2="330" y2="170" style="stroke:var(--muted)"/>
-      <line x1="40" y1="170" x2="40" y2="14" style="stroke:var(--muted)"/>
-      <text x="326" y="188" text-anchor="end" style="fill:var(--muted);font:12px var(--mono)">% B</text>
-      <text x="16" y="22" style="fill:var(--muted);font:12px var(--mono)">T</text>
-      <path d="M40 40 Q180 40 320 130" style="fill:none;stroke:var(--hot);stroke-width:2"/>
-      <path d="M40 40 Q200 120 320 130" style="fill:none;stroke:var(--cold);stroke-width:2"/>
-      <text x="250" y="58" style="fill:var(--hot);font:600 12px var(--body)">Líquido</text>
-      <text x="230" y="158" style="fill:var(--cold);font:600 12px var(--body)">Sólido</text>
-      <line x1="161" y1="84" x2="236" y2="84" style="stroke:var(--ink);stroke-width:2"/>
-      <circle cx="161" cy="84" r="4" style="fill:var(--cold)"/><circle cx="236" cy="84" r="4" style="fill:var(--hot)"/>
-      <line x1="200" y1="20" x2="200" y2="170" style="stroke:var(--work);stroke-dasharray:4 4"/>
-      <circle cx="200" cy="84" r="4" style="fill:var(--work)"/>
-      <g style="font:600 12px var(--mono)"><text x="140" y="76" style="fill:var(--cold)">C_S</text><text x="232" y="76" style="fill:var(--hot)">C_L</text><text x="206" y="160" style="fill:var(--work)">C₀</text></g>
-    </svg>
-    <figcaption>Cada fase es proporcional al segmento opuesto de la isoterma.</figcaption>
-  </figure>
-  <div class="f">W<sub>L</sub> = (C₀ − C<sub>S</sub>) / (C<sub>L</sub> − C<sub>S</sub>) &nbsp;&nbsp;|&nbsp;&nbsp; W<sub>S</sub> = (C<sub>L</sub> − C₀) / (C<sub>L</sub> − C<sub>S</sub>)<span>Fracción de líquido y de sólido. C₀ composición de la aleación; C<sub>L</sub> y C<sub>S</sub>, composiciones del líquido y del sólido a esa temperatura. W<sub>L</sub> + W<sub>S</sub> = 1.</span></div>
-  <p class="note">El dibujo es genérico: el lado del componente de la aleación en que cae cada curva depende del sistema. La regla vale siempre que midas los segmentos sobre la misma isoterma.</p>
-</section>
-
-<section id="tratamientos">
-  <h2><span class="n">8</span>Tratamientos de los metales</h2>
-  <div class="tbl"><table>
-    <thead><tr><th>Tratamiento</th><th>Cómo se hace</th><th>Para qué</th></tr></thead>
-    <tbody>
-      <tr><td>Temple</td><td>Calentar hasta austenizar y enfriar muy rápido (agua, aceite)</td><td>Aumentar dureza y resistencia; el acero queda frágil</td></tr>
-      <tr><td>Revenido</td><td>Calentar por debajo de 727 °C tras el temple y enfriar</td><td>Reducir la fragilidad del temple</td></tr>
-      <tr><td>Recocido</td><td>Calentar y enfriar muy lentamente (en el horno)</td><td>Ablandar, eliminar tensiones, facilitar el mecanizado</td></tr>
-      <tr><td>Normalizado</td><td>Calentar y enfriar al aire</td><td>Afinar y uniformizar el grano</td></tr>
-      <tr><td>Cementación, nitruración</td><td>Añadir C o N a la superficie (termoquímicos)</td><td>Superficie dura y núcleo tenaz (engranajes, ejes)</td></tr>
-    </tbody>
-  </table></div>
-  <h3>Oxidación y corrosión</h3>
-  <p>La <strong>oxidación</strong> es la reacción del metal con el oxígeno; la <strong>corrosión</strong> es su deterioro en medio húmedo o químico. Se combaten con recubrimientos (pintura, galvanizado, cromado), protección catódica con ánodos de sacrificio y aleaciones inoxidables.</p>
-</section>
-
-<section id="problemas">
-  <h2><span class="n">9</span>Problemas resueltos</h2>
-  <details class="prob" id="p1">
-    <summary>1. Módulo de elasticidad a partir de un ensayo de tracción</summary>
-    <p>Una probeta de acero de 10 mm de diámetro y 50 mm de longitud se alarga 0,06 mm al aplicarle 20 000 N, dentro de la zona elástica. Calcula la tensión, la deformación unitaria y el módulo de elasticidad.</p>
-    <ol class="steps">
-      <li>S₀ = π · 10² / 4 = 78,54 mm²</li>
-      <li>σ = 20 000 / 78,54 = 254,6 MPa</li>
-      <li>ε = 0,06 / 50 = 0,0012</li>
-      <li>E = 254,6 / 0,0012 = 212 200 MPa ≈ <strong>212 GPa</strong></li>
-    </ol>
-  </details>
-  <details class="prob" id="p2">
-    <summary>2. Dureza Brinell de un acero</summary>
-    <p>En un ensayo Brinell con bola de 10 mm y carga de 3 000 kp se obtiene una huella de 4 mm de diámetro. Calcula la dureza y comprueba si el ensayo es válido.</p>
-    <ol class="steps">
-      <li>√(D² − d²) = √(100 − 16) = 9,165 mm</li>
-      <li>HB = 2 · 3 000 / (π · 10 · (10 − 9,165)) = 6 000 / 26,23 = <strong>229 HB</strong></li>
-      <li>0,25 · D = 2,5 mm &lt; 4 mm &lt; 0,6 · D = 6 mm → la huella es válida</li>
-      <li>K = 3 000 / 10² = 30, la constante adecuada para aceros</li>
-    </ol>
-  </details>
-  <details class="prob" id="p3">
-    <summary>3. Resiliencia con el péndulo de Charpy</summary>
-    <p>Un péndulo de 20 kg se suelta desde 0,9 m y, tras romper una probeta de 10 × 8 mm de sección en la entalla, sube hasta 0,35 m. Calcula la resiliencia.</p>
-    <ol class="steps">
-      <li>E = 20 · 9,8 · (0,9 − 0,35) = 107,8 J</li>
-      <li>S = 1 · 0,8 = 0,8 cm²</li>
-      <li>ρ = 107,8 / 0,8 = <strong>134,8 J/cm²</strong></li>
-    </ol>
-  </details>
-  <details class="prob" id="p4">
-    <summary>4. Regla de la palanca en una aleación Cu‑Ni</summary>
-    <p>Una aleación con el 35 % de Ni está, a cierta temperatura, en la zona de líquido + sólido. En esa isoterma el líquido tiene un 32 % de Ni y el sólido un 43 %. ¿Qué proporción hay de cada fase?</p>
-    <ol class="steps">
-      <li>W<sub>L</sub> = (C<sub>S</sub> − C₀) / (C<sub>S</sub> − C<sub>L</sub>) = (43 − 35) / (43 − 32) = 8 / 11 = <strong>72,7 % de líquido</strong></li>
-      <li>W<sub>S</sub> = (35 − 32) / 11 = 3 / 11 = <strong>27,3 % de sólido</strong></li>
-    </ol>
-    <p class="note">Aquí el sólido es más rico en Ni que el líquido, así que se escribe cada fracción con el segmento opuesto: la fase más cercana a C₀ es la más abundante.</p>
-  </details>
-  <details class="prob" id="p5">
-    <summary>5. Diámetro de un tirante con coeficiente de seguridad</summary>
-    <p>Un tirante de acero con límite elástico de 350 MPa debe soportar 40 kN con un coeficiente de seguridad de 2. Calcula su diámetro mínimo.</p>
-    <ol class="steps">
-      <li>σ<sub>trabajo</sub> = 350 / 2 = 175 MPa</li>
-      <li>S = 40 000 / 175 = 228,6 mm²</li>
-      <li>d = √(4 · 228,6 / π) = √291,0 = <strong>17,1 mm</strong> (se elegiría una barra de 18 mm)</li>
-    </ol>
-  </details>
-</section>
-
-  </main>
 </div>
 
 <footer class="site-footer">
@@ -520,7 +441,6 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
 <button class="totop" type="button" aria-label="Volver arriba">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg>
 </button>
-
 
 <script>
 (function(){
@@ -540,7 +460,7 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
 
   // Índice: copia para móvil y enlace "Siguiente" al final de cada sección
   const tocLinks=[...document.querySelectorAll('.toc ol a')];
-  const chipsOl=document.querySelector('.chips ol');
+  const chipsOl=document.querySelector('.chips ol')||document.createElement('ol');
   tocLinks.forEach((a,i)=>{
     const li=document.createElement('li'),c=document.createElement('a');
     c.href=a.getAttribute('href');c.textContent=(i+1)+'. '+a.textContent;li.appendChild(c);chipsOl.appendChild(li);
@@ -569,7 +489,7 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
       tocLinks.forEach((a,i)=>{a.classList.toggle('active',i===idx);a.toggleAttribute('aria-current',i===idx);});
       chipLinks.forEach((a,i)=>a.classList.toggle('active',i===idx));
       const c=chipLinks[idx];
-      if(c&&getComputedStyle(chipsOl.parentNode).display!=='none'){
+      if(c&&chipsOl.parentNode&&getComputedStyle(chipsOl.parentNode).display!=='none'){
         chipsOl.scrollTo({left:c.offsetLeft-16,behavior:'smooth'});
       }
     }
@@ -580,12 +500,13 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
   // Herramientas: soluciones e impresión
   const probs=[...document.querySelectorAll('details.prob')];
   const openBtn=document.querySelector('[data-act="open"]');
-  openBtn.addEventListener('click',()=>{
+  if(openBtn)openBtn.addEventListener('click',()=>{
     const allOpen=probs.every(d=>d.open);
     probs.forEach(d=>d.open=!allOpen);
     openBtn.textContent=allOpen?'Mostrar todas las soluciones':'Ocultar todas las soluciones';
   });
-  document.querySelector('[data-act="print"]').addEventListener('click',()=>{probs.forEach(d=>d.open=true);print();});
+  const printBtn=document.querySelector('[data-act="print"]');
+  if(printBtn)printBtn.addEventListener('click',()=>{probs.forEach(d=>d.open=true);print();});
   // Abrir un problema enlazado directamente (#p1, #p2…)
   function openHash(){const t=location.hash&&document.querySelector(location.hash);if(t&&t.tagName==='DETAILS')t.open=true;}
   addEventListener('hashchange',openHash);openHash();

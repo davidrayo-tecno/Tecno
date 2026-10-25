@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ensayo de tracción · IES Palomares</title>
+<meta name="description" content="Ensayo de tracción (Tecnología e Ingeniería, Bachillerato): teoría ilustrada y diez problemas tipo selectividad resueltos y comentados.">
+<meta name="author" content="David Rayo Torres">
+<link rel="icon" href="logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Paleta: azul del escudo del IES Palomares como color institucional (solo cabecera y navegación);
+   rojo = foco caliente, azul = foco frío, verde = trabajo, como código de color del tema. */
+:root{
+  --brand:#1B5F7E; --brand-ink:#FFFFFF; --brand-soft:#E3EEF3;
+  --bg:#F4F6F7; --surface:#FFFFFF; --ink:#16232B; --muted:#55636D; --line:#D5DDE2;
+  --hot:#B93A21; --hot-bg:#FBEAE5; --cold:#2160A8; --cold-bg:#E6EEF8; --work:#2B7547; --work-bg:#E4F2E9;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --bar-h:64px; --chips-h:0px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --brand:#174E67; --brand-soft:#17303C;
+  --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E;
+  --hot:#FF8466; --hot-bg:#3A221B; --cold:#74AAF0; --cold-bg:#17263A; --work:#62C68D; --work-bg:#17301F;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --brand:#174E67; --brand-soft:#17303C;
+  --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E;
+  --hot:#FF8466; --hot-bg:#3A221B; --cold:#74AAF0; --cold-bg:#17263A; --work:#62C68D; --work-bg:#17301F;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar-h) + var(--chips-h) + 16px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-text-size-adjust:100%}
+a{color:var(--cold)}
+:focus-visible{outline:2px solid var(--cold);outline-offset:2px;border-radius:3px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--surface);color:var(--ink);padding:8px 12px;border-radius:6px;z-index:100}
+.skip:focus{top:12px}
+.container{max-width:1160px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
+
+/* ---------- Barra superior institucional ---------- */
+.bar{position:sticky;top:0;z-index:50;background:var(--brand);color:var(--brand-ink);box-shadow:0 1px 0 rgba(0,0,0,.18)}
+.bar .container{height:var(--bar-h);display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;min-width:0}
+.brand img{width:42px;height:42px;object-fit:contain;border-radius:50%;background:#fff;padding:2px;flex:none}
+.brand span{display:grid;line-height:1.1;min-width:0}
+.brand b{font-family:var(--display);font-size:21px;font-weight:600;letter-spacing:.01em}
+.brand small{font-size:13px;opacity:.82;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-nav{margin-left:auto;display:flex;align-items:center;gap:4px}
+.bar-nav a,.bar-nav summary{color:inherit;text-decoration:none;font-size:14.5px;font-weight:500;padding:8px 12px;border-radius:6px;cursor:pointer;list-style:none;white-space:nowrap}
+.bar-nav summary::-webkit-details-marker{display:none}
+.bar-nav a:hover,.bar-nav summary:hover,.units[open] summary{background:rgba(255,255,255,.14)}
+.bar-nav :focus-visible{outline-color:#fff}
+.units{position:relative}
+.units summary::after{content:"";display:inline-block;width:6px;height:6px;margin-left:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-3px) rotate(45deg);transition:transform .15s}
+.units[open] summary::after{transform:translateY(0) rotate(-135deg)}
+.units ul{position:absolute;right:0;top:calc(100% + 8px);margin:0;padding:6px;list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(10,30,40,.18);min-width:230px}
+.units li a{display:block;color:var(--ink);padding:8px 12px;border-radius:6px;font-size:15px}
+.units li a:hover{background:var(--brand-soft)}
+.units li a[aria-current]{color:var(--brand);font-weight:600;background:var(--brand-soft)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .units li a[aria-current]{color:var(--ink)}}
+.theme{background:none;border:0;color:inherit;width:38px;height:38px;border-radius:6px;cursor:pointer;display:grid;place-items:center}
+.theme:hover{background:rgba(255,255,255,.14)}
+.theme svg{width:20px;height:20px}
+.progress{position:absolute;left:0;right:0;bottom:-3px;height:3px;background:transparent}
+.progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--cold),var(--hot))}
+
+/* ---------- Cabecera de la unidad ---------- */
+.hero{padding:44px 0 36px;border-bottom:1px solid var(--line);background:var(--surface)}
+.hero .container{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center}
+.crumbs{font-size:14px;color:var(--muted);margin:0 0 10px}
+.crumbs a{color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(46px,7.5vw,80px);line-height:.95;margin:0 0 18px;letter-spacing:-.01em}
+.lead{font-size:19px;color:var(--muted);max-width:50ch;margin:0 0 24px}
+.quick{display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0;list-style:none}
+.quick a{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:500;font-size:15px;background:var(--bg)}
+.quick a:hover{border-color:var(--brand);color:var(--brand)}
+.quick a.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.quick a.primary:hover{filter:brightness(1.1);color:#fff}
+.hero figure{margin:0}
+.hero svg{width:100%;max-width:420px;height:auto;display:block;margin-left:auto}
+.hero figcaption{font-size:14px;color:var(--muted);margin-top:8px;text-align:right}
+
+/* ---------- Índice ---------- */
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:56px;padding-top:40px;padding-bottom:72px}
+.toc{position:sticky;top:calc(var(--bar-h) + 24px);align-self:start;max-height:calc(100vh - var(--bar-h) - 48px);overflow:auto}
+.toc h2{font-family:var(--body);font-size:14px;font-weight:600;color:var(--muted);margin:0 0 10px}
+.toc ol{list-style:none;margin:0;padding:0;counter-reset:t}
+.toc li{counter-increment:t}
+.toc a{display:flex;gap:10px;padding:7px 10px;border-radius:6px;color:var(--muted);text-decoration:none;font-size:15px;line-height:1.35}
+.toc a::before{content:counter(t);font-family:var(--mono);font-size:12.5px;min-width:1.2em;padding-top:2px;opacity:.8}
+.toc a:hover{color:var(--ink);background:var(--surface)}
+.toc a.active{color:var(--brand);background:var(--brand-soft);font-weight:600}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .toc a.active{color:var(--ink)}}
+:root[data-theme="dark"] .toc a.active{color:var(--ink)}
+.toc .tools{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);display:grid;gap:4px}
+.toc .tools button{all:unset;cursor:pointer;font-size:14px;color:var(--muted);padding:6px 10px;border-radius:6px}
+.toc .tools button:hover{color:var(--ink);background:var(--surface)}
+.toc .tools button:focus-visible{outline:2px solid var(--cold)}
+
+/* Índice horizontal en móvil */
+.chips{display:none}
+
+/* ---------- Contenido ---------- */
+main{min-width:0;max-width:74ch}
+section{padding:8px 0 40px;margin-bottom:40px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+h2{font-family:var(--display);font-weight:600;font-size:38px;line-height:1.05;margin:0 0 .55em;display:flex;align-items:baseline;gap:14px}
+h2 .n{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--brand);border:1.5px solid currentColor;border-radius:50%;width:32px;height:32px;display:inline-grid;place-items:center;flex:none;transform:translateY(-6px)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) h2 .n{color:var(--cold)}}
+:root[data-theme="dark"] h2 .n{color:var(--cold)}
+h3{font-family:var(--display);font-weight:600;font-size:24px;margin:1.5em 0 .45em}
+p{margin:0 0 1em}
+ul{padding-left:1.2em}
+li{margin-bottom:4px}
+.f{font-family:var(--mono);font-size:15.5px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:4px 8px 8px 4px;padding:14px 18px;margin:0 0 1.1em;overflow-x:auto;white-space:nowrap}
+.f span{color:var(--muted);font-family:var(--body);font-size:14px;white-space:normal;display:block;margin-top:6px;line-height:1.5}
+code{font-family:var(--mono);font-size:.92em;background:var(--surface);border:1px solid var(--line);padding:1px 5px;border-radius:4px}
+.hot{color:var(--hot);font-weight:600}.cold{color:var(--cold);font-weight:600}.work{color:var(--work);font-weight:600}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;color:var(--muted);margin:0 0 1em;font-size:15.5px}
+figure{margin:0 0 1.3em}
+figure svg{width:100%;height:auto;display:block}
+main figure{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+figcaption{font-size:14px;color:var(--muted);margin-top:8px}
+.strokes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 1.3em;list-style:none;padding:0}
+.strokes li{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--line);border-radius:8px;padding:14px;font-size:14.5px;line-height:1.5;margin:0}
+.strokes li:nth-child(3){border-top-color:var(--hot)}
+.strokes b{font-family:var(--display);font-size:21px;display:block;font-weight:600;margin-bottom:2px}
+.strokes small{font-family:var(--mono);font-size:12.5px;color:var(--muted);display:block;margin-bottom:6px}
+.tbl{overflow-x:auto;margin:0 0 1.3em;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:480px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:14px;color:var(--muted);font-weight:600;background:var(--bg)}
+td:first-child{font-weight:500}
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin:0 0 1.4em}
+.calc .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:18px}
+label{font-size:14px;color:var(--muted);display:grid;gap:5px}
+input{font:500 16px var(--mono);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:9px 11px;width:100%;min-width:0}
+input:focus{border-color:var(--cold);outline:none;box-shadow:0 0 0 3px var(--cold-bg)}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0;padding-top:16px;border-top:1px dashed var(--line)}
+.out div{background:var(--bg);border-radius:8px;padding:10px 12px}
+.out dt{font-size:13.5px;color:var(--muted)}
+.out dd{margin:2px 0 0;font:500 23px var(--mono);font-variant-numeric:tabular-nums}
+.err{color:var(--hot);font-size:14px;min-height:1.2em;margin:10px 0 0}
+details.prob{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:0 0 12px}
+details.prob summary{cursor:pointer;font-weight:600;padding:14px 18px;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+details.prob summary::-webkit-details-marker{display:none}
+details.prob summary::after{content:"Ver solución";font-weight:500;font-size:13.5px;color:var(--cold);white-space:nowrap}
+details.prob[open] summary::after{content:"Ocultar"}
+details.prob[open] summary{border-bottom:1px solid var(--line)}
+details.prob > :not(summary){margin-left:18px;margin-right:18px}
+details.prob > p:first-of-type{margin-top:14px}
+details.prob > :last-child{margin-bottom:16px}
+ol.steps{padding-left:1.4em;margin-top:0;margin-bottom:1em}
+ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
+.next{display:flex;justify-content:flex-end;margin-top:24px}
+.next a{display:inline-grid;text-align:right;text-decoration:none;color:var(--ink);padding:10px 16px;border:1px solid var(--line);border-radius:8px;background:var(--surface);line-height:1.3}
+.next a small{color:var(--muted);font-size:13px}
+.next a b{font-weight:600}
+.next a:hover{border-color:var(--brand)}
+.totop{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:40;width:46px;height:46px;border-radius:50%;border:0;background:var(--brand);color:#fff;box-shadow:0 6px 18px rgba(10,30,40,.25);cursor:pointer;display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.totop.show{opacity:1;pointer-events:auto}
+.totop svg{width:20px;height:20px}
+
+
+/* ---------- Problemas tipo selectividad ---------- */
+.prob .enun{font-size:16.5px}
+.prob ol.aps{list-style:none;padding:0;margin:0 0 6px}
+.prob ol.aps > li{margin:0 0 4px}
+.prob .q{font-weight:500}
+.prob .q b{color:var(--brand);margin-right:4px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .prob .q b{color:var(--cold)}}
+:root[data-theme="dark"] .prob .q b{color:var(--cold)}
+.datos{background:var(--bg);border-radius:8px;padding:10px 14px;font-size:15px;margin:0 0 14px}
+.datos b{font-weight:600}
+.ap{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
+.ap h4{font-family:var(--display);font-size:21px;font-weight:600;margin:0 0 8px;line-height:1.2}
+.ap h4 span{color:var(--brand);margin-right:6px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ap h4 span{color:var(--cold)}}
+:root[data-theme="dark"] .ap h4 span{color:var(--cold)}
+.ap .lbl{font-size:13px;font-weight:600;color:var(--muted);margin:10px 0 4px;display:block}
+.ap ol.steps{margin-bottom:6px}
+.ap ol.steps li{margin-bottom:10px}
+.ap .eq{display:block;font-family:var(--mono);font-size:15px;background:var(--bg);border-radius:6px;padding:6px 10px;margin-top:4px;overflow-x:auto;white-space:nowrap}
+.res{background:var(--work-bg);border-left:4px solid var(--work);border-radius:4px 8px 8px 4px;padding:8px 12px;margin:8px 0 0;font-weight:500}
+.res::before{content:"Resultado: ";font-weight:700;color:var(--work)}
+.prob .com{margin-top:16px}
+.prob .com::before{content:"Comentario. ";font-weight:600;color:var(--ink)}
+.pts{color:var(--muted);font-weight:400;font-size:.92em;white-space:nowrap}
+
+/* ---------- Ilustraciones de ensayos ---------- */
+svg.art{display:block;width:100%;height:auto}
+.hero figure.art-fig{border-radius:14px;overflow:hidden;border:1px solid var(--line);max-width:460px;margin-left:auto}
+.hero figure.art-fig svg{max-width:none;margin:0}
+
+/* ---------- Portada de Materiales ---------- */
+.hub{padding:40px 0 72px}
+.hub > h2{font-family:var(--display);font-size:38px;font-weight:600;margin:0 0 6px}
+.hub > p.sub{color:var(--muted);margin:0 0 24px;max-width:60ch}
+.tests{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;list-style:none;margin:0 0 48px;padding:0}
+.tests li{margin:0}
+.test{display:flex;flex-direction:column;height:100%;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
+.test:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(10,30,40,.16);border-color:var(--brand)}
+@media (prefers-reduced-motion:reduce){.test,.test:hover{transition:none;transform:none}}
+.test .pic{border-bottom:1px solid var(--line)}
+.test .body{padding:18px 22px 22px;display:grid;gap:6px}
+.test h3{font-family:var(--display);font-size:30px;font-weight:700;margin:0;line-height:1}
+.test p{margin:0;color:var(--muted);font-size:15.5px}
+.test .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:14px;font-weight:600;color:var(--brand)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .test .meta{color:var(--cold)}}
+:root[data-theme="dark"] .test .meta{color:var(--cold)}
+.test .meta i{font-style:normal;color:var(--muted);font-weight:500}
+@media (max-width:700px){.tests{grid-template-columns:minmax(0,1fr)}}
+
+/* Otros ensayos al pie de cada subpágina */
+.others{margin-top:8px;padding-top:28px;border-top:1px solid var(--line)}
+.others h2{font-size:28px}
+.others ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;list-style:none;padding:0;margin:0}
+.others li{margin:0}
+.others a{display:block;border:1px solid var(--line);border-radius:10px;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--surface)}
+.others a:hover{border-color:var(--brand)}
+.others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
+@media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- Pie ---------- */
+.site-footer{background:var(--surface);border-top:1px solid var(--line);padding:28px 0 36px;font-size:14.5px;color:var(--muted)}
+.site-footer .container{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
+.site-footer .who{display:flex;align-items:center;gap:12px}
+.site-footer img{width:40px;height:40px;border-radius:50%;background:#fff}
+.site-footer strong{color:var(--ink);font-weight:600}
+.site-footer a{color:var(--muted)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:960px){
+  :root{--chips-h:52px}
+  .bar-nav .hide-sm{display:none}
+  .hero .container{grid-template-columns:minmax(0,1fr);gap:24px}
+  .hero svg{margin:0 auto;max-width:360px}
+  .hero figcaption{text-align:center}
+  .layout{grid-template-columns:minmax(0,1fr);gap:0;padding-top:24px}
+  .toc{display:none}
+  .chips{display:block;position:sticky;top:var(--bar-h);z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+  .chips ol{display:flex;gap:6px;overflow-x:auto;list-style:none;margin:0 auto;padding:9px max(16px,env(safe-area-inset-left));scrollbar-width:none;height:var(--chips-h);align-items:center}
+  .chips ol::-webkit-scrollbar{display:none}
+  .chips li{margin:0}
+  .chips a{display:block;white-space:nowrap;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);text-decoration:none;font-size:14px}
+  .chips a.active{background:var(--brand);border-color:var(--brand);color:#fff}
+  .strokes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  main{max-width:none}
+}
+@media (max-width:520px){
+  :root{--bar-h:58px}
+  .brand small{font-size:12px}
+  .brand img{width:36px;height:36px}
+  h2{font-size:32px}
+  .units ul{position:fixed;left:12px;right:12px;top:calc(var(--bar-h) + 6px);min-width:0}
+  .quick a{flex:1 1 auto;justify-content:center}
+}
+@media print{
+  .bar,.chips,.toc,.totop,.next,.quick,.theme{display:none!important}
+  body{background:#fff;font-size:12pt}
+  .layout{display:block}
+  details.prob{break-inside:avoid}
+  details.prob > *{display:block}
+  section{break-inside:avoid-page}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="bar">
+  <div class="container">
+    <a class="brand" href="./" aria-label="IES Palomares, inicio">
+      <img src="logo-ies-palomares.png" alt="" width="42" height="42">
+      <span><b>IES Palomares</b><small>David Rayo Torres</small></span>
+    </a>
+    <nav class="bar-nav" aria-label="Sitio">
+      <a class="hide-sm" href="https://sites.google.com/view/harotecno-tecying-bachiller/inicio">Inicio</a>
+      <details class="units">
+        <summary>Unidades</summary>
+        <ul>
+          <li><a aria-current="page" href="materiales.html">Materiales</a></li>
+          <li><a href="https://sites.google.com/view/harotecno-tecying-bachiller/hidra%C3%BAlica">Hidráulica</a></li>
+          <li><a href="https://sites.google.com/view/harotecno-tecying-bachiller/neum%C3%A1tica">Neumática</a></li>
+          <li><a href="maquinas-termicas.html">Máquinas térmicas</a></li>
+          <li><a href="https://sites.google.com/view/harotecno-tecying-bachiller/estructuras">Estructuras</a></li>
+          <li><a href="https://sites.google.com/view/harotecno-tecying-bachiller/corriente-alterna">Corriente alterna</a></li>
+          <li><a href="https://sites.google.com/view/harotecno-tecying-bachiller/electr%C3%B3nica-digital">Electrónica digital</a></li>
+          <li><a href="https://sites.google.com/view/harotecno-tecying-bachiller/sistemas-de-control-y-regulaci%C3%B3n-autom%C3%A1tico">Control y regulación</a></li>
+        </ul>
+      </details>
+      <button class="theme" type="button" aria-label="Cambiar entre modo claro y oscuro" title="Modo claro / oscuro">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </nav>
+  </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
+</header>
+
+<div class="hero" id="top">
+  <div class="container">
+    <div>
+      <p class="crumbs"><a href="https://sites.google.com/view/harotecno-tecying-bachiller/inicio">Tecnología e Ingeniería</a> / <a href="materiales.html">Materiales</a></p>
+      <h1>Ensayo de tracción</h1>
+      <p class="lead">Cómo se estira una probeta hasta romperla y qué datos se obtienen: tensión, deformación, módulo de elasticidad, límite elástico, resistencia y ductilidad.</p>
+      <ul class="quick">
+        <li><a class="primary" href="#que-es">Empezar por la teoría</a></li>
+        <li><a href="#problemas">Problemas tipo selectividad</a></li>
+        <li><a href="materiales.html">Volver a Materiales</a></li>
+      </ul>
+    </div>
+    <figure class="art-fig"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo de tracción</title><desc>Probeta sujeta entre las mordazas de la máquina, estirada por dos fuerzas opuestas, con un estrechamiento en el centro.</desc>
+<rect width="400" height="260" style="fill:var(--cold-bg)"/>
+<g style="stroke:var(--cold);stroke-width:1;opacity:.35"><line x1="0" y1="65" x2="400" y2="65"/><line x1="0" y1="130" x2="400" y2="130"/><line x1="0" y1="195" x2="400" y2="195"/><line x1="100" y1="0" x2="100" y2="260"/><line x1="300" y1="0" x2="300" y2="260"/></g>
+<path d="M30 236 L52 168 Q56 160 64 162 Q92 166 112 150 Q124 142 132 156 Q138 168 142 184" style="fill:none;stroke:var(--cold);stroke-width:3;stroke-linecap:round"/>
+<path d="M170 40 H230 V86 C230 100 216 96 216 110 V122 Q200 130 216 138 V150 C216 164 230 160 230 174 V220 H170 V174 C170 160 184 164 184 150 V138 Q200 130 184 122 V110 C184 96 170 100 170 86 Z" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
+<g style="stroke:var(--hot);stroke-width:3"><line x1="176" y1="112" x2="190" y2="112"/><line x1="176" y1="148" x2="190" y2="148"/></g>
+<rect x="148" y="8" width="104" height="52" rx="5" style="fill:var(--ink)"/>
+<rect x="148" y="200" width="104" height="52" rx="5" style="fill:var(--ink)"/>
+<g style="stroke:var(--bg);stroke-width:2;opacity:.5"><line x1="160" y1="22" x2="240" y2="22"/><line x1="160" y1="34" x2="240" y2="34"/><line x1="160" y1="46" x2="240" y2="46"/><line x1="160" y1="214" x2="240" y2="214"/><line x1="160" y1="226" x2="240" y2="226"/><line x1="160" y1="238" x2="240" y2="238"/></g>
+<g style="fill:var(--hot)"><rect x="296" y="30" width="8" height="70"/><polygon points="286,34 314,34 300,10"/><rect x="296" y="160" width="8" height="70"/><polygon points="286,226 314,226 300,250"/></g>
+<text x="318" y="70" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
+<text x="318" y="206" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
+</svg></figure>
+  </div>
+</div>
+
+<nav class="chips" aria-label="Secciones de la página"><ol></ol></nav>
+
+<div class="container layout">
+  <nav class="toc" aria-label="Índice">
+    <h2>En esta página</h2>
+    <ol>
+      <li><a href="#que-es">Ensayo de tracción</a></li>
+      <li><a href="#probeta">La probeta</a></li>
+      <li><a href="#magnitudes">Tensión, deformación y ley de Hooke</a></li>
+      <li><a href="#diagrama">El diagrama tensión‑deformación</a></li>
+      <li><a href="#ductilidad">Alargamiento y estricción</a></li>
+      <li><a href="#seguridad">Tensión de trabajo y coeficiente de seguridad</a></li>
+      <li><a href="#problemas">Problemas tipo selectividad</a></li>
+    </ol>
+    <div class="tools">
+      <button type="button" data-act="open">Mostrar todas las soluciones</button>
+      <button type="button" data-act="print">Imprimir o guardar en PDF</button>
+    </div>
+  </nav>
+
+  <main id="contenido">
+<section id="que-es">
+  <h2><span class="n">1</span>Qué es el ensayo de tracción</h2>
+<p>Una probeta normalizada se sujeta por sus extremos entre las mordazas de una máquina universal y se estira lentamente hasta romperla. Mientras tanto, la máquina registra la fuerza aplicada y el alargamiento de la probeta.</p>
+<p>Es el ensayo que más información da sobre el comportamiento mecánico de un material: su rigidez, hasta dónde se deforma sin dañarse, cuánta carga soporta y lo dúctil que es.</p>
+<figure>
+<svg viewBox="0 0 520 300" role="img"><title>Máquina universal de ensayos</title><desc>Bastidor con dos columnas, travesaño móvil arriba con la célula de carga, mordazas que sujetan la probeta y extensómetro sobre la zona calibrada.</desc>
+<rect x="60" y="270" width="400" height="20" rx="3" style="fill:var(--ink)"/>
+<rect x="90" y="20" width="22" height="250" style="fill:var(--line)"/><rect x="408" y="20" width="22" height="250" style="fill:var(--line)"/>
+<rect x="80" y="40" width="360" height="30" rx="4" style="fill:var(--ink)"/>
+<rect x="225" y="70" width="70" height="20" style="fill:var(--cold)"/>
+<text x="310" y="85" style="fill:var(--cold);font:600 13px var(--body)">célula de carga</text>
+<rect x="232" y="90" width="56" height="34" rx="3" style="fill:var(--muted)"/>
+<rect x="232" y="196" width="56" height="34" rx="3" style="fill:var(--muted)"/>
+<rect x="80" y="230" width="360" height="26" rx="4" style="fill:var(--ink)"/>
+<path d="M244 100 H276 V128 C276 136 268 134 268 142 V184 C268 192 276 190 276 198 V222 H244 V198 C244 190 252 192 252 184 V142 C252 134 244 136 244 128 Z" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
+<rect x="276" y="150" width="34" height="28" rx="3" style="fill:none;stroke:var(--work);stroke-width:2"/>
+<line x1="268" y1="152" x2="276" y2="152" style="stroke:var(--work);stroke-width:2"/><line x1="268" y1="176" x2="276" y2="176" style="stroke:var(--work);stroke-width:2"/>
+<text x="318" y="168" style="fill:var(--work);font:600 13px var(--body)">extensómetro</text>
+<text x="140" y="112" text-anchor="end" style="fill:var(--muted);font:600 13px var(--body)">mordazas</text>
+<line x1="144" y1="108" x2="228" y2="108" style="stroke:var(--muted)"/><line x1="144" y1="108" x2="228" y2="212" style="stroke:var(--muted)"/>
+<text x="140" y="168" text-anchor="end" style="fill:var(--ink);font:600 13px var(--body)">probeta</text>
+<line x1="144" y1="164" x2="250" y2="164" style="stroke:var(--muted)"/>
+<g style="fill:var(--hot)"><polygon points="260,8 248,30 272,30"/></g>
+<text x="282" y="26" style="fill:var(--hot);font:600 13px var(--body)">el travesaño sube y estira</text>
+</svg>
+<figcaption>Máquina universal: el travesaño superior se desplaza, la célula de carga mide la fuerza y el extensómetro, el alargamiento.</figcaption>
+</figure>
+</section>
+
+<section id="probeta">
+  <h2><span class="n">2</span>La probeta</h2>
+<p>Las probetas tienen forma y medidas normalizadas para que los resultados de distintos laboratorios se puedan comparar. Tienen dos <strong>cabezas</strong> más anchas para sujetarlas y una <strong>zona calibrada</strong> central, más estrecha, donde se marcan dos puntos separados una distancia L₀ (longitud inicial entre marcas).</p>
+<figure>
+<svg viewBox="0 0 520 170" role="img"><title>Probeta de tracción</title><desc>Probeta cilíndrica con dos cabezas y una zona calibrada de diámetro d₀; entre dos marcas se mide la longitud L₀.</desc>
+<path d="M20 50 H110 C130 50 130 66 150 66 H370 C390 66 390 50 410 50 H500 V120 H410 C390 120 390 104 370 104 H150 C130 104 130 120 110 120 H20 Z" style="fill:var(--cold-bg);stroke:var(--ink);stroke-width:2"/>
+<g style="stroke:var(--line);stroke-width:1"><line x1="30" y1="50" x2="30" y2="120"/><line x1="45" y1="50" x2="45" y2="120"/><line x1="60" y1="50" x2="60" y2="120"/><line x1="460" y1="50" x2="460" y2="120"/><line x1="475" y1="50" x2="475" y2="120"/><line x1="490" y1="50" x2="490" y2="120"/></g>
+<line x1="190" y1="58" x2="190" y2="112" style="stroke:var(--hot);stroke-width:2.5"/><line x1="330" y1="58" x2="330" y2="112" style="stroke:var(--hot);stroke-width:2.5"/>
+<line x1="190" y1="140" x2="330" y2="140" style="stroke:var(--hot)"/><polygon points="190,140 200,135 200,145" style="fill:var(--hot)"/><polygon points="330,140 320,135 320,145" style="fill:var(--hot)"/>
+<text x="260" y="160" text-anchor="middle" style="fill:var(--hot);font:600 14px var(--mono)">L₀</text>
+<line x1="420" y1="66" x2="440" y2="66" style="stroke:var(--muted)"/><line x1="420" y1="104" x2="440" y2="104" style="stroke:var(--muted)"/>
+<line x1="380" y1="66" x2="380" y2="104" style="stroke:var(--ink)"/><polygon points="380,66 375,76 385,76" style="fill:var(--ink)"/><polygon points="380,104 375,94 385,94" style="fill:var(--ink)"/>
+<text x="350" y="90" style="fill:var(--ink);font:600 14px var(--mono)">d₀</text>
+<text x="65" y="36" text-anchor="middle" style="fill:var(--muted);font:600 13px var(--body)">cabeza</text>
+<text x="260" y="40" text-anchor="middle" style="fill:var(--muted);font:600 13px var(--body)">zona calibrada</text>
+<text x="455" y="36" text-anchor="middle" style="fill:var(--muted);font:600 13px var(--body)">cabeza</text>
+</svg>
+<figcaption>Probeta cilíndrica. En las probetas proporcionales se toma L₀ = 5,65 · √S₀ (equivale a L₀ = 5 · d₀).</figcaption>
+</figure>
+<p>También hay probetas planas, de sección rectangular, que se cortan de chapas. El cálculo es el mismo; solo cambia la sección: S₀ = base · altura.</p>
+</section>
+
+<section id="magnitudes">
+  <h2><span class="n">3</span>Tensión, deformación y ley de Hooke</h2>
+<p>Para que el resultado no dependa del tamaño de la probeta, no se trabaja con la fuerza ni con el alargamiento, sino con valores relativos:</p>
+<div class="f">σ = F / S₀<span><strong>Tensión</strong>: fuerza por unidad de sección. Con F en N y S₀ en mm², sale en MPa (1 MPa = 1 N/mm²).</span></div>
+<div class="f">ε = ΔL / L₀ = (L − L₀) / L₀<span><strong>Deformación unitaria</strong>: alargamiento por unidad de longitud. No tiene unidades; multiplicada por 100 se expresa en %.</span></div>
+<p>En la primera parte del ensayo la tensión y la deformación son proporcionales. Es la <strong>ley de Hooke</strong>:</p>
+<div class="f">σ = E · ε<span>E es el <strong>módulo de elasticidad</strong> o de Young y mide la rigidez del material. Acero ≈ 210 GPa; cobre ≈ 120 GPa; aluminio ≈ 70 GPa (1 GPa = 1 000 MPa).</span></div>
+<p class="note">Combinando las tres expresiones se obtiene una fórmula muy útil para calcular alargamientos: ΔL = F · L₀ / (S₀ · E).</p>
+</section>
+
+<section id="diagrama">
+  <h2><span class="n">4</span>El diagrama tensión‑deformación</h2>
+<p>Al representar σ frente a ε se obtiene una curva característica de cada material. En un acero dúctil se distinguen estos puntos y zonas:</p>
+<figure>
+<svg viewBox="0 0 520 320" role="img"><title>Diagrama tensión-deformación</title><desc>Tramo recto hasta el límite de proporcionalidad P, límite elástico E, zona de fluencia, subida hasta la resistencia máxima R y caída hasta la rotura U.</desc>
+<rect x="60" y="20" width="36" height="260" style="fill:var(--cold-bg)"/>
+<rect x="96" y="20" width="324" height="260" style="fill:var(--hot-bg);opacity:.5"/>
+<rect x="420" y="20" width="80" height="260" style="fill:var(--bg)"/>
+<line x1="60" y1="280" x2="505" y2="280" style="stroke:var(--muted)"/>
+<line x1="60" y1="280" x2="60" y2="12" style="stroke:var(--muted)"/>
+<text x="500" y="300" text-anchor="end" style="fill:var(--muted);font:14px var(--mono)">ε</text>
+<text x="42" y="22" style="fill:var(--muted);font:14px var(--mono)">σ</text>
+<path d="M60 280 L88 130 Q92 116 98 118 L104 126 L110 116 L116 126 L122 118 Q150 112 200 92 Q300 50 380 48 Q420 50 440 80 Q456 106 466 150" style="fill:none;stroke:var(--ink);stroke-width:2.8;stroke-linejoin:round"/>
+<circle cx="86" cy="140" r="5" style="fill:var(--cold)"/><circle cx="96" cy="120" r="5" style="fill:var(--cold)"/>
+<circle cx="380" cy="48" r="5" style="fill:var(--hot)"/><circle cx="466" cy="150" r="5" style="fill:var(--ink)"/>
+<g style="font:700 15px var(--mono)"><text x="68" y="146" style="fill:var(--cold)">P</text><text x="82" y="106" style="fill:var(--cold)">E</text><text x="374" y="36" style="fill:var(--hot)">R</text><text x="476" y="152" style="fill:var(--ink)">U</text></g>
+<line x1="60" y1="120" x2="96" y2="120" style="stroke:var(--cold);stroke-dasharray:3 3"/>
+<line x1="60" y1="48" x2="380" y2="48" style="stroke:var(--hot);stroke-dasharray:3 3"/>
+<text x="54" y="124" text-anchor="end" style="fill:var(--cold);font:600 13px var(--mono)">σₑ</text>
+<text x="54" y="52" text-anchor="end" style="fill:var(--hot);font:600 13px var(--mono)">σᵣ</text>
+<text x="112" y="150" style="fill:var(--muted);font:600 12px var(--body)">fluencia</text>
+<text x="78" y="270" text-anchor="middle" style="fill:var(--cold);font:600 12px var(--body)">elástica</text>
+<text x="250" y="270" text-anchor="middle" style="fill:var(--hot);font:600 12px var(--body)">plástica (deformación uniforme)</text>
+<text x="460" y="270" text-anchor="middle" style="fill:var(--muted);font:600 12px var(--body)">estricción</text>
+</svg>
+<figcaption>Diagrama σ‑ε de un acero dúctil. Las tensiones se calculan siempre con la sección inicial S₀.</figcaption>
+</figure>
+<ul>
+<li><strong>P · Límite de proporcionalidad</strong>: hasta aquí la gráfica es una recta y se cumple la ley de Hooke.</li>
+<li><strong>E · Límite elástico (σₑ)</strong>: hasta aquí, al retirar la carga, la probeta recupera su longitud. Es el valor que se usa para diseñar piezas. En los aceros P y E están muy próximos.</li>
+<li><strong>Fluencia</strong>: el material se alarga sin que apenas aumente la carga (la curva hace «dientes»).</li>
+<li><strong>Zona plástica</strong>: las deformaciones ya son permanentes. La tensión sigue subiendo porque el material se endurece al deformarse (acritud).</li>
+<li><strong>R · Resistencia a la tracción (σᵣ)</strong>: tensión máxima del ensayo, F<sub>máx</sub> / S₀.</li>
+<li><strong>Estricción y U · rotura</strong>: la sección se estrecha en un punto, la carga baja y la probeta rompe.</li>
+</ul>
+<figure>
+<svg viewBox="0 0 520 200" role="img"><title>Material dúctil y material frágil</title><desc>La curva de un material frágil es casi recta y termina de golpe; la de un material dúctil tiene una larga zona plástica.</desc>
+<line x1="40" y1="170" x2="500" y2="170" style="stroke:var(--muted)"/><line x1="40" y1="170" x2="40" y2="14" style="stroke:var(--muted)"/>
+<text x="496" y="190" text-anchor="end" style="fill:var(--muted);font:13px var(--mono)">ε</text><text x="24" y="22" style="fill:var(--muted);font:13px var(--mono)">σ</text>
+<path d="M40 170 L110 30" style="fill:none;stroke:var(--hot);stroke-width:2.8"/><path d="M104 26 l12 10 M116 26 l-12 10" style="stroke:var(--hot);stroke-width:2"/>
+<text x="122" y="34" style="fill:var(--hot);font:600 13px var(--body)">frágil (fundición, vidrio)</text>
+<path d="M40 170 L64 90 Q70 80 90 82 Q240 60 380 66 Q430 70 470 110" style="fill:none;stroke:var(--cold);stroke-width:2.8"/><path d="M464 104 l12 10 M476 104 l-12 10" style="stroke:var(--cold);stroke-width:2"/>
+<text x="300" y="56" style="fill:var(--cold);font:600 13px var(--body)">dúctil (acero suave, cobre)</text>
+</svg>
+<figcaption>Un material frágil rompe casi sin deformación plástica; uno dúctil se deforma mucho antes de romper.</figcaption>
+</figure>
+</section>
+
+<section id="ductilidad">
+  <h2><span class="n">5</span>Alargamiento y estricción</h2>
+<p>Después de la rotura se juntan los dos trozos de la probeta y se miden la nueva distancia entre marcas L<sub>f</sub> y la sección mínima S<sub>f</sub>. Indican lo dúctil que es el material:</p>
+<figure>
+<svg viewBox="0 0 520 190" role="img"><title>Probeta antes y después del ensayo</title><desc>Arriba, la probeta original con longitud L₀ y diámetro d₀. Abajo, la probeta rota, más larga, con un cuello de diámetro d_f en la zona de rotura.</desc>
+<text x="20" y="40" style="fill:var(--muted);font:600 13px var(--body)">antes</text>
+<rect x="80" y="26" width="320" height="24" rx="2" style="fill:var(--cold-bg);stroke:var(--ink);stroke-width:2"/>
+<line x1="140" y1="22" x2="140" y2="54" style="stroke:var(--hot);stroke-width:2"/><line x1="340" y1="22" x2="340" y2="54" style="stroke:var(--hot);stroke-width:2"/>
+<text x="240" y="70" text-anchor="middle" style="fill:var(--hot);font:600 13px var(--mono)">L₀</text>
+<text x="412" y="44" style="fill:var(--ink);font:600 13px var(--mono)">d₀</text>
+<text x="20" y="130" style="fill:var(--muted);font:600 13px var(--body)">después</text>
+<path d="M60 116 H250 Q264 118 270 127 L270 127 Q264 136 250 138 H60 Z" style="fill:var(--hot-bg);stroke:var(--ink);stroke-width:2"/>
+<path d="M276 127 Q282 118 296 116 H470 V138 H296 Q282 136 276 127 Z" style="fill:var(--hot-bg);stroke:var(--ink);stroke-width:2"/>
+<line x1="120" y1="110" x2="120" y2="144" style="stroke:var(--hot);stroke-width:2"/><line x1="400" y1="110" x2="400" y2="144" style="stroke:var(--hot);stroke-width:2"/>
+<line x1="120" y1="160" x2="400" y2="160" style="stroke:var(--hot)"/>
+<text x="260" y="180" text-anchor="middle" style="fill:var(--hot);font:600 13px var(--mono)">L<tspan baseline-shift="sub" style="font-size:10px">f</tspan></text>
+<text x="273" y="104" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">d<tspan baseline-shift="sub" style="font-size:10px">f</tspan></text>
+</svg>
+<figcaption>La probeta rota es más larga y presenta un cuello (estricción) en la zona de rotura.</figcaption>
+</figure>
+<div class="f">A (%) = (L<sub>f</sub> − L₀) / L₀ · 100<span>Alargamiento en la rotura.</span></div>
+<div class="f">Z (%) = (S₀ − S<sub>f</sub>) / S₀ · 100<span>Estricción. Con probetas cilíndricas: Z = (d₀² − d<sub>f</sub>²) / d₀² · 100.</span></div>
+</section>
+
+<section id="seguridad">
+  <h2><span class="n">6</span>Tensión de trabajo y coeficiente de seguridad</h2>
+<p>Las piezas se diseñan para trabajar siempre en la zona elástica, con un margen frente al límite elástico que cubre incertidumbres en las cargas, en el material y en la fabricación:</p>
+<div class="f">σ<sub>adm</sub> = σₑ / n<span>n &gt; 1 es el coeficiente de seguridad. Cuanto más grave sería un fallo, mayor se elige n.</span></div>
+<p>Con la tensión admisible se calcula la sección mínima de la pieza: <code>S = F / σ<sub>adm</sub></code>. El diámetro obtenido se redondea siempre hacia arriba, a la medida comercial siguiente.</p>
+</section>
+
+<section id="problemas">
+  <h2><span class="n">7</span>Problemas tipo selectividad</h2>
+  <p>Diez problemas con el formato de la PEvAU: un enunciado común y varios apartados puntuados. Cada apartado está resuelto en tres pasos: qué se pide y cómo abordarlo (planteamiento), los cálculos explicados (desarrollo) y el resultado. Intenta resolverlos antes de abrir la solución.</p>
+  <details class="prob" id="p1">
+    <summary>1. Módulo de elasticidad a partir de un ensayo</summary>
+    <p class="enun">Una probeta cilíndrica de acero de 10 mm de diámetro y 50 mm de longitud inicial se somete a un ensayo de tracción. Con una carga de 20 kN, que no supera el límite elástico, la probeta se alarga 0,06 mm. Determine:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> La tensión y la deformación unitaria producidas. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> El módulo de elasticidad del acero. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> La carga necesaria para que la probeta se alargue 0,08 mm, sabiendo que el límite elástico es de 400 MPa. (1 punto)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> d₀ = 10 mm; L₀ = 50 mm; F = 20 kN = 20 000 N; ΔL = 0,06 mm</p>
+    <div class="ap">
+      <h4><span>a)</span>La tensión y la deformación unitaria producidas.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>La tensión es la fuerza entre la sección inicial y la deformación unitaria es el alargamiento entre la longitud inicial. Trabajamos en N y mm para que la tensión salga en MPa.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección de la probeta:<span class="eq">S₀ = π · d₀² / 4 = π · 10² / 4 = 78,54 mm²</span></li>
+          <li>Tensión:<span class="eq">σ = F / S₀ = 20 000 / 78,54 = 254,6 MPa</span></li>
+          <li>Deformación unitaria (adimensional):<span class="eq">ε = ΔL / L₀ = 0,06 / 50 = 0,0012</span></li>
+      </ol>
+      <p class="res">σ = 254,6 MPa; ε = 0,0012 (0,12 %).</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El módulo de elasticidad del acero.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Como la carga no supera el límite elástico, se cumple la ley de Hooke: σ = E · ε.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Despejamos E:<span class="eq">E = σ / ε = 254,6 / 0,0012 = 212 200 MPa</span></li>
+      </ol>
+      <p class="res">E ≈ 212 200 MPa ≈ 212 GPa.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La carga necesaria para que la probeta se alargue 0,08 mm, sabiendo que el límite elástico es de 400 MPa.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Calculamos la tensión que produce ese alargamiento con la ley de Hooke, comprobamos que no supera el límite elástico (si lo superara, Hooke ya no valdría) y la convertimos en fuerza.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Deformación unitaria pedida:<span class="eq">ε = 0,08 / 50 = 0,0016</span></li>
+          <li>Tensión correspondiente:<span class="eq">σ = E · ε = 212 200 · 0,0016 = 339,5 MPa &lt; 400 MPa ✓</span></li>
+          <li>Carga:<span class="eq">F = σ · S₀ = 339,5 · 78,54 = 26 667 N</span></li>
+      </ol>
+      <p class="res">F ≈ 26,7 kN.</p>
+    </div>
+    <p class="note com">El módulo obtenido es el típico de un acero (unos 210 GPa), lo que sirve para comprobar que el resultado tiene sentido.</p>
+  </details>
+  <details class="prob" id="p2">
+    <summary>2. Barra de acero cargada a tracción</summary>
+    <p class="enun">Una barra de acero de 12 mm de diámetro y 2 m de longitud tiene un módulo de elasticidad de 210 GPa y un límite elástico de 275 MPa. Calcule:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> El alargamiento que experimenta al aplicarle una carga de 15 kN. (1 punto)</li>
+      <li class="q"><b>b)</b> La carga máxima que puede soportar sin sufrir deformación permanente. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> La longitud de la barra cuando soporta esa carga máxima. (0,75 puntos)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> d = 12 mm; L₀ = 2 m = 2 000 mm; E = 210 GPa = 210 000 MPa; σₑ = 275 MPa</p>
+    <div class="ap">
+      <h4><span>a)</span>El alargamiento que experimenta al aplicarle una carga de 15 kN.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Seguimos la cadena sección → tensión → deformación unitaria (Hooke) → alargamiento. Antes pasamos todo a N, mm y MPa.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección:<span class="eq">S = π · 12² / 4 = 113,1 mm²</span></li>
+          <li>Tensión:<span class="eq">σ = 15 000 / 113,1 = 132,6 MPa (menor que σₑ, zona elástica)</span></li>
+          <li>Deformación unitaria y alargamiento:<span class="eq">ε = 132,6 / 210 000 = 6,32 · 10⁻⁴ &nbsp;→&nbsp; ΔL = 6,32 · 10⁻⁴ · 2 000 = 1,26 mm</span></li>
+      </ol>
+      <p class="res">ΔL ≈ 1,26 mm.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La carga máxima que puede soportar sin sufrir deformación permanente.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>La deformación deja de ser recuperable cuando la tensión supera el límite elástico. La carga máxima es la que produce σ = σₑ.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Carga en el límite elástico:<span class="eq">F = σₑ · S = 275 · 113,1 = 31 102 N</span></li>
+      </ol>
+      <p class="res">F<sub>máx</sub> ≈ 31,1 kN.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La longitud de la barra cuando soporta esa carga máxima.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Con σ = σₑ calculamos el alargamiento con Hooke y lo sumamos a la longitud inicial.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Alargamiento:<span class="eq">ΔL = σₑ · L₀ / E = 275 · 2 000 / 210 000 = 2,62 mm</span></li>
+          <li>Longitud final:<span class="eq">L = 2 000 + 2,62 = 2 002,62 mm</span></li>
+      </ol>
+      <p class="res">L ≈ 2 002,6 mm.</p>
+    </div>
+    <p class="note com">Error frecuente: dejar la longitud en metros y E en GPa. Si se pasa todo a N, mm y MPa al principio, las unidades encajan solas.</p>
+  </details>
+  <details class="prob" id="p3">
+    <summary>3. Tirante con coeficiente de seguridad</summary>
+    <p class="enun">Un tirante de acero de 20 mm de diámetro tiene un límite elástico de 275 MPa y un módulo de elasticidad de 210 GPa. Determine:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> La carga máxima que puede soportar sin deformación permanente. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> La carga máxima de trabajo si se exige un coeficiente de seguridad de 2,5. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> La deformación unitaria del tirante con la carga de trabajo. (1 punto)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> d = 20 mm; σₑ = 275 MPa; E = 210 000 MPa</p>
+    <div class="ap">
+      <h4><span>a)</span>La carga máxima que puede soportar sin deformación permanente.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>La carga límite es la que hace que la tensión iguale al límite elástico.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección:<span class="eq">S = π · 20² / 4 = 314,2 mm²</span></li>
+          <li>Carga límite:<span class="eq">F = σₑ · S = 275 · 314,2 = 86 394 N</span></li>
+      </ol>
+      <p class="res">F ≈ 86,4 kN.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La carga máxima de trabajo si se exige un coeficiente de seguridad de 2,5.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>El coeficiente de seguridad reduce la tensión admisible: σ<sub>adm</sub> = σₑ / n. La carga de trabajo es la que produce esa tensión.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Tensión admisible:<span class="eq">σ<sub>adm</sub> = 275 / 2,5 = 110 MPa</span></li>
+          <li>Carga de trabajo:<span class="eq">F = 110 · 314,2 = 34 558 N</span></li>
+      </ol>
+      <p class="res">F<sub>trabajo</sub> ≈ 34,6 kN.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La deformación unitaria del tirante con la carga de trabajo.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Estamos en zona elástica (110 MPa &lt; 275 MPa), así que aplicamos la ley de Hooke.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Deformación unitaria:<span class="eq">ε = σ / E = 110 / 210 000 = 5,24 · 10⁻⁴</span></li>
+      </ol>
+      <p class="res">ε ≈ 5,24 · 10⁻⁴ (0,052 %).</p>
+    </div>
+    <p class="note com">La carga de trabajo es justamente la carga límite dividida entre el coeficiente de seguridad: 86,4 / 2,5 = 34,6 kN.</p>
+  </details>
+  <details class="prob" id="p4">
+    <summary>4. Dimensionado de un tirante</summary>
+    <p class="enun">Un tirante de acero de 1,5 m de longitud debe soportar una carga de 40 kN. El acero tiene un límite elástico de 350 MPa y un módulo de elasticidad de 210 GPa. Se exige un coeficiente de seguridad de 2. Calcule:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> La tensión admisible. (0,5 puntos)</li>
+      <li class="q"><b>b)</b> El diámetro mínimo del tirante. (1 punto)</li>
+      <li class="q"><b>c)</b> El alargamiento del tirante si se usa una barra de 18 mm. (1 punto)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> L₀ = 1 500 mm; F = 40 000 N; σₑ = 350 MPa; E = 210 000 MPa; n = 2</p>
+    <div class="ap">
+      <h4><span>a)</span>La tensión admisible.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Es el límite elástico dividido entre el coeficiente de seguridad.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Tensión admisible:<span class="eq">σ<sub>adm</sub> = 350 / 2 = 175 MPa</span></li>
+      </ol>
+      <p class="res">σ<sub>adm</sub> = 175 MPa.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El diámetro mínimo del tirante.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>La sección debe ser suficiente para que la tensión real no supere la admisible. Con la sección obtenemos el diámetro.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección mínima:<span class="eq">S = F / σ<sub>adm</sub> = 40 000 / 175 = 228,6 mm²</span></li>
+          <li>Diámetro:<span class="eq">d = √(4 · S / π) = √(4 · 228,6 / π) = 17,06 mm</span></li>
+      </ol>
+      <p class="res">d<sub>mín</sub> ≈ 17,1 mm; se elige la barra comercial de 18 mm.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El alargamiento del tirante si se usa una barra de 18 mm.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Con el diámetro real recalculamos la tensión (será algo menor que la admisible) y el alargamiento con Hooke.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección real y tensión:<span class="eq">S = π · 18² / 4 = 254,5 mm² &nbsp;→&nbsp; σ = 40 000 / 254,5 = 157,2 MPa</span></li>
+          <li>Alargamiento:<span class="eq">ΔL = σ · L₀ / E = 157,2 · 1 500 / 210 000 = 1,12 mm</span></li>
+      </ol>
+      <p class="res">ΔL ≈ 1,12 mm.</p>
+    </div>
+    <p class="note com">El diámetro de cálculo se redondea siempre hacia arriba; hacia abajo, la pieza no cumpliría el coeficiente de seguridad.</p>
+  </details>
+  <details class="prob" id="p5">
+    <summary>5. Datos de rotura de una probeta</summary>
+    <p class="enun">Una probeta de 10 mm de diámetro y 50 mm entre marcas se rompe en un ensayo de tracción con una carga máxima de 47 kN. Tras la rotura, la distancia entre marcas es de 62 mm y el diámetro en la zona de rotura es de 7 mm. Calcule:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> El alargamiento porcentual en la rotura. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> La estricción. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> La resistencia a la tracción del material. (1 punto)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> d₀ = 10 mm; L₀ = 50 mm; F<sub>máx</sub> = 47 000 N; L<sub>f</sub> = 62 mm; d<sub>f</sub> = 7 mm</p>
+    <div class="ap">
+      <h4><span>a)</span>El alargamiento porcentual en la rotura.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Comparamos el aumento de longitud entre marcas con la longitud inicial.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Alargamiento:<span class="eq">A = (L<sub>f</sub> − L₀) / L₀ · 100 = (62 − 50) / 50 · 100 = 24 %</span></li>
+      </ol>
+      <p class="res">A = 24 %.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La estricción.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>La estricción compara la reducción de sección en la zona de rotura con la sección inicial. Como ambas son círculos, basta con los diámetros al cuadrado.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Estricción:<span class="eq">Z = (d₀² − d<sub>f</sub>²) / d₀² · 100 = (100 − 49) / 100 · 100 = 51 %</span></li>
+      </ol>
+      <p class="res">Z = 51 %.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La resistencia a la tracción del material.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>La resistencia a la tracción es la carga máxima dividida entre la sección inicial (por convenio, no la sección real en ese momento).</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección inicial:<span class="eq">S₀ = π · 10² / 4 = 78,54 mm²</span></li>
+          <li>Resistencia a la tracción:<span class="eq">σᵣ = 47 000 / 78,54 = 598,4 MPa</span></li>
+      </ol>
+      <p class="res">σᵣ ≈ 598 MPa.</p>
+    </div>
+    <p class="note com">Un alargamiento del 24 % y una estricción del 51 % indican un material muy dúctil, que avisa deformándose antes de romper.</p>
+  </details>
+  <details class="prob" id="p6">
+    <summary>6. Lectura de los puntos del diagrama</summary>
+    <p class="enun">En el ensayo de tracción de una probeta de 10 mm de diámetro y 50 mm de longitud inicial se registra que el límite elástico se alcanza con 31 kN y un alargamiento de 0,094 mm, y que la carga máxima es de 47 kN. Determine:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> El límite elástico y la resistencia a la tracción. (1 punto)</li>
+      <li class="q"><b>b)</b> La deformación unitaria en el límite elástico. (0,5 puntos)</li>
+      <li class="q"><b>c)</b> El módulo de elasticidad. (1 punto)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> d₀ = 10 mm; L₀ = 50 mm; F<sub>e</sub> = 31 000 N; ΔL<sub>e</sub> = 0,094 mm; F<sub>máx</sub> = 47 000 N</p>
+    <div class="ap">
+      <h4><span>a)</span>El límite elástico y la resistencia a la tracción.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Cada tensión característica es la carga correspondiente dividida entre la sección inicial.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección inicial:<span class="eq">S₀ = 78,54 mm²</span></li>
+          <li>Límite elástico:<span class="eq">σₑ = 31 000 / 78,54 = 394,7 MPa</span></li>
+          <li>Resistencia a la tracción:<span class="eq">σᵣ = 47 000 / 78,54 = 598,4 MPa</span></li>
+      </ol>
+      <p class="res">σₑ ≈ 395 MPa; σᵣ ≈ 598 MPa.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La deformación unitaria en el límite elástico.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Alargamiento en ese punto entre la longitud inicial.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Deformación:<span class="eq">εₑ = 0,094 / 50 = 0,001 88</span></li>
+      </ol>
+      <p class="res">εₑ = 1,88 · 10⁻³.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El módulo de elasticidad.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Hasta el límite elástico (en un acero, prácticamente hasta ahí llega el tramo recto) se cumple Hooke, así que E es la pendiente: tensión entre deformación en ese punto.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Módulo:<span class="eq">E = σₑ / εₑ = 394,7 / 0,001 88 = 209 950 MPa</span></li>
+      </ol>
+      <p class="res">E ≈ 210 GPa.</p>
+    </div>
+    <p class="note com">En rigor, Hooke se cumple hasta el límite de proporcionalidad, que en los aceros está muy cerca del límite elástico. Por eso se pueden tomar como iguales.</p>
+  </details>
+  <details class="prob" id="p7">
+    <summary>7. Comparación entre aluminio y acero</summary>
+    <p class="enun">Dos varillas de 8 mm de diámetro y 1 m de longitud, una de aluminio (E = 70 GPa) y otra de acero (E = 210 GPa), soportan cada una una carga de tracción de 5 kN. Calcule:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> La tensión en cada varilla. (0,5 puntos)</li>
+      <li class="q"><b>b)</b> El alargamiento de cada una. (1 punto)</li>
+      <li class="q"><b>c)</b> El diámetro que debería tener la varilla de aluminio para alargarse lo mismo que la de acero. (1 punto)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> d = 8 mm; L₀ = 1 000 mm; F = 5 000 N; E<sub>Al</sub> = 70 000 MPa; E<sub>ac</sub> = 210 000 MPa</p>
+    <div class="ap">
+      <h4><span>a)</span>La tensión en cada varilla.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Las dos tienen la misma sección y la misma carga, así que la tensión es la misma: no depende del material.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección y tensión:<span class="eq">S = π · 8² / 4 = 50,27 mm² &nbsp;→&nbsp; σ = 5 000 / 50,27 = 99,5 MPa</span></li>
+      </ol>
+      <p class="res">σ = 99,5 MPa en las dos.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El alargamiento de cada una.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Aquí sí influye el material: con ΔL = σ · L₀ / E, cuanto menor es E más se alarga.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Aluminio:<span class="eq">ΔL<sub>Al</sub> = 99,5 · 1 000 / 70 000 = 1,42 mm</span></li>
+          <li>Acero:<span class="eq">ΔL<sub>ac</sub> = 99,5 · 1 000 / 210 000 = 0,47 mm</span></li>
+      </ol>
+      <p class="res">ΔL<sub>Al</sub> ≈ 1,42 mm; ΔL<sub>ac</sub> ≈ 0,47 mm (el aluminio se alarga 3 veces más).</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El diámetro que debería tener la varilla de aluminio para alargarse lo mismo que la de acero.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Para el mismo alargamiento, σ / E debe ser igual en las dos. Como E<sub>Al</sub> es la tercera parte, la tensión en el aluminio debe ser también la tercera parte, es decir, su sección el triple.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección necesaria:<span class="eq">S<sub>Al</sub> = 3 · 50,27 = 150,8 mm²</span></li>
+          <li>Diámetro:<span class="eq">d = √(4 · 150,8 / π) = 8 · √3 = 13,86 mm</span></li>
+      </ol>
+      <p class="res">d<sub>Al</sub> ≈ 13,9 mm.</p>
+    </div>
+    <p class="note com">Aun siendo más gruesa, la varilla de aluminio pesaría menos que la de acero: el aluminio tiene casi tres veces menos densidad.</p>
+  </details>
+  <details class="prob" id="p8">
+    <summary>8. Cable de una grúa</summary>
+    <p class="enun">El cable de acero de una grúa ha de elevar una masa de 2 000 kg. El acero tiene un límite elástico de 400 MPa y un módulo de elasticidad de 210 GPa, y se exige un coeficiente de seguridad de 4 (g = 9,8 m/s²). Calcule:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> La fuerza que soporta el cable y la tensión admisible. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> El diámetro mínimo del cable. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> El alargamiento de un tramo de 15 m de cable de 16 mm al elevar la carga. (1 punto)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> m = 2 000 kg; σₑ = 400 MPa; E = 210 000 MPa; n = 4</p>
+    <div class="ap">
+      <h4><span>a)</span>La fuerza que soporta el cable y la tensión admisible.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>La fuerza es el peso de la carga. La tensión admisible es el límite elástico entre el coeficiente de seguridad.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Peso:<span class="eq">F = m · g = 2 000 · 9,8 = 19 600 N</span></li>
+          <li>Tensión admisible:<span class="eq">σ<sub>adm</sub> = 400 / 4 = 100 MPa</span></li>
+      </ol>
+      <p class="res">F = 19 600 N; σ<sub>adm</sub> = 100 MPa.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El diámetro mínimo del cable.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Sección necesaria con la tensión admisible y, de ella, el diámetro.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección:<span class="eq">S = 19 600 / 100 = 196 mm²</span></li>
+          <li>Diámetro:<span class="eq">d = √(4 · 196 / π) = 15,8 mm</span></li>
+      </ol>
+      <p class="res">d<sub>mín</sub> ≈ 15,8 mm (se usaría un cable de 16 mm).</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El alargamiento de un tramo de 15 m de cable de 16 mm al elevar la carga.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Con el diámetro elegido calculamos la tensión real y aplicamos Hooke (tratamos el cable como una barra maciza).</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Tensión real:<span class="eq">S = π · 16² / 4 = 201,1 mm² &nbsp;→&nbsp; σ = 19 600 / 201,1 = 97,5 MPa</span></li>
+          <li>Alargamiento:<span class="eq">ΔL = 97,5 · 15 000 / 210 000 = 6,96 mm</span></li>
+      </ol>
+      <p class="res">ΔL ≈ 7 mm.</p>
+    </div>
+    <p class="note com">Los cables reales están formados por hilos trenzados y se alargan algo más que una barra maciza, pero el método de cálculo es el mismo.</p>
+  </details>
+  <details class="prob" id="p9">
+    <summary>9. Probeta de sección rectangular</summary>
+    <p class="enun">Una probeta plana de sección 20 × 5 mm y 80 mm de longitud entre marcas se alarga 0,045 mm con una carga de 12 kN, sin salir de la zona elástica. El límite elástico del material es de 250 MPa. Calcule:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> La tensión y la deformación unitaria. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> El módulo de elasticidad. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> La carga y el alargamiento en el límite elástico. (1 punto)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> Sección 20 × 5 mm; L₀ = 80 mm; F = 12 000 N; ΔL = 0,045 mm; σₑ = 250 MPa</p>
+    <div class="ap">
+      <h4><span>a)</span>La tensión y la deformación unitaria.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Igual que con una probeta cilíndrica; solo cambia el cálculo de la sección, que ahora es base por altura.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección y tensión:<span class="eq">S₀ = 20 · 5 = 100 mm² &nbsp;→&nbsp; σ = 12 000 / 100 = 120 MPa</span></li>
+          <li>Deformación:<span class="eq">ε = 0,045 / 80 = 5,625 · 10⁻⁴</span></li>
+      </ol>
+      <p class="res">σ = 120 MPa; ε = 5,63 · 10⁻⁴.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El módulo de elasticidad.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Ley de Hooke, ya que estamos en zona elástica.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Módulo:<span class="eq">E = 120 / 5,625 · 10⁻⁴ = 213 333 MPa</span></li>
+      </ol>
+      <p class="res">E ≈ 213 GPa.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La carga y el alargamiento en el límite elástico.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Multiplicamos el límite elástico por la sección para la carga, y aplicamos Hooke con esa tensión para el alargamiento.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Carga:<span class="eq">F<sub>e</sub> = 250 · 100 = 25 000 N</span></li>
+          <li>Alargamiento:<span class="eq">ΔL<sub>e</sub> = 250 · 80 / 213 333 = 0,094 mm</span></li>
+      </ol>
+      <p class="res">F<sub>e</sub> = 25 kN; ΔL<sub>e</sub> ≈ 0,094 mm.</p>
+    </div>
+    <p class="note com">Con deformaciones tan pequeñas conviene usar notación científica para no perder ceros por el camino.</p>
+  </details>
+  <details class="prob" id="p10">
+    <summary>10. Diseño por rigidez</summary>
+    <p class="enun">Una varilla de cobre de 300 mm de longitud debe soportar una carga de 8 kN sin alargarse más de 0,2 mm. El cobre tiene E = 120 GPa y un límite elástico de 150 MPa. Calcule:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> La deformación unitaria y la tensión máximas permitidas. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> El diámetro mínimo de la varilla. (1 punto)</li>
+      <li class="q"><b>c)</b> El coeficiente de seguridad respecto al límite elástico si se usa una varilla de 12 mm. (0,75 puntos)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> L₀ = 300 mm; F = 8 000 N; ΔL<sub>máx</sub> = 0,2 mm; E = 120 000 MPa; σₑ = 150 MPa</p>
+    <div class="ap">
+      <h4><span>a)</span>La deformación unitaria y la tensión máximas permitidas.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>El alargamiento máximo fija la deformación máxima; con Hooke obtenemos la tensión que la produce.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Deformación máxima:<span class="eq">ε = 0,2 / 300 = 6,67 · 10⁻⁴</span></li>
+          <li>Tensión correspondiente:<span class="eq">σ = 120 000 · 6,67 · 10⁻⁴ = 80 MPa</span></li>
+      </ol>
+      <p class="res">ε = 6,67 · 10⁻⁴; σ<sub>máx</sub> = 80 MPa.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El diámetro mínimo de la varilla.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Comprobamos primero que 80 MPa &lt; 150 MPa (zona elástica, Hooke válido). Después, sección y diámetro.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Sección mínima:<span class="eq">S = 8 000 / 80 = 100 mm²</span></li>
+          <li>Diámetro:<span class="eq">d = √(4 · 100 / π) = 11,28 mm</span></li>
+      </ol>
+      <p class="res">d<sub>mín</sub> ≈ 11,3 mm.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El coeficiente de seguridad respecto al límite elástico si se usa una varilla de 12 mm.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Calculamos la tensión real con 12 mm y la comparamos con el límite elástico.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Tensión real:<span class="eq">S = π · 12² / 4 = 113,1 mm² &nbsp;→&nbsp; σ = 8 000 / 113,1 = 70,7 MPa</span></li>
+          <li>Coeficiente de seguridad:<span class="eq">n = σₑ / σ = 150 / 70,7 = 2,12</span></li>
+      </ol>
+      <p class="res">n ≈ 2,1.</p>
+    </div>
+    <p class="note com">En este caso manda la rigidez: por resistencia bastaría una sección de 8 000 / 150 = 53 mm², pero se alargaría más de lo permitido.</p>
+  </details>
+</section>
+
+<aside class="others" aria-label="Otros ensayos">
+  <h2>Otros ensayos</h2>
+  <ul>
+      <li><a href="ensayo-brinell.html"><svg class="art" aria-hidden="true" viewBox="0 0 400 260" role="img"><title>Ensayo Brinell</title><desc>Una bola de acero empujada por una carga se hunde en el material y deja una huella redonda.</desc>
+<rect width="400" height="260" style="fill:var(--work-bg)"/>
+<path d="M0 176 H150.4 A58 58 0 0 0 249.6 176 H400 V260 H0 Z" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
+<g style="stroke:var(--work);stroke-width:1.5;opacity:.45"><line x1="20" y1="200" x2="60" y2="240"/><line x1="60" y1="200" x2="100" y2="240"/><line x1="100" y1="200" x2="140" y2="240"/><line x1="290" y1="200" x2="330" y2="240"/><line x1="330" y1="200" x2="370" y2="240"/></g>
+<rect x="178" y="0" width="44" height="74" style="fill:var(--ink)"/>
+<path d="M164 74 H236 L224 92 H176 Z" style="fill:var(--ink)"/>
+<circle cx="200" cy="146" r="58" style="fill:var(--bg);stroke:var(--ink);stroke-width:2.5"/>
+<circle cx="182" cy="126" r="16" style="fill:var(--surface);opacity:.9"/>
+<path d="M150.4 176 A58 58 0 0 0 249.6 176" style="fill:none;stroke:var(--work);stroke-width:5;stroke-linecap:round"/>
+<g style="fill:var(--hot)"><rect x="306" y="20" width="8" height="70"/><polygon points="296,86 324,86 310,110"/></g>
+<text x="326" y="64" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
+<text x="40" y="60" style="fill:var(--work);font:700 44px var(--display)">HB</text>
+</svg><span>Ensayo Brinell</span></a></li>
+      <li><a href="ensayo-vickers.html"><svg class="art" aria-hidden="true" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Un diamante en forma de pirámide se clava en el material y deja una huella cuadrada; se miden sus dos diagonales.</desc>
+<rect width="400" height="260" style="fill:var(--brand-soft)"/>
+<rect x="0" y="180" width="230" height="80" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
+<rect x="96" y="0" width="38" height="70" style="fill:var(--ink)"/>
+<polygon points="78,70 152,70 115,196" style="fill:var(--bg);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
+<polygon points="115,70 152,70 115,196" style="fill:var(--brand);opacity:.25"/>
+<path d="M101 150 A40 40 0 0 0 129 150" style="fill:none;stroke:var(--hot);stroke-width:2"/>
+<text x="115" y="140" text-anchor="middle" style="fill:var(--hot);font:700 15px var(--mono)">136°</text>
+<g transform="translate(312 130)">
+<polygon points="0,-82 82,0 0,82 -82,0" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
+<polygon points="0,-82 82,0 0,0" style="fill:var(--brand);opacity:.18"/><polygon points="0,82 -82,0 0,0" style="fill:var(--brand);opacity:.18"/>
+<line x1="-82" y1="0" x2="82" y2="0" style="stroke:var(--hot);stroke-width:3;stroke-dasharray:7 5"/>
+<line x1="0" y1="-82" x2="0" y2="82" style="stroke:var(--cold);stroke-width:3;stroke-dasharray:7 5"/>
+<text x="46" y="-8" style="fill:var(--hot);font:700 17px var(--mono)">d₁</text>
+<text x="8" y="58" style="fill:var(--cold);font:700 17px var(--mono)">d₂</text>
+</g>
+<text x="20" y="42" style="fill:var(--brand);font:700 44px var(--display)">HV</text>
+</svg><span>Ensayo Vickers</span></a></li>
+      <li><a href="ensayo-resiliencia.html"><svg class="art" aria-hidden="true" viewBox="0 0 400 260" role="img"><title>Ensayo de resiliencia Charpy</title><desc>Un péndulo pesado cae desde lo alto, rompe la probeta entallada apoyada en la parte baja y sigue subiendo por el otro lado.</desc>
+<rect width="400" height="260" style="fill:var(--hot-bg)"/>
+<path d="M52 24 A150 150 0 0 0 330 125" style="fill:none;stroke:var(--hot);stroke-width:2.5;stroke-dasharray:8 7"/>
+<polygon points="322,112 340,118 328,134" style="fill:var(--hot)"/>
+<g style="opacity:.3"><line x1="200" y1="50" x2="64" y2="35" style="stroke:var(--ink);stroke-width:6"/><circle cx="52" cy="24" r="20" style="fill:var(--ink)"/></g>
+<rect x="150" y="228" width="100" height="14" style="fill:var(--ink)"/>
+<rect x="160" y="210" width="16" height="20" style="fill:var(--ink)"/><rect x="224" y="210" width="16" height="20" style="fill:var(--ink)"/>
+<rect x="156" y="200" width="88" height="12" rx="2" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
+<polygon points="194,212 206,212 200,204" style="fill:var(--hot-bg);stroke:var(--ink);stroke-width:1.5"/>
+<line x1="200" y1="50" x2="200" y2="170" style="stroke:var(--ink);stroke-width:7"/>
+<path d="M170 168 H230 L214 196 H186 Z" style="fill:var(--hot);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
+<circle cx="200" cy="50" r="12" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
+<g style="stroke:var(--hot);stroke-width:3;stroke-linecap:round"><line x1="168" y1="214" x2="150" y2="196"/><line x1="232" y1="214" x2="252" y2="198"/><line x1="200" y1="228" x2="200" y2="246"/></g>
+<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/cm²</text>
+</svg><span>Ensayo de resiliencia</span></a></li>
+  </ul>
+</aside>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="who">
+      <img src="logo-ies-palomares.png" alt="Logo del IES Palomares" width="40" height="40">
+      <div><strong>David Rayo Torres</strong><br>Departamento de Tecnología, IES Palomares</div>
+    </div>
+    <div>© <span id="yr">2026</span> David Rayo Torres. Material didáctico de Tecnología e Ingeniería.</div>
+  </div>
+</footer>
+
+<button class="totop" type="button" aria-label="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg>
+</button>
+
+<script>
+(function(){
+  const root=document.documentElement;
+  // Tema claro/oscuro recordado por el navegador
+  try{const t=localStorage.getItem('theme');if(t)root.dataset.theme=t;}catch(e){}
+  document.querySelector('.theme').addEventListener('click',()=>{
+    const dark=root.dataset.theme? root.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark';
+    try{localStorage.setItem('theme',root.dataset.theme);}catch(e){}
+  });
+
+  // Menú de unidades: cerrar al pulsar fuera o con Escape
+  const units=document.querySelector('.units');
+  document.addEventListener('click',e=>{if(units.open&&!units.contains(e.target))units.open=false;});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&units.open){units.open=false;units.querySelector('summary').focus();}});
+
+  // Índice: copia para móvil y enlace "Siguiente" al final de cada sección
+  const tocLinks=[...document.querySelectorAll('.toc ol a')];
+  const chipsOl=document.querySelector('.chips ol')||document.createElement('ol');
+  tocLinks.forEach((a,i)=>{
+    const li=document.createElement('li'),c=document.createElement('a');
+    c.href=a.getAttribute('href');c.textContent=(i+1)+'. '+a.textContent;li.appendChild(c);chipsOl.appendChild(li);
+    const sec=document.querySelector(a.getAttribute('href')),nx=tocLinks[i+1];
+    if(sec&&nx){const d=document.createElement('div');d.className='next';
+      d.innerHTML='<a href="'+nx.getAttribute('href')+'"><small>Siguiente</small><b></b></a>';
+      d.querySelector('b').textContent=nx.textContent;sec.appendChild(d);}
+  });
+  const chipLinks=[...chipsOl.querySelectorAll('a')];
+  const sections=tocLinks.map(a=>document.querySelector(a.getAttribute('href')));
+
+  // Sección activa, barra de progreso y botón "volver arriba"
+  const bar=document.querySelector('.progress i'),top=document.querySelector('.totop');
+  let current=-1;
+  function onScroll(){
+    const h=document.documentElement;
+    const max=h.scrollHeight-h.clientHeight;
+    bar.style.transform='scaleX('+(max>0?h.scrollTop/max:0)+')';
+    top.classList.toggle('show',h.scrollTop>600);
+    const line=window.innerHeight*0.3;
+    let idx=-1;
+    sections.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<=line)idx=i;});
+    if(max-h.scrollTop<4)idx=sections.length-1;
+    if(idx!==current){
+      current=idx;
+      tocLinks.forEach((a,i)=>{a.classList.toggle('active',i===idx);a.toggleAttribute('aria-current',i===idx);});
+      chipLinks.forEach((a,i)=>a.classList.toggle('active',i===idx));
+      const c=chipLinks[idx];
+      if(c&&chipsOl.parentNode&&getComputedStyle(chipsOl.parentNode).display!=='none'){
+        chipsOl.scrollTo({left:c.offsetLeft-16,behavior:'smooth'});
+      }
+    }
+  }
+  addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+  top.addEventListener('click',()=>scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
+
+  // Herramientas: soluciones e impresión
+  const probs=[...document.querySelectorAll('details.prob')];
+  const openBtn=document.querySelector('[data-act="open"]');
+  if(openBtn)openBtn.addEventListener('click',()=>{
+    const allOpen=probs.every(d=>d.open);
+    probs.forEach(d=>d.open=!allOpen);
+    openBtn.textContent=allOpen?'Mostrar todas las soluciones':'Ocultar todas las soluciones';
+  });
+  const printBtn=document.querySelector('[data-act="print"]');
+  if(printBtn)printBtn.addEventListener('click',()=>{probs.forEach(d=>d.open=true);print();});
+  // Abrir un problema enlazado directamente (#p1, #p2…)
+  function openHash(){const t=location.hash&&document.querySelector(location.hash);if(t&&t.tagName==='DETAILS')t.open=true;}
+  addEventListener('hashchange',openHash);openHash();
+  document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
