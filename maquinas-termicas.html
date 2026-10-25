@@ -30,6 +30,10 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 .site{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;padding-block:14px;border-bottom:1px solid var(--line);font-size:13.5px}
 .site strong{font-family:var(--display);font-size:17px;letter-spacing:.04em;text-transform:uppercase;margin-right:8px}
 .site a{color:var(--muted);text-decoration:none}
+.site a.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);margin-right:8px}
+.site a.brand:hover{text-decoration:none}
+.site .brand img{width:44px;height:auto;border-radius:50%;background:#fff;display:block}
+.site{align-items:center}
 .site a:hover{color:var(--ink);text-decoration:underline}
 .site a[aria-current]{color:var(--accent);font-weight:600}
 header.hero{padding-block:40px 28px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:center}
@@ -96,7 +100,7 @@ footer{border-top:1px solid var(--line);padding-block:20px 32px;font-size:13px;c
 <body>
 <div class="wrap">
 <nav class="site" aria-label="Sitio">
-  <strong>Tecnología e Ingeniería · Bachillerato</strong>
+  <a class="brand" href="./"><img src="logo-ies-palomares.png" alt="Logo del IES Palomares" width="44" height="41"><strong>IES Palomares · Tecnología e Ingeniería</strong></a>
   <a href="https://sites.google.com/view/harotecno-tecying-bachiller/inicio">Inicio</a>
   <a href="https://sites.google.com/view/harotecno-tecying-bachiller/materiales">Materiales</a>
   <a href="https://sites.google.com/view/harotecno-tecying-bachiller/hidra%C3%BAlica">Hidráulica</a>
@@ -331,7 +335,7 @@ footer{border-top:1px solid var(--line);padding-block:20px 32px;font-size:13px;c
 </main>
 </div>
 
-<footer>Tecnología e Ingeniería · Bachillerato · Unidad de máquinas térmicas</footer>
+<footer>© David Rayo Torres · IES Palomares · Tecnología e Ingeniería · Unidad de máquinas térmicas</footer>
 </div>
 
 <script>
