@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Máquinas térmicas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: cuaderno técnico de una columna (~70ch) con índice fijo; foco caliente = rojo, foco frío = azul como código de color real del tema */
+:root{
+  --bg:#F6F7F9; --surface:#FFFFFF; --ink:#18212B; --muted:#56616E; --line:#D9DEE5;
+  --hot:#C4381F; --hot-bg:#FBEAE5; --cold:#1F63B5; --cold-bg:#E6EFFA; --work:#2C7A4B; --work-bg:#E5F3EA;
+  --accent:#C4381F;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --surface:#1A2129; --ink:#E6EAEF; --muted:#9AA5B1; --line:#2C3540;
+  --hot:#FF7A5C; --hot-bg:#3A201A; --cold:#6BA8F2; --cold-bg:#16263A; --work:#5CC488; --work-bg:#16301F; --accent:#FF7A5C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171D; --surface:#1A2129; --ink:#E6EAEF; --muted:#9AA5B1; --line:#2C3540;
+  --hot:#FF7A5C; --hot-bg:#3A201A; --cold:#6BA8F2; --cold-bg:#16263A; --work:#5CC488; --work-bg:#16301F; --accent:#FF7A5C; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.65;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--cold)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto}
+.site{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;padding-block:14px;border-bottom:1px solid var(--line);font-size:13.5px}
+.site strong{font-family:var(--display);font-size:17px;letter-spacing:.04em;text-transform:uppercase;margin-right:8px}
+.site a{color:var(--muted);text-decoration:none}
+.site a:hover{color:var(--ink);text-decoration:underline}
+.site a[aria-current]{color:var(--accent);font-weight:600}
+header.hero{padding-block:40px 28px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:center}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(44px,8vw,76px);line-height:.95;margin:.25em 0 .3em;letter-spacing:-.01em;text-wrap:balance}
+.lead{font-size:18px;color:var(--muted);max-width:52ch;margin:0}
+.layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;padding-bottom:64px}
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;font-size:14px}
+nav.toc p{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:4px;border-left:2px solid var(--line)}
+nav.toc a{display:block;padding:3px 0 3px 12px;color:var(--muted);text-decoration:none;margin-left:-2px;border-left:2px solid transparent}
+nav.toc a:hover{color:var(--ink);border-left-color:var(--accent)}
+main{min-width:0;max-width:72ch}
+section{padding-block:28px;border-top:1px solid var(--line);scroll-margin-top:16px}
+section:first-child{border-top:0;padding-top:0}
+h2{font-family:var(--display);font-weight:600;font-size:34px;line-height:1.05;margin:0 0 .5em;text-wrap:balance}
+h2 .n{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--accent);display:block;letter-spacing:.06em;margin-bottom:6px}
+h3{font-family:var(--display);font-weight:600;font-size:23px;margin:1.4em 0 .4em}
+p{margin:0 0 1em}
+.f{font-family:var(--mono);font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 16px;margin:0 0 1em;overflow-x:auto;white-space:nowrap}
+.f span{color:var(--muted);font-family:var(--body);font-size:13.5px;white-space:normal;display:block;margin-top:4px}
+code{font-family:var(--mono);font-size:.92em}
+.hot{color:var(--hot);font-weight:600}.cold{color:var(--cold);font-weight:600}.work{color:var(--work);font-weight:600}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 14px;color:var(--muted);margin:0 0 1em}
+figure{margin:0 0 1.2em}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.strokes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 1.2em;list-style:none;padding:0}
+.strokes li{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px;font-size:14px;line-height:1.5}
+.strokes b{font-family:var(--display);font-size:19px;display:block;font-weight:600}
+.strokes small{font-family:var(--mono);font-size:12px;color:var(--muted);display:block;margin-bottom:4px}
+.tbl{overflow-x:auto;margin:0 0 1.2em}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:480px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;margin:0 0 1.2em}
+.calc .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:14px}
+label{font-size:13px;color:var(--muted);display:grid;gap:4px}
+input{font:500 16px var(--mono);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:8px 10px;width:100%;min-width:0}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.out div{border-top:2px solid var(--line);padding-top:6px}
+.out dt{font-size:12.5px;color:var(--muted)}
+.out dd{margin:0;font:500 22px var(--mono);font-variant-numeric:tabular-nums}
+.err{color:var(--hot);font-size:13.5px;min-height:1.2em;margin:8px 0 0}
+details{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin:0 0 12px}
+summary{cursor:pointer;font-weight:600}
+details[open] summary{margin-bottom:10px}
+ol.steps{padding-left:1.3em;margin:0}
+ol.steps li{margin-bottom:6px}
+footer{border-top:1px solid var(--line);padding-block:20px 32px;font-size:13px;color:var(--muted)}
+@media (max-width:860px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:0}
+  nav.toc{position:static;margin-bottom:24px}
+  nav.toc ol{grid-template-columns:repeat(2,minmax(0,1fr));border-left:0;gap:2px 12px}
+  nav.toc a{padding-left:0;border-left:0}
+  header.hero{grid-template-columns:minmax(0,1fr)}
+  .strokes{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (prefers-reduced-motion:no-preference){.flow{stroke-dasharray:6 6;animation:flow 1.6s linear infinite}}
+@keyframes flow{to{stroke-dashoffset:-24}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<nav class="site" aria-label="Sitio">
+  <strong>Tecnología e Ingeniería · Bachillerato</strong>
+  <a href="https://sites.google.com/view/harotecno-tecying-bachiller/inicio">Inicio</a>
+  <a href="https://sites.google.com/view/harotecno-tecying-bachiller/materiales">Materiales</a>
+  <a href="https://sites.google.com/view/harotecno-tecying-bachiller/hidra%C3%BAlica">Hidráulica</a>
+  <a href="https://sites.google.com/view/harotecno-tecying-bachiller/neum%C3%A1tica">Neumática</a>
+  <a aria-current="page" href="#">Máquinas térmicas</a>
+  <a href="https://sites.google.com/view/harotecno-tecying-bachiller/estructuras">Estructuras</a>
+  <a href="https://sites.google.com/view/harotecno-tecying-bachiller/corriente-alterna">Corriente alterna</a>
+  <a href="https://sites.google.com/view/harotecno-tecying-bachiller/electr%C3%B3nica-digital">Electrónica digital</a>
+  <a href="https://sites.google.com/view/harotecno-tecying-bachiller/sistemas-de-control-y-regulaci%C3%B3n-autom%C3%A1tico">Control y regulación</a>
+</nav>
+
+<header class="hero">
+  <div>
+    <div class="eyebrow">Unidad · Termodinámica aplicada</div>
+    <h1>Máquinas térmicas</h1>
+    <p class="lead">Cómo convertimos calor en trabajo, por qué nunca se aprovecha todo y cómo se calcula lo que rinde un motor, una nevera o una bomba de calor.</p>
+  </div>
+  <figure aria-label="Esquema de una máquina térmica">
+    <svg viewBox="0 0 320 250" role="img"><title>Esquema de una máquina térmica</title><desc>El foco caliente cede Q1 a la máquina, que produce trabajo W y cede Q2 al foco frío.</desc>
+      <rect x="40" y="10" width="240" height="44" rx="6" style="fill:var(--hot-bg);stroke:var(--hot)"/>
+      <text x="160" y="30" text-anchor="middle" style="fill:var(--hot);font:600 15px var(--body)">Foco caliente · T₁</text>
+      <text x="160" y="46" text-anchor="middle" style="fill:var(--hot);font:400 12px var(--mono)">combustión, vapor…</text>
+      <line class="flow" x1="160" y1="56" x2="160" y2="96" style="stroke:var(--hot);stroke-width:3"/>
+      <polygon points="152,92 168,92 160,102" style="fill:var(--hot)"/>
+      <text x="170" y="82" style="fill:var(--hot);font:600 15px var(--mono)">Q₁</text>
+      <circle cx="160" cy="128" r="26" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.5"/>
+      <text x="160" y="133" text-anchor="middle" style="fill:var(--ink);font:600 14px var(--body)">M</text>
+      <line class="flow" x1="188" y1="128" x2="262" y2="128" style="stroke:var(--work);stroke-width:3"/>
+      <polygon points="258,120 258,136 270,128" style="fill:var(--work)"/>
+      <text x="226" y="118" text-anchor="middle" style="fill:var(--work);font:600 15px var(--mono)">W</text>
+      <line class="flow" x1="160" y1="156" x2="160" y2="186" style="stroke:var(--cold);stroke-width:3"/>
+      <polygon points="152,182 168,182 160,192" style="fill:var(--cold)"/>
+      <text x="170" y="176" style="fill:var(--cold);font:600 15px var(--mono)">Q₂</text>
+      <rect x="40" y="196" width="240" height="44" rx="6" style="fill:var(--cold-bg);stroke:var(--cold)"/>
+      <text x="160" y="216" text-anchor="middle" style="fill:var(--cold);font:600 15px var(--body)">Foco frío · T₂</text>
+      <text x="160" y="232" text-anchor="middle" style="fill:var(--cold);font:400 12px var(--mono)">atmósfera, refrigerante…</text>
+    </svg>
+    <figcaption>Q₁ = W + Q₂. Siempre se cede algo de calor al foco frío.</figcaption>
+  </figure>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="Índice">
+  <p>En esta página</p>
+  <ol>
+    <li><a href="#conceptos">Conceptos básicos</a></li>
+    <li><a href="#principios">Principios</a></li>
+    <li><a href="#carnot">Ciclo de Carnot</a></li>
+    <li><a href="#motores">Motores alternativos</a></li>
+    <li><a href="#parametros">Parámetros del motor</a></li>
+    <li><a href="#frigorificas">Frigoríficas y bomba de calor</a></li>
+    <li><a href="#calculadoras">Calculadoras</a></li>
+    <li><a href="#problemas">Problemas resueltos</a></li>
+  </ol>
+</nav>
+
+<main>
+<section id="conceptos">
+  <h2><span class="n">1</span>Conceptos básicos</h2>
+  <p>Una <strong>máquina térmica</strong> es un sistema que transforma energía térmica en energía mecánica (motor) o que usa trabajo para trasladar calor de un foco frío a uno caliente (máquina frigorífica y bomba de calor).</p>
+  <p>Según dónde se quema el combustible se clasifican en máquinas de <strong>combustión externa</strong> (máquina de vapor, turbina de vapor, motor Stirling) y de <strong>combustión interna</strong> (motores Otto y Diésel, turbina de gas, motor a reacción). Según el movimiento, en <strong>alternativas</strong> (pistón) y <strong>rotativas</strong> (turbinas, motor Wankel).</p>
+  <h3>Calor aportado por un combustible</h3>
+  <div class="f">Q = m · P<sub>c</sub> &nbsp;&nbsp;|&nbsp;&nbsp; Q = V · P<sub>c</sub><span>m en kg (o V en m³ para gases) y P<sub>c</sub> poder calorífico en kJ/kg o kJ/m³. Gasolina ≈ 43 000 kJ/kg; gasóleo ≈ 42 500 kJ/kg; gas natural ≈ 39 000 kJ/m³.</span></div>
+  <h3>Calor sensible y calor latente</h3>
+  <div class="f">Q = m · c<sub>e</sub> · ΔT &nbsp;&nbsp;|&nbsp;&nbsp; Q = m · L<span>c<sub>e</sub> del agua = 4,18 kJ/(kg·K). L es el calor latente de cambio de estado.</span></div>
+</section>
+
+<section id="principios">
+  <h2><span class="n">2</span>Principios de la termodinámica</h2>
+  <h3>Primer principio</h3>
+  <p>La energía se conserva. El calor que recibe un sistema se invierte en aumentar su energía interna y en realizar trabajo.</p>
+  <div class="f">Q = ΔU + W<span>Criterio usado en máquinas: Q &gt; 0 si el sistema recibe calor; W &gt; 0 si el sistema realiza trabajo.</span></div>
+  <p>Trabajo de un gas a presión constante: <code>W = p · ΔV</code>. En un diagrama p‑V, el trabajo de un ciclo es el área encerrada por la curva.</p>
+  <h3>Segundo principio</h3>
+  <p>Es imposible construir una máquina que, funcionando en ciclo, convierta íntegramente en trabajo todo el calor que recibe (enunciado de Kelvin‑Planck). Por eso el rendimiento es siempre menor que 1.</p>
+  <div class="f">η = W / Q₁ = (Q₁ − Q₂) / Q₁ = 1 − Q₂ / Q₁</div>
+  <p class="note">El calor tampoco pasa por sí solo de un cuerpo frío a uno caliente (enunciado de Clausius). Para hacerlo hace falta aportar trabajo: es el principio de la nevera.</p>
+</section>
+
+<section id="carnot">
+  <h2><span class="n">3</span>Ciclo de Carnot</h2>
+  <p>Es un ciclo ideal y reversible formado por dos isotermas y dos adiabáticas. Marca el <strong>rendimiento máximo</strong> que puede alcanzar cualquier máquina que trabaje entre dos temperaturas.</p>
+  <div class="f">η<sub>Carnot</sub> = 1 − T₂ / T₁<span>Temperaturas siempre en kelvin: T(K) = t(°C) + 273.</span></div>
+  <p>Consecuencia práctica: para mejorar el rendimiento interesa que el foco caliente esté lo más caliente posible y el frío lo más frío posible.</p>
+</section>
+
+<section id="motores">
+  <h2><span class="n">4</span>Motores de combustión interna alternativos</h2>
+  <p>El pistón se desplaza entre el <strong>PMS</strong> (punto muerto superior) y el <strong>PMI</strong> (punto muerto inferior). La biela y el cigüeñal convierten ese movimiento lineal en giro.</p>
+  <h3>Motor de cuatro tiempos</h3>
+  <p>Cada tiempo dura media vuelta de cigüeñal, así que un ciclo completo necesita <strong>dos vueltas</strong>.</p>
+  <ol class="strokes">
+    <li><small>1 · PMS → PMI</small><b>Admisión</b>Se abre la válvula de admisión y entra mezcla (Otto) o aire (Diésel).</li>
+    <li><small>2 · PMI → PMS</small><b>Compresión</b>Válvulas cerradas. La mezcla se comprime y se calienta.</li>
+    <li><small>3 · PMS → PMI</small><b>Expansión</b>Chispa (Otto) o inyección (Diésel). Único tiempo que produce trabajo.</li>
+    <li><small>4 · PMI → PMS</small><b>Escape</b>Se abre la válvula de escape y salen los gases quemados.</li>
+  </ol>
+  <figure>
+    <svg viewBox="0 0 360 250" role="img"><title>Diagrama p-V del ciclo Otto ideal</title><desc>Compresión adiabática 1-2, aporte de calor a volumen constante 2-3, expansión adiabática 3-4 y cesión de calor a volumen constante 4-1.</desc>
+      <line x1="40" y1="220" x2="340" y2="220" style="stroke:var(--muted)"/>
+      <line x1="40" y1="220" x2="40" y2="16" style="stroke:var(--muted)"/>
+      <text x="334" y="238" text-anchor="end" style="fill:var(--muted);font:12px var(--mono)">V</text>
+      <text x="28" y="24" style="fill:var(--muted);font:12px var(--mono)">p</text>
+      <path d="M80 30 Q120 150 300 170 L300 205 Q120 190 80 140 Z" style="fill:var(--work-bg)"/>
+      <path d="M300 205 Q120 190 80 140" style="fill:none;stroke:var(--ink);stroke-width:2"/>
+      <line x1="80" y1="140" x2="80" y2="30" style="stroke:var(--hot);stroke-width:3"/>
+      <path d="M80 30 Q120 150 300 170" style="fill:none;stroke:var(--ink);stroke-width:2"/>
+      <line x1="300" y1="170" x2="300" y2="205" style="stroke:var(--cold);stroke-width:3"/>
+      <g style="fill:var(--ink);font:600 13px var(--mono)"><text x="308" y="212">1</text><text x="64" y="148">2</text><text x="64" y="30">3</text><text x="308" y="168">4</text></g>
+      <text x="88" y="90" style="fill:var(--hot);font:600 13px var(--mono)">Q₁</text>
+      <text x="310" y="192" style="fill:var(--cold);font:600 13px var(--mono)">Q₂</text>
+      <text x="170" y="182" text-anchor="middle" style="fill:var(--work);font:600 13px var(--mono)">W</text>
+      <line x1="80" y1="220" x2="80" y2="226" style="stroke:var(--muted)"/><line x1="300" y1="220" x2="300" y2="226" style="stroke:var(--muted)"/>
+      <text x="80" y="240" text-anchor="middle" style="fill:var(--muted);font:11px var(--mono)">PMS</text>
+      <text x="300" y="240" text-anchor="middle" style="fill:var(--muted);font:11px var(--mono)">PMI</text>
+    </svg>
+    <figcaption>Ciclo Otto ideal. El área sombreada es el trabajo útil del ciclo.</figcaption>
+  </figure>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>Otto (gasolina)</th><th>Diésel (gasóleo)</th></tr></thead>
+    <tbody>
+      <tr><td>Encendido</td><td>Provocado por bujía</td><td>Por compresión (autoencendido)</td></tr>
+      <tr><td>Aporte de calor</td><td>A volumen constante</td><td>A presión constante</td></tr>
+      <tr><td>Relación de compresión</td><td>8 a 12</td><td>14 a 22</td></tr>
+      <tr><td>Rendimiento real típico</td><td>25 a 35 %</td><td>30 a 45 %</td></tr>
+    </tbody>
+  </table></div>
+  <p>En el <strong>motor de dos tiempos</strong> el ciclo se completa en una sola vuelta: no lleva válvulas sino lumbreras, es más ligero y sencillo, pero consume y contamina más.</p>
+</section>
+
+<section id="parametros">
+  <h2><span class="n">5</span>Parámetros del motor</h2>
+  <div class="f">V<sub>u</sub> = (π · D² / 4) · L &nbsp;&nbsp;|&nbsp;&nbsp; V<sub>T</sub> = z · V<sub>u</sub><span>Cilindrada unitaria y total. D diámetro (calibre), L carrera, z número de cilindros.</span></div>
+  <div class="f">r<sub>c</sub> = (V<sub>u</sub> + V<sub>c</sub>) / V<sub>c</sub><span>Relación de compresión. V<sub>c</sub> es el volumen de la cámara de combustión.</span></div>
+  <div class="f">η<sub>Otto ideal</sub> = 1 − 1 / r<sub>c</sub><sup>γ−1</sup><span>γ = c<sub>p</sub>/c<sub>v</sub> ≈ 1,4 para el aire.</span></div>
+  <div class="f">P = M · ω &nbsp;&nbsp;|&nbsp;&nbsp; ω = 2π · n / 60<span>Potencia (W) a partir del par M (N·m) y el régimen n (rpm).</span></div>
+  <div class="f">η = P<sub>útil</sub> / (ṁ · P<sub>c</sub>)<span>Rendimiento real a partir del consumo de combustible ṁ (kg/s).</span></div>
+</section>
+
+<section id="frigorificas">
+  <h2><span class="n">6</span>Máquina frigorífica y bomba de calor</h2>
+  <p>Funcionan como un motor al revés: consumen trabajo W para sacar calor Q₂ del foco frío y entregar Q₁ = Q₂ + W al foco caliente. Lo que cambia es qué nos interesa.</p>
+  <ul>
+    <li><span class="cold">Frigorífica</span> (nevera, aire acondicionado): interesa el calor extraído del foco frío.</li>
+    <li><span class="hot">Bomba de calor</span> (calefacción, aerotermia): interesa el calor entregado al foco caliente.</li>
+  </ul>
+  <div class="f">ε<sub>f</sub> = Q₂ / W &nbsp;&nbsp;|&nbsp;&nbsp; ε<sub>bc</sub> = Q₁ / W = ε<sub>f</sub> + 1<span>Eficiencia (COP). Puede ser mayor que 1, por eso no se llama rendimiento.</span></div>
+  <div class="f">ε<sub>f, Carnot</sub> = T₂ / (T₁ − T₂) &nbsp;&nbsp;|&nbsp;&nbsp; ε<sub>bc, Carnot</sub> = T₁ / (T₁ − T₂)</div>
+  <p>Componentes del circuito: compresor, condensador (cede calor), válvula de expansión y evaporador (absorbe calor).</p>
+</section>
+
+<section id="calculadoras">
+  <h2><span class="n">7</span>Calculadoras</h2>
+  <p>Para comprobar resultados de los ejercicios. Cambia los valores y el resultado se actualiza.</p>
+  <h3>Límites de Carnot</h3>
+  <div class="calc" id="c1">
+    <div class="grid">
+      <label for="t1">Foco caliente (°C)<input id="t1" type="number" step="any" value="500"></label>
+      <label for="t2">Foco frío (°C)<input id="t2" type="number" step="any" value="25"></label>
+    </div>
+    <dl class="out">
+      <div><dt>Rendimiento máximo</dt><dd id="o-eta">–</dd></div>
+      <div><dt>ε frigorífica</dt><dd id="o-ef">–</dd></div>
+      <div><dt>ε bomba de calor</dt><dd id="o-ebc">–</dd></div>
+    </dl>
+    <p class="err" id="e1" role="alert"></p>
+  </div>
+  <h3>Motor alternativo</h3>
+  <div class="calc" id="c2">
+    <div class="grid">
+      <label for="d">Diámetro D (mm)<input id="d" type="number" step="any" value="80"></label>
+      <label for="l">Carrera L (mm)<input id="l" type="number" step="any" value="90"></label>
+      <label for="vc">Cámara V<sub>c</sub> (cm³)<input id="vc" type="number" step="any" value="50"></label>
+      <label for="z">Cilindros z<input id="z" type="number" step="1" value="4"></label>
+      <label for="m">Par M (N·m)<input id="m" type="number" step="any" value="150"></label>
+      <label for="n">Régimen n (rpm)<input id="n" type="number" step="any" value="4000"></label>
+    </div>
+    <dl class="out">
+      <div><dt>Cilindrada unitaria</dt><dd id="o-vu">–</dd></div>
+      <div><dt>Cilindrada total</dt><dd id="o-vt">–</dd></div>
+      <div><dt>Relación de compresión</dt><dd id="o-rc">–</dd></div>
+      <div><dt>η Otto ideal (γ = 1,4)</dt><dd id="o-otto">–</dd></div>
+      <div><dt>Potencia</dt><dd id="o-p">–</dd></div>
+    </dl>
+    <p class="err" id="e2" role="alert"></p>
+  </div>
+</section>
+
+<section id="problemas">
+  <h2><span class="n">8</span>Problemas resueltos</h2>
+  <details>
+    <summary>1. Motor de 4 cilindros: cilindrada, compresión y rendimiento</summary>
+    <p>Un motor Otto de 4 cilindros tiene D = 80 mm, L = 90 mm y V<sub>c</sub> = 50 cm³. Calcula la cilindrada total, la relación de compresión y el rendimiento ideal (γ = 1,4).</p>
+    <ol class="steps">
+      <li>V<sub>u</sub> = π · 8² / 4 · 9 = 452,4 cm³</li>
+      <li>V<sub>T</sub> = 4 · 452,4 = 1 809,6 cm³ ≈ 1,8 L</li>
+      <li>r<sub>c</sub> = (452,4 + 50) / 50 = 10,05</li>
+      <li>η = 1 − 1 / 10,05<sup>0,4</sup> = 1 − 0,397 = <strong>0,603 → 60,3 %</strong></li>
+    </ol>
+    <p class="note">El rendimiento real será mucho menor (rozamientos, pérdidas de calor, combustión incompleta).</p>
+  </details>
+  <details>
+    <summary>2. Potencia y consumo de combustible</summary>
+    <p>El motor anterior da un par de 150 N·m a 4 000 rpm con un rendimiento real del 30 %. Calcula la potencia y el consumo de gasolina por hora (P<sub>c</sub> = 43 000 kJ/kg).</p>
+    <ol class="steps">
+      <li>ω = 2π · 4 000 / 60 = 418,9 rad/s</li>
+      <li>P = 150 · 418,9 = 62 832 W ≈ <strong>62,8 kW</strong></li>
+      <li>Potencia aportada por el combustible: 62,8 / 0,30 = 209,4 kW</li>
+      <li>ṁ = 209,4 / 43 000 = 0,00487 kg/s → <strong>17,5 kg/h</strong></li>
+    </ol>
+  </details>
+  <details>
+    <summary>3. Bomba de calor para calefacción</summary>
+    <p>Una bomba de calor mantiene una vivienda a 21 °C cuando fuera hay 3 °C. Consume 1,5 kW y su eficiencia real es el 45 % de la ideal. ¿Cuánto calor entrega?</p>
+    <ol class="steps">
+      <li>T₁ = 294 K, T₂ = 276 K</li>
+      <li>ε<sub>Carnot</sub> = 294 / (294 − 276) = 16,3</li>
+      <li>ε<sub>real</sub> = 0,45 · 16,3 = 7,35</li>
+      <li>Q̇₁ = 7,35 · 1,5 = <strong>11 kW</strong> de calefacción por cada 1,5 kW eléctricos</li>
+    </ol>
+  </details>
+  <details>
+    <summary>4. Rendimiento de una central térmica</summary>
+    <p>Una turbina de vapor trabaja entre 550 °C y 40 °C. Recibe 800 MJ por segundo y produce 300 MW. Compara su rendimiento con el de Carnot.</p>
+    <ol class="steps">
+      <li>η<sub>real</sub> = 300 / 800 = 0,375 → 37,5 %</li>
+      <li>η<sub>Carnot</sub> = 1 − 313 / 823 = 0,62 → 62 %</li>
+      <li>Calor cedido al foco frío: Q̇₂ = 800 − 300 = <strong>500 MW</strong> (agua de refrigeración, torres)</li>
+    </ol>
+  </details>
+</section>
+</main>
+</div>
+
+<footer>Tecnología e Ingeniería · Bachillerato · Unidad de máquinas térmicas</footer>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const fmt=(x,d=1)=>x.toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
+  function carnot(){
+    const t1=parseFloat($('t1').value), t2=parseFloat($('t2').value), e=$('e1');
+    const ids=['o-eta','o-ef','o-ebc'];
+    if(isNaN(t1)||isNaN(t2)){e.textContent='Escribe las dos temperaturas.';ids.forEach(i=>$(i).textContent='–');return}
+    const T1=t1+273.15, T2=t2+273.15;
+    if(T2<=0||T1<=T2){e.textContent='El foco caliente debe estar a más temperatura que el frío, y ambos por encima de −273 °C.';ids.forEach(i=>$(i).textContent='–');return}
+    e.textContent='';
+    $('o-eta').textContent=fmt((1-T2/T1)*100)+' %';
+    $('o-ef').textContent=fmt(T2/(T1-T2),2);
+    $('o-ebc').textContent=fmt(T1/(T1-T2),2);
+  }
+  function motor(){
+    const v=k=>parseFloat($(k).value), e=$('e2');
+    const D=v('d'),L=v('l'),Vc=v('vc'),z=v('z'),M=v('m'),n=v('n');
+    const ids=['o-vu','o-vt','o-rc','o-otto','o-p'];
+    if([D,L,Vc,z].some(x=>isNaN(x)||x<=0)){e.textContent='Diámetro, carrera, cámara y cilindros deben ser mayores que cero.';ids.forEach(i=>$(i).textContent='–');return}
+    e.textContent='';
+    const Vu=Math.PI*Math.pow(D/10,2)/4*(L/10), Vt=Vu*z, rc=(Vu+Vc)/Vc;
+    $('o-vu').textContent=fmt(Vu)+' cm³';
+    $('o-vt').textContent=fmt(Vt,0)+' cm³';
+    $('o-rc').textContent=fmt(rc,2);
+    $('o-otto').textContent=fmt((1-1/Math.pow(rc,0.4))*100)+' %';
+    $('o-p').textContent=(isNaN(M)||isNaN(n))?'–':fmt(M*2*Math.PI*n/60/1000)+' kW';
+  }
+  ['t1','t2'].forEach(i=>$(i).addEventListener('input',carnot));
+  ['d','l','vc','z','m','n'].forEach(i=>$(i).addEventListener('input',motor));
+  carnot();motor();
+})();
+</script>
+
+</body>
+</html>
