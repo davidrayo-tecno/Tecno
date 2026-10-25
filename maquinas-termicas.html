@@ -256,7 +256,6 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
       <p class="lead">Cómo convertimos calor en trabajo, por qué nunca se aprovecha todo y cómo se calcula lo que rinde un motor, una nevera o una bomba de calor.</p>
       <ul class="quick">
         <li><a class="primary" href="#conceptos">Empezar la unidad</a></li>
-        <li><a href="#calculadoras">Calculadoras</a></li>
         <li><a href="#problemas">Problemas resueltos</a></li>
       </ul>
     </div>
@@ -297,7 +296,6 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
       <li><a href="#motores">Motores alternativos</a></li>
       <li><a href="#parametros">Parámetros del motor</a></li>
       <li><a href="#frigorificas">Frigorífica y bomba de calor</a></li>
-      <li><a href="#calculadoras">Calculadoras</a></li>
       <li><a href="#problemas">Problemas resueltos</a></li>
     </ol>
     <div class="tools">
@@ -401,45 +399,8 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
   <p>Componentes del circuito: compresor, condensador (cede calor), válvula de expansión y evaporador (absorbe calor).</p>
 </section>
 
-<section id="calculadoras">
-  <h2><span class="n">7</span>Calculadoras</h2>
-  <p>Para comprobar resultados de los ejercicios. Cambia los valores y el resultado se actualiza.</p>
-  <h3>Límites de Carnot</h3>
-  <div class="calc" id="c1">
-    <div class="grid">
-      <label for="t1">Foco caliente (°C)<input id="t1" type="number" step="any" value="500"></label>
-      <label for="t2">Foco frío (°C)<input id="t2" type="number" step="any" value="25"></label>
-    </div>
-    <dl class="out">
-      <div><dt>Rendimiento máximo</dt><dd id="o-eta">–</dd></div>
-      <div><dt>ε frigorífica</dt><dd id="o-ef">–</dd></div>
-      <div><dt>ε bomba de calor</dt><dd id="o-ebc">–</dd></div>
-    </dl>
-    <p class="err" id="e1" role="alert"></p>
-  </div>
-  <h3>Motor alternativo</h3>
-  <div class="calc" id="c2">
-    <div class="grid">
-      <label for="d">Diámetro D (mm)<input id="d" type="number" step="any" value="80"></label>
-      <label for="l">Carrera L (mm)<input id="l" type="number" step="any" value="90"></label>
-      <label for="vc">Cámara V<sub>c</sub> (cm³)<input id="vc" type="number" step="any" value="50"></label>
-      <label for="z">Cilindros z<input id="z" type="number" step="1" value="4"></label>
-      <label for="m">Par M (N·m)<input id="m" type="number" step="any" value="150"></label>
-      <label for="n">Régimen n (rpm)<input id="n" type="number" step="any" value="4000"></label>
-    </div>
-    <dl class="out">
-      <div><dt>Cilindrada unitaria</dt><dd id="o-vu">–</dd></div>
-      <div><dt>Cilindrada total</dt><dd id="o-vt">–</dd></div>
-      <div><dt>Relación de compresión</dt><dd id="o-rc">–</dd></div>
-      <div><dt>η Otto ideal (γ = 1,4)</dt><dd id="o-otto">–</dd></div>
-      <div><dt>Potencia</dt><dd id="o-p">–</dd></div>
-    </dl>
-    <p class="err" id="e2" role="alert"></p>
-  </div>
-</section>
-
 <section id="problemas">
-  <h2><span class="n">8</span>Problemas resueltos</h2>
+  <h2><span class="n">7</span>Problemas resueltos</h2>
   <details class="prob" id="p1">
     <summary>1. Motor de 4 cilindros: cilindrada, compresión y rendimiento</summary>
     <p>Un motor Otto de 4 cilindros tiene D = 80 mm, L = 90 mm y V<sub>c</sub> = 50 cm³. Calcula la cilindrada total, la relación de compresión y el rendimiento ideal (γ = 1,4).</p>
@@ -499,39 +460,6 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg>
 </button>
 
-<script>
-(function(){
-  const $=id=>document.getElementById(id);
-  const fmt=(x,d=1)=>x.toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
-  function carnot(){
-    const t1=parseFloat($('t1').value), t2=parseFloat($('t2').value), e=$('e1');
-    const ids=['o-eta','o-ef','o-ebc'];
-    if(isNaN(t1)||isNaN(t2)){e.textContent='Escribe las dos temperaturas.';ids.forEach(i=>$(i).textContent='–');return}
-    const T1=t1+273.15, T2=t2+273.15;
-    if(T2<=0||T1<=T2){e.textContent='El foco caliente debe estar a más temperatura que el frío, y ambos por encima de −273 °C.';ids.forEach(i=>$(i).textContent='–');return}
-    e.textContent='';
-    $('o-eta').textContent=fmt((1-T2/T1)*100)+' %';
-    $('o-ef').textContent=fmt(T2/(T1-T2),2);
-    $('o-ebc').textContent=fmt(T1/(T1-T2),2);
-  }
-  function motor(){
-    const v=k=>parseFloat($(k).value), e=$('e2');
-    const D=v('d'),L=v('l'),Vc=v('vc'),z=v('z'),M=v('m'),n=v('n');
-    const ids=['o-vu','o-vt','o-rc','o-otto','o-p'];
-    if([D,L,Vc,z].some(x=>isNaN(x)||x<=0)){e.textContent='Diámetro, carrera, cámara y cilindros deben ser mayores que cero.';ids.forEach(i=>$(i).textContent='–');return}
-    e.textContent='';
-    const Vu=Math.PI*Math.pow(D/10,2)/4*(L/10), Vt=Vu*z, rc=(Vu+Vc)/Vc;
-    $('o-vu').textContent=fmt(Vu)+' cm³';
-    $('o-vt').textContent=fmt(Vt,0)+' cm³';
-    $('o-rc').textContent=fmt(rc,2);
-    $('o-otto').textContent=fmt((1-1/Math.pow(rc,0.4))*100)+' %';
-    $('o-p').textContent=(isNaN(M)||isNaN(n))?'–':fmt(M*2*Math.PI*n/60/1000)+' kW';
-  }
-  ['t1','t2'].forEach(i=>$(i).addEventListener('input',carnot));
-  ['d','l','vc','z','m','n'].forEach(i=>$(i).addEventListener('input',motor));
-  carnot();motor();
-})();
-</script>
 <script>
 (function(){
   const root=document.documentElement;

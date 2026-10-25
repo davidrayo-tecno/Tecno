@@ -256,7 +256,6 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
       <p class="lead">Qué propiedades tiene cada material, cómo se miden con los ensayos de laboratorio y cómo se usan esos datos para elegir y dimensionar una pieza.</p>
       <ul class="quick">
         <li><a class="primary" href="#clasificacion">Empezar la unidad</a></li>
-        <li><a href="#calculadoras">Calculadoras</a></li>
         <li><a href="#problemas">Problemas resueltos</a></li>
       </ul>
     </div>
@@ -298,7 +297,6 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
       <li><a href="#resiliencia">Ensayo de resiliencia</a></li>
       <li><a href="#aleaciones">Aleaciones y diagramas</a></li>
       <li><a href="#tratamientos">Tratamientos</a></li>
-      <li><a href="#calculadoras">Calculadoras</a></li>
       <li><a href="#problemas">Problemas resueltos</a></li>
     </ol>
     <div class="tools">
@@ -455,57 +453,8 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
   <p>La <strong>oxidación</strong> es la reacción del metal con el oxígeno; la <strong>corrosión</strong> es su deterioro en medio húmedo o químico. Se combaten con recubrimientos (pintura, galvanizado, cromado), protección catódica con ánodos de sacrificio y aleaciones inoxidables.</p>
 </section>
 
-<section id="calculadoras">
-  <h2><span class="n">9</span>Calculadoras</h2>
-  <p>Para comprobar resultados de los ejercicios. Cambia los valores y el resultado se actualiza.</p>
-  <h3>Ensayo de tracción</h3>
-  <div class="calc">
-    <div class="grid">
-      <label for="d0">Diámetro probeta d₀ (mm)<input id="d0" type="number" step="any" value="10"></label>
-      <label for="l0">Longitud inicial L₀ (mm)<input id="l0" type="number" step="any" value="50"></label>
-      <label for="ft">Fuerza F (N)<input id="ft" type="number" step="any" value="20000"></label>
-      <label for="dl">Alargamiento ΔL (mm)<input id="dl" type="number" step="any" value="0.06"></label>
-    </div>
-    <dl class="out">
-      <div><dt>Sección S₀</dt><dd id="o-s0">–</dd></div>
-      <div><dt>Tensión σ</dt><dd id="o-sig">–</dd></div>
-      <div><dt>Deformación ε</dt><dd id="o-eps">–</dd></div>
-      <div><dt>Módulo E</dt><dd id="o-e">–</dd></div>
-    </dl>
-    <p class="err" id="e-t" role="alert"></p>
-  </div>
-  <h3>Dureza Brinell</h3>
-  <div class="calc">
-    <div class="grid">
-      <label for="fb">Carga F (kp)<input id="fb" type="number" step="any" value="3000"></label>
-      <label for="db">Bola D (mm)<input id="db" type="number" step="any" value="10"></label>
-      <label for="hb">Huella d (mm)<input id="hb" type="number" step="any" value="4"></label>
-    </div>
-    <dl class="out">
-      <div><dt>Profundidad f</dt><dd id="o-f">–</dd></div>
-      <div><dt>Dureza</dt><dd id="o-hb">–</dd></div>
-      <div><dt>Constante K = F/D²</dt><dd id="o-k">–</dd></div>
-    </dl>
-    <p class="err" id="e-b" role="alert"></p>
-  </div>
-  <h3>Péndulo de Charpy</h3>
-  <div class="calc">
-    <div class="grid">
-      <label for="mc">Masa m (kg)<input id="mc" type="number" step="any" value="20"></label>
-      <label for="h0">Altura inicial h₀ (m)<input id="h0" type="number" step="any" value="0.9"></label>
-      <label for="h1">Altura final h₁ (m)<input id="h1" type="number" step="any" value="0.35"></label>
-      <label for="sc">Sección S (cm²)<input id="sc" type="number" step="any" value="0.8"></label>
-    </div>
-    <dl class="out">
-      <div><dt>Energía absorbida</dt><dd id="o-ea">–</dd></div>
-      <div><dt>Resiliencia ρ</dt><dd id="o-rho">–</dd></div>
-    </dl>
-    <p class="err" id="e-c" role="alert"></p>
-  </div>
-</section>
-
 <section id="problemas">
-  <h2><span class="n">10</span>Problemas resueltos</h2>
+  <h2><span class="n">9</span>Problemas resueltos</h2>
   <details class="prob" id="p1">
     <summary>1. Módulo de elasticidad a partir de un ensayo de tracción</summary>
     <p>Una probeta de acero de 10 mm de diámetro y 50 mm de longitud se alarga 0,06 mm al aplicarle 20 000 N, dentro de la zona elástica. Calcula la tensión, la deformación unitaria y el módulo de elasticidad.</p>
@@ -572,47 +521,6 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg>
 </button>
 
-<script>
-(function(){
-  const $=id=>document.getElementById(id);
-  const num=id=>parseFloat($(id).value);
-  const fmt=(x,d=1)=>x.toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
-  const clear=ids=>ids.forEach(i=>$(i).textContent='–');
-  function traccion(){
-    const d=num('d0'),L=num('l0'),F=num('ft'),dL=num('dl'),e=$('e-t'),ids=['o-s0','o-sig','o-eps','o-e'];
-    if([d,L,F,dL].some(x=>isNaN(x)||x<=0)){e.textContent='Todos los valores deben ser mayores que cero.';clear(ids);return}
-    e.textContent='';
-    const S=Math.PI*d*d/4,sig=F/S,eps=dL/L;
-    $('o-s0').textContent=fmt(S,2)+' mm²';
-    $('o-sig').textContent=fmt(sig)+' MPa';
-    $('o-eps').textContent=eps.toLocaleString('es-ES',{maximumSignificantDigits:4});
-    $('o-e').textContent=fmt(sig/eps/1000)+' GPa';
-  }
-  function brinell(){
-    const F=num('fb'),D=num('db'),d=num('hb'),e=$('e-b'),ids=['o-f','o-hb','o-k'];
-    if([F,D,d].some(x=>isNaN(x)||x<=0)){e.textContent='Todos los valores deben ser mayores que cero.';clear(ids);return}
-    if(d>=D){e.textContent='La huella d tiene que ser menor que el diámetro de la bola D.';clear(ids);return}
-    const f=(D-Math.sqrt(D*D-d*d))/2,HB=F/(Math.PI*D*f);
-    $('o-f').textContent=fmt(f,3)+' mm';
-    $('o-hb').textContent=fmt(HB,0)+' HB';
-    $('o-k').textContent=fmt(F/(D*D),1);
-    e.textContent=(d<0.25*D||d>0.6*D)?'Aviso: la huella debería estar entre 0,25·D y 0,6·D; el ensayo no sería válido.':'';
-  }
-  function charpy(){
-    const m=num('mc'),h0=num('h0'),h1=num('h1'),S=num('sc'),e=$('e-c'),ids=['o-ea','o-rho'];
-    if([m,h0,S].some(x=>isNaN(x)||x<=0)||isNaN(h1)||h1<0){e.textContent='Masa, alturas y sección deben ser valores positivos.';clear(ids);return}
-    if(h1>=h0){e.textContent='La altura final debe ser menor que la inicial.';clear(ids);return}
-    e.textContent='';
-    const E=m*9.8*(h0-h1);
-    $('o-ea').textContent=fmt(E)+' J';
-    $('o-rho').textContent=fmt(E/S)+' J/cm²';
-  }
-  ['d0','l0','ft','dl'].forEach(i=>$(i).addEventListener('input',traccion));
-  ['fb','db','hb'].forEach(i=>$(i).addEventListener('input',brinell));
-  ['mc','h0','h1','sc'].forEach(i=>$(i).addEventListener('input',charpy));
-  traccion();brinell();charpy();
-})();
-</script>
 
 <script>
 (function(){
