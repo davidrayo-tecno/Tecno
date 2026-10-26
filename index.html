@@ -246,6 +246,12 @@ svg.art{display:block;width:100%;height:auto}
 :root[data-theme="dark"] .test .meta{color:var(--cold)}
 .test .meta i{font-style:normal;color:var(--muted);font-weight:500}
 @media (max-width:700px){.tests{grid-template-columns:minmax(0,1fr)}}
+.probs-banner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin:0 0 48px;padding:20px 24px;border-radius:16px;background:var(--brand);color:#fff;text-decoration:none}
+.probs-banner:hover{filter:brightness(1.08);color:#fff}
+.probs-banner > span:first-child{display:grid;gap:4px}
+.probs-banner b{font-family:var(--display);font-size:28px;font-weight:700;line-height:1}
+.probs-banner span span{opacity:.9;font-size:15.5px;max-width:60ch}
+.probs-banner .go{background:#fff;color:var(--brand);border:0}
 
 /* Otros ensayos al pie de cada subpágina */
 .others{margin-top:8px;padding-top:28px;border-top:1px solid var(--line)}
@@ -402,7 +408,7 @@ svg.art{display:block;width:100%;height:auto}
       </ul>
       <dl class="stats">
         <div><dt>Unidades</dt><dd>8</dd></div>
-        <div><dt>Problemas resueltos</dt><dd>68</dd></div>
+        <div><dt>Problemas resueltos</dt><dd>99</dd></div>
         <div><dt>Tu progreso</dt><dd id="miprogreso">0</dd></div>
       </dl>
     </div>
@@ -534,7 +540,7 @@ svg.art{display:block;width:100%;height:auto}
           <span class="ico-wrap u-materiales"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10v4l-3 3v4l3 3v4H7v-4l3-3v-4L7 7z"/></svg></span>
           <span class="u-body"><span class="u-top"><span class="st ok">Disponible</span><span class="curso">1º y 2º Bach.</span></span>
           <strong>Materiales</strong><span class="u-desc">Ensayos de tracción, Brinell, Vickers y resiliencia.</span>
-          <span class="u-foot"><span class="badge-prog">40 problemas</span></span></span>
+          <span class="u-foot"><span class="badge-prog">71 problemas</span></span></span>
         </a>
       </div>
       <div class="col" data-state="ok" data-name="máquinas térmicas termodinámica, ciclo de carnot, motores y bomba de calor.">
@@ -804,11 +810,11 @@ svg.art{display:block;width:100%;height:auto}
   q.addEventListener('input',apply);document.querySelectorAll('input[name=f]').forEach(r=>r.addEventListener('change',apply));
   // progreso total guardado en este navegador
   let n=0;try{for(let i=0;i<localStorage.length;i++){if(localStorage.key(i).startsWith('prob:'))n++;}}catch(e){}
-  document.getElementById('miprogreso').textContent=n+' / 68';
+  document.getElementById('miprogreso').textContent=n+' / 99';
   // progreso de Materiales (suma de los 4 ensayos)
   const mat=document.querySelector('a[href="materiales.html"] .badge-prog');
-  if(mat){let m=0;['ensayo-traccion.html','ensayo-brinell.html','ensayo-vickers.html','ensayo-resiliencia.html'].forEach(p=>{for(let i=1;i<=10;i++){try{if(localStorage.getItem('prob:'+p+'#p'+i))m++;}catch(e){}}});
-    if(m){mat.textContent=m+'/40 resueltos';mat.classList.add(m===40?'complete':'some');}}
+  if(mat){let m=0;[['ensayo-traccion.html',10],['ensayo-brinell.html',10],['ensayo-vickers.html',10],['ensayo-resiliencia.html',10],['materiales-problemas.html',31]].forEach(([p,t])=>{for(let i=1;i<=t;i++){try{if(localStorage.getItem('prob:'+p+'#p'+i))m++;}catch(e){}}});
+    if(m){mat.textContent=m+'/71 resueltos';mat.classList.add(m===71?'complete':'some');}}
 })();
 </script>
 </body>

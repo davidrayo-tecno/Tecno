@@ -246,6 +246,12 @@ svg.art{display:block;width:100%;height:auto}
 :root[data-theme="dark"] .test .meta{color:var(--cold)}
 .test .meta i{font-style:normal;color:var(--muted);font-weight:500}
 @media (max-width:700px){.tests{grid-template-columns:minmax(0,1fr)}}
+.probs-banner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin:0 0 48px;padding:20px 24px;border-radius:16px;background:var(--brand);color:#fff;text-decoration:none}
+.probs-banner:hover{filter:brightness(1.08);color:#fff}
+.probs-banner > span:first-child{display:grid;gap:4px}
+.probs-banner b{font-family:var(--display);font-size:28px;font-weight:700;line-height:1}
+.probs-banner span span{opacity:.9;font-size:15.5px;max-width:60ch}
+.probs-banner .go{background:#fff;color:var(--brand);border:0}
 
 /* Otros ensayos al pie de cada subpágina */
 .others{margin-top:8px;padding-top:28px;border-top:1px solid var(--line)}
@@ -342,7 +348,7 @@ svg.art{display:block;width:100%;height:auto}
       <p class="lead">Los ensayos son estudios normalizados de las propiedades de un material que permiten medirlas con gran precisión. Se realizan sobre probetas, piezas de dimensiones normalizadas, y para cada propiedad se usa un ensayo distinto.</p>
       <ul class="quick">
         <li><a class="primary" href="#ensayos">Ver los ensayos</a></li>
-        <li><a href="ensayo-traccion.html">Empezar por tracción</a></li>
+        <li><a href="materiales-problemas.html">Problemas de Materiales</a></li>
       </ul>
     </div>
     <figure aria-label="Diagrama tensión-deformación">
@@ -445,6 +451,10 @@ svg.art{display:block;width:100%;height:auto}
       <div class="body"><h3>Ensayo de resiliencia</h3><p>El péndulo de Charpy rompe de un golpe una probeta entallada para medir la energía que absorbe.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-resiliencia.html" data-total="10">10 problemas</span></div></div>
     </a></li>
   </ul>
+  <a class="probs-banner" href="materiales-problemas.html">
+    <span><b>Problemas de Materiales</b><span>31 problemas de tus hojas (7 tipo PAU y 24 del cuaderno), resueltos paso a paso y con filtro por ensayo.</span></span>
+    <span class="go" data-progress="materiales-problemas.html" data-total="31">31 problemas</span>
+  </a>
   <h2>Qué mide cada ensayo</h2>
   <div class="tbl"><table>
     <thead><tr><th>Ensayo</th><th>Propiedad</th><th>Cómo se hace</th><th>Resultado</th></tr></thead>
