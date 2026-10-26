@@ -417,7 +417,7 @@ details.prob summary .stitle{display:block}
   <main id="contenido">
 <section id="problemas">
   <h2><span class="n">1</span>Problemas resueltos</h2>
-  <p>Cada apartado está resuelto en tres pasos: planteamiento, desarrollo y resultado. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso. ¿Necesitas repasar? <a href="maquinas-termicas.html">Vuelve a la teoría</a>.</p>
+  <p>Cada apartado está resuelto en tres pasos: planteamiento, desarrollo y resultado. Todas las cantidades llevan su unidad; el rendimiento, la eficiencia y la relación de compresión son adimensionales. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso. ¿Necesitas repasar? <a href="maquinas-termicas.html">Vuelve a la teoría</a>.</p>
   <details class="prob" id="p1">
     <summary><span class="stitle">1. Motor de 4 cilindros: cilindrada, compresión y rendimiento<span class="ptags"><span class="ptag">Motores</span></span><span class="psrc">Motores alternativos</span></span></summary>
     <div class="enun"><p>Un motor Otto de 4 cilindros tiene un diámetro D = 80 mm, una carrera L = 90 mm y un volumen de la cámara de combustión V<sub>c</sub> = 50 cm³. Calcula:</p></div>
@@ -429,8 +429,8 @@ details.prob summary .stitle{display:block}
       <p>La cilindrada unitaria es el volumen que barre el pistón en un cilindro (sección por carrera). La total es la unitaria por el número de cilindros. Trabajamos en cm para obtener cm³.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Cilindrada unitaria:<span class="eq">V<sub>u</sub> = (π · D² / 4) · L = (π · 8² / 4) · 9 = 452,4 cm³</span></li>
-          <li>Cilindrada total:<span class="eq">V<sub>T</sub> = z · V<sub>u</sub> = 4 · 452,4 = 1 809,6 cm³</span></li>
+          <li>Cilindrada unitaria:<span class="eq">V<sub>u</sub> = (π · D² / 4) · L = (π · (8 cm)² / 4) · 9 cm = 452,4 cm³</span></li>
+          <li>Cilindrada total:<span class="eq">V<sub>T</sub> = z · V<sub>u</sub> = 4 · 452,4 cm³ = 1 809,6 cm³</span></li>
       </ol>
       <p class="res">V<sub>u</sub> = 452,4 cm³; V<sub>T</sub> ≈ 1 810 cm³ (1,8 L).</p>
     </div>
@@ -440,7 +440,7 @@ details.prob summary .stitle{display:block}
       <p>Compara el volumen del cilindro con el pistón abajo (V<sub>u</sub> + V<sub>c</sub>) con el volumen con el pistón arriba (V<sub>c</sub>).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Relación de compresión:<span class="eq">r<sub>c</sub> = (V<sub>u</sub> + V<sub>c</sub>) / V<sub>c</sub> = (452,4 + 50) / 50 = 10,05</span></li>
+          <li>Relación de compresión:<span class="eq">r<sub>c</sub> = (V<sub>u</sub> + V<sub>c</sub>) / V<sub>c</sub> = (452,4 cm³ + 50 cm³) / 50 cm³ = 10,05</span></li>
       </ol>
       <p class="res">r<sub>c</sub> ≈ 10.</p>
     </div>
@@ -468,8 +468,8 @@ details.prob summary .stitle{display:block}
       <p>La potencia es el par por la velocidad angular (P = M · ω), con ω en rad/s.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Velocidad angular:<span class="eq">ω = 2π · n / 60 = 2π · 4 000 / 60 = 418,9 rad/s</span></li>
-          <li>Potencia:<span class="eq">P = M · ω = 150 · 418,9 = 62 832 W</span></li>
+          <li>Velocidad angular:<span class="eq">ω = 2π · n / 60 = 2π rad · 4 000 rpm / 60 s/min = 418,9 rad/s</span></li>
+          <li>Potencia:<span class="eq">P = M · ω = 150 N·m · 418,9 rad/s = 62 832 W</span></li>
       </ol>
       <p class="res">P ≈ 62,8 kW.</p>
     </div>
@@ -479,9 +479,9 @@ details.prob summary .stitle{display:block}
       <p>Con el rendimiento calculamos la potencia que aporta el combustible; dividiendo entre el poder calorífico sale el consumo en kg/s, que pasamos a kg/h.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Potencia aportada por el combustible:<span class="eq">P<sub>comb</sub> = P / η = 62,8 / 0,30 = 209,4 kW</span></li>
+          <li>Potencia aportada por el combustible:<span class="eq">P<sub>comb</sub> = P / η = 62,8 kW / 0,30 = 209,4 kW</span></li>
           <li>Consumo:<span class="eq">ṁ = 209,4 kJ/s / 43 000 kJ/kg = 0,00487 kg/s</span></li>
-          <li>Por hora:<span class="eq">0,00487 · 3 600 = 17,5 kg/h</span></li>
+          <li>Por hora:<span class="eq">0,00487 kg/s · 3 600 s/h = 17,5 kg/h</span></li>
       </ol>
       <p class="res">Unos 17,5 kg de gasolina por hora.</p>
     </div>
@@ -498,10 +498,10 @@ details.prob summary .stitle{display:block}
       <p>La eficiencia máxima de una bomba de calor es la de Carnot, ε = T₁ / (T₁ − T₂), con temperaturas en kelvin. La real es el 45 % de esa. El calor entregado es la eficiencia por el trabajo consumido.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Temperaturas en K:<span class="eq">T₁ = 21 + 273 = 294 K; T₂ = 3 + 273 = 276 K</span></li>
-          <li>Eficiencia de Carnot:<span class="eq">ε<sub>Carnot</sub> = 294 / (294 − 276) = 16,3</span></li>
+          <li>Temperaturas en K:<span class="eq">T₁ = 21 °C + 273 = 294 K; T₂ = 3 °C + 273 = 276 K</span></li>
+          <li>Eficiencia de Carnot:<span class="eq">ε<sub>Carnot</sub> = 294 K / (294 K − 276 K) = 16,3</span></li>
           <li>Eficiencia real:<span class="eq">ε<sub>real</sub> = 0,45 · 16,3 = 7,35</span></li>
-          <li>Calor entregado:<span class="eq">Q̇₁ = ε<sub>real</sub> · W = 7,35 · 1,5 = 11 kW</span></li>
+          <li>Calor entregado:<span class="eq">Q̇₁ = ε<sub>real</sub> · W = 7,35 · 1,5 kW = 11 kW</span></li>
       </ol>
       <p class="res">Q̇₁ ≈ 11 kW de calefacción por cada 1,5 kW eléctricos.</p>
     </div>
@@ -518,7 +518,7 @@ details.prob summary .stitle{display:block}
       <p>El rendimiento es el trabajo obtenido entre el calor recibido: η = W / Q₁.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Rendimiento:<span class="eq">η = 300 / 800 = 0,375</span></li>
+          <li>Rendimiento:<span class="eq">η = 300 MW / 800 MW = 0,375</span></li>
       </ol>
       <p class="res">η<sub>real</sub> = 37,5 %.</p>
     </div>
@@ -528,8 +528,8 @@ details.prob summary .stitle{display:block}
       <p>Es el máximo posible entre esas dos temperaturas: η = 1 − T₂ / T₁, en kelvin.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Temperaturas:<span class="eq">T₁ = 823 K; T₂ = 313 K</span></li>
-          <li>Rendimiento:<span class="eq">η<sub>Carnot</sub> = 1 − 313 / 823 = 0,62</span></li>
+          <li>Temperaturas:<span class="eq">T₁ = 550 °C + 273 = 823 K; T₂ = 40 °C + 273 = 313 K</span></li>
+          <li>Rendimiento:<span class="eq">η<sub>Carnot</sub> = 1 − 313 K / 823 K = 0,62</span></li>
       </ol>
       <p class="res">η<sub>Carnot</sub> ≈ 62 %.</p>
     </div>
@@ -539,7 +539,7 @@ details.prob summary .stitle{display:block}
       <p>Por el primer principio, Q₁ = W + Q₂.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Calor cedido:<span class="eq">Q̇₂ = 800 − 300 = 500 MW</span></li>
+          <li>Calor cedido:<span class="eq">Q̇₂ = 800 MW − 300 MW = 500 MW</span></li>
       </ol>
       <p class="res">500 MW, que se evacúan con el agua de refrigeración y las torres.</p>
     </div>

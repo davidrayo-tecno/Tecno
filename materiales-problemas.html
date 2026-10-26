@@ -402,7 +402,7 @@ details.prob summary .stitle{display:block}
       <li><a href="#vickers">Ensayo Vickers</a></li>
       <li><a href="#resiliencia">Ensayo de resiliencia</a></li>
       <li><a href="#pau">Ejercicios tipo PAU</a></li>
-      <li><a href="#cuaderno">Cuaderno de problemas</a></li>
+      <li><a href="#cuaderno">Otros problemas</a></li>
     </ol>
     <div class="tools">
       <button type="button" data-act="open">Mostrar todas las soluciones</button>
@@ -413,7 +413,7 @@ details.prob summary .stitle{display:block}
   <main id="contenido">
 <section id="problemas">
   <h2><span class="n">1</span>Cómo usar esta página</h2>
-  <p>Aquí están todos los problemas de Materiales (71): 10 de cada ensayo, los 7 ejercicios tipo PAU de tus hojas y los 24 del cuaderno. Cada apartado está resuelto en tres pasos (<b>planteamiento</b>, <b>desarrollo</b> y <b>resultado</b>) y, cuando la solución original tenía alguna errata, se indica en el comentario final.</p>
+  <p>Aquí están todos los problemas de Materiales (71): 10 de cada ensayo, los 7 ejercicios tipo PAU y los 24 de otros problemas. Cada apartado está resuelto en tres pasos (<b>planteamiento</b>, <b>desarrollo</b> y <b>resultado</b>), y en todos los cálculos cada cantidad va acompañada de su unidad (las magnitudes adimensionales, como la deformación unitaria ε o los cocientes, no llevan unidad) y, cuando la solución original tenía alguna errata, se indica en el comentario final.</p>
   <p>Filtra por tipo de ensayo para practicar solo lo que necesites:</p>
   <div class="filters-m" role="group" aria-label="Filtrar por ensayo">
     <button type="button" data-f="all" aria-pressed="true">Todos</button>
@@ -440,9 +440,9 @@ details.prob summary .stitle{display:block}
       <p>La tensión es la fuerza dividida entre la sección (σ = F / S) y la deformación unitaria, el alargamiento dividido entre la longitud inicial (ε = Δl / l₀). Trabajamos en N y mm, de modo que la tensión sale en N/mm² (MPa).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección circular de la probeta:<span class="eq">S = π · d² / 4 = π · 10² / 4 = 78,54 mm²</span></li>
-          <li>Tensión:<span class="eq">σ = F / S = 20 000 / 78,54 = 254,6 N/mm² = 254,6 MPa</span></li>
-          <li>Deformación unitaria (no tiene unidades):<span class="eq">ε = Δl / l₀ = 0,06 / 50 = 0,0012</span></li>
+          <li>Sección circular de la probeta:<span class="eq">S = π · d² / 4 = π · (10 mm)² / 4 = 78,54 mm²</span></li>
+          <li>Tensión:<span class="eq">σ = F / S = 20 000 N / 78,54 mm² = 254,6 N/mm² = 254,6 MPa</span></li>
+          <li>Deformación unitaria (no tiene unidades):<span class="eq">ε = Δl / l₀ = 0,06 mm / 50 mm = 0,0012</span></li>
       </ol>
       <p class="res">σ = 254,6 MPa (2,546 · 10⁸ Pa); ε = 0,0012.</p>
     </div>
@@ -452,7 +452,7 @@ details.prob summary .stitle{display:block}
       <p>En la zona de proporcionalidad se cumple la ley de Hooke, σ = ε · E. Despejamos E.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Módulo de Young:<span class="eq">E = σ / ε = 254,6 / 0,0012 = 212 200 MPa</span></li>
+          <li>Módulo de Young:<span class="eq">E = σ / ε = 254,6 MPa / 0,0012 = 212 200 MPa</span></li>
       </ol>
       <p class="res">E ≈ 212 200 MPa = 2,12 · 10¹¹ N/m².</p>
     </div>
@@ -462,9 +462,9 @@ details.prob summary .stitle{display:block}
       <p>Calculamos la deformación pedida y, con la ley de Hooke, la tensión que la produce. Antes de seguir comprobamos que no supera σp, porque si lo superase ya no se cumpliría σ = ε · E. Con la tensión obtenemos la fuerza: F = σ · S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Deformación unitaria:<span class="eq">ε = 0,08 / 50 = 0,0016</span></li>
-          <li>Tensión:<span class="eq">σ = ε · E = 0,0016 · 212 200 = 339,5 MPa &lt; 400 MPa ✓</span></li>
-          <li>Carga:<span class="eq">F = σ · S = 339,5 · 78,54 = 26 667 N</span></li>
+          <li>Deformación unitaria:<span class="eq">ε = 0,08 mm / 50 mm = 0,0016</span></li>
+          <li>Tensión:<span class="eq">σ = ε · E = 0,0016 · 212 200 MPa = 339,5 MPa &lt; 400 MPa ✓</span></li>
+          <li>Carga:<span class="eq">F = σ · S = 339,5 N/mm² · 78,54 mm² = 26 667 N</span></li>
       </ol>
       <p class="res">F ≈ 26,7 kN.</p>
     </div>
@@ -481,10 +481,10 @@ details.prob summary .stitle{display:block}
       <p>Pasamos todo a N y mm. Con σ = F / S obtenemos la tensión; como es menor que σp, se cumple la ley de Hooke y ε = σ / E. Finalmente, de ε = Δl / l₀ despejamos el alargamiento.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = π · 12² / 4 = 113,1 mm²</span></li>
-          <li>Tensión:<span class="eq">σ = 15 000 / 113,1 = 132,6 MPa (menor que σp)</span></li>
-          <li>Deformación unitaria:<span class="eq">ε = σ / E = 132,6 / 210 000 = 6,32 · 10⁻⁴</span></li>
-          <li>Alargamiento:<span class="eq">Δl = ε · l₀ = 6,32 · 10⁻⁴ · 2 000 = 1,26 mm</span></li>
+          <li>Sección:<span class="eq">S = π · (12 mm)² / 4 = 113,1 mm²</span></li>
+          <li>Tensión:<span class="eq">σ = 15 000 N / 113,1 mm² = 132,6 MPa (menor que σp)</span></li>
+          <li>Deformación unitaria:<span class="eq">ε = σ / E = 132,6 MPa / 210 000 MPa = 6,32 · 10⁻⁴</span></li>
+          <li>Alargamiento:<span class="eq">Δl = ε · l₀ = 6,32 · 10⁻⁴ · 2 000 mm = 1,26 mm</span></li>
       </ol>
       <p class="res">Δl ≈ 1,26 mm.</p>
     </div>
@@ -494,7 +494,7 @@ details.prob summary .stitle{display:block}
       <p>La ley de Hooke se cumple hasta el punto a del diagrama, en el que la tensión vale σp. La carga correspondiente es F = σp · S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = σp · S = 275 · 113,1 = 31 102 N</span></li>
+          <li>Carga:<span class="eq">F = σp · S = 275 N/mm² · 113,1 mm² = 31 102 N</span></li>
       </ol>
       <p class="res">F ≈ 31,1 kN.</p>
     </div>
@@ -504,8 +504,8 @@ details.prob summary .stitle{display:block}
       <p>Con σ = σp calculamos la deformación unitaria y, de ella, la longitud final l = l₀ + Δl.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Deformación unitaria:<span class="eq">ε = 275 / 210 000 = 1,31 · 10⁻³</span></li>
-          <li>Alargamiento y longitud final:<span class="eq">Δl = 1,31 · 10⁻³ · 2 000 = 2,62 mm &nbsp;→&nbsp; l = 2 002,62 mm</span></li>
+          <li>Deformación unitaria:<span class="eq">ε = 275 MPa / 210 000 MPa = 1,31 · 10⁻³</span></li>
+          <li>Alargamiento y longitud final:<span class="eq">Δl = 1,31 · 10⁻³ · 2 000 mm = 2,62 mm &nbsp;→&nbsp; l = 2 000 mm + 2,62 mm = 2 002,62 mm</span></li>
       </ol>
       <p class="res">l ≈ 2 002,6 mm.</p>
     </div>
@@ -522,10 +522,10 @@ details.prob summary .stitle{display:block}
       <p>Identificamos cada dato con su punto del diagrama: el final del tramo recto es el punto a (σp), el inicio de la fluencia es el punto b (σe, tensión de fluencia) y la carga máxima corresponde al punto d (σmáx). En todos los casos σ = F / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = π · 10² / 4 = 78,54 mm²</span></li>
-          <li>Punto a:<span class="eq">σp = 28 000 / 78,54 = 356,5 MPa</span></li>
-          <li>Punto b:<span class="eq">σe = 31 000 / 78,54 = 394,7 MPa</span></li>
-          <li>Punto d:<span class="eq">σmáx = 47 000 / 78,54 = 598,4 MPa</span></li>
+          <li>Sección:<span class="eq">S = π · (10 mm)² / 4 = 78,54 mm²</span></li>
+          <li>Punto a:<span class="eq">σp = 28 000 N / 78,54 mm² = 356,5 MPa</span></li>
+          <li>Punto b:<span class="eq">σe = 31 000 N / 78,54 mm² = 394,7 MPa</span></li>
+          <li>Punto d:<span class="eq">σmáx = 47 000 N / 78,54 mm² = 598,4 MPa</span></li>
       </ol>
       <p class="res">σp ≈ 357 MPa; σe ≈ 395 MPa; σmáx ≈ 598 MPa.</p>
     </div>
@@ -535,8 +535,8 @@ details.prob summary .stitle{display:block}
       <p>En el punto a todavía se cumple la ley de Hooke, así que E = σp / ε, con la deformación unitaria de ese punto.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Deformación en a:<span class="eq">ε = 0,085 / 50 = 0,0017</span></li>
-          <li>Módulo de Young:<span class="eq">E = 356,5 / 0,0017 = 209 700 MPa</span></li>
+          <li>Deformación en a:<span class="eq">ε = 0,085 mm / 50 mm = 0,0017</span></li>
+          <li>Módulo de Young:<span class="eq">E = 356,5 MPa / 0,0017 = 209 700 MPa</span></li>
       </ol>
       <p class="res">E ≈ 2,1 · 10¹¹ N/m².</p>
     </div>
@@ -546,7 +546,7 @@ details.prob summary .stitle{display:block}
       <p>Calculamos la tensión y miramos en qué zona del diagrama estamos.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Tensión:<span class="eq">σ = 40 000 / 78,54 = 509,3 MPa</span></li>
+          <li>Tensión:<span class="eq">σ = 40 000 N / 78,54 mm² = 509,3 MPa</span></li>
           <li>Comparación:<span class="eq">σe = 394,7 MPa &lt; 509,3 MPa &lt; σmáx = 598,4 MPa</span></li>
       </ol>
       <p class="res">Está en la zona plástica: la deformación es permanente y la probeta no recupera su longitud inicial.</p>
@@ -564,7 +564,7 @@ details.prob summary .stitle{display:block}
       <p>De σ = F / S despejamos la sección necesaria para que la tensión no pase de 175 MPa.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección mínima:<span class="eq">S = F / σ = 40 000 / 175 = 228,6 mm²</span></li>
+          <li>Sección mínima:<span class="eq">S = F / σ = 40 000 N / 175 N/mm² = 228,6 mm²</span></li>
       </ol>
       <p class="res">S<sub>mín</sub> ≈ 228,6 mm².</p>
     </div>
@@ -574,7 +574,7 @@ details.prob summary .stitle{display:block}
       <p>La sección es circular, S = π · d² / 4. Despejamos d.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diámetro:<span class="eq">d = √(4 · S / π) = √(4 · 228,6 / π) = 17,06 mm</span></li>
+          <li>Diámetro:<span class="eq">d = √(4 · S / π) = √(4 · 228,6 mm² / π) = 17,06 mm</span></li>
       </ol>
       <p class="res">d<sub>mín</sub> ≈ 17,1 mm; se elige la barra comercial de 18 mm.</p>
     </div>
@@ -584,9 +584,9 @@ details.prob summary .stitle{display:block}
       <p>Con el diámetro real recalculamos la tensión, que será algo menor de 175 MPa, y aplicamos la ley de Hooke para obtener ε y después Δl.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección y tensión reales:<span class="eq">S = π · 18² / 4 = 254,5 mm² &nbsp;→&nbsp; σ = 40 000 / 254,5 = 157,2 MPa</span></li>
-          <li>Deformación unitaria:<span class="eq">ε = 157,2 / 210 000 = 7,49 · 10⁻⁴</span></li>
-          <li>Alargamiento:<span class="eq">Δl = 7,49 · 10⁻⁴ · 1 500 = 1,12 mm</span></li>
+          <li>Sección y tensión reales:<span class="eq">S = π · (18 mm)² / 4 = 254,5 mm² &nbsp;→&nbsp; σ = 40 000 N / 254,5 mm² = 157,2 MPa</span></li>
+          <li>Deformación unitaria:<span class="eq">ε = 157,2 MPa / 210 000 MPa = 7,49 · 10⁻⁴</span></li>
+          <li>Alargamiento:<span class="eq">Δl = 7,49 · 10⁻⁴ · 1 500 mm = 1,12 mm</span></li>
       </ol>
       <p class="res">Δl ≈ 1,12 mm.</p>
     </div>
@@ -603,7 +603,7 @@ details.prob summary .stitle{display:block}
       <p>Comparamos el aumento de longitud entre marcas con la longitud inicial: A (%) = (l<sub>f</sub> − l₀) / l₀ · 100.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Alargamiento:<span class="eq">A = (62 − 50) / 50 · 100 = 24 %</span></li>
+          <li>Alargamiento:<span class="eq">A = (62 mm − 50 mm) / 50 mm · 100 = 24 %</span></li>
       </ol>
       <p class="res">A = 24 %.</p>
     </div>
@@ -613,8 +613,8 @@ details.prob summary .stitle{display:block}
       <p>Calculamos las secciones inicial y final, que son círculos, y aplicamos Z (%) = (S₀ − S<sub>f</sub>) / S₀ · 100.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Secciones:<span class="eq">S₀ = π · 10² / 4 = 78,54 mm² &nbsp;|&nbsp; S<sub>f</sub> = π · 7² / 4 = 38,48 mm²</span></li>
-          <li>Estricción:<span class="eq">Z = (78,54 − 38,48) / 78,54 · 100 = 51 %</span></li>
+          <li>Secciones:<span class="eq">S₀ = π · (10 mm)² / 4 = 78,54 mm² &nbsp;|&nbsp; S<sub>f</sub> = π · (7 mm)² / 4 = 38,48 mm²</span></li>
+          <li>Estricción:<span class="eq">Z = (78,54 mm² − 38,48 mm²) / 78,54 mm² · 100 = 51 %</span></li>
       </ol>
       <p class="res">Z = 51 %.</p>
     </div>
@@ -624,11 +624,11 @@ details.prob summary .stitle{display:block}
       <p>Es la tensión máxima del diagrama (punto d): σmáx = F<sub>máx</sub> / S₀.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Tensión de rotura:<span class="eq">σmáx = 47 000 / 78,54 = 598,4 MPa</span></li>
+          <li>Tensión de rotura:<span class="eq">σmáx = 47 000 N / 78,54 mm² = 598,4 MPa</span></li>
       </ol>
       <p class="res">σmáx ≈ 598 MPa.</p>
     </div>
-    <p class="note com">Un alargamiento del 24 % y una estricción del 51 % indican que el material se deforma mucho antes de romperse. Como las dos secciones son círculos, también Z = (d₀² − d<sub>f</sub>²) / d₀² · 100 = (100 − 49) / 100 · 100.</p>
+    <p class="note com">Un alargamiento del 24 % y una estricción del 51 % indican que el material se deforma mucho antes de romperse. Como las dos secciones son círculos, también Z = (d₀² − d<sub>f</sub>²) / d₀² · 100 = (100 mm² − 49 mm²) / 100 mm² · 100 = 51 %.</p>
   </details>
   <details class="prob" id="p6" data-tags="traccion">
     <summary><span class="stitle">6. Interpretación del diagrama de tracción<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Ensayo de tracción · n.º 6</span></span></summary>
@@ -652,7 +652,7 @@ details.prob summary .stitle{display:block}
       <p>A (%) = (l<sub>f</sub> − l₀) / l₀ · 100.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Alargamiento:<span class="eq">A = (58 − 50) / 50 · 100 = 16 %</span></li>
+          <li>Alargamiento:<span class="eq">A = (58 mm − 50 mm) / 50 mm · 100 = 16 %</span></li>
       </ol>
       <p class="res">A = 16 %.</p>
     </div>
@@ -679,7 +679,7 @@ details.prob summary .stitle{display:block}
       <p>Tienen la misma sección y la misma carga, así que la tensión es la misma: no depende del material.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección y tensión:<span class="eq">S = π · 8² / 4 = 50,27 mm² &nbsp;→&nbsp; σ = 5 000 / 50,27 = 99,5 MPa</span></li>
+          <li>Sección y tensión:<span class="eq">S = π · (8 mm)² / 4 = 50,27 mm² &nbsp;→&nbsp; σ = 5 000 N / 50,27 mm² = 99,5 MPa</span></li>
       </ol>
       <p class="res">σ = 99,5 MPa en las dos.</p>
     </div>
@@ -689,19 +689,19 @@ details.prob summary .stitle{display:block}
       <p>Aquí sí influye el material: ε = σ / E y Δl = ε · l₀. Cuanto menor es E, más se alarga.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Aluminio:<span class="eq">ε = 99,5 / 70 000 = 1,42 · 10⁻³ &nbsp;→&nbsp; Δl = 1,42 mm</span></li>
-          <li>Acero:<span class="eq">ε = 99,5 / 210 000 = 4,74 · 10⁻⁴ &nbsp;→&nbsp; Δl = 0,47 mm</span></li>
+          <li>Aluminio:<span class="eq">ε = 99,5 MPa / 70 000 MPa = 1,42 · 10⁻³ &nbsp;→&nbsp; Δl = 1,42 · 10⁻³ · 1 000 mm = 1,42 mm</span></li>
+          <li>Acero:<span class="eq">ε = 99,5 MPa / 210 000 MPa = 4,74 · 10⁻⁴ &nbsp;→&nbsp; Δl = 4,74 · 10⁻⁴ · 1 000 mm = 0,47 mm</span></li>
       </ol>
       <p class="res">Δl<sub>Al</sub> ≈ 1,42 mm; Δl<sub>ac</sub> ≈ 0,47 mm: el aluminio se alarga tres veces más.</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>El diámetro de la varilla de aluminio para que se alargue lo mismo que la de acero.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Para el mismo alargamiento, ε debe ser igual en las dos, es decir, σ / E igual. Como E del aluminio es la tercera parte, su tensión también debe ser la tercera parte (99,5 / 3 = 33,2 MPa).</p>
+      <p>Para el mismo alargamiento, ε debe ser igual en las dos, es decir, σ / E igual. Como E del aluminio es la tercera parte, su tensión también debe ser la tercera parte (99,5 MPa / 3 = 33,2 MPa).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección necesaria:<span class="eq">S = 5 000 / 33,17 = 150,8 mm²</span></li>
-          <li>Diámetro:<span class="eq">d = √(4 · 150,8 / π) = 13,86 mm</span></li>
+          <li>Sección necesaria:<span class="eq">S = 5 000 N / 33,17 N/mm² = 150,8 mm²</span></li>
+          <li>Diámetro:<span class="eq">d = √(4 · 150,8 mm² / π) = 13,86 mm</span></li>
       </ol>
       <p class="res">d<sub>Al</sub> ≈ 13,9 mm.</p>
     </div>
@@ -718,7 +718,7 @@ details.prob summary .stitle{display:block}
       <p>La fuerza es el peso de la carga: F = m · g.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Peso:<span class="eq">F = 2 000 · 9,8 = 19 600 N</span></li>
+          <li>Peso:<span class="eq">F = 2 000 kg · 9,8 m/s² = 19 600 N</span></li>
       </ol>
       <p class="res">F = 19 600 N.</p>
     </div>
@@ -728,8 +728,8 @@ details.prob summary .stitle{display:block}
       <p>Sección necesaria con σ = F / S y, de ella, el diámetro.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = 19 600 / 100 = 196 mm²</span></li>
-          <li>Diámetro:<span class="eq">d = √(4 · 196 / π) = 15,8 mm</span></li>
+          <li>Sección:<span class="eq">S = 19 600 N / 100 N/mm² = 196 mm²</span></li>
+          <li>Diámetro:<span class="eq">d = √(4 · 196 mm² / π) = 15,8 mm</span></li>
       </ol>
       <p class="res">d<sub>mín</sub> ≈ 15,8 mm (se usaría un cable de 16 mm).</p>
     </div>
@@ -739,8 +739,8 @@ details.prob summary .stitle{display:block}
       <p>Con el diámetro elegido calculamos la tensión real y aplicamos la ley de Hooke (tratamos el cable como una barra maciza).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Tensión real:<span class="eq">S = π · 16² / 4 = 201,1 mm² &nbsp;→&nbsp; σ = 19 600 / 201,1 = 97,5 MPa</span></li>
-          <li>Deformación y alargamiento:<span class="eq">ε = 97,5 / 210 000 = 4,64 · 10⁻⁴ &nbsp;→&nbsp; Δl = 4,64 · 10⁻⁴ · 15 000 = 6,96 mm</span></li>
+          <li>Tensión real:<span class="eq">S = π · (16 mm)² / 4 = 201,1 mm² &nbsp;→&nbsp; σ = 19 600 N / 201,1 mm² = 97,5 MPa</span></li>
+          <li>Deformación y alargamiento:<span class="eq">ε = 97,5 MPa / 210 000 MPa = 4,64 · 10⁻⁴ &nbsp;→&nbsp; Δl = 4,64 · 10⁻⁴ · 15 000 mm = 6,96 mm</span></li>
       </ol>
       <p class="res">Δl ≈ 7 mm.</p>
     </div>
@@ -757,8 +757,8 @@ details.prob summary .stitle{display:block}
       <p>Igual que con una probeta cilíndrica; solo cambia el cálculo de la sección.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección y tensión:<span class="eq">S = 20 · 5 = 100 mm² &nbsp;→&nbsp; σ = 12 000 / 100 = 120 MPa</span></li>
-          <li>Deformación:<span class="eq">ε = 0,045 / 80 = 5,625 · 10⁻⁴</span></li>
+          <li>Sección y tensión:<span class="eq">S = 20 mm · 5 mm = 100 mm² &nbsp;→&nbsp; σ = 12 000 N / 100 mm² = 120 MPa</span></li>
+          <li>Deformación:<span class="eq">ε = 0,045 mm / 80 mm = 5,625 · 10⁻⁴</span></li>
       </ol>
       <p class="res">σ = 120 MPa; ε = 5,63 · 10⁻⁴.</p>
     </div>
@@ -768,7 +768,7 @@ details.prob summary .stitle{display:block}
       <p>Ley de Hooke, ya que estamos en la zona de proporcionalidad.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Módulo:<span class="eq">E = σ / ε = 120 / 5,625 · 10⁻⁴ = 213 333 MPa</span></li>
+          <li>Módulo:<span class="eq">E = σ / ε = 120 MPa / 5,625 · 10⁻⁴ = 213 333 MPa</span></li>
       </ol>
       <p class="res">E ≈ 2,13 · 10¹¹ N/m².</p>
     </div>
@@ -778,8 +778,8 @@ details.prob summary .stitle{display:block}
       <p>Con σ = σp calculamos la carga (F = σp · S) y, con la ley de Hooke, la deformación y el alargamiento.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 250 · 100 = 25 000 N</span></li>
-          <li>Alargamiento:<span class="eq">ε = 250 / 213 333 = 1,17 · 10⁻³ &nbsp;→&nbsp; Δl = 1,17 · 10⁻³ · 80 = 0,094 mm</span></li>
+          <li>Carga:<span class="eq">F = 250 N/mm² · 100 mm² = 25 000 N</span></li>
+          <li>Alargamiento:<span class="eq">ε = 250 MPa / 213 333 MPa = 1,17 · 10⁻³ &nbsp;→&nbsp; Δl = 1,17 · 10⁻³ · 80 mm = 0,094 mm</span></li>
       </ol>
       <p class="res">F = 25 kN; Δl ≈ 0,094 mm.</p>
     </div>
@@ -796,8 +796,8 @@ details.prob summary .stitle{display:block}
       <p>El alargamiento máximo fija la deformación máxima; con la ley de Hooke obtenemos la tensión que la produce.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Deformación máxima:<span class="eq">ε = 0,2 / 300 = 6,67 · 10⁻⁴</span></li>
-          <li>Tensión:<span class="eq">σ = ε · E = 6,67 · 10⁻⁴ · 120 000 = 80 MPa</span></li>
+          <li>Deformación máxima:<span class="eq">ε = 0,2 mm / 300 mm = 6,67 · 10⁻⁴</span></li>
+          <li>Tensión:<span class="eq">σ = ε · E = 6,67 · 10⁻⁴ · 120 000 MPa = 80 MPa</span></li>
       </ol>
       <p class="res">ε = 6,67 · 10⁻⁴; σ = 80 MPa.</p>
     </div>
@@ -807,8 +807,8 @@ details.prob summary .stitle{display:block}
       <p>Comprobamos que 80 MPa &lt; σp (se cumple Hooke). Después, sección y diámetro.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección mínima:<span class="eq">S = 8 000 / 80 = 100 mm²</span></li>
-          <li>Diámetro:<span class="eq">d = √(4 · 100 / π) = 11,28 mm</span></li>
+          <li>Sección mínima:<span class="eq">S = 8 000 N / 80 N/mm² = 100 mm²</span></li>
+          <li>Diámetro:<span class="eq">d = √(4 · 100 mm² / π) = 11,28 mm</span></li>
       </ol>
       <p class="res">d<sub>mín</sub> ≈ 11,3 mm.</p>
     </div>
@@ -818,8 +818,8 @@ details.prob summary .stitle{display:block}
       <p>Recalculamos con el diámetro elegido.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Tensión:<span class="eq">S = π · 12² / 4 = 113,1 mm² &nbsp;→&nbsp; σ = 8 000 / 113,1 = 70,7 MPa</span></li>
-          <li>Alargamiento:<span class="eq">ε = 70,7 / 120 000 = 5,89 · 10⁻⁴ &nbsp;→&nbsp; Δl = 0,177 mm</span></li>
+          <li>Tensión:<span class="eq">S = π · (12 mm)² / 4 = 113,1 mm² &nbsp;→&nbsp; σ = 8 000 N / 113,1 mm² = 70,7 MPa</span></li>
+          <li>Alargamiento:<span class="eq">ε = 70,7 MPa / 120 000 MPa = 5,89 · 10⁻⁴ &nbsp;→&nbsp; Δl = 5,89 · 10⁻⁴ · 300 mm = 0,177 mm</span></li>
       </ol>
       <p class="res">σ ≈ 70,7 MPa; Δl ≈ 0,18 mm (menos de 0,2 mm ✓).</p>
     </div>
@@ -841,8 +841,8 @@ details.prob summary .stitle{display:block}
       <p>La profundidad se obtiene de los dos diámetros con f = D/2 − √(D²/4 − d²/4).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Términos de la raíz:<span class="eq">D²/4 = 100/4 = 25; d²/4 = 16/4 = 4</span></li>
-          <li>Profundidad:<span class="eq">f = 5 − √(25 − 4) = 5 − 4,583 = 0,417 mm</span></li>
+          <li>Términos de la raíz:<span class="eq">D²/4 = (10 mm)²/4 = 25 mm²; d²/4 = (4 mm)²/4 = 4 mm²</span></li>
+          <li>Profundidad:<span class="eq">f = 5 mm − √(25 mm² − 4 mm²) = 5 mm − 4,583 mm = 0,417 mm</span></li>
       </ol>
       <p class="res">f ≈ 0,417 mm.</p>
     </div>
@@ -852,10 +852,10 @@ details.prob summary .stitle{display:block}
       <p>La huella es un casquete esférico, S = π · D · f. La dureza es HB = F / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie:<span class="eq">S = π · 10 · 0,417 = 13,11 mm²</span></li>
-          <li>Dureza:<span class="eq">HB = 3 000 / 13,11 = 228,8</span></li>
+          <li>Superficie:<span class="eq">S = π · 10 mm · 0,417 mm = 13,11 mm²</span></li>
+          <li>Dureza:<span class="eq">HB = 3 000 kp / 13,11 mm² = 228,8 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 229.</p>
+      <p class="res">HB ≈ 229 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>La expresión del resultado y el valor de la constante K.</h4>
@@ -864,11 +864,11 @@ details.prob summary .stitle{display:block}
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Expresión:<span class="eq">229 HB, 10 mm, 3000 kp, 15 s</span></li>
-          <li>Constante:<span class="eq">K = F / D² = 3 000 / 10² = 30 kp/mm²</span></li>
+          <li>Constante:<span class="eq">K = F / D² = 3 000 kp / (10 mm)² = 30 kp/mm²</span></li>
       </ol>
       <p class="res">229 HB, 10 mm, 3000 kp, 15 s; K = 30 kp/mm².</p>
     </div>
-    <p class="note com">Se puede comprobar la dureza con la fórmula completa: HB = 2F / (π · D · (D − √(D² − d²))) = 6 000 / (π · 10 · 0,835) = 228,8.</p>
+    <p class="note com">Se puede comprobar la dureza con la fórmula completa: HB = 2F / (π · D · (D − √(D² − d²))) = 6 000 kp / (π · 10 mm · 0,835 mm) = 228,8 kp/mm².</p>
   </details>
   <details class="prob" id="p12" data-tags="brinell">
     <summary><span class="stitle">12. Ensayo con esfera de 5 mm<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Ensayo Brinell · n.º 2</span></span></summary>
@@ -881,7 +881,7 @@ details.prob summary .stitle{display:block}
       <p>La carga se relaciona con el diámetro de la esfera: F = K · D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 30 · 5² = 750 kp</span></li>
+          <li>Carga:<span class="eq">F = 30 kp/mm² · (5 mm)² = 750 kp</span></li>
       </ol>
       <p class="res">F = 750 kp.</p>
     </div>
@@ -891,10 +891,10 @@ details.prob summary .stitle{display:block}
       <p>Aplicamos directamente HB = 2F / (π · D · (D − √(D² − d²))).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Raíz:<span class="eq">√(D² − d²) = √(25 − 4) = 4,583 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 2 · 750 / (π · 5 · (5 − 4,583)) = 1 500 / 6,556 = 228,8</span></li>
+          <li>Raíz:<span class="eq">√(D² − d²) = √(25 mm² − 4 mm²) = 4,583 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 2 · 750 kp / (π · 5 mm · (5 mm − 4,583 mm)) = 1 500 kp / 6,556 mm² = 228,8 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 229.</p>
+      <p class="res">HB ≈ 229 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>La profundidad de la huella.</h4>
@@ -902,7 +902,7 @@ details.prob summary .stitle{display:block}
       <p>f = D/2 − √(D²/4 − d²/4).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">f = 2,5 − √(6,25 − 1) = 2,5 − 2,291 = 0,209 mm</span></li>
+          <li>Profundidad:<span class="eq">f = 2,5 mm − √(6,25 mm² − 1 mm²) = 2,5 mm − 2,291 mm = 0,209 mm</span></li>
       </ol>
       <p class="res">f ≈ 0,209 mm.</p>
     </div>
@@ -919,7 +919,7 @@ details.prob summary .stitle{display:block}
       <p>La huella es un casquete esférico: S = π · D · f.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie:<span class="eq">S = π · 10 · 0,4 = 12,57 mm²</span></li>
+          <li>Superficie:<span class="eq">S = π · 10 mm · 0,4 mm = 12,57 mm²</span></li>
       </ol>
       <p class="res">S ≈ 12,57 mm².</p>
     </div>
@@ -929,9 +929,9 @@ details.prob summary .stitle{display:block}
       <p>HB = F / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HB = 500 / 12,57 = 39,8</span></li>
+          <li>Dureza:<span class="eq">HB = 500 kp / 12,57 mm² = 39,8 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 40.</p>
+      <p class="res">HB ≈ 40 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>El diámetro de la huella.</h4>
@@ -939,9 +939,9 @@ details.prob summary .stitle{display:block}
       <p>Despejamos d de f = D/2 − √(D²/4 − d²/4): primero aislamos la raíz y después elevamos al cuadrado.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Aislamos la raíz:<span class="eq">√(25 − d²/4) = 5 − 0,4 = 4,6</span></li>
-          <li>Elevamos al cuadrado:<span class="eq">25 − d²/4 = 21,16 &nbsp;→&nbsp; d²/4 = 3,84 &nbsp;→&nbsp; d² = 15,36</span></li>
-          <li>Diámetro:<span class="eq">d = √15,36 = 3,92 mm</span></li>
+          <li>Aislamos la raíz:<span class="eq">√(25 mm² − d²/4) = 5 mm − 0,4 mm = 4,6 mm</span></li>
+          <li>Elevamos al cuadrado:<span class="eq">25 mm² − d²/4 = 21,16 mm² &nbsp;→&nbsp; d²/4 = 3,84 mm² &nbsp;→&nbsp; d² = 15,36 mm²</span></li>
+          <li>Diámetro:<span class="eq">d = √(15,36 mm²) = 3,92 mm</span></li>
       </ol>
       <p class="res">d ≈ 3,92 mm.</p>
     </div>
@@ -958,7 +958,7 @@ details.prob summary .stitle{display:block}
       <p>De HB = F / S despejamos S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie:<span class="eq">S = F / HB = 3 000 / 200 = 15 mm²</span></li>
+          <li>Superficie:<span class="eq">S = F / HB = 3 000 kp / 200 kp/mm² = 15 mm²</span></li>
       </ol>
       <p class="res">S = 15 mm².</p>
     </div>
@@ -968,7 +968,7 @@ details.prob summary .stitle{display:block}
       <p>De S = π · D · f despejamos f.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">f = S / (π · D) = 15 / (π · 10) = 0,477 mm</span></li>
+          <li>Profundidad:<span class="eq">f = S / (π · D) = 15 mm² / (π · 10 mm) = 0,477 mm</span></li>
       </ol>
       <p class="res">f ≈ 0,477 mm.</p>
     </div>
@@ -978,9 +978,9 @@ details.prob summary .stitle{display:block}
       <p>Despejamos d de f = D/2 − √(D²/4 − d²/4).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Aislamos la raíz:<span class="eq">√(25 − d²/4) = 5 − 0,477 = 4,523</span></li>
-          <li>Elevamos al cuadrado:<span class="eq">25 − d²/4 = 20,45 &nbsp;→&nbsp; d² = 18,19</span></li>
-          <li>Diámetro:<span class="eq">d = 4,26 mm</span></li>
+          <li>Aislamos la raíz:<span class="eq">√(25 mm² − d²/4) = 5 mm − 0,477 mm = 4,523 mm</span></li>
+          <li>Elevamos al cuadrado:<span class="eq">25 mm² − d²/4 = 20,45 mm² &nbsp;→&nbsp; d² = 18,19 mm²</span></li>
+          <li>Diámetro:<span class="eq">d = √(18,19 mm²) = 4,26 mm</span></li>
       </ol>
       <p class="res">d ≈ 4,26 mm.</p>
     </div>
@@ -997,8 +997,8 @@ details.prob summary .stitle{display:block}
       <p>La dureza Brinell se calcula con la carga en kilopondios. K sale de F = K · D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 9 800 / 9,8 = 1 000 kp</span></li>
-          <li>Constante:<span class="eq">K = 1 000 / 10² = 10 kp/mm²</span></li>
+          <li>Carga:<span class="eq">F = 9 800 N / (9,8 N/kp) = 1 000 kp</span></li>
+          <li>Constante:<span class="eq">K = 1 000 kp / (10 mm)² = 10 kp/mm²</span></li>
       </ol>
       <p class="res">F = 1 000 kp; K = 10 kp/mm².</p>
     </div>
@@ -1008,10 +1008,10 @@ details.prob summary .stitle{display:block}
       <p>Fórmula completa con la carga en kp.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Raíz:<span class="eq">√(100 − 12,96) = 9,330 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 2 · 1 000 / (π · 10 · (10 − 9,330)) = 2 000 / 21,06 = 95,0</span></li>
+          <li>Raíz:<span class="eq">√(100 mm² − 12,96 mm²) = 9,330 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 2 · 1 000 kp / (π · 10 mm · (10 mm − 9,330 mm)) = 2 000 kp / 21,06 mm² = 95,0 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 95.</p>
+      <p class="res">HB ≈ 95 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>La expresión del resultado.</h4>
@@ -1036,7 +1036,7 @@ details.prob summary .stitle{display:block}
       <p>F = K · D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 10 · 10² = 1 000 kp</span></li>
+          <li>Carga:<span class="eq">F = 10 kp/mm² · (10 mm)² = 1 000 kp</span></li>
       </ol>
       <p class="res">F = 1 000 kp.</p>
     </div>
@@ -1046,8 +1046,8 @@ details.prob summary .stitle{display:block}
       <p>f = D/2 − √(D²/4 − d²/4) y S = π · D · f.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">f = 5 − √(25 − 3,8025) = 5 − 4,604 = 0,396 mm</span></li>
-          <li>Superficie:<span class="eq">S = π · 10 · 0,396 = 12,44 mm²</span></li>
+          <li>Profundidad:<span class="eq">f = 5 mm − √(25 mm² − 3,8025 mm²) = 5 mm − 4,604 mm = 0,396 mm</span></li>
+          <li>Superficie:<span class="eq">S = π · 10 mm · 0,396 mm = 12,44 mm²</span></li>
       </ol>
       <p class="res">f ≈ 0,396 mm; S ≈ 12,44 mm².</p>
     </div>
@@ -1057,9 +1057,9 @@ details.prob summary .stitle{display:block}
       <p>HB = F / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HB = 1 000 / 12,44 = 80,4</span></li>
+          <li>Dureza:<span class="eq">HB = 1 000 kp / 12,44 mm² = 80,4 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 80.</p>
+      <p class="res">HB ≈ 80 kp/mm².</p>
     </div>
     <p class="note com">Cada material tiene su propia constante K: con la de los aceros (K = 30) la esfera se hundiría demasiado en el latón.</p>
   </details>
@@ -1074,10 +1074,10 @@ details.prob summary .stitle{display:block}
       <p>Profundidad, superficie y dureza.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">f = 5 − √(25 − 3,61) = 5 − 4,625 = 0,375 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 3 000 / (π · 10 · 0,375) = 254,6</span></li>
+          <li>Profundidad:<span class="eq">f = 5 mm − √(25 mm² − 3,61 mm²) = 5 mm − 4,625 mm = 0,375 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 3 000 kp / (π · 10 mm · 0,375 mm) = 254,6 kp/mm²</span></li>
       </ol>
-      <p class="res">HB<sub>A</sub> ≈ 255.</p>
+      <p class="res">HB<sub>A</sub> ≈ 255 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La dureza de la pieza B.</h4>
@@ -1085,10 +1085,10 @@ details.prob summary .stitle{display:block}
       <p>Mismo procedimiento.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">f = 5 − √(25 − 5,29) = 5 − 4,440 = 0,560 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 3 000 / (π · 10 · 0,560) = 170,4</span></li>
+          <li>Profundidad:<span class="eq">f = 5 mm − √(25 mm² − 5,29 mm²) = 5 mm − 4,440 mm = 0,560 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 3 000 kp / (π · 10 mm · 0,560 mm) = 170,4 kp/mm²</span></li>
       </ol>
-      <p class="res">HB<sub>B</sub> ≈ 170.</p>
+      <p class="res">HB<sub>B</sub> ≈ 170 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>Cuál es más dura y por qué.</h4>
@@ -1113,10 +1113,10 @@ details.prob summary .stitle{display:block}
       <p>Profundidad, superficie y dureza.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">f = 5 − √(25 − 4,41) = 5 − 4,538 = 0,462 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 3 000 / (π · 10 · 0,462) = 206,5</span></li>
+          <li>Profundidad:<span class="eq">f = 5 mm − √(25 mm² − 4,41 mm²) = 5 mm − 4,538 mm = 0,462 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 3 000 kp / (π · 10 mm · 0,462 mm) = 206,5 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 207.</p>
+      <p class="res">HB ≈ 207 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>Si cumple la especificación.</h4>
@@ -1124,7 +1124,7 @@ details.prob summary .stitle{display:block}
       <p>Comparamos con el mínimo exigido.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Comparación:<span class="eq">206,5 &lt; 210</span></li>
+          <li>Comparación:<span class="eq">206,5 kp/mm² &lt; 210 kp/mm²</span></li>
       </ol>
       <p class="res">No la cumple.</p>
     </div>
@@ -1134,8 +1134,8 @@ details.prob summary .stitle{display:block}
       <p>Problema inverso con HB = 210: S = F / HB, f = S / (π · D) y despejamos d.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie y profundidad:<span class="eq">S = 3 000 / 210 = 14,29 mm² &nbsp;→&nbsp; f = 14,29 / (π · 10) = 0,455 mm</span></li>
-          <li>Diámetro:<span class="eq">√(25 − d²/4) = 4,545 &nbsp;→&nbsp; d²/4 = 4,34 &nbsp;→&nbsp; d = 4,17 mm</span></li>
+          <li>Superficie y profundidad:<span class="eq">S = 3 000 kp / 210 kp/mm² = 14,29 mm² &nbsp;→&nbsp; f = 14,29 mm² / (π · 10 mm) = 0,455 mm</span></li>
+          <li>Diámetro:<span class="eq">√(25 mm² − d²/4) = 5 mm − 0,455 mm = 4,545 mm &nbsp;→&nbsp; d²/4 = 4,34 mm² &nbsp;→&nbsp; d = 4,17 mm</span></li>
       </ol>
       <p class="res">La huella debería medir como máximo 4,17 mm.</p>
     </div>
@@ -1153,7 +1153,7 @@ details.prob summary .stitle{display:block}
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Lectura:<span class="eq">dureza 180; esfera de 5 mm; carga de 750 kp; aplicada 30 s</span></li>
-          <li>Constante:<span class="eq">K = 750 / 5² = 30 kp/mm²</span></li>
+          <li>Constante:<span class="eq">K = 750 kp / (5 mm)² = 30 kp/mm²</span></li>
       </ol>
       <p class="res">Dureza 180 HB medida con esfera de 5 mm, 750 kp y 30 s; K = 30 kp/mm².</p>
     </div>
@@ -1163,8 +1163,8 @@ details.prob summary .stitle{display:block}
       <p>S = F / HB y f = S / (π · D).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie:<span class="eq">S = 750 / 180 = 4,167 mm²</span></li>
-          <li>Profundidad:<span class="eq">f = 4,167 / (π · 5) = 0,265 mm</span></li>
+          <li>Superficie:<span class="eq">S = 750 kp / 180 kp/mm² = 4,167 mm²</span></li>
+          <li>Profundidad:<span class="eq">f = 4,167 mm² / (π · 5 mm) = 0,265 mm</span></li>
       </ol>
       <p class="res">f ≈ 0,265 mm.</p>
     </div>
@@ -1174,8 +1174,8 @@ details.prob summary .stitle{display:block}
       <p>Despejamos d de f = D/2 − √(D²/4 − d²/4).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Aislamos la raíz:<span class="eq">√(6,25 − d²/4) = 2,5 − 0,265 = 2,235</span></li>
-          <li>Diámetro:<span class="eq">d²/4 = 6,25 − 4,995 = 1,256 &nbsp;→&nbsp; d = 2,24 mm</span></li>
+          <li>Aislamos la raíz:<span class="eq">√(6,25 mm² − d²/4) = 2,5 mm − 0,265 mm = 2,235 mm</span></li>
+          <li>Diámetro:<span class="eq">d²/4 = 6,25 mm² − 4,995 mm² = 1,256 mm² &nbsp;→&nbsp; d = 2,24 mm</span></li>
       </ol>
       <p class="res">d ≈ 2,24 mm.</p>
     </div>
@@ -1192,7 +1192,7 @@ details.prob summary .stitle{display:block}
       <p>F = K · D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 30 · 2,5² = 187,5 kp</span></li>
+          <li>Carga:<span class="eq">F = 30 kp/mm² · (2,5 mm)² = 187,5 kp</span></li>
       </ol>
       <p class="res">F = 187,5 kp.</p>
     </div>
@@ -1202,10 +1202,10 @@ details.prob summary .stitle{display:block}
       <p>Fórmula completa.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Raíz:<span class="eq">√(6,25 − 1) = 2,291 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 375 / (π · 2,5 · 0,209) = 228,8</span></li>
+          <li>Raíz:<span class="eq">√(6,25 mm² − 1 mm²) = 2,291 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 375 kp / (π · 2,5 mm · 0,209 mm) = 228,8 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 229.</p>
+      <p class="res">HB ≈ 229 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>Explique por qué sale la misma dureza que con la esfera de 10 mm.</h4>
@@ -1213,7 +1213,7 @@ details.prob summary .stitle{display:block}
       <p>Comparamos la relación entre la huella y la esfera en los dos ensayos.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Relación d/D:<span class="eq">4 / 10 = 1 / 2,5 = 0,4</span></li>
+          <li>Relación d/D:<span class="eq">4 mm / 10 mm = 1 mm / 2,5 mm = 0,4</span></li>
       </ol>
       <p class="res">Al elegir la carga con F = K · D², la huella guarda la misma proporción con la esfera y la dureza no cambia.</p>
     </div>
@@ -1235,10 +1235,10 @@ details.prob summary .stitle{display:block}
       <p>Aplicamos HV = 1,854 · F / d², con F en kp y d en mm.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Cuadrado de la diagonal:<span class="eq">d² = 0,5² = 0,25 mm²</span></li>
-          <li>Dureza:<span class="eq">HV = 1,854 · 30 / 0,25 = 222,5</span></li>
+          <li>Cuadrado de la diagonal:<span class="eq">d² = (0,5 mm)² = 0,25 mm²</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 30 kp / 0,25 mm² = 222,5 kp/mm²</span></li>
       </ol>
-      <p class="res">HV ≈ 222.</p>
+      <p class="res">HV ≈ 222 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La diagonal que dejaría el mismo material con una carga de 10 kp.</h4>
@@ -1246,7 +1246,7 @@ details.prob summary .stitle{display:block}
       <p>La dureza del material es la misma; despejamos d de la fórmula: d = √(1,854 · F / HV).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal:<span class="eq">d = √(1,854 · 10 / 222,5) = √0,0833 = 0,289 mm</span></li>
+          <li>Diagonal:<span class="eq">d = √(1,854 · 10 kp / 222,5 kp/mm²) = √(0,0833 mm²) = 0,289 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,29 mm.</p>
     </div>
@@ -1273,9 +1273,9 @@ details.prob summary .stitle{display:block}
       <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 1,854 · 10 / 0,43² = 18,54 / 0,1849 = 100,3</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 10 kp / (0,43 mm)² = 18,54 kp / 0,1849 mm² = 100,3 kp/mm²</span></li>
       </ol>
-      <p class="res">HV ≈ 100.</p>
+      <p class="res">HV ≈ 100 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La carga necesaria para obtener una huella de 0,6 mm.</h4>
@@ -1283,7 +1283,7 @@ details.prob summary .stitle{display:block}
       <p>Despejamos F de la fórmula: F = HV · d² / 1,854.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 100,3 · 0,6² / 1,854 = 100,3 · 0,36 / 1,854 = 19,5 kp</span></li>
+          <li>Carga:<span class="eq">F = 100,3 kp/mm² · (0,6 mm)² / 1,854 = 100,3 kp/mm² · 0,36 mm² / 1,854 = 19,5 kp</span></li>
       </ol>
       <p class="res">F ≈ 19,5 kp.</p>
     </div>
@@ -1293,7 +1293,7 @@ details.prob summary .stitle{display:block}
       <p>Multiplicamos por 9,8.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 19,5 · 9,8 = 191 N</span></li>
+          <li>Carga:<span class="eq">F = 19,5 kp · 9,8 N/kp = 191 N</span></li>
       </ol>
       <p class="res">F ≈ 191 N.</p>
     </div>
@@ -1310,7 +1310,7 @@ details.prob summary .stitle{display:block}
       <p>Despejamos d de HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal:<span class="eq">d = √(1,854 · 10 / 650) = √0,0285 = 0,169 mm</span></li>
+          <li>Diagonal:<span class="eq">d = √(1,854 · 10 kp / 650 kp/mm²) = √(0,0285 mm²) = 0,169 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,17 mm.</p>
     </div>
@@ -1320,7 +1320,7 @@ details.prob summary .stitle{display:block}
       <p>Misma expresión con la nueva carga.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal:<span class="eq">d = √(1,854 · 30 / 650) = 0,293 mm</span></li>
+          <li>Diagonal:<span class="eq">d = √(1,854 · 30 kp / 650 kp/mm²) = 0,293 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,29 mm.</p>
     </div>
@@ -1330,7 +1330,7 @@ details.prob summary .stitle{display:block}
       <p>Dividimos las dos diagonales.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Relación:<span class="eq">0,293 / 0,169 = 1,73</span></li>
+          <li>Relación:<span class="eq">0,293 mm / 0,169 mm = 1,73</span></li>
       </ol>
       <p class="res">Es unas 1,73 veces mayor (al triplicar la carga, d se multiplica por √3).</p>
     </div>
@@ -1347,7 +1347,7 @@ details.prob summary .stitle{display:block}
       <p>La fórmula de Vickers usa la carga en kilopondios.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 294 / 9,8 = 30 kp</span></li>
+          <li>Carga:<span class="eq">F = 294 N / (9,8 N/kp) = 30 kp</span></li>
       </ol>
       <p class="res">F = 30 kp.</p>
     </div>
@@ -1357,9 +1357,9 @@ details.prob summary .stitle{display:block}
       <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 1,854 · 30 / 0,62² = 55,62 / 0,3844 = 144,7</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 30 kp / (0,62 mm)² = 55,62 kp / 0,3844 mm² = 144,7 kp/mm²</span></li>
       </ol>
-      <p class="res">HV ≈ 145.</p>
+      <p class="res">HV ≈ 145 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>La diagonal que se obtendría con 5 kp.</h4>
@@ -1367,7 +1367,7 @@ details.prob summary .stitle{display:block}
       <p>Misma dureza, nueva carga.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal:<span class="eq">d = √(1,854 · 5 / 144,7) = 0,253 mm</span></li>
+          <li>Diagonal:<span class="eq">d = √(1,854 · 5 kp / 144,7 kp/mm²) = 0,253 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,25 mm.</p>
     </div>
@@ -1384,9 +1384,9 @@ details.prob summary .stitle{display:block}
       <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV<sub>A</sub> = 1,854 · 20 / 0,09 = 412</span></li>
+          <li>Dureza:<span class="eq">HV<sub>A</sub> = 1,854 · 20 kp / (0,30 mm)² = 37,08 kp / 0,09 mm² = 412 kp/mm²</span></li>
       </ol>
-      <p class="res">HV<sub>A</sub> = 412.</p>
+      <p class="res">HV<sub>A</sub> = 412 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La dureza de la pieza B.</h4>
@@ -1394,9 +1394,9 @@ details.prob summary .stitle{display:block}
       <p>Misma fórmula.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV<sub>B</sub> = 1,854 · 20 / 0,2025 = 183,1</span></li>
+          <li>Dureza:<span class="eq">HV<sub>B</sub> = 1,854 · 20 kp / (0,45 mm)² = 37,08 kp / 0,2025 mm² = 183,1 kp/mm²</span></li>
       </ol>
-      <p class="res">HV<sub>B</sub> ≈ 183.</p>
+      <p class="res">HV<sub>B</sub> ≈ 183 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>Cuál es más dura y cuántas veces.</h4>
@@ -1404,7 +1404,7 @@ details.prob summary .stitle{display:block}
       <p>Comparamos las durezas.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Relación:<span class="eq">412 / 183,1 = 2,25</span></li>
+          <li>Relación:<span class="eq">412 kp/mm² / 183,1 kp/mm² = 2,25</span></li>
       </ol>
       <p class="res">A es 2,25 veces más dura: deja la huella más pequeña.</p>
     </div>
@@ -1421,9 +1421,9 @@ details.prob summary .stitle{display:block}
       <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 55,62 / 0,5041 = 110,3</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 30 kp / (0,71 mm)² = 55,62 kp / 0,5041 mm² = 110,3 kp/mm²</span></li>
       </ol>
-      <p class="res">HV ≈ 110.</p>
+      <p class="res">HV ≈ 110 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La dureza después del temple.</h4>
@@ -1431,9 +1431,9 @@ details.prob summary .stitle{display:block}
       <p>Misma fórmula.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 55,62 / 0,1296 = 429,2</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 30 kp / (0,36 mm)² = 55,62 kp / 0,1296 mm² = 429,2 kp/mm²</span></li>
       </ol>
-      <p class="res">HV ≈ 429.</p>
+      <p class="res">HV ≈ 429 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>Cuántas veces ha aumentado la dureza.</h4>
@@ -1441,7 +1441,7 @@ details.prob summary .stitle{display:block}
       <p>Dividimos las durezas.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Relación:<span class="eq">429,2 / 110,3 = 3,89</span></li>
+          <li>Relación:<span class="eq">429,2 kp/mm² / 110,3 kp/mm² = 3,89</span></li>
       </ol>
       <p class="res">Casi 4 veces mayor.</p>
     </div>
@@ -1458,7 +1458,7 @@ details.prob summary .stitle{display:block}
       <p>Despejamos F de HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = HV · d² / 1,854 = 400 · 0,09 / 1,854 = 19,4 kp</span></li>
+          <li>Carga:<span class="eq">F = HV · d² / 1,854 = 400 kp/mm² · (0,3 mm)² / 1,854 = 19,4 kp</span></li>
       </ol>
       <p class="res">F<sub>máx</sub> ≈ 19,4 kp.</p>
     </div>
@@ -1468,7 +1468,7 @@ details.prob summary .stitle{display:block}
       <p>Despejamos d.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal:<span class="eq">d = √(1,854 · 10 / 400) = 0,215 mm</span></li>
+          <li>Diagonal:<span class="eq">d = √(1,854 · 10 kp / 400 kp/mm²) = 0,215 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,22 mm.</p>
     </div>
@@ -1478,7 +1478,7 @@ details.prob summary .stitle{display:block}
       <p>1 kp = 9,8 N.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">10 · 9,8 = 98 N</span></li>
+          <li>Carga:<span class="eq">10 kp · 9,8 N/kp = 98 N</span></li>
       </ol>
       <p class="res">98 N.</p>
     </div>
@@ -1495,9 +1495,9 @@ details.prob summary .stitle{display:block}
       <p>La fórmula es la misma; solo hay que tener cuidado con los decimales.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 1,854 · 0,1 / 0,025² = 0,1854 / 0,000 625 = 296,6</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 0,1 kp / (0,025 mm)² = 0,1854 kp / 0,000 625 mm² = 296,6 kp/mm²</span></li>
       </ol>
-      <p class="res">HV ≈ 297.</p>
+      <p class="res">HV ≈ 297 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La carga necesaria para que la huella mida 0,04 mm.</h4>
@@ -1505,7 +1505,7 @@ details.prob summary .stitle{display:block}
       <p>Despejamos F.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 296,6 · 0,04² / 1,854 = 0,256 kp</span></li>
+          <li>Carga:<span class="eq">F = 296,6 kp/mm² · (0,04 mm)² / 1,854 = 0,256 kp</span></li>
       </ol>
       <p class="res">F ≈ 0,26 kp.</p>
     </div>
@@ -1515,7 +1515,7 @@ details.prob summary .stitle{display:block}
       <p>1 kp = 9,8 N.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">0,256 · 9,8 = 2,51 N</span></li>
+          <li>Carga:<span class="eq">0,256 kp · 9,8 N/kp = 2,51 N</span></li>
       </ol>
       <p class="res">F ≈ 2,5 N.</p>
     </div>
@@ -1532,10 +1532,10 @@ details.prob summary .stitle{display:block}
       <p>HB = 2F / (π · D · (D − √(D² − d²))).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Raíz:<span class="eq">√(100 − 17,64) = 9,075 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 6 000 / (π · 10 · 0,925) = 206,5</span></li>
+          <li>Raíz:<span class="eq">√(100 mm² − 17,64 mm²) = 9,075 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 2 · 3 000 kp / (π · 10 mm · (10 mm − 9,075 mm)) = 206,5 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 207.</p>
+      <p class="res">HB ≈ 207 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La dureza Vickers.</h4>
@@ -1543,9 +1543,9 @@ details.prob summary .stitle{display:block}
       <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 55,62 / 0,2704 = 205,7</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 30 kp / (0,52 mm)² = 55,62 kp / 0,2704 mm² = 205,7 kp/mm²</span></li>
       </ol>
-      <p class="res">HV ≈ 206.</p>
+      <p class="res">HV ≈ 206 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>Compare los resultados.</h4>
@@ -1553,7 +1553,7 @@ details.prob summary .stitle{display:block}
       <p>Observamos los dos valores.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Comparación:<span class="eq">206,5 ≈ 205,7</span></li>
+          <li>Comparación:<span class="eq">206,5 kp/mm² ≈ 205,7 kp/mm²</span></li>
       </ol>
       <p class="res">Los dos ensayos dan valores muy parecidos para este acero.</p>
     </div>
@@ -1570,7 +1570,7 @@ details.prob summary .stitle{display:block}
       <p>d = √(1,854 · F / HV).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal:<span class="eq">d = √(1,854 · 10 / 520) = 0,189 mm</span></li>
+          <li>Diagonal:<span class="eq">d = √(1,854 · 10 kp / 520 kp/mm²) = 0,189 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,19 mm.</p>
     </div>
@@ -1580,7 +1580,7 @@ details.prob summary .stitle{display:block}
       <p>Misma expresión.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal:<span class="eq">d = √(1,854 · 30 / 520) = 0,327 mm</span></li>
+          <li>Diagonal:<span class="eq">d = √(1,854 · 30 kp / 520 kp/mm²) = 0,327 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,33 mm.</p>
     </div>
@@ -1590,7 +1590,7 @@ details.prob summary .stitle{display:block}
       <p>F = HV · d² / 1,854.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 520 · 0,0625 / 1,854 = 17,5 kp</span></li>
+          <li>Carga:<span class="eq">F = 520 kp/mm² · (0,25 mm)² / 1,854 = 17,5 kp</span></li>
       </ol>
       <p class="res">F ≈ 17,5 kp.</p>
     </div>
@@ -1612,8 +1612,8 @@ details.prob summary .stitle{display:block}
       <p>La energía potencial es E<sub>p</sub> = m · g · h en cada posición.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Antes:<span class="eq">E<sub>p0</sub> = 20 · 9,8 · 0,9 = 176,4 J</span></li>
-          <li>Después:<span class="eq">E<sub>p1</sub> = 20 · 9,8 · 0,35 = 68,6 J</span></li>
+          <li>Antes:<span class="eq">E<sub>p0</sub> = 20 kg · 9,8 m/s² · 0,9 m = 176,4 J</span></li>
+          <li>Después:<span class="eq">E<sub>p1</sub> = 20 kg · 9,8 m/s² · 0,35 m = 68,6 J</span></li>
       </ol>
       <p class="res">176,4 J y 68,6 J.</p>
     </div>
@@ -1623,7 +1623,7 @@ details.prob summary .stitle{display:block}
       <p>La energía que ha perdido el péndulo es la que ha absorbido la probeta al romperse: −ΔE<sub>p</sub> = m · g · (h₀ − h₁).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía absorbida:<span class="eq">176,4 − 68,6 = 107,8 J</span></li>
+          <li>Energía absorbida:<span class="eq">176,4 J − 68,6 J = 107,8 J</span></li>
       </ol>
       <p class="res">107,8 J.</p>
     </div>
@@ -1633,8 +1633,8 @@ details.prob summary .stitle{display:block}
       <p>ρ = m · g · (h₀ − h₁) / S, con S en mm².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = 10 · 8 = 80 mm²</span></li>
-          <li>Resiliencia:<span class="eq">ρ = 107,8 / 80 = 1,35 J/mm²</span></li>
+          <li>Sección:<span class="eq">S = 10 mm · 8 mm = 80 mm²</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 107,8 J / 80 mm² = 1,35 J/mm²</span></li>
       </ol>
       <p class="res">ρ ≈ 1,35 J/mm².</p>
     </div>
@@ -1651,8 +1651,8 @@ details.prob summary .stitle{display:block}
       <p>Medida desde el punto más bajo, la altura es h = L · (1 − cos α). Hay que tener cuidado con el signo del coseno de 150°.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Altura inicial (cos 150° = −0,866):<span class="eq">h₀ = 0,8 · (1 + 0,866) = 1,493 m</span></li>
-          <li>Altura final (cos 60° = 0,5):<span class="eq">h₁ = 0,8 · (1 − 0,5) = 0,40 m</span></li>
+          <li>Altura inicial (cos 150° = −0,866):<span class="eq">h₀ = 0,8 m · (1 + 0,866) = 1,493 m</span></li>
+          <li>Altura final (cos 60° = 0,5):<span class="eq">h₁ = 0,8 m · (1 − 0,5) = 0,40 m</span></li>
       </ol>
       <p class="res">h₀ ≈ 1,49 m; h₁ = 0,40 m.</p>
     </div>
@@ -1662,8 +1662,8 @@ details.prob summary .stitle{display:block}
       <p>m · g · (h₀ − h₁), o directamente m · g · L · (cos β − cos α).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">25 · 9,8 · (1,493 − 0,40) = 267,7 J</span></li>
-          <li>Comprobación con los ángulos:<span class="eq">25 · 9,8 · 0,8 · (0,5 + 0,866) = 267,7 J</span></li>
+          <li>Energía:<span class="eq">25 kg · 9,8 m/s² · (1,493 m − 0,40 m) = 267,7 J</span></li>
+          <li>Comprobación con los ángulos:<span class="eq">25 kg · 9,8 m/s² · 0,8 m · (0,5 + 0,866) = 267,7 J</span></li>
       </ol>
       <p class="res">≈ 267,7 J.</p>
     </div>
@@ -1673,7 +1673,7 @@ details.prob summary .stitle{display:block}
       <p>ρ = −ΔE<sub>p</sub> / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Resiliencia:<span class="eq">ρ = 267,7 / 80 = 3,35 J/mm²</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 267,7 J / 80 mm² = 3,35 J/mm²</span></li>
       </ol>
       <p class="res">ρ ≈ 3,35 J/mm².</p>
     </div>
@@ -1690,7 +1690,7 @@ details.prob summary .stitle{display:block}
       <p>De ρ = −ΔE<sub>p</sub> / S despejamos la energía: ρ · S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">0,6 · 80 = 48 J</span></li>
+          <li>Energía:<span class="eq">0,6 J/mm² · 80 mm² = 48 J</span></li>
       </ol>
       <p class="res">48 J.</p>
     </div>
@@ -1700,7 +1700,7 @@ details.prob summary .stitle{display:block}
       <p>m · g · h₀.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">22 · 9,8 · 1 = 215,6 J</span></li>
+          <li>Energía:<span class="eq">22 kg · 9,8 m/s² · 1 m = 215,6 J</span></li>
       </ol>
       <p class="res">215,6 J.</p>
     </div>
@@ -1710,7 +1710,7 @@ details.prob summary .stitle{display:block}
       <p>Le restamos la energía absorbida y despejamos h₁ de m · g · h₁.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Altura:<span class="eq">h₁ = (215,6 − 48) / (22 · 9,8) = 167,6 / 215,6 = 0,777 m</span></li>
+          <li>Altura:<span class="eq">h₁ = (215,6 J − 48 J) / (22 kg · 9,8 m/s²) = 167,6 J / 215,6 N = 0,777 m</span></li>
       </ol>
       <p class="res">h₁ ≈ 0,78 m.</p>
     </div>
@@ -1727,8 +1727,8 @@ details.prob summary .stitle{display:block}
       <p>h₀ = L · (1 − cos α) y E<sub>p0</sub> = m · g · h₀.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Altura (cos 140° = −0,766):<span class="eq">h₀ = 0,85 · 1,766 = 1,501 m</span></li>
-          <li>Energía:<span class="eq">E<sub>p0</sub> = 22 · 9,8 · 1,501 = 323,6 J</span></li>
+          <li>Altura (cos 140° = −0,766):<span class="eq">h₀ = 0,85 m · (1 + 0,766) = 1,501 m</span></li>
+          <li>Energía:<span class="eq">E<sub>p0</sub> = 22 kg · 9,8 m/s² · 1,501 m = 323,6 J</span></li>
       </ol>
       <p class="res">h₀ ≈ 1,50 m; E<sub>p0</sub> ≈ 324 J.</p>
     </div>
@@ -1738,8 +1738,8 @@ details.prob summary .stitle{display:block}
       <p>Restamos la energía absorbida, despejamos h₁ y, de h₁ = L · (1 − cos β), el ángulo: cos β = 1 − h₁ / L.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Altura final:<span class="eq">h₁ = (323,6 − 120) / (22 · 9,8) = 0,944 m</span></li>
-          <li>Ángulo final:<span class="eq">cos β = 1 − 0,944 / 0,85 = −0,111 &nbsp;→&nbsp; β = 96,4°</span></li>
+          <li>Altura final:<span class="eq">h₁ = (323,6 J − 120 J) / (22 kg · 9,8 m/s²) = 0,944 m</span></li>
+          <li>Ángulo final:<span class="eq">cos β = 1 − 0,944 m / 0,85 m = −0,111 &nbsp;→&nbsp; β = 96,4°</span></li>
       </ol>
       <p class="res">h₁ ≈ 0,94 m; β ≈ 96°.</p>
     </div>
@@ -1749,7 +1749,7 @@ details.prob summary .stitle{display:block}
       <p>ρ = −ΔE<sub>p</sub> / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Resiliencia:<span class="eq">ρ = 120 / 80 = 1,5 J/mm²</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 120 J / 80 mm² = 1,5 J/mm²</span></li>
       </ol>
       <p class="res">ρ = 1,5 J/mm².</p>
     </div>
@@ -1766,7 +1766,7 @@ details.prob summary .stitle{display:block}
       <p>ρ = m · g · (h₀ − h₁) / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Material A:<span class="eq">20 · 9,8 · 0,75 = 147 J &nbsp;→&nbsp; ρ = 147 / 80 = 1,84 J/mm²</span></li>
+          <li>Material A:<span class="eq">20 kg · 9,8 m/s² · 0,75 m = 147 J &nbsp;→&nbsp; ρ = 147 J / 80 mm² = 1,84 J/mm²</span></li>
       </ol>
       <p class="res">ρ<sub>A</sub> ≈ 1,84 J/mm².</p>
     </div>
@@ -1776,7 +1776,7 @@ details.prob summary .stitle{display:block}
       <p>Misma expresión.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Material B:<span class="eq">20 · 9,8 · 0,08 = 15,7 J &nbsp;→&nbsp; ρ = 15,7 / 80 = 0,196 J/mm²</span></li>
+          <li>Material B:<span class="eq">20 kg · 9,8 m/s² · 0,08 m = 15,7 J &nbsp;→&nbsp; ρ = 15,7 J / 80 mm² = 0,196 J/mm²</span></li>
       </ol>
       <p class="res">ρ<sub>B</sub> ≈ 0,20 J/mm².</p>
     </div>
@@ -1803,7 +1803,7 @@ details.prob summary .stitle{display:block}
       <p>−ΔE<sub>p</sub> = E<sub>p0</sub> − E<sub>p1</sub>.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">300 − 215 = 85 J</span></li>
+          <li>Energía:<span class="eq">300 J − 215 J = 85 J</span></li>
       </ol>
       <p class="res">85 J.</p>
     </div>
@@ -1813,7 +1813,7 @@ details.prob summary .stitle{display:block}
       <p>ρ = −ΔE<sub>p</sub> / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Resiliencia:<span class="eq">ρ = 85 / 80 = 1,06 J/mm²</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 85 J / 80 mm² = 1,06 J/mm²</span></li>
       </ol>
       <p class="res">ρ ≈ 1,06 J/mm².</p>
     </div>
@@ -1823,7 +1823,7 @@ details.prob summary .stitle{display:block}
       <p>Comparamos la energía absorbida con la inicial.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Porcentaje:<span class="eq">85 / 300 · 100 = 28,3 %</span></li>
+          <li>Porcentaje:<span class="eq">85 J / 300 J · 100 = 28,3 %</span></li>
       </ol>
       <p class="res">28,3 %.</p>
     </div>
@@ -1840,7 +1840,7 @@ details.prob summary .stitle{display:block}
       <p>m · g · (h₀ − h₁).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">30 · 9,8 · 0,35 = 102,9 J</span></li>
+          <li>Energía:<span class="eq">30 kg · 9,8 m/s² · (0,8 m − 0,45 m) = 102,9 J</span></li>
       </ol>
       <p class="res">102,9 J.</p>
     </div>
@@ -1850,8 +1850,8 @@ details.prob summary .stitle{display:block}
       <p>La sección en la entalla es 10 × 5 mm.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = 50 mm²</span></li>
-          <li>Resiliencia:<span class="eq">ρ = 102,9 / 50 = 2,06 J/mm²</span></li>
+          <li>Sección:<span class="eq">S = 10 mm · 5 mm = 50 mm²</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 102,9 J / 50 mm² = 2,06 J/mm²</span></li>
       </ol>
       <p class="res">ρ ≈ 2,06 J/mm².</p>
     </div>
@@ -1878,7 +1878,7 @@ details.prob summary .stitle{display:block}
       <p>ρ = m · g · (h₀ − h₁) / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>A 20 °C:<span class="eq">25 · 9,8 · 0,62 = 151,9 J &nbsp;→&nbsp; ρ = 151,9 / 80 = 1,90 J/mm²</span></li>
+          <li>A 20 °C:<span class="eq">25 kg · 9,8 m/s² · 0,62 m = 151,9 J &nbsp;→&nbsp; ρ = 151,9 J / 80 mm² = 1,90 J/mm²</span></li>
       </ol>
       <p class="res">ρ ≈ 1,90 J/mm².</p>
     </div>
@@ -1888,7 +1888,7 @@ details.prob summary .stitle{display:block}
       <p>Mismo cálculo.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>A −40 °C:<span class="eq">25 · 9,8 · 0,12 = 29,4 J &nbsp;→&nbsp; ρ = 29,4 / 80 = 0,37 J/mm²</span></li>
+          <li>A −40 °C:<span class="eq">25 kg · 9,8 m/s² · 0,12 m = 29,4 J &nbsp;→&nbsp; ρ = 29,4 J / 80 mm² = 0,37 J/mm²</span></li>
       </ol>
       <p class="res">ρ ≈ 0,37 J/mm².</p>
     </div>
@@ -1898,7 +1898,7 @@ details.prob summary .stitle{display:block}
       <p>Comparamos las dos resiliencias.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Relación:<span class="eq">1,90 / 0,37 ≈ 5,2</span></li>
+          <li>Relación:<span class="eq">1,90 J/mm² / 0,37 J/mm² ≈ 5,2</span></li>
       </ol>
       <p class="res">A −40 °C el acero absorbe unas cinco veces menos energía: con el frío resiste mucho peor los impactos.</p>
     </div>
@@ -1915,7 +1915,7 @@ details.prob summary .stitle{display:block}
       <p>ρ · S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">1,5 · 80 = 120 J</span></li>
+          <li>Energía:<span class="eq">1,5 J/mm² · 80 mm² = 120 J</span></li>
       </ol>
       <p class="res">120 J.</p>
     </div>
@@ -1925,7 +1925,7 @@ details.prob summary .stitle{display:block}
       <p>La energía potencial inicial debe ser al menos la necesaria: m · g · h₀ = 120 J.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Altura mínima:<span class="eq">h₀ = 120 / (20 · 9,8) = 0,612 m</span></li>
+          <li>Altura mínima:<span class="eq">h₀ = 120 J / (20 kg · 9,8 m/s²) = 0,612 m</span></li>
       </ol>
       <p class="res">h₀ ≥ 0,61 m.</p>
     </div>
@@ -1935,7 +1935,7 @@ details.prob summary .stitle{display:block}
       <p>La diferencia de alturas debe corresponder a los 120 J absorbidos: h₀ − h₁ = 0,612 m.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Altura final:<span class="eq">h₁ = 0,9 − 0,612 = 0,288 m</span></li>
+          <li>Altura final:<span class="eq">h₁ = 0,9 m − 0,612 m = 0,288 m</span></li>
       </ol>
       <p class="res">h₁ ≈ 0,29 m.</p>
     </div>
@@ -1952,7 +1952,7 @@ details.prob summary .stitle{display:block}
       <p>ρ · S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">2 · 80 = 160 J</span></li>
+          <li>Energía:<span class="eq">2 J/mm² · 80 mm² = 160 J</span></li>
       </ol>
       <p class="res">160 J.</p>
     </div>
@@ -1962,7 +1962,7 @@ details.prob summary .stitle{display:block}
       <p>Despejamos m de la expresión de la resiliencia: m = ρ · S / (g · (h₀ − h₁)).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Masa:<span class="eq">m = 160 / (9,8 · 0,8) = 20,4 kg</span></li>
+          <li>Masa:<span class="eq">m = 160 J / (9,8 m/s² · 0,8 m) = 20,4 kg</span></li>
       </ol>
       <p class="res">m ≈ 20,4 kg.</p>
     </div>
@@ -1972,7 +1972,7 @@ details.prob summary .stitle{display:block}
       <p>m · g · h₀.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">20,4 · 9,8 · 1,4 = 280 J</span></li>
+          <li>Energía:<span class="eq">20,4 kg · 9,8 m/s² · 1,4 m = 280 J</span></li>
       </ol>
       <p class="res">E<sub>p0</sub> ≈ 280 J.</p>
     </div>
@@ -1981,7 +1981,7 @@ details.prob summary .stitle{display:block}
 </section>
 
 <section id="pau">
-  <h2><span class="n">6</span>Ejercicios tipo PAU de tus hojas</h2>
+  <h2><span class="n">6</span>Ejercicios tipo PAU</h2>
   <details class="prob" id="p41" data-tags="traccion">
     <summary><span class="stitle">41. Cable de acero sometido a tracción<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Ejercicio 1</span></span></summary>
     <div class="enun"><p>Se dispone de un cable de acero de 12 m de longitud y 80 mm² de sección. Al someterlo a una carga axial de 100 kN, llega a medir 12,078 m. Calcule:</p></div>
@@ -1993,8 +1993,8 @@ details.prob summary .stitle{display:block}
       <p>La deformación unitaria compara el alargamiento con la longitud inicial; el esfuerzo es la fuerza entre la sección. Para obtener GPa trabajamos en N y m².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Deformación unitaria:<span class="eq">ε = (l − l₀) / l₀ = (12,078 − 12) / 12 = 0,078 / 12 = 6,5 · 10⁻³</span></li>
-          <li>Esfuerzo unitario (80 mm² = 80 · 10⁻⁶ m²):<span class="eq">σ = F / S = 100 · 10³ / 80 · 10⁻⁶ = 1,25 · 10⁹ Pa = 1,25 GPa</span></li>
+          <li>Deformación unitaria:<span class="eq">ε = (l − l₀) / l₀ = (12,078 m − 12 m) / 12 m = 0,078 m / 12 m = 6,5 · 10⁻³</span></li>
+          <li>Esfuerzo unitario (80 mm² = 80 · 10⁻⁶ m²):<span class="eq">σ = F / S = 100 · 10³ N / 80 · 10⁻⁶ m² = 1,25 · 10⁹ Pa = 1,25 GPa</span></li>
       </ol>
       <p class="res">ε = 6,5 · 10⁻³; σ = 1,25 GPa.</p>
     </div>
@@ -2004,7 +2004,7 @@ details.prob summary .stitle{display:block}
       <p>Suponemos que el cable trabaja en la zona proporcional, donde se cumple la ley de Hooke: σ = E · ε.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Módulo:<span class="eq">E = σ / ε = 1,25 / 6,5 · 10⁻³ = 192,3 GPa</span></li>
+          <li>Módulo:<span class="eq">E = σ / ε = 1,25 GPa / 6,5 · 10⁻³ = 192,3 GPa</span></li>
       </ol>
       <p class="res">E ≈ 192,3 GPa.</p>
     </div>
@@ -2014,9 +2014,9 @@ details.prob summary .stitle{display:block}
       <p>Con el alargamiento pedido calculamos ε, con la ley de Hooke la tensión y con la sección la fuerza.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Deformación (35 mm = 0,035 m):<span class="eq">ε = 0,035 / 12 = 2,917 · 10⁻³</span></li>
+          <li>Deformación (35 mm = 0,035 m):<span class="eq">ε = 0,035 m / 12 m = 2,917 · 10⁻³</span></li>
           <li>Tensión:<span class="eq">σ = E · ε = 192,3 GPa · 2,917 · 10⁻³ = 560,9 MPa</span></li>
-          <li>Fuerza:<span class="eq">F = σ · S = 560,9 · 10⁶ · 80 · 10⁻⁶ = 44 872 N</span></li>
+          <li>Fuerza:<span class="eq">F = σ · S = 560,9 · 10⁶ Pa · 80 · 10⁻⁶ m² = 44 872 N</span></li>
       </ol>
       <p class="res">F ≈ 44,9 kN.</p>
     </div>
@@ -2033,9 +2033,9 @@ details.prob summary .stitle{display:block}
       <p>Calculamos ε y σ y, como la probeta trabaja en la zona proporcional, E = σ / ε.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Deformación:<span class="eq">ε = Δl / l₀ = 0,080 / 100 = 8 · 10⁻⁴</span></li>
+          <li>Deformación:<span class="eq">ε = Δl / l₀ = 0,080 mm / 100 mm = 8 · 10⁻⁴</span></li>
           <li>Tensión:<span class="eq">σ = F / S = 15 000 N / 150 mm² = 100 MPa</span></li>
-          <li>Módulo:<span class="eq">E = σ / ε = 100 / 8 · 10⁻⁴ = 125 000 MPa</span></li>
+          <li>Módulo:<span class="eq">E = σ / ε = 100 MPa / 8 · 10⁻⁴ = 125 000 MPa</span></li>
       </ol>
       <p class="res">E = 125 000 MPa (125 GPa).</p>
     </div>
@@ -2045,8 +2045,8 @@ details.prob summary .stitle{display:block}
       <p>Calculamos la superficie del casquete esférico con la profundidad y dividimos la carga entre ella.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie de la huella:<span class="eq">A = π · D · f = π · 2,5 · 0,24 = 1,885 mm²</span></li>
-          <li>Dureza:<span class="eq">HB = F / A = 188,5 / 1,885 = 100 kp/mm²</span></li>
+          <li>Superficie de la huella:<span class="eq">A = π · D · f = π · 2,5 mm · 0,24 mm = 1,885 mm²</span></li>
+          <li>Dureza:<span class="eq">HB = F / A = 188,5 kp / 1,885 mm² = 100 kp/mm²</span></li>
       </ol>
       <p class="res">100 HB 2,5/188,5/20.</p>
     </div>
@@ -2056,8 +2056,8 @@ details.prob summary .stitle{display:block}
       <p>La energía absorbida es la pérdida de energía potencial del péndulo, m · g · (h₀ − h₁); la resiliencia es esa energía entre la sección.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía absorbida:<span class="eq">E = 20 · 9,81 · (1 − 0,45) = 107,9 J</span></li>
-          <li>Resiliencia:<span class="eq">ρ = 107,9 / 400 = 0,27 J/mm²</span></li>
+          <li>Energía absorbida:<span class="eq">E = 20 kg · 9,81 m/s² · (1 m − 0,45 m) = 107,9 J</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 107,9 J / 400 mm² = 0,27 J/mm²</span></li>
       </ol>
       <p class="res">ρ ≈ 0,27 J/mm².</p>
     </div>
@@ -2074,7 +2074,7 @@ details.prob summary .stitle{display:block}
       <p>El módulo de elasticidad es la pendiente del tramo recto O‑P, donde se cumple la ley de Hooke.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Pendiente de O a P:<span class="eq">E = Δσ / Δε = 90 / 4,5 · 10⁻⁴ = 200 000 MPa</span></li>
+          <li>Pendiente de O a P:<span class="eq">E = Δσ / Δε = 90 MPa / 4,5 · 10⁻⁴ = 200 000 MPa</span></li>
       </ol>
       <p class="res">E = 200 GPa.</p>
     </div>
@@ -2084,9 +2084,9 @@ details.prob summary .stitle{display:block}
       <p>Calculamos la tensión y miramos en qué zona del diagrama cae antes de aplicar la ley de Hooke.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Tensión con 115 kN:<span class="eq">σ = 115 000 / 25 = 4 600 MPa</span></li>
+          <li>Tensión con 115 kN:<span class="eq">σ = 115 000 N / 25 mm² = 4 600 MPa</span></li>
           <li>Comparación con el diagrama:<span class="eq">4 600 MPa ≫ σR = 260 MPa: la barra se rompería</span></li>
-          <li>Si la fuerza fuera 1,15 kN (probable errata del enunciado):<span class="eq">σ = 1 150 / 25 = 46 MPa &lt; 90 MPa → ε = 46 / 200 000 = 2,3 · 10⁻⁴ → Δl = 2,3 · 10⁻⁴ · 400 = 0,092 mm</span></li>
+          <li>Si la fuerza fuera 1,15 kN (probable errata del enunciado):<span class="eq">σ = 1 150 N / 25 mm² = 46 MPa &lt; 90 MPa → ε = 46 MPa / 200 000 MPa = 2,3 · 10⁻⁴ → Δl = 2,3 · 10⁻⁴ · 400 mm = 0,092 mm</span></li>
       </ol>
       <p class="res">Con 115 kN la barra rompe (la carga de rotura es 6,5 kN). Con 1,15 kN mediría 400,092 mm.</p>
     </div>
@@ -2096,7 +2096,7 @@ details.prob summary .stitle{display:block}
       <p>La rotura corresponde a la tensión del punto R: F = σR · S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Fuerza de rotura:<span class="eq">F = 260 · 25 = 6 500 N</span></li>
+          <li>Fuerza de rotura:<span class="eq">F = 260 N/mm² · 25 mm² = 6 500 N</span></li>
       </ol>
       <p class="res">F = 6,5 kN.</p>
     </div>
@@ -2125,8 +2125,8 @@ details.prob summary .stitle{display:block}
       <p>Los dos cilindros están uno a continuación del otro, así que los dos soportan la misma fuerza; cambia la sección.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Acero:<span class="eq">σ = 100 000 / 500 = 200 MPa</span></li>
-          <li>Hierro:<span class="eq">σ = 100 000 / 2000 = 50 MPa</span></li>
+          <li>Acero:<span class="eq">σ = 100 000 N / 500 mm² = 200 MPa</span></li>
+          <li>Hierro:<span class="eq">σ = 100 000 N / 2000 mm² = 50 MPa</span></li>
       </ol>
       <p class="res">σ<sub>acero</sub> = 200 MPa; σ<sub>hierro</sub> = 50 MPa.</p>
     </div>
@@ -2136,8 +2136,8 @@ details.prob summary .stitle{display:block}
       <p>Ley de Hooke: ε = σ / E (con E en MPa).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Acero:<span class="eq">ε = 200 / 200 000 = 1 · 10⁻³</span></li>
-          <li>Hierro:<span class="eq">ε = 50 / 80 000 = 6,25 · 10⁻⁴</span></li>
+          <li>Acero:<span class="eq">ε = 200 MPa / 200 000 MPa = 1 · 10⁻³</span></li>
+          <li>Hierro:<span class="eq">ε = 50 MPa / 80 000 MPa = 6,25 · 10⁻⁴</span></li>
       </ol>
       <p class="res">ε<sub>acero</sub> = 10⁻³; ε<sub>hierro</sub> = 6,25 · 10⁻⁴.</p>
     </div>
@@ -2147,8 +2147,8 @@ details.prob summary .stitle{display:block}
       <p>Δl = ε · l₀.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Acero:<span class="eq">Δl = 10⁻³ · 50 = 0,05 mm</span></li>
-          <li>Hierro:<span class="eq">Δl = 6,25 · 10⁻⁴ · 20 = 0,0125 mm</span></li>
+          <li>Acero:<span class="eq">Δl = 10⁻³ · 50 mm = 0,05 mm</span></li>
+          <li>Hierro:<span class="eq">Δl = 6,25 · 10⁻⁴ · 20 mm = 0,0125 mm</span></li>
       </ol>
       <p class="res">0,05 mm (acero) y 0,0125 mm (hierro).</p>
     </div>
@@ -2176,9 +2176,9 @@ details.prob summary .stitle{display:block}
       <p>Hay dos condiciones: la tensión y el alargamiento. Probamos cuál de ellas es la más restrictiva usando ε = σ / E = Δl / l₀.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Si σ = 150 MPa:<span class="eq">Δl = σ · l₀ / E = 150 · 50 000 / 200 000 = 37,5 mm &gt; 25 mm ✗</span></li>
-          <li>Si Δl = 25 mm:<span class="eq">σ = E · Δl / l₀ = 200 000 · 25 / 50 000 = 100 MPa &lt; 150 MPa ✓</span></li>
-          <li>Sección con σ = 100 MPa:<span class="eq">S = F / σ = 10 000 / 100 = 100 mm²</span></li>
+          <li>Si σ = 150 MPa:<span class="eq">Δl = σ · l₀ / E = 150 MPa · 50 000 mm / 200 000 MPa = 37,5 mm &gt; 25 mm ✗</span></li>
+          <li>Si Δl = 25 mm:<span class="eq">σ = E · Δl / l₀ = 200 000 MPa · 25 mm / 50 000 mm = 100 MPa &lt; 150 MPa ✓</span></li>
+          <li>Sección con σ = 100 MPa:<span class="eq">S = F / σ = 10 000 N / 100 N/mm² = 100 mm²</span></li>
       </ol>
       <p class="res">S<sub>mín</sub> = 100 mm².</p>
     </div>
@@ -2188,7 +2188,7 @@ details.prob summary .stitle{display:block}
       <p>ρ = m · g · (h₀ − h₁) / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Resiliencia:<span class="eq">ρ = 40 · 9,81 · 0,65 / 625 = 255,1 / 625 = 0,41 J/mm²</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 40 kg · 9,81 m/s² · 0,65 m / 625 mm² = 255,1 J / 625 mm² = 0,41 J/mm²</span></li>
       </ol>
       <p class="res">ρ ≈ 0,41 J/mm².</p>
     </div>
@@ -2218,7 +2218,7 @@ details.prob summary .stitle{display:block}
       <p>HV es la carga entre el área de la huella: HV = F / A = 1,8543 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 1,8543 · 50 / 0,45² = 92,72 / 0,2025 = 457,9</span></li>
+          <li>Dureza:<span class="eq">HV = 1,8543 · 50 kp / (0,45 mm)² = 92,72 kp / 0,2025 mm² = 457,9 kp/mm²</span></li>
       </ol>
       <p class="res">457,85 HV 50/20.</p>
     </div>
@@ -2228,8 +2228,8 @@ details.prob summary .stitle{display:block}
       <p>Despejamos h₀ de ρ = m · g · (h₀ − h₁) / S: h₀ = h₁ + ρ · S / (m · g).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía absorbida:<span class="eq">ρ · S = 0,46 · 200 = 92 J</span></li>
-          <li>Altura inicial:<span class="eq">h₀ = 0,38 + 92 / (40 · 9,81) = 0,38 + 0,234 = 0,61 m</span></li>
+          <li>Energía absorbida:<span class="eq">ρ · S = 0,46 J/mm² · 200 mm² = 92 J</span></li>
+          <li>Altura inicial:<span class="eq">h₀ = 0,38 m + 92 J / (40 kg · 9,81 m/s²) = 0,38 m + 0,234 m = 0,61 m</span></li>
       </ol>
       <p class="res">h₀ ≈ 0,61 m.</p>
     </div>
@@ -2258,7 +2258,7 @@ details.prob summary .stitle{display:block}
       <p>A y B están en el tramo recto, así que E es la pendiente entre ellos.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Pendiente:<span class="eq">E = (315 − 105) / (0,0015 − 0,0005) = 210 / 0,001 = 210 000 MPa</span></li>
+          <li>Pendiente:<span class="eq">E = (315 MPa − 105 MPa) / (0,0015 − 0,0005) = 210 MPa / 0,001 = 210 000 MPa</span></li>
       </ol>
       <p class="res">E = 210 GPa.</p>
     </div>
@@ -2268,9 +2268,9 @@ details.prob summary .stitle{display:block}
       <p>Con el alargamiento máximo calculamos ε, con Hooke la tensión y con la fuerza la sección.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Con 35 mm literalmente:<span class="eq">ε = 35 / 500 = 0,07 → σ = 210 000 · 0,07 = 14 700 MPa, imposible para un acero (está muy por encima del límite elástico)</span></li>
-          <li>Interpretando 0,035 mm:<span class="eq">ε = 0,035 / 500 = 7 · 10⁻⁵ → σ = 210 000 · 7 · 10⁻⁵ = 14,7 MPa</span></li>
-          <li>Sección y diámetro:<span class="eq">S = 7350 / 14,7 = 500 mm² → d = √(4 · 500 / π) = 25,2 mm</span></li>
+          <li>Con 35 mm literalmente:<span class="eq">ε = 35 mm / 500 mm = 0,07 → σ = 210 000 MPa · 0,07 = 14 700 MPa, imposible para un acero (está muy por encima del límite elástico)</span></li>
+          <li>Interpretando 0,035 mm:<span class="eq">ε = 0,035 mm / 500 mm = 7 · 10⁻⁵ → σ = 210 000 MPa · 7 · 10⁻⁵ = 14,7 MPa</span></li>
+          <li>Sección y diámetro:<span class="eq">S = 7350 N / 14,7 N/mm² = 500 mm² → d = √(4 · 500 mm² / π) = 25,2 mm</span></li>
       </ol>
       <p class="res">d ≈ 25,2 mm (con un alargamiento máximo de 0,035 mm).</p>
     </div>
@@ -2279,9 +2279,9 @@ details.prob summary .stitle{display:block}
 </section>
 
 <section id="cuaderno">
-  <h2><span class="n">7</span>Cuaderno de problemas</h2>
+  <h2><span class="n">7</span>Otros problemas</h2>
   <details class="prob" id="p48" data-tags="vickers resiliencia">
-    <summary><span class="stitle">48. Dureza Vickers y altura del péndulo<span class="ptags"><span class="ptag">Vickers</span><span class="ptag">Resiliencia</span></span><span class="psrc">Cuaderno, n.º 1</span></span></summary>
+    <summary><span class="stitle">48. Dureza Vickers y altura del péndulo<span class="ptags"><span class="ptag">Vickers</span><span class="ptag">Resiliencia</span></span><span class="psrc">Otros problemas, n.º 1</span></span></summary>
     <div class="enun"><p>a) Calcula la dureza Vickers de un material, sabiendo que una punta piramidal de diamante deja una huella de diagonal d = 0,45 mm al aplicarle una fuerza de 50 kp durante 20 s. b) Calcula la altura en m desde la que se dejó caer una maza de 40 kg de un péndulo de Charpy, si la resiliencia del material vale 46 J/cm² y aquella ascendió 38 cm después de romper una probeta de 2 cm² de sección.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Dureza Vickers.</li><li class="q"><b>b)</b> Altura inicial.</li></ol>
     <p class="datos"><b>Datos:</b> a) d = 0,45 mm, F = 50 kp. b) m = 40 kg, ρ = 46 J/cm², h₁ = 0,38 m, S = 2 cm²</p>
@@ -2291,7 +2291,7 @@ details.prob summary .stitle{display:block}
       <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 1,854 · 50 / 0,45² = 457,8</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 50 kp / (0,45 mm)² = 457,8 kp/mm²</span></li>
       </ol>
       <p class="res">HV ≈ 458 kp/mm².</p>
     </div>
@@ -2301,16 +2301,16 @@ details.prob summary .stitle{display:block}
       <p>La energía absorbida es ρ · S, y es igual a m · g · (h₀ − h₁).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía absorbida:<span class="eq">E = 46 · 2 = 92 J</span></li>
-          <li>Diferencia de alturas:<span class="eq">h₀ − h₁ = 92 / (40 · 9,8) = 0,235 m</span></li>
-          <li>Altura inicial:<span class="eq">h₀ = 0,38 + 0,235 = 0,615 m</span></li>
+          <li>Energía absorbida:<span class="eq">E = 46 J/cm² · 2 cm² = 92 J</span></li>
+          <li>Diferencia de alturas:<span class="eq">h₀ − h₁ = 92 J / (40 kg · 9,8 m/s²) = 0,235 m</span></li>
+          <li>Altura inicial:<span class="eq">h₀ = 0,38 m + 0,235 m = 0,615 m</span></li>
       </ol>
       <p class="res">h₀ ≈ 0,61 m.</p>
     </div>
     <p class="note com">Como la resiliencia viene en J/cm², la sección se usa también en cm².</p>
   </details>
   <details class="prob" id="p49" data-tags="brinell vickers">
-    <summary><span class="stitle">49. Rueda dentada cementada<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Vickers</span></span><span class="psrc">Cuaderno, n.º 2</span></span></summary>
+    <summary><span class="stitle">49. Rueda dentada cementada<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Vickers</span></span><span class="psrc">Otros problemas, n.º 2</span></span></summary>
     <div class="enun"><p>En la determinación de la dureza de una rueda dentada cuya capa superficial ha sido cementada, se procede así: en la zona central no cementada se determina la dureza Brinell, aplicando una carga de 187,5 kp con una bola de 2,5 mm de diámetro; la dureza resulta 350 HB. En la zona exterior cementada se determina la dureza Vickers, aplicando 30 kp y obteniéndose una huella de diagonales 0,272 mm y 0,274 mm. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El diámetro de la huella obtenida en el ensayo Brinell.</li><li class="q"><b>b)</b> El índice de dureza Vickers.</li></ol>
     <p class="datos"><b>Datos:</b> Brinell: F = 187,5 kp, D = 2,5 mm, HB = 350. Vickers: F = 30 kp, d₁ = 0,272 mm, d₂ = 0,274 mm</p>
@@ -2320,9 +2320,9 @@ details.prob summary .stitle{display:block}
       <p>Problema inverso: de HB = F / S obtenemos la superficie; de S = (π · D / 2) · (D − √(D² − d²)) despejamos d.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie:<span class="eq">S = 187,5 / 350 = 0,5357 mm²</span></li>
-          <li>Aislamos la raíz:<span class="eq">D − √(D² − d²) = 0,5357 / (π · 2,5 / 2) = 0,1364 → √(6,25 − d²) = 2,3636</span></li>
-          <li>Diámetro:<span class="eq">d² = 6,25 − 5,5866 = 0,6634 → d = 0,8145 mm</span></li>
+          <li>Superficie:<span class="eq">S = 187,5 kp / 350 kp/mm² = 0,5357 mm²</span></li>
+          <li>Aislamos la raíz:<span class="eq">D − √(D² − d²) = 0,5357 mm² / (π · 2,5 mm / 2) = 0,1364 mm → √(6,25 mm² − d²) = 2,3636 mm</span></li>
+          <li>Diámetro:<span class="eq">d² = 6,25 mm² − 5,5866 mm² = 0,6634 mm² → d = 0,8145 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,81 mm.</p>
     </div>
@@ -2332,15 +2332,15 @@ details.prob summary .stitle{display:block}
       <p>Usamos la media de las diagonales y HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal media:<span class="eq">d = (0,272 + 0,274) / 2 = 0,273 mm</span></li>
-          <li>Dureza:<span class="eq">HV = 1,854 · 30 / 0,273² = 746,3</span></li>
+          <li>Diagonal media:<span class="eq">d = (0,272 mm + 0,274 mm) / 2 = 0,273 mm</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 30 kp / (0,273 mm)² = 746,3 kp/mm²</span></li>
       </ol>
-      <p class="res">HV ≈ 746.</p>
+      <p class="res">HV ≈ 746 kp/mm².</p>
     </div>
     <p class="note com">La capa cementada es mucho más dura que el núcleo; por eso se mide con Vickers, cuyo penetrador sirve para materiales muy duros.</p>
   </details>
   <details class="prob" id="p50" data-tags="brinell vickers resiliencia">
-    <summary><span class="stitle">50. Placas de una excavadora<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Vickers</span><span class="ptag">Resiliencia</span></span><span class="psrc">Cuaderno, n.º 3</span></span></summary>
+    <summary><span class="stitle">50. Placas de una excavadora<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Vickers</span><span class="ptag">Resiliencia</span></span><span class="psrc">Otros problemas, n.º 3</span></span></summary>
     <div class="enun"><p>Una pieza de una excavadora está formada por dos placas de acero, una normal y otra templada. Determinar: a) la dureza Brinell de la placa normal si se emplea una bola de 10 mm (K = 30), obteniéndose una huella de 4 mm de diámetro; b) la dureza Vickers en la placa templada si con 10 kp se obtienen diagonales de 0,120 mm y 0,124 mm; c) la carga a aplicar si usáramos una bola de 2,5 mm para que el resultado fuera el mismo; d) se realiza el ensayo de resiliencia con el péndulo de Charpy con una probeta de 10 × 10 mm con entalla de 2 mm; si la maza de 30 kp se deja caer desde 1 m y tras la rotura se eleva hasta 0,60 m, ¿cuál es la resiliencia en unidades SI?</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Dureza Brinell de la placa normal.</li><li class="q"><b>b)</b> Dureza Vickers de la placa templada.</li><li class="q"><b>c)</b> Carga con bola de 2,5 mm.</li><li class="q"><b>d)</b> Resiliencia en unidades SI.</li></ol>
     <p class="datos"><b>Datos:</b> a) D = 10 mm, K = 30, d = 4 mm. b) F = 10 kp, d₁ = 0,120 mm, d₂ = 0,124 mm. d) peso de la maza 30 kp, h₀ = 1 m, h₁ = 0,60 m, S = 10 × 8 mm</p>
@@ -2350,10 +2350,10 @@ details.prob summary .stitle{display:block}
       <p>Primero la carga con F = K · D²; después la fórmula de la dureza.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 30 · 10² = 3 000 kp</span></li>
-          <li>Dureza:<span class="eq">HB = 2 · 3 000 / (π · 10 · (10 − √(100 − 16))) = 6 000 / 26,23 = 228,8</span></li>
+          <li>Carga:<span class="eq">F = 30 kp/mm² · (10 mm)² = 3 000 kp</span></li>
+          <li>Dureza:<span class="eq">HB = 2 · 3 000 kp / (π · 10 mm · (10 mm − √(100 mm² − 16 mm²))) = 6 000 kp / 26,23 mm² = 228,8 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 229.</p>
+      <p class="res">HB ≈ 229 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>Dureza Vickers de la placa templada.</h4>
@@ -2361,10 +2361,10 @@ details.prob summary .stitle{display:block}
       <p>Media de diagonales y HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal media:<span class="eq">d = (0,120 + 0,124) / 2 = 0,122 mm</span></li>
-          <li>Dureza:<span class="eq">HV = 1,854 · 10 / 0,122² = 1 245,6</span></li>
+          <li>Diagonal media:<span class="eq">d = (0,120 mm + 0,124 mm) / 2 = 0,122 mm</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 10 kp / (0,122 mm)² = 1 245,6 kp/mm²</span></li>
       </ol>
-      <p class="res">HV ≈ 1 246.</p>
+      <p class="res">HV ≈ 1 246 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>Carga con bola de 2,5 mm.</h4>
@@ -2372,7 +2372,7 @@ details.prob summary .stitle{display:block}
       <p>Para que la dureza sea la misma se mantiene K = 30.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 30 · 2,5² = 187,5 kp</span></li>
+          <li>Carga:<span class="eq">F = 30 kp/mm² · (2,5 mm)² = 187,5 kp</span></li>
       </ol>
       <p class="res">F = 187,5 kp.</p>
     </div>
@@ -2382,16 +2382,16 @@ details.prob summary .stitle{display:block}
       <p>La maza pesa 30 kp = 30 · 9,8 N. La energía absorbida es su peso por la diferencia de alturas; la sección es la que queda bajo la entalla (10 × 8 mm).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía absorbida:<span class="eq">E = 30 · 9,8 · (1 − 0,6) = 117,6 J</span></li>
-          <li>Sección:<span class="eq">S = 10 · 8 = 80 mm² = 80 · 10⁻⁶ m²</span></li>
-          <li>Resiliencia:<span class="eq">ρ = 117,6 / 80 · 10⁻⁶ = 1,47 · 10⁶ J/m²</span></li>
+          <li>Energía absorbida:<span class="eq">E = 30 kp · 9,8 N/kp · (1 m − 0,6 m) = 117,6 J</span></li>
+          <li>Sección:<span class="eq">S = 10 mm · 8 mm = 80 mm² = 80 · 10⁻⁶ m²</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 117,6 J / 80 · 10⁻⁶ m² = 1,47 · 10⁶ J/m²</span></li>
       </ol>
       <p class="res">ρ = 1,47 · 10⁶ J/m² (1,47 J/mm²).</p>
     </div>
     <p class="note com">En la solución original aparece 107,6 J en lugar de 117,6 J (errata de cálculo), por eso da 1,345 · 10⁶ J/m².</p>
   </details>
   <details class="prob" id="p51" data-tags="brinell vickers">
-    <summary><span class="stitle">51. Brinell con K = 10 y equivalencia con Vickers<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Vickers</span></span><span class="psrc">Cuaderno, n.º 4</span></span></summary>
+    <summary><span class="stitle">51. Brinell con K = 10 y equivalencia con Vickers<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Vickers</span></span><span class="psrc">Otros problemas, n.º 4</span></span></summary>
     <div class="enun"><p>Para determinar la dureza Brinell de un material se ha utilizado una bola de 5 mm de diámetro y una constante de ensayo K = 10, obteniéndose una huella de 2,4 mm de diámetro. Calcula: a) la dureza Brinell; b) la profundidad de la huella; c) si la dureza Brinell coincide con la Vickers, el valor medio de las diagonales de la huella Vickers con una carga de 30 kp.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Dureza Brinell.</li><li class="q"><b>b)</b> Profundidad de la huella.</li><li class="q"><b>c)</b> Diagonal Vickers.</li></ol>
     <p class="datos"><b>Datos:</b> D = 5 mm; K = 10; d = 2,4 mm; F<sub>Vickers</sub> = 30 kp</p>
@@ -2401,10 +2401,10 @@ details.prob summary .stitle{display:block}
       <p>F = K · D² y la fórmula de la dureza.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 10 · 5² = 250 kp</span></li>
-          <li>Dureza:<span class="eq">HB = 2 · 250 / (π · 5 · (5 − √(25 − 5,76))) = 500 / 9,64 = 51,87</span></li>
+          <li>Carga:<span class="eq">F = 10 kp/mm² · (5 mm)² = 250 kp</span></li>
+          <li>Dureza:<span class="eq">HB = 2 · 250 kp / (π · 5 mm · (5 mm − √(25 mm² − 5,76 mm²))) = 500 kp / 9,64 mm² = 51,87 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 51,9.</p>
+      <p class="res">HB ≈ 51,9 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>Profundidad de la huella.</h4>
@@ -2412,7 +2412,7 @@ details.prob summary .stitle{display:block}
       <p>f = D/2 − √(D²/4 − d²/4).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">f = 2,5 − √(6,25 − 1,44) = 2,5 − 2,193 = 0,307 mm</span></li>
+          <li>Profundidad:<span class="eq">f = 2,5 mm − √(6,25 mm² − 1,44 mm²) = 2,5 mm − 2,193 mm = 0,307 mm</span></li>
       </ol>
       <p class="res">f ≈ 0,31 mm.</p>
     </div>
@@ -2422,14 +2422,14 @@ details.prob summary .stitle{display:block}
       <p>Si HV = HB, despejamos d de HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal:<span class="eq">d² = 1,854 · 30 / 51,87 = 1,0723 → d = 1,036 mm</span></li>
+          <li>Diagonal:<span class="eq">d² = 1,854 · 30 kp / 51,87 kp/mm² = 1,0723 mm² → d = 1,036 mm</span></li>
       </ol>
       <p class="res">d ≈ 1,04 mm.</p>
     </div>
     
   </details>
   <details class="prob" id="p52" data-tags="brinell resiliencia">
-    <summary><span class="stitle">52. Misma dureza con bolas distintas y resiliencia<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Resiliencia</span></span><span class="psrc">Cuaderno, n.º 5</span></span></summary>
+    <summary><span class="stitle">52. Misma dureza con bolas distintas y resiliencia<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Resiliencia</span></span><span class="psrc">Otros problemas, n.º 5</span></span></summary>
     <div class="enun"><p>En un ensayo de dureza Brinell se aplican 750 kp a una bola de 5 mm de diámetro y la huella tiene 2 mm de diámetro. a) ¿Cuál será la dureza? b) ¿Se obtendría la misma dureza con una bola de 10 mm y 3 000 kp? c) ¿Cuál sería la huella en este caso? d) En el ensayo Charpy del mismo material, una probeta cuadrada de 10 mm de lado con entalla de 2 mm hace que el péndulo de 30 kp, situado a 1 m de altura, ascienda solo hasta 34 cm tras la rotura. ¿Cuál es la resiliencia en unidades SI?</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Dureza.</li><li class="q"><b>b)</b> ¿Misma dureza con 10 mm y 3 000 kp?</li><li class="q"><b>c)</b> Huella con la bola de 10 mm.</li><li class="q"><b>d)</b> Resiliencia en unidades SI.</li></ol>
     <p class="datos"><b>Datos:</b> D = 5 mm; F = 750 kp; d = 2 mm. Charpy: peso 30 kp, h₀ = 1 m, h₁ = 0,34 m, S = 10 × 8 mm</p>
@@ -2439,9 +2439,9 @@ details.prob summary .stitle{display:block}
       <p>Fórmula de la dureza Brinell.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HB = 2 · 750 / (π · 5 · (5 − √21)) = 228,8</span></li>
+          <li>Dureza:<span class="eq">HB = 2 · 750 kp / (π · 5 mm · (5 mm − √(21 mm²))) = 228,8 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 229.</p>
+      <p class="res">HB ≈ 229 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>¿Misma dureza con 10 mm y 3 000 kp?</h4>
@@ -2449,7 +2449,7 @@ details.prob summary .stitle{display:block}
       <p>Comparamos las constantes K = F / D² de los dos ensayos.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Constantes:<span class="eq">K₁ = 750 / 25 = 30; K₂ = 3 000 / 100 = 30</span></li>
+          <li>Constantes:<span class="eq">K₁ = 750 kp / 25 mm² = 30 kp/mm²; K₂ = 3 000 kp / 100 mm² = 30 kp/mm²</span></li>
       </ol>
       <p class="res">Sí: con la misma K los ensayos son equivalentes y la dureza es la misma.</p>
     </div>
@@ -2459,8 +2459,8 @@ details.prob summary .stitle{display:block}
       <p>Despejamos d con HB = 228,8 y D = 10 mm (o por semejanza: la huella se duplica).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Aislamos la raíz:<span class="eq">10 − √(100 − d²) = 2 · 3 000 / (π · 10 · 228,8) = 0,835 → √(100 − d²) = 9,165</span></li>
-          <li>Diámetro:<span class="eq">d² = 100 − 84,0 = 16 → d = 4 mm</span></li>
+          <li>Aislamos la raíz:<span class="eq">10 mm − √(100 mm² − d²) = 2 · 3 000 kp / (π · 10 mm · 228,8 kp/mm²) = 0,835 mm → √(100 mm² − d²) = 9,165 mm</span></li>
+          <li>Diámetro:<span class="eq">d² = 100 mm² − 84,0 mm² = 16 mm² → d = 4 mm</span></li>
       </ol>
       <p class="res">d = 4 mm.</p>
     </div>
@@ -2471,15 +2471,15 @@ details.prob summary .stitle{display:block}
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Trabajo absorbido:<span class="eq">W = 30 kp · 0,66 m = 19,8 kp·m</span></li>
-          <li>Resiliencia:<span class="eq">ρ = 19,8 / 0,8 cm² = 24,75 kp·m/cm²</span></li>
-          <li>En SI:<span class="eq">24,75 · 9,8 J / 10⁻⁴ m² = 2,43 · 10⁶ J/m²</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 19,8 kp·m / 0,8 cm² = 24,75 kp·m/cm²</span></li>
+          <li>En SI:<span class="eq">24,75 kp·m/cm² · 9,8 J/(kp·m) · 10⁴ cm²/m² = 2,43 · 10⁶ J/m²</span></li>
       </ol>
       <p class="res">ρ ≈ 2,43 · 10⁶ J/m².</p>
     </div>
     
   </details>
   <details class="prob" id="p53" data-tags="brinell">
-    <summary><span class="stitle">53. Esquema y dureza de un ensayo Brinell<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Cuaderno, n.º 6</span></span></summary>
+    <summary><span class="stitle">53. Esquema y dureza de un ensayo Brinell<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Otros problemas, n.º 6</span></span></summary>
     <div class="enun"><p>Realice un esquema representativo de un ensayo Brinell. Suponga que se ha utilizado una bola de 5 mm de diámetro y una constante K = 30, obteniéndose una huella de 2,3 mm de diámetro. Calcule la dureza Brinell del material.</p><figure><svg viewBox="0 0 420 220" role="img"><title>Esquema del ensayo Brinell</title><desc>Una esfera de diámetro D empujada por la carga F se hunde en la pieza y deja una huella de diámetro d y profundidad f.</desc>
 <path d="M20 130 H135 A80 80 0 0 0 285 130 H400 V210 H20 Z" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
 <circle cx="210" cy="102" r="80" style="fill:var(--work-bg);stroke:var(--work);stroke-width:2;opacity:.9"/>
@@ -2499,15 +2499,15 @@ details.prob summary .stitle{display:block}
       <p>El esquema muestra la bola de diámetro D, la carga F y la huella de diámetro d y profundidad f. Calculamos la carga y después la dureza.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 30 · 5² = 750 kp</span></li>
-          <li>Dureza:<span class="eq">HB = 2 · 750 / (π · 5 · (5 − √(25 − 5,29))) = 1 500 / 8,80 = 170,4</span></li>
+          <li>Carga:<span class="eq">F = 30 kp/mm² · (5 mm)² = 750 kp</span></li>
+          <li>Dureza:<span class="eq">HB = 2 · 750 kp / (π · 5 mm · (5 mm − √(25 mm² − 5,29 mm²))) = 1 500 kp / 8,80 mm² = 170,4 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 170.</p>
+      <p class="res">HB ≈ 170 kp/mm².</p>
     </div>
     
   </details>
   <details class="prob" id="p54" data-tags="brinell">
-    <summary><span class="stitle">54. Comprobar la elección de bola y carga<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Cuaderno, n.º 7</span></span></summary>
+    <summary><span class="stitle">54. Comprobar la elección de bola y carga<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Otros problemas, n.º 7</span></span></summary>
     <div class="enun"><p>Para realizar el ensayo de dureza Brinell de un material se ha utilizado una carga de 250 kp y un penetrador de 5 mm de diámetro, obteniéndose una huella de 3,35 mm² de superficie. Se pide: a) determinar el resultado; b) comprobar si se acertó al elegir el tamaño del penetrador y la carga.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Resultado del ensayo.</li><li class="q"><b>b)</b> ¿Fueron adecuadas la bola y la carga?</li></ol>
     <p class="datos"><b>Datos:</b> F = 250 kp; D = 5 mm; S = 3,35 mm²</p>
@@ -2517,9 +2517,9 @@ details.prob summary .stitle{display:block}
       <p>HB = F / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HB = 250 / 3,35 = 74,6</span></li>
+          <li>Dureza:<span class="eq">HB = 250 kp / 3,35 mm² = 74,6 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 75.</p>
+      <p class="res">HB ≈ 75 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>¿Fueron adecuadas la bola y la carga?</h4>
@@ -2527,8 +2527,8 @@ details.prob summary .stitle{display:block}
       <p>Calculamos el diámetro de la huella y comprobamos que está en el intervalo recomendado D/4 &lt; d &lt; D/2.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Aislamos la raíz:<span class="eq">5 − √(25 − d²) = 3,35 / (π · 5 / 2) = 0,4265 → √(25 − d²) = 4,5735</span></li>
-          <li>Diámetro:<span class="eq">d² = 25 − 20,917 = 4,083 → d = 2,02 mm</span></li>
+          <li>Aislamos la raíz:<span class="eq">5 mm − √(25 mm² − d²) = 3,35 mm² / (π · 5 mm / 2) = 0,4265 mm → √(25 mm² − d²) = 4,5735 mm</span></li>
+          <li>Diámetro:<span class="eq">d² = 25 mm² − 20,917 mm² = 4,083 mm² → d = 2,02 mm</span></li>
           <li>Comprobación:<span class="eq">D/4 = 1,25 mm &lt; 2,02 mm &lt; D/2 = 2,5 mm ✓</span></li>
       </ol>
       <p class="res">Sí: la huella está dentro del intervalo recomendado.</p>
@@ -2536,7 +2536,7 @@ details.prob summary .stitle{display:block}
     
   </details>
   <details class="prob" id="p55" data-tags="brinell">
-    <summary><span class="stitle">55. Carga aplicada y constante de ensayo<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Cuaderno, n.º 8</span></span></summary>
+    <summary><span class="stitle">55. Carga aplicada y constante de ensayo<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Otros problemas, n.º 8</span></span></summary>
     <div class="enun"><p>En un ensayo Brinell se obtuvo un valor de 40 HB. a) Determine la carga aplicada si el penetrador era una bola de 5 mm y la huella fue de 1,2 mm de diámetro. b) Indique la constante de ensayo del material.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Carga aplicada.</li><li class="q"><b>b)</b> Constante de ensayo.</li></ol>
     <p class="datos"><b>Datos:</b> HB = 40; D = 5 mm; d = 1,2 mm</p>
@@ -2546,8 +2546,8 @@ details.prob summary .stitle{display:block}
       <p>Calculamos la superficie del casquete y despejamos F = HB · S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie:<span class="eq">S = (π · 5 / 2) · (5 − √(25 − 1,44)) = 7,854 · 0,1461 = 1,148 mm²</span></li>
-          <li>Carga:<span class="eq">F = 40 · 1,148 = 45,9 kp</span></li>
+          <li>Superficie:<span class="eq">S = (π · 5 mm / 2) · (5 mm − √(25 mm² − 1,44 mm²)) = 7,854 mm · 0,1461 mm = 1,148 mm²</span></li>
+          <li>Carga:<span class="eq">F = 40 kp/mm² · 1,148 mm² = 45,9 kp</span></li>
       </ol>
       <p class="res">F ≈ 45,9 kp.</p>
     </div>
@@ -2557,14 +2557,14 @@ details.prob summary .stitle{display:block}
       <p>K = F / D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Constante:<span class="eq">K = 45,9 / 25 = 1,84</span></li>
+          <li>Constante:<span class="eq">K = 45,9 kp / (5 mm)² = 1,84 kp/mm²</span></li>
       </ol>
-      <p class="res">K ≈ 1,84 (material muy blando).</p>
+      <p class="res">K ≈ 1,84 kp/mm² (material muy blando).</p>
     </div>
     
   </details>
   <details class="prob" id="p56" data-tags="brinell">
-    <summary><span class="stitle">56. Dureza y cambio de penetrador<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Cuaderno, n.º 9</span></span></summary>
+    <summary><span class="stitle">56. Dureza y cambio de penetrador<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Otros problemas, n.º 9</span></span></summary>
     <div class="enun"><p>En un ensayo de dureza Brinell se ha aplicado una carga de 3 000 kp con una bola de 10 mm; el diámetro de la huella es de 4,5 mm. Se pide: a) el valor de la dureza Brinell; b) la carga que habrá que aplicar al mismo material si la bola es de 5 mm, y el tamaño de la huella.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Dureza Brinell.</li><li class="q"><b>b)</b> Carga y huella con bola de 5 mm.</li></ol>
     <p class="datos"><b>Datos:</b> F = 3 000 kp; D = 10 mm; d = 4,5 mm</p>
@@ -2574,10 +2574,10 @@ details.prob summary .stitle{display:block}
       <p>S = (π · D / 2) · (D − √(D² − d²)) y HB = F / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie:<span class="eq">S = 15,708 · (10 − √(100 − 20,25)) = 15,708 · 1,0697 = 16,80 mm²</span></li>
-          <li>Dureza:<span class="eq">HB = 3 000 / 16,80 = 178,5</span></li>
+          <li>Superficie:<span class="eq">S = (π · 10 mm / 2) · (10 mm − √(100 mm² − 20,25 mm²)) = 15,708 mm · 1,0697 mm = 16,80 mm²</span></li>
+          <li>Dureza:<span class="eq">HB = 3 000 kp / 16,80 mm² = 178,5 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 178,5.</p>
+      <p class="res">HB ≈ 178,5 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>Carga y huella con bola de 5 mm.</h4>
@@ -2585,15 +2585,15 @@ details.prob summary .stitle{display:block}
       <p>Mantenemos K = F / D² = 30. Al ser el mismo material, la dureza no cambia y la huella es proporcional a la bola.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 30 · 5² = 750 kp</span></li>
-          <li>Huella:<span class="eq">con HB = 178,5 y D = 5 mm se obtiene d = 2,25 mm (la mitad que con la bola de 10 mm)</span></li>
+          <li>Carga:<span class="eq">F = 30 kp/mm² · (5 mm)² = 750 kp</span></li>
+          <li>Huella:<span class="eq">con HB = 178,5 kp/mm² y D = 5 mm se obtiene d = 4,5 mm · 5 mm / 10 mm = 2,25 mm (la mitad que con la bola de 10 mm)</span></li>
       </ol>
       <p class="res">F = 750 kp; d = 2,25 mm.</p>
     </div>
     
   </details>
   <details class="prob" id="p57" data-tags="brinell">
-    <summary><span class="stitle">57. Diámetro de la bola a partir de la profundidad<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Cuaderno, n.º 10</span></span></summary>
+    <summary><span class="stitle">57. Diámetro de la bola a partir de la profundidad<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Otros problemas, n.º 10</span></span></summary>
     <div class="enun"><p>En un ensayo de dureza 95 HB se observa que la profundidad de la huella es f = 1,34 mm cuando se aplica una carga de 4 000 kp. Calcula el diámetro de la bola (D) y el diámetro de la huella (d).</p></div>
     
     <p class="datos"><b>Datos:</b> HB = 95; f = 1,34 mm; F = 4 000 kp</p>
@@ -2603,15 +2603,15 @@ details.prob summary .stitle{display:block}
       <p>De HB = F / (π · D · f) despejamos D; después, de f = (D − √(D² − d²)) / 2 despejamos d.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Bola:<span class="eq">D = F / (π · HB · f) = 4 000 / (π · 95 · 1,34) = 10,0 mm</span></li>
-          <li>Huella:<span class="eq">√(100 − d²) = 10 − 2 · 1,34 = 7,32 → d² = 100 − 53,58 = 46,42 → d = 6,81 mm</span></li>
+          <li>Bola:<span class="eq">D = F / (π · HB · f) = 4 000 kp / (π · 95 kp/mm² · 1,34 mm) = 10,0 mm</span></li>
+          <li>Huella:<span class="eq">√(100 mm² − d²) = 10 mm − 2 · 1,34 mm = 7,32 mm → d² = 100 mm² − 53,58 mm² = 46,42 mm² → d = 6,81 mm</span></li>
       </ol>
       <p class="res">D = 10 mm; d ≈ 6,81 mm.</p>
     </div>
     <p class="note com">La huella supera D/2 = 5 mm, así que en la práctica habría que repetir el ensayo con menos carga.</p>
   </details>
   <details class="prob" id="p58" data-tags="traccion">
-    <summary><span class="stitle">58. Diámetro de una barra, alargamiento y estricción<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Cuaderno, n.º 11</span></span></summary>
+    <summary><span class="stitle">58. Diámetro de una barra, alargamiento y estricción<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Otros problemas, n.º 11</span></span></summary>
     <div class="enun"><p>Una barra cilíndrica de un acero con límite elástico de 310 MPa va a ser sometida a una carga de 12 500 N. La longitud inicial de la barra es de 350 mm. a) ¿Cuál debe ser el diámetro de la barra si no queremos que se alargue más de 0,50 mm? (E = 22 · 10⁴ MPa). b) Se ensaya a tracción la barra hasta la rotura, obteniéndose un alargamiento total de 16 mm y un diámetro en la sección de rotura de 6,3 mm. ¿Cuál es el alargamiento y la estricción en %?</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Diámetro de la barra.</li><li class="q"><b>b)</b> Alargamiento y estricción en la rotura.</li></ol>
     <p class="datos"><b>Datos:</b> σe = 310 MPa; F = 12 500 N; l₀ = 350 mm; Δl ≤ 0,50 mm; E = 220 000 MPa; Δl<sub>rotura</sub> = 16 mm; d<sub>f</sub> = 6,3 mm</p>
@@ -2621,10 +2621,10 @@ details.prob summary .stitle{display:block}
       <p>Hay dos condiciones: que no se alargue más de 0,5 mm y que no se supere el límite elástico (si no, la ley de Hooke no vale). Calculamos la sección que exige cada una y nos quedamos con la mayor.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Por alargamiento:<span class="eq">S = F · l₀ / (E · Δl) = 12 500 · 350 / (220 000 · 0,5) = 39,77 mm²</span></li>
-          <li>Comprobación:<span class="eq">con esa sección σ = 12 500 / 39,77 = 314,3 MPa &gt; 310 MPa ✗ (se superaría el límite elástico)</span></li>
-          <li>Por límite elástico:<span class="eq">S = 12 500 / 310 = 40,32 mm² → Δl = 310 · 350 / 220 000 = 0,49 mm ≤ 0,5 ✓</span></li>
-          <li>Diámetro:<span class="eq">d = √(4 · 40,32 / π) = 7,17 mm</span></li>
+          <li>Por alargamiento:<span class="eq">S = F · l₀ / (E · Δl) = 12 500 N · 350 mm / (220 000 N/mm² · 0,5 mm) = 39,77 mm²</span></li>
+          <li>Comprobación:<span class="eq">con esa sección σ = 12 500 N / 39,77 mm² = 314,3 MPa &gt; 310 MPa ✗ (se superaría el límite elástico)</span></li>
+          <li>Por límite elástico:<span class="eq">S = 12 500 N / 310 N/mm² = 40,32 mm² → Δl = 310 MPa · 350 mm / 220 000 MPa = 0,49 mm ≤ 0,5 mm ✓</span></li>
+          <li>Diámetro:<span class="eq">d = √(4 · 40,32 mm² / π) = 7,17 mm</span></li>
       </ol>
       <p class="res">d ≥ 7,17 mm.</p>
     </div>
@@ -2634,16 +2634,16 @@ details.prob summary .stitle{display:block}
       <p>A = (l<sub>f</sub> − l₀) / l₀ · 100 y Z = (S₀ − S<sub>f</sub>) / S₀ · 100, con S₀ = 40,32 mm².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Alargamiento:<span class="eq">l<sub>f</sub> = 350 + 16 = 366 mm → A = 16 / 350 · 100 = 4,57 %</span></li>
-          <li>Sección final:<span class="eq">S<sub>f</sub> = π · 6,3² / 4 = 31,17 mm²</span></li>
-          <li>Estricción:<span class="eq">Z = (40,32 − 31,17) / 40,32 · 100 = 22,7 %</span></li>
+          <li>Alargamiento:<span class="eq">l<sub>f</sub> = 350 mm + 16 mm = 366 mm → A = 16 mm / 350 mm · 100 = 4,57 %</span></li>
+          <li>Sección final:<span class="eq">S<sub>f</sub> = π · (6,3 mm)² / 4 = 31,17 mm²</span></li>
+          <li>Estricción:<span class="eq">Z = (40,32 mm² − 31,17 mm²) / 40,32 mm² · 100 = 22,7 %</span></li>
       </ol>
       <p class="res">A ≈ 4,6 %; Z ≈ 22,7 %.</p>
     </div>
     <p class="note com">La solución original da 7,12 mm, pero con ese diámetro la tensión (314 MPa) supera el límite elástico. Por eso hay que comprobar siempre las dos condiciones. Con 7,12 mm la estricción saldría 21,6 %.</p>
   </details>
   <details class="prob" id="p59" data-tags="traccion">
-    <summary><span class="stitle">59. Barra de acero con unidades técnicas<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Cuaderno, n.º 12</span></span></summary>
+    <summary><span class="stitle">59. Barra de acero con unidades técnicas<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Otros problemas, n.º 12</span></span></summary>
     <div class="enun"><p>Una barra cilíndrica de acero, con un límite elástico de 5 000 kp/cm², es sometida a una fuerza de tracción de 8 500 kp. La barra mide 400 mm, tiene 50 mm de diámetro y E = 2,1 · 10⁶ kp/cm². Determinar: a) si recuperará la longitud inicial al cesar la fuerza; b) la deformación producida (ε, en %); c) la mayor carga a que podrá someterse con un coeficiente de seguridad de 5; d) el diámetro de la barra para que su alargamiento total no supere las 50 centésimas de milímetro.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> ¿Recupera la longitud?</li><li class="q"><b>b)</b> Deformación en %.</li><li class="q"><b>c)</b> Carga máxima con n = 5.</li><li class="q"><b>d)</b> Diámetro para Δl ≤ 0,5 mm.</li></ol>
     <p class="datos"><b>Datos:</b> σe = 5 000 kp/cm²; F = 8 500 kp; l₀ = 40 cm; D = 5 cm; E = 2,1 · 10⁶ kp/cm²; n = 5; Δl ≤ 0,5 mm = 0,05 cm</p>
@@ -2653,8 +2653,8 @@ details.prob summary .stitle{display:block}
       <p>Comparamos la tensión de trabajo con el límite elástico.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = π · 5² / 4 = 19,635 cm²</span></li>
-          <li>Tensión:<span class="eq">σ = 8 500 / 19,635 = 432,9 kp/cm² &lt; 5 000 kp/cm²</span></li>
+          <li>Sección:<span class="eq">S = π · (5 cm)² / 4 = 19,635 cm²</span></li>
+          <li>Tensión:<span class="eq">σ = 8 500 kp / 19,635 cm² = 432,9 kp/cm² &lt; 5 000 kp/cm²</span></li>
       </ol>
       <p class="res">Sí: trabaja en zona elástica y recupera su longitud.</p>
     </div>
@@ -2664,8 +2664,8 @@ details.prob summary .stitle{display:block}
       <p>Δl = F · l₀ / (E · S) y ε = Δl / l₀.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Alargamiento:<span class="eq">Δl = 8 500 · 40 / (2,1 · 10⁶ · 19,635) = 8,25 · 10⁻³ cm</span></li>
-          <li>Deformación:<span class="eq">ε = 8,25 · 10⁻³ / 40 · 100 = 0,0206 %</span></li>
+          <li>Alargamiento:<span class="eq">Δl = 8 500 kp · 40 cm / (2,1 · 10⁶ kp/cm² · 19,635 cm²) = 8,25 · 10⁻³ cm</span></li>
+          <li>Deformación:<span class="eq">ε = 8,25 · 10⁻³ cm / 40 cm · 100 = 0,0206 %</span></li>
       </ol>
       <p class="res">ε ≈ 0,021 %.</p>
     </div>
@@ -2675,8 +2675,8 @@ details.prob summary .stitle{display:block}
       <p>La tensión de trabajo admisible es σe / n.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Tensión admisible:<span class="eq">σ<sub>t</sub> = 5 000 / 5 = 1 000 kp/cm²</span></li>
-          <li>Carga:<span class="eq">F = 1 000 · 19,635 = 19 635 kp</span></li>
+          <li>Tensión admisible:<span class="eq">σ<sub>t</sub> = 5 000 kp/cm² / 5 = 1 000 kp/cm²</span></li>
+          <li>Carga:<span class="eq">F = 1 000 kp/cm² · 19,635 cm² = 19 635 kp</span></li>
       </ol>
       <p class="res">F<sub>máx</sub> ≈ 19 635 kp.</p>
     </div>
@@ -2686,16 +2686,16 @@ details.prob summary .stitle{display:block}
       <p>Despejamos la sección de Δl = F · l₀ / (E · S).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = 8 500 · 40 / (2,1 · 10⁶ · 0,05) = 3,238 cm²</span></li>
-          <li>Diámetro:<span class="eq">D = √(4 · 3,238 / π) = 2,03 cm</span></li>
-          <li>Comprobación:<span class="eq">σ = 8 500 / 3,238 = 2 625 kp/cm² &lt; 5 000 ✓</span></li>
+          <li>Sección:<span class="eq">S = 8 500 kp · 40 cm / (2,1 · 10⁶ kp/cm² · 0,05 cm) = 3,238 cm²</span></li>
+          <li>Diámetro:<span class="eq">D = √(4 · 3,238 cm² / π) = 2,03 cm</span></li>
+          <li>Comprobación:<span class="eq">σ = 8 500 kp / 3,238 cm² = 2 625 kp/cm² &lt; 5 000 kp/cm² ✓</span></li>
       </ol>
       <p class="res">D<sub>mín</sub> ≈ 20,3 mm.</p>
     </div>
     
   </details>
   <details class="prob" id="p60" data-tags="traccion">
-    <summary><span class="stitle">60. Barra cuadrada: alargamiento y zona de trabajo<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Cuaderno, n.º 13</span></span></summary>
+    <summary><span class="stitle">60. Barra cuadrada: alargamiento y zona de trabajo<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Otros problemas, n.º 13</span></span></summary>
     <div class="enun"><p>¿Cuál será el alargamiento de una barra cuadrada de 1,20 cm de lado y 12 cm de longitud sometida a una carga de tracción de 9 kN, si su módulo de elasticidad es de 2 MN/cm² y su límite de proporcionalidad 95 MPa? Si la carga fuera de 75 kN, ¿qué se podría decir del alargamiento?</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Alargamiento con 9 kN.</li><li class="q"><b>b)</b> ¿Y con 75 kN?</li></ol>
     <p class="datos"><b>Datos:</b> S = 1,2 × 1,2 cm; l₀ = 0,12 m; F = 9 kN; E = 2 MN/cm² = 2 · 10¹⁰ Pa; σp = 95 MPa</p>
@@ -2705,9 +2705,9 @@ details.prob summary .stitle{display:block}
       <p>Comprobamos que estamos en la zona proporcional y aplicamos la ley de Hooke.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = 1,2² = 1,44 cm² = 1,44 · 10⁻⁴ m²</span></li>
-          <li>Tensión:<span class="eq">σ = 9 000 / 1,44 · 10⁻⁴ = 62,5 MPa &lt; 95 MPa ✓</span></li>
-          <li>Alargamiento:<span class="eq">Δl = F · l₀ / (E · S) = 9 000 · 0,12 / (2 · 10¹⁰ · 1,44 · 10⁻⁴) = 3,75 · 10⁻⁴ m</span></li>
+          <li>Sección:<span class="eq">S = (1,2 cm)² = 1,44 cm² = 1,44 · 10⁻⁴ m²</span></li>
+          <li>Tensión:<span class="eq">σ = 9 000 N / 1,44 · 10⁻⁴ m² = 62,5 · 10⁶ Pa = 62,5 MPa &lt; 95 MPa ✓</span></li>
+          <li>Alargamiento:<span class="eq">Δl = F · l₀ / (E · S) = 9 000 N · 0,12 m / (2 · 10¹⁰ N/m² · 1,44 · 10⁻⁴ m²) = 3,75 · 10⁻⁴ m</span></li>
       </ol>
       <p class="res">Δl = 0,375 mm.</p>
     </div>
@@ -2717,14 +2717,14 @@ details.prob summary .stitle{display:block}
       <p>Volvemos a calcular la tensión.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Tensión:<span class="eq">σ = 75 000 / 1,44 · 10⁻⁴ = 521 MPa &gt; 95 MPa</span></li>
+          <li>Tensión:<span class="eq">σ = 75 000 N / 1,44 · 10⁻⁴ m² = 521 · 10⁶ Pa = 521 MPa &gt; 95 MPa</span></li>
       </ol>
       <p class="res">Se sale de la zona proporcional: no se cumple la ley de Hooke y no se puede calcular así; el alargamiento será, previsiblemente, permanente.</p>
     </div>
     
   </details>
   <details class="prob" id="p61" data-tags="traccion">
-    <summary><span class="stitle">61. Diámetro mínimo de una barra<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Cuaderno, n.º 14</span></span></summary>
+    <summary><span class="stitle">61. Diámetro mínimo de una barra<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Otros problemas, n.º 14</span></span></summary>
     <div class="enun"><p>Una barra cilíndrica de acero, con un límite elástico de 5 000 kp/cm², está sometida a una carga de tracción de 8 200 kp. La barra mide 380 mm y E = 2,1 · 10⁶ kp/cm². Calcula el diámetro de la barra para que su alargamiento no supere las 42 centésimas de milímetro.</p></div>
     
     <p class="datos"><b>Datos:</b> σe = 5 000 kp/cm²; F = 8 200 kp; l₀ = 38 cm; E = 2,1 · 10⁶ kp/cm²; Δl ≤ 0,42 mm = 0,042 cm</p>
@@ -2734,16 +2734,16 @@ details.prob summary .stitle{display:block}
       <p>Despejamos la sección de Δl = F · l₀ / (E · S) y comprobamos que no se supera el límite elástico.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = 8 200 · 38 / (2,1 · 10⁶ · 0,042) = 3,533 cm²</span></li>
-          <li>Comprobación:<span class="eq">σ = 8 200 / 3,533 = 2 321 kp/cm² &lt; 5 000 ✓</span></li>
-          <li>Diámetro:<span class="eq">D = √(4 · 3,533 / π) = 2,12 cm</span></li>
+          <li>Sección:<span class="eq">S = 8 200 kp · 38 cm / (2,1 · 10⁶ kp/cm² · 0,042 cm) = 3,533 cm²</span></li>
+          <li>Comprobación:<span class="eq">σ = 8 200 kp / 3,533 cm² = 2 321 kp/cm² &lt; 5 000 kp/cm² ✓</span></li>
+          <li>Diámetro:<span class="eq">D = √(4 · 3,533 cm² / π) = 2,12 cm</span></li>
       </ol>
       <p class="res">D ≈ 21,2 mm.</p>
     </div>
     
   </details>
   <details class="prob" id="p62" data-tags="traccion resiliencia">
-    <summary><span class="stitle">62. Diámetro de una barra y resiliencia<span class="ptags"><span class="ptag">Tracción</span><span class="ptag">Resiliencia</span></span><span class="psrc">Cuaderno, n.º 15</span></span></summary>
+    <summary><span class="stitle">62. Diámetro de una barra y resiliencia<span class="ptags"><span class="ptag">Tracción</span><span class="ptag">Resiliencia</span></span><span class="psrc">Otros problemas, n.º 15</span></span></summary>
     <div class="enun"><p>Una barra cilíndrica de un acero con límite elástico de 310 MPa va a ser sometida a una carga de 12 500 N. La longitud inicial es 350 mm. ¿Cuál debe ser el diámetro de la barra si no queremos que se alargue más de 0,50 mm? (E = 22 · 10⁴ MPa). En el ensayo de resiliencia de dicho acero, el trabajo absorbido al romper una probeta Mesnager (S = 10 mm × 8 mm) fue de 8,50 kp·m. ¿Cuál es la resiliencia en unidades SI?</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Diámetro de la barra.</li><li class="q"><b>b)</b> Resiliencia en unidades SI.</li></ol>
     <p class="datos"><b>Datos:</b> Igual que el n.º 11; T = 8,50 kp·m; S = 80 mm² = 0,8 cm²</p>
@@ -2753,8 +2753,8 @@ details.prob summary .stitle{display:block}
       <p>Es el mismo cálculo que en el apartado a) del n.º 11: hay que respetar el alargamiento y el límite elástico.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Por alargamiento:<span class="eq">S = 39,77 mm², pero σ = 314,3 MPa &gt; 310 MPa ✗</span></li>
-          <li>Por límite elástico:<span class="eq">S = 12 500 / 310 = 40,32 mm² → d = 7,17 mm</span></li>
+          <li>Por alargamiento:<span class="eq">S = 39,77 mm², pero σ = 12 500 N / 39,77 mm² = 314,3 MPa &gt; 310 MPa ✗</span></li>
+          <li>Por límite elástico:<span class="eq">S = 12 500 N / 310 N/mm² = 40,32 mm² → d = √(4 · 40,32 mm² / π) = 7,17 mm</span></li>
       </ol>
       <p class="res">d ≥ 7,17 mm.</p>
     </div>
@@ -2764,15 +2764,15 @@ details.prob summary .stitle{display:block}
       <p>ρ = T / S, pasando kp·m a julios (1 kp·m = 9,8 J) y cm² a m².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Resiliencia:<span class="eq">ρ = 8,5 / 0,8 = 10,625 kp·m/cm²</span></li>
-          <li>En SI:<span class="eq">10,625 · 9,8 J / 10⁻⁴ m² = 1,04 · 10⁶ J/m²</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 8,5 kp·m / 0,8 cm² = 10,625 kp·m/cm²</span></li>
+          <li>En SI:<span class="eq">10,625 kp·m/cm² · 9,8 J/(kp·m) · 10⁴ cm²/m² = 1,04 · 10⁶ J/m²</span></li>
       </ol>
       <p class="res">ρ ≈ 1,04 · 10⁶ J/m².</p>
     </div>
     
   </details>
   <details class="prob" id="p63" data-tags="traccion">
-    <summary><span class="stitle">63. Fuerza máxima sin deformación plástica<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Cuaderno, n.º 16</span></span></summary>
+    <summary><span class="stitle">63. Fuerza máxima sin deformación plástica<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Otros problemas, n.º 16</span></span></summary>
     <div class="enun"><p>Calcular la fuerza máxima que puede soportar una barra de acero de 12 mm de diámetro y 6 m de longitud sin que se produzca deformación plástica, y el alargamiento producido suponiendo que se cumple la ley de Hooke. Repetir suponiendo un coeficiente de seguridad de 3. Datos: σe = 2 500 kgf/cm²; E = 2,1 · 10⁶ kgf/cm².</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Fuerza máxima y alargamiento.</li><li class="q"><b>b)</b> Con coeficiente de seguridad 3.</li></ol>
     <p class="datos"><b>Datos:</b> D = 1,2 cm; l₀ = 600 cm; σe = 2 500 kgf/cm²; E = 2,1 · 10⁶ kgf/cm²; n = 3</p>
@@ -2782,9 +2782,9 @@ details.prob summary .stitle{display:block}
       <p>La fuerza máxima es la que produce una tensión igual al límite elástico.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = π · 1,2² / 4 = 1,131 cm²</span></li>
-          <li>Fuerza:<span class="eq">F = 2 500 · 1,131 = 2 827 kgf</span></li>
-          <li>Alargamiento:<span class="eq">ε = 2 500 / 2,1 · 10⁶ = 1,19 · 10⁻³ → Δl = 1,19 · 10⁻³ · 6 000 mm = 7,14 mm</span></li>
+          <li>Sección:<span class="eq">S = π · (1,2 cm)² / 4 = 1,131 cm²</span></li>
+          <li>Fuerza:<span class="eq">F = 2 500 kgf/cm² · 1,131 cm² = 2 827 kgf</span></li>
+          <li>Alargamiento:<span class="eq">ε = 2 500 kgf/cm² / 2,1 · 10⁶ kgf/cm² = 1,19 · 10⁻³ → Δl = 1,19 · 10⁻³ · 6 000 mm = 7,14 mm</span></li>
       </ol>
       <p class="res">F ≈ 2 827 kgf; Δl ≈ 7,14 mm.</p>
     </div>
@@ -2794,15 +2794,15 @@ details.prob summary .stitle{display:block}
       <p>La tensión de trabajo es σe / 3.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Tensión:<span class="eq">σ<sub>t</sub> = 2 500 / 3 = 833,3 kgf/cm²</span></li>
-          <li>Fuerza y alargamiento:<span class="eq">F = 833,3 · 1,131 = 942,5 kgf; Δl = 7,14 / 3 = 2,38 mm</span></li>
+          <li>Tensión:<span class="eq">σ<sub>t</sub> = 2 500 kgf/cm² / 3 = 833,3 kgf/cm²</span></li>
+          <li>Fuerza y alargamiento:<span class="eq">F = 833,3 kgf/cm² · 1,131 cm² = 942,5 kgf; Δl = 7,14 mm / 3 = 2,38 mm</span></li>
       </ol>
       <p class="res">F ≈ 942 kgf; Δl ≈ 2,38 mm.</p>
     </div>
     
   </details>
   <details class="prob" id="p64" data-tags="traccion">
-    <summary><span class="stitle">64. Pieza de latón<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Cuaderno, n.º 17</span></span></summary>
+    <summary><span class="stitle">64. Pieza de latón<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Otros problemas, n.º 17</span></span></summary>
     <div class="enun"><p>Una pieza de latón deja de tener comportamiento elástico para esfuerzos superiores a 345 MPa. El módulo de elasticidad del latón es 10,3 · 10⁴ MPa. Determinar: a) la tensión máxima que puede aplicarse a una probeta de 150 mm² sin deformación plástica; b) la longitud máxima a la que puede estirarse sin deformación plástica, si la pieza mide 70 mm.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Tensión máxima.</li><li class="q"><b>b)</b> Longitud máxima.</li></ol>
     <p class="datos"><b>Datos:</b> σe = 345 MPa; E = 103 000 MPa; S = 150 mm²; l₀ = 70 mm</p>
@@ -2812,7 +2812,7 @@ details.prob summary .stitle{display:block}
       <p>Sin deformación plástica, la tensión no puede pasar del límite elástico.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Tensión y fuerza:<span class="eq">σ<sub>máx</sub> = 345 MPa → F = 345 · 150 = 51 750 N</span></li>
+          <li>Tensión y fuerza:<span class="eq">σ<sub>máx</sub> = 345 MPa → F = 345 N/mm² · 150 mm² = 51 750 N</span></li>
       </ol>
       <p class="res">σ = 345 MPa (unos 51,8 kN).</p>
     </div>
@@ -2822,15 +2822,15 @@ details.prob summary .stitle{display:block}
       <p>Con σ = σe aplicamos la ley de Hooke.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Deformación:<span class="eq">ε = 345 / 103 000 = 3,35 · 10⁻³</span></li>
-          <li>Longitud:<span class="eq">Δl = 3,35 · 10⁻³ · 70 = 0,234 mm → l = 70,234 mm</span></li>
+          <li>Deformación:<span class="eq">ε = 345 MPa / 103 000 MPa = 3,35 · 10⁻³</span></li>
+          <li>Longitud:<span class="eq">Δl = 3,35 · 10⁻³ · 70 mm = 0,234 mm → l = 70 mm + 0,234 mm = 70,234 mm</span></li>
       </ol>
       <p class="res">l ≈ 70,23 mm.</p>
     </div>
     
   </details>
   <details class="prob" id="p65" data-tags="traccion">
-    <summary><span class="stitle">65. Tensión de trabajo y coeficiente de seguridad<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Cuaderno, n.º 18</span></span></summary>
+    <summary><span class="stitle">65. Tensión de trabajo y coeficiente de seguridad<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Otros problemas, n.º 18</span></span></summary>
     <div class="enun"><p>La pieza de la figura es de acero al carbono semisuave estirado en frío y tiene un límite elástico de 3 900 kgf/cm². Se somete a una fuerza F de 6 000 kgf. Calcular: a) la tensión de trabajo; b) el coeficiente de seguridad; c) el alargamiento de la barra (E = 2,1 · 10⁶ kgf/cm²).</p><figure><svg viewBox="0 0 440 130" role="img"><title>Pieza cilíndrica a tracción</title><desc>Barra de 30 mm de diámetro y 50 mm de longitud sometida a una fuerza F en cada extremo.</desc>
 <rect x="130" y="40" width="180" height="44" style="fill:var(--cold-bg);stroke:var(--ink);stroke-width:2"/>
 <g style="fill:var(--ink)"><polygon points="40,62 62,54 62,70"/><rect x="62" y="59" width="68" height="6"/><polygon points="400,62 378,54 378,70"/><rect x="310" y="59" width="68" height="6"/></g>
@@ -2847,8 +2847,8 @@ details.prob summary .stitle{display:block}
       <p>σ = F / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Sección:<span class="eq">S = π · 3² / 4 = 7,07 cm²</span></li>
-          <li>Tensión:<span class="eq">σ<sub>t</sub> = 6 000 / 7,07 = 848,8 kgf/cm²</span></li>
+          <li>Sección:<span class="eq">S = π · (3 cm)² / 4 = 7,07 cm²</span></li>
+          <li>Tensión:<span class="eq">σ<sub>t</sub> = 6 000 kgf / 7,07 cm² = 848,8 kgf/cm²</span></li>
       </ol>
       <p class="res">σ<sub>t</sub> ≈ 849 kgf/cm².</p>
     </div>
@@ -2858,7 +2858,7 @@ details.prob summary .stitle{display:block}
       <p>n = σe / σ<sub>t</sub>.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Coeficiente:<span class="eq">n = 3 900 / 848,8 = 4,6</span></li>
+          <li>Coeficiente:<span class="eq">n = 3 900 kgf/cm² / 848,8 kgf/cm² = 4,6</span></li>
       </ol>
       <p class="res">n ≈ 4,6.</p>
     </div>
@@ -2868,14 +2868,14 @@ details.prob summary .stitle{display:block}
       <p>ε = σ / E y Δl = ε · l₀.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Alargamiento:<span class="eq">ε = 848,8 / 2,1 · 10⁶ = 4,04 · 10⁻⁴ → Δl = 4,04 · 10⁻⁴ · 50 = 0,0202 mm</span></li>
+          <li>Alargamiento:<span class="eq">ε = 848,8 kgf/cm² / 2,1 · 10⁶ kgf/cm² = 4,04 · 10⁻⁴ → Δl = 4,04 · 10⁻⁴ · 50 mm = 0,0202 mm</span></li>
       </ol>
       <p class="res">Δl ≈ 0,020 mm.</p>
     </div>
     <p class="note com">La solución original redondea la sección a 7 cm² y obtiene 857,1 kgf/cm²; el coeficiente de seguridad sale igual, 4,6.</p>
   </details>
   <details class="prob" id="p66" data-tags="traccion">
-    <summary><span class="stitle">66. Lectura de un diagrama de tracción real<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Cuaderno, n.º 19</span></span></summary>
+    <summary><span class="stitle">66. Lectura de un diagrama de tracción real<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Otros problemas, n.º 19</span></span></summary>
     <div class="enun"><p>El diagrama de la figura representa el resultado de un ensayo de tracción (la deformación está en unidades de 10⁻⁴ y la tensión en MPa). Se pide: a) identificar los puntos significativos del diagrama, indicando la tensión y la deformación de cada uno; b) determinar el módulo de elasticidad del material en SI y en kp/cm².</p><figure><svg viewBox="0 0 420 260" role="img"><title>Diagrama tensión-deformación del problema 19</title><desc>Diagrama de tracción con sus puntos característicos.</desc><line x1="106.66666666666666" y1="220" x2="106.66666666666666" y2="30" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="106.66666666666666" y="236" text-anchor="middle" style="fill:var(--muted);font:11px var(--mono)">10</text><line x1="163.33333333333331" y1="220" x2="163.33333333333331" y2="30" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="163.33333333333331" y="236" text-anchor="middle" style="fill:var(--muted);font:11px var(--mono)">20</text><line x1="220.0" y1="220" x2="220.0" y2="30" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="220.0" y="236" text-anchor="middle" style="fill:var(--muted);font:11px var(--mono)">30</text><line x1="276.66666666666663" y1="220" x2="276.66666666666663" y2="30" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="276.66666666666663" y="236" text-anchor="middle" style="fill:var(--muted);font:11px var(--mono)">40</text><line x1="333.33333333333337" y1="220" x2="333.33333333333337" y2="30" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="333.33333333333337" y="236" text-anchor="middle" style="fill:var(--muted);font:11px var(--mono)">50</text><line x1="390.0" y1="220" x2="390.0" y2="30" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="390.0" y="236" text-anchor="middle" style="fill:var(--muted);font:11px var(--mono)">60</text><line x1="50" y1="185.45454545454544" x2="390" y2="185.45454545454544" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="44" y="189.45454545454544" text-anchor="end" style="fill:var(--muted);font:11px var(--mono)">50</text><line x1="50" y1="150.9090909090909" x2="390" y2="150.9090909090909" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="44" y="154.9090909090909" text-anchor="end" style="fill:var(--muted);font:11px var(--mono)">100</text><line x1="50" y1="116.36363636363637" x2="390" y2="116.36363636363637" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="44" y="120.36363636363637" text-anchor="end" style="fill:var(--muted);font:11px var(--mono)">150</text><line x1="50" y1="81.81818181818181" x2="390" y2="81.81818181818181" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="44" y="85.81818181818181" text-anchor="end" style="fill:var(--muted);font:11px var(--mono)">200</text><line x1="50" y1="47.27272727272728" x2="390" y2="47.27272727272728" style="stroke:var(--line);stroke-dasharray:3 3"/><text x="44" y="51.27272727272728" text-anchor="end" style="fill:var(--muted);font:11px var(--mono)">250</text><line x1="50" y1="220" x2="400" y2="220" style="stroke:var(--muted)"/><line x1="50" y1="220" x2="50" y2="18" style="stroke:var(--muted)"/><text x="398" y="250" text-anchor="end" style="fill:var(--muted);font:13px var(--mono)">ε (×10⁻⁴)</text><text x="42" y="14" style="fill:var(--muted);font:13px var(--mono)">σ (MPa)</text><path d="M50 220 L78.33333333333333 159.54545454545456 Q89.66666666666666 140.54545454545456 95.33333333333334 133.63636363636363 Q101.0 109.45454545454545 112.33333333333333 101.16363636363636 L163.33333333333331 101.16363636363636 Q169.0 92.18181818181819 174.66666666666666 88.72727272727272 Q265.3333333333333 45.890909090909076 333.33333333333337 38.636363636363626 Q367.3333333333333 38.98181818181817 390.0 47.27272727272728" style="fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linejoin:round"/><circle cx="78.33333333333333" cy="159.54545454545456" r="4.5" style="fill:var(--hot)"/><text x="86.33333333333333" y="151.54545454545456" text-anchor="start" style="fill:var(--ink);font:700 13px var(--mono)">P</text><circle cx="95.33333333333334" cy="133.63636363636363" r="4.5" style="fill:var(--hot)"/><text x="103.33333333333334" y="125.63636363636363" text-anchor="start" style="fill:var(--ink);font:700 13px var(--mono)">E</text><circle cx="333.33333333333337" cy="38.636363636363626" r="4.5" style="fill:var(--hot)"/><text x="325.33333333333337" y="30.636363636363626" text-anchor="end" style="fill:var(--ink);font:700 13px var(--mono)">R</text><circle cx="390.0" cy="47.27272727272728" r="4.5" style="fill:var(--hot)"/><text x="382.0" y="39.27272727272728" text-anchor="end" style="fill:var(--ink);font:700 13px var(--mono)">S</text><text x="46" y="234" text-anchor="end" style="fill:var(--muted);font:12px var(--mono)">O</text></svg></figure></div>
     <ol class="aps"><li class="q"><b>a)</b> Puntos significativos.</li><li class="q"><b>b)</b> Módulo de elasticidad.</li></ol>
     <p class="datos"><b>Datos:</b> Lectura del diagrama (ε en 10⁻⁴, σ en MPa)</p>
@@ -2898,7 +2898,7 @@ details.prob summary .stitle{display:block}
       <p>Es la pendiente del tramo O‑P.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>En SI:<span class="eq">E = 87,5 / 5 · 10⁻⁴ = 175 000 MPa = 1,75 · 10¹¹ Pa</span></li>
+          <li>En SI:<span class="eq">E = 87,5 MPa / 5 · 10⁻⁴ = 175 000 MPa = 1,75 · 10¹¹ Pa</span></li>
           <li>En kp/cm²:<span class="eq">1,75 · 10¹¹ N/m² · (1 kp / 9,81 N) · (1 m² / 10⁴ cm²) = 1,78 · 10⁶ kp/cm²</span></li>
       </ol>
       <p class="res">E = 175 GPa ≈ 1,78 · 10⁶ kp/cm².</p>
@@ -2906,7 +2906,7 @@ details.prob summary .stitle{display:block}
     
   </details>
   <details class="prob" id="p67" data-tags="brinell vickers">
-    <summary><span class="stitle">67. Fiabilidad del ensayo y diagonal Vickers<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Vickers</span></span><span class="psrc">Cuaderno, n.º 20</span></span></summary>
+    <summary><span class="stitle">67. Fiabilidad del ensayo y diagonal Vickers<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Vickers</span></span><span class="psrc">Otros problemas, n.º 20</span></span></summary>
     <div class="enun"><p>La dureza Brinell de un metal es de 200 kp/mm². Determinar el diámetro de la huella sabiendo que el ensayo se realizó con una bola de 10 mm y una constante de ensayo de 20. Comentar la fiabilidad del ensayo. ¿Cuál sería el valor medio de las diagonales de la huella si se hace el ensayo Vickers sobre el mismo material con 10 kp?</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Diámetro de la huella.</li><li class="q"><b>b)</b> Fiabilidad.</li><li class="q"><b>c)</b> Diagonal Vickers.</li></ol>
     <p class="datos"><b>Datos:</b> HB = 200; D = 10 mm; K = 20; F<sub>Vickers</sub> = 10 kp</p>
@@ -2916,9 +2916,9 @@ details.prob summary .stitle{display:block}
       <p>Carga con F = K · D²; superficie S = F / HB; profundidad f = S / (π · D) y, de ella, d.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 20 · 10² = 2 000 kp</span></li>
-          <li>Superficie y profundidad:<span class="eq">S = 2 000 / 200 = 10 mm² → f = 10 / (π · 10) = 0,318 mm</span></li>
-          <li>Diámetro:<span class="eq">√(100 − d²) = 10 − 0,637 = 9,363 → d = 3,51 mm</span></li>
+          <li>Carga:<span class="eq">F = 20 kp/mm² · (10 mm)² = 2 000 kp</span></li>
+          <li>Superficie y profundidad:<span class="eq">S = 2 000 kp / 200 kp/mm² = 10 mm² → f = 10 mm² / (π · 10 mm) = 0,318 mm</span></li>
+          <li>Diámetro:<span class="eq">√(100 mm² − d²) = 10 mm − 0,637 mm = 9,363 mm → d = 3,51 mm</span></li>
       </ol>
       <p class="res">d ≈ 3,51 mm.</p>
     </div>
@@ -2938,14 +2938,14 @@ details.prob summary .stitle{display:block}
       <p>Para durezas de este orden, HV ≈ HB. Despejamos d de HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal:<span class="eq">d = √(1,854 · 10 / 200) = 0,304 mm</span></li>
+          <li>Diagonal:<span class="eq">d = √(1,854 · 10 kp / 200 kp/mm²) = 0,304 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,30 mm.</p>
     </div>
     
   </details>
   <details class="prob" id="p68" data-tags="brinell">
-    <summary><span class="stitle">68. Dureza y profundidad de la huella<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Cuaderno, n.º 21</span></span></summary>
+    <summary><span class="stitle">68. Dureza y profundidad de la huella<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Otros problemas, n.º 21</span></span></summary>
     <div class="enun"><p>Para determinar la dureza Brinell de un material se ha utilizado una bola de 5 mm de diámetro y una constante K = 30, obteniéndose una huella de 1,80 mm de diámetro. Calcula: a) la dureza Brinell; b) la profundidad de la huella.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Dureza Brinell.</li><li class="q"><b>b)</b> Profundidad.</li></ol>
     <p class="datos"><b>Datos:</b> D = 5 mm; K = 30; d = 1,8 mm</p>
@@ -2955,10 +2955,10 @@ details.prob summary .stitle{display:block}
       <p>F = K · D² y fórmula de la dureza.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Carga:<span class="eq">F = 30 · 25 = 750 kp</span></li>
-          <li>Dureza:<span class="eq">HB = 1 500 / (π · 5 · (5 − √(25 − 3,24))) = 1 500 / 5,265 = 284,9</span></li>
+          <li>Carga:<span class="eq">F = 30 kp/mm² · (5 mm)² = 750 kp</span></li>
+          <li>Dureza:<span class="eq">HB = 1 500 kp / (π · 5 mm · (5 mm − √(25 mm² − 3,24 mm²))) = 1 500 kp / 5,265 mm² = 284,9 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 285.</p>
+      <p class="res">HB ≈ 285 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>Profundidad.</h4>
@@ -2966,14 +2966,14 @@ details.prob summary .stitle{display:block}
       <p>f = D/2 − √(D²/4 − d²/4).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">f = 2,5 − √(6,25 − 0,81) = 2,5 − 2,332 = 0,168 mm</span></li>
+          <li>Profundidad:<span class="eq">f = 2,5 mm − √(6,25 mm² − 0,81 mm²) = 2,5 mm − 2,332 mm = 0,168 mm</span></li>
       </ol>
       <p class="res">f ≈ 0,17 mm.</p>
     </div>
     
   </details>
   <details class="prob" id="p69" data-tags="brinell">
-    <summary><span class="stitle">69. Misma dureza con penetradores distintos<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Cuaderno, n.º 22</span></span></summary>
+    <summary><span class="stitle">69. Misma dureza con penetradores distintos<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Otros problemas, n.º 22</span></span></summary>
     <div class="enun"><p>En un ensayo de dureza Brinell se aplica una carga de 1 600 kp a un penetrador de 8 mm, obteniéndose una huella de 3,15 mm. a) ¿Cuál es la dureza? b) ¿Se obtendría la misma dureza con un penetrador de 6 mm y una carga de 900 kp? c) En ese caso, ¿cuál sería el diámetro de la huella?</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Dureza.</li><li class="q"><b>b)</b> ¿Misma dureza?</li><li class="q"><b>c)</b> Diámetro de la huella.</li></ol>
     <p class="datos"><b>Datos:</b> F = 1 600 kp; D = 8 mm; d = 3,15 mm; segundo ensayo: D = 6 mm, F = 900 kp</p>
@@ -2983,9 +2983,9 @@ details.prob summary .stitle{display:block}
       <p>Fórmula de la dureza Brinell.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HB = 3 200 / (π · 8 · (8 − √(64 − 9,92))) = 3 200 / 16,24 = 197,0</span></li>
+          <li>Dureza:<span class="eq">HB = 3 200 kp / (π · 8 mm · (8 mm − √(64 mm² − 9,92 mm²))) = 3 200 kp / 16,24 mm² = 197,0 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 197.</p>
+      <p class="res">HB ≈ 197 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>¿Misma dureza?</h4>
@@ -2993,7 +2993,7 @@ details.prob summary .stitle{display:block}
       <p>Comparamos K = F / D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Constantes:<span class="eq">K₁ = 1 600 / 64 = 25; K₂ = 900 / 36 = 25</span></li>
+          <li>Constantes:<span class="eq">K₁ = 1 600 kp / 64 mm² = 25 kp/mm²; K₂ = 900 kp / 36 mm² = 25 kp/mm²</span></li>
       </ol>
       <p class="res">Sí, porque la constante de ensayo es la misma.</p>
     </div>
@@ -3003,14 +3003,14 @@ details.prob summary .stitle{display:block}
       <p>Con la misma K los ensayos son semejantes: la huella es proporcional al diámetro de la bola.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Huella:<span class="eq">d = 3,15 · 6 / 8 = 2,36 mm</span></li>
+          <li>Huella:<span class="eq">d = 3,15 mm · 6 mm / 8 mm = 2,36 mm</span></li>
       </ol>
       <p class="res">d ≈ 2,36 mm.</p>
     </div>
     
   </details>
   <details class="prob" id="p70" data-tags="brinell vickers">
-    <summary><span class="stitle">70. Brinell y Vickers<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Vickers</span></span><span class="psrc">Cuaderno, n.º 23</span></span></summary>
+    <summary><span class="stitle">70. Brinell y Vickers<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Vickers</span></span><span class="psrc">Otros problemas, n.º 23</span></span></summary>
     <div class="enun"><p>En una pieza sometida a un ensayo de dureza Brinell, con una carga de 500 kg y una bola de 5 mm, se ha obtenido una huella de 2,3 mm. a) Halla el grado de dureza Brinell. b) Determina la dureza Vickers de una pieza de acero que, sometida a una carga de 120 kg, produce una huella de 0,5 mm de diagonal.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Dureza Brinell.</li><li class="q"><b>b)</b> Dureza Vickers.</li></ol>
     <p class="datos"><b>Datos:</b> Brinell: F = 500 kp, D = 5 mm, d = 2,3 mm. Vickers: F = 120 kp, d = 0,5 mm</p>
@@ -3020,9 +3020,9 @@ details.prob summary .stitle{display:block}
       <p>Fórmula de la dureza Brinell (la carga de 500 kg equivale a 500 kp).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HB = 1 000 / (π · 5 · (5 − √(25 − 5,29))) = 1 000 / 8,80 = 113,6</span></li>
+          <li>Dureza:<span class="eq">HB = 1 000 kp / (π · 5 mm · (5 mm − √(25 mm² − 5,29 mm²))) = 1 000 kp / 8,80 mm² = 113,6 kp/mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 114.</p>
+      <p class="res">HB ≈ 114 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>Dureza Vickers.</h4>
@@ -3030,14 +3030,14 @@ details.prob summary .stitle{display:block}
       <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 1,854 · 120 / 0,25 = 889,9</span></li>
+          <li>Dureza:<span class="eq">HV = 1,854 · 120 kp / (0,5 mm)² = 889,9 kp/mm²</span></li>
       </ol>
-      <p class="res">HV ≈ 890.</p>
+      <p class="res">HV ≈ 890 kp/mm².</p>
     </div>
     
   </details>
   <details class="prob" id="p71" data-tags="brinell resiliencia">
-    <summary><span class="stitle">71. Huella Brinell y ensayo Charpy<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Resiliencia</span></span><span class="psrc">Cuaderno, n.º 24</span></span></summary>
+    <summary><span class="stitle">71. Huella Brinell y ensayo Charpy<span class="ptags"><span class="ptag">Brinell</span><span class="ptag">Resiliencia</span></span><span class="psrc">Otros problemas, n.º 24</span></span></summary>
     <div class="enun"><p>En una pieza con dureza Brinell de 300 HB se ha aplicado una carga de 500 kg. a) Si el penetrador es una bola de 10 mm, ¿cuál será el diámetro de la huella? b) En un ensayo con el péndulo Charpy, la maza de 20 kg cayó sobre una probeta de 60 mm² de sección desde una altura de 1 m y se elevó 40 cm tras la rotura. Obtener el resultado del ensayo.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Diámetro de la huella.</li><li class="q"><b>b)</b> Resiliencia.</li></ol>
     <p class="datos"><b>Datos:</b> HB = 300; F = 500 kp; D = 10 mm. Charpy: m = 20 kg; S = 60 mm²; h₀ = 1 m; h₁ = 0,4 m</p>
@@ -3047,8 +3047,8 @@ details.prob summary .stitle{display:block}
       <p>S = F / HB, f = S / (π · D) y despejamos d.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie y profundidad:<span class="eq">S = 500 / 300 = 1,667 mm² → f = 1,667 / (π · 10) = 0,0531 mm</span></li>
-          <li>Diámetro:<span class="eq">√(100 − d²) = 10 − 0,106 = 9,894 → d = 1,45 mm</span></li>
+          <li>Superficie y profundidad:<span class="eq">S = 500 kp / 300 kp/mm² = 1,667 mm² → f = 1,667 mm² / (π · 10 mm) = 0,0531 mm</span></li>
+          <li>Diámetro:<span class="eq">√(100 mm² − d²) = 10 mm − 0,106 mm = 9,894 mm → d = 1,45 mm</span></li>
       </ol>
       <p class="res">d ≈ 1,45 mm.</p>
     </div>
@@ -3058,8 +3058,8 @@ details.prob summary .stitle{display:block}
       <p>ρ = m · g · (h₀ − h₁) / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">E = 20 · 9,8 · 0,6 = 117,6 J</span></li>
-          <li>Resiliencia:<span class="eq">ρ = 117,6 / 60 = 1,96 J/mm² = 1,96 · 10⁶ J/m²</span></li>
+          <li>Energía:<span class="eq">E = 20 kg · 9,8 m/s² · (1 m − 0,4 m) = 117,6 J</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 117,6 J / 60 mm² = 1,96 J/mm² = 1,96 · 10⁶ J/m²</span></li>
       </ol>
       <p class="res">ρ = 1,96 J/mm².</p>
     </div>
