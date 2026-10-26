@@ -416,6 +416,9 @@ svg.art{display:block;width:100%;height:auto}
 <rect x="226" y="240" width="68" height="10" rx="2" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
 <rect x="222" y="250" width="12" height="20" style="fill:var(--ink)"/><rect x="286" y="250" width="12" height="20" style="fill:var(--ink)"/>
 <circle cx="260" cy="62" r="9" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
+<line x1="260" y1="62" x2="260" y2="232" style="stroke:var(--muted);stroke-dasharray:4 4"/>
+<path d="M232 70 A30 30 0 0 1 260 92" style="fill:none;stroke:var(--hot);stroke-width:2"/><text x="226" y="102" style="fill:var(--hot);font:700 14px var(--mono)">α</text>
+<path d="M260 96 A34 34 0 0 0 286 84" style="fill:none;stroke:var(--cold);stroke-width:2"/><text x="284" y="106" style="fill:var(--cold);font:700 14px var(--mono)">β</text>
 <line x1="60" y1="110" x2="60" y2="244" style="stroke:var(--hot);stroke-width:2"/><line x1="54" y1="110" x2="86" y2="110" style="stroke:var(--hot)"/>
 <polygon points="60,110 55,120 65,120" style="fill:var(--hot)"/><polygon points="60,244 55,234 65,234" style="fill:var(--hot)"/>
 <text x="42" y="182" text-anchor="end" style="fill:var(--hot);font:700 15px var(--mono)">h₀</text>
@@ -426,8 +429,11 @@ svg.art{display:block;width:100%;height:auto}
 <text x="196" y="150" style="fill:var(--ink);font:700 14px var(--mono)">L</text>
 <text x="300" y="262" style="fill:var(--muted);font:600 12px var(--body)">probeta</text>
 </svg>
-<figcaption>Péndulo de Charpy: parte de la altura h₀ y, tras romper la probeta, sube hasta h₁.</figcaption>
+<figcaption>Péndulo de Charpy: parte de la altura h₀ (ángulo α) y, tras romper la probeta, sube hasta h₁ (ángulo β).</figcaption>
 </figure>
+<p>A menudo, en lugar de las alturas se conocen la longitud L del brazo del péndulo y los ángulos que forma con la vertical: α al soltarlo y β al final de su recorrido. La altura de la maza, medida desde el punto más bajo, es:</p>
+<div class="f">h₀ = L · (1 − cos α) &nbsp;&nbsp;|&nbsp;&nbsp; h₁ = L · (1 − cos β)<span>Si un ángulo es mayor de 90°, su coseno es negativo y la maza está por encima del eje de giro.</span></div>
+<div class="f">−ΔE<sub>p</sub> = m · g · L · (cos β − cos α)<span>Energía absorbida por la probeta expresada con los ángulos.</span></div>
 </section>
 
 <section id="formula">
@@ -483,45 +489,47 @@ svg.art{display:block;width:100%;height:auto}
     <p class="note com">La sección que se usa es la de la probeta en la entalla, que es por donde rompe.</p>
   </details>
   <details class="prob" id="p2">
-    <summary>2. Energías del ensayo</summary>
-    <p class="enun">Un péndulo de Charpy de 25 kg se suelta desde 1,5 m. Tras romper una probeta de 80 mm² de sección sube hasta 0,4 m (g = 9,8 m/s²). Calcule:</p>
+    <summary>2. Péndulo con ángulos</summary>
+    <p class="enun">Un péndulo de Charpy de 25 kg tiene un brazo de 0,8 m. Se suelta desde un ángulo de 150° respecto a la vertical y, tras romper una probeta de 80 mm² de sección, sube hasta 60° (g = 9,8 m/s²). Calcule:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> La energía inicial del péndulo. (0,75 puntos)</li>
+      <li class="q"><b>a)</b> Las alturas inicial y final de la maza. (1 punto)</li>
       <li class="q"><b>b)</b> La energía absorbida. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> La resiliencia. (1 punto)</li>
+      <li class="q"><b>c)</b> La resiliencia. (0,75 puntos)</li>
     </ol>
-    <p class="datos"><b>Datos:</b> m = 25 kg; h₀ = 1,5 m; h₁ = 0,4 m; S = 80 mm²</p>
+    <p class="datos"><b>Datos:</b> m = 25 kg; L = 0,8 m; α = 150°; β = 60°; S = 80 mm²</p>
     <div class="ap">
-      <h4><span>a)</span>La energía inicial del péndulo.</h4>
+      <h4><span>a)</span>Las alturas inicial y final de la maza.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>E<sub>p0</sub> = m · g · h₀.</p>
+      <p>Medida desde el punto más bajo, la altura es h = L · (1 − cos α). Hay que tener cuidado con el signo del coseno de 150°.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">25 · 9,8 · 1,5 = 367,5 J</span></li>
+          <li>Altura inicial (cos 150° = −0,866):<span class="eq">h₀ = 0,8 · (1 + 0,866) = 1,493 m</span></li>
+          <li>Altura final (cos 60° = 0,5):<span class="eq">h₁ = 0,8 · (1 − 0,5) = 0,40 m</span></li>
       </ol>
-      <p class="res">367,5 J.</p>
+      <p class="res">h₀ ≈ 1,49 m; h₁ = 0,40 m.</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La energía absorbida.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>m · g · (h₀ − h₁).</p>
+      <p>m · g · (h₀ − h₁), o directamente m · g · L · (cos β − cos α).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">25 · 9,8 · 1,1 = 269,5 J</span></li>
+          <li>Energía:<span class="eq">25 · 9,8 · (1,493 − 0,40) = 267,7 J</span></li>
+          <li>Comprobación con los ángulos:<span class="eq">25 · 9,8 · 0,8 · (0,5 + 0,866) = 267,7 J</span></li>
       </ol>
-      <p class="res">269,5 J.</p>
+      <p class="res">≈ 267,7 J.</p>
     </div>
     <div class="ap">
       <h4><span>c)</span>La resiliencia.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>ρ = energía absorbida / S.</p>
+      <p>ρ = −ΔE<sub>p</sub> / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Resiliencia:<span class="eq">ρ = 269,5 / 80 = 3,37 J/mm²</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 267,7 / 80 = 3,35 J/mm²</span></li>
       </ol>
-      <p class="res">ρ ≈ 3,37 J/mm².</p>
+      <p class="res">ρ ≈ 3,35 J/mm².</p>
     </div>
-    <p class="note com">Siempre que el péndulo sube menos de lo que bajó, la diferencia de energía se ha gastado en romper la probeta.</p>
+    <p class="note com">Un ángulo mayor de 90° indica que la maza empieza por encima del eje de giro; por eso su coseno es negativo.</p>
   </details>
   <details class="prob" id="p3">
     <summary>3. Altura final esperada</summary>
@@ -565,46 +573,47 @@ svg.art{display:block;width:100%;height:auto}
     <p class="note com">Cuanto menos energía absorbe el material, más alto sube el péndulo.</p>
   </details>
   <details class="prob" id="p4">
-    <summary>4. Ensayo previsto</summary>
-    <p class="enun">Se va a ensayar un material de resiliencia 1,2 J/mm² con probetas de 80 mm² y un péndulo de 30 kg soltado desde 1,2 m (g = 9,8 m/s²). Calcule:</p>
+    <summary>4. Ángulo final del péndulo</summary>
+    <p class="enun">Un péndulo de 22 kg con un brazo de 0,85 m se suelta desde 140°. La probeta, de 80 mm² de sección, absorbe 120 J (g = 9,8 m/s²). Calcule:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> La energía absorbida por la probeta. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> La altura que alcanzará el péndulo. (1 punto)</li>
-      <li class="q"><b>c)</b> ¿Hasta dónde subiría si no hubiera probeta? Razónelo. (0,75 puntos)</li>
+      <li class="q"><b>a)</b> La altura y la energía iniciales. (1 punto)</li>
+      <li class="q"><b>b)</b> La altura y el ángulo finales. (1 punto)</li>
+      <li class="q"><b>c)</b> La resiliencia del material. (0,5 puntos)</li>
     </ol>
-    <p class="datos"><b>Datos:</b> ρ = 1,2 J/mm²; S = 80 mm²; m = 30 kg; h₀ = 1,2 m</p>
+    <p class="datos"><b>Datos:</b> m = 22 kg; L = 0,85 m; α = 140°; −ΔE<sub>p</sub> = 120 J; S = 80 mm²</p>
     <div class="ap">
-      <h4><span>a)</span>La energía absorbida por la probeta.</h4>
+      <h4><span>a)</span>La altura y la energía iniciales.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>ρ · S.</p>
+      <p>h₀ = L · (1 − cos α) y E<sub>p0</sub> = m · g · h₀.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía:<span class="eq">1,2 · 80 = 96 J</span></li>
+          <li>Altura (cos 140° = −0,766):<span class="eq">h₀ = 0,85 · 1,766 = 1,501 m</span></li>
+          <li>Energía:<span class="eq">E<sub>p0</sub> = 22 · 9,8 · 1,501 = 323,6 J</span></li>
       </ol>
-      <p class="res">96 J.</p>
+      <p class="res">h₀ ≈ 1,50 m; E<sub>p0</sub> ≈ 324 J.</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>La altura que alcanzará el péndulo.</h4>
+      <h4><span>b)</span>La altura y el ángulo finales.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Energía inicial menos absorbida, y despejamos h₁.</p>
+      <p>Restamos la energía absorbida, despejamos h₁ y, de h₁ = L · (1 − cos β), el ángulo: cos β = 1 − h₁ / L.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Energía inicial:<span class="eq">30 · 9,8 · 1,2 = 352,8 J</span></li>
-          <li>Altura final:<span class="eq">h₁ = (352,8 − 96) / (30 · 9,8) = 0,874 m</span></li>
+          <li>Altura final:<span class="eq">h₁ = (323,6 − 120) / (22 · 9,8) = 0,944 m</span></li>
+          <li>Ángulo final:<span class="eq">cos β = 1 − 0,944 / 0,85 = −0,111 &nbsp;→&nbsp; β = 96,4°</span></li>
       </ol>
-      <p class="res">h₁ ≈ 0,87 m.</p>
+      <p class="res">h₁ ≈ 0,94 m; β ≈ 96°.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>¿Hasta dónde subiría si no hubiera probeta? Razónelo.</h4>
+      <h4><span>c)</span>La resiliencia del material.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Si nada absorbe energía, se conserva la energía potencial del péndulo.</p>
+      <p>ρ = −ΔE<sub>p</sub> / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Razonamiento:<span class="eq">−ΔE<sub>p</sub> = 0 → h₁ = h₀</span></li>
+          <li>Resiliencia:<span class="eq">ρ = 120 / 80 = 1,5 J/mm²</span></li>
       </ol>
-      <p class="res">Hasta 1,2 m, la misma altura de la que partió (despreciando rozamientos).</p>
+      <p class="res">ρ = 1,5 J/mm².</p>
     </div>
-    <p class="note com">Este razonamiento explica por qué la diferencia de alturas mide la energía absorbida.</p>
+    <p class="note com">Un coseno negativo al final indica que el péndulo sube por encima de la horizontal del eje (más de 90°).</p>
   </details>
   <details class="prob" id="p5">
     <summary>5. Comparación de dos materiales</summary>
