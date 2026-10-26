@@ -313,7 +313,7 @@ svg.art{display:block;width:100%;height:auto}
 .st{font-weight:600}
 .st.ok{color:var(--work)}
 .st.soon{color:var(--muted)}
-.tema{font-size:13px;font-weight:700;color:var(--brand);letter-spacing:.02em}
+.tema{justify-self:start;font-family:var(--display);font-size:19px;font-weight:700;line-height:1;color:#fff;background:var(--brand);padding:6px 12px;border-radius:8px;margin:4px 0 4px}
 .unit strong{font-family:var(--display);font-size:25px;font-weight:700;line-height:1.05}
 .u-desc{font-size:14.5px;color:var(--muted)}
 .u-foot{margin-top:6px;min-height:24px}
@@ -327,7 +327,7 @@ svg.art{display:block;width:100%;height:auto}
 .modal .btn-primary{--bs-btn-bg:var(--brand);--bs-btn-border-color:var(--brand);--bs-btn-hover-bg:var(--brand);--bs-btn-hover-border-color:var(--brand)}
 @media (max-width:960px){.home-hero .container{grid-template-columns:minmax(0,1fr)}.filters .form-control{min-width:0;flex:1 1 220px}}
 
-.units .tnum{display:inline-block;min-width:54px;font-size:12px;font-weight:700;color:var(--brand);margin-right:4px}
+.units .tnum{display:inline-block;min-width:76px;font-size:14px;font-weight:700;color:var(--brand);margin-right:4px}
 .units li.sep{border-top:1px solid var(--line);margin:6px 4px;padding-top:4px;font-size:12px;color:var(--muted);padding-left:8px}
 /* ---------- Pie ---------- */
 .site-footer{background:var(--surface);border-top:1px solid var(--line);padding:28px 0 36px;font-size:14.5px;color:var(--muted)}
@@ -386,11 +386,11 @@ svg.art{display:block;width:100%;height:auto}
     <nav class="bar-nav" aria-label="Sitio">
       <a class="hide-sm" aria-current="page" href="./">Inicio</a>
       <details class="units">
-        <summary>Temas</summary>
+        <summary>Unidades</summary>
         <ul>
-          <li><a href="electronica-digital.html"><span class="tnum">Tema 1</span>Electrónica digital</a></li>
-          <li><a href="materiales.html"><span class="tnum">Tema 2</span>Materiales</a></li>
-          <li><a href="maquinas-termicas.html"><span class="tnum">Tema 3</span>Máquinas térmicas</a></li>
+          <li><a href="electronica-digital.html"><span class="tnum">Unidad 1</span>Electrónica digital</a></li>
+          <li><a href="materiales.html"><span class="tnum">Unidad 2</span>Materiales</a></li>
+          <li><a href="maquinas-termicas.html"><span class="tnum">Unidad 3</span>Máquinas térmicas</a></li>
           <li class="sep" aria-hidden="true">En preparación</li>
           <li><a href="hidraulica.html">Hidráulica</a></li>
           <li><a href="neumatica.html">Neumática</a></li>
@@ -414,12 +414,12 @@ svg.art{display:block;width:100%;height:auto}
       <h1>Tecnología e Ingeniería II</h1>
       <p class="lead">Apuntes ilustrados y problemas tipo selectividad resueltos paso a paso para 2º de Bachillerato.</p>
       <ul class="quick">
-        <li><a class="primary" href="#unidades">Ver los temas</a></li>
-        <li><a href="electronica-digital.html">Empezar por el Tema 1</a></li>
+        <li><a class="primary" href="#unidades">Ver las unidades</a></li>
+        <li><a href="electronica-digital.html">Empezar por la Unidad 1</a></li>
         <li><button type="button" class="howto" data-bs-toggle="modal" data-bs-target="#guia">Cómo usar esta web</button></li>
       </ul>
       <dl class="stats">
-        <div><dt>Temas disponibles</dt><dd>3</dd></div>
+        <div><dt>Unidades disponibles</dt><dd>3</dd></div>
         <div><dt>Problemas resueltos</dt><dd>99</dd></div>
         <div><dt>Tu progreso</dt><dd id="miprogreso">0</dd></div>
       </dl>
@@ -554,11 +554,11 @@ svg.art{display:block;width:100%;height:auto}
 
 <div class="container hub" id="contenido">
   <div class="units-head">
-    <h2 id="unidades">Temas</h2>
+    <h2 id="unidades">Unidades</h2>
     <div class="filters">
-      <label class="visually-hidden" for="buscar">Buscar tema</label>
+      <label class="visually-hidden" for="buscar">Buscar unidad</label>
       <input id="buscar" class="form-control" type="search" placeholder="Buscar: dureza, Carnot, puertas…" autocomplete="off">
-      <div class="btn-group" role="group" aria-label="Filtrar temas">
+      <div class="btn-group" role="group" aria-label="Filtrar unidades">
         <input type="radio" class="btn-check" name="f" id="f-all" value="all" checked><label class="btn btn-outline-secondary" for="f-all">Todas</label>
         <input type="radio" class="btn-check" name="f" id="f-ok" value="ok"><label class="btn btn-outline-secondary" for="f-ok">Disponibles</label>
         <input type="radio" class="btn-check" name="f" id="f-soon" value="soon"><label class="btn btn-outline-secondary" for="f-soon">En preparación</label>
@@ -584,7 +584,7 @@ svg.art{display:block;width:100%;height:auto}
 <g style="font:700 26px var(--mono);fill:var(--work)"><text x="22" y="100">1</text><text x="44" y="100" style="opacity:.6">0</text><text x="340" y="108">1</text><text x="362" y="108" style="opacity:.6">1</text></g>
 </svg></span>
           <span class="u-body"><span class="u-top"><span class="st ok">Disponible</span></span>
-          <span class="tema">Tema 1</span><strong>Electrónica digital</strong><span class="u-desc">Álgebra de Boole, puertas lógicas y Karnaugh.</span>
+          <span class="tema">Unidad 1</span><strong>Electrónica digital</strong><span class="u-desc">Álgebra de Boole, puertas lógicas y Karnaugh.</span>
           <span class="u-foot"><span data-progress="electronica-digital-problemas.html" data-total="24">24 problemas</span></span></span>
         </a>
       </div>
@@ -600,7 +600,7 @@ svg.art{display:block;width:100%;height:auto}
 <text x="322" y="62" style="fill:var(--hot);font:700 24px var(--mono)">F</text><text x="322" y="156" style="fill:var(--hot);font:700 24px var(--mono)">F</text>
 </svg></span>
           <span class="u-body"><span class="u-top"><span class="st ok">Disponible</span></span>
-          <span class="tema">Tema 2</span><strong>Materiales</strong><span class="u-desc">Ensayos de tracción, Brinell, Vickers y resiliencia.</span>
+          <span class="tema">Unidad 2</span><strong>Materiales</strong><span class="u-desc">Ensayos de tracción, Brinell, Vickers y resiliencia.</span>
           <span class="u-foot"><span data-progress="materiales-problemas.html" data-total="71">71 problemas</span></span></span>
         </a>
       </div>
@@ -620,7 +620,7 @@ svg.art{display:block;width:100%;height:auto}
 <g style="fill:none;stroke:var(--cold);stroke-width:3;stroke-linecap:round;opacity:.7"><path d="M40 60 h40"/><path d="M30 80 h50"/><path d="M40 100 h40"/></g>
 </svg></span>
           <span class="u-body"><span class="u-top"><span class="st ok">Disponible</span></span>
-          <span class="tema">Tema 3</span><strong>Máquinas térmicas</strong><span class="u-desc">Termodinámica, ciclo de Carnot, motores y bomba de calor.</span>
+          <span class="tema">Unidad 3</span><strong>Máquinas térmicas</strong><span class="u-desc">Termodinámica, ciclo de Carnot, motores y bomba de calor.</span>
           <span class="u-foot"><span data-progress="maquinas-termicas-problemas.html" data-total="4">4 problemas</span></span></span>
         </a>
       </div>
@@ -691,7 +691,7 @@ svg.art{display:block;width:100%;height:auto}
         </a>
       </div>
   </div>
-  <p class="empty" id="vacio" hidden>No hay ningún tema con ese nombre. Prueba con otra palabra o pulsa «Todas».</p>
+  <p class="empty" id="vacio" hidden>No hay ninguna unidad con ese nombre. Prueba con otra palabra o pulsa «Todas».</p>
 
   <h2 class="mt-5">Preguntas frecuentes</h2>
   <div class="accordion faq" id="faq">
@@ -716,13 +716,13 @@ svg.art{display:block;width:100%;height:auto}
       <div class="modal-header"><h2 class="modal-title" id="guia-t">Cómo usar esta web</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
       <div class="modal-body">
         <ol class="guide">
-          <li><b>Elige un tema</b> en las tarjetas o en el menú «Temas» de arriba.</li>
+          <li><b>Elige una unidad</b> en las tarjetas o en el menú «Unidades» de arriba.</li>
           <li><b>Lee la teoría</b> con ayuda del índice lateral; en el móvil aparece como pestañas.</li>
           <li><b>Intenta cada problema</b> antes de abrir la solución.</li>
           <li><b>Marca «Lo he resuelto»</b> y sigue tu progreso en la barra.</li>
         </ol>
       </div>
-      <div class="modal-footer"><a class="btn btn-primary" href="electronica-digital.html">Empezar por el Tema 1</a></div>
+      <div class="modal-footer"><a class="btn btn-primary" href="electronica-digital.html">Empezar por la Unidad 1</a></div>
     </div>
   </div>
 </div>
