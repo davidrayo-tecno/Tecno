@@ -198,6 +198,9 @@ details.prob > summary::after{margin-left:auto}
 .badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
 
 
+.vid{padding:0!important;max-width:none!important;margin:14px 0 4px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:16/9}
+.vid video{display:block;width:100%;height:100%}
+
 /* ---------- Problemas tipo selectividad ---------- */
 .prob .enun{font-size:16.5px}
 .prob ol.aps{list-style:none;padding:0;margin:0 18px 6px}
@@ -414,6 +417,7 @@ svg.art{display:block;width:100%;height:auto}
     <ol>
       <li><a href="#que-es">Los ensayos de dureza</a></li>
       <li><a href="#formula">La dureza Brinell</a></li>
+      <li><a href="#video">Vídeo explicativo</a></li>
       <li><a href="#simulacion">Simulación del ensayo</a></li>
       <li><a href="#notacion">Expresión del resultado</a></li>
       <li><a href="#problemas">Problemas</a></li>
@@ -479,8 +483,14 @@ svg.art{display:block;width:100%;height:auto}
 <div class="f">HB = F / S = 2F / (π · D · (D − √(D² − d²)))</div>
 </section>
 
+<section id="video">
+  <h2><span class="n">3</span>Vídeo explicativo</h2>
+<p>Un repaso de un minuto: para qué sirve el ensayo, cómo se realiza paso a paso y las fórmulas que hay que recordar.</p>
+<figure class="vid"><video controls preload="metadata" playsinline poster="videos/ensayo-brinell.jpg" src="videos/ensayo-brinell.mp4"></video></figure>
+</section>
+
 <section id="simulacion">
-  <h2><span class="n">3</span>Simulación del ensayo</h2>
+  <h2><span class="n">4</span>Simulación del ensayo</h2>
 <p>Elige el material y reproduce el ensayo: la esfera se carga, se mantiene, se retira y se mide la huella. Al final aparece el cálculo de la dureza.</p>
 <div class="sim" id="sim-brin">
   <div class="sim-stage">
@@ -533,6 +543,7 @@ window.SimCtl=window.SimCtl||function(root,duration,render){
   reset.addEventListener('click',()=>{stop();p=0;play.textContent='Reproducir';draw();});
   rng.addEventListener('input',()=>{stop();p=rng.value/1000;play.textContent=p>=1?'Repetir':'Reproducir';render(p);});
   draw();
+  root.__render=render;
   return {redraw:()=>render(p),restart:()=>{stop();p=0;draw();}};
 };
 
@@ -581,7 +592,7 @@ root.querySelector('.mat').addEventListener('change',e=>{m=MATS[e.target.value];
 </section>
 
 <section id="notacion">
-  <h2><span class="n">4</span>Expresión del resultado</h2>
+  <h2><span class="n">5</span>Expresión del resultado</h2>
 <p>El resultado de un ensayo Brinell no se da solo con el número de la dureza: hay que indicar también en qué condiciones se ha hecho, porque la huella depende de la esfera, de la carga y del tiempo. La <strong>expresión normalizada</strong> tiene siempre este orden:</p>
 <div class="notacion" role="img" aria-label="Expresión normalizada Brinell: 229 HB 10/3000/15">
   <span class="nt nt-v"><b>229</b><small>valor de la dureza (kp/mm²)</small></span>
@@ -605,7 +616,7 @@ root.querySelector('.mat').addEventListener('change',e=>{m=MATS[e.target.value];
 </section>
 
 <section id="problemas">
-  <h2><span class="n">5</span>Problemas</h2>
+  <h2><span class="n">6</span>Problemas</h2>
   <p>Los problemas de este ensayo están en la página de problemas de Materiales, junto con los de los demás ensayos y otros problemas.</p>
   <p><a class="btn-go" href="materiales-problemas.html#brinell">Ir a los problemas de ensayo brinell</a></p>
 </section>

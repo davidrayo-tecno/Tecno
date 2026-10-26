@@ -198,6 +198,9 @@ details.prob > summary::after{margin-left:auto}
 .badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
 
 
+.vid{padding:0!important;max-width:none!important;margin:14px 0 4px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:16/9}
+.vid video{display:block;width:100%;height:100%}
+
 /* ---------- Problemas tipo selectividad ---------- */
 .prob .enun{font-size:16.5px}
 .prob ol.aps{list-style:none;padding:0;margin:0 18px 6px}
@@ -415,6 +418,7 @@ svg.art{display:block;width:100%;height:auto}
       <li><a href="#que-es">El ensayo de tracción</a></li>
       <li><a href="#magnitudes">Tensión y deformación unitaria</a></li>
       <li><a href="#diagrama">El diagrama de tracción</a></li>
+      <li><a href="#video">Vídeo explicativo</a></li>
       <li><a href="#simulacion">Simulación del ensayo</a></li>
       <li><a href="#ductilidad">Alargamiento y estricción</a></li>
       <li><a href="#problemas">Problemas</a></li>
@@ -526,8 +530,14 @@ svg.art{display:block;width:100%;height:auto}
 </ul>
 </section>
 
+<section id="video">
+  <h2><span class="n">4</span>Vídeo explicativo</h2>
+<p>Un repaso de un minuto: para qué sirve el ensayo, cómo se realiza paso a paso y las fórmulas que hay que recordar.</p>
+<figure class="vid"><video controls preload="metadata" playsinline poster="videos/ensayo-traccion.jpg" src="videos/ensayo-traccion.mp4"></video></figure>
+</section>
+
 <section id="simulacion">
-  <h2><span class="n">4</span>Simulación del ensayo</h2>
+  <h2><span class="n">5</span>Simulación del ensayo</h2>
 <p>Pulsa reproducir para ver cómo la máquina estira la probeta mientras se dibuja el diagrama de tracción. Puedes pararla en cualquier momento o mover la barra para ir a un punto concreto.</p>
 <div class="sim" id="sim-trac">
   <div class="sim-stage">
@@ -589,6 +599,7 @@ window.SimCtl=window.SimCtl||function(root,duration,render){
   reset.addEventListener('click',()=>{stop();p=0;play.textContent='Reproducir';draw();});
   rng.addEventListener('input',()=>{stop();p=rng.value/1000;play.textContent=p>=1?'Repetir':'Reproducir';render(p);});
   draw();
+  root.__render=render;
   return {redraw:()=>render(p),restart:()=>{stop();p=0;draw();}};
 };
 
@@ -651,7 +662,7 @@ SimCtl(root,16,render);
 </section>
 
 <section id="ductilidad">
-  <h2><span class="n">5</span>Alargamiento y estricción</h2>
+  <h2><span class="n">6</span>Alargamiento y estricción</h2>
 <p>Cuando la probeta se ha roto se juntan los dos trozos y se miden la nueva longitud entre marcas, l<sub>f</sub>, y la sección en la zona de rotura, S<sub>f</sub>. Con ellas se calculan dos valores que indican cuánto se ha deformado el material antes de romperse:</p>
 <figure>
 <svg viewBox="0 0 520 190" role="img"><title>Probeta antes y después del ensayo</title><desc>Arriba, la probeta original con longitud l₀. Abajo, la probeta rota, más larga, con un estrechamiento en la zona de rotura.</desc>
@@ -676,7 +687,7 @@ SimCtl(root,16,render);
 </section>
 
 <section id="problemas">
-  <h2><span class="n">6</span>Problemas</h2>
+  <h2><span class="n">7</span>Problemas</h2>
   <p>Los problemas de este ensayo están en la página de problemas de Materiales, junto con los de los demás ensayos y otros problemas.</p>
   <p><a class="btn-go" href="materiales-problemas.html#traccion">Ir a los problemas de ensayo de tracción</a></p>
 </section>

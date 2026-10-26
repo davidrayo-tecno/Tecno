@@ -198,6 +198,9 @@ details.prob > summary::after{margin-left:auto}
 .badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
 
 
+.vid{padding:0!important;max-width:none!important;margin:14px 0 4px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:16/9}
+.vid video{display:block;width:100%;height:100%}
+
 /* ---------- Problemas tipo selectividad ---------- */
 .prob .enun{font-size:16.5px}
 .prob ol.aps{list-style:none;padding:0;margin:0 18px 6px}
@@ -419,6 +422,7 @@ svg.art{display:block;width:100%;height:auto}
     <ol>
       <li><a href="#que-es">La dureza Vickers</a></li>
       <li><a href="#formula">Cálculo de la dureza Vickers</a></li>
+      <li><a href="#video">Vídeo explicativo</a></li>
       <li><a href="#simulacion">Simulación del ensayo</a></li>
       <li><a href="#notacion">Expresión del resultado</a></li>
       <li><a href="#problemas">Problemas</a></li>
@@ -462,8 +466,14 @@ svg.art{display:block;width:100%;height:auto}
 <p class="note">Si la carga viene en newtons, antes hay que pasarla a kilopondios: 1 kp = 9,8 N.</p>
 </section>
 
+<section id="video">
+  <h2><span class="n">3</span>Vídeo explicativo</h2>
+<p>Un repaso de un minuto: para qué sirve el ensayo, cómo se realiza paso a paso y las fórmulas que hay que recordar.</p>
+<figure class="vid"><video controls preload="metadata" playsinline poster="videos/ensayo-vickers.jpg" src="videos/ensayo-vickers.mp4"></video></figure>
+</section>
+
 <section id="simulacion">
-  <h2><span class="n">3</span>Simulación del ensayo</h2>
+  <h2><span class="n">4</span>Simulación del ensayo</h2>
 <p>Elige el material y la carga y reproduce el ensayo: la pirámide se clava, se retira y se miden las diagonales de la huella.</p>
 <div class="sim" id="sim-vick">
   <div class="sim-stage">
@@ -517,6 +527,7 @@ window.SimCtl=window.SimCtl||function(root,duration,render){
   reset.addEventListener('click',()=>{stop();p=0;play.textContent='Reproducir';draw();});
   rng.addEventListener('input',()=>{stop();p=rng.value/1000;play.textContent=p>=1?'Repetir':'Reproducir';render(p);});
   draw();
+  root.__render=render;
   return {redraw:()=>render(p),restart:()=>{stop();p=0;draw();}};
 };
 
@@ -565,7 +576,7 @@ root.querySelector('.load').addEventListener('change',e=>{F=+e.target.value;ctl.
 </section>
 
 <section id="notacion">
-  <h2><span class="n">4</span>Expresión del resultado</h2>
+  <h2><span class="n">5</span>Expresión del resultado</h2>
 <p>Igual que en el ensayo Brinell, el resultado se acompaña de las condiciones del ensayo. En el Vickers el penetrador es siempre el mismo (la pirámide de 136°), así que solo hay que indicar la <strong>carga</strong> y el <strong>tiempo</strong>. La <strong>expresión normalizada</strong> tiene este orden:</p>
 <div class="notacion" role="img" aria-label="Expresión normalizada Vickers: 640 HV 30/20">
   <span class="nt nt-v"><b>640</b><small>valor de la dureza (kp/mm²)</small></span>
@@ -587,7 +598,7 @@ root.querySelector('.load').addEventListener('change',e=>{F=+e.target.value;ctl.
 </section>
 
 <section id="problemas">
-  <h2><span class="n">5</span>Problemas</h2>
+  <h2><span class="n">6</span>Problemas</h2>
   <p>Los problemas de este ensayo están en la página de problemas de Materiales, junto con los de los demás ensayos y otros problemas.</p>
   <p><a class="btn-go" href="materiales-problemas.html#vickers">Ir a los problemas de ensayo vickers</a></p>
 </section>
