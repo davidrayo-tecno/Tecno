@@ -171,6 +171,33 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
 .totop svg{width:20px;height:20px}
 
 
+/* ---------- Ajustes para convivir con Bootstrap ---------- */
+.lead{font-weight:400}
+code{color:inherit}
+h1,h2,h3,h4{color:inherit}
+summary{display:block}
+.toast{--bs-toast-bg:var(--surface);--bs-toast-color:var(--ink);--bs-toast-header-bg:var(--work-bg);--bs-toast-header-color:var(--ink);--bs-toast-border-color:var(--line)}
+
+/* ---------- Progreso de problemas ---------- */
+.prog-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:0 0 18px}
+.prog-box .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;margin-bottom:8px}
+.prog-box .head b{font-weight:600}
+.prog-box .head span{color:var(--muted);font-variant-numeric:tabular-nums}
+.prog-box .progress{--bs-progress-height:10px;--bs-progress-bg:var(--bg);--bs-progress-bar-bg:var(--work);--bs-progress-border-radius:99px}
+.prog-box .reset{all:unset;cursor:pointer;color:var(--muted);font-size:13px;text-decoration:underline;margin-top:8px;display:inline-block}
+.prog-box .reset:focus-visible{outline:2px solid var(--cold)}
+.done-switch{margin:14px 18px 16px!important;padding-top:12px;border-top:1px dashed var(--line);font-weight:500}
+.done-switch .form-check-input{cursor:pointer}
+.done-switch .form-check-input:checked{background-color:var(--work);border-color:var(--work)}
+details.prob.done{border-color:var(--work)}
+details.prob.done > summary::before{content:"✓";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--work);color:#fff;font-size:13px;font-weight:700;margin-right:10px;flex:none}
+details.prob > summary{justify-content:flex-start}
+details.prob > summary::after{margin-left:auto}
+.badge-prog{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.badge-prog.some{background:var(--cold-bg);color:var(--cold);border-color:transparent}
+.badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
+
+
 /* ---------- Problemas tipo selectividad ---------- */
 .prob .enun{font-size:16.5px}
 .prob ol.aps{list-style:none;padding:0;margin:0 0 6px}
@@ -229,33 +256,6 @@ svg.art{display:block;width:100%;height:auto}
 .others a:hover{border-color:var(--brand)}
 .others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
 @media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
-
-
-/* ---------- Ajustes para convivir con Bootstrap ---------- */
-.lead{font-weight:400}
-code{color:inherit}
-h1,h2,h3,h4{color:inherit}
-summary{display:block}
-.toast{--bs-toast-bg:var(--surface);--bs-toast-color:var(--ink);--bs-toast-header-bg:var(--work-bg);--bs-toast-header-color:var(--ink);--bs-toast-border-color:var(--line)}
-
-/* ---------- Progreso de problemas ---------- */
-.prog-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:0 0 18px}
-.prog-box .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;margin-bottom:8px}
-.prog-box .head b{font-weight:600}
-.prog-box .head span{color:var(--muted);font-variant-numeric:tabular-nums}
-.prog-box .progress{--bs-progress-height:10px;--bs-progress-bg:var(--bg);--bs-progress-bar-bg:var(--work);--bs-progress-border-radius:99px}
-.prog-box .reset{all:unset;cursor:pointer;color:var(--muted);font-size:13px;text-decoration:underline;margin-top:8px;display:inline-block}
-.prog-box .reset:focus-visible{outline:2px solid var(--cold)}
-.done-switch{margin:14px 18px 16px!important;padding-top:12px;border-top:1px dashed var(--line);font-weight:500}
-.done-switch .form-check-input{cursor:pointer}
-.done-switch .form-check-input:checked{background-color:var(--work);border-color:var(--work)}
-details.prob.done{border-color:var(--work)}
-details.prob.done > summary::before{content:"✓";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--work);color:#fff;font-size:13px;font-weight:700;margin-right:10px;flex:none}
-details.prob > summary{justify-content:flex-start}
-details.prob > summary::after{margin-left:auto}
-.badge-prog{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
-.badge-prog.some{background:var(--cold-bg);color:var(--cold);border-color:transparent}
-.badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
 
 /* ---------- Pie ---------- */
 .site-footer{background:var(--surface);border-top:1px solid var(--line);padding:28px 0 36px;font-size:14.5px;color:var(--muted)}
@@ -338,14 +338,14 @@ details.prob > summary::after{margin-left:auto}
     <div>
       <p class="crumbs"><a href="./">Tecnología e Ingeniería</a> / <a href="materiales.html">Materiales</a></p>
       <h1>Ensayo Vickers</h1>
-      <p class="lead">Cómo se mide la dureza con una pirámide de diamante y por qué sirve para materiales muy duros, piezas finas y capas superficiales.</p>
+      <p class="lead">Cómo se mide la dureza con un penetrador en forma de pirámide de base cuadrada a partir de la diagonal de la huella.</p>
       <ul class="quick">
         <li><a class="primary" href="#que-es">Empezar por la teoría</a></li>
         <li><a href="#problemas">Problemas tipo selectividad</a></li>
         <li><a href="materiales.html">Volver a Materiales</a></li>
       </ul>
     </div>
-    <figure class="art-fig"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Un diamante en forma de pirámide se clava en el material y deja una huella cuadrada; se miden sus dos diagonales.</desc>
+    <figure class="art-fig"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Una pirámide de base cuadrada se clava en el material y deja una huella cuadrada; se mide su diagonal.</desc>
 <rect width="400" height="260" style="fill:var(--brand-soft)"/>
 <rect x="0" y="180" width="230" height="80" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
 <rect x="96" y="0" width="38" height="70" style="fill:var(--ink)"/>
@@ -372,10 +372,8 @@ details.prob > summary::after{margin-left:auto}
   <nav class="toc" aria-label="Índice">
     <h2>En esta página</h2>
     <ol>
-      <li><a href="#que-es">Dureza Vickers</a></li>
-      <li><a href="#formula">Fórmula de la dureza Vickers</a></li>
-      <li><a href="#cargas">Cargas, notación y condiciones</a></li>
-      <li><a href="#comparacion">Brinell frente a Vickers</a></li>
+      <li><a href="#que-es">La dureza Vickers</a></li>
+      <li><a href="#formula">Cálculo de la dureza Vickers</a></li>
       <li><a href="#problemas">Problemas tipo selectividad</a></li>
     </ol>
     <div class="tools">
@@ -386,158 +384,130 @@ details.prob > summary::after{margin-left:auto}
 
   <main id="contenido">
 <section id="que-es">
-  <h2><span class="n">1</span>Qué es la dureza Vickers</h2>
-<p>El ensayo Vickers sigue la misma idea que el Brinell, pero el penetrador es una <strong>pirámide de diamante de base cuadrada</strong>, con un ángulo de 136° entre caras opuestas. Al retirar la carga queda una huella cuadrada de la que se miden las dos diagonales.</p>
-<p>Como el diamante es el material más duro, sirve para cualquier metal, desde los muy blandos hasta los aceros templados, y las huellas son tan pequeñas que permite ensayar piezas finas y capas superficiales.</p>
+  <h2><span class="n">1</span>La dureza Vickers</h2>
+<p>Es otro ensayo de dureza: se aprieta un penetrador contra la pieza con una carga conocida y se mide la huella. En el ensayo Vickers el penetrador es una <strong>pirámide de base cuadrada</strong> con un ángulo de <strong>136°</strong> entre sus caras.</p>
 <figure>
-<svg viewBox="0 0 520 240" role="img"><title>Penetrador y huella Vickers</title><desc>A la izquierda, vista lateral de la pirámide de diamante con 136° entre caras clavada en la pieza. A la derecha, vista superior de la huella cuadrada con sus diagonales d₁ y d₂.</desc>
-<text x="130" y="20" text-anchor="middle" style="fill:var(--muted);font:600 13px var(--body)">vista lateral</text>
+<svg viewBox="0 0 520 240" role="img"><title>Ensayo de Vickers</title><desc>A la izquierda, la pirámide de base cuadrada con 136° entre caras clavada en la pieza bajo la carga F. A la derecha, la huella vista desde arriba con sus diagonales.</desc>
+<text x="130" y="20" text-anchor="middle" style="fill:var(--muted);font:600 13px var(--body)">penetrador</text>
 <rect x="110" y="30" width="40" height="50" style="fill:var(--ink)"/>
+<polygon points="168,30 182,30 175,54" style="fill:var(--hot)"/><text x="188" y="48" style="fill:var(--hot);font:700 14px var(--mono)">F</text>
 <rect x="20" y="170" width="220" height="60" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
 <polygon points="70,80 190,80 130,198" style="fill:var(--brand-soft);stroke:var(--ink);stroke-width:2;stroke-linejoin:round"/>
 <path d="M112 162 A28 28 0 0 0 148 162" style="fill:none;stroke:var(--hot);stroke-width:2"/>
 <text x="130" y="152" text-anchor="middle" style="fill:var(--hot);font:700 14px var(--mono)">136°</text>
-<line x1="250" y1="170" x2="250" y2="198" style="stroke:var(--ink)"/><line x1="140" y1="198" x2="256" y2="198" style="stroke:var(--muted);stroke-dasharray:3 3"/>
-<text x="256" y="190" style="fill:var(--ink);font:700 13px var(--mono)">h</text>
-<text x="400" y="20" text-anchor="middle" style="fill:var(--muted);font:600 13px var(--body)">vista superior de la huella</text>
+<text x="400" y="20" text-anchor="middle" style="fill:var(--muted);font:600 13px var(--body)">huella vista desde arriba</text>
 <g transform="translate(400 130)">
 <polygon points="0,-90 90,0 0,90 -90,0" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
 <polygon points="0,-90 90,0 0,0" style="fill:var(--brand);opacity:.15"/><polygon points="0,90 -90,0 0,0" style="fill:var(--brand);opacity:.15"/>
 <line x1="-90" y1="0" x2="90" y2="0" style="stroke:var(--hot);stroke-width:2.5"/>
 <line x1="0" y1="-90" x2="0" y2="90" style="stroke:var(--cold);stroke-width:2.5"/>
-<text x="50" y="-8" style="fill:var(--hot);font:700 15px var(--mono)">d₁</text><text x="8" y="60" style="fill:var(--cold);font:700 15px var(--mono)">d₂</text>
+<text x="50" y="-8" style="fill:var(--hot);font:700 15px var(--mono)">d</text><text x="8" y="60" style="fill:var(--cold);font:700 15px var(--mono)">d</text>
 </g>
 </svg>
-<figcaption>La pirámide de diamante deja una huella cuadrada; se usa la media d de sus dos diagonales.</figcaption>
+<figcaption>Ensayo de Vickers: el penetrador deja una huella cuadrada de diagonal d.</figcaption>
 </figure>
 </section>
 
 <section id="formula">
-  <h2><span class="n">2</span>Fórmula de la dureza Vickers</h2>
-<p>Igual que en el Brinell, la dureza es la carga dividida entre la superficie lateral de la huella. Para una pirámide de 136° esa superficie es S = d² / (2 · sen 68°), lo que conduce a:</p>
-<div class="f">HV = F / S = 2F · sen 68° / d² = 1,854 · F / d²<span>F en kp y d en mm, con d = (d₁ + d₂) / 2. Si la carga viene en N, se divide antes entre 9,8.</span></div>
-<div class="f">h ≈ d / 7<span>Profundidad aproximada de la huella, que se obtiene de la geometría de la pirámide.</span></div>
-<p class="note">Una ventaja importante: el ángulo de 136° hace que las huellas grandes y pequeñas sean geométricamente semejantes, así que la dureza Vickers no depende de la carga elegida.</p>
-</section>
-
-<section id="cargas">
-  <h2><span class="n">3</span>Cargas, notación y condiciones</h2>
-<ul>
-<li>Las cargas normales van de 1 a 100 kp (las más usadas, 10, 20 y 30 kp), aplicadas de 10 a 15 s. Por debajo de 1 kp se habla de <strong>microdureza</strong>.</li>
-<li>El espesor de la pieza o de la capa debe ser al menos 1,5 veces la diagonal de la huella.</li>
-<li>La superficie debe estar plana y pulida para poder medir las diagonales con precisión.</li>
-</ul>
-<div class="f">640 HV 30<span>Dureza 640 con una carga de 30 kp en el tiempo normal. Si el tiempo es otro se añade: 640 HV 30/20.</span></div>
-</section>
-
-<section id="comparacion">
-  <h2><span class="n">4</span>Brinell frente a Vickers</h2>
-<div class="tbl"><table>
-<thead><tr><th></th><th>Brinell</th><th>Vickers</th></tr></thead>
-<tbody>
-<tr><td>Penetrador</td><td>Bola de acero templado o de carburo</td><td>Pirámide de diamante de 136°</td></tr>
-<tr><td>Huella</td><td>Circular; se mide el diámetro d</td><td>Cuadrada; se miden las diagonales</td></tr>
-<tr><td>Fórmula</td><td>HB = 2F / (π · D · (D − √(D² − d²)))</td><td>HV = 1,854 · F / d²</td></tr>
-<tr><td>Cargas</td><td>Altas (hasta 3 000 kp)</td><td>Bajas (1–100 kp)</td></tr>
-<tr><td>Materiales</td><td>Blandos y semiduros (hasta ≈ 650 HB)</td><td>Todos, incluidos los muy duros</td></tr>
-<tr><td>Piezas</td><td>Gruesas; huella grande</td><td>Finas, capas y tratamientos superficiales</td></tr>
-</tbody></table></div>
-<p>Para durezas bajas y medias los dos ensayos dan valores muy parecidos (HB ≈ HV).</p>
+  <h2><span class="n">2</span>Cálculo de la dureza Vickers</h2>
+<p>La <strong>dureza Vickers (HV)</strong> se calcula a partir de la carga aplicada F (en kilopondios) y de la diagonal d de la huella que marca el penetrador (en milímetros):</p>
+<div class="f">HV = 1,854 · F / d²</div>
+<p class="note">Si la carga viene en newtons, antes hay que pasarla a kilopondios: 1 kp = 9,8 N.</p>
 </section>
 
 <section id="problemas">
-  <h2><span class="n">5</span>Problemas tipo selectividad</h2>
-  <p>Diez problemas con el formato de la PEvAU: un enunciado común y varios apartados puntuados. Cada apartado está resuelto en tres pasos: qué se pide y cómo abordarlo (planteamiento), los cálculos explicados (desarrollo) y el resultado. Intenta resolverlos antes de abrir la solución.</p>
+  <h2><span class="n">3</span>Problemas tipo selectividad</h2>
+  <p>Diez problemas con el formato de la PEvAU: un enunciado común y varios apartados puntuados. Solo se usan las fórmulas de la teoría. Cada apartado está resuelto en tres pasos: planteamiento, desarrollo y resultado. Intenta resolverlos antes de abrir la solución.</p>
   <details class="prob" id="p1">
-    <summary>1. Dureza Vickers y superficie de la huella</summary>
-    <p class="enun">En un ensayo Vickers se aplica una carga de 30 kp durante 15 s y se obtiene una huella de 0,5 mm de diagonal media. Determine:</p>
+    <summary>1. Dureza Vickers básica</summary>
+    <p class="enun">En un ensayo Vickers se aplica una carga de 30 kp y se obtiene una huella de 0,5 mm de diagonal. Determine:</p>
     <ol class="aps">
       <li class="q"><b>a)</b> La dureza Vickers. (1 punto)</li>
-      <li class="q"><b>b)</b> La superficie lateral de la huella. (1 punto)</li>
-      <li class="q"><b>c)</b> La expresión normalizada. (0,5 puntos)</li>
+      <li class="q"><b>b)</b> La diagonal que dejaría el mismo material con una carga de 10 kp. (1 punto)</li>
+      <li class="q"><b>c)</b> Describa el penetrador que se utiliza. (0,5 puntos)</li>
     </ol>
-    <p class="datos"><b>Datos:</b> F = 30 kp; t = 15 s; d = 0,5 mm</p>
+    <p class="datos"><b>Datos:</b> F = 30 kp; d = 0,5 mm</p>
     <div class="ap">
       <h4><span>a)</span>La dureza Vickers.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>La dureza Vickers es la carga entre la superficie lateral de la huella piramidal; con el ángulo de 136° queda HV = 1,854 · F / d².</p>
+      <p>Aplicamos HV = 1,854 · F / d², con F en kp y d en mm.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Cuadrado de la diagonal:<span class="eq">d² = 0,25 mm²</span></li>
+          <li>Cuadrado de la diagonal:<span class="eq">d² = 0,5² = 0,25 mm²</span></li>
           <li>Dureza:<span class="eq">HV = 1,854 · 30 / 0,25 = 222,5</span></li>
       </ol>
       <p class="res">HV ≈ 222.</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>La superficie lateral de la huella.</h4>
+      <h4><span>b)</span>La diagonal que dejaría el mismo material con una carga de 10 kp.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Como HV = F / S, la superficie es S = F / HV, o directamente S = d² / 1,854.</p>
+      <p>La dureza del material es la misma; despejamos d de la fórmula: d = √(1,854 · F / HV).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie:<span class="eq">S = 0,25 / 1,854 = 0,135 mm²</span></li>
+          <li>Diagonal:<span class="eq">d = √(1,854 · 10 / 222,5) = √0,0833 = 0,289 mm</span></li>
       </ol>
-      <p class="res">S ≈ 0,135 mm².</p>
+      <p class="res">d ≈ 0,29 mm.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>La expresión normalizada.</h4>
+      <h4><span>c)</span>Describa el penetrador que se utiliza.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Se escribe la dureza, HV y la carga en kp; el tiempo solo si no es el normal (10–15 s).</p>
+      <p>Recordamos la forma del penetrador del ensayo Vickers.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Expresión:<span class="eq">222 HV 30</span></li>
+          <li>Penetrador:<span class="eq">pirámide de base cuadrada con 136° entre sus caras</span></li>
       </ol>
-      <p class="res">222 HV 30.</p>
+      <p class="res">Una pirámide de base cuadrada con un ángulo de 136° entre sus caras, que deja una huella cuadrada.</p>
     </div>
-    <p class="note com">Si el tiempo hubiera sido de 30 s se escribiría 222 HV 30/30.</p>
+    <p class="note com">Con menos carga la huella es más pequeña, pero la dureza no cambia: es una propiedad del material.</p>
   </details>
   <details class="prob" id="p2">
-    <summary>2. Huella con diagonales distintas</summary>
-    <p class="enun">Al medir una huella Vickers obtenida con 10 kp, sus diagonales miden 0,42 mm y 0,44 mm. Calcule:</p>
+    <summary>2. Carga necesaria para una huella</summary>
+    <p class="enun">Un material da una huella de 0,43 mm de diagonal con una carga de 10 kp. Calcule:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> La diagonal media. (0,5 puntos)</li>
-      <li class="q"><b>b)</b> La dureza Vickers. (1 punto)</li>
-      <li class="q"><b>c)</b> La profundidad aproximada de la huella (h ≈ d / 7). (1 punto)</li>
+      <li class="q"><b>a)</b> La dureza Vickers. (1 punto)</li>
+      <li class="q"><b>b)</b> La carga necesaria para obtener una huella de 0,6 mm. (1 punto)</li>
+      <li class="q"><b>c)</b> Esa carga expresada en newtons (1 kp = 9,8 N). (0,5 puntos)</li>
     </ol>
-    <p class="datos"><b>Datos:</b> F = 10 kp; d₁ = 0,42 mm; d₂ = 0,44 mm</p>
+    <p class="datos"><b>Datos:</b> F = 10 kp; d = 0,43 mm</p>
     <div class="ap">
-      <h4><span>a)</span>La diagonal media.</h4>
+      <h4><span>a)</span>La dureza Vickers.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Las diagonales casi nunca salen iguales, así que se usa su media aritmética.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Diagonal media:<span class="eq">d = (0,42 + 0,44) / 2 = 0,43 mm</span></li>
-      </ol>
-      <p class="res">d = 0,43 mm.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La dureza Vickers.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Fórmula HV = 1,854 · F / d².</p>
+      <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Dureza:<span class="eq">HV = 1,854 · 10 / 0,43² = 18,54 / 0,1849 = 100,3</span></li>
       </ol>
-      <p class="res">≈ 100 HV 10.</p>
+      <p class="res">HV ≈ 100.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>La profundidad aproximada de la huella (h ≈ d / 7).</h4>
+      <h4><span>b)</span>La carga necesaria para obtener una huella de 0,6 mm.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Por la geometría de la pirámide de 136°, la profundidad es aproximadamente la séptima parte de la diagonal.</p>
+      <p>Despejamos F de la fórmula: F = HV · d² / 1,854.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">h ≈ 0,43 / 7 = 0,061 mm = 61 µm</span></li>
+          <li>Carga:<span class="eq">F = 100,3 · 0,6² / 1,854 = 100,3 · 0,36 / 1,854 = 19,5 kp</span></li>
       </ol>
-      <p class="res">h ≈ 61 µm.</p>
+      <p class="res">F ≈ 19,5 kp.</p>
     </div>
-    <p class="note com">Si las diagonales difieren mucho, conviene revisar que la superficie esté plana y bien pulida.</p>
+    <div class="ap">
+      <h4><span>c)</span>Esa carga expresada en newtons (1 kp = 9,8 N).</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Multiplicamos por 9,8.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Carga:<span class="eq">F = 19,5 · 9,8 = 191 N</span></li>
+      </ol>
+      <p class="res">F ≈ 191 N.</p>
+    </div>
+    <p class="note com">Para despejar en la fórmula de Vickers conviene escribir primero qué incógnita buscamos y aislarla antes de sustituir.</p>
   </details>
   <details class="prob" id="p3">
-    <summary>3. Elección de la carga para un acero templado</summary>
-    <p class="enun">Un acero templado tiene una dureza aproximada de 650 HV. Calcule:</p>
+    <summary>3. Acero templado</summary>
+    <p class="enun">Un acero templado tiene una dureza de 650 HV. Calcule:</p>
     <ol class="aps">
       <li class="q"><b>a)</b> La diagonal de la huella con una carga de 10 kp. (1 punto)</li>
       <li class="q"><b>b)</b> La diagonal con una carga de 30 kp. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> ¿Con cuál de las dos cargas se mide mejor la dureza? (0,75 puntos)</li>
+      <li class="q"><b>c)</b> Cuántas veces es mayor la segunda diagonal. (0,75 puntos)</li>
     </ol>
     <p class="datos"><b>Datos:</b> HV = 650</p>
     <div class="ap">
@@ -546,14 +516,14 @@ details.prob > summary::after{margin-left:auto}
       <p>Despejamos d de HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal:<span class="eq">d = √(1,854 · 10 / 650) = √0,028 5 = 0,169 mm</span></li>
+          <li>Diagonal:<span class="eq">d = √(1,854 · 10 / 650) = √0,0285 = 0,169 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,17 mm.</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La diagonal con una carga de 30 kp.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>La misma expresión con la nueva carga.</p>
+      <p>Misma expresión con la nueva carga.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Diagonal:<span class="eq">d = √(1,854 · 30 / 650) = 0,293 mm</span></li>
@@ -561,30 +531,30 @@ details.prob > summary::after{margin-left:auto}
       <p class="res">d ≈ 0,29 mm.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>¿Con cuál de las dos cargas se mide mejor la dureza?</h4>
+      <h4><span>c)</span>Cuántas veces es mayor la segunda diagonal.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Una huella mayor se mide con menos error relativo, siempre que la pieza tenga espesor suficiente.</p>
+      <p>Dividimos las dos diagonales.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Comparación:<span class="eq">0,29 mm &gt; 0,17 mm</span></li>
+          <li>Relación:<span class="eq">0,293 / 0,169 = 1,73</span></li>
       </ol>
-      <p class="res">Con 30 kp: la huella es mayor y el error de medida relativo, menor.</p>
+      <p class="res">Es unas 1,73 veces mayor (al triplicar la carga, d se multiplica por √3).</p>
     </div>
-    <p class="note com">La dureza Vickers no depende de la carga elegida: lo que cambia es el tamaño de la huella.</p>
+    <p class="note com">Como d² es proporcional a la carga, triplicar la carga no triplica la diagonal.</p>
   </details>
   <details class="prob" id="p4">
-    <summary>4. Carga dada en newtons</summary>
-    <p class="enun">Un durómetro Vickers aplica una carga de 294 N sobre un acero y la huella tiene una diagonal media de 0,62 mm. Calcule:</p>
+    <summary>4. Carga expresada en newtons</summary>
+    <p class="enun">Un durómetro Vickers aplica 294 N sobre un acero y la huella tiene una diagonal de 0,62 mm. Calcule (1 kp = 9,8 N):</p>
     <ol class="aps">
       <li class="q"><b>a)</b> La carga en kp. (0,5 puntos)</li>
       <li class="q"><b>b)</b> La dureza Vickers. (1 punto)</li>
-      <li class="q"><b>c)</b> La diagonal que se obtendría en el mismo acero con una carga de 5 kp. (1 punto)</li>
+      <li class="q"><b>c)</b> La diagonal que se obtendría con 5 kp. (1 punto)</li>
     </ol>
     <p class="datos"><b>Datos:</b> F = 294 N; d = 0,62 mm</p>
     <div class="ap">
       <h4><span>a)</span>La carga en kp.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>La dureza Vickers se expresa por convenio en kp/mm², así que pasamos la carga a kp.</p>
+      <p>La fórmula de Vickers usa la carga en kilopondios.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Carga:<span class="eq">F = 294 / 9,8 = 30 kp</span></li>
@@ -594,255 +564,244 @@ details.prob > summary::after{margin-left:auto}
     <div class="ap">
       <h4><span>b)</span>La dureza Vickers.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Fórmula con la carga en kp.</p>
+      <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Dureza:<span class="eq">HV = 1,854 · 30 / 0,62² = 55,62 / 0,3844 = 144,7</span></li>
       </ol>
-      <p class="res">≈ 145 HV 30.</p>
+      <p class="res">HV ≈ 145.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>La diagonal que se obtendría en el mismo acero con una carga de 5 kp.</h4>
+      <h4><span>c)</span>La diagonal que se obtendría con 5 kp.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>La dureza es la misma; despejamos la diagonal con la nueva carga.</p>
+      <p>Misma dureza, nueva carga.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Diagonal:<span class="eq">d = √(1,854 · 5 / 144,7) = 0,253 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,25 mm.</p>
     </div>
-    <p class="note com">Con la carga en N saldría ≈ 1 418, un valor imposible para un acero de construcción.</p>
+    <p class="note com">Con la carga en N saldría ≈ 1 418, un valor sin sentido para este acero.</p>
   </details>
   <details class="prob" id="p5">
-    <summary>5. Origen del factor 1,854</summary>
-    <p class="enun">El penetrador Vickers es una pirámide de diamante de base cuadrada con 136° entre caras opuestas. Con F = 30 kp y una diagonal de 0,5 mm:</p>
+    <summary>5. Comparación de dos piezas</summary>
+    <p class="enun">Dos piezas, A y B, se ensayan con una carga de 20 kp. La diagonal de la huella es de 0,30 mm en A y de 0,45 mm en B. Determine:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> Calcule el valor de 2 · sen 68°. (0,5 puntos)</li>
-      <li class="q"><b>b)</b> La superficie lateral de la huella, S = d² / (2 · sen 68°). (1 punto)</li>
-      <li class="q"><b>c)</b> La dureza como cociente F / S, y compárela con la fórmula simplificada. (1 punto)</li>
+      <li class="q"><b>a)</b> La dureza de la pieza A. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> La dureza de la pieza B. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> Cuál es más dura y cuántas veces. (1 punto)</li>
     </ol>
-    <p class="datos"><b>Datos:</b> F = 30 kp; d = 0,5 mm; ángulo entre caras 136°</p>
+    <p class="datos"><b>Datos:</b> F = 20 kp; d<sub>A</sub> = 0,30 mm; d<sub>B</sub> = 0,45 mm</p>
     <div class="ap">
-      <h4><span>a)</span>Calcule el valor de 2 · sen 68°.</h4>
+      <h4><span>a)</span>La dureza de la pieza A.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>La mitad del ángulo entre caras es 68°; este valor aparece al calcular la superficie lateral de la huella.</p>
+      <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Valor:<span class="eq">2 · sen 68° = 2 · 0,927 = 1,854</span></li>
+          <li>Dureza:<span class="eq">HV<sub>A</sub> = 1,854 · 20 / 0,09 = 412</span></li>
       </ol>
-      <p class="res">1,854.</p>
+      <p class="res">HV<sub>A</sub> = 412.</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>La superficie lateral de la huella, S = d² / (2 · sen 68°).</h4>
+      <h4><span>b)</span>La dureza de la pieza B.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Aplicamos la expresión geométrica.</p>
+      <p>Misma fórmula.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie:<span class="eq">S = 0,25 / 1,854 = 0,1348 mm²</span></li>
+          <li>Dureza:<span class="eq">HV<sub>B</sub> = 1,854 · 20 / 0,2025 = 183,1</span></li>
       </ol>
-      <p class="res">S ≈ 0,135 mm².</p>
+      <p class="res">HV<sub>B</sub> ≈ 183.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>La dureza como cociente F / S, y compárela con la fórmula simplificada.</h4>
+      <h4><span>c)</span>Cuál es más dura y cuántas veces.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Comprobamos que la definición de dureza y la fórmula práctica dan lo mismo.</p>
+      <p>Comparamos las durezas.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Por definición:<span class="eq">HV = 30 / 0,1348 = 222,5</span></li>
-          <li>Con la fórmula:<span class="eq">HV = 1,854 · 30 / 0,25 = 222,5</span></li>
+          <li>Relación:<span class="eq">412 / 183,1 = 2,25</span></li>
       </ol>
-      <p class="res">Coinciden: HV ≈ 222.</p>
+      <p class="res">A es 2,25 veces más dura: deja la huella más pequeña.</p>
     </div>
-    <p class="note com">HV = F / S = 2 · F · sen 68° / d² = 1,854 · F / d². El factor solo depende de la forma del diamante.</p>
+    <p class="note com">La relación de durezas es la inversa de la relación de diagonales al cuadrado: (0,45 / 0,30)² = 2,25.</p>
   </details>
   <details class="prob" id="p6">
     <summary>6. Efecto del temple</summary>
-    <p class="enun">Una pieza de acero se ensaya con 30 kp antes y después de templarla. La diagonal media de la huella pasa de 0,71 mm a 0,36 mm. Calcule:</p>
+    <p class="enun">Una pieza de acero se ensaya con 30 kp antes y después de templarla. La diagonal de la huella pasa de 0,71 mm a 0,36 mm. Calcule:</p>
     <ol class="aps">
       <li class="q"><b>a)</b> La dureza antes del temple. (0,75 puntos)</li>
       <li class="q"><b>b)</b> La dureza después del temple. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> Cuántas veces ha aumentado la dureza y por qué el Vickers es adecuado para este caso. (1 punto)</li>
+      <li class="q"><b>c)</b> Cuántas veces ha aumentado la dureza. (1 punto)</li>
     </ol>
     <p class="datos"><b>Datos:</b> F = 30 kp; d<sub>antes</sub> = 0,71 mm; d<sub>después</sub> = 0,36 mm</p>
     <div class="ap">
       <h4><span>a)</span>La dureza antes del temple.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Fórmula HV con la primera huella.</p>
+      <p>HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 1,854 · 30 / 0,71² = 55,62 / 0,5041 = 110,4</span></li>
+          <li>Dureza:<span class="eq">HV = 55,62 / 0,5041 = 110,3</span></li>
       </ol>
-      <p class="res">≈ 110 HV 30.</p>
+      <p class="res">HV ≈ 110.</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La dureza después del temple.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Misma fórmula con la segunda huella.</p>
+      <p>Misma fórmula.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 55,62 / 0,36² = 55,62 / 0,1296 = 429,2</span></li>
+          <li>Dureza:<span class="eq">HV = 55,62 / 0,1296 = 429,2</span></li>
       </ol>
-      <p class="res">≈ 429 HV 30.</p>
+      <p class="res">HV ≈ 429.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>Cuántas veces ha aumentado la dureza y por qué el Vickers es adecuado para este caso.</h4>
+      <h4><span>c)</span>Cuántas veces ha aumentado la dureza.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Dividimos las durezas. Después pensamos en el penetrador: el diamante no se deforma con materiales duros.</p>
+      <p>Dividimos las durezas.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Relación:<span class="eq">429,2 / 110,4 = 3,89</span></li>
+          <li>Relación:<span class="eq">429,2 / 110,3 = 3,89</span></li>
       </ol>
-      <p class="res">La dureza es casi 4 veces mayor. El Vickers mide igual de bien el acero blando y el templado sin cambiar de penetrador; una bola Brinell de acero podría deformarse con el templado.</p>
+      <p class="res">Casi 4 veces mayor.</p>
     </div>
-    <p class="note com">Como HV depende de 1 / d², reducir la diagonal a la mitad multiplica la dureza casi por cuatro.</p>
+    <p class="note com">Reducir la diagonal a la mitad multiplica la dureza casi por cuatro, porque d aparece al cuadrado.</p>
   </details>
   <details class="prob" id="p7">
-    <summary>7. Ensayo sobre una chapa fina</summary>
-    <p class="enun">Hay que medir la dureza de una chapa de 0,5 mm de espesor cuya dureza es de unos 400 HV. Para que el ensayo sea válido, el espesor debe ser al menos 1,5 veces la diagonal de la huella. Calcule:</p>
+    <summary>7. Huella máxima admisible</summary>
+    <p class="enun">Se quiere ensayar un acero de unos 400 HV de modo que la diagonal de la huella no supere 0,3 mm. Calcule:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> La diagonal máxima admisible. (0,5 puntos)</li>
-      <li class="q"><b>b)</b> La carga máxima que puede aplicarse. (1 punto)</li>
-      <li class="q"><b>c)</b> La carga normalizada que elegiría, comprobando la validez. (1 punto)</li>
+      <li class="q"><b>a)</b> La carga máxima que puede aplicarse. (1 punto)</li>
+      <li class="q"><b>b)</b> La diagonal que se obtendría con 10 kp. (1 punto)</li>
+      <li class="q"><b>c)</b> La carga de 10 kp en newtons. (0,5 puntos)</li>
     </ol>
-    <p class="datos"><b>Datos:</b> e = 0,5 mm; HV ≈ 400; condición e ≥ 1,5 · d; cargas normalizadas: 1, 5, 10, 20, 30 kp</p>
+    <p class="datos"><b>Datos:</b> HV = 400; d máxima = 0,3 mm</p>
     <div class="ap">
-      <h4><span>a)</span>La diagonal máxima admisible.</h4>
+      <h4><span>a)</span>La carga máxima que puede aplicarse.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Despejamos d de la condición de espesor.</p>
+      <p>Despejamos F de HV = 1,854 · F / d².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diagonal máxima:<span class="eq">d<sub>máx</sub> = 0,5 / 1,5 = 0,333 mm</span></li>
+          <li>Carga:<span class="eq">F = HV · d² / 1,854 = 400 · 0,09 / 1,854 = 19,4 kp</span></li>
       </ol>
-      <p class="res">d<sub>máx</sub> ≈ 0,33 mm.</p>
+      <p class="res">F<sub>máx</sub> ≈ 19,4 kp.</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>La carga máxima que puede aplicarse.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Con la dureza estimada y la diagonal máxima despejamos la carga de HV = 1,854 · F / d².</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Carga máxima:<span class="eq">F = HV · d² / 1,854 = 400 · 0,111 / 1,854 = 24,0 kp</span></li>
-      </ol>
-      <p class="res">F<sub>máx</sub> ≈ 24 kp.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La carga normalizada que elegiría, comprobando la validez.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Elegimos la carga normalizada inmediatamente inferior y comprobamos la huella que dejará.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Carga elegida:<span class="eq">20 kp</span></li>
-          <li>Huella y comprobación:<span class="eq">d = √(1,854 · 20 / 400) = 0,304 mm &nbsp;→&nbsp; 1,5 · 0,304 = 0,46 mm &lt; 0,5 mm ✓</span></li>
-      </ol>
-      <p class="res">20 kp (ensayo HV 20).</p>
-    </div>
-    <p class="note com">Con 30 kp la huella llegaría a 0,37 mm y el material de debajo de la chapa influiría en el resultado.</p>
-  </details>
-  <details class="prob" id="p8">
-    <summary>8. Microdureza de una capa superficial</summary>
-    <p class="enun">Para medir la dureza de una capa cementada se usa un microdurómetro Vickers con una carga de 0,1 kp. La diagonal media de la huella es de 25 µm. Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La dureza. (1 punto)</li>
-      <li class="q"><b>b)</b> La profundidad aproximada de la huella. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> El espesor mínimo de capa que permite el ensayo (e ≥ 1,5 · d). (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> F = 0,1 kp; d = 25 µm = 0,025 mm</p>
-    <div class="ap">
-      <h4><span>a)</span>La dureza.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La fórmula es la misma; solo hay que poner la diagonal en mm.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 1,854 · 0,1 / 0,025² = 0,1854 / 0,000 625 = 296,7</span></li>
-      </ol>
-      <p class="res">≈ 297 HV 0,1.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La profundidad aproximada de la huella.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>h ≈ d / 7.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Profundidad:<span class="eq">h ≈ 25 / 7 = 3,6 µm</span></li>
-      </ol>
-      <p class="res">h ≈ 3,6 µm.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>El espesor mínimo de capa que permite el ensayo (e ≥ 1,5 · d).</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Aplicamos la condición de espesor.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Espesor mínimo:<span class="eq">e = 1,5 · 0,025 = 0,0375 mm = 37,5 µm</span></li>
-      </ol>
-      <p class="res">e ≥ 37,5 µm.</p>
-    </div>
-    <p class="note com">Con cargas tan pequeñas se puede medir la dureza de recubrimientos o incluso de un solo grano del metal.</p>
-  </details>
-  <details class="prob" id="p9">
-    <summary>9. Profundidad y superficie de la huella</summary>
-    <p class="enun">Una huella Vickers hecha con 30 kp tiene una diagonal media de 0,48 mm. Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La dureza. (1 punto)</li>
-      <li class="q"><b>b)</b> La profundidad de la huella. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> La superficie lateral de la huella. (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> F = 30 kp; d = 0,48 mm</p>
-    <div class="ap">
-      <h4><span>a)</span>La dureza.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Fórmula HV = 1,854 · F / d².</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Dureza:<span class="eq">HV = 55,62 / 0,2304 = 241,4</span></li>
-      </ol>
-      <p class="res">≈ 241 HV 30.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La profundidad de la huella.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>h = d / (2√2 · tg 68°) ≈ d / 7.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Profundidad:<span class="eq">h ≈ 0,48 / 7 = 0,0686 mm ≈ 69 µm</span></li>
-      </ol>
-      <p class="res">h ≈ 69 µm.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La superficie lateral de la huella.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>S = d² / 1,854, o bien S = F / HV.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Superficie:<span class="eq">S = 0,2304 / 1,854 = 0,124 mm²</span></li>
-      </ol>
-      <p class="res">S ≈ 0,124 mm².</p>
-    </div>
-    <p class="note com">La huella apenas penetra: por eso el Vickers casi no daña la pieza.</p>
-  </details>
-  <details class="prob" id="p10">
-    <summary>10. Interpretar un resultado normalizado</summary>
-    <p class="enun">Un catálogo indica para un acero «520 HV 10/15». Responda:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> Qué significa cada número. (0,5 puntos)</li>
-      <li class="q"><b>b)</b> La diagonal de la huella. (1 punto)</li>
-      <li class="q"><b>c)</b> La diagonal si se ensayara con 30 kp. (1 punto)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> HV = 520; F = 10 kp; t = 15 s</p>
-    <div class="ap">
-      <h4><span>a)</span>Qué significa cada número.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La notación es: dureza HV carga / tiempo.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Lectura:<span class="eq">dureza 520 kp/mm²; carga de 10 kp aplicada durante 15 s</span></li>
-      </ol>
-      <p class="res">520 HV con 10 kp durante 15 s.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La diagonal de la huella.</h4>
+      <h4><span>b)</span>La diagonal que se obtendría con 10 kp.</h4>
       <span class="lbl">Planteamiento</span>
       <p>Despejamos d.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Diagonal:<span class="eq">d = √(1,854 · 10 / 400) = 0,215 mm</span></li>
+      </ol>
+      <p class="res">d ≈ 0,22 mm.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La carga de 10 kp en newtons.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>1 kp = 9,8 N.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Carga:<span class="eq">10 · 9,8 = 98 N</span></li>
+      </ol>
+      <p class="res">98 N.</p>
+    </div>
+    <p class="note com">Como la carga máxima es 19,4 kp, una carga de 10 kp cumple la condición con margen.</p>
+  </details>
+  <details class="prob" id="p8">
+    <summary>8. Ensayo con carga muy pequeña</summary>
+    <p class="enun">Para medir la dureza de una capa superficial se usa una carga de 0,1 kp. La diagonal de la huella es de 0,025 mm. Calcule:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> La dureza Vickers. (1 punto)</li>
+      <li class="q"><b>b)</b> La carga necesaria para que la huella mida 0,04 mm. (1 punto)</li>
+      <li class="q"><b>c)</b> Esa carga en newtons. (0,5 puntos)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> F = 0,1 kp; d = 0,025 mm</p>
+    <div class="ap">
+      <h4><span>a)</span>La dureza Vickers.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>La fórmula es la misma; solo hay que tener cuidado con los decimales.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Dureza:<span class="eq">HV = 1,854 · 0,1 / 0,025² = 0,1854 / 0,000 625 = 296,6</span></li>
+      </ol>
+      <p class="res">HV ≈ 297.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La carga necesaria para que la huella mida 0,04 mm.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Despejamos F.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Carga:<span class="eq">F = 296,6 · 0,04² / 1,854 = 0,256 kp</span></li>
+      </ol>
+      <p class="res">F ≈ 0,26 kp.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>Esa carga en newtons.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>1 kp = 9,8 N.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Carga:<span class="eq">0,256 · 9,8 = 2,51 N</span></li>
+      </ol>
+      <p class="res">F ≈ 2,5 N.</p>
+    </div>
+    <p class="note com">La diagonal de 0,025 mm equivale a 25 micras: hace falta un microscopio para medirla.</p>
+  </details>
+  <details class="prob" id="p9">
+    <summary>9. Brinell y Vickers sobre el mismo acero</summary>
+    <p class="enun">Un acero se ensaya con los dos métodos. Brinell: esfera de 10 mm, 3 000 kp, huella de 4,2 mm. Vickers: 30 kp, diagonal de 0,52 mm. Calcule:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> La dureza Brinell. (1 punto)</li>
+      <li class="q"><b>b)</b> La dureza Vickers. (1 punto)</li>
+      <li class="q"><b>c)</b> Compare los resultados. (0,5 puntos)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> Brinell: D = 10 mm, F = 3 000 kp, d = 4,2 mm. Vickers: F = 30 kp, d = 0,52 mm</p>
+    <div class="ap">
+      <h4><span>a)</span>La dureza Brinell.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>HB = 2F / (π · D · (D − √(D² − d²))).</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Raíz:<span class="eq">√(100 − 17,64) = 9,075 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 6 000 / (π · 10 · 0,925) = 206,5</span></li>
+      </ol>
+      <p class="res">HB ≈ 207.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La dureza Vickers.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>HV = 1,854 · F / d².</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Dureza:<span class="eq">HV = 55,62 / 0,2704 = 205,7</span></li>
+      </ol>
+      <p class="res">HV ≈ 206.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>Compare los resultados.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Observamos los dos valores.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Comparación:<span class="eq">206,5 ≈ 205,7</span></li>
+      </ol>
+      <p class="res">Los dos ensayos dan valores muy parecidos para este acero.</p>
+    </div>
+    <p class="note com">Aunque el penetrador y la huella son distintos, ambos ensayos miden la misma propiedad: la resistencia a ser perforado.</p>
+  </details>
+  <details class="prob" id="p10">
+    <summary>10. Problema inverso</summary>
+    <p class="enun">Un acero tiene una dureza de 520 HV. Calcule:</p>
+    <ol class="aps">
+      <li class="q"><b>a)</b> La diagonal de la huella con una carga de 10 kp. (1 punto)</li>
+      <li class="q"><b>b)</b> La diagonal con 30 kp. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> La carga que produce una huella de 0,25 mm. (0,75 puntos)</li>
+    </ol>
+    <p class="datos"><b>Datos:</b> HV = 520</p>
+    <div class="ap">
+      <h4><span>a)</span>La diagonal de la huella con una carga de 10 kp.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>d = √(1,854 · F / HV).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Diagonal:<span class="eq">d = √(1,854 · 10 / 520) = 0,189 mm</span></li>
@@ -850,16 +809,26 @@ details.prob > summary::after{margin-left:auto}
       <p class="res">d ≈ 0,19 mm.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>La diagonal si se ensayara con 30 kp.</h4>
+      <h4><span>b)</span>La diagonal con 30 kp.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Misma dureza, nueva carga.</p>
+      <p>Misma expresión.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Diagonal:<span class="eq">d = √(1,854 · 30 / 520) = 0,327 mm</span></li>
       </ol>
       <p class="res">d ≈ 0,33 mm.</p>
     </div>
-    <p class="note com">Como 15 s es el tiempo normal, suele escribirse simplemente 520 HV 10.</p>
+    <div class="ap">
+      <h4><span>c)</span>La carga que produce una huella de 0,25 mm.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>F = HV · d² / 1,854.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Carga:<span class="eq">F = 520 · 0,0625 / 1,854 = 17,5 kp</span></li>
+      </ol>
+      <p class="res">F ≈ 17,5 kp.</p>
+    </div>
+    <p class="note com">Los problemas inversos se resuelven siempre despejando antes de sustituir.</p>
   </details>
 </section>
 
@@ -905,7 +874,7 @@ details.prob > summary::after{margin-left:auto}
 <path d="M170 168 H230 L214 196 H186 Z" style="fill:var(--hot);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
 <circle cx="200" cy="50" r="12" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
 <g style="stroke:var(--hot);stroke-width:3;stroke-linecap:round"><line x1="168" y1="214" x2="150" y2="196"/><line x1="232" y1="214" x2="252" y2="198"/><line x1="200" y1="228" x2="200" y2="246"/></g>
-<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/cm²</text>
+<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/mm²</text>
 </svg><span>Ensayo de resiliencia</span></a></li>
   </ul>
 </aside>

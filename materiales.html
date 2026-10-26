@@ -171,6 +171,33 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
 .totop svg{width:20px;height:20px}
 
 
+/* ---------- Ajustes para convivir con Bootstrap ---------- */
+.lead{font-weight:400}
+code{color:inherit}
+h1,h2,h3,h4{color:inherit}
+summary{display:block}
+.toast{--bs-toast-bg:var(--surface);--bs-toast-color:var(--ink);--bs-toast-header-bg:var(--work-bg);--bs-toast-header-color:var(--ink);--bs-toast-border-color:var(--line)}
+
+/* ---------- Progreso de problemas ---------- */
+.prog-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:0 0 18px}
+.prog-box .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;margin-bottom:8px}
+.prog-box .head b{font-weight:600}
+.prog-box .head span{color:var(--muted);font-variant-numeric:tabular-nums}
+.prog-box .progress{--bs-progress-height:10px;--bs-progress-bg:var(--bg);--bs-progress-bar-bg:var(--work);--bs-progress-border-radius:99px}
+.prog-box .reset{all:unset;cursor:pointer;color:var(--muted);font-size:13px;text-decoration:underline;margin-top:8px;display:inline-block}
+.prog-box .reset:focus-visible{outline:2px solid var(--cold)}
+.done-switch{margin:14px 18px 16px!important;padding-top:12px;border-top:1px dashed var(--line);font-weight:500}
+.done-switch .form-check-input{cursor:pointer}
+.done-switch .form-check-input:checked{background-color:var(--work);border-color:var(--work)}
+details.prob.done{border-color:var(--work)}
+details.prob.done > summary::before{content:"✓";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--work);color:#fff;font-size:13px;font-weight:700;margin-right:10px;flex:none}
+details.prob > summary{justify-content:flex-start}
+details.prob > summary::after{margin-left:auto}
+.badge-prog{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.badge-prog.some{background:var(--cold-bg);color:var(--cold);border-color:transparent}
+.badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
+
+
 /* ---------- Problemas tipo selectividad ---------- */
 .prob .enun{font-size:16.5px}
 .prob ol.aps{list-style:none;padding:0;margin:0 0 6px}
@@ -229,33 +256,6 @@ svg.art{display:block;width:100%;height:auto}
 .others a:hover{border-color:var(--brand)}
 .others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
 @media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
-
-
-/* ---------- Ajustes para convivir con Bootstrap ---------- */
-.lead{font-weight:400}
-code{color:inherit}
-h1,h2,h3,h4{color:inherit}
-summary{display:block}
-.toast{--bs-toast-bg:var(--surface);--bs-toast-color:var(--ink);--bs-toast-header-bg:var(--work-bg);--bs-toast-header-color:var(--ink);--bs-toast-border-color:var(--line)}
-
-/* ---------- Progreso de problemas ---------- */
-.prog-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:0 0 18px}
-.prog-box .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;margin-bottom:8px}
-.prog-box .head b{font-weight:600}
-.prog-box .head span{color:var(--muted);font-variant-numeric:tabular-nums}
-.prog-box .progress{--bs-progress-height:10px;--bs-progress-bg:var(--bg);--bs-progress-bar-bg:var(--work);--bs-progress-border-radius:99px}
-.prog-box .reset{all:unset;cursor:pointer;color:var(--muted);font-size:13px;text-decoration:underline;margin-top:8px;display:inline-block}
-.prog-box .reset:focus-visible{outline:2px solid var(--cold)}
-.done-switch{margin:14px 18px 16px!important;padding-top:12px;border-top:1px dashed var(--line);font-weight:500}
-.done-switch .form-check-input{cursor:pointer}
-.done-switch .form-check-input:checked{background-color:var(--work);border-color:var(--work)}
-details.prob.done{border-color:var(--work)}
-details.prob.done > summary::before{content:"✓";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--work);color:#fff;font-size:13px;font-weight:700;margin-right:10px;flex:none}
-details.prob > summary{justify-content:flex-start}
-details.prob > summary::after{margin-left:auto}
-.badge-prog{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
-.badge-prog.some{background:var(--cold-bg);color:var(--cold);border-color:transparent}
-.badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
 
 /* ---------- Pie ---------- */
 .site-footer{background:var(--surface);border-top:1px solid var(--line);padding:28px 0 36px;font-size:14.5px;color:var(--muted)}
@@ -338,7 +338,7 @@ details.prob > summary::after{margin-left:auto}
     <div>
       <p class="crumbs"><a href="./">Tecnología e Ingeniería</a> / Ensayos de materiales</p>
       <h1>Materiales</h1>
-      <p class="lead">Para elegir un material hay que conocer sus propiedades, y para conocerlas hay que medirlas. En esta unidad estudiamos los cuatro ensayos mecánicos que entran en selectividad.</p>
+      <p class="lead">Los ensayos son estudios normalizados de las propiedades de un material que permiten medirlas con gran precisión. Se realizan sobre probetas, piezas de dimensiones normalizadas, y para cada propiedad se usa un ensayo distinto.</p>
       <ul class="quick">
         <li><a class="primary" href="#ensayos">Ver los ensayos</a></li>
         <li><a href="ensayo-traccion.html">Empezar por tracción</a></li>
@@ -356,13 +356,13 @@ details.prob > summary::after{margin-left:auto}
       <circle cx="84" cy="84" r="4" style="fill:var(--cold)"/>
       <circle cx="240" cy="44" r="4" style="fill:var(--hot)"/>
       <path d="M290 112 l12 10 M302 112 l-12 10" style="stroke:var(--ink);stroke-width:2"/>
-      <text x="58" y="72" style="fill:var(--cold);font:600 13px var(--mono)">σₑ</text>
-      <text x="232" y="34" style="fill:var(--hot);font:600 13px var(--mono)">σᵣ</text>
+      <text x="58" y="72" style="fill:var(--cold);font:600 13px var(--mono)">σe</text>
+      <text x="232" y="34" style="fill:var(--hot);font:600 13px var(--mono)">σmáx</text>
       <text x="300" y="104" style="fill:var(--ink);font:600 12px var(--body)">rotura</text>
       <text x="66" y="208" text-anchor="middle" style="fill:var(--cold);font:600 12px var(--body)">elástica</text>
       <text x="200" y="208" text-anchor="middle" style="fill:var(--hot);font:600 12px var(--body)">plástica</text>
     </svg>
-    <figcaption>Ensayo de tracción de un acero: zonas elástica y plástica.</figcaption>
+    <figcaption>Diagrama de tracción: zona elástica y zona plástica.</figcaption>
   </figure>
 
   </div>
@@ -386,7 +386,7 @@ details.prob > summary::after{margin-left:auto}
 <text x="318" y="70" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
 <text x="318" y="206" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
 </svg></div>
-      <div class="body"><h3>Ensayo de tracción</h3><p>Se estira una probeta hasta romperla para conocer su rigidez, su límite elástico, su resistencia y su ductilidad.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-traccion.html" data-total="10">10 problemas</span></div></div>
+      <div class="body"><h3>Ensayo de tracción</h3><p>Se estira una probeta hasta romperla y se estudia cómo se deforma: tensión, deformación unitaria y diagrama de tracción.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-traccion.html" data-total="10">10 problemas</span></div></div>
     </a></li>
     <li><a class="test" href="ensayo-brinell.html">
       <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Brinell</title><desc>Una bola de acero empujada por una carga se hunde en el material y deja una huella redonda.</desc>
@@ -402,10 +402,10 @@ details.prob > summary::after{margin-left:auto}
 <text x="326" y="64" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
 <text x="40" y="60" style="fill:var(--work);font:700 44px var(--display)">HB</text>
 </svg></div>
-      <div class="body"><h3>Ensayo Brinell</h3><p>Una bola de acero se hunde en la pieza; el tamaño de la huella indica su dureza.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-brinell.html" data-total="10">10 problemas</span></div></div>
+      <div class="body"><h3>Ensayo Brinell</h3><p>Una esfera de acero templado se aprieta contra la pieza; el tamaño de la huella indica su dureza.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-brinell.html" data-total="10">10 problemas</span></div></div>
     </a></li>
     <li><a class="test" href="ensayo-vickers.html">
-      <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Un diamante en forma de pirámide se clava en el material y deja una huella cuadrada; se miden sus dos diagonales.</desc>
+      <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Una pirámide de base cuadrada se clava en el material y deja una huella cuadrada; se mide su diagonal.</desc>
 <rect width="400" height="260" style="fill:var(--brand-soft)"/>
 <rect x="0" y="180" width="230" height="80" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
 <rect x="96" y="0" width="38" height="70" style="fill:var(--ink)"/>
@@ -423,7 +423,7 @@ details.prob > summary::after{margin-left:auto}
 </g>
 <text x="20" y="42" style="fill:var(--brand);font:700 44px var(--display)">HV</text>
 </svg></div>
-      <div class="body"><h3>Ensayo Vickers</h3><p>Una pirámide de diamante deja una huella cuadrada. Sirve para cualquier material, incluso muy duro o muy fino.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-vickers.html" data-total="10">10 problemas</span></div></div>
+      <div class="body"><h3>Ensayo Vickers</h3><p>Una pirámide de base cuadrada, con 136° entre caras, deja una huella; se mide su diagonal.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-vickers.html" data-total="10">10 problemas</span></div></div>
     </a></li>
     <li><a class="test" href="ensayo-resiliencia.html">
       <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo de resiliencia Charpy</title><desc>Un péndulo pesado cae desde lo alto, rompe la probeta entallada apoyada en la parte baja y sigue subiendo por el otro lado.</desc>
@@ -439,19 +439,19 @@ details.prob > summary::after{margin-left:auto}
 <path d="M170 168 H230 L214 196 H186 Z" style="fill:var(--hot);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
 <circle cx="200" cy="50" r="12" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
 <g style="stroke:var(--hot);stroke-width:3;stroke-linecap:round"><line x1="168" y1="214" x2="150" y2="196"/><line x1="232" y1="214" x2="252" y2="198"/><line x1="200" y1="228" x2="200" y2="246"/></g>
-<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/cm²</text>
+<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/mm²</text>
 </svg></div>
-      <div class="body"><h3>Ensayo de resiliencia</h3><p>Un péndulo rompe de un golpe una probeta entallada para medir la energía que absorbe: su tenacidad.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-resiliencia.html" data-total="10">10 problemas</span></div></div>
+      <div class="body"><h3>Ensayo de resiliencia</h3><p>El péndulo de Charpy rompe de un golpe una probeta entallada para medir la energía que absorbe.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-resiliencia.html" data-total="10">10 problemas</span></div></div>
     </a></li>
   </ul>
   <h2>Qué mide cada ensayo</h2>
   <div class="tbl"><table>
     <thead><tr><th>Ensayo</th><th>Propiedad</th><th>Cómo se hace</th><th>Resultado</th></tr></thead>
     <tbody>
-      <tr><td><a href="ensayo-traccion.html">Tracción</a></td><td>Resistencia, rigidez y ductilidad</td><td>Se estira una probeta hasta romperla</td><td>E, σₑ, σᵣ (MPa); A, Z (%)</td></tr>
-      <tr><td><a href="ensayo-brinell.html">Brinell</a></td><td>Dureza</td><td>Bola de acero presionada con F = K · D²</td><td>HB</td></tr>
-      <tr><td><a href="ensayo-vickers.html">Vickers</a></td><td>Dureza</td><td>Pirámide de diamante de 136°</td><td>HV</td></tr>
-      <tr><td><a href="ensayo-resiliencia.html">Resiliencia</a></td><td>Tenacidad frente a golpes</td><td>Péndulo de Charpy contra una probeta entallada</td><td>ρ (J/cm²)</td></tr>
+      <tr><td><a href="ensayo-traccion.html">Tracción</a></td><td>Comportamiento ante la tracción</td><td>Se estira una probeta hasta romperla</td><td>σ, ε, E y diagrama de tracción</td></tr>
+      <tr><td><a href="ensayo-brinell.html">Brinell</a></td><td>Dureza</td><td>Esfera de acero templado; carga F = K · D²</td><td>HB</td></tr>
+      <tr><td><a href="ensayo-vickers.html">Vickers</a></td><td>Dureza</td><td>Pirámide de base cuadrada con 136° entre caras</td><td>HV</td></tr>
+      <tr><td><a href="ensayo-resiliencia.html">Resiliencia</a></td><td>Energía absorbida en un impacto</td><td>Péndulo de Charpy contra una probeta entallada</td><td>ρ (J/mm²)</td></tr>
     </tbody>
   </table></div>
 </div>

@@ -171,6 +171,33 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
 .totop svg{width:20px;height:20px}
 
 
+/* ---------- Ajustes para convivir con Bootstrap ---------- */
+.lead{font-weight:400}
+code{color:inherit}
+h1,h2,h3,h4{color:inherit}
+summary{display:block}
+.toast{--bs-toast-bg:var(--surface);--bs-toast-color:var(--ink);--bs-toast-header-bg:var(--work-bg);--bs-toast-header-color:var(--ink);--bs-toast-border-color:var(--line)}
+
+/* ---------- Progreso de problemas ---------- */
+.prog-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:0 0 18px}
+.prog-box .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;margin-bottom:8px}
+.prog-box .head b{font-weight:600}
+.prog-box .head span{color:var(--muted);font-variant-numeric:tabular-nums}
+.prog-box .progress{--bs-progress-height:10px;--bs-progress-bg:var(--bg);--bs-progress-bar-bg:var(--work);--bs-progress-border-radius:99px}
+.prog-box .reset{all:unset;cursor:pointer;color:var(--muted);font-size:13px;text-decoration:underline;margin-top:8px;display:inline-block}
+.prog-box .reset:focus-visible{outline:2px solid var(--cold)}
+.done-switch{margin:14px 18px 16px!important;padding-top:12px;border-top:1px dashed var(--line);font-weight:500}
+.done-switch .form-check-input{cursor:pointer}
+.done-switch .form-check-input:checked{background-color:var(--work);border-color:var(--work)}
+details.prob.done{border-color:var(--work)}
+details.prob.done > summary::before{content:"✓";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--work);color:#fff;font-size:13px;font-weight:700;margin-right:10px;flex:none}
+details.prob > summary{justify-content:flex-start}
+details.prob > summary::after{margin-left:auto}
+.badge-prog{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.badge-prog.some{background:var(--cold-bg);color:var(--cold);border-color:transparent}
+.badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
+
+
 /* ---------- Problemas tipo selectividad ---------- */
 .prob .enun{font-size:16.5px}
 .prob ol.aps{list-style:none;padding:0;margin:0 0 6px}
@@ -229,33 +256,6 @@ svg.art{display:block;width:100%;height:auto}
 .others a:hover{border-color:var(--brand)}
 .others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
 @media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
-
-
-/* ---------- Ajustes para convivir con Bootstrap ---------- */
-.lead{font-weight:400}
-code{color:inherit}
-h1,h2,h3,h4{color:inherit}
-summary{display:block}
-.toast{--bs-toast-bg:var(--surface);--bs-toast-color:var(--ink);--bs-toast-header-bg:var(--work-bg);--bs-toast-header-color:var(--ink);--bs-toast-border-color:var(--line)}
-
-/* ---------- Progreso de problemas ---------- */
-.prog-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:0 0 18px}
-.prog-box .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;margin-bottom:8px}
-.prog-box .head b{font-weight:600}
-.prog-box .head span{color:var(--muted);font-variant-numeric:tabular-nums}
-.prog-box .progress{--bs-progress-height:10px;--bs-progress-bg:var(--bg);--bs-progress-bar-bg:var(--work);--bs-progress-border-radius:99px}
-.prog-box .reset{all:unset;cursor:pointer;color:var(--muted);font-size:13px;text-decoration:underline;margin-top:8px;display:inline-block}
-.prog-box .reset:focus-visible{outline:2px solid var(--cold)}
-.done-switch{margin:14px 18px 16px!important;padding-top:12px;border-top:1px dashed var(--line);font-weight:500}
-.done-switch .form-check-input{cursor:pointer}
-.done-switch .form-check-input:checked{background-color:var(--work);border-color:var(--work)}
-details.prob.done{border-color:var(--work)}
-details.prob.done > summary::before{content:"✓";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--work);color:#fff;font-size:13px;font-weight:700;margin-right:10px;flex:none}
-details.prob > summary{justify-content:flex-start}
-details.prob > summary::after{margin-left:auto}
-.badge-prog{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
-.badge-prog.some{background:var(--cold-bg);color:var(--cold);border-color:transparent}
-.badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
 
 /* ---------- Pie ---------- */
 .site-footer{background:var(--surface);border-top:1px solid var(--line);padding:28px 0 36px;font-size:14.5px;color:var(--muted)}
@@ -338,7 +338,7 @@ details.prob > summary::after{margin-left:auto}
     <div>
       <p class="crumbs"><a href="./">Tecnología e Ingeniería</a> / <a href="materiales.html">Materiales</a></p>
       <h1>Ensayo Brinell</h1>
-      <p class="lead">Cómo se mide la dureza con una bola que se hunde en la pieza, cómo se elige la carga y cuándo es válido el resultado.</p>
+      <p class="lead">Cómo se mide la dureza con una esfera de acero templado, cómo se relaciona la carga con la esfera y cómo se expresa el resultado.</p>
       <ul class="quick">
         <li><a class="primary" href="#que-es">Empezar por la teoría</a></li>
         <li><a href="#problemas">Problemas tipo selectividad</a></li>
@@ -367,9 +367,8 @@ details.prob > summary::after{margin-left:auto}
   <nav class="toc" aria-label="Índice">
     <h2>En esta página</h2>
     <ol>
-      <li><a href="#que-es">Dureza Brinell</a></li>
-      <li><a href="#formula">Fórmula de la dureza Brinell</a></li>
-      <li><a href="#carga">Elección de bola y carga</a></li>
+      <li><a href="#que-es">Los ensayos de dureza</a></li>
+      <li><a href="#formula">La dureza Brinell</a></li>
       <li><a href="#notacion">Expresión del resultado</a></li>
       <li><a href="#problemas">Problemas tipo selectividad</a></li>
     </ol>
@@ -381,12 +380,11 @@ details.prob > summary::after{margin-left:auto}
 
   <main id="contenido">
 <section id="que-es">
-  <h2><span class="n">1</span>Qué es la dureza Brinell</h2>
-<p>La <strong>dureza</strong> es la resistencia de un material a ser penetrado. En el ensayo Brinell una bola muy dura, de diámetro D, se aprieta contra la superficie de la pieza con una carga F durante un tiempo fijado, y después se mide el diámetro d de la huella que deja.</p>
-<p>Cuanto más blando es el material, más se hunde la bola y mayor es la huella. La dureza Brinell (HB) es la carga dividida entre la superficie de la huella:</p>
-<div class="f">HB = F / S<sub>huella</sub><span>F en kp y S en mm². Por convenio el resultado se expresa sin unidades (kp/mm²).</span></div>
+  <h2><span class="n">1</span>Los ensayos de dureza</h2>
+<p>Sirven para medir la <strong>resistencia que opone un material a ser rayado o perforado</strong>.</p>
+<p>Se aprieta contra la pieza un <strong>penetrador</strong> con una fuerza conocida. Midiendo la huella que deja en el material se obtiene su dureza. Según la forma del penetrador hay distintos ensayos; en esta unidad estudiamos el Brinell y el <a href="ensayo-vickers.html">Vickers</a>.</p>
 <figure>
-<svg viewBox="0 0 520 220" role="img"><title>Las tres fases del ensayo Brinell</title><desc>1: la bola se apoya sobre la pieza. 2: se aplica la carga y la bola se hunde. 3: se retira la bola y queda una huella redonda que se mide con un microscopio.</desc>
+<svg viewBox="0 0 520 220" role="img"><title>Fases del ensayo Brinell</title><desc>1: la esfera se apoya sobre la pieza. 2: se aplica la carga F y la esfera se hunde. 3: se retira la esfera y se mide la huella de diámetro d.</desc>
 <g><text x="86" y="20" text-anchor="middle" style="fill:var(--muted);font:600 13px var(--body)">1 · apoyo</text>
 <rect x="16" y="140" width="140" height="60" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
 <circle cx="86" cy="108" r="32" style="fill:var(--bg);stroke:var(--ink);stroke-width:2"/><rect x="74" y="34" width="24" height="44" style="fill:var(--ink)"/></g>
@@ -403,15 +401,20 @@ details.prob > summary::after{margin-left:auto}
 <ellipse cx="434" cy="72" rx="30" ry="14" style="fill:var(--work-bg);stroke:var(--work);stroke-width:2"/>
 <text x="434" y="48" text-anchor="middle" style="fill:var(--muted);font:12px var(--body)">vista superior</text></g>
 </svg>
-<figcaption>Fases del ensayo: apoyo de la bola, aplicación de la carga y medida de la huella.</figcaption>
+<figcaption>Ensayo Brinell: la esfera se apoya, se carga y se mide la huella.</figcaption>
 </figure>
 </section>
 
 <section id="formula">
-  <h2><span class="n">2</span>Fórmula de la dureza Brinell</h2>
-<p>La huella es un <strong>casquete esférico</strong> de diámetro d y profundidad f. Su superficie es S = π · D · f, y la profundidad se relaciona con los diámetros por geometría:</p>
+  <h2><span class="n">2</span>La dureza Brinell</h2>
+<p>El penetrador es una <strong>esfera de acero templado</strong> de diámetro D. La <strong>dureza Brinell (HB)</strong> es la carga aplicada F (en kilopondios, kp) dividida entre la superficie de la huella S (en mm²):</p>
+<div class="f">HB = F / S</div>
+<p>La carga se elige según el diámetro de la esfera. K (en kp/mm²) es una constante distinta para cada material:</p>
+<div class="f">F = K · D²</div>
+<p>La huella que deja la esfera es un <strong>casquete esférico</strong>, de superficie:</p>
+<div class="f">S = π · D · f<span>f es la profundidad de la huella, en milímetros.</span></div>
 <figure>
-<svg viewBox="0 0 420 220" role="img"><title>Geometría de la huella Brinell</title><desc>Sección de la bola de diámetro D hundida en la pieza: la huella tiene diámetro d y profundidad f.</desc>
+<svg viewBox="0 0 420 220" role="img"><title>Huella del ensayo Brinell</title><desc>Sección de la esfera de diámetro D hundida en la pieza: la huella tiene diámetro d y profundidad f.</desc>
 <path d="M20 130 H135 A80 80 0 0 0 285 130 H400 V210 H20 Z" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
 <circle cx="210" cy="102" r="80" style="fill:var(--work-bg);stroke:var(--work);stroke-width:2;opacity:.9"/>
 <line x1="130" y1="102" x2="290" y2="102" style="stroke:var(--work);stroke-dasharray:5 4"/>
@@ -422,101 +425,80 @@ details.prob > summary::after{margin-left:auto}
 <polygon points="320,130 316,140 324,140" style="fill:var(--ink)"/><polygon points="320,182 316,172 324,172" style="fill:var(--ink)"/>
 <text x="330" y="162" style="fill:var(--ink);font:700 15px var(--mono)">f</text>
 </svg>
-<figcaption>La bola de diámetro D deja un casquete de diámetro d y profundidad f.</figcaption>
+<figcaption>Esfera de diámetro D y huella de diámetro d y profundidad f.</figcaption>
 </figure>
-<div class="f">f = (D − √(D² − d²)) / 2<span>Profundidad de la huella en función de los diámetros.</span></div>
-<div class="f">HB = F / (π · D · f) = 2F / (π · D · (D − √(D² − d²)))<span>F en kp; D y d en mm. Si la carga viene en N, se divide antes entre 9,8.</span></div>
-<p class="note">La huella nunca es un círculo perfecto: se miden dos diámetros perpendiculares con un microscopio y se usa su media.</p>
-</section>
-
-<section id="carga">
-  <h2><span class="n">3</span>Elección de bola y carga</h2>
-<p>Se usan bolas de 10, 5, 2,5 y 1 mm. Para que la dureza no dependa de la bola elegida, la carga debe ser proporcional al cuadrado del diámetro:</p>
-<div class="f">F = K · D²<span>K es la constante de carga, que depende del material.</span></div>
-<div class="tbl"><table>
-<thead><tr><th>Material</th><th>K</th><th>Carga con D = 10 mm</th></tr></thead>
-<tbody>
-<tr><td>Aceros y fundiciones</td><td>30</td><td>3 000 kp</td></tr>
-<tr><td>Aleaciones de cobre y aluminio</td><td>10</td><td>1 000 kp</td></tr>
-<tr><td>Cobre y aluminio puros</td><td>5</td><td>500 kp</td></tr>
-<tr><td>Metales muy blandos (plomo, estaño)</td><td>2,5</td><td>250 kp</td></tr>
-</tbody></table></div>
-<h3>Condiciones de validez</h3>
-<ul>
-<li>El diámetro de la huella debe cumplir <strong>0,25 · D &lt; d &lt; 0,6 · D</strong>. Si la huella es mayor, la carga es excesiva para ese material; si es menor, se mide con mucho error.</li>
-<li>El espesor de la pieza debe ser al menos 8 veces la profundidad f, y la huella debe quedar lejos de los bordes.</li>
-<li>La carga se mantiene de 10 a 15 s en los aceros (más tiempo en materiales blandos).</li>
-<li>No sirve para materiales muy duros (por encima de unos 650 HB): la bola se deformaría.</li>
-</ul>
+<p>Aplicando el teorema de Pitágoras se obtiene la profundidad a partir de los dos diámetros:</p>
+<div class="f">f = D/2 − √(D²/4 − d²/4)</div>
+<p>Sustituyendo en HB = F / S, la dureza Brinell queda:</p>
+<div class="f">HB = F / S = 2F / (π · D · (D − √(D² − d²)))</div>
 </section>
 
 <section id="notacion">
-  <h2><span class="n">4</span>Expresión del resultado</h2>
-<p>El resultado se escribe con la dureza, el símbolo HB y las condiciones del ensayo:</p>
-<div class="f">229 HB 10/3000/15<span>Dureza 229 · bola de 10 mm · carga de 3 000 kp · 15 s. Con bola de 10 mm, 3 000 kp y 10–15 s basta con escribir 229 HB.</span></div>
-<p>En los aceros existe una relación empírica útil entre dureza y resistencia a la tracción, que permite estimarla sin destruir la pieza:</p>
-<div class="f">σᵣ (MPa) ≈ 3,45 · HB<span>Solo es válida para aceros y da un valor aproximado.</span></div>
+  <h2><span class="n">3</span>Expresión del resultado</h2>
+<p>El valor de la dureza Brinell se escribe indicando la dureza, el diámetro de la esfera (en milímetros), la carga aplicada (en kilopondios) y la duración del ensayo (en segundos). Por ejemplo:</p>
+<div class="f">229 HB, 10 mm, 3000 kp, 15 s</div>
 </section>
 
 <section id="problemas">
-  <h2><span class="n">5</span>Problemas tipo selectividad</h2>
-  <p>Diez problemas con el formato de la PEvAU: un enunciado común y varios apartados puntuados. Cada apartado está resuelto en tres pasos: qué se pide y cómo abordarlo (planteamiento), los cálculos explicados (desarrollo) y el resultado. Intenta resolverlos antes de abrir la solución.</p>
+  <h2><span class="n">4</span>Problemas tipo selectividad</h2>
+  <p>Diez problemas con el formato de la PEvAU: un enunciado común y varios apartados puntuados. Solo se usan las fórmulas de la teoría. Cada apartado está resuelto en tres pasos: planteamiento, desarrollo y resultado. Intenta resolverlos antes de abrir la solución.</p>
   <details class="prob" id="p1">
-    <summary>1. Dureza de un acero y expresión normalizada</summary>
-    <p class="enun">En un ensayo de dureza Brinell sobre un acero se emplea una bola de 10 mm de diámetro y una carga de 3 000 kp mantenida durante 15 s. El diámetro de la huella es de 4 mm. Determine:</p>
+    <summary>1. Dureza Brinell de un acero</summary>
+    <p class="enun">En un ensayo Brinell sobre un acero se usa una esfera de 10 mm de diámetro y una carga de 3 000 kp durante 15 s. El diámetro de la huella es de 4 mm. Determine:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> La dureza Brinell del acero. (1 punto)</li>
-      <li class="q"><b>b)</b> La expresión normalizada del resultado. (0,5 puntos)</li>
-      <li class="q"><b>c)</b> Si el ensayo es válido y si la carga es la adecuada para un acero. (1 punto)</li>
+      <li class="q"><b>a)</b> La profundidad de la huella. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> La superficie de la huella y la dureza Brinell. (1 punto)</li>
+      <li class="q"><b>c)</b> La expresión del resultado y el valor de la constante K. (0,75 puntos)</li>
     </ol>
     <p class="datos"><b>Datos:</b> D = 10 mm; F = 3 000 kp; t = 15 s; d = 4 mm</p>
     <div class="ap">
-      <h4><span>a)</span>La dureza Brinell del acero.</h4>
+      <h4><span>a)</span>La profundidad de la huella.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>La dureza Brinell es la carga dividida entre la superficie del casquete esférico que deja la bola. Con el diámetro de la huella se usa HB = 2F / (π · D · (D − √(D² − d²))).</p>
+      <p>La profundidad se obtiene de los dos diámetros con f = D/2 − √(D²/4 − d²/4).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Raíz que aparece en la fórmula:<span class="eq">√(D² − d²) = √(100 − 16) = 9,165 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 2 · 3 000 / (π · 10 · (10 − 9,165)) = 6 000 / 26,23 = 228,8</span></li>
+          <li>Términos de la raíz:<span class="eq">D²/4 = 100/4 = 25; d²/4 = 16/4 = 4</span></li>
+          <li>Profundidad:<span class="eq">f = 5 − √(25 − 4) = 5 − 4,583 = 0,417 mm</span></li>
       </ol>
-      <p class="res">HB ≈ 229 kp/mm².</p>
+      <p class="res">f ≈ 0,417 mm.</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>La expresión normalizada del resultado.</h4>
+      <h4><span>b)</span>La superficie de la huella y la dureza Brinell.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Se escribe la dureza, el símbolo HB y, separados por barras, el diámetro de bola, la carga y el tiempo.</p>
+      <p>La huella es un casquete esférico, S = π · D · f. La dureza es HB = F / S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Expresión:<span class="eq">229 HB 10/3000/15</span></li>
+          <li>Superficie:<span class="eq">S = π · 10 · 0,417 = 13,11 mm²</span></li>
+          <li>Dureza:<span class="eq">HB = 3 000 / 13,11 = 228,8</span></li>
       </ol>
-      <p class="res">229 HB 10/3000/15 (o solo 229 HB, al ser las condiciones normales).</p>
+      <p class="res">HB ≈ 229.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>Si el ensayo es válido y si la carga es la adecuada para un acero.</h4>
+      <h4><span>c)</span>La expresión del resultado y el valor de la constante K.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>La huella debe estar entre 0,25·D y 0,6·D, y la constante de carga K = F / D² debe ser 30 para aceros.</p>
+      <p>El resultado se escribe con la dureza, el diámetro de la esfera, la carga y el tiempo. K sale de F = K · D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Rango de la huella:<span class="eq">0,25 · 10 = 2,5 mm &lt; 4 mm &lt; 0,6 · 10 = 6 mm ✓</span></li>
-          <li>Constante de carga:<span class="eq">K = 3 000 / 10² = 30 ✓</span></li>
+          <li>Expresión:<span class="eq">229 HB, 10 mm, 3000 kp, 15 s</span></li>
+          <li>Constante:<span class="eq">K = F / D² = 3 000 / 10² = 30 kp/mm²</span></li>
       </ol>
-      <p class="res">El ensayo es válido y la carga es la correcta.</p>
+      <p class="res">229 HB, 10 mm, 3000 kp, 15 s; K = 30 kp/mm².</p>
     </div>
-    <p class="note com">Si la bola es de 10 mm, la carga 3 000 kp y el tiempo de 10 a 15 s, la norma permite omitir los números tras HB.</p>
+    <p class="note com">Se puede comprobar la dureza con la fórmula completa: HB = 2F / (π · D · (D − √(D² − d²))) = 6 000 / (π · 10 · 0,835) = 228,8.</p>
   </details>
   <details class="prob" id="p2">
-    <summary>2. Ensayo con bola de 5 mm</summary>
-    <p class="enun">Se quiere medir la dureza Brinell de un acero con una bola de 5 mm de diámetro. Calcule:</p>
+    <summary>2. Ensayo con esfera de 5 mm</summary>
+    <p class="enun">Se quiere medir la dureza Brinell de un acero (K = 30 kp/mm²) con una esfera de 5 mm de diámetro. Calcule:</p>
     <ol class="aps">
       <li class="q"><b>a)</b> La carga que debe aplicarse. (0,5 puntos)</li>
-      <li class="q"><b>b)</b> La dureza, si la huella obtenida mide 2 mm. (1 punto)</li>
-      <li class="q"><b>c)</b> La resistencia a la tracción estimada con σᵣ ≈ 3,45 · HB (MPa). (1 punto)</li>
+      <li class="q"><b>b)</b> La dureza si la huella mide 2 mm. (1 punto)</li>
+      <li class="q"><b>c)</b> La profundidad de la huella. (1 punto)</li>
     </ol>
-    <p class="datos"><b>Datos:</b> D = 5 mm; K = 30 (aceros)</p>
+    <p class="datos"><b>Datos:</b> D = 5 mm; K = 30 kp/mm²</p>
     <div class="ap">
       <h4><span>a)</span>La carga que debe aplicarse.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Para que el resultado no dependa del tamaño de la bola, la carga debe ser proporcional a D²: F = K · D².</p>
+      <p>La carga se relaciona con el diámetro de la esfera: F = K · D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Carga:<span class="eq">F = 30 · 5² = 750 kp</span></li>
@@ -524,338 +506,338 @@ details.prob > summary::after{margin-left:auto}
       <p class="res">F = 750 kp.</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>La dureza, si la huella obtenida mide 2 mm.</h4>
+      <h4><span>b)</span>La dureza si la huella mide 2 mm.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Aplicamos la fórmula de la dureza Brinell con D = 5 mm.</p>
+      <p>Aplicamos directamente HB = 2F / (π · D · (D − √(D² − d²))).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Raíz:<span class="eq">√(25 − 4) = 4,583 mm</span></li>
+          <li>Raíz:<span class="eq">√(D² − d²) = √(25 − 4) = 4,583 mm</span></li>
           <li>Dureza:<span class="eq">HB = 2 · 750 / (π · 5 · (5 − 4,583)) = 1 500 / 6,556 = 228,8</span></li>
       </ol>
-      <p class="res">HB ≈ 229 (229 HB 5/750).</p>
+      <p class="res">HB ≈ 229.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>La resistencia a la tracción estimada con σᵣ ≈ 3,45 · HB (MPa).</h4>
+      <h4><span>c)</span>La profundidad de la huella.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>En los aceros existe una relación empírica entre dureza Brinell y resistencia a la tracción, que permite estimarla sin romper una probeta.</p>
+      <p>f = D/2 − √(D²/4 − d²/4).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Resistencia estimada:<span class="eq">σᵣ ≈ 3,45 · 228,8 = 789 MPa</span></li>
+          <li>Profundidad:<span class="eq">f = 2,5 − √(6,25 − 1) = 2,5 − 2,291 = 0,209 mm</span></li>
       </ol>
-      <p class="res">σᵣ ≈ 790 MPa.</p>
+      <p class="res">f ≈ 0,209 mm.</p>
     </div>
-    <p class="note com">La relación d / D = 2 / 5 = 0,4 es la misma que en el problema 1 (4 / 10): por eso sale la misma dureza. Las bolas pequeñas sirven para piezas finas.</p>
+    <p class="note com">Sale la misma dureza que en el problema 1 porque la carga se ha elegido con la misma K: así los resultados no dependen del tamaño de la esfera.</p>
   </details>
   <details class="prob" id="p3">
-    <summary>3. Dureza a partir de la profundidad de la huella</summary>
-    <p class="enun">Una bola de 10 mm con una carga de 500 kp deja en un material una huella de 0,4 mm de profundidad. Calcule:</p>
+    <summary>3. Dureza a partir de la profundidad</summary>
+    <p class="enun">Una esfera de 10 mm con una carga de 500 kp deja en un material una huella de 0,4 mm de profundidad. Calcule:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> La dureza Brinell. (1 punto)</li>
-      <li class="q"><b>b)</b> El diámetro de la huella. (1 punto)</li>
-      <li class="q"><b>c)</b> Si el ensayo es válido y qué tipo de material puede ser. (0,5 puntos)</li>
+      <li class="q"><b>a)</b> La superficie de la huella. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> La dureza Brinell. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> El diámetro de la huella. (1 punto)</li>
     </ol>
     <p class="datos"><b>Datos:</b> D = 10 mm; F = 500 kp; f = 0,4 mm</p>
     <div class="ap">
-      <h4><span>a)</span>La dureza Brinell.</h4>
+      <h4><span>a)</span>La superficie de la huella.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>La superficie del casquete esférico también se puede escribir como S = π · D · f, con f la profundidad.</p>
+      <p>La huella es un casquete esférico: S = π · D · f.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Superficie de la huella:<span class="eq">S = π · 10 · 0,4 = 12,57 mm²</span></li>
+          <li>Superficie:<span class="eq">S = π · 10 · 0,4 = 12,57 mm²</span></li>
+      </ol>
+      <p class="res">S ≈ 12,57 mm².</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La dureza Brinell.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>HB = F / S.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
           <li>Dureza:<span class="eq">HB = 500 / 12,57 = 39,8</span></li>
       </ol>
       <p class="res">HB ≈ 40.</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>El diámetro de la huella.</h4>
+      <h4><span>c)</span>El diámetro de la huella.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>En el casquete esférico, d, D y f se relacionan por d = 2 · √(f · (D − f)).</p>
+      <p>Despejamos d de f = D/2 − √(D²/4 − d²/4): primero aislamos la raíz y después elevamos al cuadrado.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Diámetro:<span class="eq">d = 2 · √(0,4 · 9,6) = 2 · 1,960 = 3,92 mm</span></li>
+          <li>Aislamos la raíz:<span class="eq">√(25 − d²/4) = 5 − 0,4 = 4,6</span></li>
+          <li>Elevamos al cuadrado:<span class="eq">25 − d²/4 = 21,16 &nbsp;→&nbsp; d²/4 = 3,84 &nbsp;→&nbsp; d² = 15,36</span></li>
+          <li>Diámetro:<span class="eq">d = √15,36 = 3,92 mm</span></li>
       </ol>
       <p class="res">d ≈ 3,92 mm.</p>
     </div>
-    <div class="ap">
-      <h4><span>c)</span>Si el ensayo es válido y qué tipo de material puede ser.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Comprobamos el rango de la huella y la constante de carga, que orienta sobre el tipo de material.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Rango:<span class="eq">2,5 mm &lt; 3,92 mm &lt; 6 mm ✓</span></li>
-          <li>Constante:<span class="eq">K = 500 / 100 = 5</span></li>
-      </ol>
-      <p class="res">Ensayo válido. K = 5 y HB ≈ 40 indican un metal blando, como cobre o aluminio puros.</p>
-    </div>
-    <p class="note com">Las dos formas de la fórmula (con f o con d) son equivalentes; se usa la que corresponda al dato medido.</p>
+    <p class="note com">Una dureza tan baja corresponde a un metal blando, como el cobre o el aluminio.</p>
   </details>
   <details class="prob" id="p4">
     <summary>4. Problema inverso: huella esperada</summary>
-    <p class="enun">Un acero tiene una dureza de 200 HB. Se ensaya con una bola de 10 mm y 3 000 kp. Calcule:</p>
+    <p class="enun">Un acero tiene una dureza de 200 HB. Se ensaya con una esfera de 10 mm y 3 000 kp. Calcule:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> La profundidad de la huella. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> El diámetro de la huella. (1 punto)</li>
-      <li class="q"><b>c)</b> La carga y la huella si se emplea una bola de 2,5 mm. (0,75 puntos)</li>
+      <li class="q"><b>a)</b> La superficie de la huella. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> La profundidad de la huella. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> El diámetro de la huella. (1 punto)</li>
     </ol>
     <p class="datos"><b>Datos:</b> HB = 200; D = 10 mm; F = 3 000 kp</p>
     <div class="ap">
-      <h4><span>a)</span>La profundidad de la huella.</h4>
+      <h4><span>a)</span>La superficie de la huella.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Despejamos f de HB = F / (π · D · f).</p>
+      <p>De HB = F / S despejamos S.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">f = 3 000 / (π · 10 · 200) = 0,477 mm</span></li>
+          <li>Superficie:<span class="eq">S = F / HB = 3 000 / 200 = 15 mm²</span></li>
+      </ol>
+      <p class="res">S = 15 mm².</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La profundidad de la huella.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>De S = π · D · f despejamos f.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Profundidad:<span class="eq">f = S / (π · D) = 15 / (π · 10) = 0,477 mm</span></li>
       </ol>
       <p class="res">f ≈ 0,477 mm.</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>El diámetro de la huella.</h4>
+      <h4><span>c)</span>El diámetro de la huella.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Usamos la relación geométrica 2f = D − √(D² − d²) y despejamos d.</p>
+      <p>Despejamos d de f = D/2 − √(D²/4 − d²/4).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Raíz:<span class="eq">√(D² − d²) = D − 2f = 10 − 0,955 = 9,045 mm</span></li>
-          <li>Diámetro:<span class="eq">d² = 100 − 9,045² = 18,19 &nbsp;→&nbsp; d = 4,26 mm</span></li>
+          <li>Aislamos la raíz:<span class="eq">√(25 − d²/4) = 5 − 0,477 = 4,523</span></li>
+          <li>Elevamos al cuadrado:<span class="eq">25 − d²/4 = 20,45 &nbsp;→&nbsp; d² = 18,19</span></li>
+          <li>Diámetro:<span class="eq">d = 4,26 mm</span></li>
       </ol>
       <p class="res">d ≈ 4,26 mm.</p>
     </div>
-    <div class="ap">
-      <h4><span>c)</span>La carga y la huella si se emplea una bola de 2,5 mm.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Con F = K · D² el ensayo es geométricamente semejante: la huella se reduce en la misma proporción que la bola.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Carga:<span class="eq">F = 30 · 2,5² = 187,5 kp</span></li>
-          <li>Huella (la bola es 4 veces menor):<span class="eq">d = 4,26 / 4 = 1,07 mm</span></li>
-      </ol>
-      <p class="res">F = 187,5 kp; d ≈ 1,07 mm.</p>
-    </div>
-    <p class="note com">Saber de antemano el tamaño de la huella sirve para preparar el ensayo y elegir el aumento del microscopio.</p>
+    <p class="note com">Este tipo de cálculo inverso sirve para saber de antemano qué huella habrá que medir.</p>
   </details>
   <details class="prob" id="p5">
     <summary>5. Carga expresada en newtons</summary>
-    <p class="enun">Sobre una aleación de aluminio se realiza un ensayo Brinell con bola de 10 mm y una carga de 9 800 N aplicada durante 30 s. La huella mide 3,6 mm. Calcule:</p>
+    <p class="enun">Sobre una aleación de aluminio se realiza un ensayo Brinell con una esfera de 10 mm y una carga de 9 800 N aplicada durante 30 s. La huella mide 3,6 mm. Calcule (1 kp = 9,8 N):</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> La carga en kp y la constante de carga. (0,75 puntos)</li>
+      <li class="q"><b>a)</b> La carga en kp y la constante K. (0,75 puntos)</li>
       <li class="q"><b>b)</b> La dureza Brinell. (1 punto)</li>
-      <li class="q"><b>c)</b> La expresión normalizada. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> La expresión del resultado. (0,75 puntos)</li>
     </ol>
     <p class="datos"><b>Datos:</b> D = 10 mm; F = 9 800 N; t = 30 s; d = 3,6 mm</p>
     <div class="ap">
-      <h4><span>a)</span>La carga en kp y la constante de carga.</h4>
+      <h4><span>a)</span>La carga en kp y la constante K.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>La dureza Brinell se expresa por convenio en kp/mm², así que pasamos la carga a kp (1 kp = 9,8 N).</p>
+      <p>La dureza Brinell se calcula con la carga en kilopondios. K sale de F = K · D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Carga:<span class="eq">F = 9 800 / 9,8 = 1 000 kp</span></li>
-          <li>Constante:<span class="eq">K = 1 000 / 10² = 10 ✓ (aleaciones ligeras)</span></li>
+          <li>Constante:<span class="eq">K = 1 000 / 10² = 10 kp/mm²</span></li>
       </ol>
-      <p class="res">F = 1 000 kp; K = 10.</p>
+      <p class="res">F = 1 000 kp; K = 10 kp/mm².</p>
     </div>
     <div class="ap">
       <h4><span>b)</span>La dureza Brinell.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Aplicamos la fórmula con la carga en kp.</p>
+      <p>Fórmula completa con la carga en kp.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Raíz:<span class="eq">√(100 − 12,96) = 9,330 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 2 000 / (π · 10 · 0,670) = 2 000 / 21,06 = 95,0</span></li>
+          <li>Dureza:<span class="eq">HB = 2 · 1 000 / (π · 10 · (10 − 9,330)) = 2 000 / 21,06 = 95,0</span></li>
       </ol>
       <p class="res">HB ≈ 95.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>La expresión normalizada.</h4>
+      <h4><span>c)</span>La expresión del resultado.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Como la carga y el tiempo no son los normales, deben indicarse.</p>
+      <p>Dureza, diámetro de la esfera, carga y tiempo.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Expresión:<span class="eq">95 HB 10/1000/30</span></li>
+          <li>Expresión:<span class="eq">95 HB, 10 mm, 1000 kp, 30 s</span></li>
       </ol>
-      <p class="res">95 HB 10/1000/30.</p>
+      <p class="res">95 HB, 10 mm, 1000 kp, 30 s.</p>
     </div>
-    <p class="note com">Si se calcula con la carga en N sale un número 9,8 veces mayor y sin sentido. Es un error muy habitual.</p>
+    <p class="note com">Si se calcula con la carga en newtons sale un número 9,8 veces mayor y sin sentido. Es un error muy habitual.</p>
   </details>
   <details class="prob" id="p6">
-    <summary>6. Ensayo no válido</summary>
-    <p class="enun">Al ensayar un latón con bola de 10 mm y 3 000 kp se obtiene una huella de 6,5 mm. Responda:</p>
+    <summary>6. Ensayo de un latón</summary>
+    <p class="enun">Se ensaya un latón, para el que K = 10 kp/mm², con una esfera de 10 mm. La huella mide 3,9 mm. Calcule:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> ¿Es válido el ensayo? Justifíquelo. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> ¿Qué carga debería haberse usado? (0,75 puntos)</li>
-      <li class="q"><b>c)</b> Repetido con esa carga, la huella mide 3,9 mm. Calcule la dureza. (1 punto)</li>
+      <li class="q"><b>a)</b> La carga aplicada. (0,5 puntos)</li>
+      <li class="q"><b>b)</b> La profundidad y la superficie de la huella. (1 punto)</li>
+      <li class="q"><b>c)</b> La dureza Brinell. (1 punto)</li>
     </ol>
-    <p class="datos"><b>Datos:</b> D = 10 mm; F = 3 000 kp; d = 6,5 mm; latón = aleación de cobre</p>
+    <p class="datos"><b>Datos:</b> D = 10 mm; K = 10 kp/mm²; d = 3,9 mm</p>
     <div class="ap">
-      <h4><span>a)</span>¿Es válido el ensayo? Justifíquelo.</h4>
+      <h4><span>a)</span>La carga aplicada.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Comparamos la huella con el rango 0,25·D–0,6·D.</p>
+      <p>F = K · D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Rango válido:<span class="eq">2,5 mm – 6 mm</span></li>
-          <li>Comparación:<span class="eq">6,5 mm &gt; 6 mm ✗</span></li>
-      </ol>
-      <p class="res">No es válido: la bola se ha hundido demasiado.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>¿Qué carga debería haberse usado?</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Al latón, aleación de cobre, le corresponde K = 10.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Carga correcta:<span class="eq">F = 10 · 10² = 1 000 kp</span></li>
+          <li>Carga:<span class="eq">F = 10 · 10² = 1 000 kp</span></li>
       </ol>
       <p class="res">F = 1 000 kp.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>Repetido con esa carga, la huella mide 3,9 mm. Calcule la dureza.</h4>
+      <h4><span>b)</span>La profundidad y la superficie de la huella.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Aplicamos la fórmula con los nuevos datos y comprobamos la validez.</p>
+      <p>f = D/2 − √(D²/4 − d²/4) y S = π · D · f.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Raíz:<span class="eq">√(100 − 15,21) = 9,208 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 2 000 / (π · 10 · 0,792) = 2 000 / 24,88 = 80,4</span></li>
-          <li>Validez:<span class="eq">2,5 &lt; 3,9 &lt; 6 ✓</span></li>
+          <li>Profundidad:<span class="eq">f = 5 − √(25 − 3,8025) = 5 − 4,604 = 0,396 mm</span></li>
+          <li>Superficie:<span class="eq">S = π · 10 · 0,396 = 12,44 mm²</span></li>
       </ol>
-      <p class="res">HB ≈ 80 (80 HB 10/1000).</p>
+      <p class="res">f ≈ 0,396 mm; S ≈ 12,44 mm².</p>
     </div>
-    <p class="note com">La carga de los aceros es demasiado alta para un material blando: siempre hay que elegir K según el tipo de material.</p>
+    <div class="ap">
+      <h4><span>c)</span>La dureza Brinell.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>HB = F / S.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Dureza:<span class="eq">HB = 1 000 / 12,44 = 80,4</span></li>
+      </ol>
+      <p class="res">HB ≈ 80.</p>
+    </div>
+    <p class="note com">Cada material tiene su propia constante K: con la de los aceros (K = 30) la esfera se hundiría demasiado en el latón.</p>
   </details>
   <details class="prob" id="p7">
     <summary>7. Comparación de dos aceros</summary>
-    <p class="enun">Dos piezas de acero se ensayan con bola de 10 mm y 3 000 kp. La pieza A deja una huella de 3,8 mm y la pieza B de 4,6 mm. Determine:</p>
+    <p class="enun">Dos piezas de acero se ensayan con una esfera de 10 mm y 3 000 kp. La pieza A deja una huella de 3,8 mm y la pieza B de 4,6 mm. Determine:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> La dureza de cada pieza. (1 punto)</li>
-      <li class="q"><b>b)</b> Cuál es más dura y por qué. (0,5 puntos)</li>
-      <li class="q"><b>c)</b> La resistencia a la tracción estimada de cada una (σᵣ ≈ 3,45 · HB, en MPa). (1 punto)</li>
+      <li class="q"><b>a)</b> La dureza de la pieza A. (1 punto)</li>
+      <li class="q"><b>b)</b> La dureza de la pieza B. (1 punto)</li>
+      <li class="q"><b>c)</b> Cuál es más dura y por qué. (0,5 puntos)</li>
     </ol>
     <p class="datos"><b>Datos:</b> D = 10 mm; F = 3 000 kp; d<sub>A</sub> = 3,8 mm; d<sub>B</sub> = 4,6 mm</p>
     <div class="ap">
-      <h4><span>a)</span>La dureza de cada pieza.</h4>
+      <h4><span>a)</span>La dureza de la pieza A.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Aplicamos la fórmula a cada huella.</p>
+      <p>Profundidad, superficie y dureza.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Pieza A:<span class="eq">√(100 − 14,44) = 9,250 &nbsp;→&nbsp; HB<sub>A</sub> = 6 000 / (π · 10 · 0,750) = 254,6</span></li>
-          <li>Pieza B:<span class="eq">√(100 − 21,16) = 8,879 &nbsp;→&nbsp; HB<sub>B</sub> = 6 000 / (π · 10 · 1,121) = 170,4</span></li>
+          <li>Profundidad:<span class="eq">f = 5 − √(25 − 3,61) = 5 − 4,625 = 0,375 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 3 000 / (π · 10 · 0,375) = 254,6</span></li>
       </ol>
-      <p class="res">HB<sub>A</sub> ≈ 255; HB<sub>B</sub> ≈ 170.</p>
+      <p class="res">HB<sub>A</sub> ≈ 255.</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>Cuál es más dura y por qué.</h4>
+      <h4><span>b)</span>La dureza de la pieza B.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Con la misma bola y carga, el material que menos se deja penetrar deja la huella más pequeña.</p>
+      <p>Mismo procedimiento.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Comparación:<span class="eq">d<sub>A</sub> &lt; d<sub>B</sub> &nbsp;→&nbsp; HB<sub>A</sub> &gt; HB<sub>B</sub></span></li>
+          <li>Profundidad:<span class="eq">f = 5 − √(25 − 5,29) = 5 − 4,440 = 0,560 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 3 000 / (π · 10 · 0,560) = 170,4</span></li>
+      </ol>
+      <p class="res">HB<sub>B</sub> ≈ 170.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>Cuál es más dura y por qué.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Con la misma esfera y la misma carga, la pieza que menos se deja perforar deja la huella más pequeña.</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Comparación:<span class="eq">d<sub>A</sub> &lt; d<sub>B</sub> → la superficie de A es menor → HB<sub>A</sub> &gt; HB<sub>B</sub></span></li>
       </ol>
       <p class="res">La pieza A es más dura.</p>
     </div>
-    <div class="ap">
-      <h4><span>c)</span>La resistencia a la tracción estimada de cada una (σᵣ ≈ 3,45 · HB, en MPa).</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Aplicamos la relación empírica para aceros.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Pieza A:<span class="eq">σᵣ ≈ 3,45 · 254,6 = 878 MPa</span></li>
-          <li>Pieza B:<span class="eq">σᵣ ≈ 3,45 · 170,4 = 588 MPa</span></li>
-      </ol>
-      <p class="res">A ≈ 880 MPa; B ≈ 590 MPa.</p>
-    </div>
-    <p class="note com">Una diferencia así puede deberse a un tratamiento térmico: por ejemplo, A templada y revenida y B recocida.</p>
+    <p class="note com">La dureza es la resistencia a ser rayado o perforado: menor huella significa mayor dureza.</p>
   </details>
   <details class="prob" id="p8">
-    <summary>8. Control de calidad de una pieza</summary>
-    <p class="enun">Una especificación exige que un eje de acero tenga una resistencia a la tracción de al menos 750 MPa. Un ensayo Brinell con bola de 10 mm y 3 000 kp da una huella de 4,2 mm. Usando σᵣ ≈ 3,45 · HB (MPa), determine:</p>
+    <summary>8. Control de una pieza</summary>
+    <p class="enun">Una especificación exige que un eje de acero tenga una dureza de al menos 210 HB. Un ensayo con esfera de 10 mm y 3 000 kp da una huella de 4,2 mm. Determine:</p>
     <ol class="aps">
       <li class="q"><b>a)</b> La dureza del eje. (1 punto)</li>
-      <li class="q"><b>b)</b> Su resistencia a la tracción estimada. (0,5 puntos)</li>
-      <li class="q"><b>c)</b> Si cumple la especificación y qué dureza mínima debería tener. (1 punto)</li>
+      <li class="q"><b>b)</b> Si cumple la especificación. (0,5 puntos)</li>
+      <li class="q"><b>c)</b> El diámetro máximo de huella para que la pieza fuera aceptada. (1 punto)</li>
     </ol>
-    <p class="datos"><b>Datos:</b> D = 10 mm; F = 3 000 kp; d = 4,2 mm; σᵣ mínima = 750 MPa</p>
+    <p class="datos"><b>Datos:</b> D = 10 mm; F = 3 000 kp; d = 4,2 mm; dureza mínima 210 HB</p>
     <div class="ap">
       <h4><span>a)</span>La dureza del eje.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Fórmula de la dureza Brinell con la huella medida.</p>
+      <p>Profundidad, superficie y dureza.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Raíz:<span class="eq">√(100 − 17,64) = 9,075 mm</span></li>
-          <li>Dureza:<span class="eq">HB = 6 000 / (π · 10 · 0,925) = 206,5</span></li>
+          <li>Profundidad:<span class="eq">f = 5 − √(25 − 4,41) = 5 − 4,538 = 0,462 mm</span></li>
+          <li>Dureza:<span class="eq">HB = 3 000 / (π · 10 · 0,462) = 206,5</span></li>
       </ol>
       <p class="res">HB ≈ 207.</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>Su resistencia a la tracción estimada.</h4>
+      <h4><span>b)</span>Si cumple la especificación.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Relación empírica para aceros.</p>
+      <p>Comparamos con el mínimo exigido.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Resistencia:<span class="eq">σᵣ ≈ 3,45 · 206,5 = 712 MPa</span></li>
+          <li>Comparación:<span class="eq">206,5 &lt; 210</span></li>
       </ol>
-      <p class="res">σᵣ ≈ 712 MPa.</p>
+      <p class="res">No la cumple.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>Si cumple la especificación y qué dureza mínima debería tener.</h4>
+      <h4><span>c)</span>El diámetro máximo de huella para que la pieza fuera aceptada.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Comparamos con 750 MPa y despejamos la dureza que daría justo esa resistencia.</p>
+      <p>Problema inverso con HB = 210: S = F / HB, f = S / (π · D) y despejamos d.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Comparación:<span class="eq">712 MPa &lt; 750 MPa ✗</span></li>
-          <li>Dureza mínima:<span class="eq">HB<sub>mín</sub> = 750 / 3,45 = 217</span></li>
+          <li>Superficie y profundidad:<span class="eq">S = 3 000 / 210 = 14,29 mm² &nbsp;→&nbsp; f = 14,29 / (π · 10) = 0,455 mm</span></li>
+          <li>Diámetro:<span class="eq">√(25 − d²/4) = 4,545 &nbsp;→&nbsp; d²/4 = 4,34 &nbsp;→&nbsp; d = 4,17 mm</span></li>
       </ol>
-      <p class="res">No cumple; haría falta una dureza de al menos 217 HB.</p>
+      <p class="res">La huella debería medir como máximo 4,17 mm.</p>
     </div>
-    <p class="note com">Por eso el Brinell se usa mucho en control de calidad: es rápido y casi no daña la pieza.</p>
+    <p class="note com">Cuanto mayor es la dureza exigida, menor tiene que ser la huella.</p>
   </details>
   <details class="prob" id="p9">
-    <summary>9. Interpretar un resultado normalizado</summary>
-    <p class="enun">Un informe indica «180 HB 5/750/30». Responda:</p>
+    <summary>9. Interpretar un resultado</summary>
+    <p class="enun">Un informe indica «180 HB, 5 mm, 750 kp, 30 s». Responda:</p>
     <ol class="aps">
-      <li class="q"><b>a)</b> Qué significa cada número. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> El diámetro de la huella obtenida. (1 punto)</li>
-      <li class="q"><b>c)</b> Si el ensayo es válido. (0,75 puntos)</li>
+      <li class="q"><b>a)</b> Qué significa cada dato y el valor de K. (0,75 puntos)</li>
+      <li class="q"><b>b)</b> La profundidad de la huella. (0,75 puntos)</li>
+      <li class="q"><b>c)</b> El diámetro de la huella. (1 punto)</li>
     </ol>
     <p class="datos"><b>Datos:</b> HB = 180; D = 5 mm; F = 750 kp; t = 30 s</p>
     <div class="ap">
-      <h4><span>a)</span>Qué significa cada número.</h4>
+      <h4><span>a)</span>Qué significa cada dato y el valor de K.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>La notación es: dureza HB diámetro de bola / carga / tiempo.</p>
+      <p>La expresión indica dureza, diámetro de la esfera, carga y tiempo. K sale de F = K · D².</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Lectura:<span class="eq">180 kp/mm²; bola de 5 mm; 750 kp; 30 s. Además K = 750 / 25 = 30 → material férreo</span></li>
+          <li>Lectura:<span class="eq">dureza 180; esfera de 5 mm; carga de 750 kp; aplicada 30 s</span></li>
+          <li>Constante:<span class="eq">K = 750 / 5² = 30 kp/mm²</span></li>
       </ol>
-      <p class="res">Dureza 180 HB en un acero o fundición, con bola de 5 mm, 750 kp y 30 s.</p>
+      <p class="res">Dureza 180 HB medida con esfera de 5 mm, 750 kp y 30 s; K = 30 kp/mm².</p>
     </div>
     <div class="ap">
-      <h4><span>b)</span>El diámetro de la huella obtenida.</h4>
+      <h4><span>b)</span>La profundidad de la huella.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Problema inverso: profundidad a partir de la dureza y, después, diámetro.</p>
+      <p>S = F / HB y f = S / (π · D).</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
-          <li>Profundidad:<span class="eq">f = 750 / (π · 5 · 180) = 0,265 mm</span></li>
-          <li>Diámetro:<span class="eq">√(25 − d²) = 5 − 0,531 = 4,469 &nbsp;→&nbsp; d² = 5,02 &nbsp;→&nbsp; d = 2,24 mm</span></li>
+          <li>Superficie:<span class="eq">S = 750 / 180 = 4,167 mm²</span></li>
+          <li>Profundidad:<span class="eq">f = 4,167 / (π · 5) = 0,265 mm</span></li>
+      </ol>
+      <p class="res">f ≈ 0,265 mm.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El diámetro de la huella.</h4>
+      <span class="lbl">Planteamiento</span>
+      <p>Despejamos d de f = D/2 − √(D²/4 − d²/4).</p>
+      <span class="lbl">Desarrollo</span>
+      <ol class="steps">
+          <li>Aislamos la raíz:<span class="eq">√(6,25 − d²/4) = 2,5 − 0,265 = 2,235</span></li>
+          <li>Diámetro:<span class="eq">d²/4 = 6,25 − 4,995 = 1,256 &nbsp;→&nbsp; d = 2,24 mm</span></li>
       </ol>
       <p class="res">d ≈ 2,24 mm.</p>
     </div>
-    <div class="ap">
-      <h4><span>c)</span>Si el ensayo es válido.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Rango 0,25·D–0,6·D con D = 5 mm.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Comprobación:<span class="eq">1,25 mm &lt; 2,24 mm &lt; 3 mm ✓</span></li>
-      </ol>
-      <p class="res">Sí es válido.</p>
-    </div>
-    <p class="note com">Un tiempo de 30 s es mayor que el habitual; se usa en materiales que siguen deformándose lentamente bajo carga.</p>
+    <p class="note com">Leer bien la expresión del resultado es tan importante como saber calcularla.</p>
   </details>
   <details class="prob" id="p10">
-    <summary>10. Semejanza entre ensayos con bolas distintas</summary>
-    <p class="enun">El acero del problema 1 (229 HB con bola de 10 mm) se ensaya de nuevo con una bola de 2,5 mm. Calcule:</p>
+    <summary>10. Misma dureza con esferas distintas</summary>
+    <p class="enun">El acero del problema 1 (229 HB) se ensaya ahora con una esfera de 2,5 mm y K = 30 kp/mm². Calcule:</p>
     <ol class="aps">
       <li class="q"><b>a)</b> La carga que debe aplicarse. (0,5 puntos)</li>
       <li class="q"><b>b)</b> La dureza si la huella mide 1 mm. (1 punto)</li>
-      <li class="q"><b>c)</b> Explique por qué se obtiene la misma dureza que con la bola de 10 mm. (1 punto)</li>
+      <li class="q"><b>c)</b> Explique por qué sale la misma dureza que con la esfera de 10 mm. (1 punto)</li>
     </ol>
-    <p class="datos"><b>Datos:</b> D = 2,5 mm; K = 30</p>
+    <p class="datos"><b>Datos:</b> D = 2,5 mm; K = 30 kp/mm²</p>
     <div class="ap">
       <h4><span>a)</span>La carga que debe aplicarse.</h4>
       <span class="lbl">Planteamiento</span>
@@ -869,7 +851,7 @@ details.prob > summary::after{margin-left:auto}
     <div class="ap">
       <h4><span>b)</span>La dureza si la huella mide 1 mm.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Aplicamos la fórmula con los nuevos datos.</p>
+      <p>Fórmula completa.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Raíz:<span class="eq">√(6,25 − 1) = 2,291 mm</span></li>
@@ -878,16 +860,16 @@ details.prob > summary::after{margin-left:auto}
       <p class="res">HB ≈ 229.</p>
     </div>
     <div class="ap">
-      <h4><span>c)</span>Explique por qué se obtiene la misma dureza que con la bola de 10 mm.</h4>
+      <h4><span>c)</span>Explique por qué sale la misma dureza que con la esfera de 10 mm.</h4>
       <span class="lbl">Planteamiento</span>
-      <p>Comparamos la proporción entre huella y bola en los dos ensayos.</p>
+      <p>Comparamos la relación entre la huella y la esfera en los dos ensayos.</p>
       <span class="lbl">Desarrollo</span>
       <ol class="steps">
           <li>Relación d/D:<span class="eq">4 / 10 = 1 / 2,5 = 0,4</span></li>
       </ol>
-      <p class="res">Al ser F proporcional a D², los dos ensayos son geométricamente semejantes: la huella guarda la misma proporción con la bola y la dureza no cambia.</p>
+      <p class="res">Al elegir la carga con F = K · D², la huella guarda la misma proporción con la esfera y la dureza no cambia.</p>
     </div>
-    <p class="note com">Gracias a esta regla se pueden comparar durezas medidas con bolas de distinto tamaño.</p>
+    <p class="note com">Gracias a la relación F = K · D² se pueden comparar durezas medidas con esferas de distinto tamaño.</p>
   </details>
 </section>
 
@@ -907,7 +889,7 @@ details.prob > summary::after{margin-left:auto}
 <text x="318" y="70" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
 <text x="318" y="206" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
 </svg><span>Ensayo de tracción</span></a></li>
-      <li><a href="ensayo-vickers.html"><svg class="art" aria-hidden="true" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Un diamante en forma de pirámide se clava en el material y deja una huella cuadrada; se miden sus dos diagonales.</desc>
+      <li><a href="ensayo-vickers.html"><svg class="art" aria-hidden="true" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Una pirámide de base cuadrada se clava en el material y deja una huella cuadrada; se mide su diagonal.</desc>
 <rect width="400" height="260" style="fill:var(--brand-soft)"/>
 <rect x="0" y="180" width="230" height="80" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
 <rect x="96" y="0" width="38" height="70" style="fill:var(--ink)"/>
@@ -938,7 +920,7 @@ details.prob > summary::after{margin-left:auto}
 <path d="M170 168 H230 L214 196 H186 Z" style="fill:var(--hot);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
 <circle cx="200" cy="50" r="12" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
 <g style="stroke:var(--hot);stroke-width:3;stroke-linecap:round"><line x1="168" y1="214" x2="150" y2="196"/><line x1="232" y1="214" x2="252" y2="198"/><line x1="200" y1="228" x2="200" y2="246"/></g>
-<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/cm²</text>
+<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/mm²</text>
 </svg><span>Ensayo de resiliencia</span></a></li>
   </ul>
 </aside>

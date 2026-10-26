@@ -171,6 +171,33 @@ ol.steps li{margin-bottom:6px;font-variant-numeric:tabular-nums}
 .totop svg{width:20px;height:20px}
 
 
+/* ---------- Ajustes para convivir con Bootstrap ---------- */
+.lead{font-weight:400}
+code{color:inherit}
+h1,h2,h3,h4{color:inherit}
+summary{display:block}
+.toast{--bs-toast-bg:var(--surface);--bs-toast-color:var(--ink);--bs-toast-header-bg:var(--work-bg);--bs-toast-header-color:var(--ink);--bs-toast-border-color:var(--line)}
+
+/* ---------- Progreso de problemas ---------- */
+.prog-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:0 0 18px}
+.prog-box .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;margin-bottom:8px}
+.prog-box .head b{font-weight:600}
+.prog-box .head span{color:var(--muted);font-variant-numeric:tabular-nums}
+.prog-box .progress{--bs-progress-height:10px;--bs-progress-bg:var(--bg);--bs-progress-bar-bg:var(--work);--bs-progress-border-radius:99px}
+.prog-box .reset{all:unset;cursor:pointer;color:var(--muted);font-size:13px;text-decoration:underline;margin-top:8px;display:inline-block}
+.prog-box .reset:focus-visible{outline:2px solid var(--cold)}
+.done-switch{margin:14px 18px 16px!important;padding-top:12px;border-top:1px dashed var(--line);font-weight:500}
+.done-switch .form-check-input{cursor:pointer}
+.done-switch .form-check-input:checked{background-color:var(--work);border-color:var(--work)}
+details.prob.done{border-color:var(--work)}
+details.prob.done > summary::before{content:"✓";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--work);color:#fff;font-size:13px;font-weight:700;margin-right:10px;flex:none}
+details.prob > summary{justify-content:flex-start}
+details.prob > summary::after{margin-left:auto}
+.badge-prog{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.badge-prog.some{background:var(--cold-bg);color:var(--cold);border-color:transparent}
+.badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
+
+
 /* ---------- Problemas tipo selectividad ---------- */
 .prob .enun{font-size:16.5px}
 .prob ol.aps{list-style:none;padding:0;margin:0 0 6px}
@@ -229,33 +256,6 @@ svg.art{display:block;width:100%;height:auto}
 .others a:hover{border-color:var(--brand)}
 .others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
 @media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
-
-
-/* ---------- Ajustes para convivir con Bootstrap ---------- */
-.lead{font-weight:400}
-code{color:inherit}
-h1,h2,h3,h4{color:inherit}
-summary{display:block}
-.toast{--bs-toast-bg:var(--surface);--bs-toast-color:var(--ink);--bs-toast-header-bg:var(--work-bg);--bs-toast-header-color:var(--ink);--bs-toast-border-color:var(--line)}
-
-/* ---------- Progreso de problemas ---------- */
-.prog-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:0 0 18px}
-.prog-box .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;margin-bottom:8px}
-.prog-box .head b{font-weight:600}
-.prog-box .head span{color:var(--muted);font-variant-numeric:tabular-nums}
-.prog-box .progress{--bs-progress-height:10px;--bs-progress-bg:var(--bg);--bs-progress-bar-bg:var(--work);--bs-progress-border-radius:99px}
-.prog-box .reset{all:unset;cursor:pointer;color:var(--muted);font-size:13px;text-decoration:underline;margin-top:8px;display:inline-block}
-.prog-box .reset:focus-visible{outline:2px solid var(--cold)}
-.done-switch{margin:14px 18px 16px!important;padding-top:12px;border-top:1px dashed var(--line);font-weight:500}
-.done-switch .form-check-input{cursor:pointer}
-.done-switch .form-check-input:checked{background-color:var(--work);border-color:var(--work)}
-details.prob.done{border-color:var(--work)}
-details.prob.done > summary::before{content:"✓";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--work);color:#fff;font-size:13px;font-weight:700;margin-right:10px;flex:none}
-details.prob > summary{justify-content:flex-start}
-details.prob > summary::after{margin-left:auto}
-.badge-prog{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
-.badge-prog.some{background:var(--cold-bg);color:var(--cold);border-color:transparent}
-.badge-prog.complete{background:var(--work-bg);color:var(--work);border-color:transparent}
 
 
 /* ---------- Portada ---------- */
@@ -447,7 +447,7 @@ details.prob > summary::after{margin-left:auto}
           <span class="cap"><b>Ensayo Brinell</b><span>Una bola de acero mide la dureza por el tamaño de su huella.</span></span></a>
       </div>
       <div class="carousel-item">
-        <a href="ensayo-vickers.html" class="slide-link"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Un diamante en forma de pirámide se clava en el material y deja una huella cuadrada; se miden sus dos diagonales.</desc>
+        <a href="ensayo-vickers.html" class="slide-link"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Una pirámide de base cuadrada se clava en el material y deja una huella cuadrada; se mide su diagonal.</desc>
 <rect width="400" height="260" style="fill:var(--brand-soft)"/>
 <rect x="0" y="180" width="230" height="80" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
 <rect x="96" y="0" width="38" height="70" style="fill:var(--ink)"/>
@@ -465,7 +465,7 @@ details.prob > summary::after{margin-left:auto}
 </g>
 <text x="20" y="42" style="fill:var(--brand);font:700 44px var(--display)">HV</text>
 </svg>
-          <span class="cap"><b>Ensayo Vickers</b><span>La pirámide de diamante que mide hasta los aceros más duros.</span></span></a>
+          <span class="cap"><b>Ensayo Vickers</b><span>Una pirámide de base cuadrada y la diagonal de su huella.</span></span></a>
       </div>
       <div class="carousel-item">
         <a href="ensayo-resiliencia.html" class="slide-link"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo de resiliencia Charpy</title><desc>Un péndulo pesado cae desde lo alto, rompe la probeta entallada apoyada en la parte baja y sigue subiendo por el otro lado.</desc>
@@ -481,7 +481,7 @@ details.prob > summary::after{margin-left:auto}
 <path d="M170 168 H230 L214 196 H186 Z" style="fill:var(--hot);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
 <circle cx="200" cy="50" r="12" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
 <g style="stroke:var(--hot);stroke-width:3;stroke-linecap:round"><line x1="168" y1="214" x2="150" y2="196"/><line x1="232" y1="214" x2="252" y2="198"/><line x1="200" y1="228" x2="200" y2="246"/></g>
-<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/cm²</text>
+<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/mm²</text>
 </svg>
           <span class="cap"><b>Ensayo de resiliencia</b><span>El péndulo de Charpy y la energía que absorbe un golpe.</span></span></a>
       </div>
