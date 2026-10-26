@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Electrónica digital · IES Palomares</title>
-<meta name="description" content="Electrónica digital (Tecnología e Ingeniería II): sistemas de numeración, álgebra de Boole, puertas lógicas, formas canónicas y simplificación por Karnaugh.">
+<meta name="description" content="Electrónica digital (Tecnología e Ingeniería II, 2º de Bachillerato): sistemas de numeración, álgebra de Boole, puertas lógicas, formas canónicas y simplificación por Karnaugh.">
 <meta name="author" content="David Rayo Torres">
 <link rel="icon" href="logo-ies-palomares.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -323,6 +323,8 @@ ol.flow li{margin-bottom:8px}
 .rangos a:hover{border-color:var(--brand)}
 @media (max-width:760px){.gate-grid{grid-template-columns:minmax(0,1fr)}.kgrid{grid-template-columns:minmax(0,1fr)}}
 
+.units .tnum{display:inline-block;min-width:54px;font-size:12px;font-weight:700;color:var(--brand);margin-right:4px}
+.units li.sep{border-top:1px solid var(--line);margin:6px 4px;padding-top:4px;font-size:12px;color:var(--muted);padding-left:8px}
 /* ---------- Pie ---------- */
 .site-footer{background:var(--surface);border-top:1px solid var(--line);padding:28px 0 36px;font-size:14.5px;color:var(--muted)}
 .site-footer .container{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
@@ -380,15 +382,16 @@ ol.flow li{margin-bottom:8px}
     <nav class="bar-nav" aria-label="Sitio">
       <a class="hide-sm" href="./">Inicio</a>
       <details class="units">
-        <summary>Unidades</summary>
+        <summary>Temas</summary>
         <ul>
-          <li><a href="materiales.html">Materiales</a></li>
+          <li><a aria-current="page" href="electronica-digital.html"><span class="tnum">Tema 1</span>Electrónica digital</a></li>
+          <li><a href="materiales.html"><span class="tnum">Tema 2</span>Materiales</a></li>
+          <li><a href="maquinas-termicas.html"><span class="tnum">Tema 3</span>Máquinas térmicas</a></li>
+          <li class="sep" aria-hidden="true">En preparación</li>
           <li><a href="hidraulica.html">Hidráulica</a></li>
           <li><a href="neumatica.html">Neumática</a></li>
-          <li><a href="maquinas-termicas.html">Máquinas térmicas</a></li>
           <li><a href="estructuras.html">Estructuras</a></li>
           <li><a href="corriente-alterna.html">Corriente alterna</a></li>
-          <li><a aria-current="page" href="electronica-digital.html">Electrónica digital</a></li>
           <li><a href="control-y-regulacion.html">Control y regulación</a></li>
         </ul>
       </details>
@@ -403,7 +406,7 @@ ol.flow li{margin-bottom:8px}
 <div class="hero" id="top">
   <div class="container">
     <div>
-      <p class="crumbs"><a href="./">Tecnología e Ingeniería</a> / Electrónica digital</p>
+      <p class="crumbs"><a href="./">Tecnología e Ingeniería II</a> / Electrónica digital</p>
       <h1>Electrónica digital</h1>
       <p class="lead">Sistemas de numeración, álgebra de Boole, puertas lógicas y simplificación de funciones por Karnaugh, con el método paso a paso para diseñar circuitos.</p>
       <ul class="quick">
@@ -736,7 +739,7 @@ ol.flow li{margin-bottom:8px}
       <img src="logo-ies-palomares.png" alt="Logo del IES Palomares" width="40" height="40">
       <div><strong>David Rayo Torres</strong><br>Departamento de Tecnología, IES Palomares</div>
     </div>
-    <div>© <span id="yr">2026</span> David Rayo Torres. Material didáctico de Tecnología e Ingeniería.</div>
+    <div>© <span id="yr">2026</span> David Rayo Torres. Material didáctico de Tecnología e Ingeniería II · 2º de Bachillerato.</div>
   </div>
 </footer>
 

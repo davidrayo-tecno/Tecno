@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Máquinas térmicas · IES Palomares</title>
-<meta name="description" content="Unidad de máquinas térmicas de Tecnología e Ingeniería (Bachillerato): principios de la termodinámica, ciclo de Carnot, motores, bomba de calor.">
+<meta name="description" content="Unidad de máquinas térmicas de Tecnología e Ingeniería II (2º de Bachillerato): principios de la termodinámica, ciclo de Carnot, motores, bomba de calor.">
 <meta name="author" content="David Rayo Torres">
 <link rel="icon" href="logo-ies-palomares.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -202,6 +202,8 @@ details.prob > summary::after{margin-left:auto}
 
 .toc .tools a.tool-link{font-size:14px;color:var(--muted);padding:6px 10px;border-radius:6px;text-decoration:none}
 .toc .tools a.tool-link:hover{color:var(--ink);background:var(--surface)}
+.units .tnum{display:inline-block;min-width:54px;font-size:12px;font-weight:700;color:var(--brand);margin-right:4px}
+.units li.sep{border-top:1px solid var(--line);margin:6px 4px;padding-top:4px;font-size:12px;color:var(--muted);padding-left:8px}
 /* ---------- Pie ---------- */
 .site-footer{background:var(--surface);border-top:1px solid var(--line);padding:28px 0 36px;font-size:14.5px;color:var(--muted)}
 .site-footer .container{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
@@ -259,15 +261,16 @@ details.prob > summary::after{margin-left:auto}
     <nav class="bar-nav" aria-label="Sitio">
       <a class="hide-sm" href="./">Inicio</a>
       <details class="units">
-        <summary>Unidades</summary>
+        <summary>Temas</summary>
         <ul>
-          <li><a href="materiales.html">Materiales</a></li>
+          <li><a href="electronica-digital.html"><span class="tnum">Tema 1</span>Electrónica digital</a></li>
+          <li><a href="materiales.html"><span class="tnum">Tema 2</span>Materiales</a></li>
+          <li><a aria-current="page" href="maquinas-termicas.html"><span class="tnum">Tema 3</span>Máquinas térmicas</a></li>
+          <li class="sep" aria-hidden="true">En preparación</li>
           <li><a href="hidraulica.html">Hidráulica</a></li>
           <li><a href="neumatica.html">Neumática</a></li>
-          <li><a aria-current="page" href="maquinas-termicas.html">Máquinas térmicas</a></li>
           <li><a href="estructuras.html">Estructuras</a></li>
           <li><a href="corriente-alterna.html">Corriente alterna</a></li>
-          <li><a href="electronica-digital.html">Electrónica digital</a></li>
           <li><a href="control-y-regulacion.html">Control y regulación</a></li>
         </ul>
       </details>
@@ -282,7 +285,7 @@ details.prob > summary::after{margin-left:auto}
 <div class="hero" id="top">
   <div class="container">
     <div>
-      <p class="crumbs"><a href="./">Tecnología e Ingeniería</a> / Termodinámica aplicada</p>
+      <p class="crumbs"><a href="./">Tecnología e Ingeniería II</a> / Termodinámica aplicada</p>
       <h1>Máquinas térmicas</h1>
       <p class="lead">Cómo convertimos calor en trabajo, por qué nunca se aprovecha todo y cómo se calcula lo que rinde un motor, una nevera o una bomba de calor.</p>
       <ul class="quick">
@@ -444,7 +447,7 @@ details.prob > summary::after{margin-left:auto}
       <img src="logo-ies-palomares.png" alt="Logo del IES Palomares" width="40" height="40">
       <div><strong>David Rayo Torres</strong><br>Departamento de Tecnología, IES Palomares</div>
     </div>
-    <div>© <span id="yr">2026</span> David Rayo Torres. Material didáctico de Tecnología e Ingeniería.</div>
+    <div>© <span id="yr">2026</span> David Rayo Torres. Material didáctico de Tecnología e Ingeniería II · 2º de Bachillerato.</div>
   </div>
 </footer>
 
