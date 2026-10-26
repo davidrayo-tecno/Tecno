@@ -277,6 +277,27 @@ svg.art{display:block;width:100%;height:auto}
 .others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
 @media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
 
+/* ---------- Simulaciones ---------- */
+.sim{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 1.4em}
+.sim-stage{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:14px;align-items:start}
+.sim-stage svg{width:100%;height:auto;display:block;background:var(--bg);border-radius:10px}
+.sim-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:12px 0 0}
+.sim-read div{background:var(--bg);border-radius:8px;padding:6px 10px}
+.sim-read dt{font-size:12.5px;color:var(--muted)}
+.sim-read dd{margin:0;font:600 18px var(--mono);font-variant-numeric:tabular-nums}
+.sim-phase{min-height:3.2em;margin:12px 0 0;padding:10px 14px;border-left:4px solid var(--brand);background:var(--bg);border-radius:4px 8px 8px 4px;font-size:15.5px}
+.sim-phase b{color:var(--brand)}
+.sim-ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px}
+.sim-ctrl button{all:unset;cursor:pointer;padding:8px 14px;border-radius:8px;font-weight:600;font-size:14.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.sim-ctrl button.play{background:var(--brand);border-color:var(--brand);color:#fff;min-width:96px;text-align:center}
+.sim-ctrl button:focus-visible,.sim-ctrl input:focus-visible,.sim-ctrl select:focus-visible{outline:2px solid var(--cold);outline-offset:2px}
+.sim-ctrl input[type=range]{flex:1 1 180px;accent-color:var(--brand)}
+.sim-ctrl label{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.sim-ctrl select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+.sim-calc{margin:12px 0 0;padding:12px 14px;border-radius:8px;background:var(--work-bg);font-family:var(--mono);font-size:14.5px;line-height:1.7;overflow-x:auto}
+.sim-calc[hidden]{display:none}
+@media (max-width:760px){.sim-stage{grid-template-columns:minmax(0,1fr)}}
+
 .units .tnum{display:inline-block;min-width:76px;font-size:14px;font-weight:700;color:var(--brand);margin-right:4px}
 .units li.sep{border-top:1px solid var(--line);margin:6px 4px;padding-top:4px;font-size:12px;color:var(--muted);padding-left:8px}
 /* ---------- Pie ---------- */
@@ -393,6 +414,7 @@ svg.art{display:block;width:100%;height:auto}
     <ol>
       <li><a href="#que-es">Los ensayos de dureza</a></li>
       <li><a href="#formula">La dureza Brinell</a></li>
+      <li><a href="#simulacion">Simulación del ensayo</a></li>
       <li><a href="#notacion">Expresión del resultado</a></li>
       <li><a href="#problemas">Problemas</a></li>
     </ol>
@@ -457,8 +479,109 @@ svg.art{display:block;width:100%;height:auto}
 <div class="f">HB = F / S = 2F / (π · D · (D − √(D² − d²)))</div>
 </section>
 
+<section id="simulacion">
+  <h2><span class="n">3</span>Simulación del ensayo</h2>
+<p>Elige el material y reproduce el ensayo: la esfera se carga, se mantiene, se retira y se mide la huella. Al final aparece el cálculo de la dureza.</p>
+<div class="sim" id="sim-brin">
+  <div class="sim-stage">
+    <svg viewBox="0 0 280 300" role="img" aria-label="Vista lateral del ensayo Brinell">
+      <rect class="blk" x="20" y="200" width="240" height="90" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
+      <path class="dent" style="fill:var(--bg);stroke:var(--ink);stroke-width:2"/>
+      <g class="ind">
+        <rect x="118" y="-300" width="44" height="212" style="fill:var(--ink)"/>
+        <path d="M100 -90 H180 L168 -70 H112 Z" style="fill:var(--ink)"/>
+        <circle class="ball" cx="140" cy="0" r="70" style="fill:var(--bg);stroke:var(--ink);stroke-width:2.5"/>
+        <circle cx="118" cy="-22" r="16" style="fill:var(--surface);opacity:.8"/>
+      </g>
+      <g class="farr" style="fill:var(--hot)"><rect x="232" y="20" width="8" height="50"/><polygon points="224,70 248,70 236,92"/></g>
+      <text class="ftxt" x="226" y="14" text-anchor="middle" style="fill:var(--hot);font:700 13px var(--mono)">F</text>
+    </svg>
+    <svg viewBox="0 0 300 300" role="img" aria-label="Vista superior de la huella">
+      <text x="150" y="22" text-anchor="middle" style="fill:var(--muted);font:600 12px var(--body)">vista superior al microscopio</text>
+      <circle cx="150" cy="150" r="118" style="fill:var(--surface);stroke:var(--line);stroke-width:2"/>
+      <g class="top">
+        <circle class="hole" cx="150" cy="150" style="fill:var(--work-bg);stroke:var(--work);stroke-width:3"/>
+        <line class="dline" y1="150" y2="150" style="stroke:var(--hot);stroke-width:2.5"/>
+        <text class="dtxt" x="150" y="140" text-anchor="middle" style="fill:var(--hot);font:700 15px var(--mono)"></text>
+      </g>
+      <text class="wait" x="150" y="156" text-anchor="middle" style="fill:var(--muted);font:13px var(--body)">la huella aparece al retirar la esfera</text>
+    </svg>
+  </div>
+  <dl class="sim-read"><div><dt>Carga F</dt><dd data-r="F">–</dd></div><div><dt>Tiempo</dt><dd data-r="t">–</dd></div><div><dt>Profundidad f</dt><dd data-r="f">–</dd></div><div><dt>Huella d</dt><dd data-r="d">–</dd></div></dl>
+  <p class="sim-phase" aria-live="polite"></p>
+  <div class="sim-calc" hidden></div>
+  <div class="sim-ctrl">
+    <button type="button" class="play" aria-pressed="false">Reproducir</button>
+    <button type="button" class="reset">Reiniciar</button>
+    <input type="range" min="0" max="1000" value="0" aria-label="Avance del ensayo">
+    <label>Velocidad <select class="speed"><option value="0.5">lenta</option><option value="1" selected>normal</option><option value="2">rápida</option></select></label>
+    <label>Material <select class="mat"><option value="acero">acero (K = 30)</option><option value="laton">latón (K = 10)</option><option value="cobre">cobre (K = 5)</option></select></label>
+  </div>
+</div>
+<script>
+(function(){
+
+window.SimCtl=window.SimCtl||function(root,duration,render){
+  const play=root.querySelector('.play'),reset=root.querySelector('.reset'),rng=root.querySelector('input[type=range]'),spd=root.querySelector('.speed');
+  let p=0,run=false,last=0;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function draw(){rng.value=Math.round(p*1000);render(p);}
+  function tick(ts){if(!run)return;const dt=last?(ts-last)/1000:0;last=ts;p=Math.min(1,p+dt*(+spd.value)/duration);draw();if(p>=1){stop();return;}requestAnimationFrame(tick);}
+  function start(){if(p>=1)p=0;run=true;last=0;play.textContent='Pausa';play.setAttribute('aria-pressed','true');requestAnimationFrame(tick);}
+  function stop(){run=false;play.textContent=p>=1?'Repetir':'Reproducir';play.setAttribute('aria-pressed','false');}
+  play.addEventListener('click',()=>run?stop():start());
+  reset.addEventListener('click',()=>{stop();p=0;play.textContent='Reproducir';draw();});
+  rng.addEventListener('input',()=>{stop();p=rng.value/1000;play.textContent=p>=1?'Repetir':'Reproducir';render(p);});
+  draw();
+  return {redraw:()=>render(p),restart:()=>{stop();p=0;draw();}};
+};
+
+const root=document.getElementById('sim-brin'),$=s=>root.querySelector(s),R=k=>root.querySelector('[data-r="'+k+'"]');
+const MATS={acero:{n:'Acero',HB:229,K:30},laton:{n:'Latón',HB:95,K:10},cobre:{n:'Cobre',HB:40,K:5}};
+const D=10,T=15,BR=70,TOPY=200;
+let m=MATS.acero;
+function geo(){const F=m.K*D*D,S=F/m.HB,f=S/(Math.PI*D),d=2*Math.sqrt(f*(D-f));return {F,S,f,d};}
+const fmt=(x,n)=>x.toLocaleString('es-ES',{minimumFractionDigits:n,maximumFractionDigits:n});
+function render(p){
+  const g=geo(), dpx=g.d/D*2*BR, depthMax=BR-Math.sqrt(BR*BR-(dpx/2)*(dpx/2));
+  let ph,load,depth,y,t=0;
+  if(p<.15){ph=0;const u=p/.15;load=0;depth=0;y=TOPY-BR-60*(1-u);}
+  else if(p<.4){ph=1;const u=(p-.15)/.25;load=u;depth=depthMax*u;y=TOPY-BR+depth;}
+  else if(p<.65){ph=2;load=1;depth=depthMax;y=TOPY-BR+depth;t=T*(p-.4)/.25;}
+  else if(p<.8){ph=3;const u=(p-.65)/.15;load=1-u;depth=depthMax;y=TOPY-BR+depth-70*u;t=T;}
+  else{ph=4;load=0;depth=depthMax;y=TOPY-BR-70;t=T;}
+  $('.ind').setAttribute('transform','translate(0,'+y+')');
+  const half=Math.sqrt(Math.max(0,BR*BR-(BR-depth)*(BR-depth)));
+  $('.dent').setAttribute('d',depth>0?('M'+(140-half)+' '+TOPY+' A'+BR+' '+BR+' 0 0 0 '+(140+half)+' '+TOPY+' Z'):'');
+  $('.farr').style.opacity=load>0?1:.15;$('.farr rect').setAttribute('height',10+40*load);
+  $('.ftxt').textContent='F = '+Math.round(g.F*load)+' kp';
+  const shown=ph>=3;
+  $('.top').style.opacity=shown?1:0;$('.wait').style.opacity=shown?0:1;
+  const rr=g.d/D*100*(ph===4?Math.min(1,(p-.8)/.06+.4):1);
+  $('.hole').setAttribute('r',g.d/D*100);
+  const meas=ph===4?Math.min(1,(p-.8)/.12):0;
+  $('.dline').setAttribute('x1',150-g.d/D*100*meas);$('.dline').setAttribute('x2',150+g.d/D*100*meas);
+  $('.dtxt').setAttribute('y',150-g.d/D*100-12);$('.dtxt').textContent=meas>=1?('d = '+fmt(g.d,2)+' mm'):'';
+  R('F').textContent=Math.round(g.F*load)+' kp';R('t').textContent=fmt(t,0)+' s';
+  R('f').textContent=ph>=1?fmt(g.f*(depth/depthMax||0),3)+' mm':'0 mm';R('d').textContent=meas>=1?fmt(g.d,2)+' mm':'–';
+  const TX=['<b>Aproximación.</b> La esfera de acero templado, de D = 10 mm, baja hasta apoyarse en la pieza.',
+   '<b>Carga.</b> Se aplica poco a poco la carga F = K · D² = '+m.K+' kp/mm² · (10 mm)² = '+g.F+' kp. La esfera se hunde en el material.',
+   '<b>Mantenimiento.</b> La carga se mantiene durante '+T+' s para que la huella termine de formarse.',
+   '<b>Descarga.</b> Se retira la carga y la esfera sube. Queda una huella con forma de casquete esférico.',
+   '<b>Medida.</b> Con un microscopio se mide el diámetro de la huella, d. Con él se calcula la dureza.'];
+  $('.sim-phase').innerHTML=p===0?'Elige el material y pulsa <b>Reproducir</b>.':TX[ph];
+  const c=$('.sim-calc');
+  if(p>=.93){c.hidden=false;c.innerHTML='f = D/2 − √(D²/4 − d²/4) = 5 mm − √(25 mm² − '+fmt(g.d*g.d/4,2)+' mm²) = '+fmt(g.f,3)+' mm<br>S = π · D · f = π · 10 mm · '+fmt(g.f,3)+' mm = '+fmt(g.S,2)+' mm²<br>HB = F / S = '+g.F+' kp / '+fmt(g.S,2)+' mm² = '+m.HB+' kp/mm²<br><b>Resultado: '+m.HB+' HB 10/'+g.F+'/'+T+'</b>';}
+  else c.hidden=true;
+}
+const ctl=SimCtl(root,14,render);
+root.querySelector('.mat').addEventListener('change',e=>{m=MATS[e.target.value];ctl.restart();});
+})();
+</script>
+</section>
+
 <section id="notacion">
-  <h2><span class="n">3</span>Expresión del resultado</h2>
+  <h2><span class="n">4</span>Expresión del resultado</h2>
 <p>El resultado de un ensayo Brinell no se da solo con el número de la dureza: hay que indicar también en qué condiciones se ha hecho, porque la huella depende de la esfera, de la carga y del tiempo. La <strong>expresión normalizada</strong> tiene siempre este orden:</p>
 <div class="notacion" role="img" aria-label="Expresión normalizada Brinell: 229 HB 10/3000/15">
   <span class="nt nt-v"><b>229</b><small>valor de la dureza (kp/mm²)</small></span>
@@ -482,7 +605,7 @@ svg.art{display:block;width:100%;height:auto}
 </section>
 
 <section id="problemas">
-  <h2><span class="n">4</span>Problemas</h2>
+  <h2><span class="n">5</span>Problemas</h2>
   <p>Los problemas de este ensayo están en la página de problemas de Materiales, junto con los de los demás ensayos y otros problemas.</p>
   <p><a class="btn-go" href="materiales-problemas.html#brinell">Ir a los problemas de ensayo brinell</a></p>
 </section>

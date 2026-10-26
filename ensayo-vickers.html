@@ -277,6 +277,27 @@ svg.art{display:block;width:100%;height:auto}
 .others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
 @media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
 
+/* ---------- Simulaciones ---------- */
+.sim{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 1.4em}
+.sim-stage{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:14px;align-items:start}
+.sim-stage svg{width:100%;height:auto;display:block;background:var(--bg);border-radius:10px}
+.sim-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:12px 0 0}
+.sim-read div{background:var(--bg);border-radius:8px;padding:6px 10px}
+.sim-read dt{font-size:12.5px;color:var(--muted)}
+.sim-read dd{margin:0;font:600 18px var(--mono);font-variant-numeric:tabular-nums}
+.sim-phase{min-height:3.2em;margin:12px 0 0;padding:10px 14px;border-left:4px solid var(--brand);background:var(--bg);border-radius:4px 8px 8px 4px;font-size:15.5px}
+.sim-phase b{color:var(--brand)}
+.sim-ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px}
+.sim-ctrl button{all:unset;cursor:pointer;padding:8px 14px;border-radius:8px;font-weight:600;font-size:14.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.sim-ctrl button.play{background:var(--brand);border-color:var(--brand);color:#fff;min-width:96px;text-align:center}
+.sim-ctrl button:focus-visible,.sim-ctrl input:focus-visible,.sim-ctrl select:focus-visible{outline:2px solid var(--cold);outline-offset:2px}
+.sim-ctrl input[type=range]{flex:1 1 180px;accent-color:var(--brand)}
+.sim-ctrl label{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.sim-ctrl select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+.sim-calc{margin:12px 0 0;padding:12px 14px;border-radius:8px;background:var(--work-bg);font-family:var(--mono);font-size:14.5px;line-height:1.7;overflow-x:auto}
+.sim-calc[hidden]{display:none}
+@media (max-width:760px){.sim-stage{grid-template-columns:minmax(0,1fr)}}
+
 .units .tnum{display:inline-block;min-width:76px;font-size:14px;font-weight:700;color:var(--brand);margin-right:4px}
 .units li.sep{border-top:1px solid var(--line);margin:6px 4px;padding-top:4px;font-size:12px;color:var(--muted);padding-left:8px}
 /* ---------- Pie ---------- */
@@ -398,6 +419,7 @@ svg.art{display:block;width:100%;height:auto}
     <ol>
       <li><a href="#que-es">La dureza Vickers</a></li>
       <li><a href="#formula">Cálculo de la dureza Vickers</a></li>
+      <li><a href="#simulacion">Simulación del ensayo</a></li>
       <li><a href="#notacion">Expresión del resultado</a></li>
       <li><a href="#problemas">Problemas</a></li>
     </ol>
@@ -440,8 +462,110 @@ svg.art{display:block;width:100%;height:auto}
 <p class="note">Si la carga viene en newtons, antes hay que pasarla a kilopondios: 1 kp = 9,8 N.</p>
 </section>
 
+<section id="simulacion">
+  <h2><span class="n">3</span>Simulación del ensayo</h2>
+<p>Elige el material y la carga y reproduce el ensayo: la pirámide se clava, se retira y se miden las diagonales de la huella.</p>
+<div class="sim" id="sim-vick">
+  <div class="sim-stage">
+    <svg viewBox="0 0 280 300" role="img" aria-label="Vista lateral del ensayo Vickers">
+      <rect x="20" y="200" width="240" height="90" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/>
+      <path class="dent" style="fill:var(--bg);stroke:var(--ink);stroke-width:2"/>
+      <g class="ind">
+        <rect x="122" y="-260" width="36" height="200" style="fill:var(--ink)"/>
+        <polygon points="96,-60 184,-60 140,0" style="fill:var(--brand-soft);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
+        <path d="M128 -14 A16 16 0 0 0 152 -14" style="fill:none;stroke:var(--hot);stroke-width:2"/>
+        <text x="140" y="-22" text-anchor="middle" style="fill:var(--hot);font:700 11px var(--mono)">136°</text>
+      </g>
+      <g class="farr" style="fill:var(--hot)"><rect x="232" y="20" width="8" height="50"/><polygon points="224,70 248,70 236,92"/></g>
+      <text class="ftxt" x="226" y="14" text-anchor="middle" style="fill:var(--hot);font:700 13px var(--mono)">F</text>
+    </svg>
+    <svg viewBox="0 0 300 300" role="img" aria-label="Vista superior de la huella cuadrada">
+      <text x="150" y="22" text-anchor="middle" style="fill:var(--muted);font:600 12px var(--body)">vista superior al microscopio</text>
+      <circle cx="150" cy="150" r="118" style="fill:var(--surface);stroke:var(--line);stroke-width:2"/>
+      <g class="top">
+        <polygon class="sq" style="fill:var(--brand-soft);stroke:var(--ink);stroke-width:2.5"/>
+        <line class="d1" y1="150" y2="150" style="stroke:var(--hot);stroke-width:2.5"/>
+        <line class="d2" x1="150" x2="150" style="stroke:var(--cold);stroke-width:2.5"/>
+        <text class="dtxt" x="150" y="276" text-anchor="middle" style="fill:var(--ink);font:700 14px var(--mono)"></text>
+      </g>
+      <text class="wait" x="150" y="156" text-anchor="middle" style="fill:var(--muted);font:13px var(--body)">la huella aparece al retirar el penetrador</text>
+    </svg>
+  </div>
+  <dl class="sim-read"><div><dt>Carga F</dt><dd data-r="F">–</dd></div><div><dt>Tiempo</dt><dd data-r="t">–</dd></div><div><dt>Diagonal d</dt><dd data-r="d">–</dd></div><div><dt>Dureza HV</dt><dd data-r="hv">–</dd></div></dl>
+  <p class="sim-phase" aria-live="polite"></p>
+  <div class="sim-calc" hidden></div>
+  <div class="sim-ctrl">
+    <button type="button" class="play" aria-pressed="false">Reproducir</button>
+    <button type="button" class="reset">Reiniciar</button>
+    <input type="range" min="0" max="1000" value="0" aria-label="Avance del ensayo">
+    <label>Velocidad <select class="speed"><option value="0.5">lenta</option><option value="1" selected>normal</option><option value="2">rápida</option></select></label>
+    <label>Material <select class="mat"><option value="templado">acero templado</option><option value="acero">acero de construcción</option><option value="laton">latón</option></select></label><label>Carga <select class="load"><option value="10">10 kp</option><option value="30" selected>30 kp</option></select></label>
+  </div>
+</div>
+<script>
+(function(){
+
+window.SimCtl=window.SimCtl||function(root,duration,render){
+  const play=root.querySelector('.play'),reset=root.querySelector('.reset'),rng=root.querySelector('input[type=range]'),spd=root.querySelector('.speed');
+  let p=0,run=false,last=0;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function draw(){rng.value=Math.round(p*1000);render(p);}
+  function tick(ts){if(!run)return;const dt=last?(ts-last)/1000:0;last=ts;p=Math.min(1,p+dt*(+spd.value)/duration);draw();if(p>=1){stop();return;}requestAnimationFrame(tick);}
+  function start(){if(p>=1)p=0;run=true;last=0;play.textContent='Pausa';play.setAttribute('aria-pressed','true');requestAnimationFrame(tick);}
+  function stop(){run=false;play.textContent=p>=1?'Repetir':'Reproducir';play.setAttribute('aria-pressed','false');}
+  play.addEventListener('click',()=>run?stop():start());
+  reset.addEventListener('click',()=>{stop();p=0;play.textContent='Reproducir';draw();});
+  rng.addEventListener('input',()=>{stop();p=rng.value/1000;play.textContent=p>=1?'Repetir':'Reproducir';render(p);});
+  draw();
+  return {redraw:()=>render(p),restart:()=>{stop();p=0;draw();}};
+};
+
+const root=document.getElementById('sim-vick'),$=s=>root.querySelector(s),R=k=>root.querySelector('[data-r="'+k+'"]');
+const MATS={templado:{n:'Acero templado',HV:640},acero:{n:'Acero de construcción',HV:145},laton:{n:'Latón',HV:100}};
+let m=MATS.templado,F=30;const T=15,TOPY=200;
+const fmt=(x,n)=>x.toLocaleString('es-ES',{minimumFractionDigits:n,maximumFractionDigits:n});
+function geo(){const d=Math.sqrt(1.854*F/m.HV);return {d,h:d/7};}
+function render(p){
+  const g=geo(), scale=180/0.8, dpx=Math.min(220,g.d*scale), depthMax=dpx/7*1.6;
+  let ph,load,depth,y,t=0;
+  if(p<.15){ph=0;const u=p/.15;load=0;depth=0;y=TOPY-50*(1-u);}
+  else if(p<.4){ph=1;const u=(p-.15)/.25;load=u;depth=depthMax*u;y=TOPY+depth;}
+  else if(p<.65){ph=2;load=1;depth=depthMax;y=TOPY+depth;t=T*(p-.4)/.25;}
+  else if(p<.8){ph=3;const u=(p-.65)/.15;load=1-u;depth=depthMax;y=TOPY+depth-60*u;t=T;}
+  else{ph=4;load=0;depth=depthMax;y=TOPY-60;t=T;}
+  $('.ind').setAttribute('transform','translate(0,'+y+')');
+  const half=depth*Math.tan(68*Math.PI/180)*.55;
+  $('.dent').setAttribute('d',depth>0?('M'+(140-half)+' '+TOPY+' L140 '+(TOPY+depth)+' L'+(140+half)+' '+TOPY+' Z'):'');
+  $('.farr').style.opacity=load>0?1:.15;$('.farr rect').setAttribute('height',10+40*load);
+  $('.ftxt').textContent='F = '+fmt(F*load,0)+' kp';
+  const shown=ph>=3,r=dpx/2;
+  $('.top').style.opacity=shown?1:0;$('.wait').style.opacity=shown?0:1;
+  $('.sq').setAttribute('points',(150)+','+(150-r)+' '+(150+r)+',150 150,'+(150+r)+' '+(150-r)+',150');
+  const meas=ph===4?Math.min(1,(p-.8)/.12):0;
+  $('.d1').setAttribute('x1',150-r*meas);$('.d1').setAttribute('x2',150+r*meas);
+  $('.d2').setAttribute('y1',150-r*meas);$('.d2').setAttribute('y2',150+r*meas);
+  $('.dtxt').textContent=meas>=1?('d₁ = d₂ = '+fmt(g.d,3)+' mm'):'';
+  R('F').textContent=fmt(F*load,0)+' kp';R('t').textContent=fmt(t,0)+' s';
+  R('d').textContent=meas>=1?fmt(g.d,3)+' mm':'–';R('hv').textContent=p>=.93?m.HV+' kp/mm²':'–';
+  const TX=['<b>Aproximación.</b> El penetrador, una pirámide de base cuadrada con 136° entre caras, baja hasta tocar la pieza.',
+   '<b>Carga.</b> Se aplica la carga F = '+F+' kp y la pirámide se clava en el material.',
+   '<b>Mantenimiento.</b> La carga se mantiene durante '+T+' s.',
+   '<b>Descarga.</b> Se retira la carga. Queda una huella con forma de pirámide invertida, cuadrada vista desde arriba.',
+   '<b>Medida.</b> Se miden las dos diagonales de la huella con el microscopio; d es su valor medio.'];
+  $('.sim-phase').innerHTML=p===0?'Elige el material y la carga y pulsa <b>Reproducir</b>.':TX[ph];
+  const c=$('.sim-calc');
+  if(p>=.93){c.hidden=false;c.innerHTML='HV = 1,854 · F / d² = 1,854 · '+F+' kp / ('+fmt(g.d,3)+' mm)² = '+m.HV+' kp/mm²<br><b>Resultado: '+m.HV+' HV '+F+'</b> (tiempo normal de '+T+' s, por eso no se escribe)';}
+  else c.hidden=true;
+}
+const ctl=SimCtl(root,14,render);
+root.querySelector('.mat').addEventListener('change',e=>{m=MATS[e.target.value];ctl.restart();});
+root.querySelector('.load').addEventListener('change',e=>{F=+e.target.value;ctl.restart();});
+})();
+</script>
+</section>
+
 <section id="notacion">
-  <h2><span class="n">3</span>Expresión del resultado</h2>
+  <h2><span class="n">4</span>Expresión del resultado</h2>
 <p>Igual que en el ensayo Brinell, el resultado se acompaña de las condiciones del ensayo. En el Vickers el penetrador es siempre el mismo (la pirámide de 136°), así que solo hay que indicar la <strong>carga</strong> y el <strong>tiempo</strong>. La <strong>expresión normalizada</strong> tiene este orden:</p>
 <div class="notacion" role="img" aria-label="Expresión normalizada Vickers: 640 HV 30/20">
   <span class="nt nt-v"><b>640</b><small>valor de la dureza (kp/mm²)</small></span>
@@ -463,7 +587,7 @@ svg.art{display:block;width:100%;height:auto}
 </section>
 
 <section id="problemas">
-  <h2><span class="n">4</span>Problemas</h2>
+  <h2><span class="n">5</span>Problemas</h2>
   <p>Los problemas de este ensayo están en la página de problemas de Materiales, junto con los de los demás ensayos y otros problemas.</p>
   <p><a class="btn-go" href="materiales-problemas.html#vickers">Ir a los problemas de ensayo vickers</a></p>
 </section>

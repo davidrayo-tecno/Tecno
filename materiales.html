@@ -277,6 +277,27 @@ svg.art{display:block;width:100%;height:auto}
 .others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
 @media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
 
+/* ---------- Simulaciones ---------- */
+.sim{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 1.4em}
+.sim-stage{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:14px;align-items:start}
+.sim-stage svg{width:100%;height:auto;display:block;background:var(--bg);border-radius:10px}
+.sim-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:12px 0 0}
+.sim-read div{background:var(--bg);border-radius:8px;padding:6px 10px}
+.sim-read dt{font-size:12.5px;color:var(--muted)}
+.sim-read dd{margin:0;font:600 18px var(--mono);font-variant-numeric:tabular-nums}
+.sim-phase{min-height:3.2em;margin:12px 0 0;padding:10px 14px;border-left:4px solid var(--brand);background:var(--bg);border-radius:4px 8px 8px 4px;font-size:15.5px}
+.sim-phase b{color:var(--brand)}
+.sim-ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px}
+.sim-ctrl button{all:unset;cursor:pointer;padding:8px 14px;border-radius:8px;font-weight:600;font-size:14.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.sim-ctrl button.play{background:var(--brand);border-color:var(--brand);color:#fff;min-width:96px;text-align:center}
+.sim-ctrl button:focus-visible,.sim-ctrl input:focus-visible,.sim-ctrl select:focus-visible{outline:2px solid var(--cold);outline-offset:2px}
+.sim-ctrl input[type=range]{flex:1 1 180px;accent-color:var(--brand)}
+.sim-ctrl label{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.sim-ctrl select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+.sim-calc{margin:12px 0 0;padding:12px 14px;border-radius:8px;background:var(--work-bg);font-family:var(--mono);font-size:14.5px;line-height:1.7;overflow-x:auto}
+.sim-calc[hidden]{display:none}
+@media (max-width:760px){.sim-stage{grid-template-columns:minmax(0,1fr)}}
+
 .units .tnum{display:inline-block;min-width:76px;font-size:14px;font-weight:700;color:var(--brand);margin-right:4px}
 .units li.sep{border-top:1px solid var(--line);margin:6px 4px;padding-top:4px;font-size:12px;color:var(--muted);padding-left:8px}
 /* ---------- Pie ---------- */

@@ -277,6 +277,27 @@ svg.art{display:block;width:100%;height:auto}
 .others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
 @media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
 
+/* ---------- Simulaciones ---------- */
+.sim{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 1.4em}
+.sim-stage{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:14px;align-items:start}
+.sim-stage svg{width:100%;height:auto;display:block;background:var(--bg);border-radius:10px}
+.sim-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:12px 0 0}
+.sim-read div{background:var(--bg);border-radius:8px;padding:6px 10px}
+.sim-read dt{font-size:12.5px;color:var(--muted)}
+.sim-read dd{margin:0;font:600 18px var(--mono);font-variant-numeric:tabular-nums}
+.sim-phase{min-height:3.2em;margin:12px 0 0;padding:10px 14px;border-left:4px solid var(--brand);background:var(--bg);border-radius:4px 8px 8px 4px;font-size:15.5px}
+.sim-phase b{color:var(--brand)}
+.sim-ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px}
+.sim-ctrl button{all:unset;cursor:pointer;padding:8px 14px;border-radius:8px;font-weight:600;font-size:14.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.sim-ctrl button.play{background:var(--brand);border-color:var(--brand);color:#fff;min-width:96px;text-align:center}
+.sim-ctrl button:focus-visible,.sim-ctrl input:focus-visible,.sim-ctrl select:focus-visible{outline:2px solid var(--cold);outline-offset:2px}
+.sim-ctrl input[type=range]{flex:1 1 180px;accent-color:var(--brand)}
+.sim-ctrl label{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.sim-ctrl select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+.sim-calc{margin:12px 0 0;padding:12px 14px;border-radius:8px;background:var(--work-bg);font-family:var(--mono);font-size:14.5px;line-height:1.7;overflow-x:auto}
+.sim-calc[hidden]{display:none}
+@media (max-width:760px){.sim-stage{grid-template-columns:minmax(0,1fr)}}
+
 .units .tnum{display:inline-block;min-width:76px;font-size:14px;font-weight:700;color:var(--brand);margin-right:4px}
 .units li.sep{border-top:1px solid var(--line);margin:6px 4px;padding-top:4px;font-size:12px;color:var(--muted);padding-left:8px}
 /* ---------- Pie ---------- */
@@ -394,6 +415,7 @@ svg.art{display:block;width:100%;height:auto}
       <li><a href="#que-es">El ensayo de tracción</a></li>
       <li><a href="#magnitudes">Tensión y deformación unitaria</a></li>
       <li><a href="#diagrama">El diagrama de tracción</a></li>
+      <li><a href="#simulacion">Simulación del ensayo</a></li>
       <li><a href="#ductilidad">Alargamiento y estricción</a></li>
       <li><a href="#problemas">Problemas</a></li>
     </ol>
@@ -504,8 +526,132 @@ svg.art{display:block;width:100%;height:auto}
 </ul>
 </section>
 
+<section id="simulacion">
+  <h2><span class="n">4</span>Simulación del ensayo</h2>
+<p>Pulsa reproducir para ver cómo la máquina estira la probeta mientras se dibuja el diagrama de tracción. Puedes pararla en cualquier momento o mover la barra para ir a un punto concreto.</p>
+<div class="sim" id="sim-trac">
+  <div class="sim-stage">
+    <svg viewBox="0 0 260 420" role="img" aria-label="Máquina de tracción estirando la probeta"><g transform="translate(0,44)">
+      <rect x="18" y="352" width="224" height="18" rx="3" style="fill:var(--ink)"/>
+      <rect x="34" y="14" width="14" height="340" style="fill:var(--line)"/><rect x="212" y="14" width="14" height="340" style="fill:var(--line)"/>
+      <g class="up">
+        <rect x="22" y="40" width="216" height="26" rx="4" style="fill:var(--ink)"/>
+        <rect x="104" y="66" width="52" height="40" rx="3" style="fill:var(--muted)"/>
+        <rect x="96" y="16" width="68" height="22" rx="3" style="fill:var(--cold)"/>
+        <text class="lc" x="130" y="31" text-anchor="middle" style="fill:#fff;font:700 11px var(--mono)">0 kN</text>
+        <g class="arr" style="fill:var(--hot)"><rect class="arr-r" x="183" y="10" width="7" height="30"/><polygon points="176,12 197,12 186.5,0"/></g>
+      </g>
+      <path class="spec" style="fill:var(--surface);stroke:var(--ink);stroke-width:2;stroke-linejoin:round"/>
+      <path class="spec2" style="fill:var(--surface);stroke:var(--ink);stroke-width:2;stroke-linejoin:round"/>
+      <line class="mk1" x1="118" x2="142" style="stroke:var(--hot);stroke-width:2.5"/>
+      <line class="mk2" x1="118" x2="142" style="stroke:var(--hot);stroke-width:2.5"/>
+      <rect x="104" y="262" width="52" height="40" rx="3" style="fill:var(--muted)"/>
+      <rect x="22" y="302" width="216" height="26" rx="4" style="fill:var(--ink)"/>
+      <text x="130" y="346" text-anchor="middle" style="fill:var(--muted);font:600 11px var(--body)">mordaza fija</text>
+    </g></svg>
+    <svg viewBox="0 0 380 290" role="img" aria-label="Curva tensión-deformación que se va dibujando">
+      <rect x="40" y="20" width="22" height="240" style="fill:var(--cold-bg)"/>
+      <rect x="62" y="20" width="310" height="240" style="fill:var(--hot-bg);opacity:.45"/>
+      <line x1="40" y1="260" x2="374" y2="260" style="stroke:var(--muted)"/><line x1="40" y1="260" x2="40" y2="12" style="stroke:var(--muted)"/>
+      <text x="370" y="278" text-anchor="end" style="fill:var(--muted);font:13px var(--mono)">ε</text>
+      <text x="14" y="18" style="fill:var(--muted);font:13px var(--mono)">σ</text>
+      <text x="51" y="34" text-anchor="middle" style="fill:var(--cold);font:600 10px var(--body)">elást.</text>
+      <text x="215" y="34" text-anchor="middle" style="fill:var(--hot);font:600 10px var(--body)">zona plástica</text>
+      <path class="ghost" style="fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:4 4"/>
+      <path class="curve" style="fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:round;stroke-linecap:round"/>
+      <g class="pts" style="font:700 13px var(--mono)"></g>
+      <circle class="dot" r="6" style="fill:var(--hot);stroke:#fff;stroke-width:2"/>
+    </svg>
+  </div>
+  <dl class="sim-read"><div><dt>Fuerza F</dt><dd data-r="F">–</dd></div><div><dt>Tensión σ</dt><dd data-r="s">–</dd></div><div><dt>Deformación ε</dt><dd data-r="e">–</dd></div><div><dt>Alargamiento Δl</dt><dd data-r="dl">–</dd></div></dl>
+  <p class="sim-phase" aria-live="polite"></p>
+  <div class="sim-ctrl">
+    <button type="button" class="play" aria-pressed="false">Reproducir</button>
+    <button type="button" class="reset">Reiniciar</button>
+    <input type="range" min="0" max="1000" value="0" aria-label="Avance del ensayo">
+    <label>Velocidad <select class="speed"><option value="0.5">lenta</option><option value="1" selected>normal</option><option value="2">rápida</option></select></label>
+    
+  </div>
+  <p class="note" style="margin:10px 0 0">Probeta de acero de d₀ = 10 mm (S₀ = 78,54 mm²) y l₀ = 50 mm. La escala horizontal del diagrama está ampliada en la zona elástica para que se vea.</p>
+</div>
+<script>
+(function(){
+
+window.SimCtl=window.SimCtl||function(root,duration,render){
+  const play=root.querySelector('.play'),reset=root.querySelector('.reset'),rng=root.querySelector('input[type=range]'),spd=root.querySelector('.speed');
+  let p=0,run=false,last=0;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function draw(){rng.value=Math.round(p*1000);render(p);}
+  function tick(ts){if(!run)return;const dt=last?(ts-last)/1000:0;last=ts;p=Math.min(1,p+dt*(+spd.value)/duration);draw();if(p>=1){stop();return;}requestAnimationFrame(tick);}
+  function start(){if(p>=1)p=0;run=true;last=0;play.textContent='Pausa';play.setAttribute('aria-pressed','true');requestAnimationFrame(tick);}
+  function stop(){run=false;play.textContent=p>=1?'Repetir':'Reproducir';play.setAttribute('aria-pressed','false');}
+  play.addEventListener('click',()=>run?stop():start());
+  reset.addEventListener('click',()=>{stop();p=0;play.textContent='Reproducir';draw();});
+  rng.addEventListener('input',()=>{stop();p=rng.value/1000;play.textContent=p>=1?'Repetir':'Reproducir';render(p);});
+  draw();
+  return {redraw:()=>render(p),restart:()=>{stop();p=0;draw();}};
+};
+
+const root=document.getElementById('sim-trac'),$=s=>root.querySelector(s),R=k=>root.querySelector('[data-r="'+k+'"]');
+const fmt=(x,n)=>x.toLocaleString('es-ES',{minimumFractionDigits:n,maximumFractionDigits:n});
+const EA=.05,EB=.07,EC=.16,ED=.62,EE=.85;
+function sig(e){ // tensión normalizada (1 = σmáx)
+  if(e<=EA) return .55*e/EA;
+  if(e<=EB){const u=(e-EA)/(EB-EA);return .55+.07*Math.sin(u*Math.PI/2);}
+  if(e<=EC){const u=(e-EB)/(EC-EB);return .62-.012*Math.abs(Math.sin(u*Math.PI*5));}
+  if(e<=ED){const u=(e-EC)/(ED-EC);return .62+.38*(1-(1-u)*(1-u));}
+  const v=Math.min(1,(e-ED)/(EE-ED));return 1-.2*Math.pow(v,1.6);
+}
+const X=e=>40+e/.9*330, Y=s=>260-s*220;
+let g='';for(let e=0;e<=EE+1e-9;e+=.004)g+=(g?'L':'M')+X(e).toFixed(1)+' '+Y(sig(e)).toFixed(1);
+$('.ghost').setAttribute('d',g);
+const P=[['0',0],['a',EA],['b',EB],['c',EC],['d',ED],['e',EE]];
+const ptsG=$('.pts');
+P.forEach(([n,e])=>{const t=document.createElementNS('http://www.w3.org/2000/svg','g');t.setAttribute('data-e',e);t.style.opacity=0;
+  t.innerHTML='<circle cx="'+X(e)+'" cy="'+Y(sig(e))+'" r="3.5" style="fill:var(--ink)"/><text x="'+(X(e)+(n==='e'?6:-4))+'" y="'+(Y(sig(e))-8)+'" text-anchor="'+(n==='e'?'start':'end')+'" style="fill:var(--brand)">'+n+'</text>';ptsG.appendChild(t);});
+function realEps(e){return e<=EA? e*(0.0017/EA) : 0.0017+(e-EA)/(EE-EA)*(0.25-0.0017);}
+function specPath(top,bot,neck,w){ // probeta con cuello en el centro
+  const cx=130,mid=(top+bot)/2,h=w/2,hn=h*(1-.55*neck),r=(bot-top)*.18;
+  return 'M'+(cx-h)+' '+top+' H'+(cx+h)+' V'+(mid-r)+' Q'+(cx+hn)+' '+(mid-r*.35)+' '+(cx+hn)+' '+mid+' Q'+(cx+hn)+' '+(mid+r*.35)+' '+(cx+h)+' '+(mid+r)+' V'+bot+' H'+(cx-h)+' V'+(mid+r)+' Q'+(cx-hn)+' '+(mid+r*.35)+' '+(cx-hn)+' '+mid+' Q'+(cx-hn)+' '+(mid-r*.35)+' '+(cx-h)+' '+(mid-r)+' Z';
+}
+const PH=[[EA,'<b>0‑a · Zona de proporcionalidad.</b> La tensión crece en proporción a la deformación (σ = ε · E). Si se retira la carga, la probeta recupera su longitud.'],
+[EB,'<b>a‑b · Zona elástica no proporcional.</b> La deformación todavía es recuperable, pero σ y ε ya no son proporcionales.'],
+[EC,'<b>b‑c · Fluencia.</b> La probeta se alarga sin que apenas aumente la carga.'],
+[ED,'<b>c‑d · Deformación plástica uniforme.</b> Pequeños aumentos de tensión producen grandes deformaciones, ya permanentes. En d se alcanza la tensión máxima.'],
+[EE,'<b>d‑e · Estricción.</b> La sección se estrecha en un punto (el «cuello») y la carga baja.']];
+function render(p){
+  const broken=p>=.94, e=broken?EE:EE*p/.94, sep=broken?(p-.94)/.06:0;
+  const s=broken?0:sig(e), ext=e*62, top=106-ext, bot=262;
+  $('.up').setAttribute('transform','translate(0,'+(-ext)+')');
+  const w=24*(1-.12*Math.max(0,Math.min(1,(e-EB)/(EE-EB)))), neck=e>ED?(e-ED)/(EE-ED):0;
+  if(!broken){$('.spec').setAttribute('d',specPath(top,bot,neck,w));$('.spec2').setAttribute('d','');}
+  else{const mid=(top+bot)/2,gap=2+sep*10,h=w/2,hn=h*.45;
+    $('.spec').setAttribute('d','M'+(130-h)+' '+top+' H'+(130+h)+' V'+(mid-24)+' Q'+(130+hn)+' '+(mid-8)+' '+(130+hn*.7)+' '+(mid-gap)+' L'+(130-hn*.7)+' '+(mid-gap+3)+' Q'+(130-hn)+' '+(mid-8)+' '+(130-h)+' '+(mid-24)+' Z');
+    $('.spec2').setAttribute('d','M'+(130-h)+' '+bot+' H'+(130+h)+' V'+(mid+24)+' Q'+(130+hn)+' '+(mid+8)+' '+(130+hn*.7)+' '+(mid+gap)+' L'+(130-hn*.7)+' '+(mid+gap-3)+' Q'+(130-hn)+' '+(mid+8)+' '+(130-h)+' '+(mid+24)+' Z');}
+  const L=bot-top,m1=top+L*.25,m2=top+L*.75;
+  $('.mk1').setAttribute('y1',m1);$('.mk1').setAttribute('y2',m1);$('.mk2').setAttribute('y1',m2);$('.mk2').setAttribute('y2',m2);
+  $('.arr-r').setAttribute('height',6+s*30);$('.arr-r').setAttribute('y',40-(6+s*30));
+  root.querySelector('.arr polygon').setAttribute('points','176,'+(42-(6+s*30))+' 197,'+(42-(6+s*30))+' 186.5,'+(30-(6+s*30)));
+  let d='';for(let x=0;x<=e+1e-9;x+=.004)d+=(d?'L':'M')+X(x).toFixed(1)+' '+Y(sig(x)).toFixed(1);
+  $('.curve').setAttribute('d',d);
+  const dot=$('.dot');dot.setAttribute('cx',X(e));dot.setAttribute('cy',Y(broken?sig(EE):s));dot.style.opacity=broken?0:1;
+  ptsG.querySelectorAll('g').forEach(t=>t.style.opacity=(e>=+t.dataset.e-1e-9)?1:0);
+  const sMPa=s*598, F=sMPa*78.54/1000, er=realEps(e);
+  root.querySelector('.lc').textContent=fmt(F,1)+' kN';
+  R('F').textContent=fmt(F,1)+' kN';R('s').textContent=fmt(sMPa,0)+' MPa';
+  R('e').textContent=fmt(er*100,er<.01?2:1)+' %';R('dl').textContent=fmt(er*50,er<.01?3:1)+' mm';
+  let txt='<b>e · Rotura.</b> La probeta se ha partido por el cuello. A partir de d ya se consideraba rota.';
+  if(!broken){for(const [lim,t] of PH){if(e<=lim+1e-9){txt=t;break;}}}
+  if(p===0)txt='Pulsa <b>Reproducir</b>: la mordaza superior subirá y estirará la probeta mientras se dibuja el diagrama de tracción.';
+  $('.sim-phase').innerHTML=txt;
+}
+SimCtl(root,16,render);
+})();
+</script>
+</section>
+
 <section id="ductilidad">
-  <h2><span class="n">4</span>Alargamiento y estricción</h2>
+  <h2><span class="n">5</span>Alargamiento y estricción</h2>
 <p>Cuando la probeta se ha roto se juntan los dos trozos y se miden la nueva longitud entre marcas, l<sub>f</sub>, y la sección en la zona de rotura, S<sub>f</sub>. Con ellas se calculan dos valores que indican cuánto se ha deformado el material antes de romperse:</p>
 <figure>
 <svg viewBox="0 0 520 190" role="img"><title>Probeta antes y después del ensayo</title><desc>Arriba, la probeta original con longitud l₀. Abajo, la probeta rota, más larga, con un estrechamiento en la zona de rotura.</desc>
@@ -530,7 +676,7 @@ svg.art{display:block;width:100%;height:auto}
 </section>
 
 <section id="problemas">
-  <h2><span class="n">5</span>Problemas</h2>
+  <h2><span class="n">6</span>Problemas</h2>
   <p>Los problemas de este ensayo están en la página de problemas de Materiales, junto con los de los demás ensayos y otros problemas.</p>
   <p><a class="btn-go" href="materiales-problemas.html#traccion">Ir a los problemas de ensayo de tracción</a></p>
 </section>

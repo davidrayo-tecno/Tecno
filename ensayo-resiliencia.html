@@ -277,6 +277,27 @@ svg.art{display:block;width:100%;height:auto}
 .others a span{display:block;padding:8px 12px;font-weight:600;font-size:15px}
 @media (max-width:620px){.others ul{grid-template-columns:minmax(0,1fr)}}
 
+/* ---------- Simulaciones ---------- */
+.sim{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 1.4em}
+.sim-stage{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:14px;align-items:start}
+.sim-stage svg{width:100%;height:auto;display:block;background:var(--bg);border-radius:10px}
+.sim-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:12px 0 0}
+.sim-read div{background:var(--bg);border-radius:8px;padding:6px 10px}
+.sim-read dt{font-size:12.5px;color:var(--muted)}
+.sim-read dd{margin:0;font:600 18px var(--mono);font-variant-numeric:tabular-nums}
+.sim-phase{min-height:3.2em;margin:12px 0 0;padding:10px 14px;border-left:4px solid var(--brand);background:var(--bg);border-radius:4px 8px 8px 4px;font-size:15.5px}
+.sim-phase b{color:var(--brand)}
+.sim-ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px}
+.sim-ctrl button{all:unset;cursor:pointer;padding:8px 14px;border-radius:8px;font-weight:600;font-size:14.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.sim-ctrl button.play{background:var(--brand);border-color:var(--brand);color:#fff;min-width:96px;text-align:center}
+.sim-ctrl button:focus-visible,.sim-ctrl input:focus-visible,.sim-ctrl select:focus-visible{outline:2px solid var(--cold);outline-offset:2px}
+.sim-ctrl input[type=range]{flex:1 1 180px;accent-color:var(--brand)}
+.sim-ctrl label{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.sim-ctrl select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+.sim-calc{margin:12px 0 0;padding:12px 14px;border-radius:8px;background:var(--work-bg);font-family:var(--mono);font-size:14.5px;line-height:1.7;overflow-x:auto}
+.sim-calc[hidden]{display:none}
+@media (max-width:760px){.sim-stage{grid-template-columns:minmax(0,1fr)}}
+
 .units .tnum{display:inline-block;min-width:76px;font-size:14px;font-weight:700;color:var(--brand);margin-right:4px}
 .units li.sep{border-top:1px solid var(--line);margin:6px 4px;padding-top:4px;font-size:12px;color:var(--muted);padding-left:8px}
 /* ---------- Pie ---------- */
@@ -396,6 +417,7 @@ svg.art{display:block;width:100%;height:auto}
       <li><a href="#que-es">El ensayo de resiliencia</a></li>
       <li><a href="#pendulo">El péndulo de Charpy</a></li>
       <li><a href="#formula">Valor de la resiliencia</a></li>
+      <li><a href="#simulacion">Simulación del ensayo</a></li>
       <li><a href="#problemas">Problemas</a></li>
     </ol>
     <div class="tools">
@@ -466,8 +488,114 @@ svg.art{display:block;width:100%;height:auto}
 <div class="f">ρ = −ΔE<sub>p</sub> / S = m · g · (h₀ − h₁) / S<span>Con m en kg, g = 9,8 m/s², alturas en m y S en mm², la resiliencia sale en J/mm².</span></div>
 </section>
 
+<section id="simulacion">
+  <h2><span class="n">4</span>Simulación del ensayo</h2>
+<p>Elige el material y el ángulo de partida: el péndulo cae, rompe la probeta y sube hasta una altura menor. Las barras muestran el reparto de la energía.</p>
+<div class="sim" id="sim-charpy">
+  <div class="sim-stage">
+    <svg viewBox="0 0 320 300" role="img" aria-label="Péndulo de Charpy en movimiento">
+      <path class="arc" style="fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:5 5"/>
+      <line x1="160" y1="120" x2="160" y2="246" style="stroke:var(--line);stroke-dasharray:3 4"/>
+      <line class="h0l" x1="14" x2="306" style="stroke:var(--hot);stroke-dasharray:4 3"/>
+      <line class="h1l" x1="14" x2="306" style="stroke:var(--cold);stroke-dasharray:4 3"/>
+      <text class="h0t" x="16" style="fill:var(--hot);font:700 12px var(--mono)">h₀</text>
+      <text class="h1t" x="294" style="fill:var(--cold);font:700 12px var(--mono)">h₁</text>
+      <rect x="120" y="276" width="80" height="12" style="fill:var(--ink)"/>
+      <rect x="126" y="258" width="12" height="20" style="fill:var(--ink)"/><rect x="182" y="258" width="12" height="20" style="fill:var(--ink)"/>
+      <g class="sp1"><rect x="128" y="249" width="32" height="9" style="fill:var(--hot-bg);stroke:var(--ink);stroke-width:1.5"/></g>
+      <g class="sp2"><rect x="160" y="249" width="32" height="9" style="fill:var(--hot-bg);stroke:var(--ink);stroke-width:1.5"/></g>
+      <g class="pend">
+        <line x1="160" y1="120" x2="160" y2="222" style="stroke:var(--ink);stroke-width:6"/>
+        <path d="M140 218 H180 L171 244 H149 Z" style="fill:var(--hot);stroke:var(--ink);stroke-width:2"/>
+      </g>
+      <circle cx="160" cy="120" r="8" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
+    </svg>
+    <svg viewBox="0 0 320 300" role="img" aria-label="Energías del péndulo">
+      <text x="160" y="22" text-anchor="middle" style="fill:var(--muted);font:600 12px var(--body)">energía (J)</text>
+      <line x1="30" y1="250" x2="300" y2="250" style="stroke:var(--muted)"/>
+      <rect class="b0" x="44" width="60" style="fill:var(--hot)"/><rect class="b1" x="130" width="60" style="fill:var(--work)"/><rect class="b2" x="216" width="60" style="fill:var(--cold)"/>
+      <text class="t0" x="74" text-anchor="middle" style="fill:var(--ink);font:700 13px var(--mono)"></text>
+      <text class="t1" x="160" text-anchor="middle" style="fill:var(--ink);font:700 13px var(--mono)"></text>
+      <text class="t2" x="246" text-anchor="middle" style="fill:var(--ink);font:700 13px var(--mono)"></text>
+      <g style="fill:var(--muted);font:600 11.5px var(--body)" text-anchor="middle"><text x="74" y="268">inicial</text><text x="74" y="282">m·g·h₀</text><text x="160" y="268">absorbida</text><text x="160" y="282">por la probeta</text><text x="246" y="268">final</text><text x="246" y="282">m·g·h₁</text></g>
+    </svg>
+  </div>
+  <dl class="sim-read"><div><dt>Ángulo α</dt><dd data-r="a">–</dd></div><div><dt>Altura h₀</dt><dd data-r="h0">–</dd></div><div><dt>Ángulo β</dt><dd data-r="b">–</dd></div><div><dt>Altura h₁</dt><dd data-r="h1">–</dd></div></dl>
+  <p class="sim-phase" aria-live="polite"></p>
+  <div class="sim-calc" hidden></div>
+  <div class="sim-ctrl">
+    <button type="button" class="play" aria-pressed="false">Reproducir</button>
+    <button type="button" class="reset">Reiniciar</button>
+    <input type="range" min="0" max="1000" value="0" aria-label="Avance del ensayo">
+    <label>Velocidad <select class="speed"><option value="0.5">lenta</option><option value="1" selected>normal</option><option value="2">rápida</option></select></label>
+    <label>Material <select class="mat"><option value="tenaz">acero tenaz</option><option value="frio">acero a −40 °C</option><option value="fragil">fundición (frágil)</option></select></label><label>α <select class="ang"><option value="120">120°</option><option value="135">135°</option><option value="150" selected>150°</option><option value="160">160°</option></select></label>
+  </div>
+  <p class="note" style="margin:10px 0 0">Péndulo de m = 20 kg y brazo L = 0,8 m; probeta con sección S = 80 mm² en la entalla; g = 9,8 m/s².</p>
+</div>
+<script>
+(function(){
+
+window.SimCtl=window.SimCtl||function(root,duration,render){
+  const play=root.querySelector('.play'),reset=root.querySelector('.reset'),rng=root.querySelector('input[type=range]'),spd=root.querySelector('.speed');
+  let p=0,run=false,last=0;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function draw(){rng.value=Math.round(p*1000);render(p);}
+  function tick(ts){if(!run)return;const dt=last?(ts-last)/1000:0;last=ts;p=Math.min(1,p+dt*(+spd.value)/duration);draw();if(p>=1){stop();return;}requestAnimationFrame(tick);}
+  function start(){if(p>=1)p=0;run=true;last=0;play.textContent='Pausa';play.setAttribute('aria-pressed','true');requestAnimationFrame(tick);}
+  function stop(){run=false;play.textContent=p>=1?'Repetir':'Reproducir';play.setAttribute('aria-pressed','false');}
+  play.addEventListener('click',()=>run?stop():start());
+  reset.addEventListener('click',()=>{stop();p=0;play.textContent='Reproducir';draw();});
+  rng.addEventListener('input',()=>{stop();p=rng.value/1000;play.textContent=p>=1?'Repetir':'Reproducir';render(p);});
+  draw();
+  return {redraw:()=>render(p),restart:()=>{stop();p=0;draw();}};
+};
+
+const root=document.getElementById('sim-charpy'),$=s=>root.querySelector(s),R=k=>root.querySelector('[data-r="'+k+'"]');
+const MATS={tenaz:{n:'Acero tenaz',rho:1.84},frio:{n:'Acero a −40 °C',rho:0.37},fragil:{n:'Fundición (frágil)',rho:0.15}};
+const m=20,L=0.8,g=9.8,S=80,PX=124/0.8,PIV=[160,120];
+let mat=MATS.tenaz,alpha=150;
+const fmt=(x,n)=>x.toLocaleString('es-ES',{minimumFractionDigits:n,maximumFractionDigits:n});
+const rad=a=>a*Math.PI/180;
+function calc(){const h0=L*(1-Math.cos(rad(alpha))),E0=m*g*h0,Ea=Math.min(mat.rho*S,E0*.95),h1=h0-Ea/(m*g),beta=Math.acos(1-h1/L)*180/Math.PI;return {h0,E0,Ea,h1,beta,E1:E0-Ea};}
+const yH=h=>PIV[1]+PX*L-h*PX;
+function render(p){
+  const c=calc();let th,ph,hit=false;
+  if(p<.1){ph=0;th=-alpha;}
+  else if(p<.45){ph=1;const u=(p-.1)/.35;th=-alpha*Math.cos(u*Math.PI/2);}
+  else if(p<.75){ph=2;hit=true;const u=(p-.45)/.3;th=c.beta*Math.sin(u*Math.PI/2);}
+  else{ph=3;hit=true;th=c.beta;}
+  $('.pend').setAttribute('transform','rotate('+(-th)+' 160 120)');
+  $('.arc').setAttribute('d','M'+(160-PX*L*Math.sin(rad(alpha)))+' '+(120+PX*L*Math.cos(rad(alpha)))+' A'+PX*L+' '+PX*L+' 0 1 0 '+(160+PX*L*Math.sin(rad(alpha)))+' '+(120+PX*L*Math.cos(rad(alpha))));
+  const y0=yH(c.h0),y1=yH(c.h1);
+  $('.h0l').setAttribute('y1',y0);$('.h0l').setAttribute('y2',y0);$('.h0t').setAttribute('y',y0-4);
+  $('.h1l').setAttribute('y1',y1);$('.h1l').setAttribute('y2',y1);$('.h1t').setAttribute('y',y1-4);
+  $('.h1l').style.opacity=$('.h1t').style.opacity=ph>=3?1:0;
+  const fly=hit?Math.min(1,(p-.45)/.15):0;
+  $('.sp1').setAttribute('transform',hit?'translate('+(-14*fly)+','+(-6*fly)+') rotate('+(-25*fly)+' 160 253)':'');
+  $('.sp2').setAttribute('transform',hit?'translate('+(14*fly)+','+(-6*fly)+') rotate('+(25*fly)+' 160 253)':'');
+  const maxE=400,bh=e=>e/maxE*210;
+  const showA=hit, show1=ph>=3;
+  const bars=[[ '.b0','.t0',c.E0,true],['.b1','.t1',c.Ea,showA],['.b2','.t2',c.E1,show1]];
+  bars.forEach(([b,t,e,v])=>{const h=v?bh(e):0;$(b).setAttribute('y',250-h);$(b).setAttribute('height',h);$(t).setAttribute('y',250-h-6);$(t).textContent=v?fmt(e,1)+' J':'';});
+  R('a').textContent=alpha+'°';R('h0').textContent=fmt(c.h0,3)+' m';R('b').textContent=ph>=3?fmt(c.beta,1)+'°':'–';R('h1').textContent=ph>=3?fmt(c.h1,3)+' m':'–';
+  const TX=['<b>Posición inicial.</b> La maza se sube hasta el ángulo α = '+alpha+'°, a una altura h₀ = L · (1 − cos α) = '+fmt(c.h0,3)+' m.',
+   '<b>Caída.</b> Se suelta el péndulo: su energía potencial se convierte en cinética.',
+   '<b>Impacto.</b> La maza golpea la probeta por la cara opuesta a la entalla y la rompe; en ese choque la probeta absorbe energía.',
+   '<b>Subida.</b> Con la energía que le queda, el péndulo sube hasta β = '+fmt(c.beta,1)+'° (h₁ = '+fmt(c.h1,3)+' m). Cuanto menos sube, más energía ha absorbido el material.'];
+  $('.sim-phase').innerHTML=p===0?'Elige el material y el ángulo de partida y pulsa <b>Reproducir</b>.':TX[ph];
+  const cc=$('.sim-calc');
+  if(ph>=3){cc.hidden=false;cc.innerHTML='−ΔE<sub>p</sub> = m · g · (h₀ − h₁) = 20 kg · 9,8 m/s² · ('+fmt(c.h0,3)+' m − '+fmt(c.h1,3)+' m) = '+fmt(c.Ea,1)+' J<br>ρ = −ΔE<sub>p</sub> / S = '+fmt(c.Ea,1)+' J / 80 mm² = <b>'+fmt(c.Ea/S,2)+' J/mm²</b>';}
+  else cc.hidden=true;
+}
+const ctl=SimCtl(root,12,render);
+root.querySelector('.mat').addEventListener('change',e=>{mat=MATS[e.target.value];ctl.restart();});
+root.querySelector('.ang').addEventListener('change',e=>{alpha=+e.target.value;ctl.restart();});
+})();
+</script>
+</section>
+
 <section id="problemas">
-  <h2><span class="n">4</span>Problemas</h2>
+  <h2><span class="n">5</span>Problemas</h2>
   <p>Los problemas de este ensayo están en la página de problemas de Materiales, junto con los de los demás ensayos y otros problemas.</p>
   <p><a class="btn-go" href="materiales-problemas.html#resiliencia">Ir a los problemas de ensayo de resiliencia</a></p>
 </section>
