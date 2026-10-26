@@ -254,6 +254,16 @@ svg.art{display:block;width:100%;height:auto}
 .probs-banner b{font-family:var(--display);font-size:28px;font-weight:700;line-height:1}
 .probs-banner span span{opacity:.9;font-size:15.5px;max-width:60ch}
 .probs-banner .go{background:#fff;color:var(--brand);border:0}
+.notacion{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px;margin:6px 0 18px;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.nt{display:grid;justify-items:center;gap:6px;min-width:84px;max-width:130px;text-align:center}
+.nt b{font:700 28px var(--mono);padding:6px 12px;border-radius:8px;background:var(--bg);border:2px solid var(--line);line-height:1.1}
+.nt-v b{border-color:var(--hot);color:var(--hot)}
+.nt-s b{border-color:var(--brand);color:var(--brand)}
+.nt small{font-size:12.5px;color:var(--muted);line-height:1.3}
+.nt-sl{font:700 28px var(--mono);color:var(--muted);padding-top:8px}
+.f-inline{font-family:var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 6px;white-space:nowrap}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .nt-s b{color:var(--cold);border-color:var(--cold)}}
+:root[data-theme="dark"] .nt-s b{color:var(--cold);border-color:var(--cold)}
 .btn-go{display:inline-block;background:var(--brand);color:#fff!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
 .btn-go:hover{filter:brightness(1.1)}
 
@@ -273,7 +283,9 @@ svg.art{display:block;width:100%;height:auto}
 .filters-m button{all:unset;cursor:pointer;padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:var(--surface);font-size:14.5px;color:var(--ink)}
 .filters-m button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
 .filters-m button:focus-visible{outline:2px solid var(--cold);outline-offset:2px}
-.fcount{color:var(--muted);font-size:14px;margin:0 0 14px}
+.fcount{color:var(--muted);font-size:14px;margin:0 0 4px}
+section.pfilter{border-bottom:0;margin-bottom:8px;padding-bottom:8px}
+section.pfilter + section{padding-top:8px}
 .ptags{display:inline-flex;gap:6px;margin-left:10px;flex-wrap:wrap;vertical-align:middle}
 .ptag{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
 .psrc{display:block;font-size:12.5px;color:var(--muted);font-weight:500;margin-top:2px}
@@ -396,7 +408,6 @@ details.prob summary .stitle{display:block}
   <nav class="toc" aria-label="Índice">
     <h2>En esta página</h2>
     <ol>
-      <li><a href="#problemas">Cómo usar esta página</a></li>
       <li><a href="#traccion">Ensayo de tracción</a></li>
       <li><a href="#brinell">Ensayo Brinell</a></li>
       <li><a href="#vickers">Ensayo Vickers</a></li>
@@ -411,10 +422,8 @@ details.prob summary .stitle{display:block}
   </nav>
 
   <main id="contenido">
-<section id="problemas">
-  <h2><span class="n">1</span>Cómo usar esta página</h2>
-  <p>Aquí están todos los problemas de Materiales (71): 10 de cada ensayo, los 7 ejercicios tipo PAU y los 24 de otros problemas. Cada apartado está resuelto en tres pasos (<b>planteamiento</b>, <b>desarrollo</b> y <b>resultado</b>), y en todos los cálculos cada cantidad va acompañada de su unidad (las magnitudes adimensionales, como la deformación unitaria ε o los cocientes, no llevan unidad) y, cuando la solución original tenía alguna errata, se indica en el comentario final.</p>
-  <p>Filtra por tipo de ensayo para practicar solo lo que necesites:</p>
+<section id="problemas" class="pfilter">
+  <h2 class="visually-hidden">Progreso y filtro</h2>
   <div class="filters-m" role="group" aria-label="Filtrar por ensayo">
     <button type="button" data-f="all" aria-pressed="true">Todos</button>
     <button type="button" data-f="traccion" aria-pressed="false">Tracción</button>
@@ -423,11 +432,10 @@ details.prob summary .stitle{display:block}
     <button type="button" data-f="resiliencia" aria-pressed="false">Resiliencia</button>
   </div>
   <p class="fcount" id="fcount" aria-live="polite">71 problemas</p>
-  <p>¿Necesitas repasar la teoría? <a href="ensayo-traccion.html">Tracción</a> · <a href="ensayo-brinell.html">Brinell</a> · <a href="ensayo-vickers.html">Vickers</a> · <a href="ensayo-resiliencia.html">Resiliencia</a></p>
 </section>
 
 <section id="traccion">
-  <h2><span class="n">2</span>Ensayo de tracción</h2>
+  <h2><span class="n">1</span>Ensayo de tracción</h2>
   <p>Diez problemas con el formato de la PEvAU. <a href="ensayo-traccion.html">Repasar la teoría de este ensayo</a>.</p>
   <details class="prob" id="p1" data-tags="traccion">
     <summary><span class="stitle">1. Módulo de Young a partir de un ensayo<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Ensayo de tracción · n.º 1</span></span></summary>
@@ -828,7 +836,7 @@ details.prob summary .stitle{display:block}
 </section>
 
 <section id="brinell">
-  <h2><span class="n">3</span>Ensayo Brinell</h2>
+  <h2><span class="n">2</span>Ensayo Brinell</h2>
   <p>Diez problemas con el formato de la PEvAU. <a href="ensayo-brinell.html">Repasar la teoría de este ensayo</a>.</p>
   <details class="prob" id="p11" data-tags="brinell">
     <summary><span class="stitle">11. Dureza Brinell de un acero<span class="ptags"><span class="ptag">Brinell</span></span><span class="psrc">Ensayo Brinell · n.º 1</span></span></summary>
@@ -1222,7 +1230,7 @@ details.prob summary .stitle{display:block}
 </section>
 
 <section id="vickers">
-  <h2><span class="n">4</span>Ensayo Vickers</h2>
+  <h2><span class="n">3</span>Ensayo Vickers</h2>
   <p>Diez problemas con el formato de la PEvAU. <a href="ensayo-vickers.html">Repasar la teoría de este ensayo</a>.</p>
   <details class="prob" id="p21" data-tags="vickers">
     <summary><span class="stitle">21. Dureza Vickers básica<span class="ptags"><span class="ptag">Vickers</span></span><span class="psrc">Ensayo Vickers · n.º 1</span></span></summary>
@@ -1599,7 +1607,7 @@ details.prob summary .stitle{display:block}
 </section>
 
 <section id="resiliencia">
-  <h2><span class="n">5</span>Ensayo de resiliencia</h2>
+  <h2><span class="n">4</span>Ensayo de resiliencia</h2>
   <p>Diez problemas con el formato de la PEvAU. <a href="ensayo-resiliencia.html">Repasar la teoría de este ensayo</a>.</p>
   <details class="prob" id="p31" data-tags="resiliencia">
     <summary><span class="stitle">31. Resiliencia a partir de las alturas<span class="ptags"><span class="ptag">Resiliencia</span></span><span class="psrc">Ensayo de resiliencia · n.º 1</span></span></summary>
@@ -1981,7 +1989,7 @@ details.prob summary .stitle{display:block}
 </section>
 
 <section id="pau">
-  <h2><span class="n">6</span>Ejercicios tipo PAU</h2>
+  <h2><span class="n">5</span>Ejercicios tipo PAU</h2>
   <details class="prob" id="p41" data-tags="traccion">
     <summary><span class="stitle">41. Cable de acero sometido a tracción<span class="ptags"><span class="ptag">Tracción</span></span><span class="psrc">Ejercicio 1</span></span></summary>
     <div class="enun"><p>Se dispone de un cable de acero de 12 m de longitud y 80 mm² de sección. Al someterlo a una carga axial de 100 kN, llega a medir 12,078 m. Calcule:</p></div>
@@ -2279,7 +2287,7 @@ details.prob summary .stitle{display:block}
 </section>
 
 <section id="cuaderno">
-  <h2><span class="n">7</span>Otros problemas</h2>
+  <h2><span class="n">6</span>Otros problemas</h2>
   <details class="prob" id="p48" data-tags="vickers resiliencia">
     <summary><span class="stitle">48. Dureza Vickers y altura del péndulo<span class="ptags"><span class="ptag">Vickers</span><span class="ptag">Resiliencia</span></span><span class="psrc">Otros problemas, n.º 1</span></span></summary>
     <div class="enun"><p>a) Calcula la dureza Vickers de un material, sabiendo que una punta piramidal de diamante deja una huella de diagonal d = 0,45 mm al aplicarle una fuerza de 50 kp durante 20 s. b) Calcula la altura en m desde la que se dejó caer una maza de 40 kg de un péndulo de Charpy, si la resiliencia del material vale 46 J/cm² y aquella ascendió 38 cm después de romper una probeta de 2 cm² de sección.</p></div>

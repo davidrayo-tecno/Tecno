@@ -254,6 +254,16 @@ svg.art{display:block;width:100%;height:auto}
 .probs-banner b{font-family:var(--display);font-size:28px;font-weight:700;line-height:1}
 .probs-banner span span{opacity:.9;font-size:15.5px;max-width:60ch}
 .probs-banner .go{background:#fff;color:var(--brand);border:0}
+.notacion{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px;margin:6px 0 18px;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.nt{display:grid;justify-items:center;gap:6px;min-width:84px;max-width:130px;text-align:center}
+.nt b{font:700 28px var(--mono);padding:6px 12px;border-radius:8px;background:var(--bg);border:2px solid var(--line);line-height:1.1}
+.nt-v b{border-color:var(--hot);color:var(--hot)}
+.nt-s b{border-color:var(--brand);color:var(--brand)}
+.nt small{font-size:12.5px;color:var(--muted);line-height:1.3}
+.nt-sl{font:700 28px var(--mono);color:var(--muted);padding-top:8px}
+.f-inline{font-family:var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 6px;white-space:nowrap}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .nt-s b{color:var(--cold);border-color:var(--cold)}}
+:root[data-theme="dark"] .nt-s b{color:var(--cold);border-color:var(--cold)}
 .btn-go{display:inline-block;background:var(--brand);color:#fff!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
 .btn-go:hover{filter:brightness(1.1)}
 
@@ -449,8 +459,26 @@ svg.art{display:block;width:100%;height:auto}
 
 <section id="notacion">
   <h2><span class="n">3</span>Expresión del resultado</h2>
-<p>El valor de la dureza Brinell se escribe indicando la dureza, el diámetro de la esfera (en milímetros), la carga aplicada (en kilopondios) y la duración del ensayo (en segundos). Por ejemplo:</p>
-<div class="f">229 HB, 10 mm, 3000 kp, 15 s</div>
+<p>El resultado de un ensayo Brinell no se da solo con el número de la dureza: hay que indicar también en qué condiciones se ha hecho, porque la huella depende de la esfera, de la carga y del tiempo. La <strong>expresión normalizada</strong> tiene siempre este orden:</p>
+<div class="notacion" role="img" aria-label="Expresión normalizada Brinell: 229 HB 10/3000/15">
+  <span class="nt nt-v"><b>229</b><small>valor de la dureza (kp/mm²)</small></span>
+  <span class="nt nt-s"><b>HB</b><small>ensayo Brinell</small></span>
+  <span class="nt"><b>10</b><small>diámetro de la esfera D (mm)</small></span>
+  <span class="nt-sl">/</span>
+  <span class="nt"><b>3000</b><small>carga F (kp)</small></span>
+  <span class="nt-sl">/</span>
+  <span class="nt"><b>15</b><small>tiempo de aplicación (s)</small></span>
+</div>
+<p>Se lee: «dureza Brinell de 229 kp/mm², medida con una esfera de 10 mm de diámetro, una carga de 3 000 kp mantenida durante 15 s». También se puede escribir con las unidades y separado por comas, como en el libro: <span class="f-inline">229 HB, 10 mm, 3000 kp, 15 s</span>.</p>
+<h3>Cuándo se puede abreviar</h3>
+<p>Si el ensayo se hace en las <strong>condiciones normales</strong> (esfera de 10 mm, carga de 3 000 kp y un tiempo de 10 a 15 s), basta con escribir el valor y el símbolo: <span class="f-inline">229 HB</span>. En cualquier otro caso hay que indicar todas las condiciones.</p>
+<div class="tbl"><table><thead><tr><th>Expresión</th><th>Qué significa</th></tr></thead><tbody>
+<tr><td><b>229 HB</b></td><td>229 kp/mm² en condiciones normales: D = 10 mm, F = 3 000 kp, t = 10–15 s</td></tr>
+<tr><td><b>95 HB 10/1000/30</b></td><td>95 kp/mm², con D = 10 mm, F = 1 000 kp y t = 30 s</td></tr>
+<tr><td><b>180 HB 5/750/30</b></td><td>180 kp/mm², con D = 5 mm, F = 750 kp y t = 30 s</td></tr>
+<tr><td><b>100 HB 2,5/188,5/20</b></td><td>100 kp/mm², con D = 2,5 mm, F = 188,5 kp y t = 20 s</td></tr>
+</tbody></table></div>
+<p class="note">Con la expresión normalizada se puede reconstruir el ensayo: por ejemplo, de «180 HB 5/750/30» se deduce que K = F / D² = 750 kp / (5 mm)² = 30 kp/mm², la constante de los aceros.</p>
 </section>
 
 <section id="problemas">

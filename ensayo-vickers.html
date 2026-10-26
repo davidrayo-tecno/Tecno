@@ -254,6 +254,16 @@ svg.art{display:block;width:100%;height:auto}
 .probs-banner b{font-family:var(--display);font-size:28px;font-weight:700;line-height:1}
 .probs-banner span span{opacity:.9;font-size:15.5px;max-width:60ch}
 .probs-banner .go{background:#fff;color:var(--brand);border:0}
+.notacion{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px;margin:6px 0 18px;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.nt{display:grid;justify-items:center;gap:6px;min-width:84px;max-width:130px;text-align:center}
+.nt b{font:700 28px var(--mono);padding:6px 12px;border-radius:8px;background:var(--bg);border:2px solid var(--line);line-height:1.1}
+.nt-v b{border-color:var(--hot);color:var(--hot)}
+.nt-s b{border-color:var(--brand);color:var(--brand)}
+.nt small{font-size:12.5px;color:var(--muted);line-height:1.3}
+.nt-sl{font:700 28px var(--mono);color:var(--muted);padding-top:8px}
+.f-inline{font-family:var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 6px;white-space:nowrap}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .nt-s b{color:var(--cold);border-color:var(--cold)}}
+:root[data-theme="dark"] .nt-s b{color:var(--cold);border-color:var(--cold)}
 .btn-go{display:inline-block;background:var(--brand);color:#fff!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
 .btn-go:hover{filter:brightness(1.1)}
 
@@ -388,6 +398,7 @@ svg.art{display:block;width:100%;height:auto}
     <ol>
       <li><a href="#que-es">La dureza Vickers</a></li>
       <li><a href="#formula">Cálculo de la dureza Vickers</a></li>
+      <li><a href="#notacion">Expresión del resultado</a></li>
       <li><a href="#problemas">Problemas</a></li>
     </ol>
     <div class="tools">
@@ -429,8 +440,30 @@ svg.art{display:block;width:100%;height:auto}
 <p class="note">Si la carga viene en newtons, antes hay que pasarla a kilopondios: 1 kp = 9,8 N.</p>
 </section>
 
+<section id="notacion">
+  <h2><span class="n">3</span>Expresión del resultado</h2>
+<p>Igual que en el ensayo Brinell, el resultado se acompaña de las condiciones del ensayo. En el Vickers el penetrador es siempre el mismo (la pirámide de 136°), así que solo hay que indicar la <strong>carga</strong> y el <strong>tiempo</strong>. La <strong>expresión normalizada</strong> tiene este orden:</p>
+<div class="notacion" role="img" aria-label="Expresión normalizada Vickers: 640 HV 30/20">
+  <span class="nt nt-v"><b>640</b><small>valor de la dureza (kp/mm²)</small></span>
+  <span class="nt nt-s"><b>HV</b><small>ensayo Vickers</small></span>
+  <span class="nt"><b>30</b><small>carga F (kp)</small></span>
+  <span class="nt-sl">/</span>
+  <span class="nt"><b>20</b><small>tiempo de aplicación (s)</small></span>
+</div>
+<p>Se lee: «dureza Vickers de 640 kp/mm², medida con una carga de 30 kp mantenida durante 20 s».</p>
+<h3>Cuándo se puede abreviar</h3>
+<p>Si la carga se mantiene el <strong>tiempo normal</strong> (de 10 a 15 s), el tiempo no se escribe y basta con el valor, el símbolo y la carga: <span class="f-inline">640 HV 30</span>. La carga, en cambio, se indica siempre.</p>
+<div class="tbl"><table><thead><tr><th>Expresión</th><th>Qué significa</th></tr></thead><tbody>
+<tr><td><b>640 HV 30</b></td><td>640 kp/mm² con una carga de 30 kp, durante el tiempo normal (10–15 s)</td></tr>
+<tr><td><b>457,85 HV 50/20</b></td><td>457,85 kp/mm² con una carga de 50 kp durante 20 s</td></tr>
+<tr><td><b>520 HV 10/15</b></td><td>520 kp/mm² con 10 kp durante 15 s; como 15 s es el tiempo normal, también se escribe 520 HV 10</td></tr>
+<tr><td><b>297 HV 0,1</b></td><td>297 kp/mm² con una carga de 0,1 kp (ensayo de microdureza)</td></tr>
+</tbody></table></div>
+<p class="note">Diferencia con el Brinell: en el Vickers no se indica ningún diámetro, porque el penetrador no cambia; en el Brinell sí, porque se usan esferas de distintos tamaños.</p>
+</section>
+
 <section id="problemas">
-  <h2><span class="n">3</span>Problemas</h2>
+  <h2><span class="n">4</span>Problemas</h2>
   <p>Los problemas de este ensayo están en la página de problemas de Materiales, junto con los de los demás ensayos y otros problemas.</p>
   <p><a class="btn-go" href="materiales-problemas.html#vickers">Ir a los problemas de ensayo vickers</a></p>
 </section>
