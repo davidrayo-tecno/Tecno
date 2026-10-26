@@ -232,26 +232,30 @@ svg.art{display:block;width:100%;height:auto}
 .hub{padding:40px 0 72px}
 .hub > h2{font-family:var(--display);font-size:38px;font-weight:600;margin:0 0 6px}
 .hub > p.sub{color:var(--muted);margin:0 0 24px;max-width:60ch}
-.tests{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;list-style:none;margin:0 0 48px;padding:0}
+.tests{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;list-style:none;margin:0 0 36px;padding:0}
 .tests li{margin:0}
 .test{display:flex;flex-direction:column;height:100%;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
 .test:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(10,30,40,.16);border-color:var(--brand)}
 @media (prefers-reduced-motion:reduce){.test,.test:hover{transition:none;transform:none}}
-.test .pic{border-bottom:1px solid var(--line)}
-.test .body{padding:18px 22px 22px;display:grid;gap:6px}
-.test h3{font-family:var(--display);font-size:30px;font-weight:700;margin:0;line-height:1}
-.test p{margin:0;color:var(--muted);font-size:15.5px}
-.test .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:14px;font-weight:600;color:var(--brand)}
+.test .pic{border-bottom:1px solid var(--line);aspect-ratio:16/10;overflow:hidden}
+.test .pic svg{width:100%;height:100%;object-fit:cover}
+.test .body{padding:12px 14px 14px;display:grid;gap:4px}
+.test h3{font-family:var(--display);font-size:22px;font-weight:700;margin:0;line-height:1.05}
+.test p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+.test .meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:13.5px;font-weight:600;color:var(--brand)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .test .meta{color:var(--cold)}}
 :root[data-theme="dark"] .test .meta{color:var(--cold)}
 .test .meta i{font-style:normal;color:var(--muted);font-weight:500}
-@media (max-width:700px){.tests{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:1000px){.tests{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.tests{grid-template-columns:minmax(0,1fr)}.test{flex-direction:row}.test .pic{flex:0 0 120px;aspect-ratio:auto;border-bottom:0;border-right:1px solid var(--line)}.test .meta i{display:none}}
 .probs-banner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin:0 0 48px;padding:20px 24px;border-radius:16px;background:var(--brand);color:#fff;text-decoration:none}
 .probs-banner:hover{filter:brightness(1.08);color:#fff}
 .probs-banner > span:first-child{display:grid;gap:4px}
 .probs-banner b{font-family:var(--display);font-size:28px;font-weight:700;line-height:1}
 .probs-banner span span{opacity:.9;font-size:15.5px;max-width:60ch}
 .probs-banner .go{background:#fff;color:var(--brand);border:0}
+.btn-go{display:inline-block;background:var(--brand);color:#fff!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
+.btn-go:hover{filter:brightness(1.1)}
 
 /* Otros ensayos al pie de cada subpágina */
 .others{margin-top:8px;padding-top:28px;border-top:1px solid var(--line)}
@@ -377,7 +381,7 @@ svg.art{display:block;width:100%;height:auto}
 
 <div class="container hub" id="contenido">
   <h2 id="ensayos">Los cuatro ensayos</h2>
-  <p class="sub">Elige un ensayo para ver su teoría ilustrada y diez problemas tipo selectividad resueltos paso a paso.</p>
+  <p class="sub">Elige un ensayo para ver su teoría ilustrada. Todos los problemas están reunidos en la página de problemas.</p>
   <ul class="tests">
     <li><a class="test" href="ensayo-traccion.html">
       <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo de tracción</title><desc>Probeta sujeta entre las mordazas de la máquina, estirada por dos fuerzas opuestas, con un estrechamiento en el centro.</desc>
@@ -393,7 +397,7 @@ svg.art{display:block;width:100%;height:auto}
 <text x="318" y="70" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
 <text x="318" y="206" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
 </svg></div>
-      <div class="body"><h3>Ensayo de tracción</h3><p>Se estira una probeta hasta romperla y se estudia cómo se deforma: tensión, deformación unitaria y diagrama de tracción.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-traccion.html" data-total="10">10 problemas</span></div></div>
+      <div class="body"><h3>Ensayo de tracción</h3><p>Se estira una probeta hasta romperla y se estudia cómo se deforma: tensión, deformación unitaria y diagrama de tracción.</p><div class="meta">Abrir el ensayo <i>Teoría ilustrada</i></div></div>
     </a></li>
     <li><a class="test" href="ensayo-brinell.html">
       <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Brinell</title><desc>Una bola de acero empujada por una carga se hunde en el material y deja una huella redonda.</desc>
@@ -409,7 +413,7 @@ svg.art{display:block;width:100%;height:auto}
 <text x="326" y="64" style="fill:var(--hot);font:700 26px var(--mono)">F</text>
 <text x="40" y="60" style="fill:var(--work);font:700 44px var(--display)">HB</text>
 </svg></div>
-      <div class="body"><h3>Ensayo Brinell</h3><p>Una esfera de acero templado se aprieta contra la pieza; el tamaño de la huella indica su dureza.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-brinell.html" data-total="10">10 problemas</span></div></div>
+      <div class="body"><h3>Ensayo Brinell</h3><p>Una esfera de acero templado se aprieta contra la pieza; el tamaño de la huella indica su dureza.</p><div class="meta">Abrir el ensayo <i>Teoría ilustrada</i></div></div>
     </a></li>
     <li><a class="test" href="ensayo-vickers.html">
       <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo Vickers</title><desc>Una pirámide de base cuadrada se clava en el material y deja una huella cuadrada; se mide su diagonal.</desc>
@@ -430,7 +434,7 @@ svg.art{display:block;width:100%;height:auto}
 </g>
 <text x="20" y="42" style="fill:var(--brand);font:700 44px var(--display)">HV</text>
 </svg></div>
-      <div class="body"><h3>Ensayo Vickers</h3><p>Una pirámide de base cuadrada, con 136° entre caras, deja una huella; se mide su diagonal.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-vickers.html" data-total="10">10 problemas</span></div></div>
+      <div class="body"><h3>Ensayo Vickers</h3><p>Una pirámide de base cuadrada, con 136° entre caras, deja una huella; se mide su diagonal.</p><div class="meta">Abrir el ensayo <i>Teoría ilustrada</i></div></div>
     </a></li>
     <li><a class="test" href="ensayo-resiliencia.html">
       <div class="pic"><svg class="art" viewBox="0 0 400 260" role="img"><title>Ensayo de resiliencia Charpy</title><desc>Un péndulo pesado cae desde lo alto, rompe la probeta entallada apoyada en la parte baja y sigue subiendo por el otro lado.</desc>
@@ -446,14 +450,14 @@ svg.art{display:block;width:100%;height:auto}
 <path d="M170 168 H230 L214 196 H186 Z" style="fill:var(--hot);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
 <circle cx="200" cy="50" r="12" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
 <g style="stroke:var(--hot);stroke-width:3;stroke-linecap:round"><line x1="168" y1="214" x2="150" y2="196"/><line x1="232" y1="214" x2="252" y2="198"/><line x1="200" y1="228" x2="200" y2="246"/></g>
-<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/mm²</text>
+<text x="384" y="44" text-anchor="end" style="fill:var(--hot);font:700 40px var(--display)">J/mm²</text>
 </svg></div>
-      <div class="body"><h3>Ensayo de resiliencia</h3><p>El péndulo de Charpy rompe de un golpe una probeta entallada para medir la energía que absorbe.</p><div class="meta">Abrir el ensayo <span data-progress="ensayo-resiliencia.html" data-total="10">10 problemas</span></div></div>
+      <div class="body"><h3>Ensayo de resiliencia</h3><p>El péndulo de Charpy rompe de un golpe una probeta entallada para medir la energía que absorbe.</p><div class="meta">Abrir el ensayo <i>Teoría ilustrada</i></div></div>
     </a></li>
   </ul>
   <a class="probs-banner" href="materiales-problemas.html">
-    <span><b>Problemas de Materiales</b><span>31 problemas de tus hojas (7 tipo PAU y 24 del cuaderno), resueltos paso a paso y con filtro por ensayo.</span></span>
-    <span class="go" data-progress="materiales-problemas.html" data-total="31">31 problemas</span>
+    <span><b>Problemas de Materiales</b><span>71 problemas resueltos paso a paso: 10 de cada ensayo, 7 tipo PAU y 24 del cuaderno, con filtro por ensayo.</span></span>
+    <span class="go" data-progress="materiales-problemas.html" data-total="71">71 problemas</span>
   </a>
   <h2>Qué mide cada ensayo</h2>
   <div class="tbl"><table>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ensayo de resiliencia · IES Palomares</title>
-<meta name="description" content="Ensayo de resiliencia (Tecnología e Ingeniería, Bachillerato): teoría ilustrada y diez problemas tipo selectividad resueltos y comentados.">
+<meta name="description" content="Ensayo de resiliencia (Tecnología e Ingeniería, Bachillerato): teoría ilustrada según el libro de texto.">
 <meta name="author" content="David Rayo Torres">
 <link rel="icon" href="logo-ies-palomares.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -232,26 +232,30 @@ svg.art{display:block;width:100%;height:auto}
 .hub{padding:40px 0 72px}
 .hub > h2{font-family:var(--display);font-size:38px;font-weight:600;margin:0 0 6px}
 .hub > p.sub{color:var(--muted);margin:0 0 24px;max-width:60ch}
-.tests{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;list-style:none;margin:0 0 48px;padding:0}
+.tests{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;list-style:none;margin:0 0 36px;padding:0}
 .tests li{margin:0}
 .test{display:flex;flex-direction:column;height:100%;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
 .test:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(10,30,40,.16);border-color:var(--brand)}
 @media (prefers-reduced-motion:reduce){.test,.test:hover{transition:none;transform:none}}
-.test .pic{border-bottom:1px solid var(--line)}
-.test .body{padding:18px 22px 22px;display:grid;gap:6px}
-.test h3{font-family:var(--display);font-size:30px;font-weight:700;margin:0;line-height:1}
-.test p{margin:0;color:var(--muted);font-size:15.5px}
-.test .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:14px;font-weight:600;color:var(--brand)}
+.test .pic{border-bottom:1px solid var(--line);aspect-ratio:16/10;overflow:hidden}
+.test .pic svg{width:100%;height:100%;object-fit:cover}
+.test .body{padding:12px 14px 14px;display:grid;gap:4px}
+.test h3{font-family:var(--display);font-size:22px;font-weight:700;margin:0;line-height:1.05}
+.test p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+.test .meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:13.5px;font-weight:600;color:var(--brand)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .test .meta{color:var(--cold)}}
 :root[data-theme="dark"] .test .meta{color:var(--cold)}
 .test .meta i{font-style:normal;color:var(--muted);font-weight:500}
-@media (max-width:700px){.tests{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:1000px){.tests{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.tests{grid-template-columns:minmax(0,1fr)}.test{flex-direction:row}.test .pic{flex:0 0 120px;aspect-ratio:auto;border-bottom:0;border-right:1px solid var(--line)}.test .meta i{display:none}}
 .probs-banner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin:0 0 48px;padding:20px 24px;border-radius:16px;background:var(--brand);color:#fff;text-decoration:none}
 .probs-banner:hover{filter:brightness(1.08);color:#fff}
 .probs-banner > span:first-child{display:grid;gap:4px}
 .probs-banner b{font-family:var(--display);font-size:28px;font-weight:700;line-height:1}
 .probs-banner span span{opacity:.9;font-size:15.5px;max-width:60ch}
 .probs-banner .go{background:#fff;color:var(--brand);border:0}
+.btn-go{display:inline-block;background:var(--brand);color:#fff!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
+.btn-go:hover{filter:brightness(1.1)}
 
 /* Otros ensayos al pie de cada subpágina */
 .others{margin-top:8px;padding-top:28px;border-top:1px solid var(--line)}
@@ -348,7 +352,7 @@ svg.art{display:block;width:100%;height:auto}
       <p class="lead">Cómo se mide con el péndulo de Charpy la energía que absorbe una probeta al romperse por un impacto.</p>
       <ul class="quick">
         <li><a class="primary" href="#que-es">Empezar por la teoría</a></li>
-        <li><a href="#problemas">Problemas tipo selectividad</a></li>
+        <li><a href="materiales-problemas.html#resiliencia">Ver sus problemas</a></li>
         <li><a href="materiales.html">Volver a Materiales</a></li>
       </ul>
     </div>
@@ -365,7 +369,7 @@ svg.art{display:block;width:100%;height:auto}
 <path d="M170 168 H230 L214 196 H186 Z" style="fill:var(--hot);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
 <circle cx="200" cy="50" r="12" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
 <g style="stroke:var(--hot);stroke-width:3;stroke-linecap:round"><line x1="168" y1="214" x2="150" y2="196"/><line x1="232" y1="214" x2="252" y2="198"/><line x1="200" y1="228" x2="200" y2="246"/></g>
-<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/mm²</text>
+<text x="384" y="44" text-anchor="end" style="fill:var(--hot);font:700 40px var(--display)">J/mm²</text>
 </svg></figure>
   </div>
 </div>
@@ -379,7 +383,7 @@ svg.art{display:block;width:100%;height:auto}
       <li><a href="#que-es">El ensayo de resiliencia</a></li>
       <li><a href="#pendulo">El péndulo de Charpy</a></li>
       <li><a href="#formula">Valor de la resiliencia</a></li>
-      <li><a href="#problemas">Problemas tipo selectividad</a></li>
+      <li><a href="#problemas">Problemas</a></li>
     </ol>
     <div class="tools">
       <button type="button" data-act="open">Mostrar todas las soluciones</button>
@@ -450,425 +454,9 @@ svg.art{display:block;width:100%;height:auto}
 </section>
 
 <section id="problemas">
-  <h2><span class="n">4</span>Problemas tipo selectividad</h2>
-  <p>Diez problemas con el formato de la PEvAU: un enunciado común y varios apartados puntuados. Solo se usan las fórmulas de la teoría. Cada apartado está resuelto en tres pasos: planteamiento, desarrollo y resultado. Intenta resolverlos antes de abrir la solución. Tienes más problemas, de tus hojas, en la página de <a href="materiales-problemas.html">problemas de Materiales</a>.</p>
-  <details class="prob" id="p1">
-    <summary>1. Resiliencia a partir de las alturas</summary>
-    <p class="enun">En un ensayo de Charpy, un péndulo de 20 kg se suelta desde 0,9 m de altura. Tras romper una probeta cuya sección en la entalla es de 10 × 8 mm, sube hasta 0,35 m (g = 9,8 m/s²). Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La energía potencial del péndulo antes y después del impacto. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> La energía absorbida por la probeta. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> La resiliencia. (1 punto)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> m = 20 kg; h₀ = 0,9 m; h₁ = 0,35 m; S = 10 × 8 mm</p>
-    <div class="ap">
-      <h4><span>a)</span>La energía potencial del péndulo antes y después del impacto.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La energía potencial es E<sub>p</sub> = m · g · h en cada posición.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Antes:<span class="eq">E<sub>p0</sub> = 20 · 9,8 · 0,9 = 176,4 J</span></li>
-          <li>Después:<span class="eq">E<sub>p1</sub> = 20 · 9,8 · 0,35 = 68,6 J</span></li>
-      </ol>
-      <p class="res">176,4 J y 68,6 J.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La energía absorbida por la probeta.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La energía que ha perdido el péndulo es la que ha absorbido la probeta al romperse: −ΔE<sub>p</sub> = m · g · (h₀ − h₁).</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Energía absorbida:<span class="eq">176,4 − 68,6 = 107,8 J</span></li>
-      </ol>
-      <p class="res">107,8 J.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La resiliencia.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>ρ = m · g · (h₀ − h₁) / S, con S en mm².</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección:<span class="eq">S = 10 · 8 = 80 mm²</span></li>
-          <li>Resiliencia:<span class="eq">ρ = 107,8 / 80 = 1,35 J/mm²</span></li>
-      </ol>
-      <p class="res">ρ ≈ 1,35 J/mm².</p>
-    </div>
-    <p class="note com">La sección que se usa es la de la probeta en la entalla, que es por donde rompe.</p>
-  </details>
-  <details class="prob" id="p2">
-    <summary>2. Péndulo con ángulos</summary>
-    <p class="enun">Un péndulo de Charpy de 25 kg tiene un brazo de 0,8 m. Se suelta desde un ángulo de 150° respecto a la vertical y, tras romper una probeta de 80 mm² de sección, sube hasta 60° (g = 9,8 m/s²). Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> Las alturas inicial y final de la maza. (1 punto)</li>
-      <li class="q"><b>b)</b> La energía absorbida. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> La resiliencia. (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> m = 25 kg; L = 0,8 m; α = 150°; β = 60°; S = 80 mm²</p>
-    <div class="ap">
-      <h4><span>a)</span>Las alturas inicial y final de la maza.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Medida desde el punto más bajo, la altura es h = L · (1 − cos α). Hay que tener cuidado con el signo del coseno de 150°.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Altura inicial (cos 150° = −0,866):<span class="eq">h₀ = 0,8 · (1 + 0,866) = 1,493 m</span></li>
-          <li>Altura final (cos 60° = 0,5):<span class="eq">h₁ = 0,8 · (1 − 0,5) = 0,40 m</span></li>
-      </ol>
-      <p class="res">h₀ ≈ 1,49 m; h₁ = 0,40 m.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La energía absorbida.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>m · g · (h₀ − h₁), o directamente m · g · L · (cos β − cos α).</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Energía:<span class="eq">25 · 9,8 · (1,493 − 0,40) = 267,7 J</span></li>
-          <li>Comprobación con los ángulos:<span class="eq">25 · 9,8 · 0,8 · (0,5 + 0,866) = 267,7 J</span></li>
-      </ol>
-      <p class="res">≈ 267,7 J.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La resiliencia.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>ρ = −ΔE<sub>p</sub> / S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Resiliencia:<span class="eq">ρ = 267,7 / 80 = 3,35 J/mm²</span></li>
-      </ol>
-      <p class="res">ρ ≈ 3,35 J/mm².</p>
-    </div>
-    <p class="note com">Un ángulo mayor de 90° indica que la maza empieza por encima del eje de giro; por eso su coseno es negativo.</p>
-  </details>
-  <details class="prob" id="p3">
-    <summary>3. Altura final esperada</summary>
-    <p class="enun">Un material tiene una resiliencia de 0,6 J/mm². Se ensaya con un péndulo de 22 kg soltado desde 1 m y probeta de 80 mm² (g = 9,8 m/s²). Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La energía que absorberá la probeta. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> La energía inicial del péndulo. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> La altura que alcanzará tras el impacto. (1 punto)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> ρ = 0,6 J/mm²; S = 80 mm²; m = 22 kg; h₀ = 1 m</p>
-    <div class="ap">
-      <h4><span>a)</span>La energía que absorberá la probeta.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>De ρ = −ΔE<sub>p</sub> / S despejamos la energía: ρ · S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Energía:<span class="eq">0,6 · 80 = 48 J</span></li>
-      </ol>
-      <p class="res">48 J.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La energía inicial del péndulo.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>m · g · h₀.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Energía:<span class="eq">22 · 9,8 · 1 = 215,6 J</span></li>
-      </ol>
-      <p class="res">215,6 J.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La altura que alcanzará tras el impacto.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Le restamos la energía absorbida y despejamos h₁ de m · g · h₁.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Altura:<span class="eq">h₁ = (215,6 − 48) / (22 · 9,8) = 167,6 / 215,6 = 0,777 m</span></li>
-      </ol>
-      <p class="res">h₁ ≈ 0,78 m.</p>
-    </div>
-    <p class="note com">Cuanto menos energía absorbe el material, más alto sube el péndulo.</p>
-  </details>
-  <details class="prob" id="p4">
-    <summary>4. Ángulo final del péndulo</summary>
-    <p class="enun">Un péndulo de 22 kg con un brazo de 0,85 m se suelta desde 140°. La probeta, de 80 mm² de sección, absorbe 120 J (g = 9,8 m/s²). Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La altura y la energía iniciales. (1 punto)</li>
-      <li class="q"><b>b)</b> La altura y el ángulo finales. (1 punto)</li>
-      <li class="q"><b>c)</b> La resiliencia del material. (0,5 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> m = 22 kg; L = 0,85 m; α = 140°; −ΔE<sub>p</sub> = 120 J; S = 80 mm²</p>
-    <div class="ap">
-      <h4><span>a)</span>La altura y la energía iniciales.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>h₀ = L · (1 − cos α) y E<sub>p0</sub> = m · g · h₀.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Altura (cos 140° = −0,766):<span class="eq">h₀ = 0,85 · 1,766 = 1,501 m</span></li>
-          <li>Energía:<span class="eq">E<sub>p0</sub> = 22 · 9,8 · 1,501 = 323,6 J</span></li>
-      </ol>
-      <p class="res">h₀ ≈ 1,50 m; E<sub>p0</sub> ≈ 324 J.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La altura y el ángulo finales.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Restamos la energía absorbida, despejamos h₁ y, de h₁ = L · (1 − cos β), el ángulo: cos β = 1 − h₁ / L.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Altura final:<span class="eq">h₁ = (323,6 − 120) / (22 · 9,8) = 0,944 m</span></li>
-          <li>Ángulo final:<span class="eq">cos β = 1 − 0,944 / 0,85 = −0,111 &nbsp;→&nbsp; β = 96,4°</span></li>
-      </ol>
-      <p class="res">h₁ ≈ 0,94 m; β ≈ 96°.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La resiliencia del material.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>ρ = −ΔE<sub>p</sub> / S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Resiliencia:<span class="eq">ρ = 120 / 80 = 1,5 J/mm²</span></li>
-      </ol>
-      <p class="res">ρ = 1,5 J/mm².</p>
-    </div>
-    <p class="note com">Un coseno negativo al final indica que el péndulo sube por encima de la horizontal del eje (más de 90°).</p>
-  </details>
-  <details class="prob" id="p5">
-    <summary>5. Comparación de dos materiales</summary>
-    <p class="enun">Con un péndulo de 20 kg soltado desde 1 m se ensayan dos materiales con probetas de 80 mm². Con el material A el péndulo sube hasta 0,25 m y con el B hasta 0,92 m (g = 9,8 m/s²). Determine:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La resiliencia de A. (1 punto)</li>
-      <li class="q"><b>b)</b> La resiliencia de B. (1 punto)</li>
-      <li class="q"><b>c)</b> Cuál absorbe más energía antes de romperse. (0,5 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> m = 20 kg; h₀ = 1 m; S = 80 mm²; h<sub>A</sub> = 0,25 m; h<sub>B</sub> = 0,92 m</p>
-    <div class="ap">
-      <h4><span>a)</span>La resiliencia de A.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>ρ = m · g · (h₀ − h₁) / S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Material A:<span class="eq">20 · 9,8 · 0,75 = 147 J &nbsp;→&nbsp; ρ = 147 / 80 = 1,84 J/mm²</span></li>
-      </ol>
-      <p class="res">ρ<sub>A</sub> ≈ 1,84 J/mm².</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La resiliencia de B.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Misma expresión.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Material B:<span class="eq">20 · 9,8 · 0,08 = 15,7 J &nbsp;→&nbsp; ρ = 15,7 / 80 = 0,196 J/mm²</span></li>
-      </ol>
-      <p class="res">ρ<sub>B</sub> ≈ 0,20 J/mm².</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>Cuál absorbe más energía antes de romperse.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Comparamos las resiliencias.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Comparación:<span class="eq">1,84 J/mm² ≫ 0,20 J/mm²</span></li>
-      </ol>
-      <p class="res">El material A, unas nueve veces más que el B.</p>
-    </div>
-    <p class="note com">Que el péndulo suba casi hasta la altura inicial indica que la probeta apenas ha absorbido energía.</p>
-  </details>
-  <details class="prob" id="p6">
-    <summary>6. Máquina con indicador de energía</summary>
-    <p class="enun">Un péndulo con una energía inicial de 300 J rompe una probeta de 80 mm² de sección y conserva 215 J después del impacto. Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La energía absorbida. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> La resiliencia. (1 punto)</li>
-      <li class="q"><b>c)</b> Qué porcentaje de la energía inicial ha absorbido la probeta. (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> E<sub>p0</sub> = 300 J; E<sub>p1</sub> = 215 J; S = 80 mm²</p>
-    <div class="ap">
-      <h4><span>a)</span>La energía absorbida.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>−ΔE<sub>p</sub> = E<sub>p0</sub> − E<sub>p1</sub>.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Energía:<span class="eq">300 − 215 = 85 J</span></li>
-      </ol>
-      <p class="res">85 J.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La resiliencia.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>ρ = −ΔE<sub>p</sub> / S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Resiliencia:<span class="eq">ρ = 85 / 80 = 1,06 J/mm²</span></li>
-      </ol>
-      <p class="res">ρ ≈ 1,06 J/mm².</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>Qué porcentaje de la energía inicial ha absorbido la probeta.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Comparamos la energía absorbida con la inicial.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Porcentaje:<span class="eq">85 / 300 · 100 = 28,3 %</span></li>
-      </ol>
-      <p class="res">28,3 %.</p>
-    </div>
-    <p class="note com">Si la máquina da las energías directamente, no hace falta calcular alturas.</p>
-  </details>
-  <details class="prob" id="p7">
-    <summary>7. Probeta con entalla más profunda</summary>
-    <p class="enun">Se ensaya una probeta de 10 × 10 mm con una entalla de 5 mm de profundidad, que deja una sección de 10 × 5 mm. El péndulo, de 30 kg, cae desde 0,8 m y sube hasta 0,45 m (g = 9,8 m/s²). Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La energía absorbida. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> La resiliencia. (1 punto)</li>
-      <li class="q"><b>c)</b> ¿Para qué se hace la entalla en la probeta? (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> m = 30 kg; h₀ = 0,8 m; h₁ = 0,45 m; S = 10 × 5 mm</p>
-    <div class="ap">
-      <h4><span>a)</span>La energía absorbida.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>m · g · (h₀ − h₁).</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Energía:<span class="eq">30 · 9,8 · 0,35 = 102,9 J</span></li>
-      </ol>
-      <p class="res">102,9 J.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La resiliencia.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La sección en la entalla es 10 × 5 mm.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección:<span class="eq">S = 50 mm²</span></li>
-          <li>Resiliencia:<span class="eq">ρ = 102,9 / 50 = 2,06 J/mm²</span></li>
-      </ol>
-      <p class="res">ρ ≈ 2,06 J/mm².</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>¿Para qué se hace la entalla en la probeta?</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Recordamos la teoría del ensayo.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Respuesta:<span class="eq">la entalla se realiza antes del ensayo</span></li>
-      </ol>
-      <p class="res">Para facilitar que la probeta se rompa, y que lo haga por ese punto.</p>
-    </div>
-    <p class="note com">Por eso la sección que importa es la que queda en la entalla.</p>
-  </details>
-  <details class="prob" id="p8">
-    <summary>8. Ensayo a dos temperaturas</summary>
-    <p class="enun">Un acero se ensaya a 20 °C y a −40 °C con un péndulo de 25 kg soltado desde 1 m y probetas de 80 mm². A 20 °C el péndulo sube hasta 0,38 m y a −40 °C hasta 0,88 m (g = 9,8 m/s²). Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La resiliencia a 20 °C. (1 punto)</li>
-      <li class="q"><b>b)</b> La resiliencia a −40 °C. (1 punto)</li>
-      <li class="q"><b>c)</b> Comente el resultado. (0,5 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> m = 25 kg; h₀ = 1 m; S = 80 mm²; h₁(20 °C) = 0,38 m; h₁(−40 °C) = 0,88 m</p>
-    <div class="ap">
-      <h4><span>a)</span>La resiliencia a 20 °C.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>ρ = m · g · (h₀ − h₁) / S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>A 20 °C:<span class="eq">25 · 9,8 · 0,62 = 151,9 J &nbsp;→&nbsp; ρ = 151,9 / 80 = 1,90 J/mm²</span></li>
-      </ol>
-      <p class="res">ρ ≈ 1,90 J/mm².</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La resiliencia a −40 °C.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Mismo cálculo.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>A −40 °C:<span class="eq">25 · 9,8 · 0,12 = 29,4 J &nbsp;→&nbsp; ρ = 29,4 / 80 = 0,37 J/mm²</span></li>
-      </ol>
-      <p class="res">ρ ≈ 0,37 J/mm².</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>Comente el resultado.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Comparamos las dos resiliencias.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Relación:<span class="eq">1,90 / 0,37 ≈ 5,2</span></li>
-      </ol>
-      <p class="res">A −40 °C el acero absorbe unas cinco veces menos energía: con el frío resiste mucho peor los impactos.</p>
-    </div>
-    <p class="note com">Por eso es importante ensayar los materiales a la temperatura a la que van a trabajar.</p>
-  </details>
-  <details class="prob" id="p9">
-    <summary>9. Altura mínima de lanzamiento</summary>
-    <p class="enun">Se quiere romper una probeta de 80 mm² de un material de resiliencia 1,5 J/mm² con un péndulo de 20 kg (g = 9,8 m/s²). Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La energía necesaria para romper la probeta. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> La altura mínima desde la que hay que soltar el péndulo. (1 punto)</li>
-      <li class="q"><b>c)</b> Si se suelta desde 0,9 m, ¿hasta qué altura sube después de romperla? (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> ρ = 1,5 J/mm²; S = 80 mm²; m = 20 kg</p>
-    <div class="ap">
-      <h4><span>a)</span>La energía necesaria para romper la probeta.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>ρ · S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Energía:<span class="eq">1,5 · 80 = 120 J</span></li>
-      </ol>
-      <p class="res">120 J.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La altura mínima desde la que hay que soltar el péndulo.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La energía potencial inicial debe ser al menos la necesaria: m · g · h₀ = 120 J.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Altura mínima:<span class="eq">h₀ = 120 / (20 · 9,8) = 0,612 m</span></li>
-      </ol>
-      <p class="res">h₀ ≥ 0,61 m.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>Si se suelta desde 0,9 m, ¿hasta qué altura sube después de romperla?</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La diferencia de alturas debe corresponder a los 120 J absorbidos: h₀ − h₁ = 0,612 m.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Altura final:<span class="eq">h₁ = 0,9 − 0,612 = 0,288 m</span></li>
-      </ol>
-      <p class="res">h₁ ≈ 0,29 m.</p>
-    </div>
-    <p class="note com">Con la altura justa el péndulo quedaría parado tras el golpe; siempre se suelta desde más arriba.</p>
-  </details>
-  <details class="prob" id="p10">
-    <summary>10. Masa del péndulo</summary>
-    <p class="enun">En un ensayo de Charpy el péndulo se suelta desde 1,4 m y, tras romper una probeta de 80 mm² de un material con resiliencia 2 J/mm², sube hasta 0,6 m (g = 9,8 m/s²). Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La energía absorbida por la probeta. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> La masa del péndulo. (1 punto)</li>
-      <li class="q"><b>c)</b> La energía potencial inicial del péndulo. (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> h₀ = 1,4 m; h₁ = 0,6 m; S = 80 mm²; ρ = 2 J/mm²</p>
-    <div class="ap">
-      <h4><span>a)</span>La energía absorbida por la probeta.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>ρ · S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Energía:<span class="eq">2 · 80 = 160 J</span></li>
-      </ol>
-      <p class="res">160 J.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La masa del péndulo.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Despejamos m de la expresión de la resiliencia: m = ρ · S / (g · (h₀ − h₁)).</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Masa:<span class="eq">m = 160 / (9,8 · 0,8) = 20,4 kg</span></li>
-      </ol>
-      <p class="res">m ≈ 20,4 kg.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La energía potencial inicial del péndulo.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>m · g · h₀.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Energía:<span class="eq">20,4 · 9,8 · 1,4 = 280 J</span></li>
-      </ol>
-      <p class="res">E<sub>p0</sub> ≈ 280 J.</p>
-    </div>
-    <p class="note com">La fórmula de la resiliencia relaciona cinco magnitudes: conocidas cuatro, se puede despejar la quinta.</p>
-  </details>
+  <h2><span class="n">4</span>Problemas</h2>
+  <p>Los problemas de este ensayo están en la página de problemas de Materiales, junto con los de los demás ensayos y los de tus hojas.</p>
+  <p><a class="btn-go" href="materiales-problemas.html#resiliencia">Ir a los problemas de ensayo de resiliencia</a></p>
 </section>
 
 <aside class="others" aria-label="Otros ensayos">

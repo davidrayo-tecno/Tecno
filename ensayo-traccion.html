@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ensayo de tracción · IES Palomares</title>
-<meta name="description" content="Ensayo de tracción (Tecnología e Ingeniería, Bachillerato): teoría ilustrada y diez problemas tipo selectividad resueltos y comentados.">
+<meta name="description" content="Ensayo de tracción (Tecnología e Ingeniería, Bachillerato): teoría ilustrada según el libro de texto.">
 <meta name="author" content="David Rayo Torres">
 <link rel="icon" href="logo-ies-palomares.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -232,26 +232,30 @@ svg.art{display:block;width:100%;height:auto}
 .hub{padding:40px 0 72px}
 .hub > h2{font-family:var(--display);font-size:38px;font-weight:600;margin:0 0 6px}
 .hub > p.sub{color:var(--muted);margin:0 0 24px;max-width:60ch}
-.tests{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;list-style:none;margin:0 0 48px;padding:0}
+.tests{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;list-style:none;margin:0 0 36px;padding:0}
 .tests li{margin:0}
 .test{display:flex;flex-direction:column;height:100%;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
 .test:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(10,30,40,.16);border-color:var(--brand)}
 @media (prefers-reduced-motion:reduce){.test,.test:hover{transition:none;transform:none}}
-.test .pic{border-bottom:1px solid var(--line)}
-.test .body{padding:18px 22px 22px;display:grid;gap:6px}
-.test h3{font-family:var(--display);font-size:30px;font-weight:700;margin:0;line-height:1}
-.test p{margin:0;color:var(--muted);font-size:15.5px}
-.test .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:14px;font-weight:600;color:var(--brand)}
+.test .pic{border-bottom:1px solid var(--line);aspect-ratio:16/10;overflow:hidden}
+.test .pic svg{width:100%;height:100%;object-fit:cover}
+.test .body{padding:12px 14px 14px;display:grid;gap:4px}
+.test h3{font-family:var(--display);font-size:22px;font-weight:700;margin:0;line-height:1.05}
+.test p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+.test .meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:13.5px;font-weight:600;color:var(--brand)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .test .meta{color:var(--cold)}}
 :root[data-theme="dark"] .test .meta{color:var(--cold)}
 .test .meta i{font-style:normal;color:var(--muted);font-weight:500}
-@media (max-width:700px){.tests{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:1000px){.tests{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.tests{grid-template-columns:minmax(0,1fr)}.test{flex-direction:row}.test .pic{flex:0 0 120px;aspect-ratio:auto;border-bottom:0;border-right:1px solid var(--line)}.test .meta i{display:none}}
 .probs-banner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin:0 0 48px;padding:20px 24px;border-radius:16px;background:var(--brand);color:#fff;text-decoration:none}
 .probs-banner:hover{filter:brightness(1.08);color:#fff}
 .probs-banner > span:first-child{display:grid;gap:4px}
 .probs-banner b{font-family:var(--display);font-size:28px;font-weight:700;line-height:1}
 .probs-banner span span{opacity:.9;font-size:15.5px;max-width:60ch}
 .probs-banner .go{background:#fff;color:var(--brand);border:0}
+.btn-go{display:inline-block;background:var(--brand);color:#fff!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
+.btn-go:hover{filter:brightness(1.1)}
 
 /* Otros ensayos al pie de cada subpágina */
 .others{margin-top:8px;padding-top:28px;border-top:1px solid var(--line)}
@@ -348,7 +352,7 @@ svg.art{display:block;width:100%;height:auto}
       <p class="lead">Cómo se deforma un material sometido a tracción: tensión, deformación unitaria, ley de Hooke y las zonas del diagrama de tracción.</p>
       <ul class="quick">
         <li><a class="primary" href="#que-es">Empezar por la teoría</a></li>
-        <li><a href="#problemas">Problemas tipo selectividad</a></li>
+        <li><a href="materiales-problemas.html#traccion">Ver sus problemas</a></li>
         <li><a href="materiales.html">Volver a Materiales</a></li>
       </ul>
     </div>
@@ -378,7 +382,7 @@ svg.art{display:block;width:100%;height:auto}
       <li><a href="#magnitudes">Tensión y deformación unitaria</a></li>
       <li><a href="#diagrama">El diagrama de tracción</a></li>
       <li><a href="#ductilidad">Alargamiento y estricción</a></li>
-      <li><a href="#problemas">Problemas tipo selectividad</a></li>
+      <li><a href="#problemas">Problemas</a></li>
     </ol>
     <div class="tools">
       <button type="button" data-act="open">Mostrar todas las soluciones</button>
@@ -513,444 +517,9 @@ svg.art{display:block;width:100%;height:auto}
 </section>
 
 <section id="problemas">
-  <h2><span class="n">5</span>Problemas tipo selectividad</h2>
-  <p>Diez problemas con el formato de la PEvAU: un enunciado común y varios apartados puntuados. Solo se usan las fórmulas de la teoría. Cada apartado está resuelto en tres pasos: planteamiento, desarrollo y resultado. Intenta resolverlos antes de abrir la solución. Tienes más problemas, de tus hojas, en la página de <a href="materiales-problemas.html">problemas de Materiales</a>.</p>
-  <details class="prob" id="p1">
-    <summary>1. Módulo de Young a partir de un ensayo</summary>
-    <p class="enun">Una probeta cilíndrica de acero de 10 mm de diámetro y 50 mm de longitud inicial se somete a un ensayo de tracción. Con una carga de 20 kN la probeta se alarga 0,06 mm, y se sabe que sigue en la zona de proporcionalidad. Determine:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La tensión y la deformación unitaria. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> El módulo de Young del acero. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> La carga necesaria para que la probeta se alargue 0,08 mm, si el límite de proporcionalidad es σp = 400 MPa. (1 punto)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> d = 10 mm; l₀ = 50 mm; F = 20 kN = 20 000 N; Δl = 0,06 mm</p>
-    <div class="ap">
-      <h4><span>a)</span>La tensión y la deformación unitaria.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La tensión es la fuerza dividida entre la sección (σ = F / S) y la deformación unitaria, el alargamiento dividido entre la longitud inicial (ε = Δl / l₀). Trabajamos en N y mm, de modo que la tensión sale en N/mm² (MPa).</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección circular de la probeta:<span class="eq">S = π · d² / 4 = π · 10² / 4 = 78,54 mm²</span></li>
-          <li>Tensión:<span class="eq">σ = F / S = 20 000 / 78,54 = 254,6 N/mm² = 254,6 MPa</span></li>
-          <li>Deformación unitaria (no tiene unidades):<span class="eq">ε = Δl / l₀ = 0,06 / 50 = 0,0012</span></li>
-      </ol>
-      <p class="res">σ = 254,6 MPa (2,546 · 10⁸ Pa); ε = 0,0012.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>El módulo de Young del acero.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>En la zona de proporcionalidad se cumple la ley de Hooke, σ = ε · E. Despejamos E.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Módulo de Young:<span class="eq">E = σ / ε = 254,6 / 0,0012 = 212 200 MPa</span></li>
-      </ol>
-      <p class="res">E ≈ 212 200 MPa = 2,12 · 10¹¹ N/m².</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La carga necesaria para que la probeta se alargue 0,08 mm, si el límite de proporcionalidad es σp = 400 MPa.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Calculamos la deformación pedida y, con la ley de Hooke, la tensión que la produce. Antes de seguir comprobamos que no supera σp, porque si lo superase ya no se cumpliría σ = ε · E. Con la tensión obtenemos la fuerza: F = σ · S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Deformación unitaria:<span class="eq">ε = 0,08 / 50 = 0,0016</span></li>
-          <li>Tensión:<span class="eq">σ = ε · E = 0,0016 · 212 200 = 339,5 MPa &lt; 400 MPa ✓</span></li>
-          <li>Carga:<span class="eq">F = σ · S = 339,5 · 78,54 = 26 667 N</span></li>
-      </ol>
-      <p class="res">F ≈ 26,7 kN.</p>
-    </div>
-    <p class="note com">El módulo obtenido es el típico de un acero (unos 2,1 · 10¹¹ N/m²), lo que sirve para comprobar que el resultado tiene sentido.</p>
-  </details>
-  <details class="prob" id="p2">
-    <summary>2. Barra de acero cargada a tracción</summary>
-    <p class="enun">Una barra de acero de 12 mm de diámetro y 2 m de longitud tiene un módulo de Young de 210 GPa y un límite de proporcionalidad σp = 275 MPa. Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> El alargamiento de la barra con una carga de 15 kN. (1 punto)</li>
-      <li class="q"><b>b)</b> La carga máxima con la que se sigue cumpliendo la ley de Hooke. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> La longitud de la barra con esa carga. (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> d = 12 mm; l₀ = 2 m = 2 000 mm; E = 210 GPa = 210 000 MPa; σp = 275 MPa</p>
-    <div class="ap">
-      <h4><span>a)</span>El alargamiento de la barra con una carga de 15 kN.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Pasamos todo a N y mm. Con σ = F / S obtenemos la tensión; como es menor que σp, se cumple la ley de Hooke y ε = σ / E. Finalmente, de ε = Δl / l₀ despejamos el alargamiento.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección:<span class="eq">S = π · 12² / 4 = 113,1 mm²</span></li>
-          <li>Tensión:<span class="eq">σ = 15 000 / 113,1 = 132,6 MPa (menor que σp)</span></li>
-          <li>Deformación unitaria:<span class="eq">ε = σ / E = 132,6 / 210 000 = 6,32 · 10⁻⁴</span></li>
-          <li>Alargamiento:<span class="eq">Δl = ε · l₀ = 6,32 · 10⁻⁴ · 2 000 = 1,26 mm</span></li>
-      </ol>
-      <p class="res">Δl ≈ 1,26 mm.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La carga máxima con la que se sigue cumpliendo la ley de Hooke.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La ley de Hooke se cumple hasta el punto a del diagrama, en el que la tensión vale σp. La carga correspondiente es F = σp · S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Carga:<span class="eq">F = σp · S = 275 · 113,1 = 31 102 N</span></li>
-      </ol>
-      <p class="res">F ≈ 31,1 kN.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La longitud de la barra con esa carga.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Con σ = σp calculamos la deformación unitaria y, de ella, la longitud final l = l₀ + Δl.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Deformación unitaria:<span class="eq">ε = 275 / 210 000 = 1,31 · 10⁻³</span></li>
-          <li>Alargamiento y longitud final:<span class="eq">Δl = 1,31 · 10⁻³ · 2 000 = 2,62 mm &nbsp;→&nbsp; l = 2 002,62 mm</span></li>
-      </ol>
-      <p class="res">l ≈ 2 002,6 mm.</p>
-    </div>
-    <p class="note com">Error frecuente: dejar la longitud en metros y E en GPa. Si se pasa todo a N, mm y MPa al principio, las unidades encajan solas.</p>
-  </details>
-  <details class="prob" id="p3">
-    <summary>3. Puntos característicos del diagrama</summary>
-    <p class="enun">En el ensayo de tracción de una probeta de acero de 10 mm de diámetro y 50 mm de longitud inicial se han registrado estos datos: el tramo recto del diagrama termina con una carga de 28 kN y un alargamiento de 0,085 mm; la zona de fluencia empieza con 31 kN, y la carga máxima del ensayo es de 47 kN. Determine:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> Las tensiones σp, σe y σmáx. (1 punto)</li>
-      <li class="q"><b>b)</b> El módulo de Young. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> ¿Qué le ocurre a la probeta si, con una carga de 40 kN, se retira la fuerza? (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> d = 10 mm; l₀ = 50 mm; F<sub>a</sub> = 28 kN; Δl<sub>a</sub> = 0,085 mm; F<sub>b</sub> = 31 kN; F<sub>d</sub> = 47 kN</p>
-    <div class="ap">
-      <h4><span>a)</span>Las tensiones σp, σe y σmáx.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Identificamos cada dato con su punto del diagrama: el final del tramo recto es el punto a (σp), el inicio de la fluencia es el punto b (σe, tensión de fluencia) y la carga máxima corresponde al punto d (σmáx). En todos los casos σ = F / S.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección:<span class="eq">S = π · 10² / 4 = 78,54 mm²</span></li>
-          <li>Punto a:<span class="eq">σp = 28 000 / 78,54 = 356,5 MPa</span></li>
-          <li>Punto b:<span class="eq">σe = 31 000 / 78,54 = 394,7 MPa</span></li>
-          <li>Punto d:<span class="eq">σmáx = 47 000 / 78,54 = 598,4 MPa</span></li>
-      </ol>
-      <p class="res">σp ≈ 357 MPa; σe ≈ 395 MPa; σmáx ≈ 598 MPa.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>El módulo de Young.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>En el punto a todavía se cumple la ley de Hooke, así que E = σp / ε, con la deformación unitaria de ese punto.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Deformación en a:<span class="eq">ε = 0,085 / 50 = 0,0017</span></li>
-          <li>Módulo de Young:<span class="eq">E = 356,5 / 0,0017 = 209 700 MPa</span></li>
-      </ol>
-      <p class="res">E ≈ 2,1 · 10¹¹ N/m².</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>¿Qué le ocurre a la probeta si, con una carga de 40 kN, se retira la fuerza?</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Calculamos la tensión y miramos en qué zona del diagrama estamos.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Tensión:<span class="eq">σ = 40 000 / 78,54 = 509,3 MPa</span></li>
-          <li>Comparación:<span class="eq">σe = 394,7 MPa &lt; 509,3 MPa &lt; σmáx = 598,4 MPa</span></li>
-      </ol>
-      <p class="res">Está en la zona plástica: la deformación es permanente y la probeta no recupera su longitud inicial.</p>
-    </div>
-    <p class="note com">La tensión de rotura es la del punto d (la máxima del diagrama); a partir de ahí la probeta se considera rota aunque aún no se haya partido.</p>
-  </details>
-  <details class="prob" id="p4">
-    <summary>4. Dimensionado de un tirante</summary>
-    <p class="enun">Un tirante de acero de 1,5 m de longitud debe soportar una carga de 40 kN sin que la tensión supere 175 MPa. El módulo de Young del acero es 210 GPa. Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La sección mínima del tirante. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> El diámetro mínimo. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> El alargamiento del tirante si se usa una barra de 18 mm. (1 punto)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> l₀ = 1 500 mm; F = 40 000 N; σ máxima = 175 MPa; E = 210 000 MPa</p>
-    <div class="ap">
-      <h4><span>a)</span>La sección mínima del tirante.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>De σ = F / S despejamos la sección necesaria para que la tensión no pase de 175 MPa.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección mínima:<span class="eq">S = F / σ = 40 000 / 175 = 228,6 mm²</span></li>
-      </ol>
-      <p class="res">S<sub>mín</sub> ≈ 228,6 mm².</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>El diámetro mínimo.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La sección es circular, S = π · d² / 4. Despejamos d.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Diámetro:<span class="eq">d = √(4 · S / π) = √(4 · 228,6 / π) = 17,06 mm</span></li>
-      </ol>
-      <p class="res">d<sub>mín</sub> ≈ 17,1 mm; se elige la barra comercial de 18 mm.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>El alargamiento del tirante si se usa una barra de 18 mm.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Con el diámetro real recalculamos la tensión, que será algo menor de 175 MPa, y aplicamos la ley de Hooke para obtener ε y después Δl.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección y tensión reales:<span class="eq">S = π · 18² / 4 = 254,5 mm² &nbsp;→&nbsp; σ = 40 000 / 254,5 = 157,2 MPa</span></li>
-          <li>Deformación unitaria:<span class="eq">ε = 157,2 / 210 000 = 7,49 · 10⁻⁴</span></li>
-          <li>Alargamiento:<span class="eq">Δl = 7,49 · 10⁻⁴ · 1 500 = 1,12 mm</span></li>
-      </ol>
-      <p class="res">Δl ≈ 1,12 mm.</p>
-    </div>
-    <p class="note com">El diámetro calculado se redondea siempre hacia arriba: hacia abajo, la tensión superaría el valor permitido.</p>
-  </details>
-  <details class="prob" id="p5">
-    <summary>5. Alargamiento y estricción en la rotura</summary>
-    <p class="enun">Una probeta de 10 mm de diámetro y 50 mm de longitud inicial se rompe en un ensayo de tracción con una carga máxima de 47 kN. Tras la rotura, la longitud entre marcas es de 62 mm y el diámetro en la zona de rotura es de 7 mm. Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> El alargamiento en la rotura. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> La estricción. (1 punto)</li>
-      <li class="q"><b>c)</b> La tensión de rotura. (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> d₀ = 10 mm; l₀ = 50 mm; F<sub>máx</sub> = 47 000 N; l<sub>f</sub> = 62 mm; d<sub>f</sub> = 7 mm</p>
-    <div class="ap">
-      <h4><span>a)</span>El alargamiento en la rotura.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Comparamos el aumento de longitud entre marcas con la longitud inicial: A (%) = (l<sub>f</sub> − l₀) / l₀ · 100.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Alargamiento:<span class="eq">A = (62 − 50) / 50 · 100 = 24 %</span></li>
-      </ol>
-      <p class="res">A = 24 %.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>La estricción.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Calculamos las secciones inicial y final, que son círculos, y aplicamos Z (%) = (S₀ − S<sub>f</sub>) / S₀ · 100.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Secciones:<span class="eq">S₀ = π · 10² / 4 = 78,54 mm² &nbsp;|&nbsp; S<sub>f</sub> = π · 7² / 4 = 38,48 mm²</span></li>
-          <li>Estricción:<span class="eq">Z = (78,54 − 38,48) / 78,54 · 100 = 51 %</span></li>
-      </ol>
-      <p class="res">Z = 51 %.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La tensión de rotura.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Es la tensión máxima del diagrama (punto d): σmáx = F<sub>máx</sub> / S₀.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Tensión de rotura:<span class="eq">σmáx = 47 000 / 78,54 = 598,4 MPa</span></li>
-      </ol>
-      <p class="res">σmáx ≈ 598 MPa.</p>
-    </div>
-    <p class="note com">Un alargamiento del 24 % y una estricción del 51 % indican que el material se deforma mucho antes de romperse. Como las dos secciones son círculos, también Z = (d₀² − d<sub>f</sub>²) / d₀² · 100 = (100 − 49) / 100 · 100.</p>
-  </details>
-  <details class="prob" id="p6">
-    <summary>6. Interpretación del diagrama de tracción</summary>
-    <p class="enun">Se ensaya a tracción una probeta de acero de 10 mm de diámetro. La carga máxima registrada es de 47 kN y la probeta termina de partirse con 40 kN. Responda:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> Describa qué ocurre en la zona b‑c y en la zona c‑d del diagrama. (1 punto)</li>
-      <li class="q"><b>b)</b> Si la probeta medía 50 mm entre marcas y tras la rotura mide 58 mm, calcule su alargamiento. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> ¿Por qué la carga baja de 47 kN a 40 kN antes de que la probeta se parta? (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> d = 10 mm; F<sub>máx</sub> = 47 000 N; carga final = 40 000 N</p>
-    <div class="ap">
-      <h4><span>a)</span>Describa qué ocurre en la zona b‑c y en la zona c‑d del diagrama.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Recordamos los tramos de la zona plástica del diagrama de tracción.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Zona b‑c (fluencia):<span class="eq">la deformación aumenta mucho sin que apenas aumente la tensión; aparece en materiales como el acero</span></li>
-          <li>Zona c‑d (deformación plástica uniforme):<span class="eq">pequeños aumentos de tensión producen grandes deformaciones, hasta llegar a la tensión máxima en d</span></li>
-      </ol>
-      <p class="res">En b‑c el material fluye sin que crezca la tensión; en c‑d se deforma mucho con pequeños aumentos de tensión.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>Si la probeta medía 50 mm entre marcas y tras la rotura mide 58 mm, calcule su alargamiento.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>A (%) = (l<sub>f</sub> − l₀) / l₀ · 100.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Alargamiento:<span class="eq">A = (58 − 50) / 50 · 100 = 16 %</span></li>
-      </ol>
-      <p class="res">A = 16 %.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>¿Por qué la carga baja de 47 kN a 40 kN antes de que la probeta se parta?</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Pensamos en lo que indica el tramo d‑e del diagrama.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Razonamiento:<span class="eq">a partir del punto d la probeta ya se considera rota y en el tramo d‑e termina de romperse</span></li>
-      </ol>
-      <p class="res">Superado el punto d, la probeta no admite más carga y termina de romperse en el tramo d‑e.</p>
-    </div>
-    <p class="note com">En los problemas de teoría conviene nombrar siempre los tramos con sus letras (0‑a, a‑b, b‑c, c‑d, d‑e).</p>
-  </details>
-  <details class="prob" id="p7">
-    <summary>7. Comparación entre aluminio y acero</summary>
-    <p class="enun">Dos varillas de 8 mm de diámetro y 1 m de longitud, una de aluminio (E = 70 GPa) y otra de acero (E = 210 GPa), soportan cada una 5 kN. Ambas trabajan en la zona de proporcionalidad. Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La tensión en cada varilla. (0,5 puntos)</li>
-      <li class="q"><b>b)</b> El alargamiento de cada una. (1 punto)</li>
-      <li class="q"><b>c)</b> El diámetro de la varilla de aluminio para que se alargue lo mismo que la de acero. (1 punto)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> d = 8 mm; l₀ = 1 000 mm; F = 5 000 N; E<sub>Al</sub> = 70 000 MPa; E<sub>ac</sub> = 210 000 MPa</p>
-    <div class="ap">
-      <h4><span>a)</span>La tensión en cada varilla.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Tienen la misma sección y la misma carga, así que la tensión es la misma: no depende del material.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección y tensión:<span class="eq">S = π · 8² / 4 = 50,27 mm² &nbsp;→&nbsp; σ = 5 000 / 50,27 = 99,5 MPa</span></li>
-      </ol>
-      <p class="res">σ = 99,5 MPa en las dos.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>El alargamiento de cada una.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Aquí sí influye el material: ε = σ / E y Δl = ε · l₀. Cuanto menor es E, más se alarga.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Aluminio:<span class="eq">ε = 99,5 / 70 000 = 1,42 · 10⁻³ &nbsp;→&nbsp; Δl = 1,42 mm</span></li>
-          <li>Acero:<span class="eq">ε = 99,5 / 210 000 = 4,74 · 10⁻⁴ &nbsp;→&nbsp; Δl = 0,47 mm</span></li>
-      </ol>
-      <p class="res">Δl<sub>Al</sub> ≈ 1,42 mm; Δl<sub>ac</sub> ≈ 0,47 mm: el aluminio se alarga tres veces más.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>El diámetro de la varilla de aluminio para que se alargue lo mismo que la de acero.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Para el mismo alargamiento, ε debe ser igual en las dos, es decir, σ / E igual. Como E del aluminio es la tercera parte, su tensión también debe ser la tercera parte (99,5 / 3 = 33,2 MPa).</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección necesaria:<span class="eq">S = 5 000 / 33,17 = 150,8 mm²</span></li>
-          <li>Diámetro:<span class="eq">d = √(4 · 150,8 / π) = 13,86 mm</span></li>
-      </ol>
-      <p class="res">d<sub>Al</sub> ≈ 13,9 mm.</p>
-    </div>
-    <p class="note com">El cociente de alargamientos es el inverso del cociente de módulos de Young (210 / 70 = 3).</p>
-  </details>
-  <details class="prob" id="p8">
-    <summary>8. Cable de una grúa</summary>
-    <p class="enun">El cable de acero de una grúa ha de elevar una masa de 2 000 kg sin que la tensión supere 100 MPa. El módulo de Young es 210 GPa (g = 9,8 m/s²). Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La fuerza que soporta el cable. (0,5 puntos)</li>
-      <li class="q"><b>b)</b> El diámetro mínimo del cable. (1 punto)</li>
-      <li class="q"><b>c)</b> El alargamiento de un tramo de 15 m de cable de 16 mm. (1 punto)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> m = 2 000 kg; σ máxima = 100 MPa; E = 210 000 MPa</p>
-    <div class="ap">
-      <h4><span>a)</span>La fuerza que soporta el cable.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>La fuerza es el peso de la carga: F = m · g.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Peso:<span class="eq">F = 2 000 · 9,8 = 19 600 N</span></li>
-      </ol>
-      <p class="res">F = 19 600 N.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>El diámetro mínimo del cable.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Sección necesaria con σ = F / S y, de ella, el diámetro.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección:<span class="eq">S = 19 600 / 100 = 196 mm²</span></li>
-          <li>Diámetro:<span class="eq">d = √(4 · 196 / π) = 15,8 mm</span></li>
-      </ol>
-      <p class="res">d<sub>mín</sub> ≈ 15,8 mm (se usaría un cable de 16 mm).</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>El alargamiento de un tramo de 15 m de cable de 16 mm.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Con el diámetro elegido calculamos la tensión real y aplicamos la ley de Hooke (tratamos el cable como una barra maciza).</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Tensión real:<span class="eq">S = π · 16² / 4 = 201,1 mm² &nbsp;→&nbsp; σ = 19 600 / 201,1 = 97,5 MPa</span></li>
-          <li>Deformación y alargamiento:<span class="eq">ε = 97,5 / 210 000 = 4,64 · 10⁻⁴ &nbsp;→&nbsp; Δl = 4,64 · 10⁻⁴ · 15 000 = 6,96 mm</span></li>
-      </ol>
-      <p class="res">Δl ≈ 7 mm.</p>
-    </div>
-    <p class="note com">Antes de calcular la tensión hay que pasar siempre la masa a fuerza: los kilogramos no son newtons.</p>
-  </details>
-  <details class="prob" id="p9">
-    <summary>9. Probeta de sección rectangular</summary>
-    <p class="enun">Una probeta plana de 20 × 5 mm de sección y 80 mm de longitud inicial se alarga 0,045 mm con una carga de 12 kN, dentro de la zona de proporcionalidad. El límite de proporcionalidad del material es σp = 250 MPa. Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La tensión y la deformación unitaria. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> El módulo de Young. (0,75 puntos)</li>
-      <li class="q"><b>c)</b> La carga y el alargamiento en el límite de proporcionalidad. (1 punto)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> S = 20 × 5 mm; l₀ = 80 mm; F = 12 000 N; Δl = 0,045 mm; σp = 250 MPa</p>
-    <div class="ap">
-      <h4><span>a)</span>La tensión y la deformación unitaria.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Igual que con una probeta cilíndrica; solo cambia el cálculo de la sección.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección y tensión:<span class="eq">S = 20 · 5 = 100 mm² &nbsp;→&nbsp; σ = 12 000 / 100 = 120 MPa</span></li>
-          <li>Deformación:<span class="eq">ε = 0,045 / 80 = 5,625 · 10⁻⁴</span></li>
-      </ol>
-      <p class="res">σ = 120 MPa; ε = 5,63 · 10⁻⁴.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>El módulo de Young.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Ley de Hooke, ya que estamos en la zona de proporcionalidad.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Módulo:<span class="eq">E = σ / ε = 120 / 5,625 · 10⁻⁴ = 213 333 MPa</span></li>
-      </ol>
-      <p class="res">E ≈ 2,13 · 10¹¹ N/m².</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La carga y el alargamiento en el límite de proporcionalidad.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Con σ = σp calculamos la carga (F = σp · S) y, con la ley de Hooke, la deformación y el alargamiento.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Carga:<span class="eq">F = 250 · 100 = 25 000 N</span></li>
-          <li>Alargamiento:<span class="eq">ε = 250 / 213 333 = 1,17 · 10⁻³ &nbsp;→&nbsp; Δl = 1,17 · 10⁻³ · 80 = 0,094 mm</span></li>
-      </ol>
-      <p class="res">F = 25 kN; Δl ≈ 0,094 mm.</p>
-    </div>
-    <p class="note com">Con deformaciones tan pequeñas conviene usar notación científica para no perder ceros por el camino.</p>
-  </details>
-  <details class="prob" id="p10">
-    <summary>10. Diseño por alargamiento máximo</summary>
-    <p class="enun">Una varilla de cobre de 300 mm de longitud debe soportar 8 kN sin alargarse más de 0,2 mm. El cobre tiene E = 120 GPa y σp = 150 MPa. Calcule:</p>
-    <ol class="aps">
-      <li class="q"><b>a)</b> La deformación unitaria y la tensión máximas permitidas. (0,75 puntos)</li>
-      <li class="q"><b>b)</b> El diámetro mínimo de la varilla. (1 punto)</li>
-      <li class="q"><b>c)</b> La tensión y el alargamiento reales si se usa una varilla de 12 mm. (0,75 puntos)</li>
-    </ol>
-    <p class="datos"><b>Datos:</b> l₀ = 300 mm; F = 8 000 N; Δl máximo = 0,2 mm; E = 120 000 MPa; σp = 150 MPa</p>
-    <div class="ap">
-      <h4><span>a)</span>La deformación unitaria y la tensión máximas permitidas.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>El alargamiento máximo fija la deformación máxima; con la ley de Hooke obtenemos la tensión que la produce.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Deformación máxima:<span class="eq">ε = 0,2 / 300 = 6,67 · 10⁻⁴</span></li>
-          <li>Tensión:<span class="eq">σ = ε · E = 6,67 · 10⁻⁴ · 120 000 = 80 MPa</span></li>
-      </ol>
-      <p class="res">ε = 6,67 · 10⁻⁴; σ = 80 MPa.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>El diámetro mínimo de la varilla.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Comprobamos que 80 MPa &lt; σp (se cumple Hooke). Después, sección y diámetro.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Sección mínima:<span class="eq">S = 8 000 / 80 = 100 mm²</span></li>
-          <li>Diámetro:<span class="eq">d = √(4 · 100 / π) = 11,28 mm</span></li>
-      </ol>
-      <p class="res">d<sub>mín</sub> ≈ 11,3 mm.</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>La tensión y el alargamiento reales si se usa una varilla de 12 mm.</h4>
-      <span class="lbl">Planteamiento</span>
-      <p>Recalculamos con el diámetro elegido.</p>
-      <span class="lbl">Desarrollo</span>
-      <ol class="steps">
-          <li>Tensión:<span class="eq">S = π · 12² / 4 = 113,1 mm² &nbsp;→&nbsp; σ = 8 000 / 113,1 = 70,7 MPa</span></li>
-          <li>Alargamiento:<span class="eq">ε = 70,7 / 120 000 = 5,89 · 10⁻⁴ &nbsp;→&nbsp; Δl = 0,177 mm</span></li>
-      </ol>
-      <p class="res">σ ≈ 70,7 MPa; Δl ≈ 0,18 mm (menos de 0,2 mm ✓).</p>
-    </div>
-    <p class="note com">Aquí lo que limita el diseño es el alargamiento, no la tensión: por tensión bastaría una sección menor.</p>
-  </details>
+  <h2><span class="n">5</span>Problemas</h2>
+  <p>Los problemas de este ensayo están en la página de problemas de Materiales, junto con los de los demás ensayos y los de tus hojas.</p>
+  <p><a class="btn-go" href="materiales-problemas.html#traccion">Ir a los problemas de ensayo de tracción</a></p>
 </section>
 
 <aside class="others" aria-label="Otros ensayos">
@@ -1000,7 +569,7 @@ svg.art{display:block;width:100%;height:auto}
 <path d="M170 168 H230 L214 196 H186 Z" style="fill:var(--hot);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>
 <circle cx="200" cy="50" r="12" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
 <g style="stroke:var(--hot);stroke-width:3;stroke-linecap:round"><line x1="168" y1="214" x2="150" y2="196"/><line x1="232" y1="214" x2="252" y2="198"/><line x1="200" y1="228" x2="200" y2="246"/></g>
-<text x="292" y="44" style="fill:var(--hot);font:700 44px var(--display)">J/mm²</text>
+<text x="384" y="44" text-anchor="end" style="fill:var(--hot);font:700 40px var(--display)">J/mm²</text>
 </svg><span>Ensayo de resiliencia</span></a></li>
   </ul>
 </aside>
