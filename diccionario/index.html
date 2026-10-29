@@ -197,6 +197,7 @@ body.single .runhead.brand img{width:34px;height:34px}
 .cover .frame{position:absolute;inset:28px;border:1.5px solid var(--gold);opacity:.75;outline:1px solid var(--gold);outline-offset:-8px}
 .cover h1{font-family:var(--font-display);font-weight:700;font-size:54px;letter-spacing:.06em;margin:0;line-height:1;text-align:center}
 .cover p{font-family:var(--font-serif);font-style:italic;font-size:21px;margin:0;opacity:.9}
+.cover .colophon{max-width:300px;text-align:center;font-size:24px;line-height:1.45;opacity:1;text-wrap:balance}
 .cover .orn{width:120px;height:14px}
 .cover .seal{filter:drop-shadow(0 1px 0 rgba(0,0,0,.45)) drop-shadow(0 -1px 0 rgba(255,235,180,.12))}
 .cover .logo{width:190px;height:190px;display:block}
@@ -662,10 +663,10 @@ body.single .alpha{display:flex}
     if(i<words.length-1) addLeaf(rightPage(words[i],i),'page', leftPage(words[i+1],i+1),'page');
     else addLeaf(rightPage(words[i],i),'page','','endpaper');
   }
-  addLeaf('','endpaper',`<div class="frame"></div>${orn}`,'cover backcover');
+  addLeaf('','endpaper',`<div class="frame"></div><p class="colophon">Este diccionario forma parte del Plan de Lectura del IES&nbsp;Palomares para 1.º&nbsp;ESO</p>${orn}`,'cover backcover');
 
   const N = leaves.length;
-  let current = 1, zc = 0;
+  let current = 0, zc = 0;   // se abre cerrado, mostrando la portada
 
   function zfix(){
     leaves.forEach((L,i)=>{ if(!L.active) L.el.style.zIndex = i<current ? i+1 : N-i+1; });
@@ -871,6 +872,10 @@ body.single .alpha{display:flex}
       if(current===0) side='R';
       if(current===N) side='L';
       off = side==='L' ? PW/2 : -PW/2;
+    } else if(current===0){
+      off = -PW/2;                     // libro cerrado: portada centrada
+    } else if(current===N){
+      off = PW/2;                      // contraportada centrada
     }
     scaler.style.transform=`translateX(-50%) translateY(${12*scale}px) scale(${scale}) translateX(${off}px)`;
   }
