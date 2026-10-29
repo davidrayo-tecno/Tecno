@@ -216,6 +216,8 @@ body.single .runhead.brand img{width:34px;height:34px}
   font-family:var(--font-serif);font-style:italic;color:#7b6c4e;font-size:18px;text-align:center;
   box-shadow:0 1px 3px rgba(0,0,0,.12);white-space:nowrap;
 }
+.endpaper .label b{font-family:var(--font-display);font-style:normal;font-weight:700;font-size:24px;letter-spacing:.04em;color:#5e4f2f;display:inline-block;margin:4px 0}
+.endpaper .label{line-height:1.45}
 .endpaper .label small{display:block;font-family:var(--font-display);font-style:normal;letter-spacing:.2em;font-size:11px;margin-top:6px;color:#9a8a68}
 
 .rel{margin:4px 0 0;display:flex;flex-direction:column;gap:8px;border-left:2px solid var(--gold);padding-left:14px}
@@ -658,13 +660,12 @@ body.single .alpha{display:flex}
     }
   }
   addLeaf(`<div class="frame"></div><div class="seal" role="img" aria-label="Logo del IES Palomares"><svg class="logo" viewBox="0 0 1000 1000" aria-hidden="true"><defs><linearGradient id="gf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8843c"/><stop offset=".3" stop-color="#ecd38e"/><stop offset=".48" stop-color="#c8a55a"/><stop offset=".62" stop-color="#f3dea0"/><stop offset=".82" stop-color="#b08a3e"/><stop offset="1" stop-color="#d9bb72"/></linearGradient><path id="arcT" d="M88 500A412 412 0 0 1 912 500"/><path id="arcB" d="M42 500A458 458 0 0 0 958 500"/></defs><g fill="url(#gf)" stroke="url(#gf)"><circle cx="500" cy="500" r="494" fill="none" stroke-width="7"/><circle cx="500" cy="500" r="362" fill="none" stroke-width="5"/><circle cx="70" cy="500" r="11" stroke="none"/><circle cx="930" cy="500" r="11" stroke="none"/><path fill-rule="evenodd" stroke="none" d="M504 751 L472 750 L451 747 L433 742 L421 739 L403 732 L378 719 L349 700 L330 682 L311 659 L296 635 L288 614 L284 604 L279 580 L278 561 L278 305 L278 300 L282 297 L288 296 L714 296 L718 297 L721 299 L722 304 L722 561 L720 578 L715 603 L710 618 L703 633 L688 658 L678 672 L666 685 L642 705 L617 722 L583 737 L564 743 L528 750 L504 751Z M527 674 L526 647 L514 499 L517 495 L635 402 L638 398 L635 396 L524 391 L516 395 L459 444 L451 449 L445 448 L422 438 L390 426 L385 428 L379 433 L360 452 L360 454 L362 456 L384 457 L389 460 L391 466 L392 492 L396 502 L499 608 L501 614 L499 636 L522 671 L525 674 L527 674Z"/><g stroke="none" font-family="Cormorant Garamond,Georgia,serif" font-weight="600" font-size="66" letter-spacing="7"><text text-anchor="middle"><textPath href="#arcT" startOffset="50%">SCIENTIA LAETITIA NOSTRA</textPath></text><text text-anchor="middle" letter-spacing="13"><textPath href="#arcB" startOffset="50%">I.E.S. PALOMARES</textPath></text></g></g></svg></div><h1>Diccionario</h1>${orn}<p>Plan de Lectura</p><span class="course"><b>1.º</b> ESO</span>`,'cover',
-          `<div class="label">Este diccionario pertenece a<br>· · · · · · · · · · · ·<small>MMXXVI</small></div>`,'endpaper');
+          `<div class="label">Este diccionario pertenece al<br><b>Plan de Lectura</b><br>del IES Palomares<small>1.º ESO · MMXXVI</small></div>`,'endpaper');
   addLeaf(indexPage,'page', leftPage(words[0],0),'page');
   for(let i=0;i<words.length;i++){
     if(i<words.length-1) addLeaf(rightPage(words[i],i),'page', leftPage(words[i+1],i+1),'page');
-    else addLeaf(rightPage(words[i],i),'page','','endpaper');
+    else addLeaf(rightPage(words[i],i),'page',`<div class="frame"></div><p class="colophon">Este diccionario forma parte del Plan de Lectura del IES&nbsp;Palomares para 1.º&nbsp;ESO</p>${orn}`,'cover backcover');   // tras la última palabra, la contraportada
   }
-  addLeaf('','endpaper',`<div class="frame"></div><p class="colophon">Este diccionario forma parte del Plan de Lectura del IES&nbsp;Palomares para 1.º&nbsp;ESO</p>${orn}`,'cover backcover');
 
   const N = leaves.length;
   let current = 0, zc = 0;   // se abre cerrado, mostrando la portada
