@@ -200,6 +200,7 @@ body.single .runhead.brand img{width:34px;height:34px}
 .cover .orn{width:120px;height:14px}
 .cover .seal{filter:drop-shadow(0 1px 0 rgba(0,0,0,.45)) drop-shadow(0 -1px 0 rgba(255,235,180,.12))}
 .cover .logo{width:190px;height:190px;display:block}
+.cover .course{font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:.22em;border:1.5px solid var(--gold);padding:6px 16px 5px;margin-top:6px}
 .cover .mark{font-family:var(--font-display);letter-spacing:.3em;font-size:14px;opacity:.85}
 .endpaper{
   background:
@@ -413,6 +414,27 @@ body.single .alpha{display:flex}
       <rect x="212" y="122" width="16" height="84" fill="${G}" stroke="none"/>
       <rect x="238" y="152" width="16" height="54" fill="${A}" stroke="none"/>
     </svg>`,
+    eficiencia: `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2" font-family="Jost,sans-serif">
+      <rect x="40" y="20" width="220" height="210" rx="6" fill="${P}"/>
+      ${['A','B','C','D','E','F','G'].map((l,k)=>{const y=36+k*26,w=60+k*18,top=k<3;
+        return `<path d="M56 ${y}H${56+w}L${68+w} ${y+10}L${56+w} ${y+20}H56Z" fill="${top?G:A}" fill-opacity="${top?(1-k*0.22).toFixed(2):(0.3+(k-3)*0.15).toFixed(2)}" stroke="none"/>`+
+               `<text x="64" y="${y+15}" font-size="13" font-weight="600" fill="${top?P:G}" stroke="none">${l}</text>`}).join('')}
+      <path d="M252 36H222L210 46L222 56H252Z" fill="${A}" stroke="${G}" stroke-width="1.6" stroke-linejoin="round"/>
+      <text x="234" y="51" font-size="14" font-weight="700" fill="${G}" stroke="none" text-anchor="middle">A</text>
+    </svg>`,
+    boceto: `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="40" y="34" width="196" height="190" rx="4" fill="${P}"/>
+      ${[0,1,2,3,4,5,6,7].map(k=>`<circle cx="${58+k*24}" cy="34" r="5.5" fill="${P}" stroke-width="1.6"/>`).join('')}
+      <g stroke-width="1.4" stroke-opacity=".85">
+        <path d="M78 198H152M82 201H149"/>
+        <path d="M115 196L100 141M118 195L103 142"/>
+        <path d="M100 141L150 105M103 144L152 108"/>
+        <path d="M150 105L186 86L200 121ZM148 103L185 83L203 119"/>
+        <circle cx="101" cy="142" r="5"/><circle cx="151" cy="106" r="5"/>
+      </g>
+      <path d="M196 128L206 166M186 131L182 168M206 124L222 156" stroke="${A}" stroke-dasharray="3 5" stroke-width="1.6"/>
+      <g transform="translate(232 198) rotate(40)"><rect x="-6" y="-84" width="12" height="74" fill="${A}" fill-opacity=".55"/><path d="M-6 -10L0 6L6 -10Z" fill="${P}"/><path d="M-1.8 1.5L0 6L1.8 1.5Z" fill="${G}"/><rect x="-6" y="-92" width="12" height="8" fill="${G}" fill-opacity=".7"/></g>
+    </svg>`,
     dato: `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2" font-family="Jost,sans-serif" text-anchor="middle">
       ${['12','0,8','104','37','23,5','9','256','1','64'].map((v,k)=>{const c=k%3,r=Math.floor(k/3),x=45+c*70,y=35+r*60,hi=k===4;
         return `<rect x="${x}" y="${y}" width="70" height="60" fill="${hi?A:P}" fill-opacity="${hi?.3:1}" stroke-width="${hi?3:1.5}"/>`+
@@ -429,15 +451,6 @@ body.single .alpha{display:flex}
       <path d="M60 76H44M60 190H44" stroke-width="1"/><path d="M50 77V189" stroke-width="1.2" marker-start="url(#ad)" marker-end="url(#ad)"/>
       <text x="40" y="137" font-size="13" fill="${G}" stroke="none" transform="rotate(-90 40 133)">114</text>
       <g transform="translate(232 176) rotate(-45)"><rect x="-6" y="-7" width="76" height="14" fill="${A}" fill-opacity=".55"/><path d="M-6 -7L-22 0L-6 7Z" fill="${P}"/><path d="M-17 -2L-22 0L-17 2Z" fill="${G}"/></g>
-    </svg>`,
-    error: `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2" stroke-linecap="round">
-      <rect x="30" y="32" width="240" height="182" rx="6" fill="${P}"/>
-      <path d="M30 56H270" stroke-width="1.5"/>
-      <circle cx="46" cy="44" r="4" fill="${A}" stroke="none"/><circle cx="60" cy="44" r="4" fill="${A}" fill-opacity=".6" stroke="none"/><circle cx="74" cy="44" r="4" fill="${A}" fill-opacity=".35" stroke="none"/>
-      <path d="M50 80H150M50 100H120M66 120H200M66 140H170M50 160H96M50 180H140" stroke="${A}" stroke-width="5" stroke-opacity=".55"/>
-      <path d="M66 140H170" stroke="${G}" stroke-width="5"/>
-      <path d="M66 151q5 -6 10 0t10 0t10 0t10 0t10 0t10 0t10 0t10 0t10 0t10 0t10 0" stroke="${G}" stroke-width="1.6"/>
-      <circle cx="226" cy="140" r="17" fill="${G}" stroke="none"/><path d="M219 133L233 147M233 133L219 147" stroke="${P}" stroke-width="3"/>
     </svg>`,
     ingenio: `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
       ${[0,1,2,3,4,5,6].map(i=>{const a=Math.PI*(1.05+i*0.15);return `<path stroke="${A}" d="M${(150+Math.cos(a)*92).toFixed(1)} ${(100+Math.sin(a)*92).toFixed(1)}L${(150+Math.cos(a)*110).toFixed(1)} ${(100+Math.sin(a)*110).toFixed(1)}"/>`}).join('')}
@@ -493,16 +506,6 @@ body.single .alpha{display:flex}
       <circle cx="170" cy="112" r="22" stroke="${A}" stroke-width="1.2" stroke-opacity=".6"/>
       <circle cx="170" cy="112" r="32" stroke="${A}" stroke-width="1" stroke-opacity=".3"/>
       <g transform="translate(172 106) rotate(38)"><rect x="-11" y="-96" width="22" height="98" rx="11" fill="${P}"/><rect x="-6.5" y="-20" width="13" height="13" rx="4" stroke-width="1.2"/></g>
-    </svg>`,
-    tolerancia: `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
-      <path d="M92 150L78 186L122 154" fill="${P}"/>
-      <ellipse cx="110" cy="108" rx="74" ry="52" fill="${P}"/>
-      <path d="M92 150L78 186L122 154" fill="${P}" stroke="none"/>
-      <path d="M74 98H146M84 120H136" stroke="${A}" stroke-width="3"/>
-      <path d="M228 160L240 196L206 160" fill="${A}" fill-opacity=".25"/>
-      <rect x="152" y="78" width="122" height="84" rx="14" fill="#f0e6cf"/>
-      <path d="M228 158L240 196L206 158" fill="#f0e6cf" stroke="none"/>
-      <path d="M172 106H252M172 128H228" stroke="${G}" stroke-width="3" stroke-opacity=".7"/>
     </svg>`
   };
 
@@ -514,6 +517,9 @@ body.single .alpha{display:flex}
     {w:'artefacto', sin:'aparato, dispositivo, artilugio, máquina', ant:'', cat:'sust. masc.',
      def:'Objeto fabricado por las personas para un fin determinado. También, máquina o aparato, sobre todo si es grande o complicado.',
      ex:'En el museo vimos un <em>artefacto</em> de bronce que servía para medir el paso de las estrellas.', fig:'Engranajes'},
+    {w:'boceto', sin:'esbozo, borrador, bosquejo, apunte', ant:'', cat:'sust. masc.',
+     def:'Dibujo rápido y sencillo que se hace para recoger una idea antes de desarrollarla con detalle.',
+     ex:'Antes de construir la lámpara, cada uno hizo un <em>boceto</em> a lápiz en su cuaderno.', fig:'Dibujo a lápiz'},
     {w:'dato', sin:'información, valor, cifra', ant:'', cat:'sust. masc.',
      def:'Información concreta que permite conocer algo o llegar a una conclusión.',
      ex:'El sensor de temperatura envía un <em>dato</em> nuevo a la placa Arduino cada segundo.', fig:'Tabla de valores'},
@@ -523,9 +529,9 @@ body.single .alpha{display:flex}
     {w:'diseño', sin:'plan, boceto, esbozo, proyecto', ant:'improvisación', cat:'sust. masc.',
      def:'Plan o dibujo con el que se idea un objeto antes de fabricarlo. También, la forma y el aspecto que tiene ese objeto.',
      ex:'Antes de cortar la madera, hicimos el <em>diseño</em> de la estructura en papel y a escala.', fig:'Plano acotado'},
-    {w:'error', sin:'fallo, equivocación, desacierto', ant:'acierto', cat:'sust. masc.',
-     def:'Idea, acción o juicio equivocado.',
-     ex:'El programa no compilaba por un <em>error</em>: faltaba un punto y coma.', fig:'Código con fallo'},
+    {w:'eficiencia', sin:'rendimiento, aprovechamiento, productividad', ant:'ineficiencia, derroche', cat:'sust. fem.',
+     def:'Capacidad de conseguir un resultado usando los menos recursos posibles, como tiempo, energía o dinero.',
+     ex:'Cambiamos las bombillas por otras LED para mejorar la <em>eficiencia</em> energética del aula.', fig:'Etiqueta energética'},
     {w:'escala', sin:'proporción, graduación', ant:'', cat:'sust. fem.',
      def:'Proporción entre el tamaño de un dibujo, un plano o una maqueta y el tamaño real de lo que representa. También, serie ordenada de grados o niveles.',
      ex:'Dibujamos la planta del aula a <em>escala</em> 1:50 para que cupiera en un folio.', fig:'Dibujo ampliado'},
@@ -562,9 +568,6 @@ body.single .alpha{display:flex}
     {w:'tangible', sin:'palpable, concreto, material', ant:'intangible, abstracto', cat:'adjetivo',
      def:'Que se puede tocar o percibir con claridad.',
      ex:'Al terminar, el esfuerzo se convirtió en algo <em>tangible</em>: un robot que funcionaba.', fig:'Objeto al tacto'},
-    {w:'tolerancia', sin:'respeto, comprensión, transigencia', ant:'intolerancia, intransigencia', cat:'sust. fem.',
-     def:'Respeto hacia las ideas, opiniones o costumbres de los demás, aunque no coincidan con las propias.',
-     ex:'En el debate practicamos la <em>tolerancia</em> escuchando opiniones distintas a la nuestra.', fig:'Dos opiniones'},
     {w:'viable', sin:'factible, posible, realizable', ant:'inviable, imposible', cat:'adjetivo',
      def:'Que tiene probabilidades de llevarse a cabo o de salir adelante.',
      ex:'Después de revisar los costes, el equipo concluyó que el proyecto era <em>viable</em>.', fig:'Brote que crece'}
@@ -652,7 +655,7 @@ body.single .alpha{display:flex}
       prev=a;
     }
   }
-  addLeaf(`<div class="frame"></div><div class="seal" role="img" aria-label="Logo del IES Palomares"><svg class="logo" viewBox="0 0 1000 1000" aria-hidden="true"><defs><linearGradient id="gf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8843c"/><stop offset=".3" stop-color="#ecd38e"/><stop offset=".48" stop-color="#c8a55a"/><stop offset=".62" stop-color="#f3dea0"/><stop offset=".82" stop-color="#b08a3e"/><stop offset="1" stop-color="#d9bb72"/></linearGradient><path id="arcT" d="M88 500A412 412 0 0 1 912 500"/><path id="arcB" d="M42 500A458 458 0 0 0 958 500"/></defs><g fill="url(#gf)" stroke="url(#gf)"><circle cx="500" cy="500" r="494" fill="none" stroke-width="7"/><circle cx="500" cy="500" r="362" fill="none" stroke-width="5"/><circle cx="70" cy="500" r="11" stroke="none"/><circle cx="930" cy="500" r="11" stroke="none"/><path fill-rule="evenodd" stroke="none" d="M504 751 L472 750 L451 747 L433 742 L421 739 L403 732 L378 719 L349 700 L330 682 L311 659 L296 635 L288 614 L284 604 L279 580 L278 561 L278 305 L278 300 L282 297 L288 296 L714 296 L718 297 L721 299 L722 304 L722 561 L720 578 L715 603 L710 618 L703 633 L688 658 L678 672 L666 685 L642 705 L617 722 L583 737 L564 743 L528 750 L504 751Z M527 674 L526 647 L514 499 L517 495 L635 402 L638 398 L635 396 L524 391 L516 395 L459 444 L451 449 L445 448 L422 438 L390 426 L385 428 L379 433 L360 452 L360 454 L362 456 L384 457 L389 460 L391 466 L392 492 L396 502 L499 608 L501 614 L499 636 L522 671 L525 674 L527 674Z"/><g stroke="none" font-family="Cormorant Garamond,Georgia,serif" font-weight="600" font-size="66" letter-spacing="7"><text text-anchor="middle"><textPath href="#arcT" startOffset="50%">SCIENTIA LAETITIA NOSTRA</textPath></text><text text-anchor="middle" letter-spacing="13"><textPath href="#arcB" startOffset="50%">I.E.S. PALOMARES</textPath></text></g></g></svg></div><h1>Diccionario</h1>${orn}<p>${numw(words.length)} palabras, ${numw(words.length)} láminas</p>`,'cover',
+  addLeaf(`<div class="frame"></div><div class="seal" role="img" aria-label="Logo del IES Palomares"><svg class="logo" viewBox="0 0 1000 1000" aria-hidden="true"><defs><linearGradient id="gf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8843c"/><stop offset=".3" stop-color="#ecd38e"/><stop offset=".48" stop-color="#c8a55a"/><stop offset=".62" stop-color="#f3dea0"/><stop offset=".82" stop-color="#b08a3e"/><stop offset="1" stop-color="#d9bb72"/></linearGradient><path id="arcT" d="M88 500A412 412 0 0 1 912 500"/><path id="arcB" d="M42 500A458 458 0 0 0 958 500"/></defs><g fill="url(#gf)" stroke="url(#gf)"><circle cx="500" cy="500" r="494" fill="none" stroke-width="7"/><circle cx="500" cy="500" r="362" fill="none" stroke-width="5"/><circle cx="70" cy="500" r="11" stroke="none"/><circle cx="930" cy="500" r="11" stroke="none"/><path fill-rule="evenodd" stroke="none" d="M504 751 L472 750 L451 747 L433 742 L421 739 L403 732 L378 719 L349 700 L330 682 L311 659 L296 635 L288 614 L284 604 L279 580 L278 561 L278 305 L278 300 L282 297 L288 296 L714 296 L718 297 L721 299 L722 304 L722 561 L720 578 L715 603 L710 618 L703 633 L688 658 L678 672 L666 685 L642 705 L617 722 L583 737 L564 743 L528 750 L504 751Z M527 674 L526 647 L514 499 L517 495 L635 402 L638 398 L635 396 L524 391 L516 395 L459 444 L451 449 L445 448 L422 438 L390 426 L385 428 L379 433 L360 452 L360 454 L362 456 L384 457 L389 460 L391 466 L392 492 L396 502 L499 608 L501 614 L499 636 L522 671 L525 674 L527 674Z"/><g stroke="none" font-family="Cormorant Garamond,Georgia,serif" font-weight="600" font-size="66" letter-spacing="7"><text text-anchor="middle"><textPath href="#arcT" startOffset="50%">SCIENTIA LAETITIA NOSTRA</textPath></text><text text-anchor="middle" letter-spacing="13"><textPath href="#arcB" startOffset="50%">I.E.S. PALOMARES</textPath></text></g></g></svg></div><h1>Diccionario</h1>${orn}<p>${numw(words.length)} palabras, ${numw(words.length)} láminas</p><span class="course">1.º ESO</span>`,'cover',
           `<div class="label">Este diccionario pertenece a<br>· · · · · · · · · · · ·<small>MMXXVI</small></div>`,'endpaper');
   addLeaf(indexPage,'page', leftPage(words[0],0),'page');
   for(let i=0;i<words.length;i++){
