@@ -36,13 +36,14 @@ button{font:inherit;color:inherit}
 
 /* cabecera */
 .top{width:100%;max-width:980px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #cfc6b4;padding-bottom:10px}
-.top img{width:56px;height:56px;flex:none}
+.top img{width:64px;height:64px;flex:none}
 .top .t{display:flex;flex-direction:column;min-width:0;flex:1}
 .top h1{margin:0;font-family:var(--font-serif);font-weight:700;font-size:34px;line-height:1;white-space:nowrap}
 .top .t{gap:4px}
-.top .sub{font-family:var(--font-serif);font-size:18px;line-height:1.15;color:#3d382f;display:flex;flex-wrap:wrap;column-gap:.4em}
+.top .sub{font-family:var(--font-serif);font-size:18px;line-height:1.15;color:#3d382f;display:flex;flex-direction:column;gap:1px}
 .top .sub b{color:var(--gold-ink);font-weight:700}
 .top .sub strong{font-weight:700;color:var(--cloth)}
+.top .sub .course{font-weight:600;color:#3d382f}
 .top .sub .sep{color:var(--gold)}
 .top a svg{width:17px;height:17px;display:none}
 .top a{font-size:13px;color:var(--gold-ink);text-decoration:none;border:1px solid #d6c79f;border-radius:999px;padding:6px 12px;white-space:nowrap;background:rgba(255,255,255,.5)}
@@ -137,8 +138,7 @@ button{font:inherit;color:inherit}
   .top{gap:10px;align-items:center}
   .top img{width:48px;height:48px}
   .top h1{font-size:30px}
-  .top .sub{font-size:16px;flex-direction:column}
-  .top .sub > .sep{display:none}
+  .top .sub{font-size:16px}
   .top a{width:36px;height:36px;padding:0;display:grid;place-items:center;flex:none}
   .top a svg{display:block}
   .top a .lbl{display:none}
@@ -151,7 +151,7 @@ button{font:inherit;color:inherit}
   <img src="data:image/svg+xml;base64,PHN2ZyB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIj48ZGVmcz48cGF0aCBpZD0iYXJjVCIgZD0iTTg4IDUwMEE0MTIgNDEyIDAgMCAxIDkxMiA1MDAiLz48cGF0aCBpZD0iYXJjQiIgZD0iTTQyIDUwMEE0NTggNDU4IDAgMCAwIDk1OCA1MDAiLz48L2RlZnM+PGcgZmlsbD0iIzlhN2EzMiIgc3Ryb2tlPSIjOWE3YTMyIj48Y2lyY2xlIGN4PSI1MDAiIGN5PSI1MDAiIHI9IjQ5NCIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSI3Ii8+PGNpcmNsZSBjeD0iNTAwIiBjeT0iNTAwIiByPSIzNjIiIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iNSIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iNTAwIiByPSIxMSIgc3Ryb2tlPSJub25lIi8+PGNpcmNsZSBjeD0iOTMwIiBjeT0iNTAwIiByPSIxMSIgc3Ryb2tlPSJub25lIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9Im5vbmUiIGQ9Ik01MDQgNzUxIEw0NzIgNzUwIEw0NTEgNzQ3IEw0MzMgNzQyIEw0MjEgNzM5IEw0MDMgNzMyIEwzNzggNzE5IEwzNDkgNzAwIEwzMzAgNjgyIEwzMTEgNjU5IEwyOTYgNjM1IEwyODggNjE0IEwyODQgNjA0IEwyNzkgNTgwIEwyNzggNTYxIEwyNzggMzA1IEwyNzggMzAwIEwyODIgMjk3IEwyODggMjk2IEw3MTQgMjk2IEw3MTggMjk3IEw3MjEgMjk5IEw3MjIgMzA0IEw3MjIgNTYxIEw3MjAgNTc4IEw3MTUgNjAzIEw3MTAgNjE4IEw3MDMgNjMzIEw2ODggNjU4IEw2NzggNjcyIEw2NjYgNjg1IEw2NDIgNzA1IEw2MTcgNzIyIEw1ODMgNzM3IEw1NjQgNzQzIEw1MjggNzUwIEw1MDQgNzUxWiBNNTI3IDY3NCBMNTI2IDY0NyBMNTE0IDQ5OSBMNTE3IDQ5NSBMNjM1IDQwMiBMNjM4IDM5OCBMNjM1IDM5NiBMNTI0IDM5MSBMNTE2IDM5NSBMNDU5IDQ0NCBMNDUxIDQ0OSBMNDQ1IDQ0OCBMNDIyIDQzOCBMMzkwIDQyNiBMMzg1IDQyOCBMMzc5IDQzMyBMMzYwIDQ1MiBMMzYwIDQ1NCBMMzYyIDQ1NiBMMzg0IDQ1NyBMMzg5IDQ2MCBMMzkxIDQ2NiBMMzkyIDQ5MiBMMzk2IDUwMiBMNDk5IDYwOCBMNTAxIDYxNCBMNDk5IDYzNiBMNTIyIDY3MSBMNTI1IDY3NCBMNTI3IDY3NFoiLz48ZyBzdHJva2U9Im5vbmUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXdlaWdodD0iNjAwIiBmb250LXNpemU9IjY2IiBsZXR0ZXItc3BhY2luZz0iNyI+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSI+PHRleHRQYXRoIHhsaW5rOmhyZWY9IiNhcmNUIiBzdGFydE9mZnNldD0iNTAlIj5TQ0lFTlRJQSBMQUVUSVRJQSBOT1NUUkE8L3RleHRQYXRoPjwvdGV4dD48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMTMiPjx0ZXh0UGF0aCB4bGluazpocmVmPSIjYXJjQiIgc3RhcnRPZmZzZXQ9IjUwJSI+SS5FLlMuIFBBTE9NQVJFUzwvdGV4dFBhdGg+PC90ZXh0PjwvZz48L2c+PC9zdmc+" alt="Logo del IES Palomares">
   <div class="t">
     <h1>El Rosco</h1>
-    <span class="sub"><b>Plan de Lectura</b><span class="sep">·</span><span class="l2"><strong>IES Palomares</strong> <span class="sep">·</span> 1.º ESO</span></span>
+    <span class="sub"><b>Plan de Lectura</b><strong>IES Palomares</strong><span class="course">1.º ESO</span></span>
   </div>
   <button class="icon-btn" id="snd" type="button" aria-pressed="true" aria-label="Sonido activado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></button>
   <a href="../diccionario/" aria-label="Ir al diccionario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M9 8h6"/></svg><span class="lbl">Diccionario</span></a>
