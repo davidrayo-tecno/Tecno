@@ -65,7 +65,7 @@ body.single .plate{max-width:100%}
 body.single .example p{font-size:25px}
 body.single .index h2{font-size:46px}
 body.single .index ol{grid-auto-flow:row;grid-template-rows:none;grid-template-columns:1fr}
-body.single .index button{font-size:23px;padding:5px 4px}
+body.single .index button{font-size:21px;padding:2px 4px}
 body.single .cover h1{font-size:48px}
 body.single .cover .logo{width:200px;height:200px}
 body.single .cover p{font-size:22px}
@@ -174,10 +174,10 @@ body.single .runhead.brand img{width:34px;height:34px}
 /* índice */
 .index h2{font-family:var(--font-display);font-size:40px;margin:0 0 6px;font-weight:700}
 .index .sub{font-family:var(--font-serif);font-style:italic;color:var(--page-muted);font-size:18px;margin:0 0 22px}
-.index ol{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);grid-template-columns:1fr 1fr;column-gap:26px}
+.index ol{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-template-rows:repeat(var(--rows,8),auto);grid-template-columns:1fr 1fr;column-gap:26px}
 .index button{
   all:unset;box-sizing:border-box;width:100%;cursor:pointer;
-  display:flex;align-items:baseline;gap:8px;padding:5px 2px;
+  display:flex;align-items:baseline;gap:8px;padding:3px 2px;
   font-family:var(--font-serif);font-size:20px;color:var(--page-ink);
 }
 .index button .dots{flex:1;border-bottom:1.5px dotted #c6bca6;transform:translateY(-6px)}
@@ -355,6 +355,64 @@ body.single .alpha{display:flex}
       <path d="M150 128C176 126 198 104 200 78C172 78 152 100 150 128Z" fill="${P}"/>
       <path d="M150 128L188 88M149 150L110 106" stroke-width="1.2"/>
     </svg>`,
+    'digitalización': `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2" stroke-linejoin="round" font-family="Jost,sans-serif" text-anchor="middle">
+      <defs><marker id="adig" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="${A}" stroke="none"/></marker></defs>
+      <path d="M30 62H92L114 84V192H30Z" fill="${P}"/>
+      <path d="M92 62V84H114" stroke-width="1.6"/>
+      <path d="M44 104H100M44 120H94M44 136H100M44 152H82M44 168H96" stroke="${A}" stroke-width="4" stroke-opacity=".6" stroke-linecap="round"/>
+      <path d="M124 127H160" stroke="${A}" stroke-width="2.4" marker-end="url(#adig)"/>
+      <rect x="168" y="66" width="108" height="84" rx="6" fill="${G}"/>
+      <text x="222" y="96" font-size="15" letter-spacing="3" fill="${P}" stroke="none">0101</text>
+      <text x="222" y="116" font-size="15" letter-spacing="3" fill="${A}" stroke="none">1100</text>
+      <text x="222" y="136" font-size="15" letter-spacing="3" fill="${P}" stroke="none">1010</text>
+      <path d="M222 150V172M196 174H248" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M30 210H276" stroke="${A}" stroke-dasharray="2 6"/>
+    </svg>`,
+    escala: `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2" stroke-linejoin="round" font-family="Jost,sans-serif" text-anchor="middle">
+      <defs><marker id="aesc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="${G}" stroke="none"/></marker></defs>
+      <path d="M40 150L70 124L100 150V190H40Z" fill="${A}" fill-opacity=".25"/>
+      <rect x="62" y="166" width="16" height="24" fill="${P}"/>
+      <path d="M150 110L210 58L270 110V190H150Z" fill="${P}"/>
+      <rect x="194" y="142" width="32" height="48" fill="${A}" fill-opacity=".25"/>
+      <path d="M106 168H142" marker-end="url(#aesc)"/>
+      <text x="124" y="156" font-size="15" fill="${G}" stroke="none">× 2</text>
+      <path d="M26 190H284" stroke="${A}"/>
+      <rect x="60" y="208" width="45" height="9" fill="${G}"/><rect x="105" y="208" width="45" height="9" fill="${P}"/>
+      <rect x="150" y="208" width="45" height="9" fill="${G}"/><rect x="195" y="208" width="45" height="9" fill="${P}"/>
+      ${['0','1','2','3','4 m'].map((t,k)=>`<text x="${60+k*45}" y="236" font-size="11" fill="${G}" stroke="none">${t}</text>`).join('')}
+    </svg>`,
+    estable: `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <defs><marker id="aest" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="${G}" stroke="none"/></marker></defs>
+      <path d="M150 46L238 200H62Z" fill="${A}" fill-opacity=".22"/>
+      <path d="M150 46L172 200M150 46L128 200M95 142H205" stroke-width="1.2" stroke-opacity=".55"/>
+      <circle cx="150" cy="150" r="10" fill="${P}"/>
+      <path d="M150 150V140A10 10 0 0 1 160 150Z M150 150V160A10 10 0 0 1 140 150Z" fill="${G}" stroke="none"/>
+      <path d="M150 162V196" stroke-dasharray="4 4" marker-end="url(#aest)" stroke-width="1.6"/>
+      <path d="M30 200H270" stroke="${A}" stroke-width="2.4"/>
+      <path d="M62 216H238M62 210V222M238 210V222" stroke="${A}" stroke-width="1.6"/>
+    </svg>`,
+    funcional: `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M30 208H270" stroke="${A}"/>
+      <path d="M88 58L102 56L112 140H98Z" fill="${P}"/>
+      <path d="M93 92L108 90" stroke-width="1.4"/>
+      <rect x="96" y="138" width="98" height="14" rx="3" fill="${A}" fill-opacity=".35"/>
+      <path d="M104 152L96 208M186 152L196 208M100 184H190" />
+      <path d="M150 152V170" stroke-width="1.4"/>
+      <circle cx="226" cy="80" r="24" fill="${G}" stroke="none"/>
+      <path d="M214 80l8 9l16 -18" stroke="${P}" stroke-width="3.4"/>
+    </svg>`,
+    'ofimática': `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2" stroke-linejoin="round">
+      <rect x="36" y="36" width="130" height="164" rx="4" fill="${P}"/>
+      <path d="M52 60H130M52 78H150M52 96H144M52 114H118M52 132H150M52 150H128M52 168H140" stroke="${A}" stroke-width="4" stroke-opacity=".6" stroke-linecap="round"/>
+      <rect x="120" y="70" width="146" height="146" rx="4" fill="#f0e6cf"/>
+      <rect x="120" y="70" width="146" height="20" fill="${A}" fill-opacity=".45" stroke="none"/>
+      <path d="M120 90H266M120 110H266M120 130H266M120 150H266M120 170H266M120 190H266M150 70V216M180 70V216M210 70V216M240 70V216" stroke-width="1" stroke-opacity=".35"/>
+      <rect x="120" y="70" width="146" height="146" rx="4"/>
+      <rect x="160" y="166" width="16" height="40" fill="${G}" stroke="none"/>
+      <rect x="186" y="144" width="16" height="62" fill="${A}" stroke="none"/>
+      <rect x="212" y="122" width="16" height="84" fill="${G}" stroke="none"/>
+      <rect x="238" y="152" width="16" height="54" fill="${A}" stroke="none"/>
+    </svg>`,
     dato: `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2" font-family="Jost,sans-serif" text-anchor="middle">
       ${['12','0,8','104','37','23,5','9','256','1','64'].map((v,k)=>{const c=k%3,r=Math.floor(k/3),x=45+c*70,y=35+r*60,hi=k===4;
         return `<rect x="${x}" y="${y}" width="70" height="60" fill="${hi?A:P}" fill-opacity="${hi?.3:1}" stroke-width="${hi?3:1.5}"/>`+
@@ -459,21 +517,36 @@ body.single .alpha{display:flex}
     {w:'dato', sin:'información, valor, cifra', ant:'', cat:'sust. masc.',
      def:'Información concreta que permite conocer algo o llegar a una conclusión.',
      ex:'El sensor de temperatura envía un <em>dato</em> nuevo a la placa Arduino cada segundo.', fig:'Tabla de valores'},
+    {w:'digitalización', sin:'informatización', ant:'', cat:'sust. fem.',
+     def:'Proceso de convertir información, documentos o tareas a formato digital para poder usarlos con ordenadores y otros dispositivos.',
+     ex:'Gracias a la <em>digitalización</em> de la biblioteca, podemos consultar los libros desde casa.', fig:'Del papel a la pantalla'},
     {w:'diseño', sin:'plan, boceto, esbozo, proyecto', ant:'improvisación', cat:'sust. masc.',
      def:'Plan o dibujo con el que se idea un objeto antes de fabricarlo. También, la forma y el aspecto que tiene ese objeto.',
      ex:'Antes de cortar la madera, hicimos el <em>diseño</em> de la estructura en papel y a escala.', fig:'Plano acotado'},
     {w:'error', sin:'fallo, equivocación, desacierto', ant:'acierto', cat:'sust. masc.',
      def:'Idea, acción o juicio equivocado.',
      ex:'El programa no compilaba por un <em>error</em>: faltaba un punto y coma.', fig:'Código con fallo'},
+    {w:'escala', sin:'proporción, graduación', ant:'', cat:'sust. fem.',
+     def:'Proporción entre el tamaño de un dibujo, un plano o una maqueta y el tamaño real de lo que representa. También, serie ordenada de grados o niveles.',
+     ex:'Dibujamos la planta del aula a <em>escala</em> 1:50 para que cupiera en un folio.', fig:'Dibujo ampliado'},
+    {w:'estable', sin:'firme, equilibrado, seguro, constante', ant:'inestable, precario', cat:'adjetivo',
+     def:'Que se mantiene firme y en equilibrio, sin peligro de caerse, cambiar o estropearse.',
+     ex:'Ensanchamos la base de la torre para que fuera más <em>estable</em>.', fig:'Base ancha'},
     {w:'fiable', sin:'seguro, fidedigno, de confianza', ant:'dudoso, inseguro', cat:'adjetivo',
      def:'Que merece confianza o funciona con seguridad.',
      ex:'Es un coche viejo, pero muy <em>fiable</em>: nunca nos ha dejado tirados en la carretera.', fig:'Escudo de garantía'},
+    {w:'funcional', sin:'práctico, útil, operativo', ant:'inútil, inservible', cat:'adjetivo',
+     def:'Que está pensado para ser práctico y cumple bien la función para la que se ha hecho.',
+     ex:'Queríamos una mochila <em>funcional</em>, con bolsillos para el portátil y la calculadora.', fig:'Silla práctica'},
     {w:'ingenio', sin:'inventiva, creatividad, talento', ant:'torpeza', cat:'sust. masc.',
      def:'Capacidad para inventar cosas o encontrar soluciones con facilidad y creatividad.',
      ex:'Con mucho <em>ingenio</em>, construyeron un puente resistente usando solo palillos y cola.', fig:'Bombilla y engranaje'},
     {w:'obsoleto', sin:'anticuado, desfasado, caduco', ant:'moderno, actual', cat:'adjetivo',
      def:'Anticuado o que ha dejado de usarse porque ya no sirve o ha sido sustituido por algo mejor.',
      ex:'El disquete se quedó <em>obsoleto</em> cuando llegaron las memorias USB.', fig:'Disquete olvidado'},
+    {w:'ofimática', sin:'informática de oficina', ant:'', cat:'sust. fem.',
+     def:'Conjunto de programas informáticos que se usan en el trabajo de oficina, como el procesador de textos, la hoja de cálculo o las presentaciones.',
+     ex:'En la clase de <em>ofimática</em> aprendimos a hacer gráficos con la hoja de cálculo.', fig:'Texto y hoja de cálculo'},
     {w:'precisión', sin:'exactitud, rigor', ant:'imprecisión, inexactitud', cat:'sust. fem.',
      def:'Exactitud y cuidado con que se hace, se mide o se dice algo.',
      ex:'Para medir la pieza con <em>precisión</em> usamos el calibre en lugar de la regla.', fig:'Diana'},
@@ -496,6 +569,8 @@ body.single .alpha{display:flex}
      def:'Que tiene probabilidades de llevarse a cabo o de salir adelante.',
      ex:'Después de revisar los costes, el equipo concluyó que el proyecto era <em>viable</em>.', fig:'Brote que crece'}
   ];
+  const NUM=['cero','una','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve','veinte','veintiuna','veintidós','veintitrés','veinticuatro','veinticinco','veintiséis','veintisiete','veintiocho','veintinueve','treinta'];
+  const numw = n => NUM[n] || String(n);
   const roman = n => [['X',10],['IX',9],['V',5],['IV',4],['I',1]].reduce((s,[r,v])=>{while(n>=v){s+=r;n-=v;}return s;},'');
 
   const book = document.getElementById('book');
@@ -510,7 +585,7 @@ body.single .alpha{display:flex}
         <div class="meta"><span class="cat">${o.cat}</span></div>
         <div class="rule"></div>
         <p class="def">${o.def}</p>
-        <dl class="rel"><div><dt>Sinónimos</dt><dd>${o.sin}</dd></div>${o.ant?`<div><dt>Antónimos</dt><dd>${o.ant}</dd></div>`:''}</dl>
+        ${(o.sin||o.ant)?`<dl class="rel">${o.sin?`<div><dt>Sinónimos</dt><dd>${o.sin}</dd></div>`:''}${o.ant?`<div><dt>Antónimos</dt><dd>${o.ant}</dd></div>`:''}</dl>`:''}
       </div></div><span class="folio">${2*i+2}</span>`;
   const rightPage = (o,i)=>`<div class="inner">
       <div class="runhead"><span>${o.w.toUpperCase()}</span><b>${i+1} / ${words.length}</b></div>
@@ -523,8 +598,8 @@ body.single .alpha{display:flex}
       <div class="runhead brand"><span>Plan de lectura · IES Palomares</span><img src="${LOGO}" alt="Logo del IES Palomares"></div>
       <div class="entry" style="justify-content:flex-start;padding-top:36px;gap:0">
         <h2>Índice</h2>
-        <p class="sub">Quince palabras, de la A a la V</p>
-        <ol>${words.map((o,i)=>`<li><button type="button" data-go="${i+2}"><span class="w">${o.w}</span><span class="dots"></span><span class="pg">${2*i+2}</span></button></li>`).join('')}</ol>
+        <p class="sub">${numw(words.length).replace(/^./,c=>c.toUpperCase())} palabras, de la ${words[0].w[0].toUpperCase()} a la ${words[words.length-1].w[0].toUpperCase()}</p>
+        <ol style="--rows:${Math.ceil(words.length/2)}">${words.map((o,i)=>`<li><button type="button" data-go="${i+2}"><span class="w">${o.w}</span><span class="dots"></span><span class="pg">${2*i+2}</span></button></li>`).join('')}</ol>
       </div></div><span class="folio">1</span>`;
 
   // Cada hoja se divide en tiras verticales encadenadas: al girar cada tira un poco más que la anterior, la hoja se curva
@@ -577,7 +652,7 @@ body.single .alpha{display:flex}
       prev=a;
     }
   }
-  addLeaf(`<div class="frame"></div><div class="seal" role="img" aria-label="Logo del IES Palomares"><svg class="logo" viewBox="0 0 1000 1000" aria-hidden="true"><defs><linearGradient id="gf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8843c"/><stop offset=".3" stop-color="#ecd38e"/><stop offset=".48" stop-color="#c8a55a"/><stop offset=".62" stop-color="#f3dea0"/><stop offset=".82" stop-color="#b08a3e"/><stop offset="1" stop-color="#d9bb72"/></linearGradient><path id="arcT" d="M88 500A412 412 0 0 1 912 500"/><path id="arcB" d="M42 500A458 458 0 0 0 958 500"/></defs><g fill="url(#gf)" stroke="url(#gf)"><circle cx="500" cy="500" r="494" fill="none" stroke-width="7"/><circle cx="500" cy="500" r="362" fill="none" stroke-width="5"/><circle cx="70" cy="500" r="11" stroke="none"/><circle cx="930" cy="500" r="11" stroke="none"/><path fill-rule="evenodd" stroke="none" d="M504 751 L472 750 L451 747 L433 742 L421 739 L403 732 L378 719 L349 700 L330 682 L311 659 L296 635 L288 614 L284 604 L279 580 L278 561 L278 305 L278 300 L282 297 L288 296 L714 296 L718 297 L721 299 L722 304 L722 561 L720 578 L715 603 L710 618 L703 633 L688 658 L678 672 L666 685 L642 705 L617 722 L583 737 L564 743 L528 750 L504 751Z M527 674 L526 647 L514 499 L517 495 L635 402 L638 398 L635 396 L524 391 L516 395 L459 444 L451 449 L445 448 L422 438 L390 426 L385 428 L379 433 L360 452 L360 454 L362 456 L384 457 L389 460 L391 466 L392 492 L396 502 L499 608 L501 614 L499 636 L522 671 L525 674 L527 674Z"/><g stroke="none" font-family="Cormorant Garamond,Georgia,serif" font-weight="600" font-size="66" letter-spacing="7"><text text-anchor="middle"><textPath href="#arcT" startOffset="50%">SCIENTIA LAETITIA NOSTRA</textPath></text><text text-anchor="middle" letter-spacing="13"><textPath href="#arcB" startOffset="50%">I.E.S. PALOMARES</textPath></text></g></g></svg></div><h1>Diccionario</h1>${orn}<p>quince palabras, quince láminas</p>`,'cover',
+  addLeaf(`<div class="frame"></div><div class="seal" role="img" aria-label="Logo del IES Palomares"><svg class="logo" viewBox="0 0 1000 1000" aria-hidden="true"><defs><linearGradient id="gf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8843c"/><stop offset=".3" stop-color="#ecd38e"/><stop offset=".48" stop-color="#c8a55a"/><stop offset=".62" stop-color="#f3dea0"/><stop offset=".82" stop-color="#b08a3e"/><stop offset="1" stop-color="#d9bb72"/></linearGradient><path id="arcT" d="M88 500A412 412 0 0 1 912 500"/><path id="arcB" d="M42 500A458 458 0 0 0 958 500"/></defs><g fill="url(#gf)" stroke="url(#gf)"><circle cx="500" cy="500" r="494" fill="none" stroke-width="7"/><circle cx="500" cy="500" r="362" fill="none" stroke-width="5"/><circle cx="70" cy="500" r="11" stroke="none"/><circle cx="930" cy="500" r="11" stroke="none"/><path fill-rule="evenodd" stroke="none" d="M504 751 L472 750 L451 747 L433 742 L421 739 L403 732 L378 719 L349 700 L330 682 L311 659 L296 635 L288 614 L284 604 L279 580 L278 561 L278 305 L278 300 L282 297 L288 296 L714 296 L718 297 L721 299 L722 304 L722 561 L720 578 L715 603 L710 618 L703 633 L688 658 L678 672 L666 685 L642 705 L617 722 L583 737 L564 743 L528 750 L504 751Z M527 674 L526 647 L514 499 L517 495 L635 402 L638 398 L635 396 L524 391 L516 395 L459 444 L451 449 L445 448 L422 438 L390 426 L385 428 L379 433 L360 452 L360 454 L362 456 L384 457 L389 460 L391 466 L392 492 L396 502 L499 608 L501 614 L499 636 L522 671 L525 674 L527 674Z"/><g stroke="none" font-family="Cormorant Garamond,Georgia,serif" font-weight="600" font-size="66" letter-spacing="7"><text text-anchor="middle"><textPath href="#arcT" startOffset="50%">SCIENTIA LAETITIA NOSTRA</textPath></text><text text-anchor="middle" letter-spacing="13"><textPath href="#arcB" startOffset="50%">I.E.S. PALOMARES</textPath></text></g></g></svg></div><h1>Diccionario</h1>${orn}<p>${numw(words.length)} palabras, ${numw(words.length)} láminas</p>`,'cover',
           `<div class="label">Este diccionario pertenece a<br>· · · · · · · · · · · ·<small>MMXXVI</small></div>`,'endpaper');
   addLeaf(indexPage,'page', leftPage(words[0],0),'page');
   for(let i=0;i<words.length;i++){
