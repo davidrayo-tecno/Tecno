@@ -135,6 +135,12 @@ body.single .hint{font-size:11px}
   border-bottom:1px solid #d9d1c0;padding-bottom:8px;
 }
 .runhead b{font-weight:700;color:var(--gold-ink);font-size:15px}
+.runhead.brand{align-items:center;padding-bottom:6px}
+.runhead.brand span{letter-spacing:.14em;text-transform:uppercase}
+.runhead.brand img{width:34px;height:34px;flex:none;display:block}
+body.single .runhead.brand{gap:8px}
+body.single .runhead.brand span{font-size:11.5px;letter-spacing:.07em;white-space:nowrap;min-width:0}
+body.single .runhead.brand img{width:34px;height:34px}
 .folio{
   position:absolute;bottom:24px;font-family:var(--font-serif);font-style:italic;
   font-size:15px;color:#a49c8a;font-variant-numeric:oldstyle-nums;
@@ -442,6 +448,7 @@ body.single .alpha{display:flex}
     </svg>`
   };
 
+  const LOGO = 'data:image/svg+xml;base64,PHN2ZyB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIj48ZGVmcz48cGF0aCBpZD0iYXJjVCIgZD0iTTg4IDUwMEE0MTIgNDEyIDAgMCAxIDkxMiA1MDAiLz48cGF0aCBpZD0iYXJjQiIgZD0iTTQyIDUwMEE0NTggNDU4IDAgMCAwIDk1OCA1MDAiLz48L2RlZnM+PGcgZmlsbD0iIzlhN2EzMiIgc3Ryb2tlPSIjOWE3YTMyIj48Y2lyY2xlIGN4PSI1MDAiIGN5PSI1MDAiIHI9IjQ5NCIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSI3Ii8+PGNpcmNsZSBjeD0iNTAwIiBjeT0iNTAwIiByPSIzNjIiIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iNSIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iNTAwIiByPSIxMSIgc3Ryb2tlPSJub25lIi8+PGNpcmNsZSBjeD0iOTMwIiBjeT0iNTAwIiByPSIxMSIgc3Ryb2tlPSJub25lIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9Im5vbmUiIGQ9Ik01MDQgNzUxIEw0NzIgNzUwIEw0NTEgNzQ3IEw0MzMgNzQyIEw0MjEgNzM5IEw0MDMgNzMyIEwzNzggNzE5IEwzNDkgNzAwIEwzMzAgNjgyIEwzMTEgNjU5IEwyOTYgNjM1IEwyODggNjE0IEwyODQgNjA0IEwyNzkgNTgwIEwyNzggNTYxIEwyNzggMzA1IEwyNzggMzAwIEwyODIgMjk3IEwyODggMjk2IEw3MTQgMjk2IEw3MTggMjk3IEw3MjEgMjk5IEw3MjIgMzA0IEw3MjIgNTYxIEw3MjAgNTc4IEw3MTUgNjAzIEw3MTAgNjE4IEw3MDMgNjMzIEw2ODggNjU4IEw2NzggNjcyIEw2NjYgNjg1IEw2NDIgNzA1IEw2MTcgNzIyIEw1ODMgNzM3IEw1NjQgNzQzIEw1MjggNzUwIEw1MDQgNzUxWiBNNTI3IDY3NCBMNTI2IDY0NyBMNTE0IDQ5OSBMNTE3IDQ5NSBMNjM1IDQwMiBMNjM4IDM5OCBMNjM1IDM5NiBMNTI0IDM5MSBMNTE2IDM5NSBMNDU5IDQ0NCBMNDUxIDQ0OSBMNDQ1IDQ0OCBMNDIyIDQzOCBMMzkwIDQyNiBMMzg1IDQyOCBMMzc5IDQzMyBMMzYwIDQ1MiBMMzYwIDQ1NCBMMzYyIDQ1NiBMMzg0IDQ1NyBMMzg5IDQ2MCBMMzkxIDQ2NiBMMzkyIDQ5MiBMMzk2IDUwMiBMNDk5IDYwOCBMNTAxIDYxNCBMNDk5IDYzNiBMNTIyIDY3MSBMNTI1IDY3NCBMNTI3IDY3NFoiLz48ZyBzdHJva2U9Im5vbmUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXdlaWdodD0iNjAwIiBmb250LXNpemU9IjY2IiBsZXR0ZXItc3BhY2luZz0iNyI+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSI+PHRleHRQYXRoIHhsaW5rOmhyZWY9IiNhcmNUIiBzdGFydE9mZnNldD0iNTAlIj5TQ0lFTlRJQSBMQUVUSVRJQSBOT1NUUkE8L3RleHRQYXRoPjwvdGV4dD48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMTMiPjx0ZXh0UGF0aCB4bGluazpocmVmPSIjYXJjQiIgc3RhcnRPZmZzZXQ9IjUwJSI+SS5FLlMuIFBBTE9NQVJFUzwvdGV4dFBhdGg+PC90ZXh0PjwvZz48L2c+PC9zdmc+';
   const words = [
     {w:'algoritmo', sin:'procedimiento, método, secuencia de pasos', ant:'', cat:'sust. masc.',
      def:'Conjunto ordenado de pasos que permite resolver un problema o realizar una tarea.',
@@ -496,7 +503,7 @@ body.single .alpha{display:flex}
 
   // Páginas: índice = 1, palabra k → izquierda 2k, derecha 2k+1
   const leftPage = (o,i)=>`<div class="inner">
-      <div class="runhead"><span>DICCIONARIO</span><b>${o.w[0].toUpperCase()}</b></div>
+      <div class="runhead brand"><span>Plan de lectura · IES Palomares</span><img src="${LOGO}" alt="Logo del IES Palomares"></div>
       <div class="entry">
         <p class="initial" aria-hidden="true">${o.w[0].toUpperCase()}</p>
         <h2 class="word">${o.w}</h2>
@@ -513,7 +520,7 @@ body.single .alpha{display:flex}
         <div class="example"><span class="lbl">EJEMPLO</span><p>«${o.ex}»</p></div>
       </div></div><span class="folio">${2*i+3}</span>`;
   const indexPage = `<div class="inner index">
-      <div class="runhead"><span>DICCIONARIO</span><b>ÍNDICE</b></div>
+      <div class="runhead brand"><span>Plan de lectura · IES Palomares</span><img src="${LOGO}" alt="Logo del IES Palomares"></div>
       <div class="entry" style="justify-content:flex-start;padding-top:36px;gap:0">
         <h2>Índice</h2>
         <p class="sub">Quince palabras, de la A a la V</p>
