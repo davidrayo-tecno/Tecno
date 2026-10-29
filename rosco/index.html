@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Rosco · Plan de Lectura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600&display=swap">
+<style>
+/* Diseño: la mesa y la tela verde del diccionario; un rosco de fichas de papel con la pista debajo */
+:root{
+  color-scheme:only light;
+  --desk:#e7e3dc; --desk-2:#d8d2c7;
+  --ink:#2b2a27; --muted:#6e6a62;
+  --cloth:#1f3b33; --cloth-2:#162c26;
+  --gold:#c8a55a; --gold-ink:#9a7a32;
+  --paper:#fbf9f4; --paper-edge:#e2dbcc;
+  --ok:#2f7d4f; --ko:#b4483c; --pass:#c8a55a;
+  --font-display:"Cormorant SC","Cormorant Garamond",Georgia,serif;
+  --font-serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --font-ui:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:clip}
+html,body{min-height:100%}
+body{
+  margin:0;color:var(--ink);font-family:var(--font-ui);font-size:15px;
+  background:radial-gradient(120% 90% at 50% 30%,var(--desk) 0%,var(--desk-2) 100%) fixed;
+  padding-top:max(14px,env(safe-area-inset-top,0px));padding-bottom:max(18px,env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit}
+
+/* cabecera */
+.top{width:100%;max-width:980px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #cfc6b4;padding-bottom:10px}
+.top img{width:40px;height:40px;flex:none}
+.top .t{display:flex;flex-direction:column;min-width:0;flex:1}
+.top h1{margin:0;font-family:var(--font-serif);font-weight:700;font-size:30px;line-height:1}
+.top .sub{font-family:var(--font-display);letter-spacing:.14em;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top a{font-size:13px;color:var(--gold-ink);text-decoration:none;border:1px solid #d6c79f;border-radius:999px;padding:6px 12px;white-space:nowrap;background:rgba(255,255,255,.5)}
+.top a:hover,.top a:focus-visible{border-color:var(--gold-ink);outline:none;background:#fff}
+.icon-btn{border:1px solid #cfc8bb;background:#fff;border-radius:999px;width:36px;height:36px;display:grid;place-items:center;cursor:pointer;flex:none}
+.icon-btn svg{width:17px;height:17px}
+.icon-btn[aria-pressed="false"]{color:var(--muted)}
+.icon-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* zona de juego */
+.game{width:100%;max-width:980px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:820px){.game{grid-template-columns:1fr;gap:14px}}
+
+/* rosco */
+.wheel{--size:min(100%,500px);position:relative;width:var(--size);aspect-ratio:1;justify-self:center;max-width:100%;container-type:inline-size}
+@media (max-width:820px){.wheel{--size:min(100%,calc(100svh - 360px),460px);min-width:280px}}
+.wheel::before{content:"";position:absolute;inset:7%;border-radius:50%;
+  background:radial-gradient(circle at 50% 40%,var(--cloth) 0%,var(--cloth-2) 100%);
+  box-shadow:inset 0 0 0 2px rgba(200,165,90,.55),inset 0 0 0 9px var(--cloth-2),inset 0 0 0 10px rgba(200,165,90,.35),0 18px 40px -18px rgba(0,0,0,.45)}
+.l{position:absolute;left:50%;top:50%;width:10.2%;aspect-ratio:1;margin:-5.1% 0 0 -5.1%;border-radius:50%;
+  display:grid;place-items:center;font-family:var(--font-serif);font-weight:700;font-size:4.6cqw;line-height:1;
+  background:var(--paper);color:var(--cloth);border:2px solid var(--paper-edge);
+  box-shadow:0 2px 3px rgba(0,0,0,.18);
+  transform:rotate(var(--a)) translateY(-44.5cqw) rotate(calc(-1 * var(--a)));
+  transition:background .25s,color .25s,border-color .25s,box-shadow .25s}
+.l.cur{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold),0 0 18px 4px rgba(200,165,90,.6);animation:pulse 1.4s ease-in-out infinite}
+.l.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
+.l.ko{background:var(--ko);color:#fff;border-color:var(--ko)}
+.l.pass{background:#f3e3b8;border-color:var(--pass)}
+@keyframes pulse{50%{box-shadow:0 0 0 3px var(--gold),0 0 26px 8px rgba(200,165,90,.75)}}
+.center{position:absolute;inset:20%;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--paper);text-align:center}
+.center .mode{font-family:var(--font-display);letter-spacing:.2em;font-size:max(11px,2.9cqw);color:var(--gold)}
+.center .big{font-family:var(--font-serif);font-weight:700;font-size:21cqw;line-height:.9;color:#fff}
+.center .clock{font-family:var(--font-ui);font-weight:500;font-size:max(17px,5.2cqw);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.center .clock.low{color:#f4b8a8}
+.center .stats{display:flex;gap:14px;font-size:max(12px,3cqw);font-variant-numeric:tabular-nums;opacity:.9}
+.center .stats b{font-weight:600}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
+
+/* tarjeta de pista */
+.card{background:var(--paper);border-radius:6px;padding:22px 24px;box-shadow:0 1px 0 var(--paper-edge),0 14px 30px -18px rgba(0,0,0,.35);
+  border:1px solid var(--paper-edge);display:flex;flex-direction:column;gap:14px;min-width:0}
+@media (max-width:820px){.card{padding:16px 16px 18px;gap:10px}}
+.kind{font-family:var(--font-display);letter-spacing:.2em;font-size:13px;color:var(--gold-ink);display:flex;justify-content:space-between;gap:10px}
+.clue{font-family:var(--font-serif);font-size:24px;line-height:1.35;margin:0;min-height:3.9em;text-wrap:pretty}
+@media (max-width:820px){.clue{font-size:21px;min-height:0}}
+.clue i{font-style:italic}
+.row{display:flex;gap:8px}
+.row input{flex:1;min-width:0;font-family:var(--font-serif);font-size:24px;padding:8px 14px;border:1.5px solid #cfc6b4;border-radius:8px;background:#fff;color:var(--ink)}
+.row input:focus{outline:none;border-color:var(--gold-ink);box-shadow:0 0 0 3px rgba(200,165,90,.25)}
+.btn{border:none;border-radius:8px;padding:0 18px;font-weight:500;font-size:15px;cursor:pointer;white-space:nowrap}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.btn.primary{background:var(--cloth);color:#fff}
+.btn.primary:hover{background:#28493f}
+.btn.ghost{background:transparent;border:1.5px solid var(--gold);color:var(--gold-ink)}
+.btn.ghost:hover{background:#f6edd6}
+.btn:disabled{opacity:.45;cursor:default}
+.help{font-size:12.5px;color:var(--muted);margin:0}
+.feedback{min-height:1.5em;margin:0;font-size:16px;font-weight:500}
+.feedback.ok{color:var(--ok)} .feedback.ko{color:var(--ko)} .feedback.pass{color:var(--gold-ink)}
+.feedback em{font-family:var(--font-serif);font-style:normal;font-weight:700;font-size:19px}
+
+/* inicio y final */
+.panel h2{font-family:var(--font-serif);font-weight:700;font-size:32px;margin:0;line-height:1.1}
+.panel p{margin:0;line-height:1.5}
+.panel ul{margin:0;padding-left:18px;line-height:1.55}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{border:1.5px solid #cfc6b4;background:#fff;border-radius:999px;padding:7px 14px;cursor:pointer;font-size:14px}
+.opt[aria-pressed="true"]{border-color:var(--cloth);background:var(--cloth);color:#fff}
+.opt:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.start{align-self:flex-start;padding:12px 26px;font-size:16px}
+.score{display:flex;gap:18px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.score div{display:flex;flex-direction:column}
+.score b{font-family:var(--font-serif);font-size:40px;line-height:1}
+.score span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.best{font-size:13px;color:var(--muted)}
+.review{max-height:260px;overflow:auto;border-top:1px solid var(--paper-edge);padding-top:6px;margin:0;list-style:none;padding-left:0}
+@media (max-width:820px){.review{max-height:none}}
+.review li{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:7px 0;border-bottom:1px dashed var(--paper-edge);align-items:start}
+.review .badge{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-serif);font-weight:700;color:#fff;font-size:15px}
+.review .w{font-family:var(--font-serif);font-weight:700;font-size:19px}
+.review .you{font-size:13px;color:var(--ko)}
+.review .d{font-size:13px;color:var(--muted);line-height:1.4}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.actions .btn{padding:11px 18px}
+.actions a.btn{text-decoration:none;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion:reduce){.l.cur{animation:none}}
+@media (max-width:520px){
+  .row{flex-wrap:wrap}
+  .row input{flex:1 1 100%}
+  .row .btn{flex:1;padding:11px 10px}
+  .top .sub{font-size:10.5px;letter-spacing:.08em;white-space:normal}
+  .top h1{font-size:26px}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <img src="data:image/svg+xml;base64,PHN2ZyB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIj48ZGVmcz48cGF0aCBpZD0iYXJjVCIgZD0iTTg4IDUwMEE0MTIgNDEyIDAgMCAxIDkxMiA1MDAiLz48cGF0aCBpZD0iYXJjQiIgZD0iTTQyIDUwMEE0NTggNDU4IDAgMCAwIDk1OCA1MDAiLz48L2RlZnM+PGcgZmlsbD0iIzlhN2EzMiIgc3Ryb2tlPSIjOWE3YTMyIj48Y2lyY2xlIGN4PSI1MDAiIGN5PSI1MDAiIHI9IjQ5NCIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSI3Ii8+PGNpcmNsZSBjeD0iNTAwIiBjeT0iNTAwIiByPSIzNjIiIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iNSIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iNTAwIiByPSIxMSIgc3Ryb2tlPSJub25lIi8+PGNpcmNsZSBjeD0iOTMwIiBjeT0iNTAwIiByPSIxMSIgc3Ryb2tlPSJub25lIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9Im5vbmUiIGQ9Ik01MDQgNzUxIEw0NzIgNzUwIEw0NTEgNzQ3IEw0MzMgNzQyIEw0MjEgNzM5IEw0MDMgNzMyIEwzNzggNzE5IEwzNDkgNzAwIEwzMzAgNjgyIEwzMTEgNjU5IEwyOTYgNjM1IEwyODggNjE0IEwyODQgNjA0IEwyNzkgNTgwIEwyNzggNTYxIEwyNzggMzA1IEwyNzggMzAwIEwyODIgMjk3IEwyODggMjk2IEw3MTQgMjk2IEw3MTggMjk3IEw3MjEgMjk5IEw3MjIgMzA0IEw3MjIgNTYxIEw3MjAgNTc4IEw3MTUgNjAzIEw3MTAgNjE4IEw3MDMgNjMzIEw2ODggNjU4IEw2NzggNjcyIEw2NjYgNjg1IEw2NDIgNzA1IEw2MTcgNzIyIEw1ODMgNzM3IEw1NjQgNzQzIEw1MjggNzUwIEw1MDQgNzUxWiBNNTI3IDY3NCBMNTI2IDY0NyBMNTE0IDQ5OSBMNTE3IDQ5NSBMNjM1IDQwMiBMNjM4IDM5OCBMNjM1IDM5NiBMNTI0IDM5MSBMNTE2IDM5NSBMNDU5IDQ0NCBMNDUxIDQ0OSBMNDQ1IDQ0OCBMNDIyIDQzOCBMMzkwIDQyNiBMMzg1IDQyOCBMMzc5IDQzMyBMMzYwIDQ1MiBMMzYwIDQ1NCBMMzYyIDQ1NiBMMzg0IDQ1NyBMMzg5IDQ2MCBMMzkxIDQ2NiBMMzkyIDQ5MiBMMzk2IDUwMiBMNDk5IDYwOCBMNTAxIDYxNCBMNDk5IDYzNiBMNTIyIDY3MSBMNTI1IDY3NCBMNTI3IDY3NFoiLz48ZyBzdHJva2U9Im5vbmUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXdlaWdodD0iNjAwIiBmb250LXNpemU9IjY2IiBsZXR0ZXItc3BhY2luZz0iNyI+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSI+PHRleHRQYXRoIHhsaW5rOmhyZWY9IiNhcmNUIiBzdGFydE9mZnNldD0iNTAlIj5TQ0lFTlRJQSBMQUVUSVRJQSBOT1NUUkE8L3RleHRQYXRoPjwvdGV4dD48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMTMiPjx0ZXh0UGF0aCB4bGluazpocmVmPSIjYXJjQiIgc3RhcnRPZmZzZXQ9IjUwJSI+SS5FLlMuIFBBTE9NQVJFUzwvdGV4dFBhdGg+PC90ZXh0PjwvZz48L2c+PC9zdmc+" alt="Logo del IES Palomares">
+  <div class="t">
+    <h1>El Rosco</h1>
+    <span class="sub">PLAN DE LECTURA · IES PALOMARES · 1.º ESO</span>
+  </div>
+  <button class="icon-btn" id="snd" type="button" aria-pressed="true" aria-label="Sonido activado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></button>
+  <a href="../diccionario/">Diccionario</a>
+</header>
+
+<main class="game">
+  <div class="wheel" id="wheel" aria-hidden="true">
+    <div class="center">
+      <span class="mode" id="mode">EMPIEZA POR</span>
+      <span class="big" id="big">A</span>
+      <span class="clock" id="clock">3:00</span>
+      <span class="stats"><span><i class="dot" style="background:#5fbf86"></i><b id="nok">0</b></span><span><i class="dot" style="background:#e07a6c"></i><b id="nko">0</b></span></span>
+    </div>
+  </div>
+
+  <!-- Pantalla de inicio -->
+  <section class="card panel" id="intro">
+    <h2>¿Cuántas palabras del diccionario conoces?</h2>
+    <p>En cada letra aparece una pista: la definición, sus sinónimos, su contrario o una frase con un hueco. Escribe la palabra que corresponde.</p>
+    <ul>
+      <li><b>Responder</b> con la tecla Intro.</li>
+      <li><b>Pasar</b> si no la sabes: volverás a esa letra en la siguiente vuelta.</li>
+      <li>La partida acaba cuando completes el rosco o se termine el tiempo.</li>
+    </ul>
+    <div>
+      <p class="help" style="margin-bottom:6px">Tiempo</p>
+      <div class="opts" id="times">
+        <button class="opt" type="button" data-t="180" aria-pressed="true">3 minutos</button>
+        <button class="opt" type="button" data-t="300" aria-pressed="false">5 minutos</button>
+        <button class="opt" type="button" data-t="0" aria-pressed="false">Sin tiempo</button>
+      </div>
+    </div>
+    <button class="btn primary start" id="startBtn" type="button">Empezar</button>
+    <p class="best" id="best"></p>
+  </section>
+
+  <!-- Juego -->
+  <section class="card" id="play" hidden>
+    <div class="kind"><span id="kind">DEFINICIÓN</span><span id="pos"></span></div>
+    <p class="clue" id="clue" aria-live="polite"></p>
+    <form class="row" id="form" autocomplete="off">
+      <input id="ans" type="text" inputmode="text" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Escribe la palabra" aria-label="Respuesta">
+      <button class="btn primary" type="submit" id="okBtn">Responder</button>
+      <button class="btn ghost" type="button" id="passBtn">Pasar</button>
+    </form>
+    <p class="feedback" id="fb" aria-live="assertive"></p>
+    <p class="help">Si dejas la respuesta vacía y pulsas Intro, también pasas.</p>
+  </section>
+
+  <!-- Final -->
+  <section class="card panel" id="end" hidden>
+    <h2 id="endTitle">¡Rosco terminado!</h2>
+    <div class="score">
+      <div><b id="sOk" style="color:var(--ok)">0</b><span>Aciertos</span></div>
+      <div><b id="sKo" style="color:var(--ko)">0</b><span>Fallos</span></div>
+      <div><b id="sNo" style="color:var(--gold-ink)">0</b><span>Sin responder</span></div>
+    </div>
+    <p class="best" id="best2"></p>
+    <ul class="review" id="review"></ul>
+    <div class="actions">
+      <button class="btn primary" type="button" id="againBtn">Jugar otra vez</button>
+      <a class="btn ghost" href="../diccionario/">Repasar en el diccionario</a>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  const WORDS = [{"w": "algoritmo", "sin": "procedimiento, método, secuencia de pasos", "ant": "", "cat": "sust. masc.", "def_": "Conjunto ordenado de pasos que permite resolver un problema o realizar una tarea.", "ex": "La aplicación usa un ____ para recomendarte canciones parecidas a las que ya escuchas."}, {"w": "artefacto", "sin": "aparato, dispositivo, artilugio, máquina", "ant": "", "cat": "sust. masc.", "def_": "Objeto fabricado por las personas para un fin determinado. También, máquina o aparato, sobre todo si es grande o complicado.", "ex": "En el museo vimos un ____ de bronce que servía para medir el paso de las estrellas."}, {"w": "boceto", "sin": "esbozo, borrador, bosquejo, apunte", "ant": "", "cat": "sust. masc.", "def_": "Dibujo rápido y sencillo que se hace para recoger una idea antes de desarrollarla con detalle.", "ex": "Antes de construir la lámpara, cada uno hizo un ____ a lápiz en su cuaderno."}, {"w": "dato", "sin": "información, valor, cifra", "ant": "", "cat": "sust. masc.", "def_": "Información concreta que permite conocer algo o llegar a una conclusión.", "ex": "El sensor de temperatura envía un ____ nuevo a la placa Arduino cada segundo."}, {"w": "digitalización", "sin": "informatización", "ant": "", "cat": "sust. fem.", "def_": "Proceso de convertir información, documentos o tareas a formato digital para poder usarlos con ordenadores y otros dispositivos.", "ex": "Gracias a la ____ de la biblioteca, podemos consultar los libros desde casa."}, {"w": "diseño", "sin": "plan, boceto, esbozo, proyecto", "ant": "improvisación", "cat": "sust. masc.", "def_": "Plan o dibujo con el que se idea un objeto antes de fabricarlo. También, la forma y el aspecto que tiene ese objeto.", "ex": "Antes de cortar la madera, hicimos el ____ de la estructura en papel y a escala."}, {"w": "eficiencia", "sin": "rendimiento, aprovechamiento, productividad", "ant": "ineficiencia, derroche", "cat": "sust. fem.", "def_": "Capacidad de conseguir un resultado usando los menos recursos posibles, como tiempo, energía o dinero.", "ex": "Cambiamos las bombillas por otras LED para mejorar la ____ energética del aula."}, {"w": "escala", "sin": "proporción, graduación", "ant": "", "cat": "sust. fem.", "def_": "Proporción entre el tamaño de un dibujo, un plano o una maqueta y el tamaño real de lo que representa. También, serie ordenada de grados o niveles.", "ex": "Dibujamos la planta del aula a ____ 1:50 para que cupiera en un folio."}, {"w": "estable", "sin": "firme, equilibrado, seguro, constante", "ant": "inestable, precario", "cat": "adjetivo", "def_": "Que se mantiene firme y en equilibrio, sin peligro de caerse, cambiar o estropearse.", "ex": "Ensanchamos la base de la torre para que fuera más ____."}, {"w": "fiable", "sin": "seguro, fidedigno, de confianza", "ant": "dudoso, inseguro", "cat": "adjetivo", "def_": "Que merece confianza o funciona con seguridad.", "ex": "Es un coche viejo, pero muy ____: nunca nos ha dejado tirados en la carretera."}, {"w": "funcional", "sin": "práctico, útil, operativo", "ant": "inútil, inservible", "cat": "adjetivo", "def_": "Que está pensado para ser práctico y cumple bien la función para la que se ha hecho.", "ex": "Queríamos una mochila ____, con bolsillos para el portátil y la calculadora."}, {"w": "ingenio", "sin": "inventiva, creatividad, talento", "ant": "torpeza", "cat": "sust. masc.", "def_": "Capacidad para inventar cosas o encontrar soluciones con facilidad y creatividad.", "ex": "Con mucho ____, construyeron un puente resistente usando solo palillos y cola."}, {"w": "obsoleto", "sin": "anticuado, desfasado, caduco", "ant": "moderno, actual", "cat": "adjetivo", "def_": "Anticuado o que ha dejado de usarse porque ya no sirve o ha sido sustituido por algo mejor.", "ex": "El disquete se quedó ____ cuando llegaron las memorias USB."}, {"w": "ofimática", "sin": "informática de oficina", "ant": "", "cat": "sust. fem.", "def_": "Conjunto de programas informáticos que se usan en el trabajo de oficina, como el procesador de textos, la hoja de cálculo o las presentaciones.", "ex": "En la clase de ____ aprendimos a hacer gráficos con la hoja de cálculo."}, {"w": "precisión", "sin": "exactitud, rigor", "ant": "imprecisión, inexactitud", "cat": "sust. fem.", "def_": "Exactitud y cuidado con que se hace, se mide o se dice algo.", "ex": "Para medir la pieza con ____ usamos el calibre en lugar de la regla."}, {"w": "proyecto", "sin": "plan, propósito, programa", "ant": "", "cat": "sust. masc.", "def_": "Plan que se prepara para hacer algo, con los pasos y los medios necesarios para conseguirlo.", "ex": "Este trimestre nuestro ____ es un semáforo que funciona con Arduino."}, {"w": "resiliencia", "sin": "fortaleza, entereza, resistencia", "ant": "fragilidad", "cat": "sust. fem.", "def_": "Capacidad para superar una situación difícil y recuperarse de ella.", "ex": "La ____ del equipo se notó cuando, tras fallar el prototipo, lo rediseñaron en una semana."}, {"w": "sostenible", "sin": "ecológico, respetuoso, duradero", "ant": "insostenible, contaminante", "cat": "adjetivo", "def_": "Que puede mantenerse en el tiempo sin agotar los recursos ni dañar el medio ambiente.", "ex": "Construimos la maqueta con cartón reciclado para que fuera más ____."}, {"w": "tangible", "sin": "palpable, concreto, material", "ant": "intangible, abstracto", "cat": "adjetivo", "def_": "Que se puede tocar o percibir con claridad.", "ex": "Al terminar, el esfuerzo se convirtió en algo ____: un robot que funcionaba."}, {"w": "viable", "sin": "factible, posible, realizable", "ant": "inviable, imposible", "cat": "adjetivo", "def_": "Que tiene probabilidades de llevarse a cabo o de salir adelante.", "ex": "Después de revisar los costes, el equipo concluyó que el proyecto era ____."}];
+
+  // ---------- utilidades ----------
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z]/g,'');
+  const normLetter = (s,L) => L==='Ñ' ? s.toLowerCase().includes('ñ') : norm(s).includes(L.toLowerCase());
+  const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; };
+  const pick = a => a[Math.floor(Math.random()*a.length)];
+  const $ = id => document.getElementById(id);
+
+  // Pistas posibles para cada palabra (se descartan sinónimos/antónimos que contienen la propia palabra)
+  function cluesFor(o){
+    const root = norm(o.w).slice(0, Math.max(4, norm(o.w).length-2));
+    const clean = list => list.split(',').map(x=>x.trim()).filter(x=>x && !norm(x).includes(root));
+    const c = [{k:'DEFINICIÓN', t:o.def_}];
+    const sin = clean(o.sin); if(sin.length) c.push({k:'SINÓNIMOS', t:'Significa lo mismo que: <i>'+sin.join(', ')+'</i>'});
+    const ant = clean(o.ant); if(ant.length) c.push({k:'LO CONTRARIO', t:'Es lo contrario de: <i>'+ant.join(', ')+'</i>'});
+    if(o.ex.includes('____')) c.push({k:'COMPLETA LA FRASE', t:'«'+o.ex.replace('____','<b>______</b>')+'»'});
+    return c;
+  }
+
+  // Letras del rosco: todas las del abecedario que empiecen o contengan alguna palabra
+  const ABC = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
+  function buildRound(){
+    const slots = [];
+    for(const L of ABC){
+      const starts = WORDS.filter(o => L!=='Ñ' && norm(o.w)[0]===L.toLowerCase());
+      if(starts.length){ slots.push({L, mode:'EMPIEZA POR', cands:starts}); continue; }
+      const has = WORDS.filter(o => normLetter(o.w,L));
+      if(has.length) slots.push({L, mode:'CONTIENE LA', cands:has});
+    }
+    // asignar una palabra a cada letra, intentando no repetir
+    const used = new Map();
+    [...slots].sort((a,b)=>a.cands.length-b.cands.length).forEach(s=>{
+      const free = s.cands.filter(o=>!used.has(o.w));
+      const o = free.length ? pick(free) : pick(s.cands);
+      const prev = used.get(o.w) || [];
+      let options = cluesFor(o).filter(c=>!prev.includes(c.k));
+      if(!options.length) options = cluesFor(o);
+      const clue = pick(options);
+      used.set(o.w, [...prev, clue.k]);
+      Object.assign(s, {o, clue, state:'', answer:''});
+    });
+    return slots;
+  }
+
+  // ---------- sonido ----------
+  let actx=null, soundOn=true;
+  function tone(freqs, dur=0.14, type='sine', vol=0.18){
+    if(!soundOn) return;
+    try{
+      actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+      if(actx.state==='suspended') actx.resume();
+      let t=actx.currentTime;
+      freqs.forEach(f=>{
+        const o=actx.createOscillator(), g=actx.createGain();
+        o.type=type; o.frequency.value=f;
+        g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+        o.connect(g).connect(actx.destination); o.start(t); o.stop(t+dur+0.02); t+=dur*0.85;
+      });
+    }catch(e){}
+  }
+  const sOk=()=>tone([660,880],0.13,'triangle',0.2), sKo=()=>tone([220,165],0.2,'sawtooth',0.07), sPass=()=>tone([520],0.08,'sine',0.12), sEnd=()=>tone([523,659,784,1046],0.16,'triangle',0.18);
+  $('snd').addEventListener('click',()=>{
+    soundOn=!soundOn; const b=$('snd');
+    b.setAttribute('aria-pressed',soundOn); b.setAttribute('aria-label', soundOn?'Sonido activado':'Sonido desactivado');
+    $('wave').style.display = soundOn?'':'none';
+  });
+
+  // ---------- estado ----------
+  let slots=[], idx=0, total=180, left=180, timer=null, busy=false, running=false;
+  const wheel=$('wheel');
+
+  function drawWheel(){
+    wheel.querySelectorAll('.l').forEach(e=>e.remove());
+    slots.forEach((s,i)=>{
+      const d=document.createElement('div');
+      d.className='l'; d.textContent=s.L;
+      d.style.setProperty('--a', (i*360/slots.length)+'deg');
+      wheel.appendChild(d); s.el=d;
+    });
+  }
+  function paint(){
+    slots.forEach((s,i)=>{ s.el.className='l'+(s.state?' '+s.state:'')+(running && i===idx?' cur':''); });
+    $('nok').textContent=slots.filter(s=>s.state==='ok').length;
+    $('nko').textContent=slots.filter(s=>s.state==='ko').length;
+  }
+  function fmt(t){ return Math.floor(t/60)+':'+String(t%60).padStart(2,'0'); }
+  function drawClock(){
+    const c=$('clock');
+    if(!total){ c.textContent='∞'; c.classList.remove('low'); return; }
+    c.textContent=fmt(left); c.classList.toggle('low', left<=20);
+  }
+
+  function show(){
+    const s=slots[idx];
+    $('mode').textContent=s.mode; $('big').textContent=s.L;
+    $('kind').textContent=s.clue.k;
+    $('pos').textContent=`${s.mode.toLowerCase()} ${s.L}`;
+    $('clue').innerHTML=s.clue.t;
+    $('ans').value=''; $('fb').textContent=''; $('fb').className='feedback';
+    paint();
+    $('ans').focus({preventScroll:true});
+  }
+  function pending(){ return slots.map((s,i)=>i).filter(i=>slots[i].state==='' || slots[i].state==='pass'); }
+  function nextIdx(){
+    const p=pending(); if(!p.length) return -1;
+    const after=p.filter(i=>i>idx); return after.length?after[0]:p[0];
+  }
+  function advance(){
+    const n=nextIdx();
+    if(n<0){ finish(true); return; }
+    idx=n; show();
+  }
+  function setBusy(v){ busy=v; ['okBtn','passBtn'].forEach(id=>$(id).disabled=v); $('ans').readOnly=v; }
+
+  function answer(){
+    if(busy || !running) return;
+    const s=slots[idx], raw=$('ans').value.trim();
+    if(!raw){ pass(); return; }
+    s.answer=raw;
+    const fb=$('fb');
+    if(norm(raw)===norm(s.o.w)){
+      s.state='ok'; sOk();
+      const tilde = raw.toLowerCase()!==s.o.w;
+      fb.className='feedback ok';
+      fb.innerHTML = tilde ? `¡Correcto! Se escribe <em>${s.o.w}</em>.` : '¡Correcto!';
+      setBusy(true); paint(); setTimeout(()=>{ setBusy(false); if(running) advance(); }, tilde?1500:750);
+    } else {
+      s.state='ko'; sKo();
+      fb.className='feedback ko'; fb.innerHTML=`No es correcto. Era <em>${s.o.w}</em>.`;
+      setBusy(true); paint(); pauseClock(); setTimeout(()=>{ setBusy(false); if(running){ resumeClock(); advance(); } }, 1900);
+    }
+  }
+  function pass(){
+    if(busy || !running) return;
+    const s=slots[idx]; s.state='pass'; sPass();
+    $('fb').className='feedback pass'; $('fb').textContent='Pasas. Volverás a esta letra.';
+    setBusy(true); paint(); setTimeout(()=>{ setBusy(false); if(running) advance(); }, 450);
+  }
+
+  function tick(){ left--; drawClock(); if(left<=0) finish(false); }
+  function pauseClock(){ clearInterval(timer); timer=null; }
+  function resumeClock(){ if(total && !timer && running) timer=setInterval(tick,1000); }
+
+  function start(){
+    slots=buildRound(); idx=0; left=total; running=true;
+    drawWheel(); drawClock();
+    $('intro').hidden=true; $('end').hidden=true; $('play').hidden=false;
+    setBusy(false); show(); resumeClock();
+  }
+  function finish(complete){
+    running=false; pauseClock(); setBusy(false); paint(); sEnd();
+    const ok=slots.filter(s=>s.state==='ok').length, ko=slots.filter(s=>s.state==='ko').length, no=slots.length-ok-ko;
+    $('sOk').textContent=ok; $('sKo').textContent=ko; $('sNo').textContent=no;
+    $('endTitle').textContent = ok===slots.length ? '¡Rosco perfecto!' : complete ? '¡Rosco terminado!' : 'Se acabó el tiempo';
+    let best=0; try{ best=+localStorage.getItem('rosco-best')||0; if(ok>best){ localStorage.setItem('rosco-best',ok); } }catch(e){}
+    $('best2').textContent = ok>best ? `¡Nuevo récord en este dispositivo: ${ok} de ${slots.length}!` : best ? `Tu mejor marca en este dispositivo: ${best} de ${slots.length}.` : '';
+    const col={ok:'var(--ok)',ko:'var(--ko)'};
+    $('review').innerHTML = slots.map(s=>`<li><span class="badge" style="background:${col[s.state]||'var(--pass)'}">${s.L}</span>
+      <div><span class="w">${s.o.w}</span>${s.state==='ko'?` <span class="you">· escribiste «${s.answer.replace(/[<>&]/g,'')}»</span>`:''}
+      <div class="d">${s.o.def_}</div></div></li>`).join('');
+    $('play').hidden=true; $('end').hidden=false;
+    $('mode').textContent = 'ACIERTOS'; $('big').textContent = ok;
+  }
+
+  // ---------- eventos ----------
+  $('form').addEventListener('submit',e=>{ e.preventDefault(); answer(); });
+  $('passBtn').addEventListener('click',pass);
+  $('times').addEventListener('click',e=>{
+    const b=e.target.closest('[data-t]'); if(!b) return;
+    $('times').querySelectorAll('[data-t]').forEach(x=>x.setAttribute('aria-pressed', x===b));
+    total=+b.dataset.t; left=total; drawClock();
+  });
+  $('startBtn').addEventListener('click',start);
+  $('againBtn').addEventListener('click',start);
+
+  // estado inicial: rosco dibujado y esperando
+  slots=buildRound(); drawWheel(); paint(); drawClock();
+  try{ const b=+localStorage.getItem('rosco-best'); if(b) $('best').textContent=`Tu mejor marca en este dispositivo: ${b} de ${slots.length}.`; }catch(e){}
+})();
+</script>
+</body>
+</html>
