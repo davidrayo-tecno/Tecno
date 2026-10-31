@@ -151,7 +151,7 @@ function songCard(s){const q=encodeURIComponent(`${s.t} ${s.a}`);const det=!!s.s
     <div class="links">${det?`<a class="btn primary" href="?c=${s.id}">Abrir ficha</a>`:''}
       <a class="btn" href="https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}" target="_blank" rel="noopener">Tablatura ↗</a>
       <a class="btn" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">Escuchar ↗</a>
-      ${!det&&s.pista?`<a class="btn" href="pistas.html?${s.pista}" target="_blank" rel="noopener">Pista genérica ↗</a>`:''}</div></article>`;}
+</div></article>`;}
 function renderList(){
   const ch=(el,items,cur,fn)=>{el.innerHTML=items.map(([v,l])=>`<button class="chip" data-v="${v}" aria-pressed="${String(v)===String(cur)}">${l}</button>`).join('');el.onclick=e=>{const b=e.target.closest('.chip');if(b)fn(b.dataset.v);};};
   ch($('f-view'),[['weeks','Por semanas'],['all','Catálogo']],F.view,v=>{F.view=v;renderList();});
