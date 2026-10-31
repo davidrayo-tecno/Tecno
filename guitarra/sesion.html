@@ -65,6 +65,14 @@ h2{font-family:var(--f-display);font-weight:600;font-size:19px;margin:0}
 .block h3 small{font:500 13px var(--f-mono);color:var(--muted)}
 .block p{margin:0;font-size:14px;color:var(--ink);max-width:62ch}
 .block .acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.rep{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.rep-h{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.rep-why,.rep-sub{font-size:13px;color:var(--muted);margin:0}
+.rep-list{display:flex;flex-direction:column;gap:8px}
+.rep-song{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;border-top:1px solid var(--line);padding-top:8px}
+.rep-song b{display:block}.rep-song span{font-size:13px;color:var(--muted)}
+.rep-song .acts{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rep-pend{font-size:12px}
 .goal{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:14px;display:flex;flex-direction:column;gap:8px}
 .goal p{margin:0}
 .goal .acts{display:flex;gap:8px;flex-wrap:wrap}
@@ -106,6 +114,12 @@ h2{font-family:var(--f-display);font-weight:600;font-size:19px;margin:0}
 
   <div class="blocks" id="blocks"></div>
 
+  <div class="rep" id="rep">
+    <div class="rep-h"><h2>Repertorio de la semana</h2><span class="rep-why" id="rep-why"></span></div>
+    <p class="rep-sub">Diez minutos al terminar los bloques: aplica lo de esta semana a una canción.</p>
+    <div class="rep-list" id="rep-list"></div>
+  </div>
+
   <div class="goal">
     <p id="goal"></p>
     <p>Sesiones completadas esta semana: <span class="stat" id="count">0</span></p>
@@ -113,6 +127,7 @@ h2{font-family:var(--f-display);font-weight:600;font-size:19px;margin:0}
   </div>
 </div>
 
+<script src="canciones.js"></script>
 <script>
 const DIARIO='https://claude.ai/artifact/BhcyK9FnTXAsMdqniWiJs4';
 const ROOTN=['Do','Do♯','Re','Mi♭','Mi','Fa','Fa♯','Sol','La♭','La','Si♭','Si'];
@@ -244,6 +259,14 @@ function plan(){
     {t:'Prueba',p:`Modo Practicar. Haz 10 preguntas seguidas y cuenta los fallos.`,links:[[`arpegios.html?tab=practice&ptypes=${ptypes}`,'Abrir práctica']]}].filter((b,i,a)=>a.length<=4||b.t!=='Cambio de tipo')};
 }
 
+
+function renderRepWeek(){const W=(window.WEEK_SONGS||{})[ST.week+1];if(!W){$('rep').hidden=true;return;}$('rep').hidden=false;$('rep-why').textContent=W.why;
+  const by=Object.fromEntries((window.SONGS||[]).map(s=>[s.id,s]));
+  $('rep-list').innerHTML=W.songs.map(id=>{const s=by[id];if(!s)return'';const q=encodeURIComponent(s.t+' '+s.a);const det=!!s.sections;
+    return`<div class="rep-song"><div><b>${s.t}</b><span>${s.a}${s.diff?' · '+['','Fácil','Media','Difícil'][s.diff]:''}</span></div>
+      <div class="acts">${det?`<a class="btn small" href="repertorio.html?c=${s.id}" target="_blank" rel="noopener">Ficha y pista ↗</a>`:`<a class="btn small" href="https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}" target="_blank" rel="noopener">Tablatura ↗</a><span class="rep-pend">Ficha en preparación</span>`}
+      <a class="btn small vid" href="${DIARIO}#song-${s.id}" target="_blank" rel="noopener">Mi progreso ↗</a></div></div>`;}).join('');}
+
 /* ---------- reloj ---------- */
 let T={blk:0,left:0,run:false,last:0,id:null},P=null,lock=null;
 function blockSec(){return ST.dur*60;}
@@ -284,6 +307,7 @@ function render(){
     ${b.bpm?`<button class="btn small" data-bpm="${b.bpm}">Metrónomo a ${b.bpm}</button>`:''}
     <a class="btn small vid" href="${DIARIO}#w${ST.week+1}-b${i+1}" target="_blank" rel="noopener">Subir mi vídeo ↗</a></div></div>`).join('');
   $('goal').textContent=P.goal;
+  renderRepWeek();
   $('count').textContent=ST.count[String(ST.week)]||0;
   $('w-done').hidden=ST.week>=WEEKS.length-1&&ST.done.includes(ST.week);
   paintClock();}

@@ -347,7 +347,10 @@ function symEN(l,pc,q){const n=spell(l,pc);return LETEN[l%7]+n.slice(LET[l%7].le
 let G={key:0,prog:0,set:0,zone:5,loop:true,bpm:70,sel:0};
 try{const sv=JSON.parse(localStorage.getItem('triadas-prog-v1')||'null');if(sv)Object.assign(G,sv,{sel:0});}catch(e){}
 const gsave=()=>{try{localStorage.setItem('triadas-prog-v1',JSON.stringify(G));}catch(e){}};
-function progChords(){const[,kl,kpc]=KEYS[G.key];
+let CUSTOM=null;
+function customChords(){return CUSTOM.list.map(sym=>{const m=/^([A-G])([#b]?)(m?)/.exec(sym);const l='CDEFGAB'.indexOf(m[1]),pc=([0,2,4,5,7,9,11][l]+(m[2]==='#'?1:m[2]==='b'?-1:0)+12)%12,q=m[3]?'m':'M';
+  const c=chordL(l,pc,q);c.rn='';c.en=sym;return c;});}
+function progChords(){if(CUSTOM)return customChords();const[,kl,kpc]=KEYS[G.key];
   return PROGS[G.prog].split('–').map(rn=>{const[dl,ds,q]=DEG[rn],l=(kl+dl)%7,pc=(kpc+ds)%12,c=chordL(l,pc,q);c.rn=rn;c.en=symEN(l,pc,q);return c;});}
 function voiceLead(chs){const out=[];let prev=null;
   chs.forEach(c=>{let best=null,bd=1e9;
@@ -363,8 +366,10 @@ let gCh=[],gSh=[],gTimer=null;
 function renderProg(scroll){
   gCh=progChords();gSh=voiceLead(gCh);if(G.sel>=gSh.length)G.sel=0;
   const updG=fn=>v=>{fn(v);G.sel=0;gsave();renderProg(true);};
-  chips($('g-key'),KEYS.map((k,i)=>[i,k[0]]),G.key,updG(v=>G.key=+v));
-  chips($('g-prog'),PROGS.map((p,i)=>[i,p]),G.prog,updG(v=>G.prog=+v));
+  if(CUSTOM){$('g-key').innerHTML=`<button class="chip" aria-pressed="true">${CUSTOM.title}</button>`;$('g-key').onclick=null;
+    $('g-prog').innerHTML=`<button class="chip" id="g-exit">Volver a las progresiones</button>`;$('g-prog').onclick=()=>{CUSTOM=null;G.sel=0;renderProg(true);};}
+  else{chips($('g-key'),KEYS.map((k,i)=>[i,k[0]]),G.key,updG(v=>G.key=+v));
+  chips($('g-prog'),PROGS.map((p,i)=>[i,p]),G.prog,updG(v=>G.prog=+v));}
   chips($('g-set'),SETS.map((s,i)=>[i,s.join('-')]),G.set,updG(v=>G.set=+v));
   chips($('g-zone'),ZONES.map(z=>[z[0],'Trastes '+z[1]]),G.zone,updG(v=>G.zone=+v));
   const i=G.sel,c=gCh[i],sh=gSh[i],pi=(i+gSh.length-1)%gSh.length,prev=gSh[pi];
@@ -375,15 +380,15 @@ function renderProg(scroll){
   const set=SETS[G.set],order=[set[2],set[1],set[0]];
   $('g-steps').innerHTML=gSh.map((s,k)=>{const p=gSh[(k+gSh.length-1)%gSh.length];
     const keep=s.notes.filter((n,j)=>n.f===p.notes[j].f).map(n=>n.t.note);
-    return`<button class="step" data-i="${k}" aria-pressed="${k===i}"><span class="rn">${gCh[k].rn} · ${INVS[s.inv]}</span>
+    return`<button class="step" data-i="${k}" aria-pressed="${k===i}"><span class="rn">${gCh[k].rn?gCh[k].rn+' · ':''}${INVS[s.inv]}</span>
       <span class="nm">${gCh[k].short}</span><span class="fr">${s.notes.map(n=>n.f).join('·')}</span>
       <span class="kp">${keep.length?'Se mantiene: '+keep.join(', '):'Cambian las 3 notas'}</span></button>`;}).join('');
   $('g-tempo').value=G.bpm;$('g-tempo-out').textContent=G.bpm;
   $('g-loop').setAttribute('aria-pressed',G.loop);$('g-loop').textContent=G.loop?'Repetir: sí':'Repetir: no';
   const moves=gSh.map((s,k)=>{const p=gSh[(k+gSh.length-1)%gSh.length];return s.notes.reduce((a,n,j)=>a+Math.abs(n.f-p.notes[j].f),0);});
-  $('g-tip').innerHTML=`<strong>${KEYS[G.key][0]} mayor, ${PROGS[G.prog]}:</strong> ${gCh.map(c=>c.short).join(' – ')} (${gCh.map(c=>c.en).join(' – ')}). `+
+  $('g-tip').innerHTML=`<strong>${CUSTOM?CUSTOM.title+' (acordes de la canción)':KEYS[G.key][0]+' mayor, '+PROGS[G.prog]}:</strong> ${gCh.map(c=>c.short).join(' – ')} (${gCh.map(c=>c.en).join(' – ')}). `+
     `En cuerdas ${set.join('-')} la mano recorre ${moves.slice(1).reduce((a,b)=>a+b,0)} trastes en total (sumando lo que se mueve cada dedo). `+
-    `Ejercicio: toca la progresión con el metrónomo a 60, un acorde por compás, y después repítela en otra zona del mástil.`;
+    `${CUSTOM?'Estas son las triadas más cercanas entre sí; en la canción el orden y la duración de los acordes cambian, así que practica los cambios entre cada pareja.':'Ejercicio: toca la progresión con el metrónomo a 60, un acorde por compás, y después repítela en otra zona del mástil.'}`;
   if(scroll)centerOn($('g-scroll'),sh,true);}
 function strum(sh,t,vel){sh.notes.forEach((n,k)=>pluck(n.midi,t+k*0.035));}
 function gStop(){clearTimeout(gTimer);gTimer=null;$('g-play').textContent='▶ Tocar la progresión';}
@@ -400,6 +405,7 @@ $('g-steps').addEventListener('click',e=>{const b=e.target.closest('.step');if(!
 const QS=new URLSearchParams(location.search);
 if(QS.has('root'))S.root=+QS.get('root');if(QS.has('q'))S.q=QS.get('q');if(QS.has('set'))S.set=+QS.get('set');
 if(QS.has('pset'))P.set=QS.get('pset');
+if(QS.has('chords')){const list=QS.get('chords').split(',').filter(x=>/^[A-G][#b]?m?$/.test(x));if(list.length)CUSTOM={title:QS.get('title')||'Canción',list};}
 if(QS.has('key'))G.key=+QS.get('key');if(QS.has('prog'))G.prog=+QS.get('prog');if(QS.has('gset'))G.set=+QS.get('gset');
 
 /* ---------- pestañas ---------- */
