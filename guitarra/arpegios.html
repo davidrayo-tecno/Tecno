@@ -85,7 +85,7 @@ section{display:flex;flex-direction:column;gap:18px}
 </head>
 <body>
 <div class="wrap">
-  <nav style="display:flex;gap:14px"><a class="home" href="index.html">← Inicio</a><a class="home" href="triadas.html">Mástil de triadas →</a></nav>
+  <nav style="display:flex;gap:14px;flex-wrap:wrap"><a class="home" href="index.html">← Inicio</a><a class="home" href="triadas.html">Triadas</a><a class="home" href="sesion.html">Sesión</a><a class="home" href="pistas.html">Backing tracks</a></nav>
   <header>
     <div>
       <h1>Mástil de arpegios</h1>
@@ -300,8 +300,91 @@ function tab(w){const ex=w==='explore';stopSeq();$('explore').hidden=!ex;$('prac
   $('tab-explore').setAttribute('aria-selected',ex);$('tab-practice').setAttribute('aria-selected',!ex);
   if(!ex&&!P.cur)newQ();}
 $('tab-explore').onclick=()=>tab('explore');$('tab-practice').onclick=()=>tab('practice');
+/* enlaces con ajustes (desde la sesión guiada) */
+const QS=new URLSearchParams(location.search);
+if(QS.has('root'))S.root=+QS.get('root');if(QS.has('type')&&TYPES[QS.get('type')])S.type=QS.get('type');
+if(QS.has('bpm'))S.bpm=Math.max(50,Math.min(160,+QS.get('bpm')||80));
+if(QS.get('shape')==='all')S.shape='all';else if(QS.has('shape')){const k=positions(chord(S.root,S.type)).findIndex(p=>p.es===QS.get('shape'));if(k>=0)S.shape=k;}
+if(QS.has('ptypes'))P.types=QS.get('ptypes');
 renderExplore();if(S.shape!=='all')scrollTo($('board-scroll'),pos[S.shape].lo,pos[S.shape].hi,false);
+if(QS.get('tab')==='practice')tab('practice');
 </script>
+
+<!-- ===== Metrónomo ===== -->
+<style>
+.wrap{padding-block-end:120px}
+.metro{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:20;display:flex;flex-direction:column;align-items:flex-end;gap:8px;font-family:var(--f-body)}
+.metro-toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 14px var(--f-body);padding:9px 14px;border-radius:999px;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.14)}
+.metro-toggle b{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.metro-dot{width:10px;height:10px;border-radius:50%;background:var(--line);transition:background .06s}
+.metro-dot.tick{background:var(--accent)}
+.metro-dot.tick.acc{background:var(--c-r,#E2553F)}
+.metro-panel{width:min(300px,calc(100vw - 24px));background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 30px rgba(0,0,0,.18)}
+.metro-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.metro-bpm{font-family:var(--f-mono);font-size:30px;font-variant-numeric:tabular-nums;min-width:3ch;text-align:center;color:var(--ink)}
+.metro-round{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 18px var(--f-body);cursor:pointer}
+.metro-panel input[type=range]{width:100%;accent-color:var(--accent)}
+.metro-beats{display:flex;gap:6px}
+.metro-beats i{flex:1;height:10px;border-radius:5px;background:var(--line)}
+.metro-beats i.on{background:var(--accent)}
+.metro-beats i.on:first-child{background:var(--c-r,#E2553F)}
+.metro-sm{font-size:12px;color:var(--muted)}
+.metro button:focus-visible,.metro input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+<div class="metro" id="metro">
+  <div class="metro-panel" id="m-panel" hidden>
+    <div class="metro-row" style="justify-content:space-between">
+      <button class="metro-round" id="m-minus" aria-label="Bajar tempo">−</button>
+      <div style="display:flex;flex-direction:column;align-items:center"><output class="metro-bpm" id="m-bpm">80</output><span class="metro-sm">pulsos por minuto</span></div>
+      <button class="metro-round" id="m-plus" aria-label="Subir tempo">+</button>
+    </div>
+    <input type="range" id="m-range" min="40" max="200" step="1" value="80" aria-label="Tempo">
+    <div class="metro-row"><span class="lbl">Compás</span><div class="chips" id="m-meter"></div></div>
+    <div class="metro-beats" id="m-beats"></div>
+    <div class="metro-row">
+      <button class="btn primary" id="m-play" style="flex:1">▶ Empezar</button>
+      <button class="btn" id="m-tap">Marcar</button>
+    </div>
+    <span class="metro-sm">"Marcar": pulsa al ritmo para fijar el tempo.</span>
+  </div>
+  <button class="metro-toggle" id="m-open" aria-expanded="false"><span class="metro-dot" id="m-dot"></span>Metrónomo <b id="m-mini">80</b></button>
+</div>
+<script>
+(function(){
+  const M={bpm:80,beats:4,on:false};
+  try{const s=JSON.parse(localStorage.getItem('metro-v1')||'null');if(s){M.bpm=s.bpm||80;M.beats=s.beats||4;}}catch(e){}
+  const q=new URLSearchParams(location.search);if(q.get('bpm'))M.bpm=Math.max(40,Math.min(200,+q.get('bpm')||80));
+  const $m=id=>document.getElementById(id);
+  let ctx=null,timer=null,next=0,beat=0;const vis=[];
+  const save=()=>{try{localStorage.setItem('metro-v1',JSON.stringify({bpm:M.bpm,beats:M.beats}));}catch(e){}};
+  function click(t,acc){const o=ctx.createOscillator(),g=ctx.createGain();o.type='square';o.frequency.value=acc?1760:1100;
+    g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(acc?0.32:0.2,t+0.002);g.gain.exponentialRampToValueAtTime(0.0001,t+0.05);
+    o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+0.06);}
+  function sched(){while(next<ctx.currentTime+0.12){const b=beat;click(next,b===0);
+      const d=Math.max(0,(next-ctx.currentTime)*1000);vis.push(setTimeout(()=>show(b),d));
+      next+=60/M.bpm;beat=(beat+1)%M.beats;}}
+  function show(b){const dot=$m('m-dot');dot.classList.add('tick');dot.classList.toggle('acc',b===0);setTimeout(()=>dot.classList.remove('tick','acc'),90);
+    [...$m('m-beats').children].forEach((el,i)=>el.classList.toggle('on',i===b));}
+  function start(){if(!ctx){try{ctx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return;}}
+    if(ctx.state==='suspended')ctx.resume();M.on=true;beat=0;next=ctx.currentTime+0.06;sched();timer=setInterval(sched,25);render();}
+  function stop(){M.on=false;clearInterval(timer);vis.forEach(clearTimeout);vis.length=0;[...$m('m-beats').children].forEach(el=>el.classList.remove('on'));render();}
+  function setBpm(v){M.bpm=Math.max(40,Math.min(200,Math.round(v)));save();render();}
+  function render(){$m('m-bpm').textContent=M.bpm;$m('m-mini').textContent=M.bpm;$m('m-range').value=M.bpm;
+    $m('m-play').textContent=M.on?'■ Parar':'▶ Empezar';
+    $m('m-meter').innerHTML=[2,3,4,6].map(n=>`<button class="chip" data-v="${n}" aria-pressed="${n===M.beats}">${n}/${n===6?8:4}</button>`).join('');
+    if($m('m-beats').children.length!==M.beats)$m('m-beats').innerHTML='<i></i>'.repeat(M.beats);}
+  $m('m-open').onclick=()=>{const p=$m('m-panel');p.hidden=!p.hidden;$m('m-open').setAttribute('aria-expanded',!p.hidden);};
+  $m('m-minus').onclick=()=>setBpm(M.bpm-5);$m('m-plus').onclick=()=>setBpm(M.bpm+5);
+  $m('m-range').oninput=e=>setBpm(+e.target.value);
+  $m('m-meter').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;M.beats=+b.dataset.v;beat=0;save();render();};
+  $m('m-play').onclick=()=>M.on?stop():start();
+  let taps=[];$m('m-tap').onclick=()=>{const t=performance.now();taps=taps.filter(x=>t-x<2500);taps.push(t);
+    if(taps.length>=3){const d=(taps[taps.length-1]-taps[0])/(taps.length-1);setBpm(60000/d);}};
+  window.Metro={setBpm,start,stop,get bpm(){return M.bpm;},open(){$m('m-panel').hidden=false;$m('m-open').setAttribute('aria-expanded','true');}};
+  render();
+})();
+</script>
+<!-- ===== /Metrónomo ===== -->
 
 </body>
 </html>

@@ -77,13 +77,25 @@ h2{font-family:var(--f-display);font-weight:600;font-size:19px;margin:0}
 .chip:disabled{cursor:default}
 .feedback{font-weight:600;min-height:1.5em}
 .score{font-family:var(--f-mono);font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tabs{flex-wrap:wrap}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;padding:0 16px}
+.step{text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:8px 10px;cursor:pointer;display:flex;flex-direction:column;gap:1px;font:inherit;min-width:0}
+.step[aria-pressed="true"]{border-color:var(--accent);background:var(--soft);box-shadow:0 0 0 1px var(--accent) inset}
+.step .rn{font-size:12px;letter-spacing:.02em;color:var(--muted);font-weight:600}
+.step .nm{font-family:var(--f-display);font-weight:600;font-size:18px;line-height:1.15}
+.step .fr{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums}
+.step .kp{font-size:12px;color:var(--muted)}
+.tempo{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.tempo input{width:110px;accent-color:var(--accent)}
+.tempo output{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink);min-width:3.5ch}
+.toggles{align-items:center}
 @media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}}
 </style>
 
 </head>
 <body>
 <div class="wrap">
-  <nav style="display:flex;gap:14px"><a class="home" href="index.html">← Inicio</a><a class="home" href="arpegios.html">Mástil de arpegios →</a></nav>
+  <nav style="display:flex;gap:14px;flex-wrap:wrap"><a class="home" href="index.html">← Inicio</a><a class="home" href="arpegios.html">Arpegios</a><a class="home" href="sesion.html">Sesión</a><a class="home" href="pistas.html">Backing tracks</a></nav>
   <header>
     <div>
       <h1>Mástil de triadas</h1>
@@ -91,6 +103,7 @@ h2{font-family:var(--f-display);font-weight:600;font-size:19px;margin:0}
     </div>
     <div class="tabs" role="tablist">
       <button id="tab-explore" role="tab" aria-selected="true">Explorar</button>
+      <button id="tab-prog" role="tab" aria-selected="false">Progresiones</button>
       <button id="tab-practice" role="tab" aria-selected="false">Practicar</button>
     </div>
   </header>
@@ -125,6 +138,31 @@ h2{font-family:var(--f-display);font-weight:600;font-size:19px;margin:0}
     </div>
 
     <div class="tip" id="tip"></div>
+  </section>
+
+  <!-- PROGRESIONES -->
+  <section id="prog" hidden style="display:flex;flex-direction:column;gap:18px">
+    <div class="controls">
+      <span class="lbl">Tonalidad</span><div class="chips" id="g-key"></div>
+      <span class="lbl">Progresión</span><div class="chips" id="g-prog"></div>
+      <span class="lbl">Cuerdas</span><div class="chips" id="g-set"></div>
+      <span class="lbl">Zona</span><div class="chips" id="g-zone"></div>
+    </div>
+    <div class="stage">
+      <div class="stage-head">
+        <p class="chord-name" id="g-name"></p>
+        <div class="legend" id="g-legend"></div>
+      </div>
+      <div class="board-scroll" id="g-scroll"><div id="g-board"></div></div>
+      <div class="steps" id="g-steps"></div>
+      <div class="toggles">
+        <button class="btn primary" id="g-play">▶ Tocar la progresión</button>
+        <button class="btn" id="g-loop" aria-pressed="true">Repetir: sí</button>
+        <label class="tempo" for="g-tempo">Tempo <input type="range" id="g-tempo" min="50" max="140" step="5" value="70"><output id="g-tempo-out">70</output></label>
+      </div>
+      <p class="hint">Cada acorde usa la inversión más cercana al anterior, para que la mano se mueva lo mínimo. La forma atenuada es el acorde anterior.</p>
+    </div>
+    <div class="tip" id="g-tip"></div>
   </section>
 
   <!-- PRACTICAR -->
@@ -296,13 +334,158 @@ $('q-inv').onclick=e=>{const b=e.target.closest('.chip');if(!b||P.cur.aI!=null)r
 $('q-listen').onclick=()=>playShape(P.cur.sh);
 $('q-next').onclick=newQuestion;
 
+/* ---------- progresiones ---------- */
+const KEYS=[['Do',0,0],['Re♭',1,1],['Re',1,2],['Mi♭',2,3],['Mi',2,4],['Fa',3,5],['Fa♯',3,6],['Sol',4,7],['La♭',5,8],['La',5,9],['Si♭',6,10],['Si',6,11]];
+const DEG={I:[0,0,'M'],ii:[1,2,'m'],iii:[2,4,'m'],IV:[3,5,'M'],V:[4,7,'M'],vi:[5,9,'m']};
+const PROGS=['I–vi–IV–V','I–V–vi–IV','vi–IV–I–V','I–IV–V–IV','ii–V–I–I','I–iii–IV–V'];
+const ZONES=[[0,'0–4'],[3,'3–7'],[5,'5–9'],[7,'7–11'],[10,'10–14']];
+const LETEN=['C','D','E','F','G','A','B'];
+function chordL(l,pc,q){const n=spell(l,pc),p3=(pc+(q==='M'?4:3))%12,p5=(pc+7)%12;
+  return{name:n+(q==='M'?' mayor':' menor'),short:n+(q==='m'?'m':''),
+    tones:[{pc,deg:'R',lab:'T',note:n},{pc:p3,deg:'3',lab:q==='M'?'3':'♭3',note:spell(l+2,p3)},{pc:p5,deg:'5',lab:'5',note:spell(l+4,p5)}]};}
+function symEN(l,pc,q){const n=spell(l,pc);return LETEN[l%7]+n.slice(LET[l%7].length)+(q==='m'?'m':'');}
+let G={key:0,prog:0,set:0,zone:5,loop:true,bpm:70,sel:0};
+try{const sv=JSON.parse(localStorage.getItem('triadas-prog-v1')||'null');if(sv)Object.assign(G,sv,{sel:0});}catch(e){}
+const gsave=()=>{try{localStorage.setItem('triadas-prog-v1',JSON.stringify(G));}catch(e){}};
+function progChords(){const[,kl,kpc]=KEYS[G.key];
+  return PROGS[G.prog].split('–').map(rn=>{const[dl,ds,q]=DEG[rn],l=(kl+dl)%7,pc=(kpc+ds)%12,c=chordL(l,pc,q);c.rn=rn;c.en=symEN(l,pc,q);return c;});}
+function voiceLead(chs){const out=[];let prev=null;
+  chs.forEach(c=>{let best=null,bd=1e9;
+    shapes(c,G.set).forEach(sh=>{const fr=sh.notes.map(n=>n.f);let d;
+      if(!prev)d=Math.abs((Math.min(...fr)+Math.max(...fr))/2-(G.zone+2));
+      else d=sh.notes.reduce((a,n,i)=>a+Math.abs(n.f-prev.notes[i].f),0)+0.2*Math.abs(sh.minF-G.zone);
+      if(d<bd){bd=d;best=sh;}});
+    out.push(best);prev=best;});
+  return out;}
+function centerOn(sc,sh,smooth){const svg=sc.querySelector('svg');if(!svg||!sh)return;requestAnimationFrame(()=>{const k=svg.getBoundingClientRect().width/W;
+  const x=sh.notes.reduce((a,n)=>a+xOf(n.f),0)/3*k;sc.scrollTo({left:x-sc.clientWidth/2,behavior:smooth?'smooth':'auto'});});}
+let gCh=[],gSh=[],gTimer=null;
+function renderProg(scroll){
+  gCh=progChords();gSh=voiceLead(gCh);if(G.sel>=gSh.length)G.sel=0;
+  const updG=fn=>v=>{fn(v);G.sel=0;gsave();renderProg(true);};
+  chips($('g-key'),KEYS.map((k,i)=>[i,k[0]]),G.key,updG(v=>G.key=+v));
+  chips($('g-prog'),PROGS.map((p,i)=>[i,p]),G.prog,updG(v=>G.prog=+v));
+  chips($('g-set'),SETS.map((s,i)=>[i,s.join('-')]),G.set,updG(v=>G.set=+v));
+  chips($('g-zone'),ZONES.map(z=>[z[0],'Trastes '+z[1]]),G.zone,updG(v=>G.zone=+v));
+  const i=G.sel,c=gCh[i],sh=gSh[i],pi=(i+gSh.length-1)%gSh.length,prev=gSh[pi];
+  $('g-name').textContent=`${c.short} (${c.en}) · ${c.tones.map(t=>t.note).join(' – ')}`;
+  $('g-legend').innerHTML=c.tones.map(t=>`<span><i style="background:var(${DEGVAR[t.deg][0]})"></i>${t.lab==='T'?'Tónica':t.lab==='5'?'Quinta':'Tercera'} (${t.note})</span>`).join('');
+  const list=prev&&prev!==sh?[prev,sh]:[sh];
+  $('g-board').innerHTML=boardSVG({ch:c,shapes:list,set:SETS[G.set],sel:list.length-1,dimOthers:true,notes:false});
+  const set=SETS[G.set],order=[set[2],set[1],set[0]];
+  $('g-steps').innerHTML=gSh.map((s,k)=>{const p=gSh[(k+gSh.length-1)%gSh.length];
+    const keep=s.notes.filter((n,j)=>n.f===p.notes[j].f).map(n=>n.t.note);
+    return`<button class="step" data-i="${k}" aria-pressed="${k===i}"><span class="rn">${gCh[k].rn} · ${INVS[s.inv]}</span>
+      <span class="nm">${gCh[k].short}</span><span class="fr">${s.notes.map(n=>n.f).join('·')}</span>
+      <span class="kp">${keep.length?'Se mantiene: '+keep.join(', '):'Cambian las 3 notas'}</span></button>`;}).join('');
+  $('g-tempo').value=G.bpm;$('g-tempo-out').textContent=G.bpm;
+  $('g-loop').setAttribute('aria-pressed',G.loop);$('g-loop').textContent=G.loop?'Repetir: sí':'Repetir: no';
+  const moves=gSh.map((s,k)=>{const p=gSh[(k+gSh.length-1)%gSh.length];return s.notes.reduce((a,n,j)=>a+Math.abs(n.f-p.notes[j].f),0);});
+  $('g-tip').innerHTML=`<strong>${KEYS[G.key][0]} mayor, ${PROGS[G.prog]}:</strong> ${gCh.map(c=>c.short).join(' – ')} (${gCh.map(c=>c.en).join(' – ')}). `+
+    `En cuerdas ${set.join('-')} la mano recorre ${moves.slice(1).reduce((a,b)=>a+b,0)} trastes en total (sumando lo que se mueve cada dedo). `+
+    `Ejercicio: toca la progresión con el metrónomo a 60, un acorde por compás, y después repítela en otra zona del mástil.`;
+  if(scroll)centerOn($('g-scroll'),sh,true);}
+function strum(sh,t,vel){sh.notes.forEach((n,k)=>pluck(n.midi,t+k*0.035));}
+function gStop(){clearTimeout(gTimer);gTimer=null;$('g-play').textContent='▶ Tocar la progresión';}
+function gStep(i){const a=ac();if(!a)return;if(i>=gSh.length){if(G.loop)i=0;else{gStop();return;}}
+  G.sel=i;renderProg(true);const beat=60/G.bpm,t=a.currentTime+0.03;strum(gSh[i],t);strum(gSh[i],t+2*beat);
+  gTimer=setTimeout(()=>gStep(i+1),4*beat*1000);}
+$('g-play').onclick=()=>{if(gTimer){gStop();return;}$('g-play').textContent='■ Parar';gStep(0);};
+$('g-loop').onclick=()=>{G.loop=!G.loop;gsave();renderProg(false);};
+$('g-tempo').oninput=e=>{G.bpm=+e.target.value;$('g-tempo-out').textContent=G.bpm;gsave();};
+$('g-steps').addEventListener('click',e=>{const b=e.target.closest('.step');if(!b)return;G.sel=+b.dataset.i;renderProg(true);
+  if(S.sound&&!gTimer){const a=ac();if(a)strum(gSh[G.sel],a.currentTime+0.03);}});
+
+/* ---------- enlaces con ajustes (desde la sesión guiada) ---------- */
+const QS=new URLSearchParams(location.search);
+if(QS.has('root'))S.root=+QS.get('root');if(QS.has('q'))S.q=QS.get('q');if(QS.has('set'))S.set=+QS.get('set');
+if(QS.has('pset'))P.set=QS.get('pset');
+if(QS.has('key'))G.key=+QS.get('key');if(QS.has('prog'))G.prog=+QS.get('prog');if(QS.has('gset'))G.set=+QS.get('gset');
+
 /* ---------- pestañas ---------- */
-function tab(w){const ex=w==='explore';$('explore').hidden=!ex;$('practice').hidden=ex;
-  $('tab-explore').setAttribute('aria-selected',ex);$('tab-practice').setAttribute('aria-selected',!ex);
-  if(!ex&&!P.cur)newQuestion();}
-$('tab-explore').onclick=()=>tab('explore');$('tab-practice').onclick=()=>tab('practice');
+const TABS=['explore','prog','practice'];
+function tab(w){TABS.forEach(t=>{$(t).hidden=t!==w;$('tab-'+t).setAttribute('aria-selected',t===w);});
+  if(w!=='prog'&&gTimer)gStop();if(w==='practice'&&!P.cur)newQuestion();if(w==='prog')renderProg(true);}
+TABS.forEach(t=>$('tab-'+t).onclick=()=>tab(t));
 renderExplore();
+tab(TABS.includes(QS.get('tab'))?QS.get('tab'):'explore');
 </script>
+
+<!-- ===== Metrónomo ===== -->
+<style>
+.wrap{padding-block-end:120px}
+.metro{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:20;display:flex;flex-direction:column;align-items:flex-end;gap:8px;font-family:var(--f-body)}
+.metro-toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 14px var(--f-body);padding:9px 14px;border-radius:999px;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.14)}
+.metro-toggle b{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.metro-dot{width:10px;height:10px;border-radius:50%;background:var(--line);transition:background .06s}
+.metro-dot.tick{background:var(--accent)}
+.metro-dot.tick.acc{background:var(--c-r,#E2553F)}
+.metro-panel{width:min(300px,calc(100vw - 24px));background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 30px rgba(0,0,0,.18)}
+.metro-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.metro-bpm{font-family:var(--f-mono);font-size:30px;font-variant-numeric:tabular-nums;min-width:3ch;text-align:center;color:var(--ink)}
+.metro-round{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 18px var(--f-body);cursor:pointer}
+.metro-panel input[type=range]{width:100%;accent-color:var(--accent)}
+.metro-beats{display:flex;gap:6px}
+.metro-beats i{flex:1;height:10px;border-radius:5px;background:var(--line)}
+.metro-beats i.on{background:var(--accent)}
+.metro-beats i.on:first-child{background:var(--c-r,#E2553F)}
+.metro-sm{font-size:12px;color:var(--muted)}
+.metro button:focus-visible,.metro input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+<div class="metro" id="metro">
+  <div class="metro-panel" id="m-panel" hidden>
+    <div class="metro-row" style="justify-content:space-between">
+      <button class="metro-round" id="m-minus" aria-label="Bajar tempo">−</button>
+      <div style="display:flex;flex-direction:column;align-items:center"><output class="metro-bpm" id="m-bpm">80</output><span class="metro-sm">pulsos por minuto</span></div>
+      <button class="metro-round" id="m-plus" aria-label="Subir tempo">+</button>
+    </div>
+    <input type="range" id="m-range" min="40" max="200" step="1" value="80" aria-label="Tempo">
+    <div class="metro-row"><span class="lbl">Compás</span><div class="chips" id="m-meter"></div></div>
+    <div class="metro-beats" id="m-beats"></div>
+    <div class="metro-row">
+      <button class="btn primary" id="m-play" style="flex:1">▶ Empezar</button>
+      <button class="btn" id="m-tap">Marcar</button>
+    </div>
+    <span class="metro-sm">"Marcar": pulsa al ritmo para fijar el tempo.</span>
+  </div>
+  <button class="metro-toggle" id="m-open" aria-expanded="false"><span class="metro-dot" id="m-dot"></span>Metrónomo <b id="m-mini">80</b></button>
+</div>
+<script>
+(function(){
+  const M={bpm:80,beats:4,on:false};
+  try{const s=JSON.parse(localStorage.getItem('metro-v1')||'null');if(s){M.bpm=s.bpm||80;M.beats=s.beats||4;}}catch(e){}
+  const q=new URLSearchParams(location.search);if(q.get('bpm'))M.bpm=Math.max(40,Math.min(200,+q.get('bpm')||80));
+  const $m=id=>document.getElementById(id);
+  let ctx=null,timer=null,next=0,beat=0;const vis=[];
+  const save=()=>{try{localStorage.setItem('metro-v1',JSON.stringify({bpm:M.bpm,beats:M.beats}));}catch(e){}};
+  function click(t,acc){const o=ctx.createOscillator(),g=ctx.createGain();o.type='square';o.frequency.value=acc?1760:1100;
+    g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(acc?0.32:0.2,t+0.002);g.gain.exponentialRampToValueAtTime(0.0001,t+0.05);
+    o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+0.06);}
+  function sched(){while(next<ctx.currentTime+0.12){const b=beat;click(next,b===0);
+      const d=Math.max(0,(next-ctx.currentTime)*1000);vis.push(setTimeout(()=>show(b),d));
+      next+=60/M.bpm;beat=(beat+1)%M.beats;}}
+  function show(b){const dot=$m('m-dot');dot.classList.add('tick');dot.classList.toggle('acc',b===0);setTimeout(()=>dot.classList.remove('tick','acc'),90);
+    [...$m('m-beats').children].forEach((el,i)=>el.classList.toggle('on',i===b));}
+  function start(){if(!ctx){try{ctx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return;}}
+    if(ctx.state==='suspended')ctx.resume();M.on=true;beat=0;next=ctx.currentTime+0.06;sched();timer=setInterval(sched,25);render();}
+  function stop(){M.on=false;clearInterval(timer);vis.forEach(clearTimeout);vis.length=0;[...$m('m-beats').children].forEach(el=>el.classList.remove('on'));render();}
+  function setBpm(v){M.bpm=Math.max(40,Math.min(200,Math.round(v)));save();render();}
+  function render(){$m('m-bpm').textContent=M.bpm;$m('m-mini').textContent=M.bpm;$m('m-range').value=M.bpm;
+    $m('m-play').textContent=M.on?'■ Parar':'▶ Empezar';
+    $m('m-meter').innerHTML=[2,3,4,6].map(n=>`<button class="chip" data-v="${n}" aria-pressed="${n===M.beats}">${n}/${n===6?8:4}</button>`).join('');
+    if($m('m-beats').children.length!==M.beats)$m('m-beats').innerHTML='<i></i>'.repeat(M.beats);}
+  $m('m-open').onclick=()=>{const p=$m('m-panel');p.hidden=!p.hidden;$m('m-open').setAttribute('aria-expanded',!p.hidden);};
+  $m('m-minus').onclick=()=>setBpm(M.bpm-5);$m('m-plus').onclick=()=>setBpm(M.bpm+5);
+  $m('m-range').oninput=e=>setBpm(+e.target.value);
+  $m('m-meter').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;M.beats=+b.dataset.v;beat=0;save();render();};
+  $m('m-play').onclick=()=>M.on?stop():start();
+  let taps=[];$m('m-tap').onclick=()=>{const t=performance.now();taps=taps.filter(x=>t-x<2500);taps.push(t);
+    if(taps.length>=3){const d=(taps[taps.length-1]-taps[0])/(taps.length-1);setBpm(60000/d);}};
+  window.Metro={setBpm,start,stop,get bpm(){return M.bpm;},open(){$m('m-panel').hidden=false;$m('m-open').setAttribute('aria-expanded','true');}};
+  render();
+})();
+</script>
+<!-- ===== /Metrónomo ===== -->
 
 </body>
 </html>
