@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Entrenamiento de oído</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: una columna — elegir ejercicio, gran botón de escuchar, respuestas en rejilla, marcador */
+:root{
+  --bg:#F2F4F1; --surface:#FFFFFF; --ink:#1B201C; --muted:#5E675F; --line:#D9DED8;
+  --accent:#A8731A; --accent-ink:#FFFFFF; --soft:#F7EEDD; --wood:#3B2A22;
+  --c-r:#E2553F; --c-3:#3E86D6; --c-5:#E3B23C; --c-7:#3FA372; --ok:#2F8F55; --bad:#C2412D;
+  --f-display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root{--bg:#111412;--surface:#1A1E1B;--ink:#E8ECE7;--muted:#9AA49B;--line:#2E352F;--accent:#E0A93F;--accent-ink:#1A1206;--soft:#2A2416;--ok:#5FC085;--bad:#EF6B55;color-scheme:dark}}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.home{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none}.home:hover{color:var(--accent)}
+nav{display:flex;gap:14px;flex-wrap:wrap}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,5vw,36px);line-height:1.05;margin:0;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:4px 0 0;font-size:14px}
+.controls{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center}
+.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 14px var(--f-body);padding:5px 11px;border-radius:8px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip:focus-visible,.btn:focus-visible,.ans:focus-visible,.listen:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:560px){.controls{grid-template-columns:1fr;gap:4px}.controls .lbl{margin-top:8px}}
+.card{background:var(--wood);color:#F6EFE2;border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+.listen{width:96px;height:96px;border-radius:50%;border:0;background:#E3B23C;color:#2A1D00;font-size:34px;cursor:pointer}
+.q{font-family:var(--f-display);font-weight:600;font-size:20px;margin:0}
+.qsub{font-size:14px;opacity:.75;margin:0;max-width:46ch}
+.answers{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;width:100%}
+.ans{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#F6EFE2;font:600 15px var(--f-body);padding:12px 8px;border-radius:10px;cursor:pointer}
+.ans small{display:block;font:500 12px var(--f-body);opacity:.7}
+.ans.right{background:#2F8F55;border-color:#2F8F55}
+.ans.wrong{background:#C2412D;border-color:#C2412D}
+.ans:disabled{cursor:default}
+.feedback{min-height:1.5em;font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.btn{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#F6EFE2;font:500 14px var(--f-body);padding:8px 14px;border-radius:8px;cursor:pointer}
+.btn.primary{background:#E3B23C;border-color:#E3B23C;color:#2A1D00;font-weight:600}
+.score{display:flex;gap:18px;justify-content:center;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:14px;opacity:.85}
+.tip{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:14px;display:flex;flex-direction:column;gap:6px}
+.tip p{margin:0}.tip strong{font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="home" href="index.html">← Inicio</a><a class="home" href="sesion.html">Sesión</a><a class="home" href="escalas.html">Escalas</a><a class="home" href="pistas.html">Backing tracks</a></nav>
+  <header>
+    <h1>Entrenamiento de oído</h1>
+    <p class="sub">Reconocer lo que oyes es lo que te deja tocar lo que imaginas</p>
+  </header>
+  <div class="controls">
+    <span class="lbl">Ejercicio</span><div class="chips" id="c-mode"></div>
+    <span class="lbl">Nivel</span><div class="chips" id="c-level"></div>
+    <span class="lbl">Cómo suena</span><div class="chips" id="c-play"></div>
+  </div>
+  <div class="card">
+    <button class="listen" id="listen" aria-label="Escuchar">▶</button>
+    <p class="q" id="q"></p>
+    <p class="qsub" id="qsub"></p>
+    <div class="answers" id="answers"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="row">
+      <button class="btn" id="ref">Escuchar la respuesta correcta</button>
+      <button class="btn primary" id="next">Siguiente</button>
+    </div>
+    <div class="score"><span>Aciertos <b id="s-ok">0</b></span><span>Fallos <b id="s-ko">0</b></span><span>Racha <b id="s-st">0</b></span><span>Mejor racha <b id="s-best">0</b></span></div>
+  </div>
+  <div class="tip" id="tip"></div>
+</div>
+<script>
+const MODES={
+  triad:{n:'Mayor o menor',levels:[['b','Mayor y menor'],['a','+ disminuida y aumentada']]},
+  int:{n:'Intervalos',levels:[['b','Básicos'],['a','Todos']]},
+  deg:{n:'Grados en la tonalidad',levels:[['b','1, 3 y 5'],['m','Escala pentatónica'],['a','Escala mayor completa']]}};
+const TRI={M:{n:'Mayor',d:'alegre, estable',iv:[0,4,7]},m:{n:'Menor',d:'triste, oscuro',iv:[0,3,7]},dim:{n:'Disminuida',d:'tensa, inestable',iv:[0,3,6]},aug:{n:'Aumentada',d:'suspendida, misteriosa',iv:[0,4,8]}};
+const INT={1:['2ª menor','Tiburón'],2:['2ª mayor','Cumpleaños feliz'],3:['3ª menor','Greensleeves'],4:['3ª mayor','Oh when the saints'],5:['4ª justa','Marcha nupcial'],6:['Tritono','Los Simpson'],7:['5ª justa','Star Wars'],8:['6ª menor','Love story (Nino Rota)'],9:['6ª mayor','My Way (inicio)'],10:['7ª menor','Star Trek (serie)'],11:['7ª mayor','Take on me (estribillo)'],12:['Octava','Somewhere over the rainbow']};
+const DEG={0:'1',2:'2',4:'3',5:'4',7:'5',9:'6',11:'7'};
+let S={mode:'triad',level:'b',play:'arp',ok:0,ko:0,st:0,best:0};
+try{const s=JSON.parse(localStorage.getItem('oido-v1')||'null');if(s)Object.assign(S,s);}catch(e){}
+const QS=new URLSearchParams(location.search);if(MODES[QS.get('mode')])S.mode=QS.get('mode');if(QS.has('level'))S.level=QS.get('level');
+const save=()=>{try{localStorage.setItem('oido-v1',JSON.stringify(S));}catch(e){}};
+const $=id=>document.getElementById(id);
+
+let AC=null;
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC;}
+function pluck(midi,t,len=1.6,vol=.2){const a=ac();if(!a)return;const fq=440*Math.pow(2,(midi-69)/12);
+  const g=a.createGain(),lp=a.createBiquadFilter();lp.type='lowpass';lp.frequency.setValueAtTime(fq*6,t);lp.frequency.exponentialRampToValueAtTime(fq*1.5,t+1.1);
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+0.006);g.gain.exponentialRampToValueAtTime(0.0001,t+len);
+  [['triangle',1,1],['sine',2,.35],['sawtooth',1,.07]].forEach(([ty,m,v])=>{const o=a.createOscillator(),og=a.createGain();o.type=ty;o.frequency.value=fq*m;og.gain.value=v;o.connect(og).connect(lp);o.start(t);o.stop(t+len+.1);});
+  lp.connect(g).connect(a.destination);}
+function play(notes,mode,t){if(mode==='blk')notes.forEach((m,i)=>pluck(m,t+i*.015,2));else notes.forEach((m,i)=>pluck(m,t+i*.45,1.4));return t+(mode==='blk'?1.6:notes.length*.45+.8);}
+function cadence(key,t){const base=48+key;[[0,4,7],[5,9,12],[7,11,14],[0,4,7]].forEach((c,i)=>{const r=i===2?base-12+7:base;c.forEach((iv,j)=>pluck(base+iv,t+i*.6+j*.012,.9,.14));pluck(base-12+[0,5,7,0][i],t+i*.6,.9,.16);});return t+2.6;}
+
+let Q=null;
+function opts(){const m=S.mode,l=S.level;
+  if(m==='triad')return l==='a'?['M','m','dim','aug']:['M','m'];
+  if(m==='int')return l==='a'?[1,2,3,4,5,6,7,8,9,10,11,12]:[3,4,5,7,12];
+  return l==='a'?[0,2,4,5,7,9,11]:l==='m'?[0,2,4,7,9]:[0,4,7];}
+function newQ(){const o=opts(),ans=o[Math.floor(Math.random()*o.length)];
+  if(S.mode==='triad'){const r=52+Math.floor(Math.random()*10);Q={ans,notes:TRI[ans].iv.map(i=>r+i)};}
+  else if(S.mode==='int'){const r=52+Math.floor(Math.random()*12);Q={ans,notes:[r,r+ans]};}
+  else{const key=Math.floor(Math.random()*12);Q={ans,key,notes:[60+key+ans-(60+key+ans>71?12:0)]};}
+  Q.done=false;render();setTimeout(listen,150);}
+function listen(){const a=ac();if(!a||!Q)return;let t=a.currentTime+.05;
+  if(S.mode==='deg'){t=cadence(Q.key,t)+.3;pluck(Q.notes[0],t,2,.24);}
+  else play(Q.notes,S.mode==='int'&&S.play==='blk'?'blk':S.play,t);}
+function label(v){if(S.mode==='triad')return`${TRI[v].n}<small>${TRI[v].d}</small>`;if(S.mode==='int')return`${INT[v][0]}<small>${INT[v][1]}</small>`;return`Grado ${DEG[v]}`;}
+function chips(el,items,cur,onPick){el.innerHTML=items.map(([v,l])=>`<button class="chip" data-v="${v}" aria-pressed="${String(v)===String(cur)}">${l}</button>`).join('');
+  el.onclick=e=>{const b=e.target.closest('.chip');if(b)onPick(b.dataset.v);};}
+function render(){
+  chips($('c-mode'),Object.entries(MODES).map(([k,m])=>[k,m.n]),S.mode,v=>{S.mode=v;S.level='b';save();newQ();});
+  chips($('c-level'),MODES[S.mode].levels,S.level,v=>{S.level=v;save();newQ();});
+  chips($('c-play'),[['arp','Nota a nota'],['blk','A la vez']],S.play,v=>{S.play=v;save();render();});
+  $('c-play').parentElement;$('c-play').style.visibility=S.mode==='deg'?'hidden':'visible';
+  $('q').textContent=S.mode==='triad'?'¿Qué tipo de triada es?':S.mode==='int'?'¿Qué intervalo es?':'¿Qué grado de la escala es la última nota?';
+  $('qsub').textContent=S.mode==='deg'?'Primero suena una cadencia I–IV–V–I para fijar la tonalidad. Después, una nota sola.':S.mode==='int'?'Las canciones de cada botón te ayudan a recordar cómo suena.':'Escucha el color: la tercera decide si es mayor o menor.';
+  const o=opts();$('answers').innerHTML=o.map(v=>{let c='';if(Q&&Q.done){if(v===Q.ans)c='right';else if(v===Q.pick)c='wrong';}
+    return`<button class="ans ${c}" data-v="${v}" ${Q&&Q.done?'disabled':''}>${label(v)}</button>`;}).join('');
+  $('s-ok').textContent=S.ok;$('s-ko').textContent=S.ko;$('s-st').textContent=S.st;$('s-best').textContent=S.best;
+  const fb=$('feedback');if(Q&&Q.done){const g=Q.pick===Q.ans;fb.style.color=g?'#7FD49B':'#FF9C8A';fb.innerHTML=g?'¡Correcto!':`Era: ${label(Q.ans).replace(/<small>.*<\/small>/,'')}`;}else fb.textContent='';
+  $('ref').hidden=!(Q&&Q.done&&Q.pick!==Q.ans);
+  $('tip').innerHTML={triad:'<p><strong>Para qué sirve:</strong> si reconoces de oído si un acorde es mayor o menor, sabes qué tercera tocar sobre él sin mirar.</p><p><strong>Truco:</strong> canta la nota del medio. Si sube poco desde la grave, es menor; si sube más, es mayor.</p>',
+    int:'<p><strong>Para qué sirve:</strong> al improvisar, piensas un salto y tus dedos lo tocan. Los intervalos son el vocabulario de las melodías.</p><p><strong>Truco:</strong> asocia cada intervalo con el inicio de una canción que conozcas bien y cántala por dentro.</p>',
+    deg:'<p><strong>Para qué sirve:</strong> cada grado tiene su "sensación" dentro de la tonalidad. El 1 descansa, el 3 y el 5 son estables, el 7 quiere subir al 1, el 4 quiere bajar al 3.</p><p><strong>Truco:</strong> después de oír la nota, cántala y baja o sube por la escala hasta llegar a la tónica. Cuenta los pasos.</p>'}[S.mode];}
+$('answers').addEventListener('click',e=>{const b=e.target.closest('.ans');if(!b||!Q||Q.done)return;const v=S.mode==='triad'?b.dataset.v:+b.dataset.v;
+  Q.pick=v;Q.done=true;if(v===Q.ans){S.ok++;S.st++;S.best=Math.max(S.best,S.st);}else{S.ko++;S.st=0;}save();render();});
+$('listen').onclick=listen;$('next').onclick=newQ;
+$('ref').onclick=()=>{const a=ac();if(!a)return;listen();};
+document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.code==='Space'){e.preventDefault();listen();}if(e.key==='Enter'&&Q&&Q.done)newQ();});
+newQ.first=true;const o0=opts(),a0=o0[0];Q=null;render();
+// la primera pregunta se crea sin sonar: el navegador solo deja reproducir audio tras un toque
+(function(){const o=opts(),ans=o[Math.floor(Math.random()*o.length)];
+  if(S.mode==='triad'){const r=52+Math.floor(Math.random()*10);Q={ans,notes:TRI[ans].iv.map(i=>r+i)};}
+  else if(S.mode==='int'){const r=52+Math.floor(Math.random()*12);Q={ans,notes:[r,r+ans]};}
+  else{const key=Math.floor(Math.random()*12);Q={ans,key,notes:[60+key+ans-(60+key+ans>71?12:0)]};}
+  Q.done=false;render();})();
+</script>
+</body>
+</html>

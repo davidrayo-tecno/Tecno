@@ -60,6 +60,19 @@ h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,5vw,36px);l
 .mix input{width:110px;accent-color:#E3B23C}
 .mix output{font-family:var(--f-mono);font-variant-numeric:tabular-nums;min-width:3ch}
 
+.rhythm{border-top:1px solid rgba(255,255,255,.15);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+.rh-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px}
+.rh-head b{color:#E3B23C}
+.rh-grid{display:grid;grid-template-columns:repeat(16,1fr);gap:3px}
+.rh-grid i{height:26px;border-radius:4px;background:rgba(255,255,255,.08);position:relative}
+.rh-grid i:nth-child(4n+1){margin-left:0;box-shadow:inset 2px 0 0 rgba(255,255,255,.25)}
+.rh-grid i.hit{background:#E3B23C}
+.rh-grid i.now{outline:2px solid #F6EFE2;outline-offset:-2px}
+.rh-desc{font-size:13px;opacity:.75}
+.mix .tg{white-space:nowrap}
+.rh-head .tg{border:1px solid rgba(255,255,255,.25);background:transparent;color:#F6EFE2;font:500 13px var(--f-body);padding:5px 10px;border-radius:999px;cursor:pointer}
+.bar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+@media (max-width:480px){.bar small{display:none}}
 .stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 0 12px;display:flex;flex-direction:column;gap:10px}
 .stage-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding:0 16px}
 .stage-head h2{font-family:var(--f-display);font-weight:600;font-size:19px;margin:0}
@@ -76,7 +89,7 @@ h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,5vw,36px);l
 </head>
 <body>
 <div class="wrap">
-  <nav><a class="home" href="index.html">← Inicio</a><a class="home" href="triadas.html">Triadas</a><a class="home" href="arpegios.html">Arpegios</a><a class="home" href="escalas.html">Escalas</a><a class="home" href="sesion.html">Sesión</a></nav>
+  <nav><a class="home" href="index.html">← Inicio</a><a class="home" href="triadas.html">Triadas</a><a class="home" href="arpegios.html">Arpegios</a><a class="home" href="escalas.html">Escalas</a><a class="home" href="sesion.html">Sesión</a><a class="home" href="oido.html">Oído</a></nav>
   <header>
     <h1>Backing tracks</h1>
     <p class="sub">Pistas de acompañamiento para improvisar, con las notas de cada acorde en el mástil</p>
@@ -101,6 +114,12 @@ h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,5vw,36px);l
       <button class="tg" id="m-keys" aria-pressed="true">Acordes</button>
       <label for="m-bpm">Tempo <input type="range" id="m-bpm" min="50" max="180" step="2" value="80"><output id="m-bpm-o">80</output></label>
       <label for="m-vol">Volumen <input type="range" id="m-vol" min="0" max="100" value="70"></label>
+      <button class="tg" id="m-rhythm" aria-pressed="false">Reto rítmico</button>
+    </div>
+    <div class="rhythm" id="rhythm" hidden>
+      <div class="rh-head"><span>Reto rítmico: <b id="rh-name"></b></span><button class="tg" id="rh-next">Otro ritmo</button></div>
+      <div class="rh-grid" id="rh-grid"></div>
+      <span class="rh-desc" id="rh-desc"></span>
     </div>
   </div>
 
@@ -110,6 +129,9 @@ h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,5vw,36px);l
       <div class="legend" id="legend"></div>
     </div>
     <div class="board-scroll" id="board-scroll"><div id="board"></div></div>
+    <div class="toggles">
+      <span class="lbl">Ver</span><div class="chips" id="c-view"></div>
+    </div>
     <div class="toggles">
       <span class="lbl">Zona</span><div class="chips" id="c-zone"></div>
     </div>
@@ -149,9 +171,21 @@ const STYLES={
  bossa:{n:'Bossa nova',swing:0,kick:[0,6,8,14],kickV:.6,rim:[0,6,12],hat:E8,hatV:.45,bass:[[0,'R',5],[6,'5',2],[8,'R',5],[14,'5',2]],keys:[[0,3,.6],[6,2,.55],[10,3,.6],[12,2,.5]],tone:'soft',jazz:true}};
 const BDEG={R:0,'8':12,'6':9,'b7':10};
 
-let S={prog:0,key:0,style:'rock',bpm:80,drums:true,bass:true,keys:true,vol:70,zone:'all',scale:true,notes:false};
+const RHYTHMS=[
+ ['Negras','x---x---x---x---','Una nota en cada pulso. Parece fácil: hazlo sonar con intención.'],
+ ['Corcheas','x-x-x-x-x-x-x-x-','Dos notas por pulso, sin parar. Cambia de dirección en la escala.'],
+ ['Frase y silencio','x-x-x-x---------','Frase en la primera mitad, silencio en la segunda. Escucha la pista mientras callas.'],
+ ['Contratiempos','--x---x---x---x-','Toca solo entre los pulsos. Da sensación de empuje.'],
+ ['Tresillo 3-3-2','x--x--x-x--x--x-','El ritmo base de mucha música latina y del rock and roll.'],
+ ['Empezar tarde','----x-x-x-x-----','La frase empieza en el tiempo 2. Evita empezar siempre en el 1.'],
+ ['Respuesta corta','x-----x-x-------','Pocas notas y mucho aire. Cada nota tiene que contar.'],
+ ['Funk','x-xx-x-x--x-x---','Semicorcheas sincopadas. Notas cortas y secas.'],
+ ['Galope','xxx-xxx-xxx-x---','Grupos de tres notas rápidas. Repite el mismo motivo.'],
+ ['Anticipación','------x-x--x-x--','La frase cae antes del siguiente compás y lo anticipa.']];
+let S={prog:0,key:0,style:'rock',bpm:80,drums:true,bass:true,keys:true,vol:70,zone:'all',scale:true,notes:false,view:'chord',rhythm:false};
 try{const s=JSON.parse(localStorage.getItem('pistas-v1')||'null');if(s)Object.assign(S,s);}catch(e){}
 const QS=new URLSearchParams(location.search);
+if(QS.get('view')==='guide')S.view='guide';if(QS.get('view')==='chord')S.view='chord';if(QS.has('rhythm'))S.rhythm=QS.get('rhythm')==='1';
 if(QS.has('prog'))S.prog=+QS.get('prog');if(QS.has('key'))S.key=+QS.get('key');if(QS.has('bpm'))S.bpm=+QS.get('bpm');if(STYLES[QS.get('style')])S.style=QS.get('style');
 const save=()=>{try{localStorage.setItem('pistas-v1',JSON.stringify(S));}catch(e){}};
 const $=id=>document.getElementById(id);
@@ -173,7 +207,9 @@ function scaleOf(){const k=keyInfo();
 const NUT=58,FW=54,TOP=34,SP=30,W=NUT+MAXF*FW+14,BOT=TOP+5*SP,H=BOT+40;
 const xOf=f=>f===0?34:NUT+(f-.5)*FW,yOf=s=>TOP+(s-1)*SP;
 const ZONES=[['all','Todo'],[0,'0–4'],[3,'3–7'],[5,'5–9'],[7,'7–11'],[10,'10–14']];
-function boardSVG(ch){
+function guideTones(ch){const g=ch.tones.filter(t=>t.col==='3'||t.col==='7');return g.length>1?g:ch.tones.filter(t=>t.col==='3'||t.col==='r');}
+function boardSVG(ch,next){
+  const guide=S.view==='guide',show=guide?guideTones(ch):ch.tones,nx=guide&&next?guideTones(next).filter(t=>!show.some(u=>u.pc===t.pc)):[];
   let g=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mástil con las notas del acorde">`;
   g+=`<rect x="${NUT}" y="${TOP-15}" width="${MAXF*FW}" height="${5*SP+30}" rx="4" fill="var(--wood)"/>`;
   const z=S.zone==='all'?null:+S.zone;
@@ -188,8 +224,9 @@ function boardSVG(ch){
     g+=`<text x="${xOf(f)}" y="${BOT+33}" text-anchor="middle" font-family="var(--f-mono)" font-size="${st?13:11}" font-weight="${st?600:400}" fill="var(--fretnum)" opacity="${st?1:.7}">${f}</text>`;}
   const sc=scaleOf(),k=keyInfo();
   for(let s=1;s<=6;s++)for(let f=0;f<=MAXF;f++){const pc=(OPEN[s]+f)%12,x=xOf(f),y=yOf(s);const out=z!=null&&(f<z||f>z+4);
-    const t=ch.tones.find(t=>t.pc===pc);
-    if(t){const c=`var(--c-${t.col})`,on=`var(--on-${t.col})`,txt=S.notes?t.note:t.lab;
+    const t=show.find(t=>t.pc===pc),tn=nx.find(t=>t.pc===pc);
+    if(!t&&tn){const c=`var(--c-${tn.col})`;g+=`<g opacity="${out?.22:1}"><circle cx="${x}" cy="${y}" r="11" fill="var(--surface)" stroke="${c}" stroke-width="2.5" stroke-dasharray="3 2"/><text x="${x}" y="${y+4}" text-anchor="middle" font-family="var(--f-body)" font-weight="600" font-size="9.5" fill="var(--ink)">${S.notes?tn.note:tn.lab}</text></g>`;}
+    else if(t){const c=`var(--c-${t.col})`,on=`var(--on-${t.col})`,txt=S.notes?t.note:t.lab;
       g+=`<g opacity="${out?.22:1}">`;
       if(t.iv===0)g+=`<circle cx="${x}" cy="${y}" r="15.5" fill="none" stroke="${c}" stroke-width="2"/>`;
       g+=`<circle cx="${x}" cy="${y}" r="12" fill="${c}"/><text x="${x}" y="${y+4}" text-anchor="middle" font-family="var(--f-body)" font-weight="600" font-size="${txt.length>3?8.5:txt.length>2?10:12}" fill="${on}">${txt}</text></g>`;}
@@ -234,22 +271,27 @@ function voice(ch){const pcs=ch.tones.map(t=>t.pc),cands=[];
 let CH=[],seq={on:false,bar:0,step:0,next:0,timer:null},vis=[],curBar=-1,curBeat=-1,raf=null;
 function stepTime(base,s,spb,swing){const beat=Math.floor(s/4),sub=s%4;const off=swing?[0,1/3,2/3,5/6][sub]:sub/4;return base+(beat+off)*spb;}
 function scheduleBar(t0,bar){const st=STYLES[S.style],spb=60/S.bpm,ch=CH[bar%CH.length],v=voice(ch),rootM=36+ch.pc;
-  vis.push({t:t0,bar:bar%CH.length,beat:0});for(let b=1;b<4;b++)vis.push({t:t0+b*spb,bar:bar%CH.length,beat:b});
-  const T=s=>stepTime(t0,s,spb,st.swing),stepDur=spb/4;
-  if(S.drums){st.kick.forEach(s=>kick(T(s),st.kickV||1));st.snare.forEach(s=>snare(T(s),1));(st.ghost||[]).forEach(s=>snare(T(s),.25));
-    st.hat.forEach(s=>hat(T(s),(st.hatV||1)*(s%4===0?1:.7)));(st.rim||[]).forEach(s=>rim(T(s),.6));}
+  const T=s=>stepTime(t0,s,spb,st.swing),stepDur=spb/4,pat=rOrder[Math.floor(bar/4)%rOrder.length];
+  for(let s=0;s<16;s++)vis.push({t:T(s),bar:bar%CH.length,beat:Math.floor(s/4),step:s,pat});
+  if(S.drums){(st.kick||[]).forEach(s=>kick(T(s),st.kickV||1));(st.snare||[]).forEach(s=>snare(T(s),1));(st.ghost||[]).forEach(s=>snare(T(s),.25));
+    (st.hat||[]).forEach(s=>hat(T(s),(st.hatV||1)*(s%4===0?1:.7)));(st.rim||[]).forEach(s=>rim(T(s),.6));}
   if(S.bass){const third=ch.tones[1].iv,fifth=ch.tones[2].iv;
     st.bass.forEach(([s,d,len])=>{const iv=d==='3'?third:d==='5'?fifth:BDEG[d];bassNote(T(s),rootM+iv,Math.max(.08,len*stepDur*.92),1);});}
   if(S.keys)st.keys.forEach(([s,len,vel])=>keysHit(T(s),v,len*stepDur*(st.tone==='stab'?.7:.95),vel,st.tone));}
 function countIn(t0){const spb=60/S.bpm;for(let b=0;b<4;b++){rim(t0+b*spb,b?.7:1);vis.push({t:t0+b*spb,bar:-1,beat:b});}return t0+4*spb;}
 function loop(){while(seq.next<AC.currentTime+0.2){scheduleBar(seq.next,seq.bar);seq.bar++;seq.next+=4*60/S.bpm;}}
-function start(){if(!audio())return;CH=buildChords();prevV=null;seq.on=true;seq.bar=0;vis=[];seq.next=countIn(AC.currentTime+.1);
+function start(){if(!audio())return;CH=buildChords();prevV=null;seq.on=true;shuffleR();paintRhythm();seq.bar=0;vis=[];seq.next=countIn(AC.currentTime+.1);
   loop();seq.timer=setInterval(loop,40);$('d-play').textContent='■';$('d-play').setAttribute('aria-label','Parar');raf=requestAnimationFrame(paint);}
 function stop(){seq.on=false;clearInterval(seq.timer);cancelAnimationFrame(raf);vis=[];curBar=-1;curBeat=-1;
   $('d-play').textContent='▶';$('d-play').setAttribute('aria-label','Reproducir');showBar(0,true);paintBeats(-1);}
-function paint(){if(!seq.on)return;const now=AC.currentTime;let e=null;while(vis.length&&vis[0].t<=now)e=vis.shift();
-  if(e){if(e.bar!==curBar){curBar=e.bar;if(e.bar>=0)showBar(e.bar,false);else countLabel();}if(e.beat!==curBeat||e.bar<0){curBeat=e.beat;paintBeats(e.beat,e.bar<0);}}
+function paint(){if(!seq.on)return;const now=AC.currentTime;let e=null;vis.sort((a,b)=>a.t-b.t);while(vis.length&&vis[0].t<=now)e=vis.shift();
+  if(e){if(e.bar!==curBar){curBar=e.bar;if(e.bar>=0)showBar(e.bar,false);else countLabel();}if(e.beat!==curBeat||e.bar<0){curBeat=e.beat;paintBeats(e.beat,e.bar<0);}
+    if(e.pat!=null&&e.pat!==curPat){curPat=e.pat;paintRhythm();}if(e.step!=null)[...$('rh-grid').children].forEach((c,i)=>c.classList.toggle('now',i===e.step));}
   raf=requestAnimationFrame(paint);}
+let rOrder=[0,1,2,3,4,5,6,7,8,9],curPat=0;
+function shuffleR(){rOrder=[...RHYTHMS.keys()].sort(()=>Math.random()-.5);curPat=rOrder[0];}
+function paintRhythm(){const[n,p,d]=RHYTHMS[curPat];$('rh-name').textContent=n;$('rh-desc').textContent=d+(seq.on?' Cambia cada 4 compases.':'');
+  $('rh-grid').innerHTML=[...p].map(c=>`<i class="${c==='x'?'hit':''}"></i>`).join('');$('rhythm').hidden=!S.rhythm;$('m-rhythm').setAttribute('aria-pressed',S.rhythm);}
 function paintBeats(b,count){[...$('d-beats').children].forEach((el,i)=>el.classList.toggle('on',i===b));if(count)$('d-chord').textContent=String(b+1);}
 function countLabel(){$('d-en').textContent='';$('d-next').textContent=`Entra en ${CH[0].name}`;}
 
@@ -258,9 +300,12 @@ let shownBar=0;
 function showBar(i,force){shownBar=i;const c=CH[i],n=CH[(i+1)%CH.length];
   $('d-chord').textContent=c.name;$('d-en').textContent=c.en;$('d-next').textContent=n!==c&&n.name!==c.name?`Después: ${n.name}`:'';
   [...$('d-bars').children].forEach((el,k)=>el.classList.toggle('on',k===i));
-  const prev=$('board').dataset.ch;if(force||prev!==c.name){$('board').innerHTML=boardSVG(c);$('board').dataset.ch=c.name;
-    $('s-title').textContent=`Notas de ${c.name}`;
-    $('legend').innerHTML=c.tones.map(t=>`<span><i style="background:var(--c-${t.col})"></i>${t.lab} (${t.note})</span>`).join('')+(S.scale?`<span><i style="background:var(--ghost)"></i>${scaleOf().name}</span>`:'');}}
+  const key=c.name+'>'+n.name+S.view,prev=$('board').dataset.ch;if(force||prev!==key){$('board').innerHTML=boardSVG(c,n);$('board').dataset.ch=key;
+    const guide=S.view==='guide',gt=guideTones(c);
+    $('s-title').textContent=guide?`Notas guía de ${c.name}`:`Notas de ${c.name}`;
+    $('legend').innerHTML=(guide?gt:c.tones).map(t=>`<span><i style="background:var(--c-${t.col})"></i>${t.lab} (${t.note})</span>`).join('')
+      +(guide&&n.name!==c.name?`<span><i style="border:2px dashed var(--muted);background:transparent;width:10px;height:10px"></i>guía de ${n.name}: ${guideTones(n).map(t=>t.note).join(', ')}</span>`:'')
+      +(S.scale?`<span><i style="background:var(--ghost)"></i>${scaleOf().name}</span>`:'');}}
 function chips(el,items,cur,onPick){el.innerHTML=items.map(([v,l])=>`<button class="chip" data-v="${v}" aria-pressed="${String(v)===String(cur)}">${l}</button>`).join('');
   el.onclick=e=>{const b=e.target.closest('.chip');if(b)onPick(b.dataset.v);};}
 function render(){
@@ -269,6 +314,8 @@ function render(){
   chips($('c-key'),K.map((x,i)=>[i,x[0]+(PROGS[S.prog].mode==='min'?'m':'')]),S.key,v=>{S.key=+v;changed();});
   chips($('c-style'),Object.entries(STYLES).map(([id,s])=>[id,s.n]),S.style,v=>{S.style=v;changed();});
   chips($('c-zone'),ZONES,S.zone,v=>{S.zone=v==='all'?'all':+v;save();showBar(shownBar,true);});
+  chips($('c-view'),[['chord','Notas del acorde'],['guide','Notas guía (3ª y 7ª)']],S.view,v=>{S.view=v;save();render();});
+  paintRhythm();
   $('d-bars').innerHTML=CH.map((c,i)=>`<div class="bar"><span>${c.name}</span><small>${c.rn}</small></div>`).join('');
   $('d-bars').style.gridTemplateColumns=`repeat(${CH.length>4?6:4},1fr)`;
   ['drums','bass','keys'].forEach(x=>$('m-'+x).setAttribute('aria-pressed',S[x]));
@@ -280,12 +327,18 @@ function render(){
     min:`Toda la progresión cabe en la escala de <strong>${sc.name}</strong>. Para que suene musical, termina las frases en una nota del acorde que suena (las de color), sobre todo en la tónica o la tercera.`,
     maj:`Toda la progresión cabe en la escala de <strong>${sc.name}</strong>. Para que suene musical, termina las frases en una nota del acorde que suena (las de color), sobre todo en la tónica o la tercera.`};
   $('tip').innerHTML=`<p><strong>Cómo improvisar:</strong> ${tips[p.mode]}</p><p><strong>Ejercicio:</strong> elige una zona de 5 trastes. Primera vuelta, toca solo la tónica de cada acorde. Segunda, solo la tercera. Tercera, el arpegio completo. Después, libre.</p>`;
-  if(PROGS[S.prog].n==='Andaluza: i–VII–VI–V')$('tip').innerHTML+=`<p><strong>Ojo:</strong> el último acorde (${CH[3].name}) es mayor y lleva ${CH[3].tones[1].note}, que no está en la escala menor natural. Tócala sobre ese acorde: es el sonido flamenco.</p>`;}
+  if(PROGS[S.prog].n==='Andaluza: i–VII–VI–V')$('tip').innerHTML+=`<p><strong>Ojo:</strong> el último acorde (${CH[3].name}) es mayor y lleva ${CH[3].tones[1].note}, que no está en la escala menor natural. Tócala sobre ese acorde: es el sonido flamenco.</p>`;
+  guideTip();}
+function guideTip(){if(S.view!=='guide')return;
+  $('tip').innerHTML=`<p><strong>Notas guía:</strong> la 3ª y la 7ª definen cada acorde (en las triadas, la 3ª y la tónica). Los círculos discontinuos son las notas guía del acorde siguiente. Al cambiar de acorde, ve a la más cercana: muchas veces está a un traste o en el mismo sitio. En un ii–V–I, la 7ª de cada acorde baja un semitono y se convierte en la 3ª del siguiente.</p><p><strong>Ejercicio:</strong> elige una zona y toca solo notas guía, una por compás, moviéndote lo mínimo. Después añade notas de la escala entre ellas.</p>`+$('tip').innerHTML;}
 function changed(){save();const on=seq.on;if(on)stop();render();if(on)start();}
 $('d-play').onclick=()=>seq.on?stop():start();
 ['drums','bass','keys'].forEach(x=>$('m-'+x).onclick=()=>{S[x]=!S[x];save();$('m-'+x).setAttribute('aria-pressed',S[x]);});
 $('m-bpm').oninput=e=>{S.bpm=+e.target.value;$('m-bpm-o').textContent=S.bpm;save();};
 $('m-vol').oninput=e=>{S.vol=+e.target.value;if(master)master.gain.value=S.vol/100;save();};
+$('m-rhythm').onclick=()=>{S.rhythm=!S.rhythm;save();paintRhythm();};
+$('rh-next').onclick=()=>{const k=seq.on?Math.floor(Math.max(0,seq.bar-1)/4)%rOrder.length:0;let j;do{j=Math.floor(Math.random()*RHYTHMS.length);}while(j===rOrder[k]);
+  const o=rOrder.indexOf(j);[rOrder[k],rOrder[o]]=[rOrder[o],rOrder[k]];curPat=j;paintRhythm();};
 $('t-scale').onclick=()=>{S.scale=!S.scale;save();render();};
 $('t-labels').onclick=()=>{S.notes=!S.notes;save();render();};
 document.addEventListener('keydown',e=>{if(e.code==='Space'&&!/INPUT|BUTTON/.test(e.target.tagName)){e.preventDefault();seq.on?stop():start();}});
