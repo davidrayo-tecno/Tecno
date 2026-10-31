@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Repertorio pop y rock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: una columna — filtros arriba, canciones en tarjetas con lo que enseñan, enlaces y estado personal */
+:root{
+  --bg:#F2F4F1; --surface:#FFFFFF; --ink:#1B201C; --muted:#5E675F; --line:#D9DED8;
+  --accent:#A8731A; --accent-ink:#FFFFFF; --soft:#F7EEDD; --wood:#3B2A22;
+  --c-r:#E2553F; --c-3:#3E86D6; --c-5:#E3B23C; --c-7:#3FA372; --ok:#2F8F55; --warn:#B7791F;
+  --f-display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root{--bg:#111412;--surface:#1A1E1B;--ink:#E8ECE7;--muted:#9AA49B;--line:#2E352F;--accent:#E0A93F;--accent-ink:#1A1206;--soft:#2A2416;--ok:#5FC085;--warn:#E3B23C;color-scheme:dark}}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.home{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none}.home:hover{color:var(--accent)}
+nav{display:flex;gap:14px;flex-wrap:wrap}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,5vw,36px);line-height:1.05;margin:0;letter-spacing:-.01em}
+h2{font-family:var(--f-display);font-weight:600;font-size:20px;margin:0}
+.sub{color:var(--muted);margin:4px 0 0;font-size:14px;max-width:64ch}
+.controls{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center}
+.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 14px var(--f-body);padding:5px 11px;border-radius:8px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip:focus-visible,.btn:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:560px){.controls{grid-template-columns:1fr;gap:4px}.controls .lbl{margin-top:8px}}
+.count{font-size:14px;color:var(--muted)}
+.songs{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.song{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.song.st-toco{box-shadow:inset 3px 0 0 var(--ok)}.song.st-aprendiendo{box-shadow:inset 3px 0 0 var(--warn)}
+.s-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.s-title{font-family:var(--f-display);font-weight:600;font-size:18px;line-height:1.2}
+.s-artist{font-size:14px;color:var(--muted)}
+.phase{flex:none;font:600 12px var(--f-mono);padding:3px 8px;border-radius:999px;background:var(--soft);color:var(--accent);white-space:nowrap}
+.facts{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:13px;color:var(--muted)}
+.facts b{color:var(--ink);font-weight:600}
+.prog{font-family:var(--f-mono);font-size:13px;background:var(--bg);border-radius:8px;padding:6px 8px;overflow-x:auto;white-space:nowrap}
+.learn{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.links{display:flex;flex-wrap:wrap;gap:6px}
+.btn{border:1px solid var(--line);background:var(--bg);color:var(--ink);font:500 13px var(--f-body);padding:5px 10px;border-radius:8px;cursor:pointer;text-decoration:none}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.state{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-top:1px solid var(--line);padding-top:10px}
+.state .chip{font-size:13px;padding:4px 9px}
+.empty{color:var(--muted);text-align:center;padding:24px;border:1px dashed var(--line);border-radius:14px;grid-column:1/-1}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form .full{grid-column:1/-1}
+@media (max-width:560px){.form{grid-template-columns:1fr}}
+input[type=text],textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%}
+.tip{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:14px;display:flex;flex-direction:column;gap:6px}
+.tip p{margin:0}.tip strong{font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="home" href="index.html">← Inicio</a><a class="home" href="sesion.html">Sesión</a><a class="home" href="pistas.html">Backing tracks</a><a class="home" href="escalas.html">Escalas</a></nav>
+  <header>
+    <h1>Repertorio pop y rock</h1>
+    <p class="sub">Canciones elegidas para practicar lo que estudias en cada fase. Cada una dice qué te enseña, en qué fase conviene abordarla y con qué pista puedes improvisar encima.</p>
+  </header>
+
+  <div class="controls">
+    <span class="lbl">Fase</span><div class="chips" id="f-phase"></div>
+    <span class="lbl">Estilo</span><div class="chips" id="f-style"></div>
+    <span class="lbl">Mi estado</span><div class="chips" id="f-state"></div>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="songs" id="songs"></div>
+
+  <div class="card">
+    <h2>Añadir una canción tuya</h2>
+    <div class="form">
+      <input type="text" id="n-title" placeholder="Canción" aria-label="Canción">
+      <input type="text" id="n-artist" placeholder="Artista" aria-label="Artista">
+      <textarea class="full" id="n-notes" placeholder="Qué quieres aprender de ella (riff, acordes, solo…)" aria-label="Notas"></textarea>
+    </div>
+    <div class="links"><button class="btn primary" id="n-add">Añadir a mi repertorio</button><span class="count" id="n-msg"></span></div>
+  </div>
+
+  <div class="tip">
+    <p><strong>Cómo usar el repertorio:</strong> aprende primero la parte que corresponde a tu fase (los acordes en la fase 1, el riff o los arpegios en la 2, el solo en la 3 y la 4). Después pon la pista sugerida e improvisa encima con lo que sabes.</p>
+    <p><strong>Tablaturas:</strong> los enlaces buscan la canción en Ultimate Guitar y en YouTube. Las tonalidades son las de la grabación original; si una versión que encuentres está en otro tono, fíate de la grabación.</p>
+    <p>Tu estado de cada canción y las canciones que añadas se guardan en este navegador.</p>
+  </div>
+</div>
+
+<script>
+// fase recomendada: 1 triadas · 2 arpegios · 3 escalas · 4 improvisación · 5 armonía (futura)
+const SONGS=[
+ {t:'Stand by Me',a:'Ben E. King',y:1961,st:'pop',ph:1,key:'La',prog:'I–vi–IV–V · La – Fa♯m – Re – Mi',learn:['La progresión pop por excelencia con triadas','Mismos acordes que la pestaña Progresiones'],pista:'prog=0&key=9&style=balada&bpm=118'},
+ {t:'Let It Be',a:'The Beatles',y:1970,st:'pop',ph:1,key:'Do',prog:'I–V–vi–IV · Do – Sol – Lam – Fa',learn:['Acordes con triadas en distintas zonas','El solo es melódico: ideal para la pentatónica mayor (fase 3)'],pista:'prog=1&key=0&style=balada&bpm=72'},
+ {t:'Zombie',a:'The Cranberries',y:1994,st:'rock',ph:1,key:'Mi menor',prog:'i–VI–III–VII · Mim – Do – Sol – Re',learn:['Rasgueo con distorsión y power chords','Triadas para la versión limpia'],pista:'prog=4&key=4&style=rock&bpm=84'},
+ {t:'Highway to Hell',a:'AC/DC',y:1979,st:'rock',ph:1,key:'La',prog:'I–IV–♭VII · La – Re – Sol',learn:['Acordes abiertos con ataque y silencios','El sonido del rock clásico: el acorde ♭VII'],pista:'prog=8&key=9&style=rock&bpm=116'},
+ {t:'Seven Nation Army',a:'The White Stripes',y:2003,st:'rock',ph:1,key:'Mi menor',prog:'Riff de una sola cuerda',learn:['Riff sencillo, ideal para el primer día','Ritmo y pulso firmes'],pista:'prog=7&key=4&style=rock&bpm=124'},
+ {t:'Wonderwall',a:'Oasis',y:1995,st:'pop',ph:1,key:'Fa♯ menor (cejilla en 2)',prog:'Mim7 – Sol – Resus4 – La7sus4 (formas con cejilla en el traste 2)',learn:['Rasgueo con semicorcheas y acentos','Dejar cuerdas al aire sonando'],pista:''},
+ {t:'La chica de ayer',a:'Nacha Pop',y:1980,st:'es',ph:1,key:'',prog:'',learn:['Clásico del pop español con acordes sencillos','Practica el cambio limpio de acordes a tempo'],pista:''},
+ {t:'With or Without You',a:'U2',y:1987,st:'rock',ph:2,key:'Re',prog:'I–V–vi–IV · Re – La – Sim – Sol',learn:['Arpegios y notas largas con delay','Cómo hacer mucho con pocas notas'],pista:'prog=1&key=2&style=balada&bpm=110'},
+ {t:'Sweet Home Alabama',a:'Lynyrd Skynyrd',y:1974,st:'rock',ph:2,key:'Re',prog:'I–♭VII–IV · Re – Do – Sol',learn:['Riff arpegiado sobre los acordes','La mixolidia en acción'],pista:'prog=8&key=2&style=poprock&bpm=98'},
+ {t:'Brown Eyed Girl',a:'Van Morrison',y:1967,st:'pop',ph:2,key:'Sol',prog:'I–IV–I–V · Sol – Do – Sol – Re',learn:['Riff melódico hecho con notas de los acordes','Puente entre triadas y melodía'],pista:''},
+ {t:'Entre dos tierras',a:'Héroes del Silencio',y:1990,st:'es',ph:2,key:'',prog:'',learn:['Riff arpegiado con delay, muy característico','Sonido y ataque del rock español de los 90'],pista:''},
+ {t:'Back in Black',a:'AC/DC',y:1980,st:'rock',ph:3,key:'Mi',prog:'I–♭VII–IV · Mi – Re – La',learn:['Riff con acordes y pentatónica menor de Mi','Silencios y precisión rítmica'],pista:'prog=8&key=4&style=rock&bpm=94'},
+ {t:'Smoke on the Water',a:'Deep Purple',y:1972,st:'rock',ph:3,key:'Sol menor',prog:'Riff de power chords en cuartas',learn:['El riff más famoso del rock','Solo en pentatónica menor de Sol'],pista:'prog=7&key=7&style=rock&bpm=112'},
+ {t:'Wish You Were Here',a:'Pink Floyd',y:1975,st:'rock',ph:3,key:'Sol',prog:'Do – Re – Lam – Sol (estrofa)',learn:['Intro con la pentatónica mayor de Sol','Bends suaves y frases cantables'],pista:''},
+ {t:'Sin documentos',a:'Los Rodríguez',y:1993,st:'es',ph:3,key:'',prog:'',learn:['Rasgueo rumbero y solo melódico','Mezcla de rock y raíces españolas'],pista:''},
+ {t:'Johnny B. Goode',a:'Chuck Berry',y:1958,st:'blues',ph:3,key:'Si♭',prog:'Blues de 12 compases',learn:['Double stops del rock and roll','La escala de blues en movimiento'],pista:'prog=2&key=10&style=rock&bpm=160'},
+ {t:'Sunshine of Your Love',a:'Cream',y:1967,st:'blues',ph:3,key:'Re',prog:'Riff de escala de blues',learn:['Riff con la escala de blues de Re','Solo con bends y vibrato'],pista:'prog=7&key=2&style=rock&bpm=114'},
+ {t:'Pride and Joy',a:'Stevie Ray Vaughan',y:1983,st:'blues',ph:4,key:'Mi',prog:'Blues de 12 compases en shuffle',learn:['Ritmo de shuffle con cuerdas al aire','Solo de blues-rock con notas guía y bends'],pista:'prog=2&key=4&style=shuffle&bpm=118'},
+ {t:'Sultans of Swing',a:'Dire Straits',y:1978,st:'rock',ph:4,key:'Re menor',prog:'i–VII–VI–V · Rem – Do – Si♭ – La',learn:['Solos que siguen los acordes nota a nota','La V mayor (La) con su Do♯: el sonido de la cadencia andaluza'],pista:'prog=5&key=2&style=rock&bpm=148'},
+ {t:'Hotel California',a:'Eagles',y:1976,st:'rock',ph:4,key:'Si menor',prog:'Sim – Fa♯ – La – Mi – Sol – Re – Mim – Fa♯',learn:['Solo a dos guitarras que persigue cada acorde','Arpegios encadenados: el examen final de la fase 4'],pista:''},
+ {t:'Knockin\' on Heaven\'s Door',a:'Bob Dylan',y:1973,st:'rock',ph:3,key:'Sol',prog:'Sol – Re – Lam · Sol – Re – Do',learn:['Acordes sencillos para acompañar','Solo pentatónico (como en la versión de Guns N\' Roses)'],pista:''},
+ {t:'Creep',a:'Radiohead',y:1992,st:'rock',ph:5,key:'Sol',prog:'I–III–IV–iv · Sol – Si – Do – Dom',learn:['Acordes prestados: el Si mayor y el Do menor','Contraste entre limpio y distorsión'],pista:''},
+ {t:'Hey Joe',a:'Jimi Hendrix',y:1966,st:'rock',ph:5,key:'Mi',prog:'Do – Sol – Re – La – Mi (ciclo de quintas)',learn:['Progresión por ciclo de quintas','Solo en pentatónica menor de Mi'],pista:''}];
+const STYLES={pop:'Pop',rock:'Rock',es:'Rock y pop español',blues:'Blues-rock'};
+const PHN={1:'Triadas',2:'Arpegios',3:'Escalas',4:'Improvisación',5:'Armonía (próxima)'};
+const STATES=[['quiero','Quiero aprenderla'],['aprendiendo','Aprendiendo'],['toco','La toco']];
+let F={phase:'all',style:'all',state:'all'},MY={state:{},custom:[]};
+try{const s=JSON.parse(localStorage.getItem('repertorio-v1')||'null');if(s)MY=Object.assign(MY,s);}catch(e){}
+const save=()=>{try{localStorage.setItem('repertorio-v1',JSON.stringify(MY));}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const keyOf=s=>s.custom?'c:'+s.id:s.t+'|'+s.a;
+function chips(el,items,cur,onPick){el.innerHTML=items.map(([v,l])=>`<button class="chip" data-v="${v}" aria-pressed="${String(v)===String(cur)}">${l}</button>`).join('');
+  el.onclick=e=>{const b=e.target.closest('.chip');if(b)onPick(b.dataset.v);};}
+function all(){return[...MY.custom.map(c=>({...c,custom:true,st:'mine',ph:0,learn:c.notes?[c.notes]:[]})),...SONGS];}
+function render(){
+  chips($('f-phase'),[['all','Todas'],...[1,2,3,4,5].map(p=>[p,`${p} · ${PHN[p]}`])],F.phase,v=>{F.phase=v;render();});
+  chips($('f-style'),[['all','Todos'],...Object.entries(STYLES),['mine','Mías']],F.style,v=>{F.style=v;render();});
+  chips($('f-state'),[['all','Todas'],...STATES],F.state,v=>{F.state=v;render();});
+  const list=all().filter(s=>(F.phase==='all'||s.ph===+F.phase)&&(F.style==='all'||s.st===F.style)&&(F.state==='all'||MY.state[keyOf(s)]===F.state));
+  const toco=Object.values(MY.state).filter(x=>x==='toco').length;
+  $('count').textContent=`${list.length} canciones · ya tocas ${toco}`;
+  if(!list.length){$('songs').innerHTML='<div class="empty">No hay canciones con estos filtros.</div>';return;}
+  $('songs').innerHTML=list.map(s=>{const k=keyOf(s),st=MY.state[k]||'',q=encodeURIComponent(`${s.t} ${s.a}`);
+    return`<article class="song ${st?'st-'+st:''}" data-k="${esc(k)}">
+      <div class="s-head"><div><div class="s-title">${esc(s.t)}</div><div class="s-artist">${esc(s.a)}${s.y?' · '+s.y:''}</div></div>${s.ph?`<span class="phase">Fase ${s.ph}</span>`:'<span class="phase">Tuya</span>'}</div>
+      ${s.key||s.st!=='mine'?`<div class="facts">${s.key?`<span>Tono: <b>${esc(s.key)}</b></span>`:''}${STYLES[s.st]?`<span>${STYLES[s.st]}</span>`:''}${s.ph?`<span>${PHN[s.ph]}</span>`:''}</div>`:''}
+      ${s.prog?`<div class="prog">${esc(s.prog)}</div>`:''}
+      ${s.learn&&s.learn.length?`<ul class="learn">${s.learn.map(l=>`<li>${esc(l)}</li>`).join('')}</ul>`:''}
+      <div class="links">
+        ${s.pista?`<a class="btn primary" href="pistas.html?${s.pista}" target="_blank" rel="noopener">Improvisar con pista ↗</a>`:''}
+        <a class="btn" href="https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}" target="_blank" rel="noopener">Tablatura ↗</a>
+        <a class="btn" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">Escuchar ↗</a>
+        <a class="btn" href="https://claude.ai/artifact/BhcyK9FnTXAsMdqniWiJs4" target="_blank" rel="noopener">Subir vídeo ↗</a>
+      </div>
+      <div class="state">${STATES.map(([v,l])=>`<button class="chip" data-st="${v}" aria-pressed="${st===v}">${l}</button>`).join('')}
+        ${s.custom?`<button class="btn" data-del="1">Quitar</button>`:''}</div>
+    </article>`;}).join('');}
+$('songs').addEventListener('click',e=>{const card=e.target.closest('.song');if(!card)return;const k=card.dataset.k;
+  const b=e.target.closest('[data-st]');if(b){MY.state[k]=MY.state[k]===b.dataset.st?undefined:b.dataset.st;if(!MY.state[k])delete MY.state[k];save();render();return;}
+  if(e.target.closest('[data-del]')){MY.custom=MY.custom.filter(c=>'c:'+c.id!==k);delete MY.state[k];save();render();}});
+$('n-add').onclick=()=>{const t=$('n-title').value.trim();if(!t){$('n-msg').textContent='Escribe al menos el nombre de la canción.';return;}
+  MY.custom.unshift({id:Date.now().toString(36),t,a:$('n-artist').value.trim(),notes:$('n-notes').value.trim()});MY.state['c:'+MY.custom[0].id]='quiero';save();
+  ['n-title','n-artist','n-notes'].forEach(id=>$(id).value='');$('n-msg').textContent='Añadida.';F.style='all';F.state='all';F.phase='all';render();};
+render();
+</script>
+</body>
+</html>
