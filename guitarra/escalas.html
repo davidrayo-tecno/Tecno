@@ -324,6 +324,7 @@ function tab(w){const ex=w==='explore';stopSeq();$('explore').hidden=!ex;$('prac
   $('tab-explore').setAttribute('aria-selected',ex);$('tab-practice').setAttribute('aria-selected',!ex);if(!ex&&!P.cur)newQ();}
 $('tab-explore').onclick=()=>tab('explore');$('tab-practice').onclick=()=>tab('practice');
 renderExplore(false);if(cur)scrollTo($('board-scroll'),cur.lo,cur.hi,false);
+if(['pent','seven','all'].includes(QS.get('pset')))P.set=QS.get('pset');
 if(QS.get('tab')==='practice')tab('practice');
 </script>
 <!-- ===== Metrónomo ===== -->

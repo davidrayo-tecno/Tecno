@@ -83,6 +83,7 @@ h2{font-family:var(--f-display);font-weight:600;font-size:19px;margin:0}
     <div class="week-row">
       <div class="grp"><span class="lbl">Fase 1 · Triadas</span><div class="chips" id="w1"></div></div>
       <div class="grp"><span class="lbl">Fase 2 · Arpegios</span><div class="chips" id="w2"></div></div>
+      <div class="grp"><span class="lbl">Fase 3 · Escalas</span><div class="chips" id="w3"></div></div>
       <div class="grp"><span class="lbl">Duración</span><div class="chips" id="dur"></div></div>
     </div>
   </div>
@@ -127,7 +128,18 @@ const WEEKS=[
  {ph:2,title:'Forma de Sol y unir las cinco formas',shapes:['Sol','all'],types:['M','m'],roots:ALL},
  {ph:2,title:'Cuatriadas maj7 y m7: formas de Mi y La',shapes:['Mi','La'],types:['maj7','m7'],roots:[9,0,7]},
  {ph:2,title:'Cuatriadas 7 y m7♭5: formas de Mi y La',shapes:['Mi','La'],types:['d7','m7b5'],roots:[9,4,11]},
- {ph:2,title:'Repaso: todas las formas y tipos',shapes:['Mi','La','Do','Re','Sol'],types:['M','m','maj7','m7','d7','m7b5'],roots:ALL}];
+ {ph:2,title:'Repaso: todas las formas y tipos',shapes:['Mi','La','Do','Re','Sol'],types:['M','m','maj7','m7','d7','m7b5'],roots:ALL},
+ {ph:3,title:'Pentatónica menor: posiciones 1 y 2',scales:['pm'],pos:[1,2],roots:[9,4,2],pset:'pent'},
+ {ph:3,title:'Pentatónica menor: posiciones 3, 4 y 5, y unirlas',scales:['pm'],pos:[3,4,5,'all'],roots:[9,4,2],pset:'pent'},
+ {ph:3,title:'Escala de blues sobre un blues de 12 compases',scales:['bl'],pos:[1,2],roots:[9,4,7],pset:'pent',chordsTip:true},
+ {ph:3,title:'Pentatónica mayor (la relativa)',scales:['pM'],pos:[1,2,3],roots:[0,7,2],pset:'pent'},
+ {ph:3,title:'Escala mayor: la pentatónica más dos notas',scales:['ion'],pos:[1,2],roots:[0,7,2],pset:'seven',chordsTip:true},
+ {ph:3,title:'Menor natural',scales:['aeo'],pos:[1,2],roots:[9,4,2],pset:'seven',chordsTip:true},
+ {ph:3,title:'Dórica y mixolidia',scales:['dor','mix'],pos:[1,2],roots:[2,9,7],pset:'all'},
+ {ph:3,title:'Repaso: improvisar cambiando de escala y de acorde',scales:['pm','bl','pM','ion','aeo','dor','mix'],pos:[1,2,3,4,5],roots:ALL,pset:'all',chordsTip:true}];
+const SCN={pm:'pentatónica menor',pM:'pentatónica mayor',bl:'escala de blues',ion:'escala mayor',aeo:'menor natural',dor:'dórica',mix:'mixolidia'};
+// pista para cada escala: [progresión en pistas.html, estilo, nombre]
+const SCBACK={pm:[4,'rock','i–VI–III–VII en menor'],bl:[2,'shuffle','blues de 12 compases'],pM:[0,'balada','I–vi–IV–V'],ion:[0,'rock','I–vi–IV–V'],aeo:[4,'balada','i–VI–III–VII en menor'],dor:[7,'funk','un acorde menor (m7)'],mix:[2,'funk','blues de 12 compases']};
 
 let ST={week:0,dur:5,done:[],count:{}};
 try{const s=JSON.parse(localStorage.getItem('sesion-v1')||'null');if(s)Object.assign(ST,s);}catch(e){}
@@ -147,6 +159,20 @@ function plan(){
         links:[[`triadas.html?tab=prog&key=0&prog=0&gset=${s}`,'Abrir progresiones'],[`pistas.html?key=0&prog=0&bpm=70`,'Con backing track']]},
       {t:'Prueba',p:`Modo Practicar con cuerdas ${S}. Haz 20 preguntas y cuenta los aciertos.`,
         links:[[`triadas.html?tab=practice&pset=${s}`,'Abrir práctica']]}]};}
+  if(w.ph===3){const sk=w.scales[DAY%w.scales.length],ps=w.pos[DAY%w.pos.length],all=ps==='all',SN=SCN[sk],[bp,bst,bname]=SCBACK[sk];
+    const name=`${SN} de ${R}`.replace(/^./,c=>c.toUpperCase());
+    const sc=(extra='')=>`escalas.html?root=${r}&scale=${sk}&pos=${ps}${extra}`;
+    const tonic=sk==='bl'||sk==='mix'?`${R}7`:['pm','aeo','dor'].includes(sk)?`${R}m`:R;
+    return{focus:`Hoy: ${name} · ${all?'todo el mástil':'posición '+ps}`,goal:'Objetivo para pasar de semana: la posición limpia a 80 en corcheas (dos notas por pulso) y 8 de 10 rondas sin fallos en Practicar.',blocks:[
+      all?{t:'Unir las posiciones',p:`${name}: toca la posición 1, desliza a la 2 y sigue subiendo hasta la 5 sin parar. Luego baja. Busca las notas que comparten dos posiciones vecinas: son los puntos de enlace.`,bpm:60,links:[[sc(),'Abrir escalas']]}
+         :{t:'Posición con tempo',p:`${name} en la posición ${ps}. Tócala subiendo y bajando, una nota por pulso a 60. Cuando salga limpia, pasa a dos notas por pulso.`,bpm:60,links:[[sc(),'Abrir escalas']]},
+      {t:'Notas del acorde',p:w.chordsTip
+         ?`En la misma posición, mira las notas de color de ${tonic}. Toca la escala y para en una nota de color cada cuatro notas. Después cambia de acorde con los botones (${sk==='bl'?'IV7 y V7':'IV y V'}): la escala es la misma, pero cambian las notas donde paras.`
+         :`En la misma posición, mira las notas de color: son el arpegio de ${tonic}. Toca solo esas notas, subiendo y bajando, y después vuelve a la escala completa parando en ellas.`,
+        links:[[sc(),'Abrir escalas'],[`arpegios.html?root=${r}&type=${['bl','mix'].includes(sk)?'d7':['pm','aeo','dor'].includes(sk)?'m':'M'}`,'Abrir arpegios']]},
+      {t:'Improvisa',p:`Pon la pista (${bname}) e improvisa solo en ${all?'una posición distinta cada vuelta':'la posición '+ps}. Frases cortas, con silencios, y termina cada frase en una nota del acorde que suena.`,
+        links:[[`pistas.html?prog=${bp}&key=${r}&style=${bst}&bpm=80`,'Abrir backing track']]},
+      {t:'Prueba',p:`Modo Practicar de escalas. Haz 10 rondas y cuenta en cuántas no fallas ninguna nota.`,links:[[`escalas.html?tab=practice&pset=${w.pset}`,'Abrir práctica']]}]};}
   const sh=w.shapes[DAY%w.shapes.length],tA=w.types[DAY%w.types.length],tB=w.types[(DAY+1)%w.types.length];
   const seventh=['maj7','m7','d7','m7b5'].includes(tA),all=sh==='all',shN=all?'todas las formas':`la forma de ${sh}`;
   const ptypes=ST.week===11?'all':seventh?'sev':'tri';
@@ -192,7 +218,7 @@ function render(){
   P=plan();const w=WEEKS[ST.week];
   $('sub').textContent=`Semana ${ST.week+1}: ${w.title}`;
   const wk=(a,b)=>WEEKS.map((x,i)=>[x,i]).slice(a,b).map(([x,i])=>`<button class="chip ${ST.done.includes(i)?'done':''}" data-v="${i}" aria-pressed="${i===ST.week}">${ST.done.includes(i)?'✓ ':''}${i+1}</button>`).join('');
-  $('w1').innerHTML=wk(0,5);$('w2').innerHTML=wk(5,12);
+  $('w1').innerHTML=wk(0,5);$('w2').innerHTML=wk(5,12);$('w3').innerHTML=wk(12,20);
   $('dur').innerHTML=[[5,'20 min'],[10,'40 min']].map(([v,l])=>`<button class="chip" data-v="${v}" aria-pressed="${v===ST.dur}">${l}</button>`).join('');
   $('c-focus').textContent=P.focus;
   $('c-start').textContent=T.run?'❚❚ Pausar':(T.done?'▶ Otra vez':(T.left<blockSec()?'▶ Continuar':'▶ Empezar sesión'));
@@ -206,7 +232,7 @@ function render(){
   paintClock();}
 
 function pickWeek(e){const b=e.target.closest('.chip');if(!b)return;ST.week=+b.dataset.v;save();T.done=false;reset();}
-$('w1').onclick=pickWeek;$('w2').onclick=pickWeek;
+$('w1').onclick=pickWeek;$('w2').onclick=pickWeek;$('w3').onclick=pickWeek;
 $('dur').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;ST.dur=+b.dataset.v;save();T.done=false;reset();};
 $('c-start').onclick=()=>{if(T.run){stopRun();render();return;}if(T.done){T.done=false;T.blk=0;T.left=blockSec();}startRun();};
 $('c-next').onclick=()=>{if(T.done)return;if(T.blk<3){T.blk++;T.left=blockSec();T.last=performance.now();render();}else{T.left=0;finish();}};
