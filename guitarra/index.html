@@ -21,7 +21,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);fo
 .wrap{max-width:760px;margin:0 auto;padding-block:40px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
 h1{font-family:var(--f-display);font-weight:700;font-size:clamp(34px,7vw,52px);line-height:1;margin:0;letter-spacing:-.02em}
 .sub{color:var(--muted);margin:8px 0 0;max-width:52ch}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
 a.card{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
 a.card:hover,a.card:focus-visible{border-color:var(--accent);outline:none}
 .strip{background:var(--wood);border-radius:6px;height:44px;position:relative;overflow:hidden}
@@ -39,7 +39,7 @@ a.card.today .go{color:#E3B23C;font-size:16px}
 <div class="wrap">
   <header>
     <h1>Guitarra</h1>
-    <p class="sub">Mástiles interactivos, sesiones guiadas y backing tracks para estudiar triadas y arpegios, y usarlos al improvisar.</p>
+    <p class="sub">Mástiles interactivos, sesiones guiadas y backing tracks para estudiar triadas, arpegios y escalas, y usarlos al improvisar.</p>
   </header>
   <a class="card today" href="sesion.html">
     <div><h2>Sesión de hoy</h2><p>Tu práctica diaria guiada: cuatro bloques cronometrados según la semana del plan, con enlaces directos a cada ejercicio.</p></div>
@@ -56,6 +56,12 @@ a.card.today .go{color:#E3B23C;font-size:16px}
       <div class="strip"><i style="left:14%;background:var(--c-r)"></i><i style="left:30%;background:var(--c-3)"></i><i style="left:46%;background:var(--c-5)"></i><i style="left:62%;background:var(--c-7)"></i><i style="left:78%;background:var(--c-r)"></i></div>
       <h2>Mástil de arpegios</h2>
       <p>Arpegios mayores, menores, maj7, m7, 7 y m7♭5 en las cinco formas del mástil, con tempo y modo práctica.</p>
+      <span class="go">Abrir →</span>
+    </a>
+    <a class="card" href="escalas.html">
+      <div class="strip"><i style="left:10%;background:var(--c-r)"></i><i style="left:22%;width:10px;height:10px;top:17px;background:#E9E1CF"></i><i style="left:34%;background:var(--c-3)"></i><i style="left:46%;width:10px;height:10px;top:17px;background:#E9E1CF"></i><i style="left:58%;background:var(--c-5)"></i><i style="left:70%;width:10px;height:10px;top:17px;background:#E9E1CF"></i><i style="left:82%;background:var(--c-7)"></i></div>
+      <h2>Mástil de escalas</h2>
+      <p>Pentatónicas, blues, mayor, menor, dórica y mixolidia en cinco posiciones, con las notas de cada acorde marcadas dentro.</p>
       <span class="go">Abrir →</span>
     </a>
     <a class="card" href="pistas.html">
