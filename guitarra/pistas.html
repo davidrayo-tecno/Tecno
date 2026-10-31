@@ -161,14 +161,16 @@ const PROGS=[
  {n:'Menor: i–VI–III–VII',mode:'min',bars:[[0,0,'m','i'],[5,8,'M','VI'],[2,3,'M','III'],[6,10,'M','VII']]},
  {n:'Andaluza: i–VII–VI–V',mode:'min',bars:[[0,0,'m','i'],[6,10,'M','VII'],[5,8,'M','VI'],[4,7,'M','V']]},
  {n:'Un acorde mayor',mode:'maj',bars:[[0,0,'M','I'],[0,0,'M','I'],[0,0,'M','I'],[0,0,'M','I']]},
- {n:'Un acorde menor',mode:'min',bars:[[0,0,'m7','i7'],[0,0,'m7','i7'],[0,0,'m7','i7'],[0,0,'m7','i7']]}];
+ {n:'Un acorde menor',mode:'min',bars:[[0,0,'m7','i7'],[0,0,'m7','i7'],[0,0,'m7','i7'],[0,0,'m7','i7']]},
+ {n:'Rock: I–♭VII–IV–I',mode:'mix',bars:[[0,0,'M','I'],[6,10,'M','♭VII'],[3,5,'M','IV'],[0,0,'M','I']]},
+ {n:'Rock menor: i–♭VI–♭VII–i',mode:'min',bars:[[0,0,'m','i'],[5,8,'M','♭VI'],[6,10,'M','♭VII'],[0,0,'m','i']]}];
 const ALL16=[...Array(16).keys()],E8=[0,2,4,6,8,10,12,14];
 const STYLES={
  rock:{n:'Rock',swing:0,kick:[0,8,10],snare:[4,12],hat:E8,bass:[[0,'R',2],[2,'R',2],[4,'R',2],[6,'R',2],[8,'R',2],[10,'R',2],[12,'5',2],[14,'R',2]],keys:[[0,6,1],[6,2,.6],[8,6,.9],[14,2,.6]],tone:'drive'},
  balada:{n:'Balada',swing:0,kick:[0,10],snare:[8],hat:E8,hatV:.55,bass:[[0,'R',8],[8,'5',6],[14,'8',2]],keys:[[0,16,.75]],tone:'pad'},
  funk:{n:'Funk',swing:0,kick:[0,3,10],snare:[4,12],ghost:[7,9,15],hat:ALL16,bass:[[0,'R',1],[3,'8',1],[6,'R',1],[8,'R',1],[10,'b7',1],[11,'8',1],[14,'5',1]],keys:[[2,1,.9],[6,1,.6],[11,1,.9],[14,1,.6]],tone:'stab'},
  shuffle:{n:'Blues shuffle',swing:1,kick:[0,8],snare:[4,12],hat:E8,bass:[[0,'R',2],[2,'3',2],[4,'5',2],[6,'6',2],[8,'b7',2],[10,'6',2],[12,'5',2],[14,'3',2]],keys:[[0,1,.85],[6,1,.6],[8,1,.8],[14,1,.6]],tone:'stab',force7:true},
- bossa:{n:'Bossa nova',swing:0,kick:[0,6,8,14],kickV:.6,rim:[0,6,12],hat:E8,hatV:.45,bass:[[0,'R',5],[6,'5',2],[8,'R',5],[14,'5',2]],keys:[[0,3,.6],[6,2,.55],[10,3,.6],[12,2,.5]],tone:'soft',jazz:true}};
+ poprock:{n:'Pop-rock',swing:0,kick:[0,6,8],snare:[4,12],hat:E8,bass:[[0,'R',2],[2,'R',2],[4,'R',2],[6,'R',2],[8,'R',2],[10,'R',2],[12,'R',2],[14,'5',2]],keys:[[0,1,1],[2,1,.55],[4,1,.6],[6,1,.55],[8,1,.95],[10,1,.55],[12,1,.6],[14,1,.7]],tone:'mute'}};
 const BDEG={R:0,'8':12,'6':9,'b7':10};
 
 const RHYTHMS=[
@@ -187,13 +189,14 @@ try{const s=JSON.parse(localStorage.getItem('pistas-v1')||'null');if(s)Object.as
 const QS=new URLSearchParams(location.search);
 if(QS.get('view')==='guide')S.view='guide';if(QS.get('view')==='chord')S.view='chord';if(QS.has('rhythm'))S.rhythm=QS.get('rhythm')==='1';
 if(QS.has('prog'))S.prog=+QS.get('prog');if(QS.has('key'))S.key=+QS.get('key');if(QS.has('bpm'))S.bpm=+QS.get('bpm');if(STYLES[QS.get('style')])S.style=QS.get('style');
+if(!STYLES[S.style])S.style='rock';
 const save=()=>{try{localStorage.setItem('pistas-v1',JSON.stringify(S));}catch(e){}};
 const $=id=>document.getElementById(id);
 
 /* ---------- teoría ---------- */
 function keyInfo(){const p=PROGS[S.prog],K=p.mode==='min'?MINK:MAJK,[n,l]=K[S.key];return{name:n,l,pc:S.key,mode:p.mode};}
 function buildChords(){const p=PROGS[S.prog],k=keyInfo(),st=STYLES[S.style];
-  return p.bars.map(([dl,ds,q,rn])=>{if(st.jazz&&q==='M')q=ds===7&&p.mode!=='min'?'d7':'maj7';if(st.jazz&&q==='m')q='m7';if(st.force7&&p.mode==='blues'&&q==='M')q='d7';
+  return p.bars.map(([dl,ds,q,rn])=>{if(st.force7&&p.mode==='blues'&&q==='M')q='d7';
     const l=k.l+dl,pc=(k.pc+ds)%12,root=spell(l,pc);
     const tones=Q[q].iv.map(i=>({iv:i,pc:(pc+i)%12,lab:IVL[i][0],col:IVL[i][1],note:i?spell(l+IVL[i][2],(pc+i)%12):root}));
     const acc=root.slice(LET[((l%7)+7)%7].length);
@@ -201,6 +204,7 @@ function buildChords(){const p=PROGS[S.prog],k=keyInfo(),st=STYLES[S.style];
 function scaleOf(){const k=keyInfo();
   if(k.mode==='blues')return{name:`escala de blues de ${k.name}`,iv:[0,3,5,6,7,10]};
   if(k.mode==='min')return{name:`${k.name} menor natural`,iv:[0,2,3,5,7,8,10]};
+  if(k.mode==='mix')return{name:`${k.name} mixolidia (o pentatónica menor de ${k.name})`,iv:[0,2,4,5,7,9,10]};
   return{name:`${k.name} mayor`,iv:[0,2,4,5,7,9,11]};}
 
 /* ---------- mástil ---------- */
@@ -253,7 +257,7 @@ function bassNote(t,m,dur,v){const o=AC.createOscillator(),s=AC.createOscillator
   o.type='sawtooth';s.type='sine';o.frequency.value=mtof(m);s.frequency.value=mtof(m);lp.type='lowpass';lp.frequency.setValueAtTime(900,t);lp.frequency.exponentialRampToValueAtTime(260,t+Math.min(dur,.4));
   g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(.3*v,t+.006);g.gain.setValueAtTime(.3*v,t+dur*.85);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
   o.connect(lp);s.connect(lp);lp.connect(g).connect(master);o.start(t);s.start(t);o.stop(t+dur+.05);s.stop(t+dur+.05);}
-function keysHit(t,notes,dur,v,tone){notes.forEach((m,i)=>{const st=tone==='pad'?0:tone==='drive'?.008*i:.004*i,tt=t+st;
+function keysHit(t,notes,dur,v,tone){if(tone==='mute'){dur=Math.min(dur,.11);tone='drive';}notes.forEach((m,i)=>{const st=tone==='pad'?0:tone==='drive'?.008*i:.004*i,tt=t+st;
   const lp=AC.createBiquadFilter(),g=AC.createGain();lp.type='lowpass';lp.frequency.value=tone==='drive'?2600:tone==='soft'?1500:2000;
   const att=tone==='pad'?.12:.006,peak=(tone==='pad'?.07:.1)*v;
   g.gain.setValueAtTime(0.0001,tt);g.gain.exponentialRampToValueAtTime(peak,tt+att);g.gain.setValueAtTime(peak*(tone==='pad'?1:.6),tt+Math.max(att,dur*.7));g.gain.exponentialRampToValueAtTime(0.0001,tt+dur+.08);
@@ -277,7 +281,8 @@ function scheduleBar(t0,bar){const st=STYLES[S.style],spb=60/S.bpm,ch=CH[bar%CH.
     (st.hat||[]).forEach(s=>hat(T(s),(st.hatV||1)*(s%4===0?1:.7)));(st.rim||[]).forEach(s=>rim(T(s),.6));}
   if(S.bass){const third=ch.tones[1].iv,fifth=ch.tones[2].iv;
     st.bass.forEach(([s,d,len])=>{const iv=d==='3'?third:d==='5'?fifth:BDEG[d];bassNote(T(s),rootM+iv,Math.max(.08,len*stepDur*.92),1);});}
-  if(S.keys)st.keys.forEach(([s,len,vel])=>keysHit(T(s),v,len*stepDur*(st.tone==='stab'?.7:.95),vel,st.tone));}
+  const pv=st.tone==='mute'?[rootM+12,rootM+19,rootM+24]:v;
+  if(S.keys)st.keys.forEach(([s,len,vel])=>keysHit(T(s),pv,len*stepDur*(st.tone==='stab'?.7:.95),vel,st.tone));}
 function countIn(t0){const spb=60/S.bpm;for(let b=0;b<4;b++){rim(t0+b*spb,b?.7:1);vis.push({t:t0+b*spb,bar:-1,beat:b});}return t0+4*spb;}
 function loop(){while(seq.next<AC.currentTime+0.2){scheduleBar(seq.next,seq.bar);seq.bar++;seq.next+=4*60/S.bpm;}}
 function start(){if(!audio())return;CH=buildChords();prevV=null;seq.on=true;shuffleR();paintRhythm();seq.bar=0;vis=[];seq.next=countIn(AC.currentTime+.1);
@@ -312,7 +317,7 @@ function render(){
   const wasOn=seq.on;CH=buildChords();prevV=null;const k=keyInfo(),K=PROGS[S.prog].mode==='min'?MINK:MAJK;
   chips($('c-prog'),PROGS.map((p,i)=>[i,p.n]),S.prog,v=>{S.prog=+v;if(PROGS[S.prog].mode==='blues'&&S.style!=='shuffle')S.style='shuffle';changed();});
   chips($('c-key'),K.map((x,i)=>[i,x[0]+(PROGS[S.prog].mode==='min'?'m':'')]),S.key,v=>{S.key=+v;changed();});
-  chips($('c-style'),Object.entries(STYLES).map(([id,s])=>[id,s.n]),S.style,v=>{S.style=v;changed();});
+  chips($('c-style'),['rock','poprock','balada','funk','shuffle'].map(id=>[id,STYLES[id].n]),S.style,v=>{S.style=v;changed();});
   chips($('c-zone'),ZONES,S.zone,v=>{S.zone=v==='all'?'all':+v;save();showBar(shownBar,true);});
   chips($('c-view'),[['chord','Notas del acorde'],['guide','Notas guía (3ª y 7ª)']],S.view,v=>{S.view=v;save();render();});
   paintRhythm();
@@ -323,7 +328,7 @@ function render(){
   $('t-scale').setAttribute('aria-pressed',S.scale);$('t-labels').setAttribute('aria-pressed',S.notes);$('t-labels').textContent=S.notes?'Ver intervalos':'Ver notas';
   if(shownBar>=CH.length)shownBar=0;showBar(wasOn&&curBar>=0?curBar:shownBar,true);
   const sc=scaleOf(),p=PROGS[S.prog];
-  const tips={blues:`Usa la <strong>${sc.name}</strong> como base, pero apunta a la tercera de cada acorde cuando cambie: en ${CH[0].name} es ${CH[0].tones[1].note}, en ${CH[1].name} es ${CH[1].tones[1].note}. Esa nota hace que el solo "siga" los acordes.`,
+  const tips={mix:`Esta progresión usa la <strong>${sc.name.split(' (')[0]}</strong>: la escala mayor con la ♭7. La pentatónica menor de ${k.name} también funciona y suena más rockera. Apunta a la 3ª de cada acorde al cambiar.`,blues:`Usa la <strong>${sc.name}</strong> como base, pero apunta a la tercera de cada acorde cuando cambie: en ${CH[0].name} es ${CH[0].tones[1].note}, en ${CH[1].name} es ${CH[1].tones[1].note}. Esa nota hace que el solo "siga" los acordes.`,
     min:`Toda la progresión cabe en la escala de <strong>${sc.name}</strong>. Para que suene musical, termina las frases en una nota del acorde que suena (las de color), sobre todo en la tónica o la tercera.`,
     maj:`Toda la progresión cabe en la escala de <strong>${sc.name}</strong>. Para que suene musical, termina las frases en una nota del acorde que suena (las de color), sobre todo en la tónica o la tercera.`};
   $('tip').innerHTML=`<p><strong>Cómo improvisar:</strong> ${tips[p.mode]}</p><p><strong>Ejercicio:</strong> elige una zona de 5 trastes. Primera vuelta, toca solo la tónica de cada acorde. Segunda, solo la tercera. Tercera, el arpegio completo. Después, libre.</p>`;

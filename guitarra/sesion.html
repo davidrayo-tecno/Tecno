@@ -147,14 +147,14 @@ const WEEKS=[
  {ph:4,id:'pregunta',title:'Pregunta y respuesta',roots:[0,9,7]},
  {ph:4,id:'expresion',title:'Expresión: bends, slides y vibrato',roots:[9,4,2]},
  {ph:4,id:'oido',title:'Oído: escuchar antes de tocar',roots:[0,7,9]},
- {ph:4,id:'solo',title:'Un solo completo',roots:ALL}];
-function phase4(w,r,R){const bk=(p,extra='')=>`pistas.html?prog=${p}&key=${r}${extra}`,minK=`${R} menor`,blues=bk(2,'&style=shuffle&bpm=80');
+ {ph:4,id:'solo',title:'Un solo completo de rock',roots:ALL}];
+function phase4(w,r,R){const bk=(p,extra='')=>`pistas.html?prog=${p}&key=${r}${extra}`,minK=`${R} menor`,blues=bk(2,'&style=shuffle&bpm=80'),rock=bk(8,'&style=poprock&bpm=90'),rockm=bk(9,'&style=rock&bpm=85');
   const W={
   guia:{focus:`Hoy: ii–V–I y blues en ${R}`,blocks:[
-    {t:'Localiza las notas guía',p:`En la pista ii–V–I de ${R}, activa "Notas guía". Sin tocar aún, busca en una zona de 5 trastes la 3ª y la 7ª de cada acorde y el camino más corto entre ellas.`,links:[[bk(3,'&view=guide&style=bossa&bpm=70'),'Abrir ii–V–I']]},
-    {t:'Una nota por compás',p:'Toca solo notas guía, una por compás, moviéndote lo mínimo. Fíjate: la 7ª de cada acorde baja un semitono y se convierte en la 3ª del siguiente.',bpm:70,links:[[bk(3,'&view=guide&style=bossa&bpm=70'),'Abrir ii–V–I']]},
+    {t:'Localiza las notas guía',p:`En la pista ii–V–I de ${R}, activa "Notas guía". Sin tocar aún, busca en una zona de 5 trastes la 3ª y la 7ª de cada acorde y el camino más corto entre ellas.`,links:[[bk(3,'&view=guide&style=balada&bpm=70'),'Abrir ii–V–I']]},
+    {t:'Una nota por compás',p:'Toca solo notas guía, una por compás, moviéndote lo mínimo. Fíjate: la 7ª de cada acorde baja un semitono y se convierte en la 3ª del siguiente.',bpm:70,links:[[bk(3,'&view=guide&style=balada&bpm=70'),'Abrir ii–V–I']]},
     {t:'Guías en el blues',p:`Blues en ${R}: en cada cambio de acorde, aterriza en su 3ª. Entre medias, usa la pentatónica menor.`,links:[[bk(2,'&view=guide&style=shuffle&bpm=80'),'Abrir blues']]},
-    {t:'Grábate',p:'Graba un minuto sobre el blues. Al escucharlo, ¿se oye cuándo cambia el acorde aunque no suene la pista?',rec:true,links:[[blues,'Abrir blues']]}]},
+    {t:'Grábate',p:'Graba un minuto sobre la progresión de rock I–♭VII–IV, aterrizando en la 3ª de cada acorde. Al escucharlo, ¿se oye cuándo cambia el acorde aunque no suene la pista?',rec:true,links:[[bk(8,'&view=guide&style=poprock&bpm=90'),'Abrir pista de rock']]}]},
   seguir:{focus:`Hoy: arpegio por compás en ${R} mayor`,blocks:[
     {t:'Arpegios de la progresión',p:`Toca el arpegio de cada acorde de I–vi–IV–V en ${R}, todos en la misma zona del mástil. Un arpegio por compás.`,bpm:70,links:[[`arpegios.html?root=${r}&type=M`,'Abrir arpegios'],[bk(0,'&bpm=70'),'Abrir pista']]},
     {t:'La nota más cercana',p:'Corcheas sin parar sobre la pista. Al cambiar de acorde, salta a la nota del acorde nuevo más cercana a la que estabas tocando, sin saltos grandes.',links:[[bk(0,'&style=balada&bpm=70'),'Abrir pista']]},
@@ -179,22 +179,22 @@ function phase4(w,r,R){const bk=(p,extra='')=>`pistas.html?prog=${p}&key=${r}${e
     {t:'Bends afinados',p:`Pentatónica de ${R}: haz bends de un tono subiendo la 4 hasta la 5 y la ♭7 hasta la tónica. Toca antes la nota de destino para comprobar la afinación.`,links:[[`escalas.html?root=${r}&scale=pm&pos=1`,'Ver escala']]},
     {t:'Slides y ligados',p:'Conecta dos posiciones con slides. Usa hammer-on y pull-off dentro de la escala para frases más fluidas.',links:[[`escalas.html?root=${r}&scale=pm&pos=2`,'Ver escala']]},
     {t:'Vibrato en la nota final',p:'Sobre la pista, acaba cada frase en una nota del acorde y sostenla con vibrato. Vibrato lento y ancho, luego rápido y estrecho.',links:[[bk(7,'&style=balada&bpm=70'),'Abrir pista']]},
-    {t:'Grábate',p:'Graba un minuto usando al menos un bend, un slide y un vibrato en cada frase.',rec:true,links:[[blues,'Abrir blues']]}]},
+    {t:'Grábate',p:'Graba un minuto sobre la pista de rock menor usando al menos un bend, un slide y un vibrato en cada frase.',rec:true,links:[[rockm,'Abrir pista de rock']]}]},
   oido:{focus:'Hoy: oído y canto',blocks:[
     {t:'Intervalos',p:'Cinco minutos de intervalos básicos, cantando cada uno antes de responder.',links:[['oido.html?mode=int','Abrir oído']]},
     {t:'Canta y toca',p:`Sobre una pista en ${R}, canta una frase corta y tócala después. Empieza con 2 o 3 notas.`,links:[[bk(6,'&bpm=70'),'Abrir pista']]},
     {t:'Saca una melodía',p:'Elige una melodía que conozcas bien (una canción infantil, un estribillo) y sácala de oído en la guitarra.'},
     {t:'Grados',p:'Reconoce grados sobre la cadencia. Sube de nivel cuando aciertes 10 seguidos.',links:[['oido.html?mode=deg','Abrir oído']]}]},
-  solo:{focus:`Hoy: un solo completo en ${R}`,blocks:[
-    {t:'Plan del solo',p:'Piensa tres partes: empezar tranquilo y grave, desarrollar con motivos y más ritmo, terminar arriba con notas largas.',links:[[blues,'Abrir blues']]},
-    {t:'Vuelta 1 y 2',p:'Primera vuelta del blues con pocas notas y silencios. Segunda vuelta con un motivo y sus variaciones.',links:[[blues,'Abrir blues']]},
-    {t:'Vuelta 3: clímax',p:'Sube de registro, usa bends y frases más largas. Termina en la tónica con vibrato.',links:[[blues,'Abrir blues']]},
-    {t:'Grábate',p:'Graba el solo completo de 3 vueltas y escúchalo al día siguiente con oídos frescos.',rec:true,links:[[blues,'Abrir blues']]}]}}[w.id];
+  solo:{focus:`Hoy: un solo completo de rock en ${R}`,blocks:[
+    {t:'Plan del solo',p:'Piensa tres partes, como en un solo de canción: empezar tranquilo y grave, desarrollar con un motivo y más ritmo, terminar arriba con notas largas.',links:[[rock,'Abrir pista de rock']]},
+    {t:'Vueltas 1 a 4',p:'Sobre la progresión I–♭VII–IV: primeras dos vueltas con pocas notas y silencios; las dos siguientes con un motivo y sus variaciones.',links:[[rock,'Abrir pista de rock']]},
+    {t:'Vueltas 5 a 8: clímax',p:'Sube de registro, usa bends al unísono, double stops y frases más largas. Termina en la tónica con vibrato.',links:[[rock,'Abrir pista de rock'],[blues,'Versión blues']]},
+    {t:'Grábate',p:'Graba el solo completo (8 vueltas) y escúchalo al día siguiente con oídos frescos.',rec:true,links:[[rock,'Abrir pista de rock']]}]}}[w.id];
   W.goal='Objetivo para pasar de semana: grabar un minuto sobre la pista y que, al escucharlo, se note lo trabajado esta semana.';
   return W;}
 const SCN={pm:'pentatónica menor',pM:'pentatónica mayor',bl:'escala de blues',ion:'escala mayor',aeo:'menor natural',dor:'dórica',mix:'mixolidia'};
 // pista para cada escala: [progresión en pistas.html, estilo, nombre]
-const SCBACK={pm:[4,'rock','i–VI–III–VII en menor'],bl:[2,'shuffle','blues de 12 compases'],pM:[0,'balada','I–vi–IV–V'],ion:[0,'rock','I–vi–IV–V'],aeo:[4,'balada','i–VI–III–VII en menor'],dor:[7,'funk','un acorde menor (m7)'],mix:[2,'funk','blues de 12 compases']};
+const SCBACK={pm:[4,'rock','i–VI–III–VII en menor'],bl:[2,'shuffle','blues de 12 compases'],pM:[0,'balada','I–vi–IV–V'],ion:[0,'rock','I–vi–IV–V'],aeo:[4,'balada','i–VI–III–VII en menor'],dor:[7,'funk','un acorde menor (m7)'],mix:[8,'poprock','I–♭VII–IV–I (rock)']};
 
 let ST={week:0,dur:5,done:[],count:{}};
 try{const s=JSON.parse(localStorage.getItem('sesion-v1')||'null');if(s)Object.assign(ST,s);}catch(e){}

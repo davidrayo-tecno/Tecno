@@ -153,8 +153,8 @@ const SCALES={
   bl:{n:'Blues',iv:[0,3,5,6,7,10],pent:PM,blues:true,use:'Es la pentatónica menor más la ♭5, la "blue note". Úsala de paso, sin quedarte en ella.',back:[2]},
   ion:{n:'Mayor',iv:ION,pent:PMA,parent:ION,use:'La base de la armonía. Todas las progresiones en tonalidad mayor (I–vi–IV–V…) salen de aquí.',back:[0]},
   aeo:{n:'Menor natural',iv:AEO,pent:PM,parent:AEO,use:'Sonido triste u oscuro. Para progresiones en tonalidad menor (i–VI–III–VII…).',back:[4]},
-  dor:{n:'Dórica',iv:[0,2,3,5,7,9,10],pent:PM,parent:[0,2,3,5,7,9,10],use:'Menor con la 6ª mayor: más luminosa que la menor natural. Típica de funk, jazz y Santana.',back:[7]},
-  mix:{n:'Mixolidia',iv:[0,2,4,5,7,9,10],pent:PMA,parent:[0,2,4,5,7,9,10],use:'Mayor con la ♭7. Es la escala del acorde de séptima (dominante): rock, blues y funk.',back:[2]}};
+  dor:{n:'Dórica',iv:[0,2,3,5,7,9,10],pent:PM,parent:[0,2,3,5,7,9,10],use:'Menor con la 6ª mayor: más luminosa que la menor natural. Típica de funk, del rock latino de Santana y de muchos riffs de rock.',back:[7]},
+  mix:{n:'Mixolidia',iv:[0,2,4,5,7,9,10],pent:PMA,parent:[0,2,4,5,7,9,10],use:'Mayor con la ♭7. Es la escala del acorde de séptima (dominante) y de las progresiones de rock con ♭VII (I–♭VII–IV).',back:[8]}};
 const SKEYS=Object.keys(SCALES);
 const SHAPES=[['Mi',-1],['Re',1],['Do',4],['La',6],['Sol',9]];
 
@@ -278,7 +278,7 @@ function renderExplore(scroll){
     +(outside.length?` Las notas con borde discontinuo son del acorde pero no de la escala.`:'');
   $('formula').innerHTML=info.notes.map(n=>{const ct=C.tones.find(t=>t.pc===n.pc);return`<span class="${ct?'ct':''}" style="${ct?`border-color:var(--c-${ct.col})`:''}"><b>${n.deg}</b><small>${n.note}</small></span>`;}).join('');
   const bk=SCALES[S.scale].back[0],pk=bk===4||bk===5||bk===7?S.root:S.root;
-  $('t-backing').href=`pistas.html?prog=${bk}&key=${pk}&style=${bk===2?'shuffle':'rock'}`;
+  $('t-backing').href=`pistas.html?prog=${bk}&key=${pk}&style=${bk===2?'shuffle':bk===8?'poprock':'rock'}`;
   $('tip').innerHTML=tipFor(info,chord,cname,outside);
   if(scroll&&cur)scrollTo($('board-scroll'),cur.lo,cur.hi,true);}
 function tipFor(info,chord,cname,outside){const sc=info.sc,n=info.root,ps=[];

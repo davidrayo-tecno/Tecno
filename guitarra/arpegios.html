@@ -254,7 +254,7 @@ function renderExplore(){
 function tipFor(tk,ch){const n=ch.tones;
   const tri=tk==='M'||tk==='m';
   let a=tri?`<p><strong>Arpegio y triada:</strong> son las mismas tres notas (${n.map(t=>t.note).join(', ')}). La triada las toca a la vez en tres cuerdas; el arpegio las toca una a una por todo el mástil. Dentro de cada forma están escondidas las triadas que ya estudiaste en 1-2-3, 2-3-4, 3-4-5 y 4-5-6.</p>`
-    :`<p><strong>Cuatriada:</strong> es la triada ${tk==='m7b5'?'disminuida':(tk==='m7'?'menor':'mayor')} más una séptima (${n[3].note}). Añadir la séptima es lo que da color de jazz o de blues a la improvisación.</p>`;
+    :`<p><strong>Cuatriada:</strong> es la triada ${tk==='m7b5'?'disminuida':(tk==='m7'?'menor':'mayor')} más una séptima (${n[3].note}). Añadir la séptima es lo que da color de blues, funk y pop moderno a la improvisación.</p>`;
   const uso={M:'Úsalo sobre el acorde mayor: aterriza en la tónica o la tercera al final de una frase.',m:'Úsalo sobre el acorde menor: la ♭3 es la nota que más dice "menor".',maj7:'Suena sobre el I y el IV de una tonalidad mayor.',m7:'Suena sobre el ii, iii y vi de una tonalidad mayor.',d7:'Es el acorde dominante (V). También es la base del blues.',m7b5:'Aparece en el vii de una tonalidad mayor y en el ii de una menor.'}[tk];
   return a+`<p><strong>Para improvisar:</strong> ${uso} Toca la forma lenta con el tempo bajo, luego sube de 5 en 5.</p>`;}
 function scrollTo(sc,lo,hi,smooth){const svg=sc.querySelector('svg');if(!svg)return;requestAnimationFrame(()=>{const k=svg.getBoundingClientRect().width/W;
