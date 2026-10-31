@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*,*::before,*::after{box-sizing:inherit}body{margin:0}img{max-width:100%}[hidden]{display:none!important}.home{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none}.home:hover{color:var(--accent)}</style>
+<title>Mástil de triadas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: una columna de estudio — controles arriba, mástil horizontal desplazable, formas debajo */
+:root{
+  --bg:#F2F4F1; --surface:#FFFFFF; --ink:#1B201C; --muted:#5E675F; --line:#D9DED8;
+  --accent:#A8731A; --accent-ink:#FFFFFF; --soft:#F7EEDD;
+  --wood:#3B2A22; --band:rgba(255,232,190,.10); --fret:#A9A396; --nut:#E9E2D0; --string:#CFC6B4; --inlay:#6E5A4B; --fretnum:#5E675F;
+  --c-r:#E2553F; --c-3:#3E86D6; --c-5:#E3B23C; --on-r:#FFFFFF; --on-3:#FFFFFF; --on-5:#2A1D00; --q:#EDE6D4; --on-q:#2A1D00;
+  --ok:#2F8F55; --bad:#C2412D;
+  --f-display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111412; --surface:#1A1E1B; --ink:#E8ECE7; --muted:#9AA49B; --line:#2E352F;
+  --accent:#E0A93F; --accent-ink:#1A1206; --soft:#2A2416; --fretnum:#9AA49B; --ok:#5FC085; --bad:#EF6B55; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111412; --surface:#1A1E1B; --ink:#E8ECE7; --muted:#9AA49B; --line:#2E352F;
+  --accent:#E0A93F; --accent-ink:#1A1206; --soft:#2A2416; --fretnum:#9AA49B; --ok:#5FC085; --bad:#EF6B55; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,5vw,36px);line-height:1.05;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.sub{color:var(--muted);margin:4px 0 0;font-size:14px}
+.tabs{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px}
+.tabs button{border:0;background:none;color:var(--muted);font:600 14px var(--f-body);padding:7px 16px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+
+.controls{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center}
+.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 14px var(--f-body);padding:5px 11px;border-radius:8px;cursor:pointer;min-width:40px}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip:focus-visible,.tabs button:focus-visible,.shape-card:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:560px){.controls{grid-template-columns:1fr;gap:4px}.controls .lbl{margin-top:8px}}
+
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 0 10px;display:flex;flex-direction:column;gap:10px}
+.stage-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding:0 16px}
+.chord-name{font-family:var(--f-display);font-weight:600;font-size:22px;margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.board-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 8px}
+.board-scroll svg{display:block;width:100%;min-width:840px;height:auto}
+.shape{cursor:pointer}
+.hint{font-size:13px;color:var(--muted);padding:0 16px;margin:0}
+
+.toggles{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px}
+.btn{border:1px solid var(--line);background:var(--bg);color:var(--ink);font:500 13px var(--f-body);padding:6px 12px;border-radius:8px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+
+h2{font-family:var(--f-display);font-weight:600;font-size:19px;margin:0}
+.shape-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.shape-card{text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:2px;font:inherit}
+.shape-card[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.shape-card .t{font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.shape-card .frets{font-family:var(--f-mono);font-size:14px;font-variant-numeric:tabular-nums}
+.shape-card .bass{font-size:13px;color:var(--muted)}
+.tip{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:14px}
+.tip strong{font-weight:600}
+
+.quiz{display:flex;flex-direction:column;gap:14px;padding:0 16px 6px}
+.qrow{display:flex;flex-direction:column;gap:6px}
+.qrow .chips .chip{min-width:96px}
+.chip.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.chip.wrong{background:var(--bad);border-color:var(--bad);color:#fff}
+.chip:disabled{cursor:default}
+.feedback{font-weight:600;min-height:1.5em}
+.score{font-family:var(--f-mono);font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <nav style="display:flex;gap:14px"><a class="home" href="index.html">← Inicio</a><a class="home" href="arpegios.html">Mástil de arpegios →</a></nav>
+  <header>
+    <div>
+      <h1>Mástil de triadas</h1>
+      <p class="sub">Triadas mayores y menores en cuatro grupos de cuerdas</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button id="tab-explore" role="tab" aria-selected="true">Explorar</button>
+      <button id="tab-practice" role="tab" aria-selected="false">Practicar</button>
+    </div>
+  </header>
+
+  <!-- EXPLORAR -->
+  <section id="explore" style="display:flex;flex-direction:column;gap:18px">
+    <div class="controls">
+      <span class="lbl">Tónica</span><div class="chips" id="c-root"></div>
+      <span class="lbl">Tipo</span><div class="chips" id="c-quality"></div>
+      <span class="lbl">Cuerdas</span><div class="chips" id="c-set"></div>
+      <span class="lbl">Inversión</span><div class="chips" id="c-inv"></div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-head">
+        <p class="chord-name" id="chord-name"></p>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="board-scroll" id="board-scroll"><div id="board"></div></div>
+      <div class="toggles">
+        <button class="btn" id="t-labels" aria-pressed="false">Ver notas</button>
+        <button class="btn" id="t-full" aria-pressed="false">Ver todo el mástil</button>
+        <button class="btn" id="t-sound" aria-pressed="true">Sonido</button>
+        <button class="btn primary" id="t-play">▶ Tocar las tres formas</button>
+      </div>
+      <p class="hint">Toca una forma en el mástil o en la lista para oírla. El círculo exterior marca la tónica.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <h2>Formas en este grupo</h2>
+      <div class="shape-list" id="shape-list"></div>
+    </div>
+
+    <div class="tip" id="tip"></div>
+  </section>
+
+  <!-- PRACTICAR -->
+  <section id="practice" hidden style="display:flex;flex-direction:column;gap:18px">
+    <div class="controls">
+      <span class="lbl">Cuerdas</span><div class="chips" id="p-set"></div>
+      <span class="lbl">Tipo</span><div class="chips" id="p-quality"></div>
+    </div>
+    <div class="stage">
+      <div class="stage-head">
+        <p class="chord-name">¿Qué triada es?</p>
+        <span class="score" id="score">0 / 0</span>
+      </div>
+      <div class="board-scroll" id="p-scroll"><div id="p-board"></div></div>
+      <div class="quiz">
+        <div class="qrow"><span class="lbl">Acorde</span><div class="chips" id="q-chord"></div></div>
+        <div class="qrow"><span class="lbl">Inversión</span><div class="chips" id="q-inv"></div></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="toggles" style="padding:0">
+          <button class="btn" id="q-listen">▶ Escuchar</button>
+          <button class="btn primary" id="q-next">Siguiente</button>
+        </div>
+      </div>
+    </div>
+    <div class="tip"><strong>Pista:</strong> mira qué nota está en la cuerda más grave del grupo. Si es la tónica, es posición fundamental; si es la tercera, 1ª inversión; si es la quinta, 2ª inversión.</div>
+  </section>
+</div>
+
+<script>
+const OPEN={1:64,2:59,3:55,4:50,5:45,6:40};
+const SETS=[[1,2,3],[2,3,4],[3,4,5],[4,5,6]];
+const MAXF=15;
+const ROOTS=[['Do',0,0],['Do♯',0,1],['Re',1,2],['Mi♭',2,3],['Mi',2,4],['Fa',3,5],['Fa♯',3,6],['Sol',4,7],['La♭',5,8],['La',5,9],['Si♭',6,10],['Si',6,11]];
+const LET=['Do','Re','Mi','Fa','Sol','La','Si'], LPC=[0,2,4,5,7,9,11];
+const INV=['Fundamental','1ª inversión','2ª inversión'], INVS=['F','1ª','2ª'];
+const DEGVAR={R:['--c-r','--on-r'],'3':['--c-3','--on-3'],'5':['--c-5','--on-5']};
+
+function spell(l,pc){l=l%7;let d=((pc-LPC[l])%12+12)%12;if(d>6)d-=12;return LET[l]+({'-2':'♭♭','-1':'♭','0':'','1':'♯','2':'♯♯'}[d]??'');}
+function chord(ri,q){const[n,l,pc]=ROOTS[ri];const p3=(pc+(q==='M'?4:3))%12,p5=(pc+7)%12;
+  return{name:n+(q==='M'?' mayor':' menor'),tones:[{pc,deg:'R',lab:'T',note:n},{pc:p3,deg:'3',lab:q==='M'?'3':'♭3',note:spell(l+2,p3)},{pc:p5,deg:'5',lab:'5',note:spell(l+4,p5)}]};}
+function shapes(ch,si){const set=SETS[si],ss=[set[2],set[1],set[0]],res=[];
+  for(let f=0;f<=MAXF;f++){const p=OPEN[ss[0]]+f;let ti=ch.tones.findIndex(t=>t.pc===p%12);if(ti<0)continue;
+    const notes=[{s:ss[0],f,midi:p,t:ch.tones[ti]}];let cur=p,idx=ti,ok=true;
+    for(let k=1;k<3;k++){idx=(idx+1)%3;let d=((ch.tones[idx].pc-cur%12)+12)%12;if(d===0)d=12;cur+=d;const fr=cur-OPEN[ss[k]];
+      if(fr<0||fr>MAXF){ok=false;break;}notes.push({s:ss[k],f:fr,midi:cur,t:ch.tones[idx]});}
+    if(!ok)continue;const fr=notes.map(n=>n.f);if(Math.max(...fr)-Math.min(...fr)>5)continue;
+    res.push({notes,inv:{R:0,'3':1,'5':2}[notes[0].t.deg],minF:Math.min(...fr)});}
+  return res;}
+
+/* ---------- geometría ---------- */
+const NUT=58,FW=54,TOP=42,SP=30,W=NUT+MAXF*FW+14,BOT=TOP+5*SP,H=BOT+40;
+const xOf=f=>f===0?34:NUT+(f-.5)*FW, yOf=s=>TOP+(s-1)*SP;
+function boardSVG(o){
+  let g=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mástil de guitarra">`;
+  g+=`<rect x="${NUT}" y="${TOP-15}" width="${MAXF*FW}" height="${5*SP+30}" rx="4" fill="var(--wood)"/>`;
+  if(o.set){const a=yOf(o.set[0])-13,b=yOf(o.set[2])+13;g+=`<rect x="${NUT}" y="${a}" width="${MAXF*FW}" height="${b-a}" fill="var(--band)"/>`;}
+  [3,5,7,9,15].forEach(f=>g+=`<circle cx="${xOf(f)}" cy="${(yOf(3)+yOf(4))/2}" r="5" fill="var(--inlay)"/>`);
+  g+=`<circle cx="${xOf(12)}" cy="${(yOf(2)+yOf(3))/2}" r="5" fill="var(--inlay)"/><circle cx="${xOf(12)}" cy="${(yOf(4)+yOf(5))/2}" r="5" fill="var(--inlay)"/>`;
+  for(let i=1;i<=MAXF;i++)g+=`<line x1="${NUT+i*FW}" x2="${NUT+i*FW}" y1="${TOP-15}" y2="${BOT+15}" stroke="var(--fret)" stroke-width="2"/>`;
+  g+=`<rect x="${NUT-5}" y="${TOP-15}" width="6" height="${5*SP+30}" fill="var(--nut)"/>`;
+  for(let s=1;s<=6;s++){const y=yOf(s);g+=`<line x1="22" x2="${W-14}" y1="${y}" y2="${y}" stroke="var(--string)" stroke-width="${(0.9+(s-1)*.38).toFixed(2)}"/>`;
+    g+=`<text x="9" y="${y+4}" font-family="var(--f-mono)" font-size="11" fill="var(--fretnum)">${s}</text>`;}
+  for(let f=1;f<=MAXF;f++){const strong=[3,5,7,9,12,15].includes(f);
+    g+=`<text x="${xOf(f)}" y="${BOT+33}" text-anchor="middle" font-family="var(--f-mono)" font-size="${strong?13:11}" font-weight="${strong?600:400}" fill="var(--fretnum)" opacity="${strong?1:.7}">${f}</text>`;}
+  if(o.full){for(let s=1;s<=6;s++)for(let f=0;f<=MAXF;f++){const t=o.ch.tones.find(t=>t.pc===(OPEN[s]+f)%12);
+    if(t)g+=`<circle cx="${xOf(f)}" cy="${yOf(s)}" r="6" fill="var(${DEGVAR[t.deg][0]})" opacity=".35"/>`;}}
+  o.shapes.forEach((sh,i)=>{
+    const dim=o.filter!=null&&o.filter!=='all'&&sh.inv!==+o.filter, sel=o.sel===i;
+    const pts=sh.notes.map(n=>`${xOf(n.f)},${yOf(n.s)}`).join(' ');
+    g+=`<g class="shape" data-shape="${i}" opacity="${dim?.16:(o.sel!=null&&!sel&&o.dimOthers?.45:1)}">`;
+    if(sel)g+=`<polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" opacity=".35"/>`;
+    g+=`<polyline points="${pts}" fill="none" stroke="var(--nut)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>`;
+    sh.notes.forEach(n=>{const x=xOf(n.f),y=yOf(n.s);
+      if(o.hide){g+=`<circle cx="${x}" cy="${y}" r="12" fill="var(--q)"/>`;return;}
+      const [c,on]=DEGVAR[n.t.deg];
+      if(n.t.deg==='R')g+=`<circle cx="${x}" cy="${y}" r="15.5" fill="none" stroke="var(${c})" stroke-width="2"/>`;
+      g+=`<circle cx="${x}" cy="${y}" r="12" fill="var(${c})"/>`;
+      const txt=o.notes?n.t.note:n.t.lab;
+      g+=`<text x="${x}" y="${y+4}" text-anchor="middle" font-family="var(--f-body)" font-weight="600" font-size="${txt.length>3?8.5:txt.length>2?10:12}" fill="var(${on})">${txt}</text>`;});
+    if(!o.hide){const top=Math.min(...sh.notes.map(n=>n.s)),ax=sh.notes.reduce((a,n)=>a+xOf(n.f),0)/3,ty=yOf(top)-29;
+      g+=`<rect x="${ax-15}" y="${ty-9}" width="30" height="17" rx="8.5" fill="var(--surface)" stroke="var(--line)"/>`;
+      g+=`<text x="${ax}" y="${ty+4}" text-anchor="middle" font-family="var(--f-body)" font-size="11" font-weight="600" fill="var(--ink)">${INVS[sh.inv]}</text>`;}
+    g+=`</g>`;});
+  return g+`</svg>`;}
+
+/* ---------- sonido ---------- */
+let AC=null;
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC;}
+function pluck(midi,t){const a=ac();if(!a)return;const fq=440*Math.pow(2,(midi-69)/12);
+  const g=a.createGain(),lp=a.createBiquadFilter();lp.type='lowpass';lp.frequency.setValueAtTime(fq*6,t);lp.frequency.exponentialRampToValueAtTime(fq*1.5,t+1.2);
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.22,t+0.006);g.gain.exponentialRampToValueAtTime(0.0001,t+1.8);
+  [['triangle',1,1],['sine',2,.35],['sawtooth',1,.08]].forEach(([ty,m,v])=>{const o=a.createOscillator(),og=a.createGain();o.type=ty;o.frequency.value=fq*m;og.gain.value=v;o.connect(og).connect(lp);o.start(t);o.stop(t+1.9);});
+  lp.connect(g).connect(a.destination);}
+function playShape(sh,offset=0){const a=ac();if(!a)return;const t0=a.currentTime+0.05+offset;
+  sh.notes.forEach((n,i)=>pluck(n.midi,t0+i*0.2));sh.notes.forEach((n,i)=>pluck(n.midi,t0+0.75+i*0.02));}
+
+/* ---------- estado ---------- */
+let S={root:9,q:'m',set:0,inv:'all',notes:false,full:false,sound:true,sel:null};
+try{const sv=JSON.parse(localStorage.getItem('triadas-v1')||'null');if(sv)Object.assign(S,sv,{sel:null});}catch(e){}
+const save=()=>{try{localStorage.setItem('triadas-v1',JSON.stringify(S));}catch(e){}};
+const $=id=>document.getElementById(id);
+function chips(el,items,cur,onPick){el.innerHTML=items.map(([v,l])=>`<button class="chip" data-v="${v}" aria-pressed="${String(v)===String(cur)}">${l}</button>`).join('');
+  el.onclick=e=>{const b=e.target.closest('.chip');if(b)onPick(b.dataset.v);};}
+
+let curShapes=[];
+function renderExplore(){
+  const ch=chord(S.root,S.q);curShapes=shapes(ch,S.set);
+  chips($('c-root'),ROOTS.map((r,i)=>[i,r[0]]),S.root,v=>{S.root=+v;S.sel=null;update();});
+  chips($('c-quality'),[['M','Mayor'],['m','Menor']],S.q,v=>{S.q=v;S.sel=null;update();});
+  chips($('c-set'),SETS.map((s,i)=>[i,s.join('-')]),S.set,v=>{S.set=+v;S.sel=null;update();});
+  chips($('c-inv'),[['all','Todas'],[0,'Fundamental'],[1,'1ª'],[2,'2ª']],S.inv,v=>{S.inv=v;S.sel=null;update();});
+  $('chord-name').textContent=`${ch.name} · ${ch.tones.map(t=>t.note).join(' – ')}`;
+  $('legend').innerHTML=ch.tones.map(t=>`<span><i style="background:var(${DEGVAR[t.deg][0]})"></i>${t.lab==='T'?'Tónica':t.lab==='5'?'Quinta':t.lab==='3'?'Tercera mayor':'Tercera menor'} (${t.note})</span>`).join('');
+  $('board').innerHTML=boardSVG({ch,shapes:curShapes,set:SETS[S.set],filter:S.inv,sel:S.sel,dimOthers:true,notes:S.notes,full:S.full});
+  $('t-labels').setAttribute('aria-pressed',S.notes);$('t-labels').textContent=S.notes?'Ver intervalos':'Ver notas';
+  $('t-full').setAttribute('aria-pressed',S.full);$('t-sound').setAttribute('aria-pressed',S.sound);$('t-sound').textContent=S.sound?'Sonido: sí':'Sonido: no';
+  const set=SETS[S.set],order=[set[2],set[1],set[0]];
+  $('shape-list').innerHTML=curShapes.map((sh,i)=>{if(S.inv!=='all'&&sh.inv!==+S.inv)return'';
+    const b=sh.notes[0].t;
+    return`<button class="shape-card" data-i="${i}" aria-pressed="${S.sel===i}"><span class="t"><span>${INV[sh.inv]}</span><span class="frets">traste ${sh.minF}</span></span>
+      <span class="frets">${order.join('·')} → ${sh.notes.map(n=>n.f).join(' · ')}</span>
+      <span class="bass">Bajo: ${b.note} (${b.lab==='T'?'tónica':b.lab==='5'?'quinta':'tercera'})</span></button>`;}).join('');
+  const other=chord(S.root,S.q==='M'?'m':'M');
+  $('tip').innerHTML=`<strong>Mayor y menor:</strong> ${ch.name} y ${other.name} comparten la tónica (${ch.tones[0].note}) y la quinta (${ch.tones[2].note}). Solo cambia la tercera: ${S.q==='M'?'baja':'sube'} un traste, de ${ch.tones[1].note} a ${other.tones[1].note}. Alterna entre los dos tipos sin moverte de forma para oír la diferencia.`;
+}
+function selectShape(i,scroll){S.sel=i;renderExplore();if(S.sound)playShape(curShapes[i]);
+  if(scroll){const sh=curShapes[i],sc=$('board-scroll'),svg=sc.querySelector('svg');const k=svg.getBoundingClientRect().width/W;
+    const x=sh.notes.reduce((a,n)=>a+xOf(n.f),0)/3*k;sc.scrollTo({left:x-sc.clientWidth/2,behavior:'smooth'});}}
+$('board').addEventListener('click',e=>{const g=e.target.closest('.shape');if(!g)return;const i=+g.dataset.shape;
+  if(S.inv!=='all'&&curShapes[i].inv!==+S.inv)return;selectShape(i,false);});
+$('shape-list').addEventListener('click',e=>{const b=e.target.closest('.shape-card');if(b)selectShape(+b.dataset.i,true);});
+$('t-labels').onclick=()=>{S.notes=!S.notes;update();};
+$('t-full').onclick=()=>{S.full=!S.full;update();};
+$('t-sound').onclick=()=>{S.sound=!S.sound;update();};
+$('t-play').onclick=()=>{const vis=curShapes.filter(sh=>S.inv==='all'||sh.inv===+S.inv).sort((a,b)=>a.minF-b.minF);
+  const seen=new Set(),pick=[];vis.forEach(sh=>{if(!seen.has(sh.inv)&&pick.length<3){seen.add(sh.inv);pick.push(sh);}});
+  pick.sort((a,b)=>a.minF-b.minF).forEach((sh,i)=>playShape(sh,i*1.9));};
+function update(){save();renderExplore();}
+
+/* ---------- práctica ---------- */
+let P={set:'all',q:'both',ok:0,total:0,cur:null};
+function newQuestion(){
+  const ri=Math.floor(Math.random()*12),q=P.q==='both'?(Math.random()<.5?'M':'m'):P.q;
+  const si=P.set==='all'?Math.floor(Math.random()*4):+P.set,ch=chord(ri,q),list=shapes(ch,si);
+  const sh=list[Math.floor(Math.random()*list.length)];
+  const name=ch.name,opts=new Set([name,chord(ri,q==='M'?'m':'M').name]);
+  opts.add(q==='M'?chord((ri+9)%12,'m').name:chord((ri+3)%12,'M').name);
+  while(opts.size<4){opts.add(chord(Math.floor(Math.random()*12),Math.random()<.5?'M':'m').name);}
+  P.cur={ch,si,sh,name,opts:[...opts].sort(()=>Math.random()-.5),aC:null,aI:null};renderPractice(true);}
+function renderPractice(scroll){
+  chips($('p-set'),[['all','Todas'],...SETS.map((s,i)=>[i,s.join('-')])],P.set,v=>{P.set=v;newQuestion();});
+  chips($('p-quality'),[['both','Mayor y menor'],['M','Mayor'],['m','Menor']],P.q,v=>{P.q=v;newQuestion();});
+  const c=P.cur,done=c.aC!=null&&c.aI!=null;
+  $('p-board').innerHTML=boardSVG({ch:c.ch,shapes:[c.sh],set:SETS[c.si],hide:!done,notes:false});
+  $('q-chord').innerHTML=c.opts.map(o=>{let cls='';if(c.aC!=null){if(o===c.name)cls='right';else if(o===c.aC)cls='wrong';}
+    return`<button class="chip ${cls}" data-v="${o}" ${c.aC!=null?'disabled':''}>${o}</button>`;}).join('');
+  $('q-inv').innerHTML=INV.map((n,i)=>{let cls='';if(c.aI!=null){if(i===c.sh.inv)cls='right';else if(i===c.aI)cls='wrong';}
+    return`<button class="chip ${cls}" data-v="${i}" ${c.aI!=null?'disabled':''}>${n}</button>`;}).join('');
+  $('score').textContent=`${P.ok} / ${P.total}`;
+  const fb=$('feedback');
+  if(done){const good=c.aC===c.name&&c.aI===c.sh.inv;fb.style.color=good?'var(--ok)':'var(--bad)';
+    fb.textContent=(good?'Correcto: ':'Era ')+`${c.name}, ${INV[c.sh.inv].toLowerCase()} en cuerdas ${SETS[c.si].join('-')}.`;}
+  else{fb.textContent='';}
+  if(scroll){const sc=$('p-scroll'),svg=sc.querySelector('svg');requestAnimationFrame(()=>{const k=svg.getBoundingClientRect().width/W;
+    const x=c.sh.notes.reduce((a,n)=>a+xOf(n.f),0)/3*k;sc.scrollTo({left:x-sc.clientWidth/2});});}}
+function checkDone(){const c=P.cur;if(c.aC!=null&&c.aI!=null){P.total++;if(c.aC===c.name&&c.aI===c.sh.inv)P.ok++;}renderPractice(false);}
+$('q-chord').onclick=e=>{const b=e.target.closest('.chip');if(!b||P.cur.aC!=null)return;P.cur.aC=b.dataset.v;checkDone();};
+$('q-inv').onclick=e=>{const b=e.target.closest('.chip');if(!b||P.cur.aI!=null)return;P.cur.aI=+b.dataset.v;checkDone();};
+$('q-listen').onclick=()=>playShape(P.cur.sh);
+$('q-next').onclick=newQuestion;
+
+/* ---------- pestañas ---------- */
+function tab(w){const ex=w==='explore';$('explore').hidden=!ex;$('practice').hidden=ex;
+  $('tab-explore').setAttribute('aria-selected',ex);$('tab-practice').setAttribute('aria-selected',!ex);
+  if(!ex&&!P.cur)newQuestion();}
+$('tab-explore').onclick=()=>tab('explore');$('tab-practice').onclick=()=>tab('practice');
+renderExplore();
+</script>
+
+</body>
+</html>
