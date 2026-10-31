@@ -388,10 +388,12 @@ function renderProg(scroll){
   const moves=gSh.map((s,k)=>{const p=gSh[(k+gSh.length-1)%gSh.length];return s.notes.reduce((a,n,j)=>a+Math.abs(n.f-p.notes[j].f),0);});
   $('g-tip').innerHTML=`<strong>${CUSTOM?CUSTOM.title+' (acordes de la canción)':KEYS[G.key][0]+' mayor, '+PROGS[G.prog]}:</strong> ${gCh.map(c=>c.short).join(' – ')} (${gCh.map(c=>c.en).join(' – ')}). `+
     `En cuerdas ${set.join('-')} la mano recorre ${moves.slice(1).reduce((a,b)=>a+b,0)} trastes en total (sumando lo que se mueve cada dedo). `+
-    `${CUSTOM?'Estas son las triadas más cercanas entre sí; en la canción el orden y la duración de los acordes cambian, así que practica los cambios entre cada pareja.':'Ejercicio: toca la progresión con el metrónomo a 60, un acorde por compás, y después repítela en otra zona del mástil.'}`;
+    `${CUSTOM?'Aquí solo se practican los cambios entre los acordes de la canción, uno por compás. Para tocar con la duración real de cada acorde, usa la pista de la ficha de la canción en el repertorio.':'Ejercicio: toca la progresión con el metrónomo a 60, un acorde por compás, y después repítela en otra zona del mástil.'}`;
+  if(!gTimer)$('g-play').textContent=playLabel();
   if(scroll)centerOn($('g-scroll'),sh,true);}
 function strum(sh,t,vel){sh.notes.forEach((n,k)=>pluck(n.midi,t+k*0.035));}
-function gStop(){clearTimeout(gTimer);gTimer=null;$('g-play').textContent='▶ Tocar la progresión';}
+function playLabel(){return CUSTOM?'▶ Practicar los cambios (un acorde por compás)':'▶ Tocar la progresión';}
+function gStop(){clearTimeout(gTimer);gTimer=null;$('g-play').textContent=playLabel();}
 function gStep(i){const a=ac();if(!a)return;if(i>=gSh.length){if(G.loop)i=0;else{gStop();return;}}
   G.sel=i;renderProg(true);const beat=60/G.bpm,t=a.currentTime+0.03;strum(gSh[i],t);strum(gSh[i],t+2*beat);
   gTimer=setTimeout(()=>gStep(i+1),4*beat*1000);}
