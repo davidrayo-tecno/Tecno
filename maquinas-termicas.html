@@ -17,7 +17,7 @@
 :root{
   --brand:#1B5F7E; --brand-ink:#FFFFFF; --brand-soft:#E3EEF3;
   --bg:#F4F6F7; --surface:#FFFFFF; --ink:#16232B; --muted:#55636D; --line:#D5DDE2;
-  --hot:#B93A21; --hot-bg:#FBEAE5; --cold:#2160A8; --cold-bg:#E6EEF8; --work:#2B7547; --work-bg:#E4F2E9;
+  --hot:#B93A21; --hot-bg:#FBEAE5; --cold:#2160A8; --cold-bg:#E6EEF8; --work:#2B7547; --work-bg:#E4F2E9; --def:#8A5A00; --def-bg:#FFF5DC;
   --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
@@ -27,12 +27,12 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --brand:#174E67; --brand-soft:#17303C;
   --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E;
-  --hot:#FF8466; --hot-bg:#3A221B; --cold:#74AAF0; --cold-bg:#17263A; --work:#62C68D; --work-bg:#17301F;
+  --hot:#FF8466; --hot-bg:#3A221B; --cold:#74AAF0; --cold-bg:#17263A; --work:#62C68D; --work-bg:#17301F; --def:#F2C46B; --def-bg:#30260F;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --brand:#174E67; --brand-soft:#17303C;
   --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E;
-  --hot:#FF8466; --hot-bg:#3A221B; --cold:#74AAF0; --cold-bg:#17263A; --work:#62C68D; --work-bg:#17301F;
+  --hot:#FF8466; --hot-bg:#3A221B; --cold:#74AAF0; --cold-bg:#17263A; --work:#62C68D; --work-bg:#17301F; --def:#F2C46B; --def-bg:#30260F;
   color-scheme:dark}
 
 *{box-sizing:border-box}
@@ -120,8 +120,14 @@ h3{font-family:var(--display);font-weight:600;font-size:24px;margin:1.5em 0 .45e
 p{margin:0 0 1em}
 ul{padding-left:1.2em}
 li{margin-bottom:4px}
-.f{font-family:var(--mono);font-size:15.5px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:4px 8px 8px 4px;padding:14px 18px;margin:0 0 1.1em;overflow-x:auto;white-space:nowrap}
-.f > span:not(.ov){color:var(--muted);font-family:var(--body);font-size:14px;white-space:normal;display:block;margin-top:6px;line-height:1.5}
+.f{font-family:var(--mono);font-size:17px;font-weight:600;color:var(--ink);background:var(--brand-soft);border:1.5px solid var(--brand);border-left-width:6px;border-radius:4px 10px 10px 4px;padding:14px 18px;margin:0 0 1.1em;overflow-x:auto;white-space:nowrap;box-shadow:0 2px 0 rgba(27,95,126,.12)}
+.f::before{content:"Fórmula";display:block;font:700 11.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin-bottom:4px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .f{border-color:var(--cold)}:root:not([data-theme="light"]) .f::before{color:var(--cold)}}
+:root[data-theme="dark"] .f{border-color:var(--cold)}:root[data-theme="dark"] .f::before{color:var(--cold)}
+.def{background:var(--def-bg);border:1.5px solid var(--def);border-left-width:6px;border-radius:4px 10px 10px 4px;padding:12px 16px;margin:0 0 1.1em}
+.def::before{content:"Definición";display:block;font:700 11.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--def);margin-bottom:4px}
+.def strong,.def dfn{font-style:normal;font-weight:700;color:var(--def)}
+.f > span:not(.ov){color:var(--muted);font-weight:400;font-family:var(--body);font-size:14px;white-space:normal;display:block;margin-top:6px;line-height:1.5}
 code{font-family:var(--mono);font-size:.92em;background:var(--surface);border:1px solid var(--line);padding:1px 5px;border-radius:4px}
 .hot{color:var(--hot);font-weight:600}.cold{color:var(--cold);font-weight:600}.work{color:var(--work);font-weight:600}
 .note{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;color:var(--muted);margin:0 0 1em;font-size:15.5px}
@@ -340,31 +346,102 @@ details.prob > summary::after{margin-left:auto}
   <main id="contenido">
 <section id="conceptos">
   <h2><span class="n">1</span>Conceptos básicos</h2>
-  <p>Una <strong>máquina térmica</strong> es un sistema que transforma energía térmica en energía mecánica (motor) o que usa trabajo para trasladar calor de un foco frío a uno caliente (máquina frigorífica y bomba de calor).</p>
+  <p class="def">Una <strong>máquina térmica</strong> es un sistema que transforma energía térmica en energía mecánica (motor) o que usa trabajo para trasladar calor de un foco frío a uno caliente (máquina frigorífica y bomba de calor).</p>
   <p>Según dónde se quema el combustible se clasifican en máquinas de <strong>combustión externa</strong> (máquina de vapor, turbina de vapor, motor Stirling) y de <strong>combustión interna</strong> (motores Otto y Diésel, turbina de gas, motor a reacción). Según el movimiento, en <strong>alternativas</strong> (pistón) y <strong>rotativas</strong> (turbinas, motor Wankel).</p>
+  <h3>Energía, trabajo y potencia</h3>
+  <p class="def">La <strong>energía</strong> es la capacidad de un cuerpo para realizar trabajo. Se mide en julios (1 J = 1 kg·m²/s²).</p>
+  <p class="def">El <strong>trabajo</strong> es la energía que transmite una fuerza al desplazar un cuerpo. Es positivo si la fuerza va a favor del movimiento, nulo si es perpendicular y negativo si se opone.</p>
+  <div class="f">E<sub>c</sub> = ½ · m · v² &nbsp;&nbsp;|&nbsp;&nbsp; E<sub>p</sub> = m · g · h &nbsp;&nbsp;|&nbsp;&nbsp; E<sub>eléc</sub> = V · I · t<span>Energía cinética, potencial gravitatoria y eléctrica.</span></div>
+  <div class="f">W = F · s · cos θ &nbsp;&nbsp;|&nbsp;&nbsp; W = M · θ &nbsp;&nbsp;|&nbsp;&nbsp; W = p · ΔV<span>Trabajo de una fuerza, de rotación (par M por ángulo girado θ en rad) y de expansión de un gas.</span></div>
+  <p class="def">La <strong>potencia</strong> es el trabajo realizado por unidad de tiempo. Se mide en vatios (W).</p>
+  <div class="f">P = W / t &nbsp;&nbsp;|&nbsp;&nbsp; P = F · v &nbsp;&nbsp;|&nbsp;&nbsp; P = F · ω · r = M · ω &nbsp;&nbsp;|&nbsp;&nbsp; E = P · t<span>La potencia se mide en vatios (W). ω en rad/s: ω = 2π · n / 60, con n en rpm.</span></div>
+  <h3>Rendimiento</h3>
+  <p class="def">El <strong>rendimiento</strong> es el cociente entre la energía útil que da una máquina y la que absorbe. Siempre es menor que 1 y suele darse en porcentaje.</p>
+  <div class="f">η = E<sub>útil</sub> / E<sub>absorbida</sub> = P<sub>útil</sub> / P<sub>absorbida</sub></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Magnitud</th><th>Equivalencias habituales</th></tr></thead>
+    <tbody>
+      <tr><td>Energía</td><td>1 cal = 4,18 J · 1 kWh = 3,6·10⁶ J</td></tr>
+      <tr><td>Potencia</td><td>1 CV = 735 W · 1 kW = 10³ W · 1 MW = 10⁶ W</td></tr>
+      <tr><td>Temperatura</td><td>T(K) = t(°C) + 273 · t(°F) = 1,8 · t(°C) + 32</td></tr>
+      <tr><td>Presión</td><td>1 bar = 10⁵ Pa · 1 atm = 101 300 Pa</td></tr>
+    </tbody>
+  </table></div>
   <h3>Calor aportado por un combustible</h3>
   <div class="f">Q = m · P<sub>c</sub> &nbsp;&nbsp;|&nbsp;&nbsp; Q = V · P<sub>c</sub><span>m en kg (o V en m³ para gases) y P<sub>c</sub> poder calorífico en kJ/kg o kJ/m³. Gasolina ≈ 43 000 kJ/kg; gasóleo ≈ 42 500 kJ/kg; gas natural ≈ 39 000 kJ/m³.</span></div>
   <h3>Calor sensible y calor latente</h3>
   <div class="f">Q = m · c<sub>e</sub> · ΔT &nbsp;&nbsp;|&nbsp;&nbsp; Q = m · L<span>c<sub>e</sub> del agua = 4,18 kJ/(kg·K). L es el calor latente de cambio de estado.</span></div>
+  <h3>Sistema termodinámico y gas ideal</h3>
+  <p class="def">El <strong>sistema termodinámico</strong> es la porción de materia que estudiamos (el gas de un cilindro); lo demás es el entorno. Su estado queda fijado por la presión, el volumen y la temperatura.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Funciones de estado</th><th>No son funciones de estado</th></tr></thead>
+    <tbody>
+      <tr><td>Presión, volumen, temperatura y energía interna U</td><td>Calor Q y trabajo W</td></tr>
+      <tr><td>Solo dependen de los estados inicial y final</td><td>Dependen del camino seguido</td></tr>
+    </tbody>
+  </table></div>
+  <div class="f">p · V = n · R · T<span>Ecuación de los gases ideales. R = 8,31 J/(K·mol) ≈ 2 cal/(K·mol) = 0,082 atm·L/(K·mol). p en Pa, V en m³ y T en K.</span></div>
+  <div class="f">Q<sub>v</sub> = n · c<sub>v</sub> · ΔT &nbsp;&nbsp;|&nbsp;&nbsp; Q<sub>p</sub> = n · c<sub>p</sub> · ΔT &nbsp;&nbsp;|&nbsp;&nbsp; c<sub>p</sub> = c<sub>v</sub> + R<span>Calor de un gas a volumen o a presión constante (n moles). γ = c<sub>p</sub> / c<sub>v</sub>: ≈ 1,67 en gases monoatómicos (He) y 1,4 en el aire.</span></div>
 </section>
 
 <section id="principios">
   <h2><span class="n">2</span>Principios de la termodinámica</h2>
+  <p class="def"><strong>Principio cero:</strong> si dos cuerpos están en equilibrio térmico con un tercero, lo están entre sí. Es lo que permite medir temperaturas con un termómetro.</p>
   <h3>Primer principio</h3>
-  <p>La energía se conserva. El calor que recibe un sistema se invierte en aumentar su energía interna y en realizar trabajo.</p>
+  <p class="def"><strong>Primer principio:</strong> la energía se conserva. El calor que recibe un sistema se invierte en aumentar su energía interna y en realizar trabajo.</p>
   <div class="f">Q = ΔU + W<span>Criterio usado en máquinas: Q &gt; 0 si el sistema recibe calor; W &gt; 0 si el sistema realiza trabajo.</span></div>
+  <figure>
+    <svg viewBox="0 0 420 200" role="img"><title>Criterio de signos en termodinámica</title><desc>El calor que entra al sistema es positivo y el que sale negativo; el trabajo que realiza el sistema es positivo y el que recibe negativo.</desc>
+      <rect x="160" y="75" width="100" height="50" rx="8" style="fill:var(--brand-soft);stroke:var(--brand);stroke-width:1.5"/><text x="210" y="105" text-anchor="middle" style="fill:var(--ink);font:600 15px var(--body)">Sistema</text><line class="flow" x1="30" y1="100" x2="144.0" y2="100.0" style="stroke:var(--work);stroke-width:3"/><polygon points="156.0,100.0 144.0,93.0 144.0,107.0" style="fill:var(--work)"/><text x="80" y="90" text-anchor="middle" style="fill:var(--work);font:600 13px var(--mono)">W &lt; 0</text><text x="80" y="122" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--body)">trabajo recibido</text><line class="flow" x1="262" y1="100" x2="380.0" y2="100.0" style="stroke:var(--work);stroke-width:3"/><polygon points="392.0,100.0 380.0,93.0 380.0,107.0" style="fill:var(--work)"/><text x="335" y="90" text-anchor="middle" style="fill:var(--work);font:600 13px var(--mono)">W &gt; 0</text><text x="335" y="122" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--body)">trabajo realizado</text><line class="flow" x1="210" y1="192" x2="210.0" y2="141.0" style="stroke:var(--hot);stroke-width:3"/><polygon points="210.0,129.0 203.0,141.0 217.0,141.0" style="fill:var(--hot)"/><text x="222" y="175" text-anchor="start" style="fill:var(--hot);font:600 13px var(--mono)">Q &gt; 0 · calor absorbido</text><line class="flow" x1="210" y1="73" x2="210.0" y2="20.0" style="stroke:var(--cold);stroke-width:3"/><polygon points="210.0,8.0 203.0,20.0 217.0,20.0" style="fill:var(--cold)"/><text x="222" y="32" text-anchor="start" style="fill:var(--cold);font:600 13px var(--mono)">Q &lt; 0 · calor cedido</text>
+    </svg>
+    <figcaption>Criterio de signos: es positivo todo lo que hace que el sistema gane energía para trabajar (calor que entra) y el trabajo que el sistema realiza.</figcaption>
+  </figure>
+
   <p>Trabajo de un gas a presión constante: <code>W = p · ΔV</code>. En un diagrama p‑V, el trabajo de un ciclo es el área encerrada por la curva.</p>
+  <h3>Transformaciones de un gas ideal</h3>
+  <figure>
+    <svg viewBox="0 0 660 190" role="img"><title>Transformaciones de un gas ideal en el diagrama p-V</title><desc>Isócora: línea vertical sin trabajo. Isóbara: línea horizontal. Isoterma: hipérbola. Adiabática: curva más inclinada que la isoterma.</desc>
+      <line x1="25" y1="150" x2="150" y2="150" style="stroke:var(--muted)"/><line x1="25" y1="150" x2="25" y2="20" style="stroke:var(--muted)"/><text x="146" y="166" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">V</text><text x="15" y="28" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">p</text><text x="87" y="178" text-anchor="middle" style="fill:var(--ink);font:600 14px var(--body)">Isócora</text><line x1="185" y1="150" x2="310" y2="150" style="stroke:var(--muted)"/><line x1="185" y1="150" x2="185" y2="20" style="stroke:var(--muted)"/><text x="306" y="166" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">V</text><text x="175" y="28" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">p</text><text x="247" y="178" text-anchor="middle" style="fill:var(--ink);font:600 14px var(--body)">Isóbara</text><line x1="345" y1="150" x2="470" y2="150" style="stroke:var(--muted)"/><line x1="345" y1="150" x2="345" y2="20" style="stroke:var(--muted)"/><text x="466" y="166" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">V</text><text x="335" y="28" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">p</text><text x="407" y="178" text-anchor="middle" style="fill:var(--ink);font:600 14px var(--body)">Isoterma</text><line x1="505" y1="150" x2="630" y2="150" style="stroke:var(--muted)"/><line x1="505" y1="150" x2="505" y2="20" style="stroke:var(--muted)"/><text x="626" y="166" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">V</text><text x="495" y="28" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">p</text><text x="567" y="178" text-anchor="middle" style="fill:var(--ink);font:600 14px var(--body)">Adiabática</text><line x1="85" y1="125" x2="85" y2="40" style="stroke:var(--hot);stroke-width:3"/><line x1="85" y1="90" x2="85.0" y2="82.0" style="stroke:var(--hot);stroke-width:3"/><polygon points="85.0,70.0 78.0,82.0 92.0,82.0" style="fill:var(--hot)"/><text x="95" y="128" text-anchor="start" style="fill:var(--ink);font:600 12px var(--mono)">1</text><text x="95" y="44" text-anchor="start" style="fill:var(--ink);font:600 12px var(--mono)">2</text><text x="100" y="90" text-anchor="start" style="fill:var(--muted);font:400 11px var(--mono)">W = 0</text><rect x="205" y="70" width="85" height="80" style="fill:var(--work-bg)"/><line x1="205" y1="70" x2="290" y2="70" style="stroke:var(--hot);stroke-width:3"/><line x1="235" y1="70" x2="245.0" y2="70.0" style="stroke:var(--hot);stroke-width:3"/><polygon points="257.0,70.0 245.0,63.0 245.0,77.0" style="fill:var(--hot)"/><text x="201" y="64" text-anchor="middle" style="fill:var(--ink);font:600 12px var(--mono)">1</text><text x="293" y="64" text-anchor="middle" style="fill:var(--ink);font:600 12px var(--mono)">2</text><text x="247" y="118" text-anchor="middle" style="fill:var(--work);font:600 13px var(--mono)">W</text><path d="M363 35 Q383 110 455 122 L455 150 L363 150 Z" style="fill:var(--work-bg)"/><path d="M363 35 Q383 110 455 122" style="fill:none;stroke:var(--ink);stroke-width:2.5"/><text x="357" y="34" text-anchor="middle" style="fill:var(--ink);font:600 12px var(--mono)">1</text><text x="459" y="118" text-anchor="middle" style="fill:var(--ink);font:600 12px var(--mono)">2</text><text x="407" y="138" text-anchor="middle" style="fill:var(--work);font:600 13px var(--mono)">W</text><text x="415" y="95" text-anchor="middle" style="fill:var(--muted);font:400 11px var(--mono)">T = cte</text><path d="M523 30 Q553 102 617 108" style="fill:none;stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 4"/><path d="M523 30 Q535 128 617 136" style="fill:none;stroke:var(--ink);stroke-width:2.5"/><text x="517" y="30" text-anchor="middle" style="fill:var(--ink);font:600 12px var(--mono)">1</text><text x="621" y="140" text-anchor="middle" style="fill:var(--ink);font:600 12px var(--mono)">2</text><text x="585" y="98" text-anchor="middle" style="fill:var(--muted);font:400 10px var(--mono)">isoterma</text>
+    </svg>
+    <figcaption>Las cuatro transformaciones en el diagrama p‑V. El área sombreada bajo la curva es el trabajo. La adiabática (continua) cae más deprisa que la isoterma (discontinua).</figcaption>
+  </figure>
+  <div class="tbl"><table>
+    <thead><tr><th>Transformación</th><th>Constante</th><th>Trabajo W</th><th>Calor Q</th><th>Relación</th></tr></thead>
+    <tbody>
+      <tr><td>Isócora</td><td>V</td><td>0</td><td>n · c<sub>v</sub> · ΔT = ΔU</td><td>p₁/T₁ = p₂/T₂</td></tr>
+      <tr><td>Isóbara</td><td>p</td><td>p · (V₂ − V₁)</td><td>n · c<sub>p</sub> · ΔT</td><td>V₁/T₁ = V₂/T₂</td></tr>
+      <tr><td>Isoterma</td><td>T (ΔU = 0)</td><td>n · R · T · ln(V₂/V₁)</td><td>Q = W</td><td>p₁V₁ = p₂V₂</td></tr>
+      <tr><td>Adiabática</td><td>Sin calor</td><td>−ΔU = (p₁V₁ − p₂V₂)/(γ − 1)</td><td>0</td><td>p · V<sup>γ</sup> = cte</td></tr>
+    </tbody>
+  </table></div>
+  <p>En la <strong>adiabática</strong> todo el trabajo sale de la energía interna: si el gas se expande se enfría y si se comprime se calienta. En el diagrama p‑V su curva es más inclinada que la de una isoterma.</p>
+  <div class="f">p₁ · V₁<sup>γ</sup> = p₂ · V₂<sup>γ</sup> &nbsp;&nbsp;|&nbsp;&nbsp; T₁ · V₁<sup>γ−1</sup> = T₂ · V₂<sup>γ−1</sup></div>
   <h3>Segundo principio</h3>
-  <p>Es imposible construir una máquina que, funcionando en ciclo, convierta íntegramente en trabajo todo el calor que recibe (enunciado de Kelvin‑Planck). Por eso el rendimiento es siempre menor que 1.</p>
+  <p class="def"><strong>Segundo principio:</strong> es imposible construir una máquina que, funcionando en ciclo, convierta íntegramente en trabajo todo el calor que recibe (enunciado de Kelvin‑Planck). Por eso el rendimiento es siempre menor que 1.</p>
   <div class="f">η = W / Q₁ = (Q₁ − Q₂) / Q₁ = 1 − Q₂ / Q₁</div>
   <p class="note">El calor tampoco pasa por sí solo de un cuerpo frío a uno caliente (enunciado de Clausius). Para hacerlo hace falta aportar trabajo: es el principio de la nevera.</p>
+  <p class="def">El segundo principio introduce la <strong>entropía</strong> (S), que mide el desorden de un sistema: en cualquier proceso real la entropía del universo aumenta.</p>
 </section>
 
 <section id="carnot">
   <h2><span class="n">3</span>Ciclo de Carnot</h2>
-  <p>Es un ciclo ideal y reversible formado por dos isotermas y dos adiabáticas. Marca el <strong>rendimiento máximo</strong> que puede alcanzar cualquier máquina que trabaje entre dos temperaturas.</p>
+  <p class="def">Un <strong>ciclo termodinámico</strong> es una serie de transformaciones tras las cuales el sistema vuelve a su estado inicial. Por eso ΔU = 0 y el trabajo neto es igual al calor neto: W = Q₁ − Q₂.</p>
+  <p class="def">El <strong>ciclo de Carnot</strong> es un ciclo ideal y reversible formado por dos isotermas y dos adiabáticas. Marca el <strong>rendimiento máximo</strong> que puede alcanzar cualquier máquina que trabaje entre dos temperaturas.</p>
+  <ol class="steps">
+    <li><b>1‑2 Expansión isoterma</b> a T₁: el gas absorbe Q₁ del foco caliente.</li>
+    <li><b>2‑3 Expansión adiabática</b>: la temperatura baja de T₁ a T₂.</li>
+    <li><b>3‑4 Compresión isoterma</b> a T₂: el gas cede Q₂ al foco frío.</li>
+    <li><b>4‑1 Compresión adiabática</b>: la temperatura sube de T₂ a T₁.</li>
+  </ol>
+  <figure>
+    <svg viewBox="0 0 360 250" role="img"><title>Ciclo de Carnot en el diagrama p-V</title><desc>Expansión isoterma 1-2 absorbiendo Q1, expansión adiabática 2-3, compresión isoterma 3-4 cediendo Q2 y compresión adiabática 4-1.</desc>
+      <line x1="40" y1="220" x2="340" y2="220" style="stroke:var(--muted)"/><line x1="40" y1="220" x2="40" y2="16" style="stroke:var(--muted)"/><text x="336" y="236" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">V</text><text x="30" y="24" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">p</text><path d="M90 40 Q120 70 180 82 Q240 140 310 170 Q215 162 150 142 Q105 105 90 40 Z" style="fill:var(--work-bg)"/><path d="M90 40 Q120 70 180 82" style="fill:none;stroke:var(--hot);stroke-width:3"/><path d="M180 82 Q240 140 310 170" style="fill:none;stroke:var(--ink);stroke-width:2"/><path d="M310 170 Q215 162 150 142" style="fill:none;stroke:var(--cold);stroke-width:3"/><path d="M150 142 Q105 105 90 40" style="fill:none;stroke:var(--ink);stroke-width:2"/><text x="80" y="38" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">1</text><text x="188" y="78" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">2</text><text x="318" y="176" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">3</text><text x="140" y="152" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">4</text><line x1="150" y1="40" x2="169.7" y2="51.8" style="stroke:var(--hot);stroke-width:2.5"/><polygon points="180.0,58.0 173.3,45.8 166.1,57.8" style="fill:var(--hot)"/><text x="160" y="34" text-anchor="middle" style="fill:var(--hot);font:600 13px var(--mono)">Q₁ (T₁)</text><line x1="250" y1="190" x2="231.4" y2="183.8" style="stroke:var(--cold);stroke-width:2.5"/><polygon points="220.0,180.0 229.2,190.4 233.6,177.2" style="fill:var(--cold)"/><text x="262" y="204" text-anchor="middle" style="fill:var(--cold);font:600 13px var(--mono)">Q₂ (T₂)</text><text x="175" y="120" text-anchor="middle" style="fill:var(--work);font:600 15px var(--mono)">W</text><text x="250" y="118" text-anchor="middle" style="fill:var(--muted);font:400 11px var(--mono)">adiabática</text><text x="98" y="108" text-anchor="end" style="fill:var(--muted);font:400 11px var(--mono)">adiab.</text>
+    </svg>
+    <figcaption>Ciclo de Carnot: dos isotermas (roja a T₁, azul a T₂) y dos adiabáticas. El área encerrada es el trabajo útil del ciclo.</figcaption>
+  </figure>
+  <p>En el ciclo de Carnot los calores son proporcionales a las temperaturas absolutas, Q₂ / Q₁ = T₂ / T₁, y por eso:</p>
   <div class="f">η<sub>Carnot</sub> = 1 − T₂ / T₁<span>Temperaturas siempre en kelvin: T(K) = t(°C) + 273.</span></div>
-  <p>Consecuencia práctica: para mejorar el rendimiento interesa que el foco caliente esté lo más caliente posible y el frío lo más frío posible.</p>
+  <p>Consecuencia práctica: para mejorar el rendimiento interesa que el foco caliente esté lo más caliente posible y el frío lo más frío posible. Nunca llega al 100 %, porque haría falta T₂ = 0 K, y ninguna máquina real que trabaje entre los mismos focos puede superarlo.</p>
 </section>
 
 <section id="motores">
@@ -408,11 +485,41 @@ details.prob > summary::after{margin-left:auto}
       <tr><td>Rendimiento real típico</td><td>25 a 35 %</td><td>30 a 45 %</td></tr>
     </tbody>
   </table></div>
-  <p>En el <strong>motor de dos tiempos</strong> el ciclo se completa en una sola vuelta: no lleva válvulas sino lumbreras, es más ligero y sencillo, pero consume y contamina más.</p>
+  <h3>Motor Diésel de cuatro tiempos</h3>
+  <p>En la admisión solo entra <strong>aire</strong>, que en la compresión llega a unos 40 bar y más de 600 °C. Al final de la compresión el inyector pulveriza el gasóleo, que se inflama solo al contacto con ese aire caliente. No necesita bujías (como mucho, de precalentamiento para arrancar en frío), pero sí una bomba inyectora de alta presión. Como solo se comprime aire, admite relaciones de compresión mayores y rinde más que el de gasolina.</p>
+  <figure>
+    <svg viewBox="0 0 360 250" role="img"><title>Diagrama p-V del ciclo Diésel ideal</title><desc>Compresión adiabática 1-2, aporte de calor a presión constante 2-3, expansión adiabática 3-4 y cesión de calor a volumen constante 4-1.</desc>
+      <line x1="40" y1="220" x2="340" y2="220" style="stroke:var(--muted)"/><line x1="40" y1="220" x2="40" y2="16" style="stroke:var(--muted)"/><text x="336" y="236" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">V</text><text x="30" y="24" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">p</text><path d="M80 50 L150 50 Q180 150 300 165 L300 205 Q120 190 80 50 Z" style="fill:var(--work-bg)"/><path d="M300 205 Q120 190 80 50" style="fill:none;stroke:var(--ink);stroke-width:2"/><line x1="80" y1="50" x2="150" y2="50" style="stroke:var(--hot);stroke-width:3"/><path d="M150 50 Q180 150 300 165" style="fill:none;stroke:var(--ink);stroke-width:2"/><line x1="300" y1="165" x2="300" y2="205" style="stroke:var(--cold);stroke-width:3"/><text x="308" y="212" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">1</text><text x="68" y="54" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">2</text><text x="162" y="66" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">3</text><text x="308" y="162" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">4</text><text x="115" y="32" text-anchor="middle" style="fill:var(--hot);font:600 13px var(--mono)">Q₁ (p = cte)</text><text x="312" y="190" text-anchor="start" style="fill:var(--cold);font:600 13px var(--mono)">Q₂</text><text x="232" y="188" text-anchor="middle" style="fill:var(--work);font:600 15px var(--mono)">W</text><line x1="80" y1="220" x2="80" y2="226" style="stroke:var(--muted)"/><line x1="300" y1="220" x2="300" y2="226" style="stroke:var(--muted)"/><text x="80" y="240" text-anchor="middle" style="fill:var(--muted);font:400 11px var(--mono)">PMS</text><text x="300" y="240" text-anchor="middle" style="fill:var(--muted);font:400 11px var(--mono)">PMI</text>
+    </svg>
+    <figcaption>Ciclo Diésel ideal. La diferencia con el Otto está en el tramo 2‑3: el calor entra a presión constante mientras se inyecta el gasóleo.</figcaption>
+  </figure>
+
+  <h3>Motor de dos tiempos</h3>
+  <p>Completa el ciclo en <strong>una sola vuelta</strong> de cigüeñal. No tiene válvulas: el pistón abre y cierra unas ventanas en el cilindro (lumbreras) y la mezcla se precomprime en el cárter.</p>
+  <ol class="steps">
+    <li><b>Primer tiempo (sube el pistón):</b> comprime la mezcla en el cilindro y aspira mezcla nueva hacia el cárter.</li>
+    <li><b>Segundo tiempo (baja el pistón):</b> salta la chispa y los gases empujan el pistón. Se abre la lumbrera de escape y luego la de transferencia, por la que entra la mezcla nueva que barre los gases quemados.</li>
+  </ol>
+  <p>Es más sencillo, ligero y barato, y da una carrera de trabajo por vuelta. A cambio consume y contamina más: parte de la mezcla se escapa sin quemar y el aceite va mezclado con la gasolina. Se usa en motosierras, desbrozadoras, ciclomotores y grandes motores marinos.</p>
+  <h3>Motores rotativos</h3>
+  <ul>
+    <li><strong>Turbina de vapor</strong> (combustión externa): el vapor de la caldera choca con los álabes y hace girar el eje, que mueve un alternador. Se usa en centrales térmicas y nucleares.</li>
+    <li><strong>Turbina de gas</strong> (combustión interna): un compresor aspira aire, en la cámara se quema el combustible y los gases mueven la turbina. Se usa en centrales de ciclo combinado y en aviación (turborreactores y turbofanes).</li>
+    <li><strong>Motor Wankel</strong>: un rotor triangular gira en una cámara ovalada y hace los cuatro tiempos sin pistones ni válvulas. Es suave y ligero, pero consume más y tiene problemas de estanqueidad; está casi en desuso.</li>
+  </ul>
 </section>
 
 <section id="parametros">
   <h2><span class="n">5</span>Parámetros del motor</h2>
+  <p class="def">La <strong>cilindrada</strong> es el volumen que barre el pistón al ir del PMS al PMI (unitaria) multiplicado por el número de cilindros (total).</p>
+  <p class="def">La <strong>relación de compresión</strong> es el cociente entre el volumen del cilindro con el pistón en el PMI y el volumen de la cámara de combustión (pistón en el PMS).</p>
+  <figure>
+    <svg viewBox="0 0 360 300" role="img"><title>Parámetros de un cilindro</title><desc>Cilindro con diámetro D, carrera L entre el punto muerto superior y el inferior, cilindrada unitaria Vu y volumen de la cámara de combustión Vc.</desc>
+      <rect x="122" y="42" width="116" height="38" style="fill:var(--hot-bg)"/><rect x="122" y="80" width="116" height="120" style="fill:var(--cold-bg)"/><line x1="120" y1="40" x2="120" y2="250" style="stroke:var(--ink);stroke-width:3"/><line x1="240" y1="40" x2="240" y2="250" style="stroke:var(--ink);stroke-width:3"/><line x1="118" y1="40" x2="242" y2="40" style="stroke:var(--ink);stroke-width:4"/><rect x="174" y="28" width="12" height="14" style="fill:var(--muted)"/><line x1="96" y1="80" x2="262" y2="80" style="stroke:var(--muted);stroke-dasharray:5 4"/><line x1="96" y1="200" x2="262" y2="200" style="stroke:var(--muted);stroke-dasharray:5 4"/><text x="268" y="84" text-anchor="start" style="fill:var(--muted);font:600 12px var(--mono)">PMS</text><text x="268" y="204" text-anchor="start" style="fill:var(--muted);font:600 12px var(--mono)">PMI</text><rect x="124" y="200" width="112" height="30" rx="3" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.5"/><line x1="180" y1="230" x2="180" y2="282" style="stroke:var(--ink);stroke-width:5"/><circle cx="180" cy="282" r="5" style="fill:var(--ink)"/><text x="180" y="66" text-anchor="middle" style="fill:var(--hot);font:600 13px var(--mono)">V꜀ cámara</text><text x="180" y="138" text-anchor="middle" style="fill:var(--cold);font:600 16px var(--mono)">Vᵤ</text><text x="180" y="158" text-anchor="middle" style="fill:var(--cold);font:400 11px var(--body)">cilindrada unitaria</text><line x1="88" y1="140" x2="88.0" y2="94.0" style="stroke:var(--ink);stroke-width:1.5"/><polygon points="88.0,82.0 81.0,94.0 95.0,94.0" style="fill:var(--ink)"/><line x1="88" y1="140" x2="88.0" y2="186.0" style="stroke:var(--ink);stroke-width:1.5"/><polygon points="88.0,198.0 95.0,186.0 81.0,186.0" style="fill:var(--ink)"/><text x="76" y="145" text-anchor="middle" style="fill:var(--ink);font:600 15px var(--mono)">L</text><line x1="180" y1="14" x2="134.0" y2="14.0" style="stroke:var(--ink);stroke-width:1.5"/><polygon points="122.0,14.0 134.0,21.0 134.0,7.0" style="fill:var(--ink)"/><line x1="180" y1="14" x2="226.0" y2="14.0" style="stroke:var(--ink);stroke-width:1.5"/><polygon points="238.0,14.0 226.0,7.0 226.0,21.0" style="fill:var(--ink)"/><rect x="168" y="2" width="24" height="18" style="fill:var(--surface)"/><text x="180" y="18" text-anchor="middle" style="fill:var(--ink);font:600 15px var(--mono)">D</text>
+    </svg>
+    <figcaption>El pistón sube y baja entre el PMS y el PMI. La carrera L es esa distancia; la cilindrada unitaria Vᵤ es el volumen que barre, y V꜀ el que queda arriba.</figcaption>
+  </figure>
+
   <div class="f">V<sub>u</sub> = (π · D² / 4) · L &nbsp;&nbsp;|&nbsp;&nbsp; V<sub>T</sub> = z · V<sub>u</sub><span>Cilindrada unitaria y total. D diámetro (calibre), L carrera, z número de cilindros.</span></div>
   <div class="f">r<sub>c</sub> = (V<sub>u</sub> + V<sub>c</sub>) / V<sub>c</sub><span>Relación de compresión. V<sub>c</sub> es el volumen de la cámara de combustión.</span></div>
   <div class="f">η<sub>Otto ideal</sub> = 1 − 1 / r<sub>c</sub><sup>γ−1</sup><span>γ = c<sub>p</sub>/c<sub>v</sub> ≈ 1,4 para el aire.</span></div>
@@ -423,13 +530,42 @@ details.prob > summary::after{margin-left:auto}
 <section id="frigorificas">
   <h2><span class="n">6</span>Máquina frigorífica y bomba de calor</h2>
   <p>Funcionan como un motor al revés: consumen trabajo W para sacar calor Q₂ del foco frío y entregar Q₁ = Q₂ + W al foco caliente. Lo que cambia es qué nos interesa.</p>
+  <p class="def">Una <strong>máquina frigorífica</strong> es una máquina térmica que, consumiendo trabajo, transporta calor desde un foco frío hasta otro más caliente para enfriar el foco frío.</p>
+  <p class="def">Una <strong>bomba de calor</strong> usa el mismo principio, pero aprovecha el calor que entrega al foco caliente. Si es reversible, puede calentar o enfriar.</p>
+  <p class="def">La <strong>eficiencia</strong> (ε o COP) es la relación entre el calor útil y el trabajo consumido por el compresor. Generalmente es mayor que 1.</p>
   <ul>
     <li><span class="cold">Frigorífica</span> (nevera, aire acondicionado): interesa el calor extraído del foco frío.</li>
     <li><span class="hot">Bomba de calor</span> (calefacción, aerotermia): interesa el calor entregado al foco caliente.</li>
   </ul>
   <div class="f">ε<sub>f</sub> = Q₂ / W &nbsp;&nbsp;|&nbsp;&nbsp; ε<sub>bc</sub> = Q₁ / W = ε<sub>f</sub> + 1<span>Eficiencia (COP). Puede ser mayor que 1, por eso no se llama rendimiento.</span></div>
   <div class="f">ε<sub>f, Carnot</sub> = T₂ / (T₁ − T₂) &nbsp;&nbsp;|&nbsp;&nbsp; ε<sub>bc, Carnot</sub> = T₁ / (T₁ − T₂)</div>
-  <p>Componentes del circuito: compresor, condensador (cede calor), válvula de expansión y evaporador (absorbe calor).</p>
+  <h3>Circuito frigorífico</h3>
+  <figure>
+    <svg viewBox="0 0 420 265" role="img"><title>Circuito de una máquina frigorífica</title><desc>El compresor envía el refrigerante al condensador, que cede calor Q1; la válvula de expansión baja su presión y en el evaporador absorbe calor Q2.</desc>
+      <polyline points="228,210 350,210 350,174" style="stroke:var(--hot);stroke-width:2.5;fill:none"/><polyline points="350,90 350,50 226,50" style="stroke:var(--hot);stroke-width:2.5;fill:none"/><polyline points="194,50 70,50 70,90" style="stroke:var(--cold);stroke-width:2.5;fill:none"/><polyline points="70,174 70,210 192,210" style="stroke:var(--cold);stroke-width:2.5;fill:none"/><polyline points="350,90 350,96 364,104 336,112 364,120 336,128 364,136 336,144 364,152 336,160 364,168 350,174" style="fill:none;stroke:var(--hot);stroke-width:3"/><polyline points="70,90 70,96 84,104 56,112 84,120 56,128 84,136 56,144 84,152 56,160 84,168 70,174" style="fill:none;stroke:var(--cold);stroke-width:3"/><polygon points="194,40 194,60 210,50" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.5"/><polygon points="226,40 226,60 210,50" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.5"/><circle cx="210" cy="210" r="18" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/><text x="210" y="215" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">C</text><line x1="290" y1="210" x2="300.0" y2="210.0" style="stroke:var(--hot);stroke-width:2.5"/><polygon points="312.0,210.0 300.0,203.0 300.0,217.0" style="fill:var(--hot)"/><line x1="350" y1="185" x2="350.0" y2="192.0" style="stroke:var(--hot);stroke-width:2.5"/><polygon points="350.0,180.0 343.0,192.0 357.0,192.0" style="fill:var(--hot)"/><line x1="300" y1="50" x2="290.0" y2="50.0" style="stroke:var(--hot);stroke-width:2.5"/><polygon points="278.0,50.0 290.0,57.0 290.0,43.0" style="fill:var(--hot)"/><line x1="130" y1="50" x2="120.0" y2="50.0" style="stroke:var(--cold);stroke-width:2.5"/><polygon points="108.0,50.0 120.0,57.0 120.0,43.0" style="fill:var(--cold)"/><line x1="70" y1="190" x2="70.0" y2="186.0" style="stroke:var(--cold);stroke-width:2.5"/><polygon points="70.0,198.0 77.0,186.0 63.0,186.0" style="fill:var(--cold)"/><line x1="120" y1="210" x2="130.0" y2="210.0" style="stroke:var(--cold);stroke-width:2.5"/><polygon points="142.0,210.0 130.0,203.0 130.0,217.0" style="fill:var(--cold)"/><text x="324" y="134" text-anchor="end" style="fill:var(--hot);font:600 12px var(--body)">Condensador</text><text x="96" y="134" text-anchor="start" style="fill:var(--cold);font:600 12px var(--body)">Evaporador</text><text x="210" y="32" text-anchor="middle" style="fill:var(--muted);font:600 12px var(--body)">Válvula de expansión</text><text x="190" y="240" text-anchor="end" style="fill:var(--muted);font:600 12px var(--body)">Compresor</text><text x="290" y="104" text-anchor="middle" style="fill:var(--muted);font:400 11px var(--body)">alta presión</text><text x="130" y="104" text-anchor="middle" style="fill:var(--muted);font:400 11px var(--body)">baja presión</text><line class="flow" x1="372" y1="130" x2="400.0" y2="130.0" style="stroke:var(--hot);stroke-width:3"/><polygon points="412.0,130.0 400.0,123.0 400.0,137.0" style="fill:var(--hot)"/><text x="392" y="120" text-anchor="middle" style="fill:var(--hot);font:600 14px var(--mono)">Q₁</text><line class="flow" x1="8" y1="130" x2="36.0" y2="130.0" style="stroke:var(--cold);stroke-width:3"/><polygon points="48.0,130.0 36.0,123.0 36.0,137.0" style="fill:var(--cold)"/><text x="28" y="120" text-anchor="middle" style="fill:var(--cold);font:600 14px var(--mono)">Q₂</text><line class="flow" x1="210" y1="258" x2="210.0" y2="244.0" style="stroke:var(--work);stroke-width:3"/><polygon points="210.0,232.0 203.0,244.0 217.0,244.0" style="fill:var(--work)"/><text x="222" y="254" text-anchor="start" style="fill:var(--work);font:600 14px var(--mono)">W</text>
+    </svg>
+    <figcaption>Circuito frigorífico: el refrigerante absorbe Q₂ en el evaporador (lado frío) y cede Q₁ = Q₂ + W en el condensador (lado caliente).</figcaption>
+  </figure>
+  <ol class="steps">
+    <li><b>Compresor:</b> comprime el refrigerante, que sube de presión y temperatura (compresión adiabática).</li>
+    <li><b>Condensador:</b> el refrigerante se licúa y cede Q₁ al foco caliente.</li>
+    <li><b>Válvula de expansión:</b> la presión y la temperatura bajan bruscamente.</li>
+    <li><b>Evaporador:</b> el refrigerante se evapora y absorbe Q₂ del espacio que se enfría.</li>
+  </ol>
+  <h3>Bomba de calor reversible</h3>
+  <p>Una <strong>válvula de cuatro vías</strong> invierte el sentido del refrigerante, de modo que la misma máquina calienta o enfría:</p>
+  <ul>
+    <li><span class="hot">Invierno (calefacción):</span> la unidad exterior hace de evaporador y toma calor del aire de la calle; la interior hace de condensador y lo cede a la vivienda.</li>
+    <li><span class="cold">Verano (aire acondicionado):</span> la unidad interior hace de evaporador y absorbe calor de la vivienda; la exterior lo expulsa a la calle.</li>
+  </ul>
+  <figure>
+    <svg viewBox="0 0 640 175" role="img"><title>Bomba de calor reversible en invierno y en verano</title><desc>En invierno el calor Q2 se toma del exterior y Q1 se entrega a la vivienda; en verano Q2 se toma de la vivienda y Q1 se expulsa al exterior. En ambos casos el compresor aporta el trabajo W.</desc>
+      <text x="155" y="20" text-anchor="middle" style="fill:var(--ink);font:600 15px var(--body)">Invierno · calefacción</text><rect x="8" y="55" width="92" height="80" rx="6" style="fill:var(--cold-bg);stroke:var(--cold)"/><text x="54" y="90" text-anchor="middle" style="fill:var(--cold);font:600 13px var(--body)">Exterior</text><text x="54" y="110" text-anchor="middle" style="fill:var(--cold);font:400 12px var(--mono)">3 °C</text><rect x="210" y="55" width="92" height="80" rx="6" style="fill:var(--hot-bg);stroke:var(--hot)"/><text x="256" y="90" text-anchor="middle" style="fill:var(--hot);font:600 13px var(--body)">Vivienda</text><text x="256" y="110" text-anchor="middle" style="fill:var(--hot);font:400 12px var(--mono)">21 °C</text><circle cx="155" cy="95" r="22" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.5"/><text x="155" y="100" text-anchor="middle" style="fill:var(--ink);font:600 12px var(--mono)">BC</text><line class="flow" x1="102" y1="95" x2="119.0" y2="95.0" style="stroke:var(--cold);stroke-width:3"/><polygon points="131.0,95.0 119.0,88.0 119.0,102.0" style="fill:var(--cold)"/><text x="116" y="84" text-anchor="middle" style="fill:var(--cold);font:600 12px var(--mono)">Q₂</text><line class="flow" x1="179" y1="95" x2="196.0" y2="95.0" style="stroke:var(--hot);stroke-width:3"/><polygon points="208.0,95.0 196.0,88.0 196.0,102.0" style="fill:var(--hot)"/><text x="194" y="84" text-anchor="middle" style="fill:var(--hot);font:600 12px var(--mono)">Q₁</text><line class="flow" x1="155" y1="160" x2="155.0" y2="131.0" style="stroke:var(--work);stroke-width:3"/><polygon points="155.0,119.0 148.0,131.0 162.0,131.0" style="fill:var(--work)"/><text x="166" y="156" text-anchor="start" style="fill:var(--work);font:600 13px var(--mono)">W</text><text x="485" y="20" text-anchor="middle" style="fill:var(--ink);font:600 15px var(--body)">Verano · refrigeración</text><rect x="338" y="55" width="92" height="80" rx="6" style="fill:var(--hot-bg);stroke:var(--hot)"/><text x="384" y="90" text-anchor="middle" style="fill:var(--hot);font:600 13px var(--body)">Exterior</text><text x="384" y="110" text-anchor="middle" style="fill:var(--hot);font:400 12px var(--mono)">35 °C</text><rect x="540" y="55" width="92" height="80" rx="6" style="fill:var(--cold-bg);stroke:var(--cold)"/><text x="586" y="90" text-anchor="middle" style="fill:var(--cold);font:600 13px var(--body)">Vivienda</text><text x="586" y="110" text-anchor="middle" style="fill:var(--cold);font:400 12px var(--mono)">24 °C</text><circle cx="485" cy="95" r="22" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.5"/><text x="485" y="100" text-anchor="middle" style="fill:var(--ink);font:600 12px var(--mono)">BC</text><line class="flow" x1="538" y1="95" x2="521.0" y2="95.0" style="stroke:var(--cold);stroke-width:3"/><polygon points="509.0,95.0 521.0,102.0 521.0,88.0" style="fill:var(--cold)"/><text x="524" y="84" text-anchor="middle" style="fill:var(--cold);font:600 12px var(--mono)">Q₂</text><line class="flow" x1="461" y1="95" x2="444.0" y2="95.0" style="stroke:var(--hot);stroke-width:3"/><polygon points="432.0,95.0 444.0,102.0 444.0,88.0" style="fill:var(--hot)"/><text x="446" y="84" text-anchor="middle" style="fill:var(--hot);font:600 12px var(--mono)">Q₁</text><line class="flow" x1="485" y1="160" x2="485.0" y2="131.0" style="stroke:var(--work);stroke-width:3"/><polygon points="485.0,119.0 478.0,131.0 492.0,131.0" style="fill:var(--work)"/><text x="496" y="156" text-anchor="start" style="fill:var(--work);font:600 13px var(--mono)">W</text>
+    </svg>
+    <figcaption>La válvula de cuatro vías invierte el circuito: en invierno la bomba saca calor del aire exterior y lo mete en casa; en verano lo saca de casa y lo expulsa fuera.</figcaption>
+  </figure>
+
+  <p>Una bomba de calor real tiene una eficiencia de 3 a 5: entrega de 3 a 5 julios de calor por cada julio eléctrico. Por eso calienta mucho más barato que una resistencia, cuya eficiencia es 1.</p>
 </section>
 
 

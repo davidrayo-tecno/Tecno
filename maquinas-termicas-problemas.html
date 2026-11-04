@@ -405,7 +405,7 @@ details.prob summary .stitle{display:block}
     <div>
       <p class="crumbs"><a href="./">Tecnología e Ingeniería II</a> / <a href="maquinas-termicas.html">Máquinas térmicas</a></p>
       <h1>Problemas de máquinas térmicas</h1>
-      <p class="lead">Motores, cilindrada, potencia, bomba de calor y rendimiento de Carnot, resueltos y comentados paso a paso.</p>
+      <p class="lead">Energía, calor, transformaciones, motores, cilindrada, potencia, bomba de calor y rendimiento de Carnot, resueltos y comentados paso a paso.</p>
       <ul class="quick">
         <li><a class="primary" href="#p1">Empezar por el problema 1</a></li>
         <li><a href="maquinas-termicas.html">Repasar la teoría</a></li>
@@ -562,6 +562,241 @@ details.prob summary .stitle{display:block}
       <p class="res">500 MW, que se evacúan con el agua de refrigeración y las torres.</p>
     </div>
     <p class="note com">La central aprovecha el 37,5 %, bastante menos que el 62 % que permitiría Carnot.</p>
+  </details>
+  <details class="prob" id="p5">
+    <summary><span class="stitle">5. Energía de una bombilla<span class="ptags"><span class="ptag">Energía</span></span><span class="psrc">Conceptos básicos · Libro, ej. 1</span></span></summary>
+    <div class="enun"><p>Una bombilla de 20 W permanece encendida durante una hora. Calcula la energía eléctrica consumida en kWh y en julios.</p></div>
+    <p class="datos"><b>Datos:</b> P = 20 W; t = 1 h = 3 600 s</p>
+    <div class="ap">
+      <p>La energía es la potencia por el tiempo: E = P · t. Según las unidades del tiempo sale en Wh o en J.</p>
+      <ol class="steps">
+          <li>En kWh:<span class="eq">E = 0,020 kW · 1 h = 0,02 kWh</span></li>
+          <li>En julios:<span class="eq">E = 20 W · 3 600 s = 72 000 J</span></li>
+      </ol>
+      <p class="res">E = 0,02 kWh = 72 000 J.</p>
+    </div>
+    <p class="note com">Comprobación rápida: 1 kWh = 3,6·10⁶ J, así que 0,02 kWh · 3,6·10⁶ J/kWh = 72 000 J.</p>
+  </details>
+  <details class="prob" id="p6">
+    <summary><span class="stitle">6. Energía útil de un motor eléctrico<span class="ptags"><span class="ptag">Rendimiento</span></span><span class="psrc">Conceptos básicos · Libro, ej. 2</span></span></summary>
+    <div class="enun"><p>Un motor eléctrico de 2 000 W funciona durante 7 horas con un rendimiento del 70 %. Calcula la energía útil que produce.</p></div>
+    <p class="datos"><b>Datos:</b> P = 2 000 W; t = 7 h = 25 200 s; η = 0,70</p>
+    <div class="ap">
+      <p>Primero la energía absorbida (E = P · t) y después la parte útil (E<sub>útil</sub> = η · E<sub>abs</sub>).</p>
+      <ol class="steps">
+          <li>Energía absorbida:<span class="eq">E<sub>abs</sub> = 2 000 W · 25 200 s = 50,4·10⁶ J</span></li>
+          <li>Energía útil:<span class="eq">E<sub>útil</sub> = 0,70 · 50,4·10⁶ J = 35,28·10⁶ J</span></li>
+      </ol>
+      <p class="res">E<sub>útil</sub> = 35,28·10⁶ J (9,8 kWh).</p>
+    </div>
+  </details>
+  <details class="prob" id="p7">
+    <summary><span class="stitle">7. Furgoneta: energía, consumo y par<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Rendimiento</span></span><span class="psrc">Conceptos básicos · Libro, ej. 3</span></span></summary>
+    <div class="enun"><p>Una furgoneta de 3 600 kg acelera de 50 a 100 km/h en 20 s. Su motor de gasolina tiene un rendimiento del 20 % y el poder calorífico de la gasolina es 41 000 kJ/kg. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La energía suministrada por el motor.</li><li class="q"><b>b)</b> La energía total producida y el consumo de gasolina.</li><li class="q"><b>c)</b> El par motor a 3 900 rpm con una potencia de 110 CV.</li></ol>
+    <p class="datos"><b>Datos:</b> m = 3 600 kg; v₁ = 50 km/h; v₂ = 100 km/h; η = 0,20; P<sub>c</sub> = 41 000 kJ/kg; n = 3 900 rpm; P = 110 CV</p>
+    <div class="ap">
+      <h4><span>a)</span>La energía suministrada por el motor.</h4>
+      <p>El motor aporta el aumento de energía cinética. Pasamos las velocidades a m/s.</p>
+      <ol class="steps">
+          <li>Velocidades:<span class="eq">v₁ = 50 / 3,6 = 13,89 m/s; v₂ = 100 / 3,6 = 27,78 m/s</span></li>
+          <li>Energía:<span class="eq">E = ½ · 3 600 kg · (27,78² − 13,89²) m²/s² ≈ 1,04·10⁶ J</span></li>
+      </ol>
+      <p class="res">E<sub>sumin</sub> ≈ 1,038·10⁶ J (el libro redondea a este valor).</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La energía total producida y el consumo de gasolina.</h4>
+      <p>Solo el 20 % de la energía de la gasolina llega a las ruedas: E<sub>prod</sub> = E<sub>sumin</sub> / η. El consumo es m = E<sub>prod</sub> / P<sub>c</sub>.</p>
+      <ol class="steps">
+          <li>Energía producida:<span class="eq">E<sub>prod</sub> = 1,038·10⁶ J / 0,20 = 5,19·10⁶ J</span></li>
+          <li>Consumo:<span class="eq">m = 5,19·10⁶ J / 41·10⁶ J/kg = 0,1266 kg</span></li>
+      </ol>
+      <p class="res">E<sub>prod</sub> = 5,19·10⁶ J; consumo = 126,6 g de gasolina.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El par motor a 3 900 rpm con una potencia de 110 CV.</h4>
+      <p>De P = M · ω despejamos M = P / ω.</p>
+      <ol class="steps">
+          <li>Potencia:<span class="eq">P = 110 CV · 735 W/CV = 80 850 W</span></li>
+          <li>Velocidad angular:<span class="eq">ω = 2π · 3 900 / 60 = 408,4 rad/s</span></li>
+          <li>Par:<span class="eq">M = 80 850 W / 408,4 rad/s = 197,96 N·m</span></li>
+      </ol>
+      <p class="res">M ≈ 198 N·m.</p>
+    </div>
+  </details>
+  <details class="prob" id="p8">
+    <summary><span class="stitle">8. Rendimiento de un elevador<span class="ptags"><span class="ptag">Rendimiento</span></span><span class="psrc">Conceptos básicos · Libro, ej. 4</span></span></summary>
+    <div class="enun"><p>Un elevador sube una carga de 1 000 kg al sexto piso (3 m por piso) a velocidad constante de 2 m/s, consumiendo 25 kW. Calcula el trabajo realizado, la potencia útil y el rendimiento del motor.</p></div>
+    <p class="datos"><b>Datos:</b> m = 1 000 kg; h = 6 · 3 m = 18 m; v = 2 m/s; P<sub>abs</sub> = 25 kW; g = 9,8 m/s²</p>
+    <div class="ap">
+      <ol class="steps">
+          <li>Trabajo (energía potencial ganada):<span class="eq">W = m · g · h = 1 000 · 9,8 · 18 = 176 400 J</span></li>
+          <li>Potencia útil (velocidad constante, F = peso):<span class="eq">P<sub>útil</sub> = F · v = 9 800 N · 2 m/s = 19 600 W</span></li>
+          <li>Rendimiento:<span class="eq">η = 19 600 W / 25 000 W = 0,784</span></li>
+      </ol>
+      <p class="res">W = 176 400 J; P<sub>útil</sub> = 19 600 W; η = 78,4 %.</p>
+    </div>
+  </details>
+  <details class="prob" id="p9">
+    <summary><span class="stitle">9. Par y potencia según la ficha técnica<span class="ptags"><span class="ptag">Motores</span></span><span class="psrc">Parámetros del motor · Libro, ej. 5</span></span></summary>
+    <div class="enun"><p>La ficha de un motor indica: potencia máxima 90 CV a 5 000 rpm y par máximo 140 N·m a 3 500 rpm. Calcula el par a potencia máxima y la potencia a par máximo.</p></div>
+    <p class="datos"><b>Datos:</b> P<sub>máx</sub> = 90 CV a 5 000 rpm; M<sub>máx</sub> = 140 N·m a 3 500 rpm</p>
+    <div class="ap">
+      <h4><span>a)</span>Par a potencia máxima.</h4>
+      <ol class="steps">
+          <li>Potencia:<span class="eq">P = 90 CV · 735 W/CV = 66 150 W</span></li>
+          <li>Velocidad angular:<span class="eq">ω = 2π · 5 000 / 60 = 523,6 rad/s</span></li>
+          <li>Par:<span class="eq">M = 66 150 W / 523,6 rad/s = 126,33 N·m</span></li>
+      </ol>
+      <p class="res">M = 126,33 N·m.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Potencia a par máximo.</h4>
+      <ol class="steps">
+          <li>Velocidad angular:<span class="eq">ω = 2π · 3 500 / 60 = 366,5 rad/s</span></li>
+          <li>Potencia:<span class="eq">P = 140 N·m · 366,5 rad/s = 51 313 W</span></li>
+      </ol>
+      <p class="res">P ≈ 51,31 kW.</p>
+    </div>
+    <p class="note com">El par máximo llega a menos revoluciones que la potencia máxima: a muchas rpm el cilindro se llena peor y el par cae.</p>
+  </details>
+  <details class="prob" id="p10">
+    <summary><span class="stitle">10. Calentar helio a volumen constante<span class="ptags"><span class="ptag">Calor</span></span><span class="psrc">Principios · Libro, ej. 6</span></span></summary>
+    <div class="enun"><p>¿Qué calor hay que comunicar a 3 moles de helio para calentarlos a volumen constante de 15 a 25 °C? Dato: c<sub>v</sub> = 3 cal/(K·mol).</p></div>
+    <p class="datos"><b>Datos:</b> n = 3 mol; ΔT = 10 K; c<sub>v</sub> = 3 cal/(K·mol)</p>
+    <div class="ap">
+      <p>A volumen constante: Q<sub>v</sub> = n · c<sub>v</sub> · ΔT. Una diferencia de 10 °C es también de 10 K.</p>
+      <ol class="steps">
+          <li>Calor:<span class="eq">Q = 3 mol · 3 cal/(K·mol) · 10 K = 90 cal</span></li>
+      </ol>
+      <p class="res">Q = 90 cal (≈ 376 J).</p>
+    </div>
+  </details>
+  <details class="prob" id="p11">
+    <summary><span class="stitle">11. Del aluminio al agua<span class="ptags"><span class="ptag">Calor</span></span><span class="psrc">Conceptos básicos · Libro, ej. 7</span></span></summary>
+    <div class="enun"><p>0,5 kg de aluminio pasan de 20 °C a 45 °C. Ese mismo calor se usa para calentar 500 g de agua que está a 20 °C. ¿Qué temperatura alcanza el agua? Datos: c<sub>Al</sub> = 0,214 cal/(g·°C); c<sub>agua</sub> = 1 cal/(g·°C).</p></div>
+    <p class="datos"><b>Datos:</b> m<sub>Al</sub> = 500 g; ΔT<sub>Al</sub> = 25 °C; m<sub>agua</sub> = 500 g; T₀ = 20 °C</p>
+    <div class="ap">
+      <ol class="steps">
+          <li>Calor del aluminio:<span class="eq">Q = 500 g · 0,214 cal/(g·°C) · 25 °C = 2 675 cal</span></li>
+          <li>Subida de temperatura del agua:<span class="eq">ΔT = Q / (m · c) = 2 675 / (500 · 1) = 5,35 °C</span></li>
+          <li>Temperatura final:<span class="eq">T = 20 °C + 5,35 °C = 25,35 °C</span></li>
+      </ol>
+      <p class="res">T<sub>agua</sub> = 25,35 °C.</p>
+    </div>
+  </details>
+  <details class="prob" id="p12">
+    <summary><span class="stitle">12. Trabajo en una compresión isóbara<span class="ptags"><span class="ptag">Transformaciones</span></span><span class="psrc">Principios · Libro, ej. 8</span></span></summary>
+    <div class="enun"><p>Un gas ideal se comprime a presión constante de 7 bar desde 8 dm³ hasta 6 dm³. Calcula el trabajo realizado por el gas.</p></div>
+    <p class="datos"><b>Datos:</b> p = 7 bar; V₁ = 8 dm³; V₂ = 6 dm³</p>
+    <div class="ap">
+      <p>En una isóbara W = p · (V₂ − V₁). Pasamos a unidades del SI: Pa y m³.</p>
+      <ol class="steps">
+          <li>Variación de volumen:<span class="eq">ΔV = 6 − 8 = −2 dm³ = −2·10⁻³ m³</span></li>
+          <li>Presión (el libro toma 7 bar ≈ 7 atm):<span class="eq">p = 7 · 101 300 Pa = 709 100 Pa</span></li>
+          <li>Trabajo:<span class="eq">W = 709 100 Pa · (−2·10⁻³ m³) = −1 418,2 J</span></li>
+      </ol>
+      <p class="res">W = −1 418,2 J. El signo negativo indica que el trabajo se hace sobre el gas.</p>
+    </div>
+    <p class="note com">Con 1 bar = 10⁵ Pa exactos el resultado sería −1 400 J. Las dos respuestas se dan por buenas si se indica la equivalencia usada.</p>
+  </details>
+  <details class="prob" id="p13">
+    <summary><span class="stitle">13. Motor de Carnot: calores y consumo<span class="ptags"><span class="ptag">Carnot</span></span><span class="psrc">Ciclo de Carnot · Libro, ej. 9</span></span></summary>
+    <div class="enun"><p>Un motor que sigue un ciclo de Carnot da 1 200 J por ciclo trabajando entre un foco a 450 °C y otro a 20 °C. Calcula el calor absorbido y cedido por ciclo y el consumo de un combustible de 41 000 kJ/kg.</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Calor absorbido y cedido por ciclo.</li><li class="q"><b>b)</b> Consumo de combustible por ciclo.</li></ol>
+    <p class="datos"><b>Datos:</b> W = 1 200 J/ciclo; t₁ = 450 °C; t₂ = 20 °C; P<sub>c</sub> = 41 000 kJ/kg</p>
+    <div class="ap">
+      <h4><span>a)</span>Calor absorbido y cedido por ciclo.</h4>
+      <ol class="steps">
+          <li>Temperaturas:<span class="eq">T₁ = 723 K; T₂ = 293 K</span></li>
+          <li>Rendimiento:<span class="eq">η = 1 − 293 / 723 = 0,595 ≈ 0,59</span></li>
+          <li>Calor absorbido:<span class="eq">Q₁ = W / η = 1 200 J / 0,59 = 2 034 J</span></li>
+          <li>Calor cedido:<span class="eq">Q₂ = Q₁ − W = 2 034 − 1 200 = 834 J</span></li>
+      </ol>
+      <p class="res">Q₁ ≈ 2 034 J/ciclo; Q₂ ≈ 834 J/ciclo.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Consumo de combustible por ciclo.</h4>
+      <ol class="steps">
+          <li>Consumo:<span class="eq">m = 2 034 J / 41·10⁶ J/kg = 4,96·10⁻⁵ kg</span></li>
+      </ol>
+      <p class="res">Unos 4,95·10⁻⁵ kg por ciclo (0,05 g).</p>
+    </div>
+    <p class="note com">Sin redondear el rendimiento (0,5947) sale Q₁ ≈ 2 018 J. La solución del libro usa η = 0,59.</p>
+  </details>
+  <details class="prob" id="p14">
+    <summary><span class="stitle">14. Motor Otto bicilíndrico de 100 cm³<span class="ptags"><span class="ptag">Motores</span></span><span class="psrc">Parámetros del motor · Libro, ej. 10</span></span></summary>
+    <div class="enun"><p>Un motor Otto de dos cilindros tiene 100 cm³ de cilindrada, pistones de 50 mm de diámetro y relación de compresión 14:1. Da un par de 8 N·m con una potencia de 5 kW. Calcula la carrera, el volumen de la cámara de combustión y la velocidad de giro.</p></div>
+    <p class="datos"><b>Datos:</b> V<sub>T</sub> = 100 cm³; z = 2; D = 5 cm; r<sub>c</sub> = 14; M = 8 N·m; P = 5 000 W</p>
+    <div class="ap">
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>u</sub> = 100 / 2 = 50 cm³</span></li>
+          <li>Sección del pistón:<span class="eq">A = π · 5² / 4 = 19,63 cm²</span></li>
+          <li>Carrera:<span class="eq">L = V<sub>u</sub> / A = 50 / 19,63 = 2,546 cm</span></li>
+          <li>Cámara de combustión:<span class="eq">V<sub>c</sub> = V<sub>u</sub> / (r<sub>c</sub> − 1) = 50 / 13 = 3,84 cm³</span></li>
+          <li>Velocidad de giro:<span class="eq">ω = P / M = 5 000 W / 8 N·m = 625 rad/s</span></li>
+      </ol>
+      <p class="res">L = 25,46 mm; V<sub>c</sub> = 3,84 cm³; ω = 625 rad/s (≈ 5 968 rpm).</p>
+    </div>
+  </details>
+  <details class="prob" id="p15">
+    <summary><span class="stitle">15. Motor tricilíndrico: diámetro y par<span class="ptags"><span class="ptag">Motores</span></span><span class="psrc">Parámetros del motor · Libro, ej. 11</span></span></summary>
+    <div class="enun"><p>Un motor de cuatro tiempos y tres cilindros da 60 kW a 5 300 rpm. Su cilindrada es de 700 cm³ y la carrera mide 70 mm. Calcula el diámetro de los cilindros y el par a potencia máxima.</p></div>
+    <p class="datos"><b>Datos:</b> z = 3; V<sub>T</sub> = 700 cm³; L = 7 cm; P = 60 000 W; n = 5 300 rpm</p>
+    <div class="ap">
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>u</sub> = 700 / 3 = 233,3 cm³</span></li>
+          <li>Sección del pistón:<span class="eq">A = V<sub>u</sub> / L = 233,3 / 7 = 33,33 cm²</span></li>
+          <li>Diámetro:<span class="eq">D = √(4 · A / π) = √(4 · 33,33 / π) = 6,51 cm</span></li>
+          <li>Velocidad angular:<span class="eq">ω = 2π · 5 300 / 60 = 555,0 rad/s</span></li>
+          <li>Par:<span class="eq">M = 60 000 W / 555,0 rad/s = 108,1 N·m</span></li>
+      </ol>
+      <p class="res">D = 6,51 cm; M = 108,1 N·m.</p>
+    </div>
+  </details>
+  <details class="prob" id="p16">
+    <summary><span class="stitle">16. Motor monocilíndrico de dos tiempos<span class="ptags"><span class="ptag">Motores</span></span><span class="psrc">Parámetros del motor · Libro, ej. 12</span></span></summary>
+    <div class="enun"><p>Un motor monocilíndrico de dos tiempos y encendido por chispa tiene 101,3 cm³ de cilindrada y una cámara de combustión de 12,66 cm³. Da 6 kW a 6 200 rpm y un par máximo de 10 N·m a 4 580 rpm. La carrera mide 4,96 cm. Calcula la relación de compresión, el diámetro, el par a potencia máxima y la potencia a par máximo.</p></div>
+    <p class="datos"><b>Datos:</b> V<sub>u</sub> = 101,3 cm³; V<sub>c</sub> = 12,66 cm³; L = 4,96 cm; P<sub>máx</sub> = 6 kW a 6 200 rpm; M<sub>máx</sub> = 10 N·m a 4 580 rpm</p>
+    <div class="ap">
+      <ol class="steps">
+          <li>Relación de compresión:<span class="eq">r<sub>c</sub> = (101,3 + 12,66) / 12,66 = 9</span></li>
+          <li>Sección y diámetro:<span class="eq">A = 101,3 / 4,96 = 20,42 cm² → D = √(4 · 20,42 / π) = 5,1 cm</span></li>
+          <li>Par a potencia máxima:<span class="eq">ω = 2π · 6 200 / 60 = 649,3 rad/s → M = 6 000 / 649,3 = 9,24 N·m</span></li>
+          <li>Potencia a par máximo:<span class="eq">ω = 2π · 4 580 / 60 = 479,6 rad/s → P = 10 · 479,6 = 4 796 W</span></li>
+      </ol>
+      <p class="res">r<sub>c</sub> = 9; D = 5,1 cm; M = 9,24 N·m; P ≈ 4 796 W.</p>
+    </div>
+  </details>
+  <details class="prob" id="p17">
+    <summary><span class="stitle">17. Motor bicilíndrico de 99 cm³<span class="ptags"><span class="ptag">Motores</span></span><span class="psrc">Parámetros del motor · Libro, ej. 13</span></span></summary>
+    <div class="enun"><p>Un motor de dos cilindros y 99 cm³ en total tiene pistones de 40 mm de diámetro y relación de compresión 10:1. Da un par de 8 N·m con 7 kW. Calcula la carrera, el volumen de la cámara de combustión y el régimen de giro en rad/s.</p></div>
+    <p class="datos"><b>Datos:</b> V<sub>T</sub> = 99 cm³; z = 2; D = 4 cm; r<sub>c</sub> = 10; M = 8 N·m; P = 7 000 W</p>
+    <div class="ap">
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>u</sub> = 99 / 2 = 49,5 cm³</span></li>
+          <li>Sección:<span class="eq">A = π · 4² / 4 = 12,57 cm²</span></li>
+          <li>Carrera:<span class="eq">L = 49,5 / 12,57 = 3,94 cm</span></li>
+          <li>Cámara de combustión:<span class="eq">V<sub>c</sub> = 49,5 / (10 − 1) = 5,5 cm³</span></li>
+          <li>Régimen:<span class="eq">ω = 7 000 W / 8 N·m = 875 rad/s</span></li>
+      </ol>
+      <p class="res">L = 3,94 cm; V<sub>c</sub> = 5,5 cm³; ω = 875 rad/s.</p>
+    </div>
+  </details>
+  <details class="prob" id="p18">
+    <summary><span class="stitle">18. Motocicleta bicilíndrica en V<span class="ptags"><span class="ptag">Motores</span></span><span class="psrc">Parámetros del motor · Libro, ej. 14</span></span></summary>
+    <div class="enun"><p>Una moto lleva un motor de cuatro tiempos con dos cilindros en V a 45°, 888 cm³ de cilindrada, cilindros de 76,2 mm de diámetro y relación de compresión 9:1. Calcula la carrera y el volumen de la cámara de combustión.</p></div>
+    <p class="datos"><b>Datos:</b> V<sub>T</sub> = 888 cm³; z = 2; D = 7,62 cm; r<sub>c</sub> = 9</p>
+    <div class="ap">
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>u</sub> = 888 / 2 = 444 cm³</span></li>
+          <li>Sección:<span class="eq">A = π · 7,62² / 4 = 45,60 cm²</span></li>
+          <li>Carrera:<span class="eq">L = 444 / 45,60 = 9,74 cm</span></li>
+          <li>Cámara de combustión:<span class="eq">V<sub>c</sub> = 444 / (9 − 1) = 55,5 cm³</span></li>
+      </ol>
+      <p class="res">L = 9,74 cm; V<sub>c</sub> = 55,5 cm³.</p>
+    </div>
+    <p class="note com">La disposición en V solo cambia la forma del motor, no el cálculo de cilindrada.</p>
   </details>
 </section>
   </main>
