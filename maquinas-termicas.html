@@ -437,7 +437,55 @@ details.prob > summary::after{margin-left:auto}
     </tbody>
   </table></div>
   <div class="f">p · V = n · R · T<span>Ecuación de los gases ideales. R = 8,31 J/(K·mol) ≈ 2 cal/(K·mol) = 0,082 atm·L/(K·mol). p en Pa, V en m³ y T en K.</span></div>
-  <div class="f">Q<sub>v</sub> = n · c<sub>v</sub> · ΔT &nbsp;&nbsp;|&nbsp;&nbsp; Q<sub>p</sub> = n · c<sub>p</sub> · ΔT &nbsp;&nbsp;|&nbsp;&nbsp; c<sub>p</sub> = c<sub>v</sub> + R<span>Calor de un gas a volumen o a presión constante (n moles). γ = c<sub>p</sub> / c<sub>v</sub>: ≈ 1,67 en gases monoatómicos (He) y 1,4 en el aire.</span></div>
+  <h3>Calor de un gas: a volumen constante y a presión constante</h3>
+  <p>En los gases la cantidad se mide en <strong>moles</strong> (n), y el calor depende de cómo se caliente el gas: con el volumen fijo o dejándolo expandirse. Por eso hay dos calores específicos <em>molares</em>, en J/(mol·K) o cal/(mol·K).</p>
+  <p class="def">El <strong>calor molar a volumen constante</strong> (c<sub>v</sub>) es el calor necesario para subir 1 K la temperatura de 1 mol de gas sin que cambie su volumen.</p>
+  <p class="def">El <strong>calor molar a presión constante</strong> (c<sub>p</sub>) es el calor necesario para subir 1 K la temperatura de 1 mol de gas dejando que se expanda a presión constante.</p>
+  <figure>
+    <svg viewBox="0 0 600 250" role="img"><title>Calentar un gas a volumen constante y a presión constante</title><desc>A la izquierda, un recipiente rígido: el calor solo aumenta la energía interna. A la derecha, un cilindro con pistón libre: el calor aumenta la energía interna y además el gas empuja el pistón y hace trabajo.</desc>
+      <text x="150" y="20" text-anchor="middle" style="fill:var(--ink);font:600 15px var(--body)">Volumen constante</text>
+      <rect x="85" y="45" width="130" height="110" rx="4" style="fill:var(--hot-bg);stroke:var(--ink);stroke-width:4"/>
+      <text x="150" y="98" text-anchor="middle" style="fill:var(--hot);font:600 14px var(--mono)">gas</text>
+      <text x="150" y="118" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">ΔU</text>
+      <line class="flow" x1="150" y1="205" x2="150" y2="170" style="stroke:var(--hot);stroke-width:3"/><polygon points="142,172 158,172 150,160" style="fill:var(--hot)"/>
+      <text x="162" y="196" style="fill:var(--hot);font:600 14px var(--mono)">Q<tspan dy="4" style="font-size:10px">v</tspan></text>
+      <text x="150" y="236" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">W = 0 → Q<tspan dy="4" style="font-size:10px">v</tspan><tspan dy="-4"> = ΔU</tspan></text>
+      <text x="450" y="20" text-anchor="middle" style="fill:var(--ink);font:600 15px var(--body)">Presión constante</text>
+      <line x1="385" y1="40" x2="385" y2="157" style="stroke:var(--ink);stroke-width:4"/><line x1="515" y1="40" x2="515" y2="157" style="stroke:var(--ink);stroke-width:4"/><line x1="383" y1="155" x2="517" y2="155" style="stroke:var(--ink);stroke-width:4"/>
+      <rect x="387" y="88" width="126" height="65" style="fill:var(--hot-bg)"/>
+      <rect x="387" y="72" width="126" height="16" rx="2" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.5"/>
+      <line x1="387" y1="105" x2="513" y2="105" style="stroke:var(--muted);stroke-dasharray:4 4"/>
+      <text x="450" y="128" text-anchor="middle" style="fill:var(--hot);font:600 14px var(--mono)">gas</text>
+      <text x="450" y="146" text-anchor="middle" style="fill:var(--muted);font:400 12px var(--mono)">ΔU</text>
+      <text x="520" y="102" style="fill:var(--muted);font:400 11px var(--body)">antes</text>
+      <line class="flow" x1="450" y1="68" x2="450" y2="44" style="stroke:var(--work);stroke-width:3"/><polygon points="442,46 458,46 450,34" style="fill:var(--work)"/>
+      <text x="462" y="32" style="fill:var(--work);font:600 14px var(--mono)">W = p · ΔV</text>
+      <line class="flow" x1="450" y1="205" x2="450" y2="170" style="stroke:var(--hot);stroke-width:3"/><polygon points="442,172 458,172 450,160" style="fill:var(--hot)"/>
+      <text x="462" y="196" style="fill:var(--hot);font:600 14px var(--mono)">Q<tspan dy="4" style="font-size:10px">p</tspan></text>
+      <text x="450" y="236" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--mono)">Q<tspan dy="4" style="font-size:10px">p</tspan><tspan dy="-4"> = ΔU + p · ΔV</tspan></text>
+    </svg>
+    <figcaption>Con el volumen fijo, todo el calor se queda en el gas. Si el pistón puede subir, parte del calor se gasta en empujarlo: por eso hace falta más calor para subir los mismos grados.</figcaption>
+  </figure>
+  <div class="f">Q<sub>v</sub> = n · c<sub>v</sub> · ΔT = ΔU<span>A volumen constante el gas no se expande ni hace trabajo (W = 0): todo el calor aumenta su energía interna.</span></div>
+  <div class="f">Q<sub>p</sub> = n · c<sub>p</sub> · ΔT = ΔU + p · ΔV<span>A presión constante el calor sube la temperatura y además hace que el gas empuje el pistón. Por eso c<sub>p</sub> &gt; c<sub>v</sub>.</span></div>
+  <h3>Relación de Mayer</h3>
+  <div class="f">c<sub>p</sub> = c<sub>v</sub> + R<span>R = 8,31 J/(mol·K) ≈ 2 cal/(mol·K). R es el trabajo de expansión que hace 1 mol de gas ideal al calentarse 1 K a presión constante.</span></div>
+  <p>Se deduce de las dos fórmulas anteriores:</p>
+  <ol class="steps">
+    <li>A presión constante: Q<sub>p</sub> = ΔU + p · ΔV.</li>
+    <li>La energía interna de un gas ideal solo depende de T: ΔU = n · c<sub>v</sub> · ΔT.</li>
+    <li>De p · V = n · R · T a presión constante: p · ΔV = n · R · ΔT.</li>
+    <li>Sustituyendo: n · c<sub>p</sub> · ΔT = n · c<sub>v</sub> · ΔT + n · R · ΔT, de donde <b>c<sub>p</sub> = c<sub>v</sub> + R</b>.</li>
+  </ol>
+  <div class="tbl"><table>
+    <thead><tr><th>Gas ideal</th><th>c<sub>v</sub></th><th>c<sub>p</sub></th><th>γ = c<sub>p</sub> / c<sub>v</sub></th></tr></thead>
+    <tbody>
+      <tr><td>Monoatómico (He, Ar)</td><td>3/2 R ≈ 12,5 J/(mol·K) ≈ 3 cal/(mol·K)</td><td>5/2 R ≈ 20,8 J/(mol·K) ≈ 5 cal/(mol·K)</td><td>1,67</td></tr>
+      <tr><td>Diatómico (aire, O₂, N₂)</td><td>5/2 R ≈ 20,8 J/(mol·K) ≈ 5 cal/(mol·K)</td><td>7/2 R ≈ 29,1 J/(mol·K) ≈ 7 cal/(mol·K)</td><td>1,40</td></tr>
+    </tbody>
+  </table></div>
+  <p>El coeficiente adiabático γ aparece en las transformaciones adiabáticas (p · V<sup>γ</sup> = cte) y en el rendimiento del ciclo Otto.</p>
+  <p class="note"><b>Ejemplo.</b> Calentar 3 mol de helio de 15 °C a 25 °C (c<sub>v</sub> = 3 cal/(mol·K)). A volumen constante: Q<sub>v</sub> = 3 · 3 · 10 = 90 cal. A presión constante: c<sub>p</sub> = 3 + 2 = 5 cal/(mol·K), así que Q<sub>p</sub> = 3 · 5 · 10 = 150 cal. Los 60 cal de diferencia son el trabajo que hace el gas al expandirse: p · ΔV = n · R · ΔT = 3 · 2 · 10 = 60 cal.</p>
 </section>
 
 <section id="principios">
@@ -453,6 +501,19 @@ details.prob > summary::after{margin-left:auto}
     <figcaption>Criterio de signos: es positivo todo lo que hace que el sistema gane energía para trabajar (calor que entra) y el trabajo que el sistema realiza.</figcaption>
   </figure>
 
+  <h3>Qué significa Q = ΔU + W</h3>
+  <p>Es un balance de energía, como una cuenta bancaria: el calor que entra en el sistema (Q) se reparte entre lo que se queda dentro, que aumenta su energía interna (ΔU), y lo que sale en forma de trabajo (W).</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Término</th><th>Qué es</th><th>Positivo (&gt; 0)</th><th>Negativo (&lt; 0)</th></tr></thead>
+    <tbody>
+      <tr><td>Q</td><td>Calor intercambiado con el entorno</td><td>El sistema <b>recibe</b> calor</td><td>El sistema <b>cede</b> calor</td></tr>
+      <tr><td>W</td><td>Trabajo intercambiado con el entorno</td><td>El sistema <b>realiza</b> trabajo (se expande, empuja el pistón)</td><td>Se hace trabajo <b>sobre</b> el sistema (se comprime)</td></tr>
+      <tr><td>ΔU</td><td>Variación de energía interna (depende de T en un gas ideal)</td><td>El gas se calienta</td><td>El gas se enfría</td></tr>
+    </tbody>
+  </table></div>
+  <p>Este criterio es el natural para estudiar máquinas: al motor le damos calor (Q &gt; 0) para obtener trabajo (W &gt; 0), y ambos salen positivos.</p>
+  <p class="note"><b>Ejemplo.</b> Un gas recibe 500 J de calor y, al expandirse, hace 200 J de trabajo sobre el pistón. ΔU = Q − W = 500 − 200 = 300 J: su energía interna sube y se calienta. Si en cambio se le comprime con 200 J sin intercambiar calor (adiabática): ΔU = 0 − (−200) = +200 J, y también se calienta.</p>
+  <p class="note"><b>Otro criterio.</b> En química y en algunos libros se toma como positivo el trabajo que <em>recibe</em> el sistema, y el primer principio se escribe ΔU = Q + W. Es la misma ley con otro signo para W: comprueba siempre qué criterio usa el enunciado.</p>
   <p>Trabajo de un gas a presión constante: <code>W = p · ΔV</code>. En un diagrama p‑V, el trabajo de un ciclo es el área encerrada por la curva.</p>
   <h3>Transformaciones de un gas ideal</h3>
   <figure>
