@@ -368,9 +368,65 @@ details.prob > summary::after{margin-left:auto}
     </tbody>
   </table></div>
   <h3>Calor aportado por un combustible</h3>
+  <p class="def">El <strong>poder calorífico</strong> (P<sub>c</sub>) es el calor que desprende la combustión completa de una unidad de combustible: 1 kg si es sólido o líquido, 1 m³ si es gas.</p>
   <div class="f">Q = m · P<sub>c</sub> &nbsp;&nbsp;|&nbsp;&nbsp; Q = V · P<sub>c</sub><span>m en kg (o V en m³ para gases) y P<sub>c</sub> poder calorífico en kJ/kg o kJ/m³. Gasolina ≈ 43 000 kJ/kg; gasóleo ≈ 42 500 kJ/kg; gas natural ≈ 39 000 kJ/m³.</span></div>
+  <p>Las dos fórmulas dicen lo mismo: <em>calor = cantidad de combustible × poder calorífico</em>. Solo cambia cómo se mide la cantidad, por masa (sólidos y líquidos) o por volumen (gases), y con ella las unidades de P<sub>c</sub>. Las une la densidad:</p>
+  <div class="f">m = ρ · V &nbsp;⇒&nbsp; Q = ρ · V · P<sub>c(masa)</sub> &nbsp;&nbsp;|&nbsp;&nbsp; P<sub>c(volumen)</sub> = ρ · P<sub>c(masa)</sub></div>
+  <p class="note"><b>Cuidado con los líquidos.</b> Si el enunciado da litros y P<sub>c</sub> viene en kJ/kg, no se puede usar Q = V · P<sub>c</sub>: primero hay que pasar a kilos. Ejemplo: 6 L de gasóleo · 0,832 kg/L = 4,99 kg; Q = 4,99 kg · 43 100 kJ/kg ≈ 215 000 kJ. Con un gas sí se multiplica directamente: 2 m³ · 39 000 kJ/m³ = 78 000 kJ. El P<sub>c</sub> de un gas se da en m³ normales (0 °C y 1 atm), porque su volumen cambia con la presión y la temperatura.</p>
   <h3>Calor sensible y calor latente</h3>
-  <div class="f">Q = m · c<sub>e</sub> · ΔT &nbsp;&nbsp;|&nbsp;&nbsp; Q = m · L<span>c<sub>e</sub> del agua = 4,18 kJ/(kg·K). L es el calor latente de cambio de estado.</span></div>
+  <p class="def">El <strong>calor específico</strong> (c<sub>e</sub>) es el calor necesario para elevar 1 °C (1 K) la temperatura de 1 kg de una sustancia. Es una propiedad del material y se mide en J/(kg·K).</p>
+  <p class="def">El <strong>calor sensible</strong> es el calor que cambia la temperatura de un cuerpo sin cambiar su estado. Se llama así porque lo detecta un termómetro.</p>
+  <p class="def">El <strong>calor latente</strong> (L) es el calor que necesita 1 kg de sustancia para cambiar de estado (fundirse, evaporarse…) sin cambiar su temperatura. Se mide en J/kg.</p>
+  <div class="f">Q = m · c<sub>e</sub> · ΔT &nbsp;&nbsp;|&nbsp;&nbsp; Q = m · L<span>Calor sensible y calor latente. Agua: c<sub>e</sub> = 4,18 kJ/(kg·K) en estado líquido y 2,09 kJ/(kg·K) en hielo; L<sub>fusión</sub> = 334 kJ/kg; L<sub>vaporización</sub> = 2 257 kJ/kg.</span></div>
+  <h3>Calor específico y calor sensible</h3>
+  <p>El calor específico es la propiedad del material; el calor sensible es la cantidad de calor que recibe un cuerpo concreto. Este depende del material (c<sub>e</sub>), de la masa y de cuántos grados cambia la temperatura. Cuanto mayor es c<sub>e</sub>, más calor hace falta para el mismo cambio.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Calentar 2 kg de 20 °C a 50 °C</th><th>c<sub>e</sub> (J/(kg·K))</th><th>Calor sensible Q = m · c<sub>e</sub> · ΔT</th></tr></thead>
+    <tbody>
+      <tr><td>Agua</td><td>4 180</td><td>2 · 4 180 · 30 = 250 800 J</td></tr>
+      <tr><td>Aluminio</td><td>900</td><td>2 · 900 · 30 = 54 000 J</td></tr>
+    </tbody>
+  </table></div>
+  <p>Por eso el agua tarda en calentarse y en enfriarse, y se usa como refrigerante en los motores.</p>
+  <h3>Calor sensible y calor latente</h3>
+  <p>Al calentar una sustancia, los dos se alternan: mientras sube la temperatura actúa el calor sensible, y en cada cambio de estado la temperatura se queda fija y actúa el calor latente. Esa energía se gasta en separar las moléculas. El calor total es la suma de todos los tramos.</p>
+  <figure>
+    <svg viewBox="0 0 560 290" role="img"><title>Curva de calentamiento del agua</title><desc>La temperatura sube con el calor sensible en hielo, agua y vapor, y se mantiene constante a 0 °C durante la fusión y a 100 °C durante la ebullición, que son tramos de calor latente.</desc>
+      <line x1="60" y1="250" x2="545" y2="250" style="stroke:var(--muted)"/>
+      <line x1="60" y1="250" x2="60" y2="20" style="stroke:var(--muted)"/>
+      <text x="540" y="272" text-anchor="end" style="fill:var(--muted);font:400 12px var(--body)">Calor aportado Q →</text>
+      <text x="66" y="22" style="fill:var(--muted);font:400 12px var(--mono)">T (°C)</text>
+      <g style="stroke:var(--line);stroke-dasharray:4 4"><line x1="60" y1="200" x2="545" y2="200"/><line x1="60" y1="80" x2="545" y2="80"/></g>
+      <g style="fill:var(--muted);font:400 12px var(--mono)"><text x="54" y="234" text-anchor="end">−20</text><text x="54" y="204" text-anchor="end">0</text><text x="54" y="84" text-anchor="end">100</text></g>
+      <polyline points="60,230 110,200" style="fill:none;stroke:var(--cold);stroke-width:3.5"/>
+      <polyline points="110,200 200,200" style="fill:none;stroke:var(--hot);stroke-width:3.5"/>
+      <polyline points="200,200 300,80" style="fill:none;stroke:var(--cold);stroke-width:3.5"/>
+      <polyline points="300,80 480,80" style="fill:none;stroke:var(--hot);stroke-width:3.5"/>
+      <polyline points="480,80 530,52" style="fill:none;stroke:var(--cold);stroke-width:3.5"/>
+      <g style="font:600 12px var(--body)">
+        <text x="80" y="246" style="fill:var(--cold)">hielo</text>
+        <text x="155" y="192" text-anchor="middle" style="fill:var(--hot)">fusión</text>
+        <text x="155" y="218" text-anchor="middle" style="fill:var(--hot);font:500 11.5px var(--mono)">m · L<tspan dy="3" style="font-size:9px">f</tspan></text>
+        <text x="262" y="150" style="fill:var(--cold)">agua</text>
+        <text x="390" y="72" text-anchor="middle" style="fill:var(--hot)">ebullición</text>
+        <text x="390" y="98" text-anchor="middle" style="fill:var(--hot);font:500 11.5px var(--mono)">m · L<tspan dy="3" style="font-size:9px">v</tspan></text>
+        <text x="505" y="44" text-anchor="middle" style="fill:var(--cold)">vapor</text>
+        <text x="252" y="112" text-anchor="end" style="fill:var(--cold);font:500 11.5px var(--mono)">m · c<tspan dy="3" style="font-size:9px">e</tspan><tspan dy="-3"> · ΔT</tspan></text>
+      </g>
+    </svg>
+    <figcaption>Curva de calentamiento del agua (no está a escala). En azul, tramos de calor sensible: sube la temperatura. En rojo, tramos de calor latente: la temperatura no cambia mientras cambia el estado.</figcaption>
+  </figure>
+  <div class="tbl"><table>
+    <thead><tr><th>1 kg de hielo a −20 °C hasta vapor a 100 °C</th><th>Tipo</th><th>Calor</th></tr></thead>
+    <tbody>
+      <tr><td>Hielo de −20 °C a 0 °C</td><td>Sensible</td><td>1 · 2,09 · 20 ≈ 42 kJ</td></tr>
+      <tr><td>Fusión a 0 °C</td><td>Latente</td><td>1 · 334 = 334 kJ</td></tr>
+      <tr><td>Agua de 0 °C a 100 °C</td><td>Sensible</td><td>1 · 4,18 · 100 = 418 kJ</td></tr>
+      <tr><td>Ebullición a 100 °C</td><td>Latente</td><td>1 · 2 257 = 2 257 kJ</td></tr>
+      <tr><td>Total</td><td></td><td>≈ 3 051 kJ</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">El calor latente suele ser mucho mayor que el sensible: hervir el agua cuesta más de cinco veces lo que cuesta calentarla de 0 a 100 °C. Las máquinas frigoríficas y las bombas de calor lo aprovechan: el refrigerante absorbe mucho calor al evaporarse en el evaporador y lo cede al condensarse en el condensador.</p>
   <h3>Sistema termodinámico y gas ideal</h3>
   <p class="def">El <strong>sistema termodinámico</strong> es la porción de materia que estudiamos (el gas de un cilindro); lo demás es el entorno. Su estado queda fijado por la presión, el volumen y la temperatura.</p>
   <div class="tbl"><table>
