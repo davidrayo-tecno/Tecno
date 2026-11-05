@@ -412,10 +412,11 @@ details.prob summary .stitle{display:block}
     <div>
       <p class="crumbs"><a href="./">Tecnología e Ingeniería II</a> / <a href="maquinas-termicas.html">Máquinas térmicas</a></p>
       <h1>Problemas de máquinas térmicas</h1>
-      <p class="lead">Formulario y 79 problemas resueltos paso a paso: energía, combustible, motores, cilindrada, potencia, ciclo de Carnot, frigoríficas y bomba de calor.</p>
+      <p class="lead">Formulario y 104 problemas resueltos paso a paso: energía, combustible, motores, cilindrada, potencia, ciclo de Carnot, frigoríficas y bomba de calor.</p>
       <ul class="quick">
         <li><a class="primary" href="#p1">Empezar por el problema 1</a></li>
         <li><a href="#formulario">Formulario</a></li>
+        <li><a href="#selectividad">Problemas de selectividad</a></li>
         <li><a href="maquinas-termicas.html">Repasar la teoría</a></li>
       </ul>
     </div>
@@ -494,7 +495,7 @@ details.prob summary .stitle{display:block}
 
 <section id="problemas">
   <h2><span class="n">2</span>Problemas resueltos</h2>
-  <p>Los 72 problemas del cuadernillo de la unidad, con su numeración, más 7 problemas extra al final. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
+  <p>Los 72 problemas del cuadernillo de la unidad, con su numeración, 7 problemas extra y 25 problemas de selectividad ordenados por temática. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
   <div class="filters-m" role="group" aria-label="Filtrar por tema">
     <button type="button" data-f="all" aria-pressed="true">Todos</button>
     <button type="button" data-f="energia" aria-pressed="false">Energía y potencia</button>
@@ -503,8 +504,9 @@ details.prob summary .stitle{display:block}
     <button type="button" data-f="carnot" aria-pressed="false">Carnot</button>
     <button type="button" data-f="frigorifica" aria-pressed="false">Frigorífica y bomba de calor</button>
     <button type="button" data-f="libro" aria-pressed="false">Libro de texto</button>
+    <button type="button" data-f="pau" aria-pressed="false">Selectividad</button>
   </div>
-  <p class="fcount" id="fcount" aria-live="polite">79 problemas</p>
+  <p class="fcount" id="fcount" aria-live="polite">104 problemas</p>
   <details class="prob" id="p1" data-tags="energia libro">
     <summary><span class="stitle">1. Energía de una bombilla<span class="ptags"><span class="ptag">Energía</span><span class="ptag">Libro de texto</span></span><span class="psrc">Libro de texto, ejercicio 1</span></span></summary>
     <div class="enun"><p>Una bombilla de 20 W permanece encendida durante una hora. Calcula la energía eléctrica consumida en kWh y en julios.</p></div>
@@ -2183,7 +2185,7 @@ details.prob summary .stitle{display:block}
       <p class="res">M ≈ 34,0 N·m.</p>
     </div>
   </details>
-  <h3 id="extra" class="extra-h">Problemas extra</h3>
+  <h3 id="extra" class="extra-h grp-h">Problemas extra</h3>
   <details class="prob" id="p73" data-tags="motores">
     <summary><span class="stitle">73. Motor de 4 cilindros: cilindrada, compresión y rendimiento<span class="ptags"><span class="ptag">Motores</span></span><span class="psrc">Motores alternativos</span></span></summary>
     <div class="enun"><p>Un motor Otto de 4 cilindros tiene un diámetro D = 80 mm, una carrera L = 90 mm y un volumen de la cámara de combustión V<sub>c</sub> = 50 cm³. Calcula:</p></div>
@@ -2332,6 +2334,601 @@ details.prob summary .stitle{display:block}
       <p class="res">W = −1 418,2 J. El signo negativo indica que el trabajo se hace sobre el gas.</p>
     </div>
     <p class="note com">Con 1 bar = 10⁵ Pa exactos el resultado sería −1 400 J. Las dos respuestas se dan por buenas si se indica la equivalencia usada.</p>
+  </details>
+  <h3 id="selectividad" class="extra-h grp-h">Selectividad · Motores de combustión: potencia, consumo y rendimiento</h3>
+  <details class="prob" id="p80" data-tags="motores combustible pau">
+    <summary><span class="stitle">80. Motor diésel: potencia y calor perdido<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicios 6 y 7 a)</span></span></summary>
+    <div class="enun"><p>Un motor diésel tiene un rendimiento del 45 % y consume 8,5 litros en una hora de un combustible que tiene una densidad de 0,7 kg/L y un poder calorífico de 13 170 kcal/kg. Calcula la potencia desarrollada por el motor y la cantidad de calor perdido en una hora de funcionamiento (1 cal = 4,18 J).</p></div>
+    <p class="datos"><b>Datos:</b> η = 0,45; V = 8,5 L/h; ρ = 0,7 kg/L; P<sub>c</sub> = 13 170 kcal/kg; 1 cal = 4,18 J</p>
+    <div class="ap">
+      <p>Pasamos los litros a masa y el poder calorífico a kJ/kg. El calor del combustible por hora, multiplicado por el rendimiento, es el trabajo útil; el resto se pierde.</p>
+      <ol class="steps">
+          <li>Masa de combustible en una hora:<span class="eq">m = ρ · V = 0,7 kg/L · 8,5 L = 5,95 kg</span></li>
+          <li>Poder calorífico en kJ/kg:<span class="eq">P<sub>c</sub> = 13 170 kcal/kg · 4,18 kJ/kcal = 55 050,6 kJ/kg</span></li>
+          <li>Calor aportado en una hora:<span class="eq">Q = 5,95 kg · 55 050,6 kJ/kg = 327 551 kJ</span></li>
+          <li>Potencia útil:<span class="eq">P = η · Q / t = 0,45 · 327 551 kJ / 3 600 s = 40,94 kW</span></li>
+          <li>Calor perdido en una hora:<span class="eq">Q<sub>perd</sub> = (1 − 0,45) · 327 551 kJ = 180 153 kJ</span></li>
+      </ol>
+      <p class="res">P ≈ 40,9 kW; Q<sub>perdido</sub> ≈ 1,80·10⁸ J por hora.</p>
+    </div>
+  </details>
+  <details class="prob" id="p81" data-tags="motores combustible pau">
+    <summary><span class="stitle">81. Prototipo en banco de pruebas: 110 N·m a 2 750 rpm<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicios 1 y 10</span></span></summary>
+    <div class="enun"><p>Un fabricante está comprobando el prototipo de un motor de combustión de 4T en un banco de pruebas, obteniéndose estos resultados: consumo de combustible 9,5 L/h; par obtenido 110 N·m; régimen de giro 2 750 rpm; densidad del combustible 0,8 kg/dm³; poder calorífico del combustible 41 700 kJ/kg. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La potencia que está suministrando el motor y el consumo específico expresado en g/(kW·h).</li><li class="q"><b>b)</b> El rendimiento del motor.</li></ol>
+    <p class="datos"><b>Datos:</b> V = 9,5 L/h; M = 110 N·m; n = 2 750 rpm; ρ = 0,8 kg/dm³; P<sub>c</sub> = 41 700 kJ/kg</p>
+    <div class="ap">
+      <h4><span>a)</span>La potencia que está suministrando el motor y el consumo específico expresado en g/(kW·h).</h4>
+      <p>P = M · ω, con ω en rad/s. El consumo específico son los gramos de combustible por hora divididos entre los kW útiles.</p>
+      <ol class="steps">
+          <li>Velocidad angular:<span class="eq">ω = 2π · 2 750 / 60 = 287,98 rad/s</span></li>
+          <li>Potencia:<span class="eq">P = 110 N·m · 287,98 rad/s = 31 678 W</span></li>
+          <li>Masa de combustible por hora:<span class="eq">ṁ = 9,5 dm³/h · 0,8 kg/dm³ = 7,6 kg/h = 7 600 g/h</span></li>
+          <li>Consumo específico:<span class="eq">c<sub>e</sub> = 7 600 g/h / 31,68 kW = 239,9 g/(kW·h)</span></li>
+      </ol>
+      <p class="res">P ≈ 31,7 kW; c<sub>e</sub> ≈ 240 g/(kW·h).</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El rendimiento del motor.</h4>
+      <ol class="steps">
+          <li>Potencia aportada por el combustible:<span class="eq">P<sub>abs</sub> = 7,6 kg/h · 41 700 kJ/kg / 3 600 s/h = 88,03 kW</span></li>
+          <li>Rendimiento:<span class="eq">η = 31,68 kW / 88,03 kW = 0,360</span></li>
+      </ol>
+      <p class="res">η ≈ 36 %.</p>
+    </div>
+  </details>
+
+  <h3 class="extra-h grp-h">Selectividad · Motores de combustión: cilindrada, compresión y par</h3>
+  <details class="prob" id="p82" data-tags="motores pau">
+    <summary><span class="stitle">82. Quad bicilíndrico: carrera, cámara y trabajo en un viaje<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicio 2</span></span></summary>
+    <div class="enun"><p>Se realiza un viaje de Córdoba a Sevilla en quad en el que se recorren 150 km a 75 km/h. El quad tiene un motor Otto bicilíndrico de cuatro tiempos: cilindrada 500 cm³, diámetro del cilindro 60 mm y relación de compresión 10:1. La potencia máxima se obtiene con un par de 30 N·m a 5 000 rpm. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La carrera del cilindro y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> El trabajo desarrollado en el viaje, suponiendo que el motor trabaja a potencia máxima todo el trayecto.</li></ol>
+    <p class="datos"><b>Datos:</b> N = 2; V<sub>T</sub> = 500 cm³; D = 60 mm = 6 cm; RC = 10; M = 30 N·m; n = 5 000 rpm; d = 150 km; v = 75 km/h</p>
+    <div class="ap">
+      <h4><span>a)</span>La carrera del cilindro y el volumen de la cámara de combustión.</h4>
+      <p>La cilindrada total se reparte entre los dos cilindros. De V<sub>cil</sub> = (π · D² / 4) · C despejamos la carrera.</p>
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>cil</sub> = 500 cm³ / 2 = 250 cm³</span></li>
+          <li>Sección del pistón:<span class="eq">A = π · (6 cm)² / 4 = 28,27 cm²</span></li>
+          <li>Carrera:<span class="eq">C = 250 cm³ / 28,27 cm² = 8,84 cm</span></li>
+          <li>Cámara de combustión:<span class="eq">V<sub>cc</sub> = V<sub>cil</sub> / (RC − 1) = 250 cm³ / 9 = 27,78 cm³</span></li>
+      </ol>
+      <p class="res">C ≈ 88,4 mm; V<sub>cc</sub> ≈ 27,8 cm³.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El trabajo desarrollado en el viaje.</h4>
+      <p>Calculamos la potencia máxima (P = M · ω) y el tiempo del viaje (t = d / v). El trabajo es W = P · t.</p>
+      <ol class="steps">
+          <li>Potencia máxima:<span class="eq">P = 30 N·m · (2π · 5 000 / 60) rad/s = 30 · 523,6 = 15 708 W</span></li>
+          <li>Duración del viaje:<span class="eq">t = 150 km / 75 km/h = 2 h = 7 200 s</span></li>
+          <li>Trabajo:<span class="eq">W = 15 708 W · 7 200 s = 1,131·10⁸ J</span></li>
+      </ol>
+      <p class="res">W ≈ 1,13·10⁸ J (31,4 kWh).</p>
+    </div>
+  </details>
+  <details class="prob" id="p83" data-tags="motores pau">
+    <summary><span class="stitle">83. Diésel 20:1: cámara, cilindrada y régimen de giro<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicio 12</span></span></summary>
+    <div class="enun"><p>De un motor diésel de cuatro cilindros y cuatro tiempos se sabe que el diámetro de sus cilindros es 60 mm, la carrera 90 mm y la relación volumétrica de compresión 20:1. El motor desarrolla un par de 53 N·m para una potencia de 20 kW. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El volumen de la cámara de combustión y la cilindrada del motor.</li><li class="q"><b>b)</b> El régimen de giro en rpm cuando desarrolla un par motor de 53 N·m.</li></ol>
+    <p class="datos"><b>Datos:</b> N = 4; D = 6 cm; C = 9 cm; RC = 20; M = 53 N·m; P = 20 kW</p>
+    <div class="ap">
+      <h4><span>a)</span>El volumen de la cámara de combustión y la cilindrada del motor.</h4>
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>cil</sub> = (π · 6² / 4) cm² · 9 cm = 254,47 cm³</span></li>
+          <li>Cilindrada total:<span class="eq">V<sub>T</sub> = 4 · 254,47 cm³ = 1 017,9 cm³</span></li>
+          <li>Cámara de combustión:<span class="eq">V<sub>cc</sub> = 254,47 cm³ / (20 − 1) = 13,39 cm³</span></li>
+      </ol>
+      <p class="res">V<sub>cc</sub> ≈ 13,4 cm³; V<sub>T</sub> ≈ 1 018 cm³.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El régimen de giro en rpm.</h4>
+      <p>De P = M · ω despejamos ω y la pasamos a rpm con n = 60 · ω / 2π.</p>
+      <ol class="steps">
+          <li>Velocidad angular:<span class="eq">ω = 20 000 W / 53 N·m = 377,36 rad/s</span></li>
+          <li>Régimen de giro:<span class="eq">n = 377,36 · 60 / 2π = 3 603,5 rpm</span></li>
+      </ol>
+      <p class="res">n ≈ 3 600 rpm.</p>
+    </div>
+  </details>
+  <details class="prob" id="p84" data-tags="motores combustible pau">
+    <summary><span class="stitle">84. Otto de 4 cilindros: potencia y cilindrada<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicio 8</span></span></summary>
+    <div class="enun"><p>Un motor Otto de 4T y 4 cilindros consume 9 litros a la hora de un combustible cuyo poder calorífico es 41 000 kJ/kg y densidad 0,850 kg/L. Se sabe que tiene un rendimiento del 40 %, el diámetro de cada pistón es 70 mm y la carrera 90 mm. Obtén la potencia desarrollada y la cilindrada del motor.</p></div>
+    <p class="datos"><b>Datos:</b> N = 4; V = 9 L/h; P<sub>c</sub> = 41 000 kJ/kg; ρ = 0,85 kg/L; η = 0,40; D = 7 cm; C = 9 cm</p>
+    <div class="ap">
+      <ol class="steps">
+          <li>Potencia aportada por el combustible:<span class="eq">P<sub>abs</sub> = 9 L/h · 0,85 kg/L · 41 000 kJ/kg / 3 600 s/h = 87,13 kW</span></li>
+          <li>Potencia desarrollada:<span class="eq">P = 0,40 · 87,13 kW = 34,85 kW</span></li>
+          <li>Cilindrada unitaria:<span class="eq">V<sub>cil</sub> = (π · 7² / 4) cm² · 9 cm = 346,36 cm³</span></li>
+          <li>Cilindrada total:<span class="eq">V<sub>T</sub> = 4 · 346,36 cm³ = 1 385,4 cm³</span></li>
+      </ol>
+      <p class="res">P ≈ 34,9 kW; V<sub>T</sub> ≈ 1 385 cm³.</p>
+    </div>
+  </details>
+  <details class="prob" id="p85" data-tags="motores combustible pau">
+    <summary><span class="stitle">85. Motor 11:1: cilindrada y energía disipada en 8 horas<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicio 11</span></span></summary>
+    <div class="enun"><p>Un vehículo dispone de un motor de combustión de 4 cilindros con una relación de compresión de 11:1, que consume 7 litros a la hora de un combustible de densidad 0,8 kg/L y poder calorífico 41 000 kJ/kg. El rendimiento del motor es el 32 %. Los cilindros tienen 70 mm de diámetro y 80 mm de carrera. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y el volumen de la cámara de combustión de un cilindro.</li><li class="q"><b>b)</b> La energía transformada en trabajo y la energía disipada en calor en 8 horas de funcionamiento.</li></ol>
+    <p class="datos"><b>Datos:</b> N = 4; RC = 11; V = 7 L/h; ρ = 0,8 kg/L; P<sub>c</sub> = 41 000 kJ/kg; η = 0,32; D = 7 cm; C = 8 cm; t = 8 h</p>
+    <div class="ap">
+      <h4><span>a)</span>La cilindrada del motor y el volumen de la cámara de combustión.</h4>
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>cil</sub> = (π · 7² / 4) cm² · 8 cm = 307,88 cm³</span></li>
+          <li>Cilindrada total:<span class="eq">V<sub>T</sub> = 4 · 307,88 cm³ = 1 231,5 cm³</span></li>
+          <li>Cámara de combustión:<span class="eq">V<sub>cc</sub> = 307,88 cm³ / (11 − 1) = 30,79 cm³</span></li>
+      </ol>
+      <p class="res">V<sub>T</sub> ≈ 1 231,5 cm³; V<sub>cc</sub> ≈ 30,8 cm³.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La energía transformada en trabajo y la disipada en calor en 8 horas.</h4>
+      <ol class="steps">
+          <li>Energía del combustible:<span class="eq">E = 7 L/h · 8 h · 0,8 kg/L · 41 000 kJ/kg = 1 836 800 kJ</span></li>
+          <li>Energía convertida en trabajo:<span class="eq">W = 0,32 · 1 836 800 kJ = 587 776 kJ</span></li>
+          <li>Energía disipada en calor:<span class="eq">Q = 1 836 800 kJ − 587 776 kJ = 1 249 024 kJ</span></li>
+      </ol>
+      <p class="res">W ≈ 5,88·10⁸ J; Q<sub>disipado</sub> ≈ 1,25·10⁹ J.</p>
+    </div>
+  </details>
+  <details class="prob" id="p86" data-tags="motores combustible pau">
+    <summary><span class="stitle">86. Motor de 1 200 cm³: diámetro, cámara y consumo en un trayecto<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicio 9</span></span></summary>
+    <div class="enun"><p>Un motor de combustión interna de 1 200 cm³ de cilindrada y relación de compresión 11:1 tiene 4 cilindros de 80 mm de carrera. Desarrolla una potencia de 12 kW con un consumo específico de 300 g/(kW·h). El combustible tiene una densidad de 850 kg/m³ y un poder calorífico de 41 000 kJ/kg. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El diámetro y el volumen de la cámara de combustión de cada cilindro.</li><li class="q"><b>b)</b> El consumo de combustible, en litros, en un trayecto de 3 h y la energía aportada por el combustible en ese tiempo.</li></ol>
+    <p class="datos"><b>Datos:</b> V<sub>T</sub> = 1 200 cm³; RC = 11; N = 4; C = 8 cm; P = 12 kW; c<sub>e</sub> = 300 g/(kW·h); ρ = 850 kg/m³ = 0,85 kg/L; P<sub>c</sub> = 41 000 kJ/kg; t = 3 h</p>
+    <div class="ap">
+      <h4><span>a)</span>El diámetro y el volumen de la cámara de combustión de cada cilindro.</h4>
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>cil</sub> = 1 200 cm³ / 4 = 300 cm³</span></li>
+          <li>Sección del pistón:<span class="eq">A = V<sub>cil</sub> / C = 300 cm³ / 8 cm = 37,5 cm²</span></li>
+          <li>Diámetro:<span class="eq">D = √(4 · 37,5 / π) = 6,91 cm</span></li>
+          <li>Cámara de combustión:<span class="eq">V<sub>cc</sub> = 300 cm³ / (11 − 1) = 30 cm³</span></li>
+      </ol>
+      <p class="res">D ≈ 69,1 mm; V<sub>cc</sub> = 30 cm³.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El consumo en litros en 3 h y la energía aportada.</h4>
+      <p>El consumo específico multiplicado por la potencia da los gramos por hora.</p>
+      <ol class="steps">
+          <li>Masa por hora:<span class="eq">ṁ = 300 g/(kW·h) · 12 kW = 3 600 g/h = 3,6 kg/h</span></li>
+          <li>Masa en 3 h:<span class="eq">m = 3,6 kg/h · 3 h = 10,8 kg</span></li>
+          <li>Volumen:<span class="eq">V = 10,8 kg / 0,85 kg/L = 12,71 L</span></li>
+          <li>Energía aportada:<span class="eq">E = 10,8 kg · 41 000 kJ/kg = 442 800 kJ</span></li>
+      </ol>
+      <p class="res">V ≈ 12,7 L; E ≈ 4,43·10⁸ J.</p>
+    </div>
+  </details>
+  <details class="prob" id="p87" data-tags="motores combustible pau">
+    <summary><span class="stitle">87. Vehículo utilitario: cilindrada, carrera y par<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicio 4</span></span></summary>
+    <div class="enun"><p>Un motor Otto de 4T y 4 cilindros propulsa un vehículo utilitario. En régimen estacionario gira a 3 000 rpm y consume 8 litros a la hora de un combustible de poder calorífico 41 000 kJ/kg y densidad 0,850 kg/L. Tiene un rendimiento del 45 % y el diámetro de cada pistón es de 70 mm. El volumen de la cámara de combustión es 40 cm³ y la relación de compresión es 12:1. Se pide:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y la carrera que deben tener los pistones para dicha cilindrada.</li><li class="q"><b>b)</b> El par motor desarrollado en esas condiciones de funcionamiento.</li></ol>
+    <p class="datos"><b>Datos:</b> N = 4; n = 3 000 rpm; V = 8 L/h; P<sub>c</sub> = 41 000 kJ/kg; ρ = 0,85 kg/L; η = 0,45; D = 7 cm; V<sub>cc</sub> = 40 cm³; RC = 12</p>
+    <div class="ap">
+      <h4><span>a)</span>La cilindrada del motor y la carrera.</h4>
+      <p>De RC = (V<sub>cil</sub> + V<sub>cc</sub>) / V<sub>cc</sub> sale V<sub>cil</sub> = (RC − 1) · V<sub>cc</sub>.</p>
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>cil</sub> = (12 − 1) · 40 cm³ = 440 cm³</span></li>
+          <li>Cilindrada total:<span class="eq">V<sub>T</sub> = 4 · 440 cm³ = 1 760 cm³</span></li>
+          <li>Carrera:<span class="eq">C = 440 cm³ / (π · 7² / 4) cm² = 440 / 38,48 = 11,43 cm</span></li>
+      </ol>
+      <p class="res">V<sub>T</sub> = 1 760 cm³; C ≈ 114,3 mm.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El par motor.</h4>
+      <ol class="steps">
+          <li>Potencia del combustible:<span class="eq">P<sub>abs</sub> = 8 · 0,85 · 41 000 kJ / 3 600 s = 77,44 kW</span></li>
+          <li>Potencia útil:<span class="eq">P = 0,45 · 77,44 kW = 34,85 kW</span></li>
+          <li>Velocidad angular:<span class="eq">ω = 2π · 3 000 / 60 = 314,16 rad/s</span></li>
+          <li>Par:<span class="eq">M = 34 850 W / 314,16 rad/s = 110,93 N·m</span></li>
+      </ol>
+      <p class="res">M ≈ 111 N·m.</p>
+    </div>
+  </details>
+  <details class="prob" id="p88" data-tags="motores combustible pau">
+    <summary><span class="stitle">88. Moto bicilíndrica de 4 válvulas: cilindrada y eficiencia<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicio 3</span></span></summary>
+    <div class="enun"><p>Una marca de motocicletas desarrolla un modelo con motor Otto bicilíndrico de 4 válvulas por cilindro. Se obtiene una potencia máxima de 50 kW a 8 000 rpm y un par máximo de 64 N·m a 6 700 rpm. El diámetro de los pistones es 83 mm y su carrera 60 mm. La relación de compresión es 10,8:1. En un banco de pruebas, funcionando una hora en el régimen del par máximo, consume 14,3 litros de gasolina de poder calorífico 41 500 kJ/kg y densidad 0,75 kg/dm³. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> La eficiencia del motor durante la prueba que se realiza para obtener el consumo.</li></ol>
+    <p class="datos"><b>Datos:</b> N = 2; D = 8,3 cm; C = 6 cm; RC = 10,8; M<sub>máx</sub> = 64 N·m a 6 700 rpm; V = 14,3 L en 1 h; P<sub>c</sub> = 41 500 kJ/kg; ρ = 0,75 kg/dm³</p>
+    <div class="ap">
+      <h4><span>a)</span>La cilindrada del motor y el volumen de la cámara de combustión.</h4>
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>cil</sub> = (π · 8,3² / 4) cm² · 6 cm = 324,64 cm³</span></li>
+          <li>Cilindrada total:<span class="eq">V<sub>T</sub> = 2 · 324,64 cm³ = 649,3 cm³</span></li>
+          <li>Cámara de combustión:<span class="eq">V<sub>cc</sub> = 324,64 cm³ / (10,8 − 1) = 33,13 cm³</span></li>
+      </ol>
+      <p class="res">V<sub>T</sub> ≈ 649 cm³; V<sub>cc</sub> ≈ 33,1 cm³.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La eficiencia durante la prueba.</h4>
+      <p>La prueba se hace a par máximo (64 N·m a 6 700 rpm), no a potencia máxima: hay que calcular la potencia en ese régimen.</p>
+      <ol class="steps">
+          <li>Potencia a par máximo:<span class="eq">P = 64 N·m · (2π · 6 700 / 60) rad/s = 64 · 701,62 = 44 904 W</span></li>
+          <li>Masa de gasolina:<span class="eq">m = 14,3 dm³ · 0,75 kg/dm³ = 10,725 kg</span></li>
+          <li>Potencia aportada:<span class="eq">P<sub>abs</sub> = 10,725 kg · 41 500 kJ/kg / 3 600 s = 123,64 kW</span></li>
+          <li>Eficiencia:<span class="eq">η = 44,90 kW / 123,64 kW = 0,363</span></li>
+      </ol>
+      <p class="res">η ≈ 36,3 %.</p>
+    </div>
+    <p class="note com">Error frecuente: usar los 50 kW de potencia máxima. Esa potencia corresponde a 8 000 rpm, no al régimen de la prueba.</p>
+  </details>
+  <details class="prob" id="p89" data-tags="motores combustible pau">
+    <summary><span class="stitle">89. Gasolina de 4 cilindros: compresión, par y eficiencia<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicio 5</span></span></summary>
+    <div class="enun"><p>Un motor de gasolina de 4 cilindros tiene un diámetro de 84 mm y una carrera de 90 mm. El volumen de la cámara de combustión de cada cilindro es 52,50 cm³. La potencia máxima es 90 kW a 5 000 rpm. El combustible tiene un poder calorífico de 43 000 kJ/kg y una densidad de 0,8 kg/dm³. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y la relación de compresión.</li><li class="q"><b>b)</b> El par que entrega el motor a potencia máxima.</li><li class="q"><b>c)</b> La eficiencia del motor si consume 25 dm³/h trabajando a la máxima potencia.</li></ol>
+    <p class="datos"><b>Datos:</b> N = 4; D = 8,4 cm; C = 9 cm; V<sub>cc</sub> = 52,5 cm³; P = 90 kW a 5 000 rpm; P<sub>c</sub> = 43 000 kJ/kg; ρ = 0,8 kg/dm³; V = 25 dm³/h</p>
+    <div class="ap">
+      <h4><span>a)</span>La cilindrada del motor y la relación de compresión.</h4>
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>cil</sub> = (π · 8,4² / 4) cm² · 9 cm = 498,76 cm³</span></li>
+          <li>Cilindrada total:<span class="eq">V<sub>T</sub> = 4 · 498,76 cm³ = 1 995 cm³</span></li>
+          <li>Relación de compresión:<span class="eq">RC = (498,76 + 52,5) / 52,5 = 10,5</span></li>
+      </ol>
+      <p class="res">V<sub>T</sub> ≈ 1 995 cm³ (2,0 L); RC = 10,5:1.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El par a potencia máxima.</h4>
+      <ol class="steps">
+          <li>Velocidad angular:<span class="eq">ω = 2π · 5 000 / 60 = 523,6 rad/s</span></li>
+          <li>Par:<span class="eq">M = 90 000 W / 523,6 rad/s = 171,89 N·m</span></li>
+      </ol>
+      <p class="res">M ≈ 171,9 N·m.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La eficiencia a máxima potencia.</h4>
+      <ol class="steps">
+          <li>Masa por hora:<span class="eq">ṁ = 25 dm³/h · 0,8 kg/dm³ = 20 kg/h</span></li>
+          <li>Potencia aportada:<span class="eq">P<sub>abs</sub> = 20 kg/h · 43 000 kJ/kg / 3 600 s/h = 238,89 kW</span></li>
+          <li>Eficiencia:<span class="eq">η = 90 kW / 238,89 kW = 0,377</span></li>
+      </ol>
+      <p class="res">η ≈ 37,7 %.</p>
+    </div>
+  </details>
+  <details class="prob" id="p90" data-tags="motores combustible pau">
+    <summary><span class="stitle">90. Otto 10:1 con carrera 1,5 veces el diámetro<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Motores térmicos, ejercicio 13</span></span></summary>
+    <div class="enun"><p>Un motor Otto de cuatro cilindros con relación de compresión 10:1 y un volumen de la cámara de combustión de 25 cm³ alcanza un par máximo de 350 N·m a 2 500 rpm consumiendo 12 L/h de un combustible de densidad 0,85 kg/L y poder calorífico 41 400 kJ/kg. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cilindrada total y la carrera del cilindro sabiendo que esta es 1,5 veces mayor que su diámetro.</li><li class="q"><b>b)</b> El rendimiento del motor cuando trabaja a par máximo.</li></ol>
+    <p class="datos"><b>Datos:</b> N = 4; RC = 10; V<sub>cc</sub> = 25 cm³; M = 350 N·m; n = 2 500 rpm; V = 12 L/h; ρ = 0,85 kg/L; P<sub>c</sub> = 41 400 kJ/kg; C = 1,5 · D</p>
+    <div class="ap">
+      <h4><span>a)</span>La cilindrada total y la carrera.</h4>
+      <p>Con C = 1,5 · D, la cilindrada unitaria queda V<sub>cil</sub> = (π · D² / 4) · 1,5 · D = 1,5 · π · D³ / 4, y despejamos D.</p>
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>cil</sub> = (10 − 1) · 25 cm³ = 225 cm³</span></li>
+          <li>Cilindrada total:<span class="eq">V<sub>T</sub> = 4 · 225 cm³ = 900 cm³</span></li>
+          <li>Diámetro:<span class="eq">D = ∛(4 · 225 / (1,5 · π)) = ∛190,99 = 5,76 cm</span></li>
+          <li>Carrera:<span class="eq">C = 1,5 · 5,76 cm = 8,64 cm</span></li>
+      </ol>
+      <p class="res">V<sub>T</sub> = 900 cm³; C ≈ 86,4 mm (D ≈ 57,6 mm).</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El rendimiento a par máximo.</h4>
+      <ol class="steps">
+          <li>Potencia a par máximo:<span class="eq">P = 350 N·m · (2π · 2 500 / 60) rad/s = 350 · 261,8 = 91 630 W</span></li>
+          <li>Potencia aportada:<span class="eq">P<sub>abs</sub> = 12 · 0,85 · 41 400 kJ / 3 600 s = 117,3 kW</span></li>
+          <li>Rendimiento:<span class="eq">η = 91,63 kW / 117,3 kW = 0,781</span></li>
+      </ol>
+      <p class="res">η ≈ 78,1 %.</p>
+    </div>
+    <p class="note com">El resultado es muy alto para un motor real (un Otto ronda el 25-35 %): los datos del enunciado no son realistas, pero el procedimiento es el que se pide.</p>
+  </details>
+
+  <h3 class="extra-h grp-h">Selectividad · Máquinas frigoríficas</h3>
+  <details class="prob" id="p91" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">91. Frigorífico doméstico con el 25 % de la eficiencia ideal<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 6 (y Motores térmicos, 7 b)</span></span></summary>
+    <div class="enun"><p>Un frigorífico está en una vivienda cuya temperatura media es 22 °C y su eficiencia es el 25 % de la ideal. La potencia del compresor es 1 kW y la temperatura en el interior del frigorífico es 5 °C. Calcula la eficiencia de la máquina y el calor cedido al foco caliente por unidad de tiempo.</p></div>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 22 °C = 295 K; T<sub>f</sub> = 5 °C = 278 K; ε = 0,25 · ε<sub>Carnot</sub>; P = 1 kW</p>
+    <div class="ap">
+      <ol class="steps">
+          <li>Eficiencia ideal:<span class="eq">ε<sub>Carnot</sub> = T<sub>f</sub> / (T<sub>c</sub> − T<sub>f</sub>) = 278 / 17 = 16,35</span></li>
+          <li>Eficiencia real:<span class="eq">ε = 0,25 · 16,35 = 4,09</span></li>
+          <li>Calor extraído por segundo:<span class="eq">Q̇<sub>f</sub> = ε · P = 4,09 · 1 kW = 4,09 kW</span></li>
+          <li>Calor cedido por segundo:<span class="eq">Q̇<sub>c</sub> = Q̇<sub>f</sub> + P = 4,09 kW + 1 kW = 5,09 kW</span></li>
+      </ol>
+      <p class="res">ε ≈ 4,09; Q̇<sub>c</sub> ≈ 5,09 kW (5 090 J cada segundo).</p>
+    </div>
+  </details>
+  <details class="prob" id="p92" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">92. Frigorífica entre −3 °C y 24 °C<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 9</span></span></summary>
+    <div class="enun"><p>Una máquina frigorífica cuya eficiencia es el 50 % de la ideal trabaja entre −3 °C y 24 °C. El compresor consume 5 400 kJ en cada hora de funcionamiento. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La eficiencia real de la máquina y el calor extraído del foco frío en una hora de funcionamiento.</li><li class="q"><b>b)</b> La potencia frigorífica y el calor cedido al medio ambiente en cuatro horas de funcionamiento.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>f</sub> = −3 °C = 270 K; T<sub>c</sub> = 24 °C = 297 K; ε = 0,5 · ε<sub>Carnot</sub>; W = 5 400 kJ por hora</p>
+    <div class="ap">
+      <h4><span>a)</span>Eficiencia real y calor extraído en una hora.</h4>
+      <ol class="steps">
+          <li>Eficiencia ideal:<span class="eq">ε<sub>Carnot</sub> = 270 / (297 − 270) = 10</span></li>
+          <li>Eficiencia real:<span class="eq">ε = 0,5 · 10 = 5</span></li>
+          <li>Calor extraído:<span class="eq">Q<sub>f</sub> = ε · W = 5 · 5 400 kJ = 27 000 kJ</span></li>
+      </ol>
+      <p class="res">ε = 5; Q<sub>f</sub> = 2,7·10⁷ J por hora.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Potencia frigorífica y calor cedido en cuatro horas.</h4>
+      <ol class="steps">
+          <li>Potencia frigorífica:<span class="eq">P<sub>f</sub> = 27 000 kJ / 3 600 s = 7,5 kW</span></li>
+          <li>Calor cedido en una hora:<span class="eq">Q<sub>c</sub> = Q<sub>f</sub> + W = 27 000 + 5 400 = 32 400 kJ</span></li>
+          <li>En cuatro horas:<span class="eq">Q<sub>c</sub> = 4 · 32 400 kJ = 129 600 kJ</span></li>
+      </ol>
+      <p class="res">P<sub>f</sub> = 7,5 kW; Q<sub>c</sub> = 1,296·10⁸ J en 4 h.</p>
+    </div>
+  </details>
+  <details class="prob" id="p93" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">93. Cámara frigorífica de Carnot a 5 °C<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Carnot</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 15</span></span></summary>
+    <div class="enun"><p>Una máquina frigorífica que funciona según el ciclo ideal de Carnot debe mantener el interior de una cámara a 5 °C, para lo que consume 200·10⁶ J en 8 horas de funcionamiento. La temperatura media del exterior es 24 °C. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El calor cedido al exterior en una hora.</li><li class="q"><b>b)</b> La potencia que debería tener el frigorífico si tuviera una eficiencia del 75 % de la ideal de Carnot.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>f</sub> = 5 °C = 278 K; T<sub>c</sub> = 24 °C = 297 K; W = 200·10⁶ J en 8 h</p>
+    <div class="ap">
+      <h4><span>a)</span>El calor cedido al exterior en una hora.</h4>
+      <ol class="steps">
+          <li>Trabajo en una hora:<span class="eq">W = 200·10⁶ J / 8 = 25·10⁶ J</span></li>
+          <li>Eficiencia de Carnot:<span class="eq">ε = 278 / (297 − 278) = 14,63</span></li>
+          <li>Calor extraído de la cámara:<span class="eq">Q<sub>f</sub> = 14,63 · 25·10⁶ J = 365,8·10⁶ J</span></li>
+          <li>Calor cedido al exterior:<span class="eq">Q<sub>c</sub> = Q<sub>f</sub> + W = 365,8·10⁶ + 25·10⁶ = 390,8·10⁶ J</span></li>
+      </ol>
+      <p class="res">Q<sub>c</sub> ≈ 3,91·10⁸ J por hora.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Potencia con el 75 % de la eficiencia ideal.</h4>
+      <p>El frigorífico debe extraer el mismo calor de la cámara, pero con una eficiencia menor necesita más trabajo.</p>
+      <ol class="steps">
+          <li>Eficiencia real:<span class="eq">ε = 0,75 · 14,63 = 10,97</span></li>
+          <li>Trabajo por hora:<span class="eq">W = Q<sub>f</sub> / ε = 365,8·10⁶ J / 10,97 = 33,33·10⁶ J</span></li>
+          <li>Potencia:<span class="eq">P = 33,33·10⁶ J / 3 600 s = 9 259 W</span></li>
+      </ol>
+      <p class="res">P ≈ 9,26 kW (frente a 6,94 kW de la máquina ideal).</p>
+    </div>
+  </details>
+
+  <h3 class="extra-h grp-h">Selectividad · Bombas de calor</h3>
+  <details class="prob" id="p94" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">94. Hotel con bomba de calor: 1 500 J al foco caliente<span class="ptags"><span class="ptag">Bomba de calor</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 12</span></span></summary>
+    <div class="enun"><p>La calefacción de un hotel funciona en invierno con una bomba de calor. Las habitaciones se mantienen a 24 °C mientras en el exterior hay 6 °C. La eficiencia de la máquina es la tercera parte de la ideal y aporta al foco caliente 1 500 J. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La eficiencia real de la bomba de calor y el trabajo aplicado al sistema para su funcionamiento.</li><li class="q"><b>b)</b> La cantidad de calor que se extrae del foco frío.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 24 °C = 297 K; T<sub>f</sub> = 6 °C = 279 K; ε′ = ε′<sub>Carnot</sub> / 3; Q<sub>c</sub> = 1 500 J</p>
+    <div class="ap">
+      <h4><span>a)</span>Eficiencia real y trabajo aplicado.</h4>
+      <ol class="steps">
+          <li>Eficiencia ideal:<span class="eq">ε′<sub>Carnot</sub> = T<sub>c</sub> / (T<sub>c</sub> − T<sub>f</sub>) = 297 / 18 = 16,5</span></li>
+          <li>Eficiencia real:<span class="eq">ε′ = 16,5 / 3 = 5,5</span></li>
+          <li>Trabajo:<span class="eq">W = Q<sub>c</sub> / ε′ = 1 500 J / 5,5 = 272,7 J</span></li>
+      </ol>
+      <p class="res">ε′ = 5,5; W ≈ 272,7 J.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Calor extraído del foco frío.</h4>
+      <ol class="steps">
+          <li>Balance de energía:<span class="eq">Q<sub>f</sub> = Q<sub>c</sub> − W = 1 500 J − 272,7 J = 1 227,3 J</span></li>
+      </ol>
+      <p class="res">Q<sub>f</sub> ≈ 1 227 J.</p>
+    </div>
+  </details>
+  <details class="prob" id="p95" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">95. Hotel en Málaga: 90 000 J por minuto<span class="ptags"><span class="ptag">Bomba de calor</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 1</span></span></summary>
+    <div class="enun"><p>Se quiere climatizar un hotel de un pueblo de Málaga con una bomba de calor. Las habitaciones deben estar a 24 °C mientras en el exterior hay 6 °C. La eficiencia de la bomba es la tercera parte de la ideal y deberá aportar 90 000 J en un minuto al foco caliente. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La eficiencia real de la bomba de calor y el trabajo aplicado al sistema para su funcionamiento en una hora.</li><li class="q"><b>b)</b> La cantidad de calor que se extrae del foco frío en un minuto y la potencia calorífica, expresada en kW.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 297 K; T<sub>f</sub> = 279 K; ε′ = ε′<sub>Carnot</sub> / 3; Q<sub>c</sub> = 90 000 J por minuto</p>
+    <div class="ap">
+      <h4><span>a)</span>Eficiencia real y trabajo en una hora.</h4>
+      <ol class="steps">
+          <li>Eficiencia ideal:<span class="eq">ε′<sub>Carnot</sub> = 297 / (297 − 279) = 16,5</span></li>
+          <li>Eficiencia real:<span class="eq">ε′ = 16,5 / 3 = 5,5</span></li>
+          <li>Trabajo en un minuto:<span class="eq">W = 90 000 J / 5,5 = 16 364 J</span></li>
+          <li>Trabajo en una hora:<span class="eq">W = 60 · 16 364 J = 981 818 J</span></li>
+      </ol>
+      <p class="res">ε′ = 5,5; W ≈ 9,82·10⁵ J en una hora.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Calor extraído en un minuto y potencia calorífica.</h4>
+      <ol class="steps">
+          <li>Calor extraído:<span class="eq">Q<sub>f</sub> = 90 000 J − 16 364 J = 73 636 J</span></li>
+          <li>Potencia calorífica:<span class="eq">P<sub>c</sub> = 90 000 J / 60 s = 1 500 W</span></li>
+      </ol>
+      <p class="res">Q<sub>f</sub> ≈ 73 636 J por minuto; P<sub>calorífica</sub> = 1,5 kW.</p>
+    </div>
+  </details>
+  <details class="prob" id="p96" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">96. Calefacción de 3 kW entre 2 °C y 22 °C<span class="ptags"><span class="ptag">Bomba de calor</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 10</span></span></summary>
+    <div class="enun"><p>Un sistema de calefacción mantiene un recinto a 22 °C mientras en el exterior hay 2 °C. La eficiencia de la máquina es el 40 % de la ideal y la potencia del compresor es 3 kW. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La eficiencia real de la máquina y la potencia calorífica del sistema de calefacción.</li><li class="q"><b>b)</b> La energía consumida por el compresor y el calor absorbido del exterior en 3 horas de funcionamiento.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 22 °C = 295 K; T<sub>f</sub> = 2 °C = 275 K; ε′ = 0,40 · ε′<sub>Carnot</sub>; P = 3 kW; t = 3 h = 10 800 s</p>
+    <div class="ap">
+      <h4><span>a)</span>Eficiencia real y potencia calorífica.</h4>
+      <ol class="steps">
+          <li>Eficiencia ideal:<span class="eq">ε′<sub>Carnot</sub> = 295 / 20 = 14,75</span></li>
+          <li>Eficiencia real:<span class="eq">ε′ = 0,40 · 14,75 = 5,9</span></li>
+          <li>Potencia calorífica:<span class="eq">P<sub>cal</sub> = 5,9 · 3 kW = 17,7 kW</span></li>
+      </ol>
+      <p class="res">ε′ = 5,9; P<sub>calorífica</sub> = 17,7 kW.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Energía del compresor y calor absorbido en 3 horas.</h4>
+      <ol class="steps">
+          <li>Energía consumida:<span class="eq">W = 3 000 W · 10 800 s = 32,4·10⁶ J</span></li>
+          <li>Calor absorbido del exterior:<span class="eq">Q<sub>f</sub> = (17,7 kW − 3 kW) · 10 800 s = 158,76·10⁶ J</span></li>
+      </ol>
+      <p class="res">W = 3,24·10⁷ J; Q<sub>f</sub> ≈ 1,59·10⁸ J.</p>
+    </div>
+  </details>
+  <details class="prob" id="p97" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">97. Vivienda a 21 °C con bomba de calor de 1,2 kW<span class="ptags"><span class="ptag">Bomba de calor</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 14</span></span></summary>
+    <div class="enun"><p>Para mantener una vivienda a 21 °C se usa una bomba de calor que consume 1,2 kW. Su eficiencia es el 48 % de la ideal de Carnot y la temperatura media del exterior es 8 °C. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El calor que se cede a la vivienda en 8 horas para calentarla.</li><li class="q"><b>b)</b> El calor que se extrae del exterior en una hora.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 21 °C = 294 K; T<sub>f</sub> = 8 °C = 281 K; P = 1,2 kW; ε′ = 0,48 · ε′<sub>Carnot</sub></p>
+    <div class="ap">
+      <h4><span>a)</span>Calor cedido a la vivienda en 8 horas.</h4>
+      <ol class="steps">
+          <li>Eficiencia ideal:<span class="eq">ε′<sub>Carnot</sub> = 294 / 13 = 22,62</span></li>
+          <li>Eficiencia real:<span class="eq">ε′ = 0,48 · 22,62 = 10,86</span></li>
+          <li>Calor cedido:<span class="eq">Q<sub>c</sub> = 10,86 · 1 200 W · 28 800 s = 375,2·10⁶ J</span></li>
+      </ol>
+      <p class="res">Q<sub>c</sub> ≈ 3,75·10⁸ J.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Calor extraído del exterior en una hora.</h4>
+      <ol class="steps">
+          <li>Calor extraído:<span class="eq">Q<sub>f</sub> = (ε′ − 1) · W = 9,86 · 1 200 W · 3 600 s = 42,6·10⁶ J</span></li>
+      </ol>
+      <p class="res">Q<sub>f</sub> ≈ 4,26·10⁷ J.</p>
+    </div>
+  </details>
+  <details class="prob" id="p98" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">98. Bomba de calor ideal con −2 °C en el exterior<span class="ptags"><span class="ptag">Bomba de calor</span><span class="ptag">Carnot</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 13</span></span></summary>
+    <div class="enun"><p>Una bomba de calor ideal mantiene un local a 24 °C cuando la temperatura exterior es −2 °C. El calor suministrado al local es 12·10⁹ J en 8 horas de funcionamiento. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La potencia del compresor para que la bomba funcione en esas condiciones.</li><li class="q"><b>b)</b> El calor absorbido del foco frío en 1 hora de trabajo, si la eficiencia real fuera el 50 % de la ideal.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 24 °C = 297 K; T<sub>f</sub> = −2 °C = 271 K; Q<sub>c</sub> = 12·10⁹ J en 8 h = 28 800 s</p>
+    <div class="ap">
+      <h4><span>a)</span>Potencia del compresor.</h4>
+      <ol class="steps">
+          <li>Eficiencia ideal:<span class="eq">ε′<sub>Carnot</sub> = 297 / 26 = 11,42</span></li>
+          <li>Potencia calorífica:<span class="eq">Q̇<sub>c</sub> = 12·10⁹ J / 28 800 s = 416 667 W</span></li>
+          <li>Potencia del compresor:<span class="eq">P = 416 667 W / 11,42 = 36 476 W</span></li>
+      </ol>
+      <p class="res">P ≈ 36,5 kW.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Calor absorbido en 1 hora con el 50 % de la eficiencia ideal.</h4>
+      <p>Mantenemos el compresor del apartado a). Con la mitad de eficiencia entrega menos calor al local.</p>
+      <ol class="steps">
+          <li>Eficiencia real:<span class="eq">ε′ = 0,5 · 11,42 = 5,71</span></li>
+          <li>Calor absorbido por segundo:<span class="eq">Q̇<sub>f</sub> = (ε′ − 1) · P = 4,71 · 36 476 W = 171 857 W</span></li>
+          <li>En una hora:<span class="eq">Q<sub>f</sub> = 171 857 W · 3 600 s = 618,7·10⁶ J</span></li>
+      </ol>
+      <p class="res">Q<sub>f</sub> ≈ 6,19·10⁸ J.</p>
+    </div>
+    <p class="note com">Si en lugar de mantener el compresor se mantiene el calor entregado al local (1,5·10⁹ J por hora), el compresor tendría que trabajar el doble y el resultado sería Q<sub>f</sub> = 1,5·10⁹ − 2,63·10⁸ ≈ 1,24·10⁹ J. Indica siempre qué supones.</p>
+  </details>
+  <details class="prob" id="p99" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">99. Casa rural en la Alpujarra: ¿bastan 3 kW?<span class="ptags"><span class="ptag">Bomba de calor</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 5</span></span></summary>
+    <div class="enun"><p>Una vivienda rural de la Alpujarra granadina usa una bomba de calor en invierno. En una noche fría hay 1 °C en el exterior y se quieren 20 °C dentro, para lo que hay que aportar una potencia térmica de 10 kW. El equipo trabaja con una eficiencia real del 20 % de la de Carnot. La instalación eléctrica para climatización no puede superar 3,0 kW. Se pide:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El coeficiente de operación ideal y el real.</li><li class="q"><b>b)</b> Determinar si el equipo puede aportar el calor necesario sin superar la potencia máxima disponible. Justifica la respuesta.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 20 °C = 293 K; T<sub>f</sub> = 1 °C = 274 K; Q̇<sub>c</sub> = 10 kW; COP = 0,20 · COP<sub>Carnot</sub>; P<sub>máx</sub> = 3,0 kW</p>
+    <div class="ap">
+      <h4><span>a)</span>Coeficiente de operación ideal y real.</h4>
+      <ol class="steps">
+          <li>COP ideal:<span class="eq">COP<sub>Carnot</sub> = 293 / (293 − 274) = 15,42</span></li>
+          <li>COP real:<span class="eq">COP = 0,20 · 15,42 = 3,08</span></li>
+      </ol>
+      <p class="res">COP<sub>ideal</sub> ≈ 15,4; COP<sub>real</sub> ≈ 3,08.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>¿Basta la potencia eléctrica disponible?</h4>
+      <ol class="steps">
+          <li>Potencia eléctrica necesaria:<span class="eq">P = 10 kW / 3,08 = 3,24 kW</span></li>
+          <li>Calor máximo con 3 kW:<span class="eq">Q̇<sub>c</sub> = 3,08 · 3 kW = 9,25 kW &lt; 10 kW</span></li>
+      </ol>
+      <p class="res">No: necesitaría 3,24 kW, más que los 3,0 kW disponibles. Con 3 kW solo aportaría unos 9,25 kW de calor.</p>
+    </div>
+  </details>
+  <details class="prob" id="p100" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">100. Nave industrial: temperatura del exterior<span class="ptags"><span class="ptag">Bomba de calor</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 7</span></span></summary>
+    <div class="enun"><p>Con una bomba de calor reversible se quiere climatizar una nave industrial a 23 °C en invierno. La máquina tiene una eficiencia real de 5 y se sabe que es el 30 % de la ideal. Calcula la temperatura media en el exterior.</p></div>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 23 °C = 296 K; ε′ = 5 = 0,30 · ε′<sub>Carnot</sub></p>
+    <div class="ap">
+      <p>Obtenemos la eficiencia ideal y de ε′<sub>Carnot</sub> = T<sub>c</sub> / (T<sub>c</sub> − T<sub>f</sub>) despejamos T<sub>f</sub>.</p>
+      <ol class="steps">
+          <li>Eficiencia ideal:<span class="eq">ε′<sub>Carnot</sub> = 5 / 0,30 = 16,67</span></li>
+          <li>Salto de temperatura:<span class="eq">T<sub>c</sub> − T<sub>f</sub> = 296 K / 16,67 = 17,76 K</span></li>
+          <li>Temperatura exterior:<span class="eq">T<sub>f</sub> = 296 − 17,76 = 278,24 K</span></li>
+      </ol>
+      <p class="res">T<sub>f</sub> ≈ 278,2 K ≈ 5,2 °C.</p>
+    </div>
+  </details>
+
+  <h3 class="extra-h grp-h">Selectividad · Climatización reversible: verano e invierno</h3>
+  <details class="prob" id="p101" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">101. Invernadero a 25 °C todo el año<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicios 2 y 8</span></span></summary>
+    <div class="enun"><p>Con un acondicionador de aire se quiere mantener un pequeño invernadero (o un local) a 25 °C todo el año. La temperatura media del exterior es 10 °C en invierno y 35 °C en verano. La eficiencia de la máquina es el 35 % de la ideal y la potencia del compresor es 4 kW. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La eficiencia de la máquina en invierno y en verano.</li><li class="q"><b>b)</b> El calor que extrae del local cada día en verano y el que cede al local cada día en invierno, con 5 horas de funcionamiento diario.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>int</sub> = 25 °C = 298 K; T<sub>inv</sub> = 10 °C = 283 K; T<sub>ver</sub> = 35 °C = 308 K; ε = 0,35 · ε<sub>Carnot</sub>; P = 4 kW; t = 5 h = 18 000 s</p>
+    <div class="ap">
+      <h4><span>a)</span>Eficiencia en invierno y en verano.</h4>
+      <p>En invierno trabaja como bomba de calor (foco caliente = invernadero). En verano, como frigorífica (foco frío = invernadero).</p>
+      <ol class="steps">
+          <li>Invierno, ideal:<span class="eq">ε′<sub>Carnot</sub> = 298 / (298 − 283) = 19,87</span></li>
+          <li>Invierno, real:<span class="eq">ε′ = 0,35 · 19,87 = 6,95</span></li>
+          <li>Verano, ideal:<span class="eq">ε<sub>Carnot</sub> = 298 / (308 − 298) = 29,8</span></li>
+          <li>Verano, real:<span class="eq">ε = 0,35 · 29,8 = 10,43</span></li>
+      </ol>
+      <p class="res">ε′<sub>invierno</sub> ≈ 6,95; ε<sub>verano</sub> ≈ 10,43.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Calor diario en verano y en invierno.</h4>
+      <ol class="steps">
+          <li>Trabajo diario:<span class="eq">W = 4 000 W · 18 000 s = 72·10⁶ J</span></li>
+          <li>Verano, calor extraído:<span class="eq">Q<sub>f</sub> = 10,43 · 72·10⁶ J = 751·10⁶ J</span></li>
+          <li>Invierno, calor cedido:<span class="eq">Q<sub>c</sub> = 6,95 · 72·10⁶ J = 500,6·10⁶ J</span></li>
+      </ol>
+      <p class="res">Verano: Q<sub>f</sub> ≈ 7,51·10⁸ J/día. Invierno: Q<sub>c</sub> ≈ 5,01·10⁸ J/día.</p>
+    </div>
+  </details>
+  <details class="prob" id="p102" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">102. Aula climatizada a 24 °C<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 4</span></span></summary>
+    <div class="enun"><p>Para climatizar un aula se usa un aire acondicionado con bomba de calor con un compresor de 3,4 kW, que mantiene el aula a 24 °C en invierno y en verano. La temperatura media exterior es 5 °C en invierno y 38 °C en los meses de más calor. La máquina funciona todos los días lectivos durante 6 horas al día. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cantidad de calor extraído del aula un día de calor, suponiendo que el sistema es ideal.</li><li class="q"><b>b)</b> La cantidad de calor aportado al aula un día de frío, si la eficiencia del sistema es el 40 % de la ideal.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>aula</sub> = 24 °C = 297 K; T<sub>inv</sub> = 5 °C = 278 K; T<sub>ver</sub> = 38 °C = 311 K; P = 3,4 kW; t = 6 h = 21 600 s</p>
+    <div class="ap">
+      <h4><span>a)</span>Calor extraído un día de calor (sistema ideal).</h4>
+      <ol class="steps">
+          <li>Eficiencia frigorífica ideal:<span class="eq">ε = 297 / (311 − 297) = 21,21</span></li>
+          <li>Trabajo diario:<span class="eq">W = 3 400 W · 21 600 s = 73,44·10⁶ J</span></li>
+          <li>Calor extraído:<span class="eq">Q<sub>f</sub> = 21,21 · 73,44·10⁶ J = 1 558·10⁶ J</span></li>
+      </ol>
+      <p class="res">Q<sub>f</sub> ≈ 1,56·10⁹ J.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Calor aportado un día de frío (40 % de la ideal).</h4>
+      <ol class="steps">
+          <li>Eficiencia ideal como bomba de calor:<span class="eq">ε′<sub>Carnot</sub> = 297 / (297 − 278) = 15,63</span></li>
+          <li>Eficiencia real:<span class="eq">ε′ = 0,40 · 15,63 = 6,25</span></li>
+          <li>Calor aportado:<span class="eq">Q<sub>c</sub> = 6,25 · 73,44·10⁶ J = 459,2·10⁶ J</span></li>
+      </ol>
+      <p class="res">Q<sub>c</sub> ≈ 4,59·10⁸ J.</p>
+    </div>
+  </details>
+  <details class="prob" id="p103" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">103. Piscina cubierta a 28 °C<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 11</span></span></summary>
+    <div class="enun"><p>La climatización de una piscina cubierta mantiene el recinto a 28 °C en invierno y en verano, con un compresor de 10 kW. La temperatura media exterior es 5 °C en invierno y 38 °C en verano. La máquina funciona en verano de 11 h a 21 h y en invierno de 8 h a 22 h. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cantidad de calor extraído del recinto un día de verano, suponiendo que el sistema es ideal.</li><li class="q"><b>b)</b> La cantidad de calor aportado al recinto un día de invierno si la eficacia del sistema es el 40 % de la ideal.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>int</sub> = 28 °C = 301 K; T<sub>inv</sub> = 5 °C = 278 K; T<sub>ver</sub> = 38 °C = 311 K; P = 10 kW; t<sub>ver</sub> = 10 h = 36 000 s; t<sub>inv</sub> = 14 h = 50 400 s</p>
+    <div class="ap">
+      <h4><span>a)</span>Calor extraído un día de verano (ideal).</h4>
+      <ol class="steps">
+          <li>Eficiencia frigorífica ideal:<span class="eq">ε = 301 / (311 − 301) = 30,1</span></li>
+          <li>Calor extraído:<span class="eq">Q<sub>f</sub> = 30,1 · 10 000 W · 36 000 s = 10,84·10⁹ J</span></li>
+      </ol>
+      <p class="res">Q<sub>f</sub> ≈ 1,08·10¹⁰ J.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Calor aportado un día de invierno (40 % de la ideal).</h4>
+      <ol class="steps">
+          <li>Eficiencia ideal como bomba de calor:<span class="eq">ε′<sub>Carnot</sub> = 301 / (301 − 278) = 13,09</span></li>
+          <li>Eficiencia real:<span class="eq">ε′ = 0,40 · 13,09 = 5,23</span></li>
+          <li>Calor aportado:<span class="eq">Q<sub>c</sub> = 5,23 · 10 000 W · 50 400 s = 2,64·10⁹ J</span></li>
+      </ol>
+      <p class="res">Q<sub>c</sub> ≈ 2,64·10⁹ J.</p>
+    </div>
+  </details>
+  <details class="prob" id="p104" data-tags="frigorifica carnot pau">
+    <summary><span class="stitle">104. Vivienda con equipo reversible: potencia mínima del compresor<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span><span class="ptag">Selectividad</span></span><span class="psrc">Selectividad · Máquinas térmicas, ejercicio 3</span></span></summary>
+    <div class="enun"><p>En una vivienda se quiere instalar un aire acondicionado reversible, frigorífico en verano y bomba de calor en invierno, que mantenga el interior a 22 °C. En verano, con 40 °C de media en el exterior, hay que extraer de la vivienda 1,62·10⁷ J en una hora. En invierno, con 7 °C en el exterior, hay que aportar 2,17·10⁷ J en una hora para compensar las pérdidas. El equipo funciona con una eficiencia real del 35 % de la de Carnot en ambos modos. Se pide:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La potencia mínima del compresor para que el sistema funcione correctamente en verano y en invierno.</li><li class="q"><b>b)</b> El calor cedido al exterior en una hora en verano y el calor extraído del exterior en una hora en invierno.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>int</sub> = 22 °C = 295 K; T<sub>ver</sub> = 40 °C = 313 K; T<sub>inv</sub> = 7 °C = 280 K; Q<sub>f,ver</sub> = 1,62·10⁷ J/h; Q<sub>c,inv</sub> = 2,17·10⁷ J/h; ε = 0,35 · ε<sub>Carnot</sub></p>
+    <div class="ap">
+      <h4><span>a)</span>Potencia mínima del compresor.</h4>
+      <p>Calculamos la potencia necesaria en cada estación. El compresor debe cubrir la mayor de las dos.</p>
+      <ol class="steps">
+          <li>Verano, eficiencia real:<span class="eq">ε = 0,35 · 295 / (313 − 295) = 0,35 · 16,39 = 5,74</span></li>
+          <li>Verano, potencia:<span class="eq">P = (1,62·10⁷ J / 3 600 s) / 5,74 = 4 500 W / 5,74 = 784,5 W</span></li>
+          <li>Invierno, eficiencia real:<span class="eq">ε′ = 0,35 · 295 / (295 − 280) = 0,35 · 19,67 = 6,88</span></li>
+          <li>Invierno, potencia:<span class="eq">P = (2,17·10⁷ J / 3 600 s) / 6,88 = 6 027,8 W / 6,88 = 875,7 W</span></li>
+      </ol>
+      <p class="res">Manda el invierno: P<sub>mín</sub> ≈ 876 W.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Calor cedido en verano y extraído en invierno, en una hora.</h4>
+      <ol class="steps">
+          <li>Verano, trabajo en una hora:<span class="eq">W = 784,5 W · 3 600 s = 2,82·10⁶ J</span></li>
+          <li>Verano, calor cedido al exterior:<span class="eq">Q<sub>c</sub> = 1,62·10⁷ + 2,82·10⁶ = 1,90·10⁷ J</span></li>
+          <li>Invierno, trabajo en una hora:<span class="eq">W = 875,7 W · 3 600 s = 3,15·10⁶ J</span></li>
+          <li>Invierno, calor extraído del exterior:<span class="eq">Q<sub>f</sub> = 2,17·10⁷ − 3,15·10⁶ = 1,85·10⁷ J</span></li>
+      </ol>
+      <p class="res">Verano: Q<sub>c</sub> ≈ 1,90·10⁷ J. Invierno: Q<sub>f</sub> ≈ 1,85·10⁷ J.</p>
+    </div>
   </details>
 </section>
   </main>
@@ -2498,11 +3095,12 @@ details.prob summary .stitle{display:block}
 </script>
 <script>
 (function(){
-  const btns=[...document.querySelectorAll('.filters-m button')],probs=[...document.querySelectorAll('details.prob')],cnt=document.getElementById('fcount'),ex=document.getElementById('extra');
+  const btns=[...document.querySelectorAll('.filters-m button')],probs=[...document.querySelectorAll('details.prob')],cnt=document.getElementById('fcount'),heads=[...document.querySelectorAll('.grp-h')];
   btns.forEach(b=>b.addEventListener('click',()=>{
     const f=b.dataset.f;btns.forEach(x=>x.setAttribute('aria-pressed',x===b));
-    let k=0,kx=0;probs.forEach(d=>{const ok=f==='all'||(d.dataset.tags||'').split(' ').includes(f);d.hidden=!ok;if(ok){k++;if(+d.id.slice(1)>72)kx++;}});
-    ex.hidden=kx===0;
+    let k=0;probs.forEach(d=>{const ok=f==='all'||(d.dataset.tags||'').split(' ').includes(f);d.hidden=!ok;if(ok)k++;});
+    // Ocultar el título de cada bloque si no queda ningún problema visible debajo
+    heads.forEach(h=>{let n=h.nextElementSibling,any=false;while(n&&!n.matches('.grp-h')){if(n.matches('details.prob')&&!n.hidden)any=true;n=n.nextElementSibling;}h.hidden=!any;});
     cnt.textContent=k+(k===1?' problema':' problemas');
   }));
 })();
