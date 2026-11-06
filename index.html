@@ -425,6 +425,7 @@ svg.art{display:block;width:100%;height:auto}
           <li><a href="electronica-digital.html"><span class="tnum">Unidad 1</span>Electrónica digital</a></li>
           <li><a href="materiales.html"><span class="tnum">Unidad 2</span>Materiales</a></li>
           <li><a href="maquinas-termicas.html"><span class="tnum">Unidad 3</span>Máquinas térmicas</a></li>
+          <li><a href="tablaperiodica/"><span class="tnum">2º ESO</span>Tabla periódica</a></li>
           <li class="sep" aria-hidden="true">En preparación</li>
           <li><a href="hidraulica.html">Hidráulica</a></li>
           <li><a href="neumatica.html">Neumática</a></li>
@@ -656,6 +657,22 @@ svg.art{display:block;width:100%;height:auto}
           <span class="u-body"><span class="u-top"><span class="st ok">Disponible</span></span>
           <span class="tema">Unidad 3</span><strong>Máquinas térmicas</strong><span class="u-desc">Termodinámica, ciclo de Carnot, motores y bomba de calor.</span>
           <span class="u-foot"><span data-progress="maquinas-termicas-problemas.html" data-total="104">104 problemas</span></span></span>
+        </a>
+      </div>
+      <div class="col" data-state="ok" data-name="tabla periódica elementos químicos, símbolos y familias para 2º eso.">
+        <a class="unit" href="tablaperiodica/">
+          <span class="u-pic"><svg class="u-art" viewBox="0 0 400 200" role="img" aria-label="Tabla periódica simplificada" preserveAspectRatio="xMidYMid slice"><rect width="400" height="200" style="fill:var(--brand-soft)"/>
+<g style="fill:var(--hot);opacity:.55"><rect x="40" y="30" width="26" height="26" rx="4"/><rect x="40" y="60" width="26" height="26" rx="4"/><rect x="40" y="90" width="26" height="26" rx="4"/><rect x="40" y="120" width="26" height="26" rx="4"/><rect x="70" y="60" width="26" height="26" rx="4"/><rect x="70" y="90" width="26" height="26" rx="4"/><rect x="70" y="120" width="26" height="26" rx="4"/></g>
+<g style="fill:var(--work);opacity:.45"><rect x="100" y="120" width="26" height="26" rx="4"/><rect x="130" y="120" width="26" height="26" rx="4"/><rect x="160" y="120" width="26" height="26" rx="4"/><rect x="190" y="120" width="26" height="26" rx="4"/><rect x="220" y="120" width="26" height="26" rx="4"/></g>
+<g style="fill:var(--cold);opacity:.55"><rect x="250" y="60" width="26" height="26" rx="4"/><rect x="280" y="60" width="26" height="26" rx="4"/><rect x="310" y="60" width="26" height="26" rx="4"/><rect x="250" y="90" width="26" height="26" rx="4"/><rect x="280" y="90" width="26" height="26" rx="4"/><rect x="310" y="90" width="26" height="26" rx="4"/><rect x="250" y="120" width="26" height="26" rx="4"/><rect x="280" y="120" width="26" height="26" rx="4"/><rect x="310" y="120" width="26" height="26" rx="4"/></g>
+<g style="fill:var(--brand);opacity:.6"><rect x="340" y="30" width="26" height="26" rx="4"/><rect x="340" y="60" width="26" height="26" rx="4"/><rect x="340" y="90" width="26" height="26" rx="4"/><rect x="340" y="120" width="26" height="26" rx="4"/></g>
+<rect x="150" y="34" width="66" height="70" rx="8" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
+<text x="158" y="52" style="fill:var(--ink);font:600 12px var(--mono)">8</text>
+<text x="183" y="88" text-anchor="middle" style="fill:var(--ink);font:700 34px var(--body)">O</text>
+</svg></span>
+          <span class="u-body"><span class="u-top"><span class="st ok">Disponible</span></span>
+          <span class="tema">2º ESO · Carmen Romero</span><strong>Tabla periódica</strong><span class="u-desc">Símbolos, nombres y familias de los elementos con juegos.</span>
+          <span class="u-foot"></span></span>
         </a>
       </div>
       <div class="col" data-state="soon" data-name="hidráulica presión, caudal y circuitos hidráulicos.">
@@ -925,7 +942,7 @@ svg.art{display:block;width:100%;height:auto}
   const q=document.getElementById('buscar'),cols=[...document.querySelectorAll('#lista > .col')],empty=document.getElementById('vacio');
   const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   // palabras clave extra para que la búsqueda encuentre temas, no solo nombres
-  const extra={'materiales.html':'traccion brinell vickers resiliencia charpy dureza probeta ensayo elasticidad','maquinas-termicas.html':'carnot motor otto diesel calor rendimiento frigorifica bomba','electronica-digital.html':'boole puertas logicas karnaugh binario hexadecimal nand nor morgan','corriente-alterna.html':'impedancia rlc potencia fasor','control-y-regulacion.html':'lazo sensor transferencia','hidraulica.html':'pascal caudal bernoulli presion','neumatica.html':'cilindro valvula compresor aire','estructuras.html':'esfuerzo traccion compresion flexion viga'};
+  const extra={'tablaperiodica/':'elementos quimica simbolo simbolos familias metales halogenos gases nobles fisica','materiales.html':'traccion brinell vickers resiliencia charpy dureza probeta ensayo elasticidad','maquinas-termicas.html':'carnot motor otto diesel calor rendimiento frigorifica bomba','electronica-digital.html':'boole puertas logicas karnaugh binario hexadecimal nand nor morgan','corriente-alterna.html':'impedancia rlc potencia fasor','control-y-regulacion.html':'lazo sensor transferencia','hidraulica.html':'pascal caudal bernoulli presion','neumatica.html':'cilindro valvula compresor aire','estructuras.html':'esfuerzo traccion compresion flexion viga'};
   function apply(){
     const term=norm(q.value.trim()),f=document.querySelector('input[name=f]:checked').value;let shown=0;
     cols.forEach(c=>{const href=c.querySelector('a').getAttribute('href');const text=norm(c.dataset.name+' '+(extra[href]||''));
