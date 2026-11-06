@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="author" content="Carmen Romero">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tabla Periódica · 2º ESO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f3ec;--card:#fff;--ink:#1d1b2e;--muted:#6b6878;--line:#e3ddd0;--accent:#3b5bfd;--accent2:#2a44d6;--ok:#1f9d55;--bad:#e5484d;--warn:#d98a00;
+  --am:#ffb59e;--at:#ffd98a;--tr:#f5c2d6;--om:#c9d6e3;--sm:#b9e3c6;--nm:#a8e0f0;--ha:#c6c8f5;--gn:#e2c6f5;--la:#f2e2b0;--ac:#f0c9a8;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:16px 14px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px}
+.logo .tile{width:46px;height:46px;border-radius:10px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:22px;position:relative}
+.logo .tile small{position:absolute;top:3px;left:5px;font-size:9px;font-family:"DM Sans";font-weight:500;opacity:.7}
+h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:clamp(20px,3.6vw,28px);margin:0;letter-spacing:-.02em}
+h1 span{color:var(--accent)}
+.sub{color:var(--muted);font-size:13px}
+.pool{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pool label{font-size:12px;color:var(--muted);font-weight:500}
+select,input[type=text]{font:inherit;font-size:15px;padding:9px 11px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);outline:none}
+select:focus,input:focus{border-color:var(--accent)}
+.mastery{font-size:13px;background:#fff;border:1.5px solid var(--line);padding:7px 11px;border-radius:999px;white-space:nowrap}
+.mastery b{color:var(--ok)}
+nav{display:flex;gap:6px;margin:14px 0;overflow-x:auto;padding-bottom:2px}
+nav button{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 15px;font-weight:500;font-size:14.5px;cursor:pointer;display:flex;gap:7px;align-items:center}
+nav button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+nav button .ic{font-size:15px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:16px}
+.view{display:none}.view.on{display:block}
+/* tabla */
+.tblWrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px;margin-top:12px}
+.ptable{display:grid;grid-template-columns:22px repeat(18,minmax(0,1fr));gap:3px;min-width:760px}
+.cell{aspect-ratio:1/1.08;border-radius:7px;border:1.5px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;cursor:pointer;padding:0;user-select:none;transition:transform .08s,opacity .2s}
+.cell:hover{transform:scale(1.08);z-index:2;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.cell .z{position:absolute;top:2px;left:4px;font-size:9px;opacity:.7}
+.cell .s{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:clamp(13px,1.6vw,19px);line-height:1}
+.cell .n{font-size:7.5px;margin-top:2px;max-width:96%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;opacity:.8}
+@media(max-width:1000px){.cell .n{display:none}}
+.cell.dim{opacity:.22}
+.cell.sel{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.cell.blank{background:#ebe6da;border-color:#ddd5c5}
+.cell.blank.hint{opacity:.55}
+.cell.right{background:#c9f0d6 !important;border-color:var(--ok)}
+.cell.wrong{background:#ffd3d3 !important;border-color:var(--bad);animation:shake .3s}
+.cell.show{animation:pulse 1s 2;border-color:var(--ok);box-shadow:0 0 0 3px var(--ok)}
+.cell.ph{background:transparent;border:1.5px dashed #cfc6b4;cursor:default;font-size:9px;color:var(--muted)}
+.cell.ph:hover{transform:none;box-shadow:none}
+@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+@keyframes pulse{50%{transform:scale(1.15)}}
+.glab{font-size:10px;color:var(--muted);text-align:center;align-self:end;font-weight:500}
+.plab{font-size:10px;color:var(--muted);display:grid;place-items:center;font-weight:500}
+.flab{grid-column:1/4;font-size:10px;color:var(--muted);display:flex;align-items:center;justify-content:flex-end;padding-right:6px}
+.c-am{background:var(--am)}.c-at{background:var(--at)}.c-tr{background:var(--tr)}.c-om{background:var(--om)}.c-sm{background:var(--sm)}.c-nm{background:var(--nm)}.c-ha{background:var(--ha)}.c-gn{background:var(--gn)}.c-la{background:var(--la)}.c-ac{background:var(--ac)}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.legend button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:4px 10px 4px 6px;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.legend button i{width:14px;height:14px;border-radius:4px;display:inline-block}
+.legend button.on{border-color:var(--ink)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.seg button{border:0;background:transparent;padding:7px 11px;font-size:13px;cursor:pointer;border-right:1.5px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--ink);color:#fff}
+/* ficha */
+.detail{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+@media(max-width:600px){.detail{gap:12px}.bigtile{width:92px;height:100px;border-radius:12px}.bigtile .s{font-size:40px}.bigtile .n{font-size:12px}.bigtile .z{font-size:12px;top:6px;left:8px}.facts{grid-template-columns:1fr 1fr}.fact .v{font-size:14px}}
+.swipe{display:none;font-size:12px;color:var(--muted);margin-top:8px}
+@media(max-width:800px){.swipe{display:block}}
+.bigtile{width:150px;height:160px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;border:2px solid rgba(0,0,0,.08)}
+.bigtile .z{position:absolute;top:10px;left:12px;font-size:15px;font-weight:700}
+.bigtile .s{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:64px;line-height:1}
+.bigtile .n{font-size:15px;font-weight:500;margin-top:4px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.fact{background:var(--bg);border-radius:10px;padding:8px 10px}
+.fact .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.fact .v{font-weight:700;font-size:15px;margin-top:2px}
+.fun{margin-top:10px;font-size:15px;line-height:1.5;padding:10px 12px;border-radius:10px;background:#eef1ff;border-left:4px solid var(--accent)}
+.origin{margin-top:8px;font-size:14px;line-height:1.5;padding:10px 12px;border-radius:10px;background:#fff6e0;border-left:4px solid var(--warn)}
+/* juegos */
+.game{max-width:640px;margin:0 auto}
+.gtop{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.pbar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;flex:1;min-width:120px}
+.pbar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.q{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:clamp(22px,4.6vw,30px);font-weight:700;text-align:center;margin:10px 0 18px;line-height:1.2}
+.q .em{color:var(--accent)}
+.q .tilebig{display:inline-flex;width:100px;height:100px;border-radius:14px;align-items:center;justify-content:center;font-size:52px;font-weight:800;margin:6px 0;border:2px solid rgba(0,0,0,.08)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.opts{grid-template-columns:1fr}}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;font-size:17px;font-weight:500;cursor:pointer;text-align:center;transition:transform .08s}
+.opt:hover{border-color:var(--accent)}
+.opt:active{transform:scale(.98)}
+.opt.right{background:#d8f5e3;border-color:var(--ok)}
+.opt.wrong{background:#ffe0e0;border-color:var(--bad)}
+.opt:disabled{cursor:default}
+.feedback{margin-top:14px;padding:12px 14px;border-radius:12px;font-size:15px;line-height:1.5;display:none}
+.feedback.ok{display:block;background:#e5f7ec;color:#14532d}
+.feedback.bad{display:block;background:#ffecec;color:#7a1f22}
+.feedback.warn{display:block;background:#fff4dc;color:#6b4500}
+.btn{border:0;background:var(--accent);color:#fff;border-radius:12px;padding:12px 18px;font-weight:700;font-size:15.5px;cursor:pointer}
+.btn:hover{background:var(--accent2)}
+.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.btn.good{background:var(--ok)}.btn.bad{background:var(--bad)}
+.center{text-align:center}
+.flash{perspective:1000px;margin:6px auto 16px;max-width:360px;height:250px;cursor:pointer}
+.flash .inner{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.flash.flip .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(0,0,0,.08);padding:16px;text-align:center}
+.face.back{transform:rotateY(180deg)}
+.face .big{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:72px;line-height:1}
+.face .mid{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:34px}
+.face .hint{font-size:13px;color:rgba(0,0,0,.55);margin-top:10px}
+.face .meta{font-size:14px;margin-top:8px}
+.typebox{display:flex;gap:8px}
+.typebox input{flex:1;font-size:20px;padding:12px 14px;text-align:center;font-weight:700}
+.stat{display:flex;gap:16px;justify-content:center;font-size:14px;color:var(--muted);margin-top:12px;flex-wrap:wrap}
+.stat b{color:var(--ink);font-size:17px}
+.timer{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:38px;font-weight:800}
+.timer.low{color:var(--bad)}
+.result{text-align:center}
+.result .grade{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:64px;font-weight:800;line-height:1}
+.mistakes{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0}
+.mistakes span{padding:5px 10px;border-radius:9px;font-size:14px;font-weight:500}
+.placeq{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.placeq .q{margin:0;text-align:left}
+.tip{font-size:13px;color:var(--muted);margin-top:8px}
+footer{margin-top:28px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.toggle{display:flex;align-items:center;gap:7px;font-size:14px;cursor:pointer}
+.toggle input{width:17px;height:17px;accent-color:var(--accent)}
+.mast0{background:#ffd3d3}.mast1{background:#ffe4c4}.mast2{background:#fff1b8}.mast3{background:#d9f2c2}.mast4{background:#b6e8b0}.mast5{background:#8fd99a}
+.mastnone{background:#ece8df}
+@media(max-width:600px){.detail>div:last-child{grid-column:1/-1}.facts{grid-template-columns:repeat(3,1fr)}.detail{grid-template-columns:auto}.bigtile{width:110px;height:118px}.bigtile .s{font-size:46px}.bigtile .n{font-size:13px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo"><div class="tile"><small>8</small>O</div><div><h1>Tabla Periódica <span>2º ESO</span></h1><div class="sub">Aprende los elementos jugando · Creado por Carmen Romero</div></div></div>
+  <div class="pool">
+    <label for="pool">Practicar con</label>
+    <select id="pool"></select>
+    <span class="mastery" id="mastery"></span>
+  </div>
+</header>
+
+<nav id="tabs">
+  <button data-v="explore"><span class="ic">🔍</span>Explorar</button>
+  <button data-v="cards"><span class="ic">🃏</span>Tarjetas</button>
+  <button data-v="quiz"><span class="ic">✅</span>Test</button>
+  <button data-v="type"><span class="ic">⌨️</span>Escribe</button>
+  <button data-v="place"><span class="ic">📍</span>Colócalo</button>
+  <button data-v="race"><span class="ic">⏱️</span>Contrarreloj</button>
+</nav>
+
+<!-- EXPLORAR -->
+<section class="view" id="v-explore">
+  <div class="card" id="detail"></div>
+  <div class="row" style="margin-top:14px;justify-content:space-between">
+    <div class="row"><span class="sub">Colorear por</span>
+      <div class="seg" id="colorBy"><button data-v="cat">Familia</button><button data-v="state">Estado</button><button data-v="type">Metal / no metal</button><button data-v="mast">Mi progreso</button></div>
+    </div>
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="swipe">← Desliza la tabla para ver todos los grupos →</div><div class="tblWrap"><div class="ptable" id="tblExplore"></div></div>
+</section>
+
+<!-- TARJETAS -->
+<section class="view" id="v-cards">
+  <div class="game card">
+    <div class="gtop"><div class="seg" id="cardDir"><button data-v="s2n">Símbolo → nombre</button><button data-v="n2s">Nombre → símbolo</button><button data-v="mix">Mezcla</button></div><span class="sub" id="cardCount"></span></div>
+    <div class="flash" id="flash"><div class="inner"><div class="face front" id="cardFront"></div><div class="face back" id="cardBack"></div></div></div>
+    <div class="center" id="cardBtns"></div>
+    <p class="tip center">Toca la tarjeta para darle la vuelta. Las que no sabes vuelven a salir antes.</p>
+  </div>
+</section>
+
+<!-- TEST -->
+<section class="view" id="v-quiz"><div class="game card" id="quizBox"></div></section>
+
+<!-- ESCRIBE -->
+<section class="view" id="v-type">
+  <div class="game card">
+    <div class="gtop"><div class="seg" id="typeDir"><button data-v="n2s">Escribe el símbolo</button><button data-v="s2n">Escribe el nombre</button></div><span class="sub" id="typeStreak"></span></div>
+    <div class="q" id="typeQ"></div>
+    <form class="typebox" id="typeForm" autocomplete="off"><input type="text" id="typeIn" autocapitalize="off" autocorrect="off" spellcheck="false"><button class="btn" type="submit">Comprobar</button></form>
+    <div class="feedback" id="typeFb"></div>
+    <div class="center" style="margin-top:12px"><button class="btn ghost" id="typeNext" style="display:none">Siguiente →</button></div>
+    <p class="tip center">En los símbolos, la primera letra va en mayúscula y la segunda en minúscula: <b>Na</b>, no <b>NA</b> ni <b>na</b>.</p>
+  </div>
+</section>
+
+<!-- COLÓCALO -->
+<section class="view" id="v-place">
+  <div class="card">
+    <div class="placeq"><div class="q" id="placeQ"></div><div class="row"><label class="toggle"><input type="checkbox" id="placeHint"> Colores de familia como pista</label><button class="btn ghost" id="placeRestart">Empezar de nuevo</button></div></div>
+    <div class="feedback" id="placeFb"></div>
+    <div class="stat" id="placeStat"></div>
+  </div>
+  <div class="swipe">← Desliza la tabla para ver todos los grupos →</div><div class="tblWrap"><div class="ptable" id="tblPlace"></div></div>
+</section>
+
+<!-- CONTRARRELOJ -->
+<section class="view" id="v-race"><div class="game card" id="raceBox"></div></section>
+
+<footer><b style="color:var(--ink)">Creado por Carmen Romero.</b> Progreso guardado solo en este navegador. Nombres según la IUPAC en español; también se aceptan variantes como «zinc», «criptón» o «tungsteno».</footer>
+</div>
+
+<script>
+(function(){
+/* ============ DATOS ============ */
+// [símbolo, nombre, categoría, estado] categoría: am alcalino, at alcalinotérreo, tr transición, om otros metales, sm semimetal, nm no metal, ha halógeno, gn gas noble, la lantánido, ac actínido. estado: s sólido, l líquido, g gas
+const RAW=[
+['H','Hidrógeno','nm','g'],['He','Helio','gn','g'],['Li','Litio','am'],['Be','Berilio','at'],['B','Boro','sm'],['C','Carbono','nm'],['N','Nitrógeno','nm','g'],['O','Oxígeno','nm','g'],['F','Flúor','ha','g'],['Ne','Neón','gn','g'],
+['Na','Sodio','am'],['Mg','Magnesio','at'],['Al','Aluminio','om'],['Si','Silicio','sm'],['P','Fósforo','nm'],['S','Azufre','nm'],['Cl','Cloro','ha','g'],['Ar','Argón','gn','g'],
+['K','Potasio','am'],['Ca','Calcio','at'],['Sc','Escandio','tr'],['Ti','Titanio','tr'],['V','Vanadio','tr'],['Cr','Cromo','tr'],['Mn','Manganeso','tr'],['Fe','Hierro','tr'],['Co','Cobalto','tr'],['Ni','Níquel','tr'],['Cu','Cobre','tr'],['Zn','Cinc','tr'],['Ga','Galio','om'],['Ge','Germanio','sm'],['As','Arsénico','sm'],['Se','Selenio','nm'],['Br','Bromo','ha','l'],['Kr','Kriptón','gn','g'],
+['Rb','Rubidio','am'],['Sr','Estroncio','at'],['Y','Itrio','tr'],['Zr','Circonio','tr'],['Nb','Niobio','tr'],['Mo','Molibdeno','tr'],['Tc','Tecnecio','tr'],['Ru','Rutenio','tr'],['Rh','Rodio','tr'],['Pd','Paladio','tr'],['Ag','Plata','tr'],['Cd','Cadmio','tr'],['In','Indio','om'],['Sn','Estaño','om'],['Sb','Antimonio','sm'],['Te','Teluro','sm'],['I','Yodo','ha'],['Xe','Xenón','gn','g'],
+['Cs','Cesio','am'],['Ba','Bario','at'],['La','Lantano','la'],['Ce','Cerio','la'],['Pr','Praseodimio','la'],['Nd','Neodimio','la'],['Pm','Prometio','la'],['Sm','Samario','la'],['Eu','Europio','la'],['Gd','Gadolinio','la'],['Tb','Terbio','la'],['Dy','Disprosio','la'],['Ho','Holmio','la'],['Er','Erbio','la'],['Tm','Tulio','la'],['Yb','Iterbio','la'],['Lu','Lutecio','la'],
+['Hf','Hafnio','tr'],['Ta','Tantalio','tr'],['W','Wolframio','tr'],['Re','Renio','tr'],['Os','Osmio','tr'],['Ir','Iridio','tr'],['Pt','Platino','tr'],['Au','Oro','tr'],['Hg','Mercurio','tr','l'],['Tl','Talio','om'],['Pb','Plomo','om'],['Bi','Bismuto','om'],['Po','Polonio','om'],['At','Astato','ha'],['Rn','Radón','gn','g'],
+['Fr','Francio','am'],['Ra','Radio','at'],['Ac','Actinio','ac'],['Th','Torio','ac'],['Pa','Protactinio','ac'],['U','Uranio','ac'],['Np','Neptunio','ac'],['Pu','Plutonio','ac'],['Am','Americio','ac'],['Cm','Curio','ac'],['Bk','Berkelio','ac'],['Cf','Californio','ac'],['Es','Einstenio','ac'],['Fm','Fermio','ac'],['Md','Mendelevio','ac'],['No','Nobelio','ac'],['Lr','Laurencio','ac'],
+['Rf','Rutherfordio','tr'],['Db','Dubnio','tr'],['Sg','Seaborgio','tr'],['Bh','Bohrio','tr'],['Hs','Hassio','tr'],['Mt','Meitnerio','tr'],['Ds','Darmstatio','tr'],['Rg','Roentgenio','tr'],['Cn','Copernicio','tr'],['Nh','Nihonio','om'],['Fl','Flerovio','om'],['Mc','Moscovio','om'],['Lv','Livermorio','om'],['Ts','Teneso','ha'],['Og','Oganesón','gn']
+];
+const ALT={Zn:['zinc'],Kr:['cripton'],Te:['telurio'],I:['iodo'],Zr:['zirconio'],Ta:['tantalo'],W:['tungsteno'],At:['astato'],Es:['einsteinio'],Ds:['darmstadtio']};
+const FUN={
+H:'Es el elemento más abundante del universo: las estrellas son sobre todo hidrógeno. Forma parte del agua (H₂O).',
+He:'Es más ligero que el aire y por eso hace flotar los globos. No reacciona con nada.',
+Li:'Está en las baterías de los móviles y de los coches eléctricos.',
+Be:'Metal muy ligero y rígido: los espejos del telescopio espacial James Webb son de berilio.',
+B:'Se usa en el vidrio que aguanta el calor (como el de algunas fuentes para el horno).',
+C:'Es la base de la vida. El diamante y el grafito de los lápices son carbono puro.',
+N:'Forma el 78 % del aire que respiras. Las plantas lo necesitan para crecer (abonos).',
+O:'Lo respiras: forma el 21 % del aire. Es el elemento más abundante de la corteza terrestre.',
+F:'Está en la pasta de dientes (en forma de fluoruros) para proteger el esmalte.',
+Ne:'Da el color rojo anaranjado de los letreros luminosos de neón.',
+Na:'Con el cloro forma la sal de mesa (cloruro de sodio, NaCl). Puro, reacciona violentamente con el agua.',
+Mg:'Arde con una luz blanca muy intensa. Se usa en bengalas y en aleaciones ligeras.',
+Al:'Latas de refresco y papel de aluminio. Es el metal más abundante de la corteza terrestre.',
+Si:'Está en la arena y el vidrio. Los chips de los ordenadores y móviles se fabrican con silicio.',
+P:'Está en tus huesos y en el ADN. La tira de las cajas de cerillas lleva fósforo rojo.',
+S:'Sólido de color amarillo. Muchos de sus compuestos huelen a huevo podrido.',
+Cl:'Se usa para desinfectar el agua del grifo y de las piscinas.',
+Ar:'Es casi el 1 % del aire. Se usa para rellenar algunas bombillas y en soldadura.',
+K:'Abunda en los plátanos. Es necesario para que funcionen tus nervios y músculos.',
+Ca:'Forma tus huesos y dientes. El mármol y la piedra caliza son carbonato de calcio.',
+Ti:'Ligero, fuerte y no se oxida: se usa en prótesis, implantes dentales y aviones.',
+Cr:'Da el brillo a los grifos «cromados» y hace que el acero inoxidable no se oxide.',
+Mn:'Se añade al acero para hacerlo más duro y está en las pilas alcalinas.',
+Fe:'El metal más usado: el acero es sobre todo hierro. En tu sangre transporta el oxígeno.',
+Co:'Da el color azul intenso a vidrios y cerámicas (azul cobalto). También está en baterías.',
+Ni:'Forma parte de muchas monedas y del acero inoxidable.',
+Cu:'Conduce muy bien la electricidad: los cables son de cobre. Mezclado con estaño forma el bronce.',
+Zn:'Recubre el hierro para que no se oxide (hierro galvanizado). Mezclado con cobre forma el latón.',
+Ge:'Semimetal usado en electrónica y en la fibra óptica.',
+As:'Famoso veneno en la historia. Hoy se usa en algunos componentes electrónicos.',
+Se:'Tu cuerpo lo necesita en cantidades muy pequeñas. Se usa en células fotoeléctricas.',
+Br:'Junto con el mercurio, es uno de los dos elementos líquidos a temperatura ambiente. Es de color rojo pardo.',
+Kr:'Gas noble que se usa en algunas lámparas y flashes de fotografía.',
+Sr:'Da el color rojo a los fuegos artificiales.',
+Ag:'Es el mejor conductor de la electricidad. Se usa en joyas, cubiertos y monedas.',
+Sn:'Recubre las latas de conserva (hojalata) y, con el cobre, forma el bronce.',
+I:'Se añade a la sal (sal yodada) y se usa para desinfectar heridas.',
+Xe:'Se usa en los faros de luz blanca azulada de algunos coches.',
+Cs:'Los relojes atómicos usan cesio para medir el segundo con muchísima precisión.',
+Ba:'Da el color verde a los fuegos artificiales. Una papilla con bario permite ver el estómago en radiografías.',
+W:'Tiene el punto de fusión más alto de todos los metales: era el filamento de las bombillas antiguas.',
+Pt:'Metal precioso que está en los catalizadores de los coches y en joyería.',
+Au:'No se oxida ni pierde el brillo. Joyas, lingotes y contactos de los aparatos electrónicos.',
+Hg:'El único metal líquido a temperatura ambiente. Antes se usaba en los termómetros. Es tóxico.',
+Pb:'Metal muy denso y blando. Protege de los rayos X. Es tóxico.',
+Rn:'Gas radiactivo que sale del suelo y puede acumularse en sótanos poco ventilados.',
+U:'Es radiactivo y se usa como combustible en las centrales nucleares.',
+Pu:'Elemento artificial y radiactivo. Da energía a algunas sondas espaciales.'
+};
+const ORIGIN={
+H:'Del griego «hydro» (agua) y «genes» (que genera): «el que forma agua».',
+He:'De «helios», el Sol en griego: se descubrió primero en la luz del Sol.',
+N:'Del griego «nitron» y «genes»: «el que forma nitro».',
+O:'Del griego «oxys» (ácido) y «genes».',
+Ne:'De «neos», nuevo en griego.',
+Na:'Su símbolo viene del latín <b>Natrium</b>. Por eso Sodio es <b>Na</b>.',
+Cl:'De «chloros», verde amarillento en griego: es el color de este gas.',
+Ar:'De «argos», perezoso en griego: casi no reacciona.',
+K:'Su símbolo viene del latín <b>Kalium</b>. Por eso Potasio es <b>K</b> (y no P, que es el fósforo).',
+Ca:'Del latín «calx», cal.',
+S:'Su símbolo viene del latín <b>Sulfur</b>. Por eso Azufre es <b>S</b>.',
+Fe:'Su símbolo viene del latín <b>Ferrum</b>. Por eso Hierro es <b>Fe</b> (piensa en «ferretería»).',
+Cu:'Su símbolo viene del latín <b>Cuprum</b>, por la isla de Chipre, donde había minas de cobre.',
+Ag:'Su símbolo viene del latín <b>Argentum</b>. Por eso Plata es <b>Ag</b> (y Argentina se llama así por la plata).',
+Au:'Su símbolo viene del latín <b>Aurum</b>. Por eso Oro es <b>Au</b> (piensa en «áureo»).',
+Hg:'Su símbolo viene del latín <b>Hydrargyrum</b>, «plata líquida». Por eso Mercurio es <b>Hg</b>.',
+Pb:'Su símbolo viene del latín <b>Plumbum</b>. Por eso Plomo es <b>Pb</b> (los fontaneros eran «plumbers»).',
+Sn:'Su símbolo viene del latín <b>Stannum</b>. Por eso Estaño es <b>Sn</b>.',
+Sb:'Su símbolo viene del latín <b>Stibium</b>. Por eso Antimonio es <b>Sb</b>.',
+W:'Su símbolo viene de <b>Wolfram</b>, el nombre del mineral. En español se llama wolframio o tungsteno.',
+Br:'De «bromos», mal olor en griego.',
+I:'De «iodes», violeta en griego: su vapor es violeta.',
+Kr:'De «kryptos», oculto en griego.',
+Xe:'De «xenos», extraño en griego.',
+P:'Del griego «phosphoros», «portador de luz»: brilla en la oscuridad.',
+Si:'Del latín «silex», piedra.',
+Li:'De «lithos», piedra en griego.',
+Cr:'De «chroma», color en griego: sus compuestos tienen colores vivos.',
+Ba:'De «barys», pesado en griego.'
+};
+const ESENCIALES=['H','He','Li','Be','B','C','N','O','F','Ne','Na','Mg','Al','Si','P','S','Cl','Ar','K','Ca','Ti','Cr','Mn','Fe','Co','Ni','Cu','Zn','Ge','As','Se','Br','Kr','Sr','Ag','Sn','I','Xe','Cs','Ba','W','Pt','Au','Hg','Pb','Rn','U','Pu'];
+const CAT={am:'Alcalinos',at:'Alcalinotérreos',tr:'Metales de transición',om:'Otros metales',sm:'Semimetales',nm:'No metales',ha:'Halógenos',gn:'Gases nobles',la:'Lantánidos',ac:'Actínidos'};
+const FAM={hidrogeno:'Hidrógeno (va aparte)',alcalinos:'Alcalinos',alcalinoterreos:'Alcalinotérreos',transicion:'Metales de transición',terreos:'Térreos (boroideos)',carbonoideos:'Carbonoideos',nitrogenoideos:'Nitrogenoideos',anfigenos:'Anfígenos (calcógenos)',halogenos:'Halógenos',gases:'Gases nobles',lantanidos:'Lantánidos',actinidos:'Actínidos'};
+const STATE={s:'Sólido',l:'Líquido',g:'Gas',x:'Artificial'};
+
+function posOf(Z){
+  let p,g;
+  if(Z<=2){p=1;g=Z===1?1:18}
+  else if(Z<=18){p=Z<=10?2:3;const o=Z-(p===2?3:11);g=o<2?o+1:o+11}
+  else if(Z<=54){p=Z<=36?4:5;g=Z-(p===4?19:37)+1}
+  else{p=Z<=86?6:7;const b=p===6?55:87;const o=Z-b;
+    if(o<2)g=o+1;else if(o<=16)g=null;else g=o-13;}
+  return{p,g};
+}
+const EL=RAW.map((r,i)=>{
+  const Z=i+1,{p,g}=posOf(Z),cat=r[2];
+  let fam;
+  if(cat==='la')fam='lantanidos';else if(cat==='ac')fam='actinidos';else if(Z===1)fam='hidrogeno';
+  else fam={1:'alcalinos',2:'alcalinoterreos',13:'terreos',14:'carbonoideos',15:'nitrogenoideos',16:'anfigenos',17:'halogenos',18:'gases'}[g]||'transicion';
+  let type=['am','at','tr','om','la','ac'].includes(cat)?'Metal':cat==='sm'?'Semimetal':cat==='gn'?'Gas noble':'No metal';
+  if(Z===85||Z===117)type='Semimetal';
+  const synth=Z===43||Z===61||Z>=93;
+  let row,col;
+  if(g===null){const off=Z-(p===6?57:89);row=p===6?9:10;col=3+off}else{row=p;col=g}
+  return{Z,sym:r[0],name:r[1],cat,state:r[3]||'s',p,g,fam,type,synth,row,col};
+});
+const BY={};EL.forEach(e=>BY[e.sym]=e);
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();
+
+/* ============ ESTADO ============ */
+let ST={pool:'esenciales',tab:'explore',colorBy:'cat',cardDir:'s2n',typeDir:'n2s',sel:'H',M:{},best:{},placeHint:false};
+try{const s=JSON.parse(localStorage.getItem('tabla2eso')||'null');if(s)Object.assign(ST,s)}catch(e){}
+const save=()=>{try{localStorage.setItem('tabla2eso',JSON.stringify(ST))}catch(e){}};
+const $=id=>document.getElementById(id);
+const POOLS={
+  primeros20:{name:'Los 20 primeros',f:e=>e.Z<=20},
+  esenciales:{name:'Imprescindibles de 2º ESO',f:e=>ESENCIALES.includes(e.sym)},
+  todos:{name:'Toda la tabla (118)',f:()=>true}
+};
+Object.entries(FAM).forEach(([k,v])=>{if(k!=='hidrogeno')POOLS['fam_'+k]={name:'Familia: '+v,f:e=>e.fam===k}});
+POOLS.metales={name:'Tipo: metales',f:e=>e.type==='Metal'&&e.Z<=86};
+POOLS.nometales={name:'Tipo: no metales y gases nobles',f:e=>(e.type==='No metal'||e.type==='Gas noble')&&e.Z<=86};
+POOLS.semimetales={name:'Tipo: semimetales',f:e=>e.type==='Semimetal'&&e.Z<=86};
+const pool=()=>EL.filter(POOLS[ST.pool].f);
+const box=sym=>ST.M[sym]||0;
+function record(sym,ok){ST.M[sym]=ok?Math.min(5,box(sym)+1):0;save();renderMastery()}
+function renderMastery(){const P=pool();const d=P.filter(e=>box(e.sym)>=3).length;$('mastery').innerHTML=`Dominados: <b>${d}</b> / ${P.length}`}
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function pickWeighted(P,avoid){
+  const c=P.filter(e=>!avoid||e.sym!==avoid);const L=c.length?c:P;
+  const w=L.map(e=>Math.pow(6-box(e.sym),2));const tot=w.reduce((a,b)=>a+b,0);let r=Math.random()*tot;
+  for(let i=0;i<L.length;i++){r-=w[i];if(r<=0)return L[i]}return L[L.length-1];
+}
+function distractors(e,kind,n=3){
+  const P=pool(), others=EL.filter(x=>x.sym!==e.sym&&x.Z<=86);
+  const sim=x=>(x.sym[0]===e.sym[0]?3:0)+(x.name[0]===e.name[0]?2:0)+(P.includes(x)?2:0)+(Math.abs(x.Z-e.Z)<6?1:0)+Math.random()*2;
+  return others.map(x=>[x,sim(x)]).sort((a,b)=>b[1]-a[1]).slice(0,n).map(a=>a[0]);
+}
+
+/* ============ TABLA ============ */
+function buildTable(el,opts){
+  let h='';
+  h+='<div></div>';
+  for(let g=1;g<=18;g++)h+=`<div class="glab" style="grid-column:${g+1};grid-row:1">${g}</div>`;
+  for(let p=1;p<=7;p++)h+=`<div class="plab" style="grid-column:1;grid-row:${p+1}">${p}</div>`;
+  h+=`<div style="grid-row:9;grid-column:1/-1;height:8px"></div>`;
+  h+=`<div class="cell ph" style="grid-column:4;grid-row:7">57–71</div><div class="cell ph" style="grid-column:4;grid-row:8">89–103</div>`;
+  h+=`<div class="flab" style="grid-row:10">Lantánidos</div><div class="flab" style="grid-row:11">Actínidos</div>`;
+  EL.forEach(e=>{
+    const r=e.row<=7?e.row+1:e.row+1;
+    h+=`<div class="cell ${opts.cls(e)}" data-z="${e.Z}" style="grid-column:${e.col+1};grid-row:${r}" title="${opts.blank&&opts.blank(e)?'':e.name}">${opts.content(e)}</div>`;
+  });
+  el.innerHTML=h;
+}
+
+/* ============ EXPLORAR ============ */
+let legendFilter=null;
+function colorClass(e){
+  if(ST.colorBy==='cat')return 'c-'+e.cat;
+  if(ST.colorBy==='type')return {Metal:'c-tr','No metal':'c-nm',Semimetal:'c-sm','Gas noble':'c-gn'}[e.type];
+  if(ST.colorBy==='state')return e.synth?'c-om':{s:'c-la',l:'c-nm',g:'c-gn'}[e.state];
+  if(ST.colorBy==='mast'){return POOLS[ST.pool].f(e)?(ST.M[e.sym]==null?'mastnone':'mast'+box(e.sym)):'mastnone'}
+}
+function legendItems(){
+  if(ST.colorBy==='cat')return Object.entries(CAT).map(([k,v])=>({k,v,c:'var(--'+k+')',f:e=>e.cat===k}));
+  if(ST.colorBy==='type')return[['Metal','var(--tr)'],['No metal','var(--nm)'],['Semimetal','var(--sm)'],['Gas noble','var(--gn)']].map(([v,c])=>({k:v,v,c,f:e=>e.type===v}));
+  if(ST.colorBy==='state')return[['s','Sólido','var(--la)'],['l','Líquido','var(--nm)'],['g','Gas','var(--gn)'],['x','Artificial','var(--om)']].map(([k,v,c])=>({k,v,c,f:e=>k==='x'?e.synth:(!e.synth&&e.state===k)}));
+  return[['n','Sin practicar','#ece8df'],['0','Por aprender','#ffd3d3'],['2','En camino','#fff1b8'],['4','Casi dominado','#b6e8b0'],['5','Dominado','#8fd99a']].map(([k,v,c])=>({k,v,c,f:null}));
+}
+function renderExplore(){
+  document.querySelectorAll('#colorBy button').forEach(b=>b.classList.toggle('on',b.dataset.v===ST.colorBy));
+  const items=legendItems();
+  if(legendFilter&&!items.find(i=>i.k===legendFilter))legendFilter=null;
+  $('legend').innerHTML=items.map(i=>`<button data-k="${i.k}" class="${legendFilter===i.k?'on':''}"><i style="background:${i.c}"></i>${i.v}</button>`).join('')+(ST.colorBy==='mast'?'':`<span class="sub" style="align-self:center">Toca una para resaltarla</span>`);
+  const lf=items.find(i=>i.k===legendFilter);
+  const inPool=POOLS[ST.pool].f;
+  buildTable($('tblExplore'),{
+    cls:e=>{let c=colorClass(e);if(lf&&lf.f&&!lf.f(e))c+=' dim';else if(!lf&&ST.pool!=='todos'&&!inPool(e))c+=' dim';if(e.sym===ST.sel)c+=' sel';return c},
+    content:e=>`<span class="z">${e.Z}</span><span class="s">${e.sym}</span><span class="n">${e.name}</span>`
+  });
+  renderDetail();
+}
+function renderDetail(){
+  const e=BY[ST.sel];
+  const famTxt=e.Z===1?'Grupo 1, pero <b>no</b> es un metal alcalino: es un no metal y va aparte.':FAM[e.fam];
+  $('detail').innerHTML=`<div class="detail">
+    <div class="bigtile c-${e.cat}"><span class="z">${e.Z}</span><span class="s">${e.sym}</span><span class="n">${e.name}</span></div>
+    <div>
+      <div class="facts">
+        <div class="fact"><div class="k">Número atómico</div><div class="v">${e.Z}</div></div>
+        <div class="fact"><div class="k">Grupo</div><div class="v">${e.g??'— (bloque f)'}</div></div>
+        <div class="fact"><div class="k">Periodo</div><div class="v">${e.p}</div></div>
+        <div class="fact"><div class="k">Familia</div><div class="v" style="font-size:14px">${famTxt}</div></div>
+        <div class="fact"><div class="k">Tipo</div><div class="v">${e.type}</div></div>
+        <div class="fact"><div class="k">A 25 °C</div><div class="v">${e.synth?'Artificial':STATE[e.state]}</div></div>
+      </div>
+      ${FUN[e.sym]?`<div class="fun">💡 ${FUN[e.sym]}</div>`:''}
+      ${ORIGIN[e.sym]?`<div class="origin">🔤 ${ORIGIN[e.sym]}</div>`:''}
+      ${e.Z>=113?`<div class="tip">Elemento superpesado: se ha fabricado solo unos pocos átomos y sus propiedades no se conocen bien.</div>`:''}
+    </div></div>`;
+}
+$('tblExplore').addEventListener('click',ev=>{const c=ev.target.closest('.cell[data-z]');if(!c)return;ST.sel=EL[+c.dataset.z-1].sym;save();renderExplore();
+  const d=$('detail').getBoundingClientRect();if(d.top<0)$('detail').scrollIntoView({behavior:'smooth',block:'start'})});
+$('colorBy').addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;ST.colorBy=b.dataset.v;legendFilter=null;save();renderExplore()});
+$('legend').addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b||ST.colorBy==='mast')return;legendFilter=legendFilter===b.dataset.k?null:b.dataset.k;renderExplore()});
+
+/* ============ TARJETAS ============ */
+let card=null,cardSeen=0;
+function nextCard(){
+  const P=pool();card=pickWeighted(P,card&&card.sym);
+  const dir=ST.cardDir==='mix'?(Math.random()<.5?'s2n':'n2s'):ST.cardDir;card.dir=dir;
+  $('flash').classList.remove('flip');
+  setTimeout(()=>{
+    const e=card;
+    $('cardFront').className='face front c-'+e.cat;
+    $('cardBack').className='face back c-'+e.cat;
+    $('cardFront').innerHTML=dir==='s2n'?`<div class="big">${e.sym}</div><div class="hint">¿Qué elemento es?</div>`:`<div class="mid">${e.name}</div><div class="hint">¿Cuál es su símbolo?</div>`;
+    $('cardBack').innerHTML=`<div class="big">${e.sym}</div><div class="mid" style="font-size:26px">${e.name}</div><div class="meta">Z = ${e.Z} · ${e.g?'grupo '+e.g+' · ':''}periodo ${e.p}<br>${e.Z===1?'No metal':FAM[e.fam]}</div>${ORIGIN[e.sym]&&/latín|Wolfram/.test(ORIGIN[e.sym])?`<div class="hint" style="color:#5a3d00">${ORIGIN[e.sym]}</div>`:''}`;
+    $('cardBtns').innerHTML=`<button class="btn" id="flipBtn">Dar la vuelta</button>`;
+    $('flipBtn').onclick=flipCard;
+  },ST.tab==='cards'&&$('flash').classList.contains('flip')?220:0);
+  $('cardCount').textContent=`Tarjetas vistas: ${cardSeen}`;
+}
+function flipCard(){
+  if($('flash').classList.contains('flip'))return;
+  $('flash').classList.add('flip');
+  $('cardBtns').innerHTML=`<div class="row" style="justify-content:center"><button class="btn bad" id="cNo">✗ No lo sabía</button><button class="btn good" id="cYes">✓ Lo sabía</button></div>`;
+  $('cNo').onclick=()=>{record(card.sym,false);cardSeen++;nextCard()};
+  $('cYes').onclick=()=>{record(card.sym,true);cardSeen++;nextCard()};
+}
+$('flash').addEventListener('click',flipCard);
+$('cardDir').addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;ST.cardDir=b.dataset.v;save();segs();nextCard()});
+
+/* ============ TEST ============ */
+let Q=null;
+function makeQuestion(e){
+  const types=['s2n','n2s','s2n','n2s','type'];
+  if(e.Z!==1&&e.fam!=='lantanidos'&&e.fam!=='actinidos')types.push('fam','fam');
+  if(e.Z<=36)types.push('z');
+  const t=types[Math.floor(Math.random()*types.length)];
+  const d=distractors(e);
+  if(t==='s2n')return{e,t,html:`¿Qué elemento tiene el símbolo<br><span class="tilebig c-${e.cat}">${e.sym}</span>`,opts:shuffle([e,...d].map(x=>x.name)),ans:e.name};
+  if(t==='n2s')return{e,t,html:`¿Cuál es el símbolo del <span class="em">${e.name}</span>?`,opts:shuffle([e,...d].map(x=>x.sym)),ans:e.sym};
+  if(t==='z')return{e,t,html:`¿Qué elemento tiene número atómico <span class="em">${e.Z}</span>?`,opts:shuffle([e,...d].map(x=>x.name)),ans:e.name};
+  if(t==='type')return{e,t,html:`¿Qué es el <span class="em">${e.name} (${e.sym})</span>?`,opts:['Metal','No metal','Semimetal','Gas noble'],ans:e.type};
+  const fams=Object.keys(FAM).filter(k=>!['hidrogeno','lantanidos','actinidos',e.fam].includes(k));
+  return{e,t,html:`¿A qué familia pertenece el <span class="em">${e.name} (${e.sym})</span>?`,opts:shuffle([e.fam,...shuffle(fams).slice(0,3)]).map(k=>FAM[k]),ans:FAM[e.fam]};
+}
+function explain(e){
+  let s=`<b>${e.name} (${e.sym})</b>: Z = ${e.Z}, ${e.g?'grupo '+e.g+', ':''}periodo ${e.p}. ${e.Z===1?'No metal que va aparte.':FAM[e.fam]+' · '+e.type.toLowerCase()+'.'}`;
+  if(ORIGIN[e.sym]&&/latín|Wolfram/.test(ORIGIN[e.sym]))s+='<br>🔤 '+ORIGIN[e.sym];
+  return s;
+}
+function startQuiz(){Q={n:0,total:10,right:0,fails:[],cur:null,last:null};nextQ()}
+function nextQ(){
+  if(Q.n>=Q.total)return endQuiz();
+  const e=pickWeighted(pool(),Q.last);Q.last=e.sym;Q.cur=makeQuestion(e);
+  const q=Q.cur;
+  $('quizBox').innerHTML=`<div class="gtop"><span class="sub">Pregunta ${Q.n+1} de ${Q.total}</span><div class="pbar"><i style="width:${Q.n/Q.total*100}%"></i></div><span class="sub">✓ ${Q.right}</span></div>
+   <div class="q">${q.html}</div><div class="opts">${q.opts.map(o=>`<button class="opt">${o}</button>`).join('')}</div><div class="feedback" id="qFb"></div><div class="center" style="margin-top:12px"><button class="btn" id="qNext" style="display:none">Siguiente →</button></div>`;
+  $('quizBox').querySelectorAll('.opt').forEach(b=>b.onclick=()=>answerQ(b));
+}
+function answerQ(b){
+  const q=Q.cur,ok=b.textContent===q.ans;
+  $('quizBox').querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.textContent===q.ans)x.classList.add('right')});
+  if(!ok){b.classList.add('wrong');Q.fails.push(q.e)}else Q.right++;
+  record(q.e.sym,ok);
+  const fb=$('qFb');fb.className='feedback '+(ok?'ok':'bad');fb.innerHTML=(ok?'¡Correcto! ':'No es correcto. ')+explain(q.e);
+  Q.n++;const nb=$('qNext');nb.style.display='inline-block';nb.textContent=Q.n>=Q.total?'Ver resultado':'Siguiente →';nb.onclick=nextQ;nb.focus();
+}
+function endQuiz(){
+  const grade=Q.right;
+  const msg=grade===10?'¡Perfecto! 🏆':grade>=8?'¡Muy bien! 🎉':grade>=5?'Aprobado. ¡Sigue practicando! 💪':'Repasa con las tarjetas y vuelve a intentarlo 📚';
+  const uniq=[...new Map(Q.fails.map(e=>[e.sym,e])).values()];
+  $('quizBox').innerHTML=`<div class="result"><div class="sub">Tu nota</div><div class="grade">${grade}<span style="font-size:28px;color:var(--muted)">/10</span></div><p style="font-size:18px;font-weight:500">${msg}</p>
+   ${uniq.length?`<div class="sub">Para repasar:</div><div class="mistakes">${uniq.map(e=>`<span class="c-${e.cat}">${e.sym} · ${e.name}</span>`).join('')}</div>`:''}
+   <button class="btn" id="qAgain">Hacer otro test</button></div>`;
+  $('qAgain').onclick=startQuiz;
+}
+
+/* ============ ESCRIBE ============ */
+let T={cur:null,streak:0,best:0,answered:false};
+function nextType(){
+  T.cur=pickWeighted(pool(),T.cur&&T.cur.sym);T.answered=false;const e=T.cur;
+  $('typeQ').innerHTML=ST.typeDir==='n2s'?`¿Cuál es el símbolo del <span class="em">${e.name}</span>?`:`¿Qué elemento es <span class="tilebig c-${e.cat}">${e.sym}</span>?`;
+  $('typeIn').value='';$('typeIn').placeholder=ST.typeDir==='n2s'?'Símbolo':'Nombre del elemento';$('typeIn').disabled=false;
+  $('typeFb').className='feedback';$('typeNext').style.display='none';
+  $('typeStreak').textContent=`Racha: ${T.streak} · Mejor: ${T.best}`;
+  if(ST.tab==='type')setTimeout(()=>$('typeIn').focus(),50);
+}
+$('typeForm').addEventListener('submit',ev=>{
+  ev.preventDefault();if(T.answered){nextType();return}
+  const v=$('typeIn').value.trim();if(!v)return;const e=T.cur;let res;
+  if(ST.typeDir==='n2s'){res=v===e.sym?'ok':v.toLowerCase()===e.sym.toLowerCase()?'case':'bad'}
+  else{const n=norm(v);res=(n===norm(e.name)||(ALT[e.sym]||[]).includes(n))?'ok':'bad'}
+  T.answered=true;$('typeIn').disabled=true;
+  const fb=$('typeFb');
+  if(res==='ok'){T.streak++;T.best=Math.max(T.best,T.streak);record(e.sym,true);fb.className='feedback ok';fb.innerHTML='¡Correcto! '+explain(e)}
+  else if(res==='case'){T.streak=0;record(e.sym,false);fb.className='feedback warn';fb.innerHTML=`¡Casi! Las letras están bien, pero se escribe <b>${e.sym}</b>: primera mayúscula${e.sym.length>1?' y segunda minúscula':''}.`}
+  else{T.streak=0;record(e.sym,false);fb.className='feedback bad';fb.innerHTML=`La respuesta era <b>${ST.typeDir==='n2s'?e.sym:e.name}</b>. `+explain(e)}
+  $('typeStreak').textContent=`Racha: ${T.streak} · Mejor: ${T.best}`;
+  $('typeNext').style.display='inline-block';$('typeNext').focus();
+});
+$('typeNext').addEventListener('click',nextType);
+$('typeDir').addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;ST.typeDir=b.dataset.v;save();segs();nextType()});
+
+/* ============ COLÓCALO ============ */
+let PL={queue:[],done:new Set(),cur:null,ok:0,bad:0,tries:0};
+function startPlace(){
+  PL={queue:shuffle(pool()),done:new Set(),cur:null,ok:0,bad:0,tries:0};nextPlace();
+}
+function nextPlace(){
+  PL.cur=PL.queue.shift()||null;PL.tries=0;
+  $('placeFb').className='feedback';
+  if(!PL.cur){$('placeQ').innerHTML=`¡Completado! 🎉`;$('placeFb').className='feedback ok';$('placeFb').innerHTML=`Has colocado ${PL.done.size} elementos con ${PL.bad} fallos.`}
+  else $('placeQ').innerHTML=`¿Dónde está el <span class="em">${PL.cur.name}</span>?`;
+  renderPlace();
+}
+function renderPlace(){
+  buildTable($('tblPlace'),{
+    cls:e=>PL.done.has(e.sym)?'c-'+e.cat:'blank'+(ST.placeHint?' c-'+e.cat+' hint':''),
+    content:e=>PL.done.has(e.sym)?`<span class="z">${e.Z}</span><span class="s">${e.sym}</span>`:'',
+    blank:e=>!PL.done.has(e.sym)
+  });
+  const total=PL.done.size+PL.queue.length+(PL.cur?1:0);
+  $('placeStat').innerHTML=`<span>Colocados <b>${PL.done.size}</b> / ${total}</span><span>Aciertos a la primera <b>${PL.ok}</b></span><span>Fallos <b>${PL.bad}</b></span>`;
+}
+$('tblPlace').addEventListener('click',ev=>{
+  const c=ev.target.closest('.cell[data-z]');if(!c||!PL.cur)return;const e=EL[+c.dataset.z-1];
+  if(PL.done.has(e.sym))return;
+  const t=PL.cur;
+  if(e.Z===t.Z){
+    if(PL.tries===0){PL.ok++;record(t.sym,true)}
+    PL.done.add(t.sym);$('placeFb').className='feedback ok';$('placeFb').innerHTML=`¡Bien! ${t.name} (${t.sym}) está en el ${t.g?'grupo '+t.g+', ':''}periodo ${t.p}.`;
+    renderPlace();setTimeout(nextPlace,700);
+  }else{
+    PL.tries++;PL.bad++;if(PL.tries===1)record(t.sym,false);
+    c.classList.add('wrong');setTimeout(()=>c.classList.remove('wrong'),400);
+    const fb=$('placeFb');fb.className='feedback bad';
+    if(PL.tries>=2){fb.innerHTML=`Está aquí: ${t.g?'grupo <b>'+t.g+'</b>, ':'fila de los '+(t.fam==='lantanidos'?'lantánidos':'actínidos')+', '}periodo <b>${t.p}</b>. Tócalo para continuar.`;
+      const tc=$('tblPlace').querySelector(`.cell[data-z="${t.Z}"]`);tc.classList.add('show')}
+    else{const dg=t.g&&e.g?(t.g===e.g?'El grupo es correcto, ':'Grupo incorrecto, '):'';const dp=t.p===e.p?'el periodo es correcto.':'periodo incorrecto.';
+      fb.innerHTML=`Ahí está el ${e.name}. ${dg}${dp} Pista: es ${t.Z===1?'un no metal':'de los '+FAM[t.fam].toLowerCase()}.`}
+    PL.cur&&renderStatOnly();
+  }
+});
+function renderStatOnly(){const total=PL.done.size+PL.queue.length+(PL.cur?1:0);$('placeStat').innerHTML=`<span>Colocados <b>${PL.done.size}</b> / ${total}</span><span>Aciertos a la primera <b>${PL.ok}</b></span><span>Fallos <b>${PL.bad}</b></span>`}
+$('placeHint').addEventListener('change',ev=>{ST.placeHint=ev.target.checked;save();renderPlace()});
+$('placeRestart').addEventListener('click',startPlace);
+
+/* ============ CONTRARRELOJ ============ */
+let R=null;
+function raceIntro(){
+  const best=ST.best[ST.pool]||0;
+  $('raceBox').innerHTML=`<div class="center"><div class="q">60 segundos</div><p>Acierta todos los que puedas: símbolos y nombres. Cada fallo resta 3 segundos.</p><p class="sub">Tu récord con «${POOLS[ST.pool].name}»: <b style="color:var(--ink)">${best}</b></p><button class="btn" id="raceGo">¡Empezar!</button></div>`;
+  $('raceGo').onclick=startRace;
+}
+function startRace(){
+  R={left:60,score:0,last:null,timer:null,lock:false};
+  R.timer=setInterval(()=>{R.left-=0.1;if(R.left<=0){R.left=0;endRace()}const t=$('raceT');if(t){t.textContent=Math.ceil(R.left);t.classList.toggle('low',R.left<10)}},100);
+  raceQ();
+}
+function raceQ(){
+  if(!R)return;const e=pickWeighted(pool(),R.last);R.last=e.sym;const d=distractors(e);
+  const s2n=Math.random()<.5;const opts=shuffle([e,...d]).map(x=>s2n?x.name:x.sym);const ans=s2n?e.name:e.sym;
+  $('raceBox').innerHTML=`<div class="gtop"><span class="timer" id="raceT">${Math.ceil(R.left)}</span><span style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:30px;font-weight:800">${R.score} <span class="sub" style="font-family:'DM Sans'">aciertos</span></span></div>
+   <div class="q">${s2n?`<span class="tilebig c-${e.cat}">${e.sym}</span>`:`<span class="em">${e.name}</span>`}</div><div class="opts">${opts.map(o=>`<button class="opt">${o}</button>`).join('')}</div>`;
+  $('raceBox').querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(R.lock)return;R.lock=true;const ok=b.textContent===ans;
+    b.classList.add(ok?'right':'wrong');if(!ok){$('raceBox').querySelectorAll('.opt').forEach(x=>{if(x.textContent===ans)x.classList.add('right')});R.left=Math.max(0,R.left-3)}else R.score++;
+    record(e.sym,ok);
+    setTimeout(()=>{if(!R)return;R.lock=false;raceQ()},ok?250:900);
+  });
+}
+function endRace(){
+  clearInterval(R.timer);const sc=R.score;R=null;
+  const prev=ST.best[ST.pool]||0;const rec=sc>prev;if(rec){ST.best[ST.pool]=sc;save()}
+  $('raceBox').innerHTML=`<div class="result"><div class="sub">¡Tiempo!</div><div class="grade">${sc}</div><p style="font-size:18px;font-weight:500">${rec?'🏆 ¡Nuevo récord!':'aciertos · récord: '+prev}</p><button class="btn" id="raceAgain">Otra vez</button></div>`;
+  $('raceAgain').onclick=startRace;
+}
+
+/* ============ NAVEGACIÓN ============ */
+function segs(){
+  document.querySelectorAll('#cardDir button').forEach(b=>b.classList.toggle('on',b.dataset.v===ST.cardDir));
+  document.querySelectorAll('#typeDir button').forEach(b=>b.classList.toggle('on',b.dataset.v===ST.typeDir));
+}
+const started={};
+function show(tab){
+  if(R&&tab!=='race'){clearInterval(R.timer);R=null;started.race=false}
+  ST.tab=tab;save();
+  document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===tab));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+tab));
+  if(tab==='explore')renderExplore();
+  if(tab==='cards'&&!started.cards){started.cards=1;nextCard()}
+  if(tab==='quiz'&&!started.quiz){started.quiz=1;startQuiz()}
+  if(tab==='type'){if(!started.type){started.type=1;nextType()}else setTimeout(()=>$('typeIn').focus(),50)}
+  if(tab==='place'&&!started.place){started.place=1;startPlace()}
+  if(tab==='race'&&!started.race){started.race=1;raceIntro()}
+}
+$('tabs').addEventListener('click',ev=>{const b=ev.target.closest('button');if(b)show(b.dataset.v)});
+$('pool').innerHTML=Object.entries(POOLS).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join('');
+if(!POOLS[ST.pool])ST.pool='esenciales';
+$('pool').value=ST.pool;
+$('pool').addEventListener('change',ev=>{ST.pool=ev.target.value;save();renderMastery();for(const k in started)started[k]=0;if(R){clearInterval(R.timer);R=null}show(ST.tab)});
+$('placeHint').checked=ST.placeHint;
+segs();renderMastery();show(ST.tab||'explore');
+})();
+</script>
+</body>
+</html>
