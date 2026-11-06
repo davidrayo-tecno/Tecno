@@ -1,0 +1,111 @@
+/* Formación en microcontroladores · misma tipografía y azul institucional que el resto de la web */
+:root{
+  --brand:#1B5F7E; --brand-ink:#FFFFFF; --brand-soft:#E3EEF3;
+  --bg:#F4F6F7; --surface:#FFFFFF; --ink:#16232B; --muted:#55636D; --line:#D5DDE2;
+  --accent:#C26A12; --accent-soft:#FBEEDD; --ok:#2B7547; --ok-bg:#E4F2E9; --warn:#B93A21; --warn-bg:#FBEAE5;
+  --code-bg:#EEF2F4;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --brand:#174E67; --brand-soft:#17303C;
+  --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E;
+  --accent:#F0A04B; --accent-soft:#33261A; --ok:#62C68D; --ok-bg:#17301F; --warn:#FF8466; --warn-bg:#3A221B;
+  --code-bg:#1F2A31; color-scheme:dark}}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-text-size-adjust:100%}
+a{color:var(--brand)}
+@media (prefers-color-scheme: dark){a{color:#7FC0DE}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.salto{position:absolute;left:12px;top:-60px;background:var(--surface);color:var(--ink);padding:8px 12px;border-radius:6px;z-index:100}
+.salto:focus{top:12px}
+.contenedor{max-width:900px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+
+/* Barra superior */
+.barra-sup{position:sticky;top:0;z-index:20;background:var(--brand);color:var(--brand-ink);box-shadow:0 1px 0 rgba(0,0,0,.08)}
+.barra-in{display:flex;align-items:center;min-height:52px;padding-top:env(safe-area-inset-top)}
+.marca{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none;font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:.01em}
+@media (max-width:480px){.marca{font-size:18px}}
+.chip-logo{display:inline-grid;place-items:center;width:30px;height:30px;border:2px solid currentColor;border-radius:6px;font-size:15px;font-weight:700}
+.nav{display:flex;gap:2px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{color:var(--brand-ink);opacity:.82;text-decoration:none;font-weight:500;font-size:14px;padding:5px 10px;border-radius:6px;white-space:nowrap}
+.nav a:hover{opacity:1;background:rgba(255,255,255,.12)}
+.nav a[aria-current="page"]{opacity:1;background:rgba(255,255,255,.2)}
+
+/* Documento */
+.doc{padding-top:28px;padding-bottom:40px}
+.doc h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,48px);line-height:1.05;margin:8px 0 14px;letter-spacing:-.01em}
+.doc h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,4.5vw,32px);line-height:1.15;margin:52px 0 10px;padding-top:18px;border-top:3px solid var(--brand)}
+.doc h3{font-family:var(--display);font-weight:600;font-size:22px;margin:30px 0 6px;color:var(--brand)}
+@media (prefers-color-scheme: dark){.doc h3{color:#7FC0DE}}
+.doc h4{font-size:18px;margin:24px 0 4px}
+.doc p,.doc ul,.doc ol{margin:0 0 14px}
+.doc li{margin:3px 0}
+.doc hr{display:none}
+.doc blockquote{margin:0 0 16px;padding:14px 18px;background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:0 10px 10px 0}
+.doc blockquote p:last-child{margin:0}
+.doc code{font-family:var(--mono);font-size:.88em;background:var(--code-bg);padding:1px 5px;border-radius:4px}
+.doc pre{position:relative;background:var(--code-bg);border:1px solid var(--line);border-radius:10px;padding:38px 16px 14px;overflow-x:auto;line-height:1.5;margin:0 0 16px}
+.doc pre code{background:none;padding:0;font-size:14px}
+.copiar{position:absolute;top:8px;right:8px;font:500 12px var(--body);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:3px 9px;cursor:pointer}
+.tabla{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.doc table{border-collapse:collapse;width:100%;font-size:15px}
+.doc th,.doc td{text-align:left;vertical-align:top;padding:8px 12px;border-bottom:1px solid var(--line)}
+.doc tr:last-child td{border-bottom:0}
+.doc th{background:var(--brand-soft);font-weight:600}
+.doc thead th:empty{display:none}
+.doc details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 10px}
+.doc details[open]{border-color:var(--accent)}
+.doc summary{cursor:pointer;font-weight:600}
+.doc details>*:last-child{margin-bottom:4px}
+.doc details p:first-of-type{margin-top:10px}
+
+/* Casillas */
+.doc li.tarea{list-style:none;margin-left:-22px;display:flex;gap:10px;align-items:flex-start}
+.doc li.tarea input{flex:none;width:20px;height:20px;margin:3px 0 0;accent-color:var(--ok);cursor:pointer}
+.doc li.tarea.hecha{color:var(--muted)}
+
+/* Navegación dentro de una fase */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.chips a{font-size:14px;font-weight:500;text-decoration:none;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink)}
+.chips a:hover{border-color:var(--brand)}
+.pasos{display:flex;justify-content:space-between;gap:12px;margin-top:40px;padding-top:18px;border-top:1px solid var(--line)}
+.pasos a{font-weight:600;text-decoration:none}
+
+/* Portada: hoja de ruta y progreso */
+.ruta{margin:22px 0 10px}
+.fases{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;counter-reset:f}
+.fases li{margin:0}
+.fase{display:flex;flex-direction:column;gap:2px;height:100%;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.fase:hover{border-color:var(--brand)}
+.fase.final{border:2px solid var(--brand);background:var(--brand-soft)}
+.fase-num{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.fase-nombre{font-family:var(--display);font-weight:700;font-size:24px;line-height:1.1}
+.fase-meta{font-size:14px;color:var(--muted)}
+.fase-desc{font-size:15px;margin-top:6px}
+.fase-proy{font-size:13px;color:var(--muted);margin-bottom:8px}
+.fase-pct{font-size:12px;color:var(--muted);font-family:var(--mono)}
+.barra{display:block;height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:auto}
+.barra.grande{height:10px;border-radius:5px}
+.barra i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.nota-ruta,.nota{font-size:14px;color:var(--muted);margin:10px 0 0}
+.progreso{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:18px 0}
+.progreso-cab{display:flex;justify-content:space-between;margin-bottom:8px;font-size:16px}
+.progreso-cab span{font-family:var(--mono)}
+button.enlace{background:none;border:0;padding:0;font:inherit;color:var(--warn);text-decoration:underline;cursor:pointer}
+
+.pie{font-size:13px;color:var(--muted);padding-top:16px;padding-bottom:max(28px,env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+
+@media print{
+  .barra-sup,.chips,.pasos,.pie,.copiar,.salto,.progreso{display:none}
+  body{background:#fff;color:#000;font-size:12pt}
+  .doc h2{break-before:page;border-top:0}
+  .doc details{border:0;padding:0}
+  .doc details>summary{list-style:none}
+}

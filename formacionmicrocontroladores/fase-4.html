@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fase 4 · ESP32 e Internet de las cosas · Formación en microcontroladores</title>
+<meta name="description" content="Plan de formación basado en proyectos para diseñar proyectos profesionales con Arduino Uno, Nano y ESP32.">
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-pagina="fase-4">
+<a class="salto" href="#contenido">Saltar al contenido</a>
+<header class="barra-sup">
+  <div class="contenedor barra-in">
+    <a class="marca" href="index.html"><span class="chip-logo" aria-hidden="true">μC</span><span>Formación en microcontroladores</span></a>
+  </div>
+  <div class="contenedor"><nav class="nav" aria-label="Secciones del curso"><a href="index.html">Plan</a><a href="fase-1.html">Fase 1</a><a href="fase-2.html">Fase 2</a><a href="fase-3.html">Fase 3</a><a href="fase-4.html" aria-current="page">Fase 4</a><a href="fase-5.html">Fase 5</a><a href="fase-6.html">Fase 6</a><a href="plantillas.html">Plantillas</a></nav></div>
+</header>
+<main id="contenido" class="contenedor doc">
+<nav class="chips" aria-label="En esta página"><a href="#p14">P14</a><a href="#p15">P15</a><a href="#p16">P16</a><a href="#p17">P17</a><a href="#p18">P18</a><a href="#examen">Examen</a></nav>
+<h1 id="fase-4-esp32-e-internet-de-las-cosas">Fase 4 · ESP32 e Internet de las cosas</h1>
+<p>Al terminar esta fase haces <strong>dispositivos conectados que se controlan desde el móvil, se actualizan a distancia y funcionan meses sin tocarlos</strong>. El proyecto central es un sistema de riego real para tu patio.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Duración</strong></td>
+<td>16 semanas · unas 240 horas</td>
+</tr>
+<tr>
+<td><strong>Placa</strong></td>
+<td>ESP32 (por ejemplo, ESP32-DevKitC con módulo WROOM)</td>
+</tr>
+<tr>
+<td><strong>Proyectos</strong></td>
+<td>P14 Panel web · P15 Sensor IoT a batería · P16 Riego inteligente · P17 Bluetooth · P18 FreeRTOS</td>
+</tr>
+<tr>
+<td><strong>Examen</strong></td>
+<td>El riego funcionando 30 días en el patio, con defensa de su arquitectura</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>El salto de Arduino a ESP32:</strong> el ESP32 trabaja a <strong>3,3 V</strong>. Sus pines no toleran 5 V. Revisa cada sensor y módulo antes de conectarlo.</p>
+</blockquote>
+<hr />
+<h2 id="p14">P14 · Panel de control web en ESP32</h2>
+<p><strong>Duración:</strong> 3 semanas · unas 45 horas · <strong>Nivel:</strong> ★★★☆☆</p>
+<h3 id="el-encargo">El encargo</h3>
+<blockquote>
+<p>Quieres controlar las luces del patio y ver su temperatura desde el móvil, sin instalar ninguna app: solo abriendo una página web en la red de casa.</p>
+</blockquote>
+<h3 id="requisitos">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos:1" aria-label="Hecho"> <strong>R1.</strong> El ESP32 se conecta a la WiFi de casa y se le encuentra por nombre (<code>patio.local</code>) gracias a mDNS.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos:2" aria-label="Hecho"> <strong>R2.</strong> Sirve una página web adaptada al móvil con: temperatura actual, 2 interruptores para 2 LED (las «luces») y un deslizador de brillo.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos:3" aria-label="Hecho"> <strong>R3.</strong> La página se actualiza sola cada 2 s sin recargar entera.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos:4" aria-label="Hecho"> <strong>R4.</strong> La primera vez, si no conoce ninguna WiFi, crea su propia red para que le des la contraseña desde el móvil (modo punto de acceso).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos:5" aria-label="Hecho"> <strong>R5.</strong> La contraseña de la WiFi no está escrita en el código.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos:6" aria-label="Hecho"> <strong>R6.</strong> Si se cae la WiFi, se reconecta solo sin reiniciarse.</li>
+</ul>
+<h3 id="material">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>Placas de desarrollo ESP32</td>
+<td>Una para cada proyecto en paralelo</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Sensor de temperatura de 3,3 V</td>
+<td>El DS18B20 funciona a 3,3 V</td>
+</tr>
+<tr>
+<td>2</td>
+<td>LED y resistencias</td>
+<td>Recalcula: ahora la tensión es 3,3 V</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas">Teoría que necesitas</h3>
+<p><strong>Diferencias con el Arduino Uno.</strong> Dos núcleos a 240 MHz, 520 KB de RAM, WiFi y Bluetooth. Pines a 3,3 V. El ADC tiene 12 bits pero no es lineal en los extremos, y los pines del ADC2 no funcionan con la WiFi activa: usa los del ADC1. Algunos pines tienen funciones especiales al arrancar (0, 2, 5, 12, 15) y los 6 a 11 están ocupados por la memoria flash.</p>
+<p><strong>Preparar el entorno.</strong> Instala el soporte de placas ESP32 de Espressif en el IDE de Arduino o, mejor, usa PlatformIO como en el P13.</p>
+<p><strong>Servidor web.</strong> El ESP32 responde a peticiones HTTP: a <code>/</code> devuelve la página HTML y a rutas como <code>/api/estado</code> devuelve datos en JSON que la página lee con JavaScript (<code>fetch</code>). Guarda la página como fichero en el sistema de archivos LittleFS en lugar de dentro del código.</p>
+<p><strong>Guardar ajustes.</strong> La librería <code>Preferences</code> guarda datos (como la contraseña de la WiFi) en la memoria flash, y se conservan al apagar.</p>
+<p><strong>Reconexión.</strong> Comprueba periódicamente <code>WiFi.status()</code> y reconecta si hace falta; no esperes en un bucle infinito.</p>
+<h3 id="plan-de-trabajo">Plan de trabajo</h3>
+<ol>
+<li>Ejemplo de conexión WiFi y de servidor web sencillo.</li>
+<li>API en JSON y página que la consulta.</li>
+<li>Modo punto de acceso para configurar la WiFi y guardado en <code>Preferences</code>.</li>
+<li>Pruebas: apaga el router 2 minutos y vuelve a encenderlo; prueba desde dos móviles a la vez.</li>
+</ol>
+<h3 id="pistas">Pistas</h3>
+<details>
+<summary>Pista 1 · No me deja subir el programa</summary>
+<p>Muchas placas necesitan que mantengas pulsado el botón BOOT al empezar la subida. Si el puerto no aparece, instala el controlador del chip USB de tu placa (CP210x o CH340).</p>
+</details>
+<details>
+<summary>Pista 2 · ¿Cómo configuro la WiFi desde el móvil?</summary>
+<p>Puedes programarlo tú (el ESP32 en modo punto de acceso y una página con un formulario) o usar una librería como WiFiManager. Hazlo tú primero: entenderás cómo funciona.</p>
+</details>
+<h3 id="entrega">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega:1" aria-label="Hecho"> Esquema, código y ficheros de la página web.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega:2" aria-label="Hecho"> Vídeo usando el panel desde el móvil y de la reconexión tras apagar el router.</li>
+</ul>
+<h3 id="como-se-evalua">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>40 %</td>
+<td>R1–R6</td>
+</tr>
+<tr>
+<td>Robustez de red</td>
+<td>25 %</td>
+<td>Reconexión sin reinicios ni bloqueos</td>
+</tr>
+<tr>
+<td>Código y web</td>
+<td>15 %</td>
+<td>Página separada del firmware, API clara</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Instrucciones de configuración para un usuario</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p15">P15 · Sensor IoT a batería con MQTT</h2>
+<p><strong>Duración:</strong> 3 semanas · unas 45 horas · <strong>Nivel:</strong> ★★★☆☆</p>
+<h3 id="el-encargo_1">El encargo</h3>
+<blockquote>
+<p>Quieres medir la temperatura y la humedad del dormitorio, el salón y el patio, y verlas juntas en un panel con gráficas históricas. Los sensores deben ir a pilas o batería y durar meses.</p>
+</blockquote>
+<h3 id="requisitos_1">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_1:1" aria-label="Hecho"> <strong>R1.</strong> Un servidor MQTT (Mosquitto) en tu ordenador o en una Raspberry Pi.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_1:2" aria-label="Hecho"> <strong>R2.</strong> El sensor se despierta cada 5 minutos, mide, publica en MQTT y vuelve a <strong>reposo profundo</strong>.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_1:3" aria-label="Hecho"> <strong>R3.</strong> Un panel (Home Assistant o Node-RED) muestra el valor actual y la gráfica de las últimas 24 horas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_1:4" aria-label="Hecho"> <strong>R4.</strong> El sensor publica también la tensión de su batería.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_1:5" aria-label="Hecho"> <strong>R5.</strong> Tiempo despierto menor de 2 segundos por ciclo, medido.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_1:6" aria-label="Hecho"> <strong>R6.</strong> Autonomía calculada de al menos 3 meses con una batería de 18650.</li>
+</ul>
+<h3 id="material_1">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>ESP32 con bajo consumo en reposo</td>
+<td>Algunas placas gastan mucho dormidas; mira el P11</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Sensor BME280</td>
+<td>Del P5</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Batería 18650 con protección y regulador de 3,3 V de bajo consumo</td>
+<td>Por ejemplo, un regulador LDO tipo HT7333 o MCP1700</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Raspberry Pi u ordenador para el servidor</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas_1">Teoría que necesitas</h3>
+<p><strong>MQTT.</strong> Protocolo ligero de mensajes con un servidor central (<em>broker</em>). Los dispositivos <strong>publican</strong> en temas (<code>casa/patio/temperatura</code>) y otros se <strong>suscriben</strong> a esos temas. Quien publica no necesita saber quién escucha.</p>
+<p><strong>Calidad de servicio y mensajes retenidos.</strong> Con <em>retain</em>, el broker guarda el último valor y se lo da a quien se conecte después. Útil para estados.</p>
+<p><strong>Reposo profundo (deep sleep).</strong> El ESP32 apaga casi todo y gasta unos 10 µA (el módulo; la placa de desarrollo suele gastar más). Al despertar, el programa empieza desde <code>setup()</code>. Las variables que deban sobrevivir se marcan con <code>RTC_DATA_ATTR</code>.</p>
+<p><strong>Conectar rápido.</strong> La WiFi es lo que más gasta. Para reducir el tiempo despierto: IP fija, guardar el canal de la WiFi y desactivar todo lo que no uses.</p>
+<h3 id="plan-de-trabajo_1">Plan de trabajo</h3>
+<ol>
+<li>Instala Mosquitto y prueba publicar y suscribirte desde el ordenador.</li>
+<li>ESP32 despierto publicando cada 5 s.</li>
+<li>Añade el reposo profundo y mide el tiempo despierto con un pin que se enciende al despertar y se apaga al dormir (o con el multímetro).</li>
+<li>Panel con gráficas. Calcula la autonomía.</li>
+</ol>
+<h3 id="pistas_1">Pistas</h3>
+<details>
+<summary>Pista 1 · Tarda 4 o 5 segundos en conectar</summary>
+<p>La petición de IP por DHCP y la búsqueda del canal tardan. Configura IP fija y guarda el canal y el identificador del router en memoria RTC tras la primera conexión.</p>
+</details>
+<h3 id="entrega_1">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_1:1" aria-label="Hecho"> Esquema, código y configuración del broker y del panel.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_1:2" aria-label="Hecho"> Captura del panel con 24 horas de datos.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_1:3" aria-label="Hecho"> Medida del tiempo despierto y cálculo de autonomía.</li>
+</ul>
+<h3 id="como-se-evalua_1">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>35 %</td>
+<td>R1–R6</td>
+</tr>
+<tr>
+<td>Consumo</td>
+<td>30 %</td>
+<td>Tiempo despierto optimizado y medido</td>
+</tr>
+<tr>
+<td>Integración</td>
+<td>15 %</td>
+<td>Panel útil y temas MQTT bien organizados</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Cálculo de autonomía con datos reales</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p16">P16 · Riego inteligente para tu patio</h2>
+<p><strong>Duración:</strong> 5 semanas · unas 75 horas · <strong>Nivel:</strong> ★★★★☆</p>
+<h3 id="el-encargo_2">El encargo</h3>
+<blockquote>
+<p>En Sevilla, en verano, regar a la hora equivocada desperdicia agua y quema las plantas. Quieres un sistema que riegue las jardineras de las dos paredes soleadas a la mejor hora, que no riegue si va a llover o la tierra está húmeda, y que se controle desde el móvil.</p>
+</blockquote>
+<h3 id="requisitos_2">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_2:1" aria-label="Hecho"> <strong>R1.</strong> Dos zonas de riego, cada una con una electroválvula de 12 V normalmente cerrada.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_2:2" aria-label="Hecho"> <strong>R2.</strong> Un sensor de humedad del suelo capacitivo por zona, calibrado en seco y en agua.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_2:3" aria-label="Hecho"> <strong>R3.</strong> Programación horaria por zona desde una página web: hora de inicio, duración y días de la semana. Hora exacta por internet (NTP).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_2:4" aria-label="Hecho"> <strong>R4.</strong> No riega si la humedad del suelo supera un umbral o si la previsión meteorológica da más de 2 mm de lluvia en las próximas 12 horas (consultando un servicio gratuito como Open-Meteo).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_2:5" aria-label="Hecho"> <strong>R5.</strong> Riego manual desde la web con un tiempo máximo.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_2:6" aria-label="Hecho"> <strong>R6.</strong> <strong>Seguridad del agua:</strong> ninguna válvula puede estar abierta más de 30 minutos seguidos pase lo que pase, y al reiniciarse todas arrancan cerradas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_2:7" aria-label="Hecho"> <strong>R7.</strong> Registro de los últimos 100 eventos (riegos, omisiones y motivo, errores) visible en la web.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_2:8" aria-label="Hecho"> <strong>R8.</strong> Actualización del firmware por WiFi (OTA).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_2:9" aria-label="Hecho"> <strong>R9.</strong> Electrónica en caja estanca para exterior, con conectores de exterior para válvulas y sensores.</li>
+</ul>
+<h3 id="material_2">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>Electroválvulas de 12 V normalmente cerradas</td>
+<td>Comprueba su corriente en la hoja de datos</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Fuente de 12 V</td>
+<td>Con margen para las dos válvulas a la vez</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Regulador de 12 V a 5 V o 3,3 V</td>
+<td>Conmutado, para no calentarse</td>
+</tr>
+<tr>
+<td>2</td>
+<td>MOSFET que conduzcan bien con 3,3 V en la puerta, y diodos</td>
+<td>Revisa la curva de la hoja de datos a 3,3 V</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Sensores de humedad capacitivos</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Caja estanca y prensaestopas</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas_2">Teoría que necesitas</h3>
+<p><strong>MOSFET a 3,3 V.</strong> Muchos MOSFET «de nivel lógico» están pensados para 5 V y con 3,3 V conducen a medias y se calientan. Busca en la hoja de datos la R<sub>DS(on)</sub> garantizada con V<sub>GS</sub> = 2,5 V o 3,3 V, o usa un transistor previo como excitador.</p>
+<p><strong>Electroválvulas.</strong> Son bobinas: necesitan diodo de protección como los motores. Las normalmente cerradas cortan el agua si falla la corriente: el modo de fallo seguro.</p>
+<p><strong>Sensores capacitivos de humedad.</strong> No se corroen como los resistivos, pero su lectura depende del suelo y la temperatura. Calibra: valor en seco y valor en agua, y conviértelo a un porcentaje relativo. Los hay de calidad muy variable; comprueba que el tuyo da valores estables.</p>
+<p><strong>Peticiones a una API.</strong> El ESP32 hace una petición HTTPS a un servicio meteorológico y recibe un JSON con la previsión. La librería ArduinoJson lo convierte en datos.</p>
+<p><strong>Hora por internet (NTP).</strong> <code>configTime()</code> sincroniza el reloj con servidores de hora y aplica la zona horaria de España con sus cambios de horario de verano.</p>
+<p><strong>Actualización OTA.</strong> La memoria se divide en dos particiones de programa: la nueva versión se escribe en la que no está en uso y, si arranca bien, pasa a ser la principal. Protege la actualización con contraseña.</p>
+<p><strong>Perro guardián (watchdog).</strong> Un temporizador que reinicia el chip si el programa se cuelga. Combinado con R6, garantiza que una válvula nunca se quede abierta por un error.</p>
+<h3 id="plan-de-trabajo_2">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> mide tu patio, decide la longitud de tubería y goteros por zona, y estima el caudal.</li>
+<li><strong>Diseño:</strong> esquema completo y caja; diagrama de estados de cada zona; lista de eventos del registro.</li>
+<li><strong>Prototipo:</strong> primero en mesa con LED en lugar de válvulas; después con válvulas y un cubo; por último en el patio.</li>
+<li><strong>Pruebas:</strong> simula fallos: corta la WiFi a mitad de un riego, desenchufa un sensor, cuelga el programa a propósito.</li>
+<li><strong>Documentación:</strong> manual de usuario de una página y documentación técnica.</li>
+</ol>
+<h3 id="pistas_2">Pistas</h3>
+<details>
+<summary>Pista 1 · ¿Cómo garantizo los 30 minutos máximos?</summary>
+<p>Guarda la hora de apertura de cada válvula y compruébala en cada vuelta del programa, independientemente de la lógica de riego. Si se pasa, ciérrala y registra un error. El watchdog cubre el caso de que el programa se cuelgue.</p>
+</details>
+<details>
+<summary>Pista 2 · La petición a la API falla a veces</summary>
+<p>Es normal en internet. Si falla, reintenta más tarde y, mientras tanto, decide con la humedad del suelo. Nunca bloquees el riego entero por un fallo de la previsión: registra el error.</p>
+</details>
+<h3 id="entrega_2">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_2:1" aria-label="Hecho"> Esquema, caja y lista de materiales.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_2:2" aria-label="Hecho"> Código y página web.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_2:3" aria-label="Hecho"> Pruebas de fallo documentadas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_2:4" aria-label="Hecho"> Manual de usuario.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_2:5" aria-label="Hecho"> Fotos de la instalación en el patio.</li>
+</ul>
+<h3 id="como-se-evalua_2">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>30 %</td>
+<td>R1–R9</td>
+</tr>
+<tr>
+<td>Seguridad y fiabilidad</td>
+<td>30 %</td>
+<td>Pasa todas las pruebas de fallo; nunca deja agua corriendo</td>
+</tr>
+<tr>
+<td>Diseño</td>
+<td>20 %</td>
+<td>MOSFET y fuente bien elegidos, caja apta para exterior</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Manual de usuario que entiende cualquiera</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p17">P17 · Mando por Bluetooth de baja energía</h2>
+<p><strong>Duración:</strong> 2 semanas · unas 30 horas · <strong>Nivel:</strong> ★★★☆☆</p>
+<h3 id="el-encargo_3">El encargo</h3>
+<blockquote>
+<p>Si se cae la WiFi de casa, quieres poder abrir el riego desde el móvil o desde un pequeño mando con botones, sin depender de internet.</p>
+</blockquote>
+<h3 id="requisitos_3">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_3:1" aria-label="Hecho"> <strong>R1.</strong> El ESP32 ofrece un servicio BLE con: humedad de cada zona (notificaciones cada 5 s) y orden de riego manual (escritura).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_3:2" aria-label="Hecho"> <strong>R2.</strong> Lo pruebas con una app genérica (por ejemplo, nRF Connect).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_3:3" aria-label="Hecho"> <strong>R3.</strong> Un segundo ESP32 con 2 botones hace de mando: se conecta solo y manda las órdenes.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_3:4" aria-label="Hecho"> <strong>R4.</strong> Las órdenes por BLE requieren emparejamiento con código.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_3:5" aria-label="Hecho"> <strong>R5.</strong> BLE y WiFi funcionan a la vez en el ESP32 del riego.</li>
+</ul>
+<h3 id="teoria-que-necesitas_3">Teoría que necesitas</h3>
+<p><strong>BLE.</strong> Diseñado para gastar muy poco. Un dispositivo (servidor) ofrece <strong>servicios</strong>, y cada servicio tiene <strong>características</strong>: valores que se leen, se escriben o que avisan cuando cambian (notificaciones). Cada uno se identifica con un UUID.</p>
+<p><strong>Librería NimBLE.</strong> Más ligera que la librería BLE por defecto: deja más memoria para la WiFi.</p>
+<p><strong>Seguridad.</strong> Por defecto, cualquiera cerca puede conectarse. El emparejamiento con código y el cifrado lo evitan.</p>
+<h3 id="entrega_3">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_3:1" aria-label="Hecho"> Tabla de servicios y características con sus UUID.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_3:2" aria-label="Hecho"> Código del riego ampliado y del mando.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_3:3" aria-label="Hecho"> Vídeo usando el mando con la WiFi apagada.</li>
+</ul>
+<h3 id="como-se-evalua_3">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>45 %</td>
+<td>R1–R5</td>
+</tr>
+<tr>
+<td>Seguridad</td>
+<td>20 %</td>
+<td>Emparejamiento real</td>
+</tr>
+<tr>
+<td>Diseño del servicio</td>
+<td>15 %</td>
+<td>Características bien definidas</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Tabla de UUID y uso</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p18">P18 · El riego, reescrito con FreeRTOS</h2>
+<p><strong>Duración:</strong> 3 semanas · unas 45 horas · <strong>Nivel:</strong> ★★★★☆</p>
+<h3 id="el-encargo_4">El encargo</h3>
+<blockquote>
+<p>El código del riego ha crecido: web, previsión, sensores, válvulas y Bluetooth en un solo <code>loop()</code>. Cuando la previsión tarda, todo se retrasa. Toca reorganizarlo como un sistema profesional, con tareas independientes.</p>
+</blockquote>
+<h3 id="requisitos_4">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_4:1" aria-label="Hecho"> <strong>R1.</strong> Al menos 4 tareas de FreeRTOS: sensores, válvulas (lógica de riego y seguridad), red (web y MQTT) y previsión.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_4:2" aria-label="Hecho"> <strong>R2.</strong> Las tareas se comunican con <strong>colas</strong> y protegen los datos compartidos con <strong>mutex</strong>; ninguna variable global se toca desde dos tareas sin protección.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_4:3" aria-label="Hecho"> <strong>R3.</strong> La tarea de válvulas tiene la máxima prioridad: una petición web lenta no retrasa el cierre de una válvula.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_4:4" aria-label="Hecho"> <strong>R4.</strong> El watchdog de tareas vigila que todas sigan vivas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_4:5" aria-label="Hecho"> <strong>R5.</strong> Mides y documentas la pila (memoria) que usa cada tarea y la ajustas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:requisitos_4:6" aria-label="Hecho"> <strong>R6.</strong> Haces una pequeña prueba con <strong>ESP-IDF</strong> (el entorno oficial de Espressif): compilas un ejemplo, usas <code>menuconfig</code> y los mensajes de registro <code>ESP_LOGI</code>.</li>
+</ul>
+<h3 id="teoria-que-necesitas_4">Teoría que necesitas</h3>
+<p><strong>Sistema operativo en tiempo real.</strong> FreeRTOS reparte el procesador entre tareas según su prioridad, muchas veces por segundo. Cada tarea es como un pequeño <code>loop()</code> independiente. El ESP32 ya lo usa por debajo en el entorno de Arduino.</p>
+<p><strong>Colas.</strong> Una tarea deja mensajes y otra los recoge en orden. Es la forma segura de pasar datos entre tareas.</p>
+<p><strong>Mutex.</strong> Un candado: solo una tarea a la vez puede usar un recurso compartido (una variable, el bus I2C). Si se olvida soltar, el sistema se bloquea.</p>
+<p><strong>Pila de cada tarea.</strong> Cada tarea tiene su propia memoria para variables locales. Si se queda corta, el chip se reinicia. <code>uxTaskGetStackHighWaterMark()</code> dice cuánta le ha sobrado como mínimo.</p>
+<h3 id="plan-de-trabajo_3">Plan de trabajo</h3>
+<ol>
+<li>Dibuja la arquitectura: tareas, colas, mutex y quién envía qué.</li>
+<li>Migra una tarea cada vez, empezando por la de válvulas.</li>
+<li>Prueba de estrés: muchas peticiones web seguidas mientras riega; comprueba los tiempos de cierre.</li>
+<li>Pequeño proyecto de prueba en ESP-IDF.</li>
+</ol>
+<h3 id="entrega_4">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_4:1" aria-label="Hecho"> Diagrama de arquitectura.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_4:2" aria-label="Hecho"> Código.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_4:3" aria-label="Hecho"> Tabla de prioridades y memoria de cada tarea.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:entrega_4:4" aria-label="Hecho"> Resultado de la prueba de estrés.</li>
+</ul>
+<h3 id="como-se-evalua_4">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arquitectura</td>
+<td>40 %</td>
+<td>Tareas con una sola responsabilidad, comunicación solo por colas o con mutex</td>
+</tr>
+<tr>
+<td>Tiempo real</td>
+<td>25 %</td>
+<td>El cierre de válvulas no se retrasa nunca en la prueba de estrés</td>
+</tr>
+<tr>
+<td>Medidas</td>
+<td>15 %</td>
+<td>Memoria de pila medida y ajustada</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Diagrama que coincide con el código</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="examen">Examen de salida de la fase 4</h2>
+<h3 id="prueba-de-campo-30-dias">Prueba de campo (30 días)</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:prueba-de-campo-30-dias:1" aria-label="Hecho"> El riego del P18 funciona <strong>30 días seguidos</strong> en el patio, sin reinicios inesperados (el registro lo demuestra).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:prueba-de-campo-30-dias:2" aria-label="Hecho"> Haces al menos una actualización OTA durante esos días, sin tocar el aparato.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:prueba-de-campo-30-dias:3" aria-label="Hecho"> Me envías el registro completo y un resumen: riegos hechos, omitidos (y por qué) y agua estimada.</li>
+</ul>
+<h3 id="defensa-1-hora-conmigo">Defensa (1 hora conmigo)</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-4:defensa-1-hora-conmigo:1" aria-label="Hecho"> Dibujas la arquitectura de memoria (tareas, colas, servicios) y defiendes cada decisión.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-4:defensa-1-hora-conmigo:2" aria-label="Hecho"> Respondes preguntas como: ¿qué pasa si se va la luz a mitad de un riego? ¿Y si la API devuelve datos absurdos? ¿Y si alguien de la calle se conecta por Bluetooth?</li>
+</ul>
+<nav class="pasos" aria-label="Fases"><a href="fase-3.html">← Fase 3</a><a href="fase-5.html">Fase 5 →</a></nav>
+</main>
+<footer class="contenedor pie">Plan de formación con tutor · Arduino Uno, Nano y ESP32 · <a href="https://github.com/davidrayo-tecno/Tecno/tree/main/formacionmicrocontroladores">Fuente en GitHub</a></footer>
+<script src="curso.js"></script>
+</body>
+</html>

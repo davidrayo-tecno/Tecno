@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fase 6 · Proyecto final de envergadura · Formación en microcontroladores</title>
+<meta name="description" content="Plan de formación basado en proyectos para diseñar proyectos profesionales con Arduino Uno, Nano y ESP32.">
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-pagina="fase-6">
+<a class="salto" href="#contenido">Saltar al contenido</a>
+<header class="barra-sup">
+  <div class="contenedor barra-in">
+    <a class="marca" href="index.html"><span class="chip-logo" aria-hidden="true">μC</span><span>Formación en microcontroladores</span></a>
+  </div>
+  <div class="contenedor"><nav class="nav" aria-label="Secciones del curso"><a href="index.html">Plan</a><a href="fase-1.html">Fase 1</a><a href="fase-2.html">Fase 2</a><a href="fase-3.html">Fase 3</a><a href="fase-4.html">Fase 4</a><a href="fase-5.html">Fase 5</a><a href="fase-6.html" aria-current="page">Fase 6</a><a href="plantillas.html">Plantillas</a></nav></div>
+</header>
+<main id="contenido" class="contenedor doc">
+<nav class="chips" aria-label="En esta página"><a href="#p23">P23</a><a href="#examen">Examen</a></nav>
+<h1 id="fase-6-proyecto-final-de-envergadura">Fase 6 · Proyecto final de envergadura</h1>
+<p>Al terminar esta fase tienes <strong>un sistema completo, fabricado, probado en uso real y documentado</strong> que puedes enseñar a un cliente o a una empresa como prueba de que diseñas proyectos profesionales con microcontroladores.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Duración</strong></td>
+<td>18 semanas · unas 270 horas</td>
+</tr>
+<tr>
+<td><strong>Placas</strong></td>
+<td>Las tuyas: diseño propio basado en ESP32 (y ATmega328P donde convenga)</td>
+</tr>
+<tr>
+<td><strong>Proyecto</strong></td>
+<td>P23 · Proyecto final</td>
+</tr>
+<tr>
+<td><strong>Examen</strong></td>
+<td>Defensa ante tribunal</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p23">P23 · El proyecto final</h2>
+<h3 id="requisitos-minimos">Requisitos mínimos</h3>
+<p>Sea cual sea el proyecto que elijas, debe cumplir todo esto:</p>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-6:requisitos-minimos:1" aria-label="Hecho"> <strong>R1.</strong> Sistema distribuido de <strong>3 nodos o más</strong> que se comunican entre sí (WiFi, ESP-NOW, LoRa, RS-485 o BLE).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:requisitos-minimos:2" aria-label="Hecho"> <strong>R2.</strong> <strong>PCB propia</strong> en todos los nodos, con el diseño revisado conmigo.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:requisitos-minimos:3" aria-label="Hecho"> <strong>R3.</strong> <strong>Caja</strong> adecuada al entorno de uso.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:requisitos-minimos:4" aria-label="Hecho"> <strong>R4.</strong> Firmware con arquitectura en capas, FreeRTOS donde haga falta, <strong>actualización OTA</strong> y pruebas automáticas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:requisitos-minimos:5" aria-label="Hecho"> <strong>R5.</strong> <strong>Panel de usuario</strong> (web o app) con datos actuales, histórico y control.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:requisitos-minimos:6" aria-label="Hecho"> <strong>R6.</strong> <strong>5 unidades</strong> del nodo principal fabricadas y pasadas por un banco de pruebas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:requisitos-minimos:7" aria-label="Hecho"> <strong>R7.</strong> <strong>30 días</strong> funcionando en uso real, con registro de incidencias.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:requisitos-minimos:8" aria-label="Hecho"> <strong>R8.</strong> Expediente técnico completo: requisitos, diseño, pruebas, BOM y costes, manual, análisis de riesgos y de normativa.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:requisitos-minimos:9" aria-label="Hecho"> <strong>R9.</strong> Presupuesto de materiales cerrado al principio y cumplido (±15 %).</li>
+</ul>
+<h3 id="elige-tu-proyecto">Elige tu proyecto</h3>
+<p>Propón el tuyo si tienes una idea mejor; lo valoramos juntos con los mismos requisitos. Estas son tres propuestas pensadas para tu situación:</p>
+<h4 id="opcion-a-monitor-de-energia-de-la-vivienda">Opción A · Monitor de energía de la vivienda</h4>
+<p>Mide el consumo eléctrico por circuitos (cocina, aire acondicionado, termo, resto) y muestra en tiempo real y en histórico cuánto gasta cada uno, con avisos de consumo anormal y estimación de la factura.</p>
+<ul>
+<li><strong>Nodos:</strong> un medidor por grupo de circuitos con pinzas amperimétricas no invasivas, una pasarela WiFi y el panel.</li>
+<li><strong>Lo difícil:</strong> medir corriente alterna con precisión (muestreo rápido, cálculo de valor eficaz y potencia real), calibración y aislamiento.</li>
+<li><strong>Seguridad:</strong> las pinzas no invasivas no tocan los cables de 230 V, pero <strong>la instalación en el cuadro eléctrico la hace un electricista autorizado</strong>. La tensión de red se mide, si hace falta, con un transformador aislado, nunca directamente.</li>
+</ul>
+<h4 id="opcion-b-control-de-huerto-o-invernadero-multizona">Opción B · Control de huerto o invernadero multizona</h4>
+<p>Varios nodos a batería o solares con sensores de suelo y ambiente, válvulas por zona y una pasarela que decide el riego con datos de todos los nodos y la previsión meteorológica. Es la evolución natural de tu riego del patio.</p>
+<ul>
+<li><strong>Nodos:</strong> sensores de zona (bajo consumo, a batería con placa solar), actuadores de válvulas y una pasarela WiFi.</li>
+<li><strong>Lo difícil:</strong> comunicación de largo alcance y bajo consumo (ESP-NOW alcanza decenas o cientos de metros; LoRa en 868 MHz, kilómetros, con limitación legal del tiempo de emisión), energía solar y robustez en exterior.</li>
+</ul>
+<h4 id="opcion-c-producto-para-un-cliente-real">Opción C · Producto para un cliente real</h4>
+<p>Un negocio de Sevilla con un problema concreto: control de temperatura de cámaras frigoríficas con alarmas, contador de aforo de un local, gestión de un taller o de una academia.</p>
+<ul>
+<li><strong>Lo difícil:</strong> requisitos de un cliente real, que cambian; plazos; formar al cliente; dar soporte.</li>
+<li><strong>Lo valioso:</strong> es la mejor carta de presentación profesional, sobre todo si el cliente te da una referencia.</li>
+</ul>
+<h3 id="etapas-e-hitos">Etapas e hitos</h3>
+<p>Cada hito termina con una revisión conmigo. No se pasa al siguiente sin cerrarla.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Semanas</th>
+<th>Etapa</th>
+<th>Hito y entregable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1–2</td>
+<td>Requisitos y presupuesto</td>
+<td>Documento de requisitos medibles, arquitectura general, presupuesto y plan</td>
+</tr>
+<tr>
+<td>3–6</td>
+<td>Diseño</td>
+<td>Esquemas y PCB de todos los nodos, arquitectura del firmware y del panel. <strong>Revisión de diseño</strong> antes de encargar</td>
+</tr>
+<tr>
+<td>7–10</td>
+<td>Prototipo</td>
+<td>Primera versión de todos los nodos comunicándose; lista de fallos y cambios</td>
+</tr>
+<tr>
+<td>11–13</td>
+<td>Preserie</td>
+<td>5 unidades del nodo principal fabricadas, probadas en el banco, con trazabilidad</td>
+</tr>
+<tr>
+<td>14–17</td>
+<td>Prueba de campo</td>
+<td>30 días en uso real, con informe semanal de incidencias y actualizaciones OTA</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Cierre y defensa</td>
+<td>Expediente técnico, vídeo de 3 minutos y defensa</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-segun-tu-opcion">Teoría según tu opción</h3>
+<p>Te daré la teoría específica al cerrar la etapa de requisitos. Como orientación:</p>
+<ul>
+<li><strong>Opción A:</strong> muestreo y cálculo de valor eficaz (RMS), potencia activa y factor de potencia; transformadores de corriente y su resistencia de carga; precisión y calibración.</li>
+<li><strong>Opción B:</strong> ESP-NOW o LoRa y sus límites legales de emisión; energía solar y carga de baterías; protección contra humedad y rayos UV.</li>
+<li><strong>Opción C:</strong> toma de requisitos con un cliente, gestión de cambios, contrato y responsabilidad, soporte.</li>
+</ul>
+<h3 id="como-se-evalua-el-proyecto-final">Cómo se evalúa el proyecto final</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cumplimiento de requisitos</td>
+<td>25 %</td>
+<td>R1–R9 y los requisitos propios del proyecto, demostrados con pruebas</td>
+</tr>
+<tr>
+<td>Calidad de ingeniería</td>
+<td>25 %</td>
+<td>Hardware y firmware que un profesional firmaría</td>
+</tr>
+<tr>
+<td>Fiabilidad en campo</td>
+<td>20 %</td>
+<td>30 días con incidencias resueltas y documentadas</td>
+</tr>
+<tr>
+<td>Gestión del proyecto</td>
+<td>10 %</td>
+<td>Plazos y presupuesto cumplidos o desvíos justificados</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Expediente que permitiría a otro ingeniero fabricarlo y mantenerlo</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="examen">Defensa final</h2>
+<p>Una sesión de unas 2 horas conmigo como tribunal:</p>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-6:examen:1" aria-label="Hecho"> <strong>Presentación técnica de 20 minutos:</strong> el problema, la solución, las decisiones de diseño y los resultados.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:examen:2" aria-label="Hecho"> <strong>Demostración en vivo</strong> del sistema (en vídeo si está instalado lejos).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:examen:3" aria-label="Hecho"> <strong>Preguntas</strong> sobre cualquier decisión de hardware, firmware, pruebas y costes. Por ejemplo: ¿qué cambiarías para fabricar 1.000 unidades? ¿Cuál es el punto más débil del diseño?</li>
+<li class="tarea"><input type="checkbox" data-id="fase-6:examen:4" aria-label="Hecho"> <strong>Vídeo de 3 minutos</strong> del proyecto para tu portafolio.</li>
+</ul>
+<h3 id="despues-del-plan">Después del plan</h3>
+<p>Con el proyecto final aprobado tienes un portafolio de 23 proyectos documentados en GitHub, varios de ellos con PCB propia y uno de nivel producto. Desde ahí:</p>
+<ul>
+<li><strong>Empleo:</strong> diseño electrónico, firmware embebido o integración IoT en empresas de automatización, energía, agricultura o domótica.</li>
+<li><strong>Por cuenta propia:</strong> proyectos a medida para negocios y particulares.</li>
+<li><strong>Docencia:</strong> materiales y proyectos para tus clases de Tecnología.</li>
+</ul>
+<nav class="pasos" aria-label="Fases"><a href="fase-5.html">← Fase 5</a><a href="plantillas.html">Plantillas →</a></nav>
+</main>
+<footer class="contenedor pie">Plan de formación con tutor · Arduino Uno, Nano y ESP32 · <a href="https://github.com/davidrayo-tecno/Tecno/tree/main/formacionmicrocontroladores">Fuente en GitHub</a></footer>
+<script src="curso.js"></script>
+</body>
+</html>

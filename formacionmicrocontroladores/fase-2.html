@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fase 2 · Sensores, actuadores y comunicaciones · Formación en microcontroladores</title>
+<meta name="description" content="Plan de formación basado en proyectos para diseñar proyectos profesionales con Arduino Uno, Nano y ESP32.">
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-pagina="fase-2">
+<a class="salto" href="#contenido">Saltar al contenido</a>
+<header class="barra-sup">
+  <div class="contenedor barra-in">
+    <a class="marca" href="index.html"><span class="chip-logo" aria-hidden="true">μC</span><span>Formación en microcontroladores</span></a>
+  </div>
+  <div class="contenedor"><nav class="nav" aria-label="Secciones del curso"><a href="index.html">Plan</a><a href="fase-1.html">Fase 1</a><a href="fase-2.html" aria-current="page">Fase 2</a><a href="fase-3.html">Fase 3</a><a href="fase-4.html">Fase 4</a><a href="fase-5.html">Fase 5</a><a href="fase-6.html">Fase 6</a><a href="plantillas.html">Plantillas</a></nav></div>
+</header>
+<main id="contenido" class="contenedor doc">
+<nav class="chips" aria-label="En esta página"><a href="#p5">P5</a><a href="#p6">P6</a><a href="#p7">P7</a><a href="#p8">P8</a><a href="#examen">Examen</a></nav>
+<h1 id="fase-2-sensores-actuadores-y-comunicaciones">Fase 2 · Sensores, actuadores y comunicaciones</h1>
+<p>Al terminar esta fase sabes <strong>leer cualquier sensor a partir de su hoja de datos, mover motores de forma segura y hacer que varios dispositivos se comuniquen sin perder datos</strong>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Duración</strong></td>
+<td>12 semanas · unas 180 horas</td>
+</tr>
+<tr>
+<td><strong>Placa</strong></td>
+<td>Arduino Uno</td>
+</tr>
+<tr>
+<td><strong>Proyectos</strong></td>
+<td>P5 Estación meteorológica · P6 Banco de motores · P7 Robot · P8 Comunicación entre placas</td>
+</tr>
+<tr>
+<td><strong>Examen</strong></td>
+<td>Inclinómetro con un sensor leído sin librería, en 8 horas</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Regla de seguridad de esta fase:</strong> los motores nunca se alimentan desde el pin de 5 V del Arduino. Siempre fuente separada y GND común.</p>
+</blockquote>
+<hr />
+<h2 id="p5">P5 · Estación meteorológica con registro</h2>
+<p><strong>Duración:</strong> 3 semanas · unas 45 horas · <strong>Nivel:</strong> ★★☆☆☆</p>
+<h3 id="el-encargo">El encargo</h3>
+<blockquote>
+<p>Un huerto escolar quiere saber cómo evolucionan la temperatura, la humedad y la presión a lo largo del día para decidir cuándo regar. Necesita un aparato que guarde los datos en una tarjeta, con la hora exacta, y que funcione días sin vigilancia.</p>
+</blockquote>
+<h3 id="requisitos">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos:1" aria-label="Hecho"> <strong>R1.</strong> Mide temperatura, humedad relativa y presión con un sensor BME280 por I2C.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos:2" aria-label="Hecho"> <strong>R2.</strong> Guarda una línea cada 60 s en una tarjeta microSD: fecha, hora, temperatura, humedad, presión.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos:3" aria-label="Hecho"> <strong>R3.</strong> Un fichero por día, con nombre <code>AAAAMMDD.CSV</code>.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos:4" aria-label="Hecho"> <strong>R4.</strong> La hora la da un reloj de tiempo real DS3231 con pila: no se pierde al desconectar.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos:5" aria-label="Hecho"> <strong>R5.</strong> Si falta la tarjeta o falla la escritura, un LED rojo lo indica y el sistema sigue intentándolo sin bloquearse.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos:6" aria-label="Hecho"> <strong>R6.</strong> Funciona <strong>48 horas seguidas</strong> sin perder ninguna medida.</li>
+</ul>
+<h3 id="material">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Módulo BME280</td>
+<td>Comprueba si tu módulo admite 5 V o solo 3,3 V</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Módulo de tarjeta microSD</td>
+<td>Con regulador y adaptación de niveles</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Tarjeta microSD de 32 GB o menos</td>
+<td>Formateada en FAT32</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Módulo RTC DS3231 con pila CR2032</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>LED (verde y rojo) y resistencias</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas">Teoría que necesitas</h3>
+<p><strong>Leer una hoja de datos.</strong> Antes de conectar, busca en la hoja de datos: tensión de alimentación, consumo, dirección I2C, precisión y rango de medida. El BME280 mide la humedad con ±3 % y la presión con ±1 hPa, y su dirección es 0x76 o 0x77 según un pin.</p>
+<p><strong>3,3 V y 5 V.</strong> Muchos sensores modernos funcionan a 3,3 V y se dañan con señales de 5 V. Los módulos para Arduino suelen llevar un regulador y un adaptador de niveles, pero no todos. Compruébalo en el módulo antes de conectarlo.</p>
+<p><strong>Varios dispositivos I2C.</strong> El BME280 y el DS3231 comparten los mismos dos cables, cada uno con su dirección. Ejecuta el escáner I2C: deben aparecer las dos.</p>
+<p><strong>Bus SPI.</strong> Más rápido que el I2C. Usa cuatro señales: MOSI, MISO, SCK y CS (selección de chip). En el Uno son los pines 11, 12, 13 y normalmente el 10 como CS.</p>
+<p><strong>Ficheros en la tarjeta.</strong> La librería <code>SD</code> del Uno solo admite nombres cortos de 8 caracteres más extensión (formato 8.3). Cada escritura debe cerrar el fichero o llamar a <code>flush()</code>: si se corta la corriente con datos sin guardar, se pierden.</p>
+<p><strong>La memoria del Uno es muy pequeña.</strong> Solo tiene 2 KB de RAM, y la librería <code>SD</code> usa unos 512 bytes. Guarda los textos fijos en la memoria de programa con la macro <code>F()</code>: <code>Serial.println(F("Iniciando"));</code></p>
+<h3 id="plan-de-trabajo">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> decide qué pasa si la tarjeta se llena y qué pasa a medianoche.</li>
+<li><strong>Diseño:</strong> esquema con los dos buses (I2C y SPI). Calcula cuánto ocupa un día de datos.</li>
+<li><strong>Prototipo:</strong> escáner I2C, ejemplo del BME280, poner en hora el DS3231, ejemplo de escritura en SD. Después, todo junto con <code>millis()</code>.</li>
+<li><strong>Pruebas:</strong> quita la tarjeta en marcha y vuelve a ponerla. Desconecta la alimentación y comprueba la hora. Deja la estación 48 horas y cuenta las líneas: deben ser 2.880.</li>
+<li><strong>Documentación:</strong> README con gráficas de las 48 horas.</li>
+</ol>
+<h3 id="pistas">Pistas</h3>
+<details>
+<summary>Pista 1 · El sensor no aparece en el escáner</summary>
+<p>Prueba las dos direcciones (0x76 y 0x77) y revisa si el módulo necesita 3,3 V. Si usas cables largos, acórtalos: el I2C está pensado para distancias de centímetros.</p>
+</details>
+<details>
+<summary>Pista 2 · El programa se reinicia solo o hace cosas raras</summary>
+<p>Probablemente te has quedado sin RAM. Mira el mensaje del IDE al compilar («Global variables use…»): si pasa del 75 %, usa <code>F()</code> en todos los textos y evita la clase <code>String</code>.</p>
+</details>
+<details>
+<summary>Pista 3 · ¿Cómo formo el nombre del fichero?</summary>
+<p>Usa <code>snprintf(nombre, sizeof(nombre), "%04d%02d%02d.CSV", anio, mes, dia);</code> con un <code>char nombre[13];</code>.</p>
+</details>
+<h3 id="retos-extra">Retos extra</h3>
+<ul>
+<li>Calcula la presión a nivel del mar a partir de la altitud de tu casa.</li>
+<li>Añade un pulsador que muestre por el monitor serie el resumen del día: mínima, máxima y media.</li>
+</ul>
+<h3 id="entrega">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega:1" aria-label="Hecho"> Esquema con los dos buses.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega:2" aria-label="Hecho"> Código.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega:3" aria-label="Hecho"> Ficheros CSV de las 48 horas y gráficas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega:4" aria-label="Hecho"> Pruebas de fallo de la tarjeta y de corte de corriente documentadas.</li>
+</ul>
+<h3 id="como-se-evalua">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>40 %</td>
+<td>48 horas sin perder datos, R1–R6 cumplidos</td>
+</tr>
+<tr>
+<td>Robustez</td>
+<td>25 %</td>
+<td>Se recupera de fallos de la tarjeta sin bloquearse</td>
+</tr>
+<tr>
+<td>Código</td>
+<td>15 %</td>
+<td>Uso de RAM controlado, sin <code>String</code></td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Gráficas y análisis de los datos</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p6">P6 · Banco de control de motores</h2>
+<p><strong>Duración:</strong> 3 semanas · unas 45 horas · <strong>Nivel:</strong> ★★★☆☆</p>
+<h3 id="el-encargo_1">El encargo</h3>
+<blockquote>
+<p>Un taller de robótica necesita un banco de pruebas para enseñar a sus alumnos los tres tipos de motor: de continua, servo y paso a paso. Cada motor se controla desde un panel con potenciómetros y botones, de forma segura.</p>
+</blockquote>
+<h3 id="requisitos_1">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_1:1" aria-label="Hecho"> <strong>R1.</strong> Motor de continua con velocidad regulable por potenciómetro (PWM) mediante un <strong>MOSFET</strong>, sin cambio de sentido.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_1:2" aria-label="Hecho"> <strong>R2.</strong> Segundo motor de continua con velocidad y <strong>sentido</strong> mediante un puente H (driver TB6612FNG).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_1:3" aria-label="Hecho"> <strong>R3.</strong> Servo que sigue la posición de un potenciómetro de 0 a 180°.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_1:4" aria-label="Hecho"> <strong>R4.</strong> Motor paso a paso que gira un número exacto de vueltas al pulsar un botón y vuelve a su posición inicial con otro.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_1:5" aria-label="Hecho"> <strong>R5.</strong> Los motores se alimentan de una fuente separada; el Arduino solo da las señales. GND común.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_1:6" aria-label="Hecho"> <strong>R6.</strong> Mides la corriente de cada motor en vacío y frenándolo con la mano, y dimensionas la fuente con un margen del 30 %.</li>
+</ul>
+<h3 id="material_1">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>Motores de continua pequeños (3–6 V)</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>MOSFET de nivel lógico</td>
+<td>Por ejemplo, IRLZ44N</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Diodo 1N4007 o Schottky 1N5819</td>
+<td>Diodo de protección</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Driver de puente H TB6612FNG</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Servo SG90</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Motor paso a paso 28BYJ-48 con placa ULN2003, o NEMA 17 con driver A4988</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Fuente de 5–9 V y 2 A o portapilas</td>
+<td>Según tus motores</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Potenciómetros de 10 kΩ y 2 pulsadores</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas_1">Teoría que necesitas</h3>
+<p><strong>El transistor como interruptor.</strong> Un pin del Arduino da como mucho 20 mA; un motor pequeño pide entre 100 mA y más de 1 A al arrancar. El transistor deja que una señal pequeña controle una corriente grande. Un <strong>MOSFET de nivel lógico</strong> se activa del todo con 5 V en la puerta; uno normal necesita 10 V y con 5 V se calienta.</p>
+<p><strong>Diodo de protección (flyback).</strong> Un motor es una bobina: al cortar la corriente genera un pico de tensión que puede destruir el transistor. Un diodo en paralelo con el motor, en inverso, le da un camino a esa corriente.</p>
+<p><strong>Puente H.</strong> Cuatro interruptores que permiten invertir la polaridad del motor y, por tanto, su sentido. El TB6612FNG integra dos puentes H con protección.</p>
+<p><strong>Servo.</strong> Lleva motor, reductora y control dentro. Recibe un pulso cada 20 ms; su anchura (aproximadamente de 1 a 2 ms) fija el ángulo. La librería <code>Servo</code> lo genera por ti.</p>
+<p><strong>Paso a paso.</strong> Gira en pasos exactos sin necesidad de sensor: un NEMA 17 típico tiene 200 pasos por vuelta. El 28BYJ-48 lleva una reductora y necesita unos 2.048 pasos por vuelta. Con el A4988 hay que ajustar el límite de corriente con su potenciómetro antes de conectar el motor.</p>
+<p><strong>Fuente y GND común.</strong> Los motores meten ruido eléctrico y caídas de tensión que reinician el Arduino. Fuente separada para los motores, pero con las masas (GND) unidas para que las señales tengan la misma referencia.</p>
+<h3 id="plan-de-trabajo_1">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> busca la hoja de datos de cada motor y del MOSFET. Anota tensión, corriente y par.</li>
+<li><strong>Diseño:</strong> esquema completo con fuentes separadas. Calcula la potencia que disipa el MOSFET con la corriente de tu motor y su resistencia de conducción (R<sub>DS(on)</sub>).</li>
+<li><strong>Prototipo:</strong> un motor cada vez, con el multímetro en serie para medir la corriente. Después, el panel completo.</li>
+<li><strong>Pruebas:</strong> mide corrientes, toca el MOSFET tras 5 minutos a máxima velocidad (¿se calienta?), cuenta vueltas del paso a paso.</li>
+<li><strong>Documentación:</strong> tabla de corrientes, cálculo de la fuente y vídeo de cada motor.</li>
+</ol>
+<h3 id="pistas_1">Pistas</h3>
+<details>
+<summary>Pista 1 · El Arduino se reinicia al arrancar el motor</summary>
+<p>Es la caída de tensión por el pico de corriente del arranque. Comprueba que el motor no toma corriente del Arduino, pon un condensador electrolítico de 100–470 µF en la alimentación de los motores y uno cerámico de 100 nF en bornes del motor.</p>
+</details>
+<details>
+<summary>Pista 2 · El servo tiembla</summary>
+<p>Suele ser falta de corriente o ruido en el potenciómetro. Alimenta el servo desde la fuente de motores, añade un condensador y filtra la lectura del potenciómetro con una media móvil.</p>
+</details>
+<details>
+<summary>Pista 3 · El paso a paso pierde pasos</summary>
+<p>Estás pidiendo demasiada velocidad o el límite de corriente es bajo. Baja la velocidad o añade una rampa de aceleración al arrancar y frenar.</p>
+</details>
+<h3 id="retos-extra_1">Retos extra</h3>
+<ul>
+<li>Mide la velocidad del motor de continua con un sensor de herradura (óptico) y una rueda ranurada, y muéstrala en rpm.</li>
+<li>Haz que el motor de continua mantenga la velocidad aunque lo frenes un poco (control en lazo cerrado sencillo).</li>
+</ul>
+<h3 id="entrega_1">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_1:1" aria-label="Hecho"> Esquema con fuentes separadas y diodos.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_1:2" aria-label="Hecho"> Cálculos de MOSFET y fuente.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_1:3" aria-label="Hecho"> Tabla de corrientes medidas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_1:4" aria-label="Hecho"> Código.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_1:5" aria-label="Hecho"> Vídeo de los cuatro motores.</li>
+</ul>
+<h3 id="como-se-evalua_1">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>35 %</td>
+<td>R1–R6, sin reinicios</td>
+</tr>
+<tr>
+<td>Diseño eléctrico seguro</td>
+<td>35 %</td>
+<td>Diodos, fuentes y GND correctos, cálculos justificados</td>
+</tr>
+<tr>
+<td>Código</td>
+<td>10 %</td>
+<td>Panel sin bloqueos</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Medidas completas</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p7">P7 · Robot que esquiva obstáculos y sigue líneas</h2>
+<p><strong>Duración:</strong> 4 semanas · unas 60 horas · <strong>Nivel:</strong> ★★★☆☆</p>
+<h3 id="el-encargo_2">El encargo</h3>
+<blockquote>
+<p>Una feria de ciencia quiere un robot de demostración con dos modos: explorar una habitación sin chocar y recorrer un circuito marcado en el suelo.</p>
+</blockquote>
+<h3 id="requisitos_2">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_2:1" aria-label="Hecho"> <strong>R1.</strong> Chasis de dos ruedas motrices con el driver TB6612FNG.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_2:2" aria-label="Hecho"> <strong>R2.</strong> <strong>Modo explorador:</strong> avanza y, si detecta un obstáculo a menos de 20 cm, frena, gira y busca el camino más libre.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_2:3" aria-label="Hecho"> <strong>R3.</strong> <strong>Modo seguidor:</strong> sigue una línea negra de 2 cm sobre fondo claro con un control PID.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_2:4" aria-label="Hecho"> <strong>R4.</strong> Completa <strong>3 vueltas seguidas</strong> al circuito de prueba sin salirse y 5 minutos de exploración sin chocar.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_2:5" aria-label="Hecho"> <strong>R5.</strong> Mide la tensión de la batería con un divisor y avisa con un LED cuando baje del 20 %.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_2:6" aria-label="Hecho"> <strong>R6.</strong> Un botón de parada de emergencia detiene los motores en menos de 100 ms, haga lo que haga el programa.</li>
+</ul>
+<h3 id="material_2">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Chasis 2WD con motores y ruedas</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Driver TB6612FNG</td>
+<td>Del P6</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Sensor de ultrasonidos HC-SR04</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Barra de 3 a 5 sensores infrarrojos de línea</td>
+<td>Tipo TCRT5000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Batería de litio 2S (7,4 V) con placa de protección (BMS) y cargador adecuado, o portapilas de 6 AA</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Resistencias para el divisor de batería</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Interruptor general y pulsador de emergencia</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas_2">Teoría que necesitas</h3>
+<p><strong>Ultrasonidos.</strong> El HC-SR04 envía un pulso de sonido y mide cuánto tarda en volver. Distancia = tiempo × velocidad del sonido (unos 343 m/s) / 2. En la práctica: <strong>distancia en cm ≈ microsegundos / 58</strong>. <code>pulseIn()</code> mide el tiempo, pero bloquea; ponle un tiempo máximo.</p>
+<p><strong>Sensores de línea.</strong> Un LED infrarrojo y un fototransistor: el negro refleja poco y el blanco mucho. Calibra los umbrales con tu suelo y tu luz.</p>
+<p><strong>Control PID.</strong> El error es lo lejos que está la línea del centro. La corrección suma tres términos:</p>
+<ul>
+<li><strong>P (proporcional):</strong> corrige más cuanto mayor es el error.</li>
+<li><strong>I (integral):</strong> corrige errores pequeños que duran mucho. En un seguidor de línea casi nunca hace falta.</li>
+<li><strong>D (derivativo):</strong> frena la corrección si el error ya está bajando rápido. Evita los zigzags.</li>
+</ul>
+<p>Se ajusta a mano: primero solo P hasta que oscile, después D hasta que deje de oscilar.</p>
+<p><strong>Baterías de litio.</strong> Dan mucha corriente y son peligrosas si se cortocircuitan, se descargan del todo o se cargan mal. Úsalas siempre con placa de protección (BMS), cárgalas solo con su cargador y nunca sin vigilancia. Una celda va de unos 4,2 V (llena) a unos 3,3 V (vacía).</p>
+<p><strong>Divisor para medir tensiones altas.</strong> El pin analógico solo admite hasta 5 V. Con un divisor, 8,4 V se convierten en algo menor de 5 V. Usa resistencias altas (decenas de kΩ) para no gastar batería.</p>
+<p><strong>Interrupciones.</strong> <code>attachInterrupt()</code> en los pines 2 o 3 ejecuta una función en el instante en que cambia la señal, aunque el programa esté ocupado. Las variables compartidas se declaran <code>volatile</code>.</p>
+<h3 id="plan-de-trabajo_2">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> dibuja el circuito de prueba en cartulina o con cinta aislante.</li>
+<li><strong>Diseño:</strong> esquema, cálculo del divisor de batería, diagrama de estados de cada modo.</li>
+<li><strong>Prototipo:</strong> motores primero, después ultrasonidos, después sensores de línea, después PID. Cada paso en una rama de Git.</li>
+<li><strong>Pruebas:</strong> cronometra las vueltas, anota cada ajuste de PID y su efecto.</li>
+<li><strong>Documentación:</strong> README con tabla de ajustes PID y vídeos.</li>
+</ol>
+<h3 id="pistas_2">Pistas</h3>
+<details>
+<summary>Pista 1 · El robot no va recto</summary>
+<p>Dos motores nunca son iguales. Añade un factor de corrección a la velocidad de uno de ellos y ajústalo a ojo en una línea recta de 2 metros.</p>
+</details>
+<details>
+<summary>Pista 2 · ¿Cómo calculo el error con varios sensores?</summary>
+<p>Asigna una posición a cada sensor (por ejemplo −2, −1, 0, 1, 2) y calcula la media ponderada de las posiciones de los sensores que ven negro. Ese número es el error.</p>
+</details>
+<details>
+<summary>Pista 3 · La parada de emergencia tarda</summary>
+<p>Conecta el botón a un pin con interrupción. En la función de interrupción, pon los pines de habilitación del driver a LOW directamente, sin esperar al <code>loop()</code>.</p>
+</details>
+<h3 id="retos-extra_2">Retos extra</h3>
+<ul>
+<li>Añade un servo que gire el sensor de ultrasonidos para «mirar» a los lados antes de decidir.</li>
+<li>Muestra por Bluetooth (módulo HC-05) los valores del PID y cámbialos desde el móvil sin reprogramar.</li>
+</ul>
+<h3 id="entrega_2">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_2:1" aria-label="Hecho"> Esquema y cálculo del divisor.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_2:2" aria-label="Hecho"> Diagramas de estados.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_2:3" aria-label="Hecho"> Código.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_2:4" aria-label="Hecho"> Tabla de ajustes PID.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_2:5" aria-label="Hecho"> Vídeo de 3 vueltas seguidas y de 5 minutos de exploración (puede ser acelerado).</li>
+</ul>
+<h3 id="como-se-evalua_2">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>40 %</td>
+<td>R1–R6 en la primera grabación</td>
+</tr>
+<tr>
+<td>Control</td>
+<td>20 %</td>
+<td>PID ajustado con método y documentado</td>
+</tr>
+<tr>
+<td>Seguridad</td>
+<td>20 %</td>
+<td>Batería protegida, parada de emergencia real</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Proceso de ajuste explicado</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p8">P8 · Dos Arduinos que se comunican</h2>
+<p><strong>Duración:</strong> 2 semanas · unas 30 horas · <strong>Nivel:</strong> ★★★☆☆</p>
+<h3 id="el-encargo_3">El encargo</h3>
+<blockquote>
+<p>Una nave industrial necesita leer la temperatura de una cámara que está a 15 metros del cuadro de control y poder encender su ventilador desde allí. Los cables largos meten ruido, así que la comunicación debe detectar y corregir errores.</p>
+</blockquote>
+<h3 id="requisitos_3">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_3:1" aria-label="Hecho"> <strong>R1.</strong> El Arduino A mide la temperatura y controla un LED (el «ventilador»). El Arduino B muestra la temperatura y tiene un botón para encender y apagar el ventilador de A.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_3:2" aria-label="Hecho"> <strong>R2.</strong> Protocolo propio con trama: byte de inicio, longitud, comando, datos y <strong>suma de comprobación</strong>.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_3:3" aria-label="Hecho"> <strong>R3.</strong> El receptor responde con confirmación (ACK) o rechazo (NACK); el emisor repite hasta 3 veces si no hay respuesta en 200 ms.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_3:4" aria-label="Hecho"> <strong>R4.</strong> Primero por UART con 1 metro de cable; después con módulos <strong>RS-485</strong> y al menos 10 metros de cable.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_3:5" aria-label="Hecho"> <strong>R5.</strong> Prueba de 1.000 mensajes: cuenta cuántos llegan bien, cuántos se repiten y cuántos se pierden.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:requisitos_3:6" aria-label="Hecho"> <strong>R6.</strong> Si se desconecta el cable, B muestra «SIN CONEXIÓN» en menos de 3 segundos y se recupera solo al reconectar.</li>
+</ul>
+<h3 id="material_3">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>Arduino Uno o Nano</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Módulos RS-485 (MAX485)</td>
+<td></td>
+</tr>
+<tr>
+<td>10–15 m</td>
+<td>Cable de par trenzado</td>
+<td>Un cable de red viejo sirve</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Sensor de temperatura del P3</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas_3">Teoría que necesitas</h3>
+<p><strong>UART.</strong> Comunicación serie con dos cables cruzados (TX de uno al RX del otro) y GND común. Ambos lados deben usar la misma velocidad (baudios). El Uno tiene un solo UART por hardware, ocupado por el USB; para el segundo usa <code>SoftwareSerial</code> en otros pines.</p>
+<p><strong>Tramas.</strong> Los bytes llegan uno a uno y pueden perderse o corromperse. Una trama con un byte de inicio conocido permite saber dónde empieza cada mensaje; la longitud dice cuántos bytes esperar; la suma de comprobación (por ejemplo, el XOR de todos los bytes) detecta errores.</p>
+<p><strong>RS-485.</strong> Transmite la señal como diferencia de tensión entre dos cables trenzados, así el ruido afecta a los dos por igual y se anula. Llega a cientos de metros. Es semidúplex: solo uno habla a la vez, y un pin del módulo elige si se transmite o se recibe.</p>
+<p><strong>Tiempo de espera y reintentos.</strong> Si no llega respuesta en un tiempo, se reenvía. Hay que limitar los reintentos y evitar ejecutar dos veces la misma orden si lo que se perdió fue la confirmación: numera los mensajes.</p>
+<h3 id="plan-de-trabajo_3">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> define todos los comandos y su formato en una tabla.</li>
+<li><strong>Diseño:</strong> esquema de ambos Arduinos y diagrama de secuencia (quién envía qué y cuándo).</li>
+<li><strong>Prototipo:</strong> primero envía un byte; después tramas sin comprobación; después con suma, ACK y reintentos; por último cambia a RS-485.</li>
+<li><strong>Pruebas:</strong> la prueba de 1.000 mensajes con 1 m y con 10 m; desconexiones.</li>
+<li><strong>Documentación:</strong> especificación del protocolo como si otro equipo tuviera que programar el otro extremo.</li>
+</ol>
+<h3 id="pistas_3">Pistas</h3>
+<details>
+<summary>Pista 1 · ¿Cómo recibo una trama sin bloquear?</summary>
+<p>Usa una pequeña máquina de estados para la recepción: ESPERANDO_INICIO, LEYENDO_LONGITUD, LEYENDO_DATOS, LEYENDO_COMPROBACION. Cada vez que haya un byte disponible, avanza un estado.</p>
+</details>
+<details>
+<summary>Pista 2 · Con RS-485 no llega nada</summary>
+<p>Revisa el pin que cambia entre transmitir y recibir: hay que ponerlo en transmisión antes de enviar, esperar a que salga el último byte (<code>Serial.flush()</code> en hardware; en <code>SoftwareSerial</code> envía y espera) y volver a recepción. Cruza A con A y B con B, no al revés.</p>
+</details>
+<h3 id="retos-extra_3">Retos extra</h3>
+<ul>
+<li>Añade un tercer Arduino y haz que B pregunte a A y a C por turnos, cada uno con su dirección (bus maestro-esclavo).</li>
+<li>Implementa el protocolo estándar Modbus RTU en lugar del tuyo.</li>
+</ul>
+<h3 id="entrega_3">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_3:1" aria-label="Hecho"> Especificación del protocolo.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_3:2" aria-label="Hecho"> Esquema y diagrama de secuencia.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_3:3" aria-label="Hecho"> Código de los dos extremos.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_3:4" aria-label="Hecho"> Resultados de la prueba de 1.000 mensajes con 1 m y con 10 m.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:entrega_3:5" aria-label="Hecho"> Vídeo de desconexión y recuperación.</li>
+</ul>
+<h3 id="como-se-evalua_3">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>35 %</td>
+<td>R1–R6</td>
+</tr>
+<tr>
+<td>Protocolo</td>
+<td>30 %</td>
+<td>Bien especificado, robusto ante errores y repeticiones</td>
+</tr>
+<tr>
+<td>Pruebas</td>
+<td>15 %</td>
+<td>Estadísticas de errores con conclusiones</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Otro programador podría implementarlo</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="examen">Examen de salida de la fase 2</h2>
+<h3 id="parte-a-teoria-1-hora">Parte A · Teoría (1 hora)</h3>
+<p>Preguntas como estas:</p>
+<ol>
+<li>¿Por qué hace falta un diodo en paralelo con un motor controlado por transistor?</li>
+<li>Un motor consume 400 mA y el MOSFET tiene 0,03 Ω de R<sub>DS(on)</sub>. ¿Qué potencia disipa?</li>
+<li>Diferencias entre I2C, SPI y UART: cables, velocidad y número de dispositivos.</li>
+<li>¿Qué hace cada término de un PID?</li>
+<li>¿Por qué RS-485 aguanta cables largos y UART no?</li>
+</ol>
+<h3 id="parte-b-proyecto-en-8-horas">Parte B · Proyecto en 8 horas</h3>
+<p><strong>Inclinómetro con aguja.</strong> Lee el acelerómetro MPU-6050 <strong>sin librería</strong>, solo con <code>Wire</code> y su hoja de datos de registros: despiértalo, lee la aceleración en los tres ejes, calcula el ángulo de inclinación y muévelo en un servo que hace de aguja. Muestra el ángulo en la LCD.</p>
+<p>Entrega: esquema, tabla de registros usados con su función, código y vídeo comparando con el inclinómetro del móvil.</p>
+<h3 id="para-aprobar">Para aprobar</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-2:para-aprobar:1" aria-label="Hecho"> Parte A: 7 de 10 o más.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:para-aprobar:2" aria-label="Hecho"> Parte B: error menor de 3° frente al móvil entre −60° y +60°.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-2:para-aprobar:3" aria-label="Hecho"> Explicas cada registro que lees y escribes.</li>
+</ul>
+<nav class="pasos" aria-label="Fases"><a href="fase-1.html">← Fase 1</a><a href="fase-3.html">Fase 3 →</a></nav>
+</main>
+<footer class="contenedor pie">Plan de formación con tutor · Arduino Uno, Nano y ESP32 · <a href="https://github.com/davidrayo-tecno/Tecno/tree/main/formacionmicrocontroladores">Fuente en GitHub</a></footer>
+<script src="curso.js"></script>
+</body>
+</html>

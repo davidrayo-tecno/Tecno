@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fase 5 · Ingeniería profesional · Formación en microcontroladores</title>
+<meta name="description" content="Plan de formación basado en proyectos para diseñar proyectos profesionales con Arduino Uno, Nano y ESP32.">
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-pagina="fase-5">
+<a class="salto" href="#contenido">Saltar al contenido</a>
+<header class="barra-sup">
+  <div class="contenedor barra-in">
+    <a class="marca" href="index.html"><span class="chip-logo" aria-hidden="true">μC</span><span>Formación en microcontroladores</span></a>
+  </div>
+  <div class="contenedor"><nav class="nav" aria-label="Secciones del curso"><a href="index.html">Plan</a><a href="fase-1.html">Fase 1</a><a href="fase-2.html">Fase 2</a><a href="fase-3.html">Fase 3</a><a href="fase-4.html">Fase 4</a><a href="fase-5.html" aria-current="page">Fase 5</a><a href="fase-6.html">Fase 6</a><a href="plantillas.html">Plantillas</a></nav></div>
+</header>
+<main id="contenido" class="contenedor doc">
+<nav class="chips" aria-label="En esta página"><a href="#p19">P19</a><a href="#p20">P20</a><a href="#p21">P21</a><a href="#p22">P22</a><a href="#examen">Examen</a></nav>
+<h1 id="fase-5-ingenieria-profesional">Fase 5 · Ingeniería profesional</h1>
+<p>Al terminar esta fase diseñas <strong>como en una empresa</strong>: tu propia placa con ESP32 y componentes de montaje superficial, un banco que prueba cada unidad en un minuto, un análisis serio de fallos y el expediente técnico que pide un producto para venderse.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Duración</strong></td>
+<td>12 semanas · unas 180 horas</td>
+</tr>
+<tr>
+<td><strong>Placa</strong></td>
+<td>Tu propia placa con módulo ESP32-S3 (o ESP32 WROOM)</td>
+</tr>
+<tr>
+<td><strong>Proyectos</strong></td>
+<td>P19 Placa ESP32 propia · P20 Banco de pruebas · P21 Auditoría de fiabilidad · P22 Expediente técnico</td>
+</tr>
+<tr>
+<td><strong>Examen</strong></td>
+<td>Revisión de diseño formal, firmware con pruebas automáticas y coste por unidad</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Nuevo material en esta fase:</strong> osciloscopio, analizador lógico, fuente de laboratorio y placa calefactora para soldar SMD. Te preparo la lista de compra con precios actuales cuando llegues aquí.</p>
+</blockquote>
+<p><strong>En paralelo durante toda la fase:</strong> el firmware pasa a ser profesional.</p>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-5:inicio:1" aria-label="Hecho"> Arquitectura en capas: el código que toca el hardware (pines, buses) separado de la lógica de la aplicación.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:inicio:2" aria-label="Hecho"> Pruebas unitarias de la lógica con PlatformIO (<code>pio test</code>), que se ejecutan en el ordenador sin placa.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:inicio:3" aria-label="Hecho"> GitHub Actions compila el firmware y pasa las pruebas en cada cambio.</li>
+</ul>
+<hr />
+<h2 id="p19">P19 · Tu propia placa con módulo ESP32</h2>
+<p><strong>Duración:</strong> 4 semanas (más el envío) · unas 60 horas · <strong>Nivel:</strong> ★★★★★</p>
+<h3 id="el-encargo">El encargo</h3>
+<blockquote>
+<p>El riego y los sensores funcionan, pero con placas de desarrollo, cables y adaptadores. Quieres tu propia placa: compacta, con USB-C, batería recargable y todo lo necesario, lista para fabricar en serie.</p>
+</blockquote>
+<h3 id="requisitos">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos:1" aria-label="Hecho"> <strong>R1.</strong> Módulo ESP32-S3 (USB nativo, sin chip conversor) o ESP32-WROOM con su conversor USB.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos:2" aria-label="Hecho"> <strong>R2.</strong> Conector <strong>USB-C</strong> que carga desde cualquier cargador (resistencias de 5,1 kΩ en los pines CC) y permite programar.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos:3" aria-label="Hecho"> <strong>R3.</strong> Cargador de batería de litio de una celda y circuito de alimentación que funciona con o sin batería.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos:4" aria-label="Hecho"> <strong>R4.</strong> Regulador de 3,3 V que aguanta los picos de consumo de la WiFi (al menos 500 mA).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos:5" aria-label="Hecho"> <strong>R5.</strong> Botones de arranque (BOOT) y reinicio (EN), LED de estado, conector I2C y 6 pines de uso general.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos:6" aria-label="Hecho"> <strong>R6.</strong> <strong>Zona libre de cobre bajo la antena</strong> según la hoja de datos del módulo, con la antena en el borde de la placa.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos:7" aria-label="Hecho"> <strong>R7.</strong> Componentes SMD de tamaño 0805 o 0603, soldados por ti con pasta y placa calefactora (o montados por el fabricante).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos:8" aria-label="Hecho"> <strong>R8.</strong> Puntos de prueba para el P20 en 3,3 V, GND, batería y los pines de programación.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos:9" aria-label="Hecho"> <strong>R9.</strong> Revisión de diseño formal conmigo antes de encargarla (es el examen de la fase).</li>
+</ul>
+<h3 id="teoria-que-necesitas">Teoría que necesitas</h3>
+<p><strong>Condensadores de desacoplo.</strong> Cerca de cada pin de alimentación del módulo: uno de 10–22 µF y otro de 100 nF. Suministran los picos de corriente rápidos que la fuente no puede dar a tiempo. Sin ellos, el ESP32 se reinicia al transmitir.</p>
+<p><strong>USB-C.</strong> Para que un cargador USB-C dé 5 V, el dispositivo debe poner una resistencia de 5,1 kΩ a GND en cada pin CC. Sin ellas, los cargadores modernos no dan corriente.</p>
+<p><strong>Gestión de batería.</strong> Un circuito cargador integrado (como el MCP73831 o el TP4056) carga la celda con corriente constante y luego tensión constante hasta 4,2 V. Un circuito de <em>power path</em> permite usar el USB y cargar a la vez.</p>
+<p><strong>Antena.</strong> La antena impresa del módulo necesita espacio libre: nada de cobre, pistas ni componentes debajo ni muy cerca. Si no, el alcance cae mucho.</p>
+<p><strong>Soldadura SMD.</strong> Se aplica pasta de soldar con una plantilla (stencil), se colocan los componentes con pinzas y se calienta en una placa calefactora hasta que la pasta se funde. Los puentes entre pines se corrigen con flux y malla.</p>
+<p><strong>Diseño para fabricación (DFM).</strong> Reglas del fabricante (anchos y separaciones mínimos), componentes de un tamaño que puedas soldar, todos en una cara si es posible, y marcas de referencia (fiduciales) si lo va a montar una máquina.</p>
+<h3 id="plan-de-trabajo">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> elige cada circuito integrado leyendo su hoja de datos y su circuito de aplicación recomendado.</li>
+<li><strong>Diseño:</strong> esquema por bloques (alimentación, USB, módulo, periféricos), colocación cuidando la antena y el desacoplo, ruteo y plano de masa.</li>
+<li><strong>Revisión:</strong> usa la lista de comprobación de revisión de diseño de las plantillas y envíamela con el diseño.</li>
+<li><strong>Fabricación y montaje:</strong> encarga placas y plantilla; suelda por bloques: primero alimentación y prueba; después el resto.</li>
+<li><strong>Pruebas:</strong> tensiones, consumo, carga de la batería, alcance WiFi frente a una placa de desarrollo.</li>
+</ol>
+<h3 id="pistas">Pistas</h3>
+<details>
+<summary>Pista 1 · ¿Por dónde empiezo el esquema?</summary>
+<p>Copia el circuito de referencia de la hoja de datos del módulo (Espressif publica esquemas de sus placas de desarrollo). Entiende cada componente antes de copiarlo y adapta solo lo que necesites.</p>
+</details>
+<details>
+<summary>Pista 2 · Monta por bloques</summary>
+<p>Suelda primero solo la alimentación y comprueba 3,3 V sin carga. Así, si algo está mal, no se queman el módulo ni la batería.</p>
+</details>
+<h3 id="entrega">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega:1" aria-label="Hecho"> Proyecto de KiCad, esquema en PDF y capturas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega:2" aria-label="Hecho"> Lista de comprobación de revisión de diseño cumplimentada.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega:3" aria-label="Hecho"> Fotos de la placa montada (con lupa) y medidas de prueba.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega:4" aria-label="Hecho"> Comparación de alcance WiFi.</li>
+</ul>
+<h3 id="como-se-evalua">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>30 %</td>
+<td>Todo funciona con 2 correcciones como máximo</td>
+</tr>
+<tr>
+<td>Calidad del diseño</td>
+<td>30 %</td>
+<td>Desacoplo, antena, alimentación y protecciones correctos</td>
+</tr>
+<tr>
+<td>Fabricabilidad</td>
+<td>20 %</td>
+<td>Cumple las reglas del fabricante, puntos de prueba, serigrafía</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Revisión de diseño y lista de errores honestas</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p20">P20 · Banco de pruebas automático</h2>
+<p><strong>Duración:</strong> 2,5 semanas · unas 40 horas · <strong>Nivel:</strong> ★★★★☆</p>
+<h3 id="el-encargo_1">El encargo</h3>
+<blockquote>
+<p>Vas a fabricar 5 unidades (y quizá 100 algún día). No puedes probar cada placa a mano durante media hora: necesitas un banco que diga «correcto» o «defectuosa» en un minuto.</p>
+</blockquote>
+<h3 id="requisitos_1">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_1:1" aria-label="Hecho"> <strong>R1.</strong> Utillaje con agujas de prueba (pogo pins) que hace contacto con los puntos de prueba de tu placa del P19, sin soldar nada.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_1:2" aria-label="Hecho"> <strong>R2.</strong> Un controlador de pruebas (otro ESP32 o un Arduino) mide las tensiones de la placa y su consumo (por ejemplo, con un sensor INA219).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_1:3" aria-label="Hecho"> <strong>R3.</strong> Un script de Python en el ordenador graba el firmware de prueba con <code>esptool</code>, lanza las pruebas y lee los resultados por el puerto serie.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_1:4" aria-label="Hecho"> <strong>R4.</strong> El firmware de prueba comprueba cada periférico (LED, botones, I2C, WiFi) y devuelve los resultados.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_1:5" aria-label="Hecho"> <strong>R5.</strong> Resultado final: <strong>CORRECTA</strong> o <strong>DEFECTUOSA</strong> con el motivo, en menos de 60 segundos por placa.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_1:6" aria-label="Hecho"> <strong>R6.</strong> Cada prueba se guarda en un CSV con el número de serie de la placa, la fecha y todas las medidas.</li>
+</ul>
+<h3 id="teoria-que-necesitas_1">Teoría que necesitas</h3>
+<p><strong>Pruebas de producción.</strong> No buscan errores de diseño (eso ya se hizo), sino defectos de fabricación: soldaduras abiertas, puentes, componentes al revés. Cada prueba debe tener un límite (por ejemplo, 3,3 V ± 3 %).</p>
+<p><strong>Utillaje de agujas.</strong> Una base (impresa en 3D o de metacrilato) con agujas con muelle colocadas exactamente sobre los puntos de prueba. Se diseña a partir de las coordenadas que exporta KiCad.</p>
+<p><strong>Automatización con Python.</strong> La librería <code>pyserial</code> habla con las placas; <code>esptool</code> graba el firmware desde un script.</p>
+<h3 id="entrega_1">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega_1:1" aria-label="Hecho"> Diseño del utillaje y del controlador.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega_1:2" aria-label="Hecho"> Script y firmware de prueba.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega_1:3" aria-label="Hecho"> CSV con las pruebas de tus placas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega_1:4" aria-label="Hecho"> Vídeo probando una placa buena y una con un defecto provocado.</li>
+</ul>
+<h3 id="como-se-evalua_1">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>35 %</td>
+<td>R1–R6, menos de 60 s</td>
+</tr>
+<tr>
+<td>Cobertura</td>
+<td>30 %</td>
+<td>Detecta los defectos provocados (cada periférico)</td>
+</tr>
+<tr>
+<td>Trazabilidad</td>
+<td>15 %</td>
+<td>Registro completo por número de serie</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Otra persona puede usar el banco con tus instrucciones</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p21">P21 · Auditoría de fiabilidad</h2>
+<p><strong>Duración:</strong> 3 semanas · unas 45 horas · <strong>Nivel:</strong> ★★★★☆</p>
+<h3 id="el-encargo_2">El encargo</h3>
+<blockquote>
+<p>Antes de instalar el riego en casa de otras personas, quieres saber cómo puede fallar y estar seguro de que, si falla, lo hace de forma segura.</p>
+</blockquote>
+<h3 id="requisitos_2">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_2:1" aria-label="Hecho"> <strong>R1.</strong> Con el <strong>osciloscopio</strong>: mide el rizado de la alimentación de 3,3 V y la caída de tensión durante los picos de la WiFi.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_2:2" aria-label="Hecho"> <strong>R2.</strong> Con el <strong>analizador lógico</strong> y PulseView: decodifica el tráfico I2C de tus sensores y mide los tiempos de subida de las señales.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_2:3" aria-label="Hecho"> <strong>R3.</strong> Provoca fallos y documenta qué pasa: tensión bajando poco a poco con la fuente de laboratorio, corte de WiFi, sensor desconectado, motor o relé ruidoso cerca, alimentación con polaridad invertida (con protección).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_2:4" aria-label="Hecho"> <strong>R4.</strong> Tabla de análisis de modos de fallo (AMFE): cada fallo, su efecto, su gravedad, su probabilidad y su solución.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_2:5" aria-label="Hecho"> <strong>R5.</strong> Añade las protecciones que falten: detector de caída de tensión (<em>brown-out</em>), fusible rearmable, diodo TVS, comprobación CRC de la configuración guardada.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_2:6" aria-label="Hecho"> <strong>R6.</strong> Repite las pruebas con las protecciones y compara.</li>
+</ul>
+<h3 id="teoria-que-necesitas_2">Teoría que necesitas</h3>
+<p><strong>Osciloscopio.</strong> Muestra cómo cambia una tensión en el tiempo. Aprende a ajustar la escala vertical y horizontal, el disparo (<em>trigger</em>) y el acoplamiento AC para ver el rizado. Conecta siempre la pinza de masa de la sonda a GND.</p>
+<p><strong>Analizador lógico.</strong> Captura muchas señales digitales a la vez y las decodifica (I2C, SPI, UART). Uno barato con el programa libre PulseView basta para estas velocidades.</p>
+<p><strong>AMFE (análisis modal de fallos y efectos).</strong> Método estándar de la industria: se puntúan la gravedad, la ocurrencia y la detectabilidad de cada fallo, y se atiende primero a los de mayor puntuación.</p>
+<p><strong>Fallar de forma segura.</strong> El diseño debe llevar el sistema a un estado inofensivo ante cualquier fallo: válvulas cerradas, motores parados.</p>
+<h3 id="entrega_2">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega_2:1" aria-label="Hecho"> Capturas del osciloscopio y del analizador lógico, explicadas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega_2:2" aria-label="Hecho"> Tabla AMFE.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega_2:3" aria-label="Hecho"> Cambios de hardware y firmware hechos, con las pruebas antes y después.</li>
+</ul>
+<h3 id="como-se-evalua_2">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Medidas</td>
+<td>30 %</td>
+<td>Bien hechas e interpretadas</td>
+</tr>
+<tr>
+<td>Análisis</td>
+<td>30 %</td>
+<td>AMFE completo y priorizado</td>
+</tr>
+<tr>
+<td>Mejoras</td>
+<td>20 %</td>
+<td>Las mejoras corrigen lo encontrado, demostrado con pruebas</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Clara, con capturas</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p22">P22 · Expediente técnico de producto</h2>
+<p><strong>Duración:</strong> 2,5 semanas · unas 35 horas · <strong>Nivel:</strong> ★★★★☆</p>
+<h3 id="el-encargo_3">El encargo</h3>
+<blockquote>
+<p>Un vivero de Sevilla está interesado en vender tu sistema de riego. Antes de hablar de precios, necesitas saber cuánto cuesta fabricarlo y qué hace falta legalmente para venderlo en Europa.</p>
+</blockquote>
+<h3 id="requisitos_3">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_3:1" aria-label="Hecho"> <strong>R1.</strong> <strong>Lista de materiales (BOM)</strong> completa con referencia de fabricante, proveedor y precio para 10 y para 100 unidades.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_3:2" aria-label="Hecho"> <strong>R2.</strong> Coste total por unidad para 10 y 100 unidades: placa, montaje, componentes, caja, embalaje y pruebas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_3:3" aria-label="Hecho"> <strong>R3.</strong> <strong>Ficha técnica</strong> de una página: características, alimentación, consumo, conectividad, condiciones de uso.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_3:4" aria-label="Hecho"> <strong>R4.</strong> <strong>Manual de usuario</strong> con instalación, uso, mantenimiento y avisos de seguridad.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_3:5" aria-label="Hecho"> <strong>R5.</strong> <strong>Análisis de normativa</strong> para el marcado CE: qué directivas y normas aplican, qué pruebas harían falta y su coste estimado (no se certifica, se estudia).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:requisitos_3:6" aria-label="Hecho"> <strong>R6.</strong> Análisis de riesgos del producto (puedes partir de tu AMFE del P21).</li>
+</ul>
+<h3 id="teoria-que-necesitas_3">Teoría que necesitas</h3>
+<p><strong>Marcado CE.</strong> Para vender un aparato electrónico en la Unión Europea, el fabricante declara que cumple las directivas que le aplican. Un dispositivo con WiFi o Bluetooth entra en la <strong>Directiva de equipos radioeléctricos (RED, 2014/53/UE)</strong>, que incluye los requisitos de compatibilidad electromagnética y seguridad eléctrica. Usar un módulo de radio ya certificado simplifica mucho, pero el producto final también debe evaluarse.</p>
+<p><strong>Ciberseguridad.</strong> Desde agosto de 2025, los equipos radio conectados a internet deben cumplir requisitos de ciberseguridad de la RED (Reglamento Delegado (UE) 2022/30, normas EN 18031): contraseñas no por defecto, actualizaciones seguras, protección de datos. El Reglamento de Ciberresiliencia de la UE ampliará estas obligaciones en los próximos años. Compruébalo cuando llegues aquí: esta normativa cambia.</p>
+<p><strong>RoHS y RAEE.</strong> RoHS limita sustancias peligrosas (como el plomo) en los componentes. RAEE regula la recogida y el reciclaje de los aparatos al final de su vida.</p>
+<p><strong>Coste de producto.</strong> El precio de venta suele ser varias veces el coste de fabricación: hay que cubrir garantía, soporte, certificación, distribución y margen.</p>
+<h3 id="entrega_3">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega_3:1" aria-label="Hecho"> BOM en hoja de cálculo.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega_3:2" aria-label="Hecho"> Ficha técnica, manual de usuario y análisis de normativa en PDF.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:entrega_3:3" aria-label="Hecho"> Análisis de riesgos.</li>
+</ul>
+<h3 id="como-se-evalua_3">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BOM y costes</td>
+<td>35 %</td>
+<td>Completa, con precios reales y costes ocultos incluidos</td>
+</tr>
+<tr>
+<td>Normativa</td>
+<td>30 %</td>
+<td>Directivas y normas correctas, plan de pruebas realista</td>
+</tr>
+<tr>
+<td>Documentación de usuario</td>
+<td>20 %</td>
+<td>Manual y ficha profesionales</td>
+</tr>
+<tr>
+<td>Riesgos</td>
+<td>15 %</td>
+<td>Coherentes con el AMFE</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="examen">Examen de salida de la fase 5</h2>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-5:examen:1" aria-label="Hecho"> <strong>Revisión de diseño formal</strong> de la placa del P19, antes de fabricarla, con la lista de comprobación de las plantillas. Te haré las preguntas que haría un ingeniero jefe; si hay errores graves, se corrigen y se repite.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:examen:2" aria-label="Hecho"> <strong>Firmware con pruebas automáticas:</strong> las pruebas unitarias pasan en GitHub Actions en cada cambio, y cubren la lógica de riego y de seguridad.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:examen:3" aria-label="Hecho"> <strong>Coste por unidad</strong> calculado para 10 y para 100 unidades, y defendido.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-5:examen:4" aria-label="Hecho"> <strong>AMFE</strong> con al menos 15 modos de fallo y sus soluciones aplicadas.</li>
+</ul>
+<nav class="pasos" aria-label="Fases"><a href="fase-4.html">← Fase 4</a><a href="fase-6.html">Fase 6 →</a></nav>
+</main>
+<footer class="contenedor pie">Plan de formación con tutor · Arduino Uno, Nano y ESP32 · <a href="https://github.com/davidrayo-tecno/Tecno/tree/main/formacionmicrocontroladores">Fuente en GitHub</a></footer>
+<script src="curso.js"></script>
+</body>
+</html>
