@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plantillas · Formación en microcontroladores</title>
+<meta name="description" content="Plan de formación basado en proyectos para diseñar proyectos profesionales con Arduino Uno, Nano y ESP32.">
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-pagina="plantillas">
+<a class="salto" href="#contenido">Saltar al contenido</a>
+<header class="barra-sup">
+  <div class="contenedor barra-in">
+    <a class="marca" href="index.html"><span class="chip-logo" aria-hidden="true">μC</span><span>Formación en microcontroladores</span></a>
+  </div>
+  <div class="contenedor"><nav class="nav" aria-label="Secciones del curso"><a href="index.html">Plan</a><a href="fase-1.html">Fase 1</a><a href="fase-2.html">Fase 2</a><a href="fase-3.html">Fase 3</a><a href="fase-4.html">Fase 4</a><a href="fase-5.html">Fase 5</a><a href="fase-6.html">Fase 6</a><a href="plantillas.html" aria-current="page">Plantillas</a></nav></div>
+</header>
+<main id="contenido" class="contenedor doc">
+
+<h1 id="plantillas">Plantillas</h1>
+<p>Copia la que necesites con el botón <strong>Copiar</strong>, rellénala y pégala en el chat o en tu repositorio.</p>
+<h2 id="entrega">Plantilla de entrega</h2>
+<p>Úsala cada vez que termines un proyecto. Súbela al chat con las fotos y el vídeo.</p>
+<pre><code class="language-text">ENTREGA · P__ · Nombre del proyecto
+Fecha:
+Horas dedicadas:
+
+1. Repositorio o código:
+   (enlace o código completo)
+
+2. Esquema:
+   (foto o PDF adjunto)
+
+3. Cálculos principales:
+   -
+
+4. Comprobación de requisitos:
+   R1: cumple / no cumple · cómo lo he comprobado:
+   R2:
+   R3:
+
+5. Medidas tomadas:
+   (tensiones, corrientes, consumos, tiempos)
+
+6. Fotos y vídeo:
+   (adjuntos: montaje desde arriba con buena luz, vídeo funcionando)
+
+7. Qué falló y cómo lo resolví:
+   -
+
+8. Dudas para el tutor:
+   -
+</code></pre>
+<h2 id="informe">Informe semanal</h2>
+<p>Cada domingo, 5 minutos.</p>
+<pre><code class="language-text">INFORME SEMANAL · Semana __ · Fase __
+Horas reales esta semana:
+Proyecto en curso:
+
+Qué terminé:
+-
+
+Dónde me atasqué:
+-
+
+Qué aprendí:
+-
+
+Plan para la semana que viene:
+-
+
+Material que me falta:
+-
+</code></pre>
+<h2 id="readme">README de un proyecto</h2>
+<p>Estructura del <code>README.md</code> de cada proyecto en tu repositorio.</p>
+<pre><code class="language-markdown"># P__ · Nombre del proyecto
+
+![Foto del proyecto](fotos/portada.jpg)
+
+## Qué hace
+Una o dos frases.
+
+## Requisitos
+| Requisito | Resultado | Cómo se comprobó |
+| --- | --- | --- |
+| R1 … | Cumple | … |
+
+## Esquema
+![Esquema](esquema.png)
+
+## Cálculos
+…
+
+## Material
+| Cantidad | Componente | Referencia |
+| --- | --- | --- |
+
+## Cómo montarlo y programarlo
+1. …
+
+## Pruebas y medidas
+…
+
+## Problemas encontrados y lecciones aprendidas
+- …
+
+## Vídeo
+[Enlace]
+</code></pre>
+<h2 id="requisitos">Documento de requisitos</h2>
+<p>Para los proyectos de la fase 4 en adelante, y obligatorio en el proyecto final.</p>
+<pre><code class="language-text">REQUISITOS · Nombre del proyecto · versión __
+
+1. Problema que resuelve y para quién:
+
+2. Requisitos funcionales (qué hace), medibles:
+   RF1:
+   RF2:
+
+3. Requisitos no funcionales:
+   - Alimentación y autonomía:
+   - Entorno (interior, exterior, temperatura, humedad):
+   - Tamaño y peso:
+   - Fiabilidad (cuánto tiempo sin fallos):
+   - Seguridad (qué no puede pasar nunca):
+   - Coste máximo por unidad:
+
+4. Fuera de alcance (qué NO hará):
+
+5. Cómo se comprobará cada requisito:
+
+6. Riesgos principales y plan B:
+</code></pre>
+<h2 id="revision">Lista de comprobación de revisión de diseño</h2>
+<p>Repásala tú antes de enviarme un esquema o una PCB. En la revisión formal la recorremos juntos.</p>
+<h3 id="esquema">Esquema</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="plantillas:esquema:1" aria-label="Hecho"> Cada circuito integrado tiene sus condensadores de desacoplo junto a sus pines de alimentación.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:esquema:2" aria-label="Hecho"> Todas las tensiones son compatibles (3,3 V frente a 5 V) en cada conexión entre componentes.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:esquema:3" aria-label="Hecho"> Ningún pin de entrada queda flotando: tiene pull-up, pull-down o una señal que lo fija.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:esquema:4" aria-label="Hecho"> Las cargas inductivas (motores, relés, válvulas) tienen diodo de protección.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:esquema:5" aria-label="Hecho"> La entrada de alimentación tiene protección contra polaridad inversa y fusible.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:esquema:6" aria-label="Hecho"> Los reguladores aguantan el pico de consumo con margen y no se calientan (potencia calculada).</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:esquema:7" aria-label="Hecho"> Los pines especiales del microcontrolador (arranque, programación, flash) se usan como dice la hoja de datos.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:esquema:8" aria-label="Hecho"> El ERC no da errores, o los que da están justificados.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:esquema:9" aria-label="Hecho"> Cada componente tiene referencia real, disponible y con su huella comprobada.</li>
+</ul>
+<h3 id="pcb">PCB</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:1" aria-label="Hecho"> Los conectores están en los bordes y la placa encaja en su caja (medidas comprobadas).</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:2" aria-label="Hecho"> Los anchos de pista corresponden a la corriente de cada una.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:3" aria-label="Hecho"> Hay plano de masa y las pistas de retorno son cortas.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:4" aria-label="Hecho"> Los condensadores de desacoplo están lo más cerca posible de sus pines.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:5" aria-label="Hecho"> La antena (si la hay) tiene su zona libre de cobre y está en el borde.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:6" aria-label="Hecho"> Las zonas de potencia están separadas de las señales sensibles (sensores analógicos).</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:7" aria-label="Hecho"> Hay puntos de prueba para alimentación, masa y programación.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:8" aria-label="Hecho"> La serigrafía indica nombres, polaridades, versión y fecha, y no queda sobre los pads.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:9" aria-label="Hecho"> Hay taladros de montaje.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:10" aria-label="Hecho"> El DRC no da errores con las reglas del fabricante elegido.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:pcb:11" aria-label="Hecho"> La impresión a escala 1:1 encaja con los componentes reales.</li>
+</ul>
+<h3 id="firmware">Firmware</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="plantillas:firmware:1" aria-label="Hecho"> Al arrancar o reiniciarse, todas las salidas quedan en un estado seguro.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:firmware:2" aria-label="Hecho"> No hay esperas bloqueantes en la lógica principal.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:firmware:3" aria-label="Hecho"> Un perro guardián (watchdog) reinicia el sistema si se cuelga.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:firmware:4" aria-label="Hecho"> Los errores (sensor desconectado, fallo de red) se detectan, se registran y no bloquean.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:firmware:5" aria-label="Hecho"> No hay contraseñas ni claves escritas en el código.</li>
+<li class="tarea"><input type="checkbox" data-id="plantillas:firmware:6" aria-label="Hecho"> El código está en módulos con una sola responsabilidad, en Git y con versión.</li>
+</ul>
+
+</main>
+<footer class="contenedor pie">Plan de formación con tutor · Arduino Uno, Nano y ESP32 · <a href="https://github.com/davidrayo-tecno/Tecno/tree/main/formacionmicrocontroladores">Fuente en GitHub</a></footer>
+<script src="curso.js"></script>
+</body>
+</html>

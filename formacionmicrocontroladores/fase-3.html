@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fase 3 · Hardware propio con Arduino Nano y KiCad · Formación en microcontroladores</title>
+<meta name="description" content="Plan de formación basado en proyectos para diseñar proyectos profesionales con Arduino Uno, Nano y ESP32.">
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-pagina="fase-3">
+<a class="salto" href="#contenido">Saltar al contenido</a>
+<header class="barra-sup">
+  <div class="contenedor barra-in">
+    <a class="marca" href="index.html"><span class="chip-logo" aria-hidden="true">μC</span><span>Formación en microcontroladores</span></a>
+  </div>
+  <div class="contenedor"><nav class="nav" aria-label="Secciones del curso"><a href="index.html">Plan</a><a href="fase-1.html">Fase 1</a><a href="fase-2.html">Fase 2</a><a href="fase-3.html" aria-current="page">Fase 3</a><a href="fase-4.html">Fase 4</a><a href="fase-5.html">Fase 5</a><a href="fase-6.html">Fase 6</a><a href="plantillas.html">Plantillas</a></nav></div>
+</header>
+<main id="contenido" class="contenedor doc">
+<nav class="chips" aria-label="En esta página"><a href="#p9">P9</a><a href="#p10">P10</a><a href="#p11">P11</a><a href="#p12">P12</a><a href="#p13">P13</a><a href="#examen">Examen</a></nav>
+<h1 id="fase-3-hardware-propio-con-arduino-nano-y-kicad">Fase 3 · Hardware propio con Arduino Nano y KiCad</h1>
+<p>Al terminar esta fase <strong>sales de la protoboard</strong>: sueldas con calidad, diseñas y encargas tus propias placas de circuito impreso, haces dispositivos que duran meses con pilas y los metes en una caja diseñada por ti.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Duración</strong></td>
+<td>12 semanas · unas 180 horas</td>
+</tr>
+<tr>
+<td><strong>Placas</strong></td>
+<td>Arduino Nano y ATmega328P sin placa</td>
+</tr>
+<tr>
+<td><strong>Proyectos</strong></td>
+<td>P9 Soldadura · P10 Primera PCB · P11 Registrador de bajo consumo · P12 Caja · P13 Código modular</td>
+</tr>
+<tr>
+<td><strong>Examen</strong></td>
+<td>Diseño y fabricación de una placa nueva, en 2 semanas</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Planifica los envíos:</strong> un pedido de PCB tarda de 1 a 3 semanas en llegar. Diseña el P10 pronto y trabaja en el P11 mientras esperas.</p>
+</blockquote>
+<hr />
+<h2 id="p9">P9 · El termómetro del P3, soldado en placa perforada</h2>
+<p><strong>Duración:</strong> 2 semanas · unas 25 horas · <strong>Nivel:</strong> ★★☆☆☆</p>
+<h3 id="el-encargo">El encargo</h3>
+<blockquote>
+<p>La bodega del P3 está contenta, pero un montaje en protoboard no aguanta en un almacén: los cables se sueltan. Quiere el mismo termómetro, soldado y fiable.</p>
+</blockquote>
+<h3 id="requisitos">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos:1" aria-label="Hecho"> <strong>R1.</strong> Practica primero con un kit de soldadura o con restos: al menos 50 soldaduras revisadas con lupa.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos:2" aria-label="Hecho"> <strong>R2.</strong> El termómetro del P3 con un Arduino Nano, soldado en placa perforada (de tiras o de islas).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos:3" aria-label="Hecho"> <strong>R3.</strong> Nano, pantalla y sensores van en <strong>conectores</strong>, no soldados directamente: se pueden cambiar.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos:4" aria-label="Hecho"> <strong>R4.</strong> Antes de alimentar, compruebas con el multímetro en continuidad que no hay cortocircuito entre 5 V y GND.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos:5" aria-label="Hecho"> <strong>R5.</strong> Cada soldadura es brillante y con forma de cono, sin bolas ni puentes.</li>
+</ul>
+<h3 id="material">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Estación de soldadura con temperatura regulable</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Estaño de 0,8 mm con flux, malla desoldadora y flux en pasta</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Kit de práctica de soldadura</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Placa perforada de unos 7 × 9 cm</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Arduino Nano, tiras de pines hembra y bornas de tornillo</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas">Teoría que necesitas</h3>
+<p><strong>Temperatura.</strong> Para estaño sin plomo, la punta suele ir a unos 330–370 °C; con estaño con plomo, algo menos. Demasiado calor quema las pistas; demasiado poco hace soldaduras frías y grises.</p>
+<p><strong>La técnica.</strong> Calienta a la vez la pista y la patilla (1–2 s), acerca el estaño a la unión (no a la punta), retira el estaño y luego el soldador. Total: 3–4 segundos.</p>
+<p><strong>Soldadura buena y mala.</strong> Buena: cono cóncavo que moja la patilla y la pista. Fría: bola gris que no se adhiere. Puente: estaño que une dos pistas. Se corrigen con malla y flux.</p>
+<p><strong>Seguridad.</strong> Ventila: el humo del flux irrita. Lávate las manos después, sobre todo con estaño con plomo. El soldador siempre en su soporte. Gafas al cortar patillas.</p>
+<h3 id="plan-de-trabajo">Plan de trabajo</h3>
+<ol>
+<li><strong>Diseño:</strong> dibuja en papel cuadriculado la distribución de los componentes en la placa perforada, con las pistas y los cortes.</li>
+<li><strong>Prototipo:</strong> kit de práctica primero; después la placa, componente a componente, comprobando continuidad.</li>
+<li><strong>Pruebas:</strong> continuidad antes de alimentar; después el programa del P3 sin cambios.</li>
+<li><strong>Documentación:</strong> fotos de la placa por las dos caras, con macro o lupa.</li>
+</ol>
+<h3 id="pistas">Pistas</h3>
+<details>
+<summary>Pista 1 · El estaño no se pega</summary>
+<p>Limpia la punta en la esponja o el estropajo de latón y estáñala. Añade flux. Comprueba que calientas también la pista, no solo la patilla.</p>
+</details>
+<h3 id="entrega">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega:1" aria-label="Hecho"> Plano de distribución en papel.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega:2" aria-label="Hecho"> Fotos de las dos caras de la placa.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega:3" aria-label="Hecho"> Vídeo del termómetro funcionando en la placa.</li>
+</ul>
+<h3 id="como-se-evalua">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Calidad de soldadura</td>
+<td>50 %</td>
+<td>Todas las uniones correctas en las fotos</td>
+</tr>
+<tr>
+<td>Funcionamiento</td>
+<td>30 %</td>
+<td>Igual que en el P3</td>
+</tr>
+<tr>
+<td>Planificación</td>
+<td>20 %</td>
+<td>Distribución ordenada y conectores</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p10">P10 · Tu primera PCB: placa base para Arduino Nano</h2>
+<p><strong>Duración:</strong> 4 semanas (más el envío) · unas 50 horas · <strong>Nivel:</strong> ★★★☆☆</p>
+<h3 id="el-encargo_1">El encargo</h3>
+<blockquote>
+<p>Quieres una placa propia para todos tus prototipos con Nano: alimentación protegida, conectores cómodos y lo que siempre acabas montando con cables.</p>
+</blockquote>
+<h3 id="requisitos_1">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_1:1" aria-label="Hecho"> <strong>R1.</strong> Zócalo para un Arduino Nano.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_1:2" aria-label="Hecho"> <strong>R2.</strong> Entrada de alimentación de 7 a 12 V por borna de tornillo, con <strong>protección contra polaridad inversa</strong>, hacia el pin VIN del Nano.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_1:3" aria-label="Hecho"> <strong>R3.</strong> 2 LED, 2 pulsadores, un conector I2C de 4 pines, un conector para el DS18B20 con su resistencia y 4 pines libres a bornas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_1:4" aria-label="Hecho"> <strong>R4.</strong> Placa de 2 capas de como mucho 80 × 60 mm, con 4 taladros de montaje de 3,2 mm.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_1:5" aria-label="Hecho"> <strong>R5.</strong> Serigrafía con el nombre de cada conector, la polaridad y tu nombre y versión.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_1:6" aria-label="Hecho"> <strong>R6.</strong> Comprobación de reglas eléctricas (ERC) y de diseño (DRC) <strong>sin errores</strong>.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_1:7" aria-label="Hecho"> <strong>R7.</strong> Revisión de diseño conmigo <strong>antes</strong> de encargarla.</li>
+</ul>
+<h3 id="material_1">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>KiCad, última versión estable</td>
+<td>Gratuito</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Pedido de 5 placas a un fabricante</td>
+<td>Por ejemplo, JLCPCB, PCBWay o Aisler</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Componentes de agujero pasante</td>
+<td>Según tu lista de materiales</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas_1">Teoría que necesitas</h3>
+<p><strong>Flujo de trabajo en KiCad.</strong></p>
+<ol>
+<li><strong>Esquema:</strong> colocas símbolos, los conectas y das valores. El ERC busca errores como pines sin conectar o salidas unidas.</li>
+<li><strong>Huellas:</strong> a cada símbolo le asignas su huella real (el tamaño físico de sus pads). Comprueba las medidas con la hoja de datos o con el componente y un calibre.</li>
+<li><strong>PCB:</strong> dibujas el contorno, colocas componentes, trazas pistas y añades un plano de masa. El DRC comprueba distancias y anchos.</li>
+<li><strong>Fabricación:</strong> exportas los ficheros Gerber y de taladros, los revisas en un visor y los subes al fabricante.</li>
+</ol>
+<p><strong>Ancho de pista.</strong> Depende de la corriente: para señales bastan 0,25 mm; para alimentación de hasta 1 A, unos 0,5–1 mm en cobre normal. KiCad tiene una calculadora integrada.</p>
+<p><strong>Plano de masa.</strong> Rellenar con GND las zonas libres reduce el ruido y facilita el ruteo.</p>
+<p><strong>Protección contra polaridad inversa.</strong> Un diodo en serie es lo más sencillo (pierde unos 0,7 V; uno Schottky, unos 0,3 V). Otra opción es un MOSFET de canal P, que casi no pierde tensión.</p>
+<p><strong>Colocación antes que ruteo.</strong> Agrupa por función, conectores en los bordes, y piensa en cómo vas a montar la placa en una caja.</p>
+<h3 id="plan-de-trabajo_1">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> lista de materiales con referencias reales y enlaces.</li>
+<li><strong>Diseño:</strong> esquema, huellas, colocación, ruteo, plano de masa, ERC y DRC. Imprime la PCB a escala 1:1 y pincha los componentes en el papel para comprobar las huellas.</li>
+<li><strong>Revisión:</strong> envíame las capturas del esquema, de las capas y la vista 3D.</li>
+<li><strong>Fabricación y montaje:</strong> encarga, suelda los componentes de menor a mayor altura y comprueba continuidad antes de alimentar.</li>
+<li><strong>Pruebas y documentación:</strong> prueba cada función, apunta los errores de diseño para la versión 2.</li>
+</ol>
+<h3 id="pistas_1">Pistas</h3>
+<details>
+<summary>Pista 1 · ¿Qué huella tiene el Nano?</summary>
+<p>Dos filas de 15 pines con paso de 2,54 mm y 15,24 mm (600 mil) entre filas. Puedes usar dos conectores de 1×15 o buscar una huella de Arduino Nano en las librerías de KiCad.</p>
+</details>
+<details>
+<summary>Pista 2 · No consigo rutear sin cruzar pistas</summary>
+<p>Cambia de capa con una vía, o mueve componentes. A menudo girar un conector 180° deshace los cruces.</p>
+</details>
+<h3 id="retos-extra">Retos extra</h3>
+<ul>
+<li>Añade un conector para programar el ATmega328P por ICSP.</li>
+<li>Haz la versión 2 corrigiendo los errores de la primera.</li>
+</ul>
+<h3 id="entrega_1">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_1:1" aria-label="Hecho"> Proyecto de KiCad completo en tu repositorio.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_1:2" aria-label="Hecho"> Esquema en PDF y capturas de las capas y de la vista 3D.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_1:3" aria-label="Hecho"> Ficheros de fabricación.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_1:4" aria-label="Hecho"> Fotos de la placa montada y vídeo funcionando.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_1:5" aria-label="Hecho"> Lista de errores encontrados y cómo los corregirías.</li>
+</ul>
+<h3 id="como-se-evalua_1">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funciona a la primera</td>
+<td>30 %</td>
+<td>Sin correcciones o con 1 corrección documentada</td>
+</tr>
+<tr>
+<td>Calidad del diseño</td>
+<td>30 %</td>
+<td>Esquema claro, colocación lógica, anchos correctos, plano de masa</td>
+</tr>
+<tr>
+<td>Fabricabilidad</td>
+<td>20 %</td>
+<td>DRC limpio, serigrafía útil, taladros de montaje</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Lista de errores y mejoras honesta</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p11">P11 · Registrador de datos de bajo consumo</h2>
+<p><strong>Duración:</strong> 3 semanas · unas 50 horas · <strong>Nivel:</strong> ★★★★☆</p>
+<h3 id="el-encargo_2">El encargo</h3>
+<blockquote>
+<p>Un viticultor quiere saber la temperatura en distintos puntos de su viña durante toda la temporada. Los aparatos deben funcionar <strong>al menos 6 meses con 3 pilas AA</strong>, sin cables y sin tocarlos.</p>
+</blockquote>
+<h3 id="requisitos_2">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_2:1" aria-label="Hecho"> <strong>R1.</strong> Mide la temperatura cada 10 minutos y la guarda con fecha y hora en una memoria EEPROM I2C externa.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_2:2" aria-label="Hecho"> <strong>R2.</strong> Entre medidas, el microcontrolador y los periféricos duermen. Lo despierta la alarma del reloj DS3231.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_2:3" aria-label="Hecho"> <strong>R3.</strong> Consumo en reposo <strong>menor de 50 µA</strong>, medido.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_2:4" aria-label="Hecho"> <strong>R4.</strong> Autonomía calculada <strong>de 6 meses o más</strong> con 3 pilas AA, con el consumo medido en reposo y durante la medida.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_2:5" aria-label="Hecho"> <strong>R5.</strong> Al pulsar un botón, vuelca todos los datos por el puerto serie en CSV.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_2:6" aria-label="Hecho"> <strong>R6.</strong> Si las pilas bajan de un nivel, guarda un aviso y deja de medir antes de corromper datos.</li>
+</ul>
+<h3 id="material_2">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Arduino Nano para desarrollar</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>ATmega328P sin placa con cristal de 8 MHz o un Arduino Pro Mini de 3,3 V</td>
+<td>Versión final</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Memoria EEPROM I2C AT24C256</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>RTC DS3231</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Sensor de temperatura de bajo consumo</td>
+<td>Por ejemplo, el BME280 en modo forzado</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Portapilas de 3 AA</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas_2">Teoría que necesitas</h3>
+<p><strong>Dónde se va la energía.</strong> En una placa Arduino el microcontrolador es solo una parte: el LED de encendido, el regulador y el chip USB consumen varios miliamperios aunque el micro duerma. Por eso la versión final usa el microcontrolador sin placa o una placa modificada (sin LED ni regulador).</p>
+<p><strong>Modos de reposo.</strong> El ATmega328P en <em>power-down</em> consume menos de 1 µA. Se despierta con una interrupción externa (como la alarma del DS3231 en el pin 2) o con el perro guardián (<em>watchdog</em>). Antes de dormir, apaga el ADC y los periféricos que no uses.</p>
+<p><strong>Consumo medio y autonomía.</strong></p>
+<pre><code>I media = (I activa · t activa + I reposo · t reposo) / (t activa + t reposo)
+Autonomía (h) = Capacidad (mAh) / I media (mA)
+</code></pre>
+<p>Ejemplo: 5 mA durante 200 ms cada 10 minutos y 20 µA el resto da una media de unos 0,022 mA. Con 2.000 mAh, la autonomía teórica es de unas 90.000 horas; en la práctica se aplica un margen por autodescarga y temperatura.</p>
+<p><strong>Medir microamperios.</strong> Pon el multímetro en el rango de µA, en serie. Ojo: en ese rango el multímetro mete una resistencia que puede reiniciar el micro al despertar. Mide el reposo y el pico por separado.</p>
+<p><strong>EEPROM externa.</strong> Gasta mucho menos que una tarjeta SD y guarda decenas de miles de medidas. Se escribe por páginas de 64 bytes.</p>
+<h3 id="plan-de-trabajo_2">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> calcula cuánta memoria necesitas para 6 meses y qué consumo medio máximo puedes permitirte.</li>
+<li><strong>Diseño:</strong> esquema; cálculo de autonomía con datos de las hojas de datos.</li>
+<li><strong>Prototipo:</strong> primero funciona despierto con el Nano; después añade el reposo; mide el consumo; pasa a la versión final y vuelve a medir.</li>
+<li><strong>Pruebas:</strong> registra 72 horas; compara el consumo medido con el calculado.</li>
+<li><strong>Documentación:</strong> tabla de consumos de cada versión y lo que ahorró cada cambio.</li>
+</ol>
+<h3 id="pistas_2">Pistas</h3>
+<details>
+<summary>Pista 1 · El Nano sigue gastando 15 mA dormido</summary>
+<p>Es lo esperado: lo gasta la placa, no el micro. Anótalo como primera medida y pasa a la versión sin placa. Esa diferencia es la lección del proyecto.</p>
+</details>
+<details>
+<summary>Pista 2 · No se despierta</summary>
+<p>La alarma del DS3231 pone su pin SQW/INT a nivel bajo y no lo suelta hasta que borras la bandera de alarma por I2C. Bórrala al despertar o no habrá segunda interrupción.</p>
+</details>
+<h3 id="retos-extra_1">Retos extra</h3>
+<ul>
+<li>Mide la tensión de las pilas sin gastar energía en el divisor (con un MOSFET que lo conecta solo al medir).</li>
+<li>Lleva la autonomía a 2 años.</li>
+</ul>
+<h3 id="entrega_2">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_2:1" aria-label="Hecho"> Esquema y cálculo de autonomía.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_2:2" aria-label="Hecho"> Tabla de consumos medidos por versión.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_2:3" aria-label="Hecho"> Código.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_2:4" aria-label="Hecho"> Datos de 72 horas en CSV.</li>
+</ul>
+<h3 id="como-se-evalua_2">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consumo</td>
+<td>35 %</td>
+<td>Reposo menor de 50 µA, medido</td>
+</tr>
+<tr>
+<td>Cálculo de autonomía</td>
+<td>25 %</td>
+<td>Coincide con lo medido con un margen de ±20 %</td>
+</tr>
+<tr>
+<td>Fiabilidad</td>
+<td>20 %</td>
+<td>72 horas sin perder datos y protección de pilas bajas</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Cada ahorro explicado y medido</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p12">P12 · Caja a medida</h2>
+<p><strong>Duración:</strong> 1,5 semanas · unas 25 horas · <strong>Nivel:</strong> ★★☆☆☆</p>
+<h3 id="el-encargo_3">El encargo</h3>
+<blockquote>
+<p>El registrador del P11 va a pasar meses a la intemperie. Necesita una caja que proteja la electrónica, deje respirar al sensor y permita cambiar las pilas.</p>
+</blockquote>
+<h3 id="requisitos_3">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_3:1" aria-label="Hecho"> <strong>R1.</strong> Diseño en 3D (FreeCAD o Fusion) con las medidas reales de tu placa, tomadas con calibre.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_3:2" aria-label="Hecho"> <strong>R2.</strong> La placa se fija con tornillos M3, no con pegamento.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_3:3" aria-label="Hecho"> <strong>R3.</strong> El sensor queda expuesto al aire pero protegido del sol directo y de la lluvia.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_3:4" aria-label="Hecho"> <strong>R4.</strong> Las pilas se cambian sin desmontar la placa.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_3:5" aria-label="Hecho"> <strong>R5.</strong> Impresa en PETG o ASA (aguantan mejor el sol y el calor que el PLA), por ti o por un servicio.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_3:6" aria-label="Hecho"> <strong>R6.</strong> Etiqueta con nombre, versión y fecha de cambio de pilas.</li>
+</ul>
+<h3 id="teoria-que-necesitas_3">Teoría que necesitas</h3>
+<p><strong>Tolerancias de impresión 3D.</strong> Deja 0,2–0,4 mm de holgura en los encajes: las piezas impresas salen algo más gordas de lo dibujado.</p>
+<p><strong>Diseño para imprimir.</strong> Evita voladizos de más de 45° sin soporte, usa paredes de al menos 1,6 mm y pon insertos roscados de latón para los tornillos que se abren a menudo.</p>
+<p><strong>Protección.</strong> El código IP indica la protección contra polvo y agua (IP54, IP65…). En una caja impresa casera no se garantiza, pero se mejora con juntas y con las aberturas hacia abajo.</p>
+<h3 id="plan-de-trabajo_3">Plan de trabajo</h3>
+<ol>
+<li>Mide la placa, el portapilas y el sensor.</li>
+<li>Dibuja la caja, imprime una prueba rápida solo de la base para comprobar los taladros.</li>
+<li>Imprime la versión final y monta.</li>
+<li>Prueba: 1 semana en exterior; comprueba humedad dentro.</li>
+</ol>
+<h3 id="entrega_3">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_3:1" aria-label="Hecho"> Ficheros del diseño 3D y ficheros para imprimir.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_3:2" aria-label="Hecho"> Fotos de la caja montada y abierta.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_3:3" aria-label="Hecho"> Resultado de la semana en exterior.</li>
+</ul>
+<h3 id="como-se-evalua_3">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encaje y montaje</td>
+<td>40 %</td>
+<td>Todo encaja a la primera o a la segunda impresión</td>
+</tr>
+<tr>
+<td>Protección y uso</td>
+<td>40 %</td>
+<td>Sensor bien ventilado, pilas accesibles, interior seco</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Ficheros editables incluidos</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p13">P13 · Código modular y profesional</h2>
+<p><strong>Duración:</strong> 1,5 semanas · unas 30 horas · <strong>Nivel:</strong> ★★★☆☆</p>
+<h3 id="el-encargo_4">El encargo</h3>
+<blockquote>
+<p>Tus programas crecen y cada proyecto copias trozos del anterior. Toca organizarlo como lo haría una empresa: módulos reutilizables, control de versiones serio y un entorno profesional.</p>
+</blockquote>
+<h3 id="requisitos_4">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_4:1" aria-label="Hecho"> <strong>R1.</strong> Pasa el proyecto del P11 a <strong>PlatformIO</strong> en VS Code.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_4:2" aria-label="Hecho"> <strong>R2.</strong> Divide el código en módulos <code>.h</code> / <code>.cpp</code>: sensor, memoria, reloj, energía y botón.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_4:3" aria-label="Hecho"> <strong>R3.</strong> Crea una clase <code>Boton</code> con antirrebote que puedas reutilizar, y úsala también en una versión nueva del P4.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_4:4" aria-label="Hecho"> <strong>R4.</strong> Ningún fichero pasa de 200 líneas; ninguna función, de 40.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_4:5" aria-label="Hecho"> <strong>R5.</strong> Git con ramas por funcionalidad, mensajes de commit claros y una etiqueta de versión (<code>v1.0</code>).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:requisitos_4:6" aria-label="Hecho"> <strong>R6.</strong> Un README técnico explica la arquitectura con un diagrama de módulos.</li>
+</ul>
+<h3 id="teoria-que-necesitas_4">Teoría que necesitas</h3>
+<p><strong>Clases en C++.</strong> Agrupan datos y funciones relacionados. Una clase <code>Boton</code> guarda su pin, su último estado y el momento del último cambio, y ofrece métodos como <code>pulsado()</code>. Cada botón es un objeto.</p>
+<p><strong>Cabeceras y ficheros de código.</strong> El <code>.h</code> declara qué ofrece un módulo (su interfaz); el <code>.cpp</code> lo implementa. El resto del programa solo necesita el <code>.h</code>.</p>
+<p><strong>PlatformIO.</strong> Gestiona placas, librerías y versiones en un fichero <code>platformio.ini</code>, de forma que el proyecto compila igual en cualquier ordenador.</p>
+<p><strong>Versiones.</strong> Etiquetas como <code>v1.0.0</code> (versionado semántico: mayor.menor.corrección) marcan qué código lleva cada aparato.</p>
+<h3 id="plan-de-trabajo_4">Plan de trabajo</h3>
+<ol>
+<li>Crea el proyecto en PlatformIO y haz que compile el código actual tal cual.</li>
+<li>Extrae un módulo cada vez y comprueba que todo sigue funcionando tras cada cambio.</li>
+<li>Escribe la clase <code>Boton</code> y úsala en dos proyectos.</li>
+<li>Revisa con el diagrama de módulos que no hay dependencias cruzadas.</li>
+</ol>
+<h3 id="entrega_4">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_4:1" aria-label="Hecho"> Repositorio con historial de ramas y la etiqueta <code>v1.0</code>.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_4:2" aria-label="Hecho"> Diagrama de módulos.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:entrega_4:3" aria-label="Hecho"> El P4 reescrito usando la clase <code>Boton</code>.</li>
+</ul>
+<h3 id="como-se-evalua_4">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estructura</td>
+<td>40 %</td>
+<td>Módulos con una sola responsabilidad, sin variables globales compartidas</td>
+</tr>
+<tr>
+<td>Reutilización</td>
+<td>25 %</td>
+<td>La clase <code>Boton</code> funciona sin cambios en dos proyectos</td>
+</tr>
+<tr>
+<td>Git</td>
+<td>15 %</td>
+<td>Historial limpio y etiquetado</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Arquitectura clara</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="examen">Examen de salida de la fase 3</h2>
+<h3 id="encargo-2-semanas-mas-el-envio">Encargo (2 semanas, más el envío)</h3>
+<p><strong>Controlador de tira LED de 12 V.</strong> Diseña, fabrica y monta una placa con un Arduino Nano (o ATmega328P) que controle una tira LED RGB de 12 V y hasta 2 A por canal:</p>
+<ul>
+<li>Entrada de 12 V por borna, con fusible y protección contra polaridad inversa.</li>
+<li>Regulación a 5 V para el microcontrolador.</li>
+<li>3 canales con MOSFET de nivel lógico y PWM.</li>
+<li>2 pulsadores y un conector I2C para ampliaciones.</li>
+<li>Pistas dimensionadas para la corriente.</li>
+</ul>
+<p>Esta vez <strong>no hay revisión previa conmigo</strong>: me envías el diseño ya encargado, y lo reviso después junto con la placa montada.</p>
+<h3 id="para-aprobar">Para aprobar</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-3:para-aprobar:1" aria-label="Hecho"> La placa funciona a la primera o con 2 correcciones como máximo, documentadas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:para-aprobar:2" aria-label="Hecho"> Con los tres canales al máximo durante 15 minutos, ningún MOSFET ni pista se calienta de forma peligrosa (mídelo o tócalo con cuidado y documéntalo).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:para-aprobar:3" aria-label="Hecho"> Ancho de pistas y disipación justificados por escrito.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-3:para-aprobar:4" aria-label="Hecho"> Código modular en PlatformIO con efectos de color controlados por los botones.</li>
+</ul>
+<nav class="pasos" aria-label="Fases"><a href="fase-2.html">← Fase 2</a><a href="fase-4.html">Fase 4 →</a></nav>
+</main>
+<footer class="contenedor pie">Plan de formación con tutor · Arduino Uno, Nano y ESP32 · <a href="https://github.com/davidrayo-tecno/Tecno/tree/main/formacionmicrocontroladores">Fuente en GitHub</a></footer>
+<script src="curso.js"></script>
+</body>
+</html>

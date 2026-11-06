@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fase 1 · Fundamentos con Arduino Uno · Formación en microcontroladores</title>
+<meta name="description" content="Plan de formación basado en proyectos para diseñar proyectos profesionales con Arduino Uno, Nano y ESP32.">
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-pagina="fase-1">
+<a class="salto" href="#contenido">Saltar al contenido</a>
+<header class="barra-sup">
+  <div class="contenedor barra-in">
+    <a class="marca" href="index.html"><span class="chip-logo" aria-hidden="true">μC</span><span>Formación en microcontroladores</span></a>
+  </div>
+  <div class="contenedor"><nav class="nav" aria-label="Secciones del curso"><a href="index.html">Plan</a><a href="fase-1.html" aria-current="page">Fase 1</a><a href="fase-2.html">Fase 2</a><a href="fase-3.html">Fase 3</a><a href="fase-4.html">Fase 4</a><a href="fase-5.html">Fase 5</a><a href="fase-6.html">Fase 6</a><a href="plantillas.html">Plantillas</a></nav></div>
+</header>
+<main id="contenido" class="contenedor doc">
+<nav class="chips" aria-label="En esta página"><a href="#semana-0">Semana 0</a><a href="#p1">P1</a><a href="#p2">P2</a><a href="#p3">P3</a><a href="#p4">P4</a><a href="#examen">Examen</a></nav>
+<h1 id="fase-1-fundamentos-con-arduino-uno">Fase 1 · Fundamentos con Arduino Uno</h1>
+<p>Al terminar esta fase entiendes <strong>lo que conectas y por qué funciona</strong>: calculas resistencias, lees entradas digitales y analógicas, controlas salidas con PWM y escribes programas que hacen varias cosas a la vez sin bloquearse.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Duración</strong></td>
+<td>12 semanas · unas 180 horas</td>
+</tr>
+<tr>
+<td><strong>Placa</strong></td>
+<td>Arduino Uno (original o compatible)</td>
+</tr>
+<tr>
+<td><strong>Proyectos</strong></td>
+<td>P1 Semáforo · P2 Luz nocturna · P3 Termómetro · P4 Juego tipo Simón</td>
+</tr>
+<tr>
+<td><strong>Examen</strong></td>
+<td>Alarma de puerta con código, en 6 horas</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="semana-0">Semana 0 · Preparación</h2>
+<p>Antes del primer proyecto deja listo tu puesto de trabajo. Dedica unas 10 horas.</p>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-1:semana-0:1" aria-label="Hecho"> Instala <strong>Arduino IDE 2</strong> y comprueba que subes el ejemplo <em>Blink</em> a la placa.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:semana-0:2" aria-label="Hecho"> Instala <strong>Git</strong>, crea una cuenta de GitHub y un repositorio llamado <code>proyectos-microcontroladores</code> para tus entregas.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:semana-0:3" aria-label="Hecho"> Aprende a usar el <strong>multímetro</strong>: tensión continua, resistencia, continuidad y corriente (en serie, con la punta en el borne de mA).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:semana-0:4" aria-label="Hecho"> Mide con el multímetro las resistencias del kit y compáralas con su código de colores.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:semana-0:5" aria-label="Hecho"> Monta en la protoboard un LED con su resistencia alimentado desde los 5 V del Arduino, sin programa. Mide la tensión en el LED y en la resistencia: deben sumar unos 5 V.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:semana-0:6" aria-label="Hecho"> Lee las normas de seguridad de la portada del curso.</li>
+</ul>
+<p><strong>Entrega de la semana 0:</strong> foto de tu puesto de trabajo, captura de <em>Blink</em> funcionando y las medidas del LED en una tabla.</p>
+<hr />
+<h2 id="p1">P1 · Semáforo con pulsador de peatones</h2>
+<p><strong>Duración:</strong> 3 semanas · unas 40 horas · <strong>Nivel:</strong> ★☆☆☆☆</p>
+<h3 id="el-encargo">El encargo</h3>
+<blockquote>
+<p>El ayuntamiento quiere una maqueta de un paso de peatones para explicar a los niños de un colegio cómo funciona. El semáforo de coches está en verde hasta que un peatón pulsa el botón. Entonces, cuando sea seguro, el semáforo cambia y deja pasar a los peatones.</p>
+</blockquote>
+<h3 id="requisitos">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos:1" aria-label="Hecho"> <strong>R1.</strong> Semáforo de coches con LED rojo, ámbar y verde; semáforo de peatones con LED rojo y verde.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos:2" aria-label="Hecho"> <strong>R2.</strong> En reposo: coches en verde, peatones en rojo.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos:3" aria-label="Hecho"> <strong>R3.</strong> Al pulsar el botón, los coches siguen en verde hasta completar <strong>al menos 10 s</strong> de verde desde el último cambio.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos:4" aria-label="Hecho"> <strong>R4.</strong> Secuencia: ámbar de coches 3 s → rojo de coches → 1 s de seguridad → verde de peatones 8 s → verde de peatones parpadeando 4 s (medio segundo encendido, medio apagado) → rojo de peatones → 1 s de seguridad → verde de coches.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos:5" aria-label="Hecho"> <strong>R5.</strong> Una pulsación en cualquier momento del verde de coches se atiende. Las pulsaciones durante el ciclo de peatones se ignoran.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos:6" aria-label="Hecho"> <strong>R6.</strong> Ningún LED consume más de <strong>15 mA</strong>, medido con el multímetro.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos:7" aria-label="Hecho"> <strong>R7.</strong> Los tiempos tienen un error menor de 0,2 s (compruébalo con el cronómetro del móvil o grabando un vídeo).</li>
+</ul>
+<h3 id="material">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Arduino Uno y cable USB</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Protoboard y cables</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>LED rojo de 5 mm</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>LED ámbar o amarillo de 5 mm</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>LED verde de 5 mm</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Resistencias (valor a calcular por ti)</td>
+<td>Pista: entre 150 Ω y 330 Ω</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Pulsador de 4 patas</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas">Teoría que necesitas</h3>
+<p><strong>Ley de Ohm.</strong> La tensión en una resistencia es proporcional a la corriente que la atraviesa: <em>V = I · R</em>. Si conoces dos de los tres valores, calculas el tercero.</p>
+<p><strong>El LED no es una resistencia.</strong> Un LED encendido tiene una caída de tensión casi fija, la <em>tensión directa</em> (Vf): unos 2 V en rojo y ámbar, y entre 2 y 3,2 V en verde según el modelo (mira su hoja de datos). La resistencia en serie se lleva el resto de la tensión y es la que limita la corriente:</p>
+<pre><code>R = (Vcc − Vf) / I
+</code></pre>
+<p>Ejemplo con un LED rojo a 15 mA: R = (5 − 2) / 0,015 = 200 Ω. Como 200 Ω no es un valor comercial, se elige el siguiente de la serie E12: <strong>220 Ω</strong>, que da algo menos de corriente.</p>
+<p><strong>Límites del Arduino Uno.</strong> Cada pin de salida da como mucho 20 mA de forma segura (40 mA es el máximo absoluto, que daña el microcontrolador) y el chip entero no debe pasar de unos 200 mA. Nunca conectes un LED a un pin sin resistencia.</p>
+<p><strong>Entradas digitales y resistencia de pull-up.</strong> Un pin configurado como entrada sin nada conectado está «flotando» y lee valores al azar. Con <code>pinMode(pin, INPUT_PULLUP)</code> se activa una resistencia interna a 5 V: el pin lee <code>HIGH</code> en reposo y <code>LOW</code> cuando el pulsador lo une a GND. La lógica queda invertida.</p>
+<p><strong>Rebote.</strong> Al pulsar, los contactos metálicos rebotan durante unos milisegundos y el Arduino ve varias pulsaciones. En este proyecto basta con ignorar cambios durante unos 30 ms tras el primero.</p>
+<p><strong>Diagrama de estados.</strong> Antes de programar, dibuja cada situación del semáforo (estado) como una caja y cada cambio (transición) como una flecha con su condición: «han pasado 3 s», «se ha pulsado el botón». El programa será la traducción de ese dibujo.</p>
+<h3 id="plan-de-trabajo">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> léelos y escribe con tus palabras cualquier duda. ¿Qué pasa si el peatón pulsa 5 veces?</li>
+<li><strong>Diseño:</strong><ul>
+<li>Calcula la resistencia de cada color de LED con su tensión directa real.</li>
+<li>Dibuja el esquema a mano: Arduino, cinco LED con su resistencia y el pulsador.</li>
+<li>Dibuja el diagrama de estados completo.</li>
+</ul>
+</li>
+<li><strong>Prototipo:</strong><ul>
+<li>Monta un solo LED y haz que parpadee. Mide su corriente con el multímetro en serie.</li>
+<li>Monta los cinco LED y prueba que cada uno enciende con un programa sencillo.</li>
+<li>Añade el pulsador y muestra su estado por el monitor serie.</li>
+<li>Programa la secuencia completa siguiendo tu diagrama de estados.</li>
+</ul>
+</li>
+<li><strong>Pruebas:</strong> comprueba cada requisito y anota el resultado. Graba un vídeo del ciclo completo.</li>
+<li><strong>Documentación:</strong> README con esquema, diagrama de estados, cálculos, tabla de pruebas y vídeo.</li>
+</ol>
+<h3 id="pistas">Pistas</h3>
+<details>
+<summary>Pista 1 · No sé por dónde empezar el programa</summary>
+<p>Guarda el estado actual en una variable, por ejemplo <code>int estado = 0;</code>, y numera los estados de tu diagrama. En <code>loop()</code>, usa un <code>switch (estado)</code> con un <code>case</code> por estado. Cada <code>case</code> enciende sus LED y decide si toca pasar al siguiente.</p>
+</details>
+<details>
+<summary>Pista 2 · Las pulsaciones durante el verde se pierden</summary>
+<p>Si usas <code>delay(10000)</code>, el Arduino se queda «dormido» 10 segundos y no lee el botón. Una salida sencilla para este proyecto: en lugar de una espera larga, haz un bucle que espere 10 ms muchas veces y que lea el botón en cada vuelta. En el P4 aprenderás la forma profesional, con <code>millis()</code>.</p>
+</details>
+<details>
+<summary>Pista 3 · ¿Cómo cuento los 10 s mínimos de verde?</summary>
+<p>Guarda el momento en que los coches pasan a verde (<code>unsigned long inicioVerde = millis();</code>). Cuando alguien pulse, comprueba si <code>millis() - inicioVerde</code> es menor de 10000 y, si lo es, espera la diferencia.</p>
+</details>
+<h3 id="retos-extra">Retos extra</h3>
+<ul>
+<li>Añade un zumbador que pite al ritmo del parpadeo del verde de peatones, como los semáforos sonoros para personas ciegas.</li>
+<li>Haz que de noche (un segundo pulsador que simula un interruptor horario) el semáforo de coches quede en ámbar intermitente.</li>
+</ul>
+<h3 id="entrega">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega:1" aria-label="Hecho"> Esquema eléctrico (dibujado a mano y fotografiado, vale).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega:2" aria-label="Hecho"> Cálculo de las resistencias con la tensión directa de cada LED.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega:3" aria-label="Hecho"> Diagrama de estados.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega:4" aria-label="Hecho"> Código completo en tu repositorio.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega:5" aria-label="Hecho"> Tabla con la comprobación de R1 a R7 y la corriente medida de cada LED.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega:6" aria-label="Hecho"> Vídeo del ciclo completo con una pulsación.</li>
+</ul>
+<h3 id="como-se-evalua">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>40 %</td>
+<td>Cumple R1–R7 sin excepciones</td>
+</tr>
+<tr>
+<td>Cálculos y medidas</td>
+<td>20 %</td>
+<td>Resistencias calculadas y corriente medida en todos los LED</td>
+</tr>
+<tr>
+<td>Código</td>
+<td>20 %</td>
+<td>Organizado en estados, con nombres claros y comentarios útiles</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Otra persona podría montarlo solo con tu README</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p2">P2 · Luz nocturna automática</h2>
+<p><strong>Duración:</strong> 2 semanas · unas 30 horas · <strong>Nivel:</strong> ★☆☆☆☆</p>
+<h3 id="el-encargo_1">El encargo</h3>
+<blockquote>
+<p>Una familia quiere una luz de pasillo que se encienda sola al anochecer, con más intensidad cuanto más oscuro esté, y que no parpadee cuando la luz está justo en el límite.</p>
+</blockquote>
+<h3 id="requisitos_1">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_1:1" aria-label="Hecho"> <strong>R1.</strong> Un sensor de luz (LDR) mide la luz ambiente.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_1:2" aria-label="Hecho"> <strong>R2.</strong> Por debajo de un umbral, el LED se enciende; su brillo aumenta cuanto más oscuro está, en 256 niveles (PWM).</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_1:3" aria-label="Hecho"> <strong>R3.</strong> El umbral se ajusta con un potenciómetro, sin reprogramar.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_1:4" aria-label="Hecho"> <strong>R4.</strong> Con la luz justo en el umbral, el LED no parpadea: usa <strong>histéresis</strong> de al menos un 5 % del rango.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_1:5" aria-label="Hecho"> <strong>R5.</strong> Las lecturas se suavizan: un cambio brusco de una décima de segundo (pasar la mano por encima) no apaga ni enciende la luz.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_1:6" aria-label="Hecho"> <strong>R6.</strong> El monitor serie muestra cada 200 ms la luz, el umbral y el brillo, en un formato que entienda el trazador serie del IDE.</li>
+</ul>
+<h3 id="material_1">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>LDR (fotorresistencia)</td>
+<td>Por ejemplo, GL5528</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Resistencia fija para el divisor</td>
+<td>Valor a elegir midiendo tu LDR</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Potenciómetro de 10 kΩ</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>LED blanco o de alto brillo y su resistencia</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas_1">Teoría que necesitas</h3>
+<p><strong>Divisor de tensión.</strong> Dos resistencias en serie entre 5 V y GND reparten la tensión. La tensión en el punto medio es:</p>
+<pre><code>Vsalida = Vcc · R2 / (R1 + R2)
+</code></pre>
+<p>Una LDR cambia mucho su resistencia con la luz (de unos pocos kΩ con luz a cerca de 1 MΩ a oscuras). Si la pones como una de las dos resistencias, la tensión del punto medio sigue a la luz.</p>
+<p><strong>Elegir la resistencia fija.</strong> Mide la LDR con el multímetro con la luz que te interesa distinguir (el anochecer). Una resistencia fija de un valor parecido deja la salida cerca de 2,5 V justo en esa zona, donde el divisor es más sensible.</p>
+<p><strong>Convertidor analógico-digital (ADC).</strong> <code>analogRead()</code> convierte 0–5 V en un número de 0 a 1023 (10 bits). Cada paso son unos 4,9 mV.</p>
+<p><strong>PWM.</strong> El Arduino no da tensiones intermedias: enciende y apaga el pin muy rápido. <code>analogWrite(pin, valor)</code> con un valor de 0 a 255 fija qué fracción del tiempo está encendido (ciclo de trabajo). El ojo ve un brillo intermedio. En el Uno solo funciona en los pines marcados con <code>~</code>: 3, 5, 6, 9, 10 y 11.</p>
+<p><strong>Histéresis.</strong> Usa dos umbrales: se enciende por debajo del umbral bajo y se apaga por encima del alto. Entre los dos, mantiene lo que estaba haciendo. Así funciona un termostato.</p>
+<p><strong>Media móvil.</strong> Guarda las últimas N lecturas y usa su media. Filtra el ruido y los cambios bruscos.</p>
+<h3 id="plan-de-trabajo_1">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> decide qué es «oscuro» para ti y cómo lo vas a comprobar.</li>
+<li><strong>Diseño:</strong> mide tu LDR con luz y a oscuras, elige la resistencia fija y calcula la tensión de salida en los dos casos. Dibuja el esquema.</li>
+<li><strong>Prototipo:</strong> primero lee la LDR y el potenciómetro y muéstralos en el trazador serie; después controla el LED; por último añade histéresis y suavizado.</li>
+<li><strong>Pruebas:</strong> tapa la LDR poco a poco y comprueba R2, R4 y R5. Graba la pantalla del trazador mientras lo haces.</li>
+<li><strong>Documentación:</strong> README con cálculos, esquema, gráfica del trazador y vídeo.</li>
+</ol>
+<h3 id="pistas_1">Pistas</h3>
+<details>
+<summary>Pista 1 · El brillo va al revés</summary>
+<p>Puede que tu divisor dé más tensión a oscuras o con luz, según dónde pusiste la LDR. La función <code>map(valor, deMin, deMax, aMin, aMax)</code> acepta rangos invertidos, por ejemplo <code>map(luz, 0, umbral, 255, 0)</code>.</p>
+</details>
+<details>
+<summary>Pista 2 · ¿Cómo hago la media móvil?</summary>
+<p>Un array de 10 lecturas y un índice que da vueltas: cada lectura nueva sustituye a la más antigua (<code>indice = (indice + 1) % 10;</code>). Mantén también la suma, restando la lectura que sale y sumando la que entra.</p>
+</details>
+<details>
+<summary>Pista 3 · El trazador no dibuja varias líneas</summary>
+<p>El trazador serie del IDE 2 separa variables por comas o espacios y admite etiquetas: <code>Serial.print("luz:"); Serial.print(luz); Serial.print(",umbral:"); Serial.println(umbral);</code></p>
+</details>
+<h3 id="retos-extra_1">Retos extra</h3>
+<ul>
+<li>Enciende y apaga la luz con un fundido suave de 2 segundos en lugar de golpe.</li>
+<li>Añade un sensor de movimiento PIR: la luz solo se enciende de noche <strong>y</strong> si hay alguien.</li>
+</ul>
+<h3 id="entrega_1">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_1:1" aria-label="Hecho"> Medidas de la LDR y cálculo del divisor.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_1:2" aria-label="Hecho"> Esquema.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_1:3" aria-label="Hecho"> Código.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_1:4" aria-label="Hecho"> Captura o vídeo del trazador serie mostrando la histéresis.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_1:5" aria-label="Hecho"> Tabla de comprobación de R1–R6.</li>
+</ul>
+<h3 id="como-se-evalua_1">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>40 %</td>
+<td>Cumple R1–R6, sin parpadeos</td>
+</tr>
+<tr>
+<td>Diseño del divisor</td>
+<td>20 %</td>
+<td>Resistencia elegida con medidas y justificada</td>
+</tr>
+<tr>
+<td>Código</td>
+<td>20 %</td>
+<td>Histéresis y media móvil claras y en funciones</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Gráfica que demuestra la histéresis</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p3">P3 · Termómetro con pantalla</h2>
+<p><strong>Duración:</strong> 3 semanas · unas 45 horas · <strong>Nivel:</strong> ★★☆☆☆</p>
+<h3 id="el-encargo_2">El encargo</h3>
+<blockquote>
+<p>Una pequeña bodega quiere controlar la temperatura de su almacén. Necesita ver la temperatura actual, la mínima y la máxima del día, un aviso si se pasa de un límite y poder llevarse los datos a una hoja de cálculo.</p>
+</blockquote>
+<h3 id="requisitos_2">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_2:1" aria-label="Hecho"> <strong>R1.</strong> Mide la temperatura con dos sensores distintos: uno analógico (TMP36) y uno digital (DS18B20). Compara su precisión.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_2:2" aria-label="Hecho"> <strong>R2.</strong> Una pantalla LCD de 16×2 muestra la temperatura actual, la mínima y la máxima, con un decimal.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_2:3" aria-label="Hecho"> <strong>R3.</strong> Un pulsador pone a cero la mínima y la máxima.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_2:4" aria-label="Hecho"> <strong>R4.</strong> Por encima de un límite (por ejemplo, 18 °C), se enciende un LED rojo y suena un aviso corto cada 10 s.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_2:5" aria-label="Hecho"> <strong>R5.</strong> Cada segundo envía por el puerto serie una línea en formato CSV: tiempo en segundos, temperatura TMP36, temperatura DS18B20.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_2:6" aria-label="Hecho"> <strong>R6.</strong> Si el sensor digital se desconecta, la pantalla muestra «ERROR SENSOR» en lugar de un valor falso.</li>
+</ul>
+<h3 id="material_2">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Sensor TMP36</td>
+<td>Analógico</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Sensor DS18B20</td>
+<td>Digital, bus 1-Wire. Mejor la versión sumergible con cable</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Resistencia de 4,7 kΩ</td>
+<td>Pull-up del bus 1-Wire</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Pantalla LCD 16×2 con adaptador I2C</td>
+<td>Adaptador con chip PCF8574</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Zumbador activo</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>LED rojo, resistencia y pulsador</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas_2">Teoría que necesitas</h3>
+<p><strong>Sensor analógico TMP36.</strong> Da 0,5 V a 0 °C y sube 10 mV por grado:</p>
+<pre><code>T (°C) = (V − 0,5) × 100
+</code></pre>
+<p>Con el ADC de 10 bits del Uno, cada paso de 4,9 mV equivale a casi medio grado. Además, si los 5 V del USB son en realidad 4,85 V, el error crece. Por eso los sensores digitales son más fiables.</p>
+<p><strong>Bus 1-Wire.</strong> El DS18B20 se comunica por un solo cable de datos con una resistencia de 4,7 kΩ a 5 V. Hace la medida él mismo y envía el número, con una precisión de ±0,5 °C. Necesitas las librerías <code>OneWire</code> y <code>DallasTemperature</code>.</p>
+<p><strong>Bus I2C.</strong> Dos cables, SDA (datos) y SCL (reloj), conectan muchos dispositivos, cada uno con una dirección. En el Uno van a los pines A4 (SDA) y A5 (SCL). El adaptador de la LCD suele tener la dirección 0x27 o 0x3F: averígualo con un programa «escáner I2C».</p>
+<p><strong>Librerías.</strong> Código escrito por otros que se instala desde el gestor de librerías del IDE. Lee siempre su ejemplo básico antes de usarla.</p>
+<p><strong>Formato CSV.</strong> Valores separados por comas, una línea por medida. Se abre directamente en una hoja de cálculo.</p>
+<h3 id="plan-de-trabajo_2">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> decide qué mostrar en cada línea de la pantalla (solo hay 16 caracteres).</li>
+<li><strong>Diseño:</strong> esquema con los dos sensores, la LCD por I2C, el zumbador, el LED y el pulsador. Calcula la resolución en grados del TMP36.</li>
+<li><strong>Prototipo:</strong> cada pieza por separado y con su ejemplo: escáner I2C, LCD con «Hola», DS18B20 por el monitor serie, TMP36 por el monitor serie. Después, júntalo todo.</li>
+<li><strong>Pruebas:</strong> registra 30 minutos de datos, ábrelos en una hoja de cálculo y haz una gráfica comparando los dos sensores. Prueba a desconectar el DS18B20.</li>
+<li><strong>Documentación:</strong> README con esquema, gráfica, conclusión sobre qué sensor es mejor y por qué.</li>
+</ol>
+<h3 id="pistas_2">Pistas</h3>
+<details>
+<summary>Pista 1 · La pantalla se enciende pero no muestra nada</summary>
+<p>Gira el potenciómetro azul del adaptador I2C: ajusta el contraste. Si sigue sin verse, comprueba la dirección con el escáner I2C.</p>
+</details>
+<details>
+<summary>Pista 2 · El TMP36 da valores que bailan varios grados</summary>
+<p>Haz la media de varias lecturas y separa el cable del sensor de los cables del zumbador. Mide con el multímetro la tensión real del pin de 5 V y úsala en la fórmula en lugar de 5,0.</p>
+</details>
+<details>
+<summary>Pista 3 · ¿Cómo sé que el DS18B20 está desconectado?</summary>
+<p>La librería <code>DallasTemperature</code> devuelve una constante especial cuando no hay sensor. Búscala en su documentación y compárala con lo que lees.</p>
+</details>
+<h3 id="retos-extra_2">Retos extra</h3>
+<ul>
+<li>Guarda la mínima y la máxima en la EEPROM para que no se pierdan al quitar la alimentación.</li>
+<li>Muestra en la pantalla una pequeña flecha que indique si la temperatura sube o baja.</li>
+</ul>
+<h3 id="entrega_2">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_2:1" aria-label="Hecho"> Esquema.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_2:2" aria-label="Hecho"> Código.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_2:3" aria-label="Hecho"> Fichero CSV de 30 minutos y gráfica comparativa.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_2:4" aria-label="Hecho"> Conclusión escrita sobre los dos sensores.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_2:5" aria-label="Hecho"> Vídeo con la alarma y el error de sensor.</li>
+</ul>
+<h3 id="como-se-evalua_2">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>35 %</td>
+<td>Cumple R1–R6</td>
+</tr>
+<tr>
+<td>Análisis de sensores</td>
+<td>25 %</td>
+<td>Gráfica y conclusión con números (diferencia media, ruido)</td>
+</tr>
+<tr>
+<td>Código</td>
+<td>20 %</td>
+<td>Uso correcto de librerías, sin código repetido</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Completa y clara</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="p4">P4 · Juego de reflejos tipo Simón</h2>
+<p><strong>Duración:</strong> 3 semanas · unas 45 horas · <strong>Nivel:</strong> ★★☆☆☆</p>
+<h3 id="el-encargo_3">El encargo</h3>
+<blockquote>
+<p>Una juguetería quiere un prototipo del clásico juego de memoria: el aparato enseña una secuencia de luces y sonidos cada vez más larga y el jugador debe repetirla.</p>
+</blockquote>
+<h3 id="requisitos_3">Requisitos</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_3:1" aria-label="Hecho"> <strong>R1.</strong> 4 LED de colores, 4 pulsadores y un zumbador. Cada color tiene su nota musical.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_3:2" aria-label="Hecho"> <strong>R2.</strong> La secuencia es aleatoria y distinta en cada partida, y crece en un paso cada ronda hasta 20.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_3:3" aria-label="Hecho"> <strong>R3.</strong> A partir de la ronda 5, la secuencia se muestra más rápido.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_3:4" aria-label="Hecho"> <strong>R4.</strong> El jugador tiene 3 segundos para cada pulsación; si se pasa o se equivoca, suena una melodía de error y se muestra la puntuación con parpadeos.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_3:5" aria-label="Hecho"> <strong>R5.</strong> <strong>El programa no usa <code>delay()</code>.</strong> Mientras suena una nota o espera, el Arduino sigue atento a todo.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_3:6" aria-label="Hecho"> <strong>R6.</strong> Rebote de los pulsadores resuelto por software: una pulsación cuenta una sola vez.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:requisitos_3:7" aria-label="Hecho"> <strong>R7.</strong> El récord se guarda en la EEPROM y se muestra al encender.</li>
+</ul>
+<h3 id="material_3">Material</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Cantidad</th>
+<th>Componente</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>LED de colores distintos y sus resistencias</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Pulsadores</td>
+<td>Mejor de colores a juego</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Zumbador pasivo</td>
+<td>Pasivo: puede tocar notas</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teoria-que-necesitas_3">Teoría que necesitas</h3>
+<p><strong><code>millis()</code> y el fin de <code>delay()</code>.</strong> <code>millis()</code> devuelve los milisegundos desde que arrancó la placa. En lugar de esperar, se pregunta: «¿han pasado ya 300 ms desde que encendí este LED?». Así el <code>loop()</code> da miles de vueltas por segundo y puede atender varias cosas a la vez.</p>
+<pre><code>if (millis() - momentoAnterior &gt;= intervalo) {
+  momentoAnterior = millis();
+  // toca hacer algo
+}
+</code></pre>
+<p>Usa siempre <code>unsigned long</code> y la resta: así el código sigue funcionando cuando <code>millis()</code> se desborda, a los 49 días.</p>
+<p><strong>Máquina de estados.</strong> El juego tiene estados claros: ESPERANDO_INICIO, MOSTRANDO_SECUENCIA, ESCUCHANDO_JUGADOR, ERROR. Cada vuelta de <code>loop()</code> hace un poco del trabajo del estado actual y decide si cambia.</p>
+<p><strong>Arrays y funciones.</strong> La secuencia es un array de 20 números entre 0 y 3. Escribe funciones pequeñas con nombres claros: <code>encenderColor(c)</code>, <code>leerPulsador()</code>, <code>mostrarPuntuacion(n)</code>.</p>
+<p><strong>Números aleatorios.</strong> <code>random(4)</code> da un número de 0 a 3, pero sin semilla repite la misma secuencia al encender. <code>randomSeed(analogRead(A0))</code> con A0 al aire usa el ruido eléctrico como semilla.</p>
+<p><strong><code>tone()</code>.</strong> Genera una nota en el zumbador pasivo sin bloquear el programa. Cuidado: en el Uno usa el mismo temporizador que el PWM de los pines 3 y 11.</p>
+<p><strong>EEPROM.</strong> Memoria que no se borra al quitar la alimentación. Con <code>EEPROM.update()</code> solo se escribe si el valor cambia, lo que alarga su vida (unos 100.000 ciclos de escritura).</p>
+<h3 id="plan-de-trabajo_3">Plan de trabajo</h3>
+<ol>
+<li><strong>Requisitos:</strong> juega a una versión del Simón en el móvil y apunta cómo se comporta.</li>
+<li><strong>Diseño:</strong> esquema y diagrama de estados con todas las transiciones y sus condiciones.</li>
+<li><strong>Prototipo:</strong> empieza por una función de lectura de pulsadores con antirrebote por <code>millis()</code>. Después, mostrar una secuencia fija. Luego, escuchar al jugador. Por último, aleatoriedad, velocidad y EEPROM.</li>
+<li><strong>Pruebas:</strong> juega 10 partidas. Pide a otra persona que juegue e intente «romperlo» pulsando dos botones a la vez o muy rápido.</li>
+<li><strong>Documentación:</strong> README con diagrama de estados, esquema y vídeo de una partida.</li>
+</ol>
+<h3 id="pistas_3">Pistas</h3>
+<details>
+<summary>Pista 1 · Antirrebote con millis()</summary>
+<p>Para cada pulsador guarda su último estado leído y el momento en que cambió. Solo das por buena una pulsación si el estado lleva estable más de 30 ms.</p>
+</details>
+<details>
+<summary>Pista 2 · ¿Cómo muestro la secuencia sin delay()?</summary>
+<p>Necesitas dos variables: qué paso de la secuencia estás mostrando y si ahora toca «encendido» o «pausa». En cada vuelta, si ha pasado el tiempo de la fase actual, cambias de fase y, si toca, avanzas de paso.</p>
+</details>
+<details>
+<summary>Pista 3 · Código muy largo dentro del switch</summary>
+<p>Saca cada estado a su propia función: <code>void estadoMostrando()</code>, <code>void estadoEscuchando()</code>. El <code>switch</code> del <code>loop()</code> solo llama a la función del estado actual.</p>
+</details>
+<h3 id="retos-extra_3">Retos extra</h3>
+<ul>
+<li>Modo de dos jugadores: cada uno añade un color a la secuencia del otro.</li>
+<li>Mide y muestra por el monitor serie cuántas vueltas da el <code>loop()</code> por segundo. Compáralo con una versión que use <code>delay()</code>.</li>
+</ul>
+<h3 id="entrega_3">Entrega</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_3:1" aria-label="Hecho"> Diagrama de estados.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_3:2" aria-label="Hecho"> Esquema.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_3:3" aria-label="Hecho"> Código sin ningún <code>delay()</code>.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_3:4" aria-label="Hecho"> Vídeo de una partida de al menos 8 rondas y del récord guardado tras desconectar.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:entrega_3:5" aria-label="Hecho"> Tabla de comprobación de R1–R7.</li>
+</ul>
+<h3 id="como-se-evalua_3">Cómo se evalúa</h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Peso</th>
+<th>Para el máximo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Funcionamiento</td>
+<td>35 %</td>
+<td>Cumple R1–R7, imposible de bloquear</td>
+</tr>
+<tr>
+<td>Arquitectura del código</td>
+<td>35 %</td>
+<td>Máquina de estados limpia, funciones cortas, sin <code>delay()</code></td>
+</tr>
+<tr>
+<td>Pruebas</td>
+<td>10 %</td>
+<td>Pruebas de otra persona documentadas</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>20 %</td>
+<td>Diagrama de estados que coincide con el código</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="examen">Examen de salida de la fase 1</h2>
+<p>El examen tiene dos partes y se hace cuando hayas entregado los cuatro proyectos. Avísame con «Estoy listo para el examen de la fase 1».</p>
+<h3 id="parte-a-teoria-1-hora-sin-apuntes">Parte A · Teoría (1 hora, sin apuntes)</h3>
+<p>Te enviaré 10 preguntas como estas:</p>
+<ol>
+<li>Calcula la resistencia para un LED verde de Vf = 3,0 V a 12 mA con 5 V. Elige el valor comercial.</li>
+<li>Un divisor tiene R1 = 10 kΩ arriba y R2 = 4,7 kΩ abajo, a 5 V. ¿Qué tensión hay en el punto medio? ¿Qué devuelve <code>analogRead()</code>?</li>
+<li>¿Por qué un pin de entrada sin pull-up da lecturas al azar?</li>
+<li>¿Qué ciclo de trabajo produce <code>analogWrite(9, 64)</code>?</li>
+<li>Explica por qué <code>delay()</code> impide atender un pulsador y cómo lo resuelve <code>millis()</code>.</li>
+</ol>
+<h3 id="parte-b-proyecto-en-6-horas">Parte B · Proyecto en 6 horas</h3>
+<p><strong>Alarma de puerta con código.</strong> Un interruptor magnético (o un pulsador que lo simula) detecta si la puerta se abre. La alarma se arma y desarma con un código de 4 pulsaciones en 3 botones. Si la puerta se abre con la alarma armada, hay 10 s para meter el código antes de que suene. LED de estado: verde desarmada, rojo armada, rojo parpadeando en cuenta atrás.</p>
+<p>Entrega en las 6 horas: esquema, diagrama de estados, código y vídeo de todas las situaciones.</p>
+<h3 id="para-aprobar">Para aprobar</h3>
+<ul>
+<li class="tarea"><input type="checkbox" data-id="fase-1:para-aprobar:1" aria-label="Hecho"> Parte A: 7 de 10 o más.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:para-aprobar:2" aria-label="Hecho"> Parte B: funciona en todos los casos, sin <code>delay()</code>, con máquina de estados.</li>
+<li class="tarea"><input type="checkbox" data-id="fase-1:para-aprobar:3" aria-label="Hecho"> Código legible: lo entiendo sin que me lo expliques.</li>
+</ul>
+<p>Si no apruebas, repasas dos semanas lo que falló y repites con otro enunciado.</p>
+<nav class="pasos" aria-label="Fases"><a href="index.html">← Plan</a><a href="fase-2.html">Fase 2 →</a></nav>
+</main>
+<footer class="contenedor pie">Plan de formación con tutor · Arduino Uno, Nano y ESP32 · <a href="https://github.com/davidrayo-tecno/Tecno/tree/main/formacionmicrocontroladores">Fuente en GitHub</a></footer>
+<script src="curso.js"></script>
+</body>
+</html>
