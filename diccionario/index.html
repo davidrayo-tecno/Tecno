@@ -8,11 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500&display=swap">
 <style>
-/* Estantería: los cuatro diccionarios de tela verde, uno por curso, sobre la mesa */
+/* Estantería: los cuatro diccionarios de tela, uno por curso y cada uno de su color, sobre la mesa */
 :root{
   color-scheme:only light;
   --desk:#e7e3dc; --desk-2:#d8d2c7; --ink:#2b2a27; --muted:#6e6a62;
-  --cloth:#1f3b33; --cloth-2:#162c26; --gold:#c8a55a; --gold-ink:#9a7a32; --paper:#fbf9f4;
+  --cloth:#1f3b33; --gold:#c8a55a; --gold-ink:#9a7a32;
   --font-display:"Cormorant SC","Cormorant Garamond",Georgia,serif;
   --font-serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
   --font-ui:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -33,20 +33,23 @@ body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--font-ui);
 .shelf{width:100%;max-width:1040px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px;padding-bottom:22px;
   border-bottom:12px solid #b9ab92;box-shadow:0 10px 18px -12px rgba(0,0,0,.4)}
 @media (max-width:760px){.shelf{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;border-bottom:none;box-shadow:none}}
-.book{position:relative;aspect-ratio:3/4.2;border-radius:3px 9px 9px 3px;text-decoration:none;color:var(--gold);
-  background:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1.4px) 0 0/4px 4px,linear-gradient(90deg,var(--cloth-2) 0,var(--cloth) 9%,var(--cloth) 100%);
+
+/* Cada libro: la tela, y dentro un recuadro dorado que crece con el texto (nunca se sale) */
+.book{container-type:inline-size;display:flex;min-height:0;aspect-ratio:3/4.2;border-radius:3px 9px 9px 3px;text-decoration:none;color:var(--gold);
+  padding:9% 8% 9% 11%;
+  background:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1.4px) 0 0/4px 4px,linear-gradient(90deg,var(--c2) 0,var(--c1) 9%,var(--c1) 100%);
   box-shadow:inset 6px 0 0 rgba(0,0,0,.25),0 2px 0 rgba(0,0,0,.15),0 18px 26px -16px rgba(0,0,0,.55);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:12% 10%;text-align:center;
   transition:transform .25s ease,box-shadow .25s ease}
 .book:hover,.book:focus-visible{transform:translateY(-8px) rotate(-1deg);box-shadow:inset 6px 0 0 rgba(0,0,0,.25),0 26px 30px -16px rgba(0,0,0,.55);outline:none}
-.book:focus-visible .frame{outline-color:#f3dea0}
-.frame{position:absolute;inset:9% 9% 9% 12%;border:1.5px solid var(--gold);opacity:.75;outline:1px solid var(--gold);outline-offset:-6px}
-.kicker{font-family:var(--font-display);letter-spacing:.24em;font-size:clamp(11px,1.3vw,14px)}
-.num{font-family:var(--font-serif);font-weight:700;font-size:clamp(54px,8vw,92px);line-height:.9;color:#f0d9a0}
-.eso{font-family:var(--font-display);font-weight:700;letter-spacing:.2em;font-size:clamp(20px,2.6vw,30px);margin-top:-4px}
-.orn{width:56%;height:1px;background:var(--gold);margin:10px 0 6px;opacity:.8}
-.topic{font-family:var(--font-serif);font-style:italic;font-size:clamp(16px,1.9vw,20px);line-height:1.2;color:#efe3c4;text-wrap:balance}
-.count{font-size:12px;letter-spacing:.08em;margin-top:8px;opacity:.85}
+.inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5cqw;text-align:center;
+  border:1.5px solid rgba(200,165,90,.8);outline:1px solid rgba(200,165,90,.8);outline-offset:-6px;padding:9cqw 6cqw;min-width:0}
+.book:focus-visible .inner{border-color:#f3dea0;outline-color:#f3dea0}
+.kicker{font-family:var(--font-display);letter-spacing:.12em;font-size:7cqw;line-height:1.1;max-width:100%}
+.num{font-family:var(--font-serif);font-weight:700;font-size:30cqw;line-height:.9;color:#f0d9a0}
+.eso{font-family:var(--font-display);font-weight:700;letter-spacing:.16em;font-size:11cqw;line-height:1}
+.orn{width:56%;height:1px;background:var(--gold);margin:3cqw 0 2cqw;opacity:.8;flex:none}
+.topic{font-family:var(--font-serif);font-style:italic;font-size:10cqw;line-height:1.15;color:#efe3c4}
+.count{font-family:var(--font-ui);font-size:5.5cqw;letter-spacing:.06em;opacity:.85;margin-top:1cqw}
 .foot{font-size:13px;color:var(--muted);margin:0;text-align:center}
 @media (prefers-reduced-motion:reduce){.book{transition:none}}
 </style>
@@ -61,41 +64,45 @@ body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--font-ui);
 </header>
 <p class="lead">Elige el diccionario de tu curso.</p>
 <nav class="shelf" aria-label="Diccionarios por curso">
-    <a class="book" href="./1eso/" aria-label="Diccionario de 1.º ESO: Vocabulario básico">
-      <span class="frame" aria-hidden="true"></span>
-      <span class="kicker">Diccionario</span>
-      <span class="num">1.º</span>
-      <span class="eso">ESO</span>
-      <span class="orn" aria-hidden="true"></span>
-      <span class="topic">Vocabulario básico</span>
-      <span class="count">20 palabras</span>
+    <a class="book" href="./1eso/" style="--c1:#1f3b33;--c2:#162c26" aria-label="Diccionario de 1.º ESO">
+      <span class="inner">
+        <span class="kicker">Diccionario</span>
+        <span class="num">1.º</span>
+        <span class="eso">ESO</span>
+        <span class="orn" aria-hidden="true"></span>
+        <span class="topic">Plan de Lectura</span>
+        <span class="count">20 palabras</span>
+      </span>
     </a>
-    <a class="book" href="./2eso/" aria-label="Diccionario de 2.º ESO: Tecnológico y medioambiental">
-      <span class="frame" aria-hidden="true"></span>
-      <span class="kicker">Diccionario</span>
-      <span class="num">2.º</span>
-      <span class="eso">ESO</span>
-      <span class="orn" aria-hidden="true"></span>
-      <span class="topic">Tecnológico y medioambiental</span>
-      <span class="count">20 palabras</span>
+    <a class="book" href="./2eso/" style="--c1:#1d2f4d;--c2:#142239" aria-label="Diccionario de 2.º ESO">
+      <span class="inner">
+        <span class="kicker">Diccionario</span>
+        <span class="num">2.º</span>
+        <span class="eso">ESO</span>
+        <span class="orn" aria-hidden="true"></span>
+        <span class="topic">Plan de Lectura</span>
+        <span class="count">20 palabras</span>
+      </span>
     </a>
-    <a class="book" href="./3eso/" aria-label="Diccionario de 3.º ESO: Análisis y reflexión">
-      <span class="frame" aria-hidden="true"></span>
-      <span class="kicker">Diccionario</span>
-      <span class="num">3.º</span>
-      <span class="eso">ESO</span>
-      <span class="orn" aria-hidden="true"></span>
-      <span class="topic">Análisis y reflexión</span>
-      <span class="count">20 palabras</span>
+    <a class="book" href="./3eso/" style="--c1:#5b1f2b;--c2:#41151e" aria-label="Diccionario de 3.º ESO">
+      <span class="inner">
+        <span class="kicker">Diccionario</span>
+        <span class="num">3.º</span>
+        <span class="eso">ESO</span>
+        <span class="orn" aria-hidden="true"></span>
+        <span class="topic">Plan de Lectura</span>
+        <span class="count">20 palabras</span>
+      </span>
     </a>
-    <a class="book" href="./4eso/" aria-label="Diccionario de 4.º ESO: Avanzado y especializado">
-      <span class="frame" aria-hidden="true"></span>
-      <span class="kicker">Diccionario</span>
-      <span class="num">4.º</span>
-      <span class="eso">ESO</span>
-      <span class="orn" aria-hidden="true"></span>
-      <span class="topic">Avanzado y especializado</span>
-      <span class="count">20 palabras</span>
+    <a class="book" href="./4eso/" style="--c1:#36393e;--c2:#26282c" aria-label="Diccionario de 4.º ESO">
+      <span class="inner">
+        <span class="kicker">Diccionario</span>
+        <span class="num">4.º</span>
+        <span class="eso">ESO</span>
+        <span class="orn" aria-hidden="true"></span>
+        <span class="topic">Plan de Lectura</span>
+        <span class="count">20 palabras</span>
+      </span>
     </a>
 </nav>
 <p class="foot">Veinte palabras por curso, con su definición, sinónimos, antónimos, una lámina y un ejemplo de uso.</p>
