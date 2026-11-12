@@ -38,11 +38,11 @@ body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--font-ui);
 .wheel:focus-visible .disc{box-shadow:0 0 0 3px var(--gold)}
 .ring{position:relative;width:100%;aspect-ratio:1;display:block}
 .ring i{position:absolute;left:50%;top:50%;width:13%;aspect-ratio:1;margin:-6.5% 0 0 -6.5%;border-radius:50%;display:grid;place-items:center;
-  font-style:normal;font-family:var(--font-serif);font-weight:700;font-size:7cqw;color:var(--cloth);background:var(--paper);border:1.5px solid var(--paper-edge);
+  font-style:normal;font-family:var(--font-serif);font-weight:700;font-size:7cqw;color:var(--c1);background:var(--paper);border:1.5px solid var(--paper-edge);
   box-shadow:0 1px 2px rgba(0,0,0,.18);transform:rotate(var(--a)) translateY(-43cqw) rotate(calc(-1*var(--a)))}
 .disc{position:absolute;width:64cqw;aspect-ratio:1;margin-top:18cqw;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:radial-gradient(circle at 50% 40%,var(--cloth) 0%,var(--cloth-2) 100%);
-  box-shadow:inset 0 0 0 2px rgba(200,165,90,.55),inset 0 0 0 7px var(--cloth-2),inset 0 0 0 8px rgba(200,165,90,.35),0 14px 26px -14px rgba(0,0,0,.5)}
+  background:radial-gradient(circle at 50% 40%,var(--c1) 0%,var(--c2) 100%);
+  box-shadow:inset 0 0 0 2px rgba(200,165,90,.55),inset 0 0 0 7px var(--c2),inset 0 0 0 8px rgba(200,165,90,.35),0 14px 26px -14px rgba(0,0,0,.5)}
 .num{font-family:var(--font-serif);font-weight:700;font-size:24cqw;line-height:.9;color:#f0d9a0}
 .eso{font-family:var(--font-display);font-weight:700;letter-spacing:.2em;font-size:8cqw;color:var(--gold)}
 .topic{font-family:var(--font-serif);font-style:italic;font-size:clamp(16px,1.9vw,20px);text-align:center;line-height:1.2;text-wrap:balance}
@@ -61,25 +61,25 @@ body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--font-ui);
 </header>
 <p class="lead">Elige el rosco de tu curso.</p>
 <nav class="grid" aria-label="Roscos por curso">
-    <a class="wheel" href="./1eso/" aria-label="Rosco de 1.º ESO: Vocabulario básico">
+    <a class="wheel" href="./1eso/" style="--c1:#1f3b33;--c2:#162c26" aria-label="Rosco de 1.º ESO">
       <span class="ring" aria-hidden="true"><i style="--a:0.0deg">A</i><i style="--a:18.0deg">B</i><i style="--a:36.0deg">C</i><i style="--a:54.0deg">D</i><i style="--a:72.0deg">E</i><i style="--a:90.0deg">F</i><i style="--a:108.0deg">G</i><i style="--a:126.0deg">H</i><i style="--a:144.0deg">I</i><i style="--a:162.0deg">J</i><i style="--a:180.0deg">L</i><i style="--a:198.0deg">M</i><i style="--a:216.0deg">N</i><i style="--a:234.0deg">O</i><i style="--a:252.0deg">P</i><i style="--a:270.0deg">R</i><i style="--a:288.0deg">S</i><i style="--a:306.0deg">T</i><i style="--a:324.0deg">U</i><i style="--a:342.0deg">V</i></span>
       <span class="disc"><span class="num">1.º</span><span class="eso">ESO</span></span>
-      <span class="topic">Vocabulario básico</span>
+      <span class="topic">Plan de Lectura</span>
     </a>
-    <a class="wheel" href="./2eso/" aria-label="Rosco de 2.º ESO: Tecnológico y medioambiental">
+    <a class="wheel" href="./2eso/" style="--c1:#1d2f4d;--c2:#142239" aria-label="Rosco de 2.º ESO">
       <span class="ring" aria-hidden="true"><i style="--a:0.0deg">A</i><i style="--a:18.0deg">B</i><i style="--a:36.0deg">C</i><i style="--a:54.0deg">D</i><i style="--a:72.0deg">E</i><i style="--a:90.0deg">F</i><i style="--a:108.0deg">G</i><i style="--a:126.0deg">H</i><i style="--a:144.0deg">I</i><i style="--a:162.0deg">J</i><i style="--a:180.0deg">L</i><i style="--a:198.0deg">M</i><i style="--a:216.0deg">N</i><i style="--a:234.0deg">O</i><i style="--a:252.0deg">P</i><i style="--a:270.0deg">R</i><i style="--a:288.0deg">S</i><i style="--a:306.0deg">T</i><i style="--a:324.0deg">U</i><i style="--a:342.0deg">V</i></span>
       <span class="disc"><span class="num">2.º</span><span class="eso">ESO</span></span>
-      <span class="topic">Tecnológico y medioambiental</span>
+      <span class="topic">Plan de Lectura</span>
     </a>
-    <a class="wheel" href="./3eso/" aria-label="Rosco de 3.º ESO: Análisis y reflexión">
+    <a class="wheel" href="./3eso/" style="--c1:#5b1f2b;--c2:#41151e" aria-label="Rosco de 3.º ESO">
       <span class="ring" aria-hidden="true"><i style="--a:0.0deg">A</i><i style="--a:18.0deg">B</i><i style="--a:36.0deg">C</i><i style="--a:54.0deg">D</i><i style="--a:72.0deg">E</i><i style="--a:90.0deg">F</i><i style="--a:108.0deg">G</i><i style="--a:126.0deg">H</i><i style="--a:144.0deg">I</i><i style="--a:162.0deg">J</i><i style="--a:180.0deg">L</i><i style="--a:198.0deg">M</i><i style="--a:216.0deg">N</i><i style="--a:234.0deg">O</i><i style="--a:252.0deg">P</i><i style="--a:270.0deg">R</i><i style="--a:288.0deg">S</i><i style="--a:306.0deg">T</i><i style="--a:324.0deg">U</i><i style="--a:342.0deg">V</i></span>
       <span class="disc"><span class="num">3.º</span><span class="eso">ESO</span></span>
-      <span class="topic">Análisis y reflexión</span>
+      <span class="topic">Plan de Lectura</span>
     </a>
-    <a class="wheel" href="./4eso/" aria-label="Rosco de 4.º ESO: Avanzado y especializado">
+    <a class="wheel" href="./4eso/" style="--c1:#36393e;--c2:#26282c" aria-label="Rosco de 4.º ESO">
       <span class="ring" aria-hidden="true"><i style="--a:0.0deg">A</i><i style="--a:18.0deg">B</i><i style="--a:36.0deg">C</i><i style="--a:54.0deg">D</i><i style="--a:72.0deg">E</i><i style="--a:90.0deg">F</i><i style="--a:108.0deg">G</i><i style="--a:126.0deg">H</i><i style="--a:144.0deg">I</i><i style="--a:162.0deg">J</i><i style="--a:180.0deg">L</i><i style="--a:198.0deg">M</i><i style="--a:216.0deg">N</i><i style="--a:234.0deg">O</i><i style="--a:252.0deg">P</i><i style="--a:270.0deg">R</i><i style="--a:288.0deg">S</i><i style="--a:306.0deg">T</i><i style="--a:324.0deg">U</i><i style="--a:342.0deg">V</i></span>
       <span class="disc"><span class="num">4.º</span><span class="eso">ESO</span></span>
-      <span class="topic">Avanzado y especializado</span>
+      <span class="topic">Plan de Lectura</span>
     </a>
 </nav>
 <p class="foot">Cada rosco usa las veinte palabras del diccionario de su curso.</p>
