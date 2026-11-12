@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Diccionario 3.º ESO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500&display=swap">
+<style>
+/* Layout: diccionario de tela verde con cantos dorados sobre un escritorio; cada palabra ocupa una doble página (izquierda definición, derecha ilustración y ejemplo) */
+:root{
+  color-scheme:only light;
+  --desk:#e7e3dc;
+  --desk-2:#d8d2c7;
+  --ink:#2b2a27;
+  --muted:#6e6a62;
+  --cloth:#1f3b33;
+  --cloth-2:#162c26;
+  --gold:#c8a55a;
+  --gold-ink:#9a7a32;
+  --paper:#fbf9f4;
+  --paper-edge:#e9e4d8;
+  --page-ink:#2d2a24;
+  --page-muted:#8a8172;
+  --endpaper:#d9cdb3;
+  --btn:#ffffff;
+  --btn-line:#cfc8bb;
+  --font-display:"Cormorant SC","Cormorant Garamond",Georgia,serif;
+  --font-serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --font-ui:"Jost",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --desk:#1d1c1a;--desk-2:#141311;--ink:#ece7dd;--muted:#a39d91;
+  --btn:#2a2825;--btn-line:#44403a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --desk:#1d1c1a;--desk-2:#141311;--ink:#ece7dd;--muted:#a39d91;
+  --btn:#2a2825;--btn-line:#44403a;color-scheme:dark}
+
+html,body{height:100%}
+body{
+  background:radial-gradient(120% 90% at 50% 35%,var(--desk) 0%,var(--desk-2) 100%);
+  color:var(--ink);font-family:var(--font-ui);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:24px;box-sizing:border-box;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  overflow-x:hidden;
+}
+html{overflow-x:clip;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.stage{width:100%;max-width:1040px;position:relative;overflow-x:clip}
+.scaler{transition:transform .55s cubic-bezier(.4,0,.2,1)}
+body.single .stage{clip-path:inset(-60px 0 -90px 0)}
+body.single .front .inner{inset:36px 30px 52px 40px}
+body.single .back .inner{inset:36px 40px 52px 30px}
+body.single .entry{gap:18px}
+body.single .initial{font-size:130px}
+body.single .word{font-size:54px}
+body.single .meta{font-size:21px}
+body.single .def{font-size:26px;line-height:1.42}
+body.single .runhead{font-size:13px}
+body.single .illus{gap:28px}
+body.single .plate{max-width:100%}
+body.single .example p{font-size:25px}
+body.single .index h2{font-size:46px}
+body.single .index ol{grid-auto-flow:row;grid-template-rows:none;grid-template-columns:1fr}
+body.single .index button{font-size:21px;padding:2px 4px}
+body.single .cover h1{font-size:48px}
+body.single .cover .logo{width:200px;height:200px}
+body.single .cover p{font-size:22px}
+body.single{padding-block:8px;gap:8px}
+body.single .controls{gap:8px;flex-wrap:nowrap}
+body.single .controls button{padding:4px 12px;font-size:18px;line-height:1.2;min-width:40px}
+body.single .controls .lbl{display:none}
+body.single .controls button svg{margin-right:0;width:16px;height:16px;vertical-align:-2px}
+body.single .status{min-width:0;flex:1;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.single .hint{font-size:11px}
+.scaler{position:absolute;left:50%;top:0;transform-origin:top center}
+
+:root{--pw:460px;--ph:620px}
+.book{position:relative;width:calc(var(--pw)*2);height:var(--ph);perspective:2600px}
+.shadow{
+  position:absolute;left:4%;right:4%;bottom:-34px;height:50px;
+  background:radial-gradient(closest-side,rgba(0,0,0,.35),transparent);
+  filter:blur(6px);transition:left .9s,right .9s;
+}
+.book.closed-front .shadow{left:52%}
+.book.closed-back .shadow{right:52%}
+.board{
+  position:absolute;top:-10px;bottom:-10px;width:calc(50% + 12px);
+  background:linear-gradient(90deg,var(--cloth-2),var(--cloth));
+  transition:opacity .4s;
+}
+.board.left{left:-12px;border-radius:5px 2px 2px 5px}
+.board.right{right:-12px;border-radius:2px 5px 5px 2px;background:linear-gradient(270deg,var(--cloth-2),var(--cloth))}
+.book.closed-front .board.left,.book.closed-back .board.right{opacity:0}
+.stack{
+  position:absolute;top:2px;bottom:-2px;
+  background:repeating-linear-gradient(90deg,var(--paper) 0 1px,var(--paper-edge) 1px 2px);
+  transition:width .9s;
+}
+.stack.left{right:50%;margin-right:var(--pw);width:var(--ls,0px);border-radius:2px 0 0 2px}
+.stack.right{left:50%;margin-left:var(--pw);width:var(--rs,0px);border-radius:0 2px 2px 0}
+
+.book{touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.leaf{position:absolute;top:0;left:50%;width:var(--pw);height:var(--ph);transform-style:preserve-3d;cursor:grab}
+.leaf.active{cursor:grabbing}
+.seg{position:absolute;top:0;height:100%;transform-origin:left center;transform-style:preserve-3d;will-change:transform}
+.face{
+  position:absolute;top:0;left:0;height:100%;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;
+}
+.face.back{transform:rotateY(180deg)}
+.content{position:absolute;top:0;width:var(--pw);height:var(--ph);background:var(--paper);color:var(--page-ink)}
+.sh{position:absolute;inset:0;background:#1a1408;opacity:0;pointer-events:none}
+.page{
+  background-color:var(--paper);
+  background-image:
+    radial-gradient(rgba(120,100,60,.035) 1px,transparent 1.2px),
+    radial-gradient(rgba(120,100,60,.03) 1px,transparent 1.2px);
+  background-size:7px 7px,11px 11px;background-position:0 0,3px 5px;
+}
+.content.page::before{content:"";position:absolute;top:0;bottom:0;width:70px;pointer-events:none}
+.front .content.page::before{left:0;background:linear-gradient(90deg,rgba(60,45,20,.22),rgba(60,45,20,.06) 35%,transparent)}
+.back .content.page::before{right:0;background:linear-gradient(270deg,rgba(60,45,20,.22),rgba(60,45,20,.06) 35%,transparent)}
+
+/* contenido de página */
+.inner{position:absolute;inset:44px 50px 56px;display:flex;flex-direction:column}
+.back .inner{inset:44px 58px 56px 50px}
+.front .inner{inset:44px 50px 56px 58px}
+.runhead{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--font-display);font-size:13px;letter-spacing:.22em;color:var(--page-muted);
+  border-bottom:1px solid #d9d1c0;padding-bottom:8px;
+}
+.runhead b{font-weight:700;color:var(--gold-ink);font-size:15px}
+.runhead.brand{align-items:center;padding-bottom:6px}
+.runhead.brand span{letter-spacing:.14em;text-transform:uppercase}
+.runhead.brand img{width:34px;height:34px;flex:none;display:block}
+body.single .runhead.brand{gap:8px}
+body.single .runhead.brand span{font-size:11.5px;letter-spacing:.07em;white-space:nowrap;min-width:0}
+body.single .runhead.brand img{width:34px;height:34px}
+.folio{
+  position:absolute;bottom:24px;font-family:var(--font-serif);font-style:italic;
+  font-size:15px;color:#a49c8a;font-variant-numeric:oldstyle-nums;
+}
+.front .folio{right:40px}.back .folio{left:40px}
+
+.entry{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;justify-content:safe center;gap:14px}
+.initial{font-family:var(--font-display);font-size:120px;line-height:.8;color:var(--gold);opacity:.35;margin:0 0 -18px}
+.word{font-family:var(--font-serif);font-weight:700;font-size:64px;line-height:1;margin:0;letter-spacing:0;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;font-family:var(--font-serif);font-size:19px;color:var(--page-muted)}
+.meta .syl{letter-spacing:.06em}
+.meta .cat{font-style:italic;color:var(--gold-ink)}
+.rule{width:56px;height:1px;background:var(--gold);margin:4px 0}
+.def{font-family:var(--font-serif);font-size:23px;line-height:1.4;margin:0;max-width:30ch}
+.def .n{font-weight:600;color:var(--gold-ink);margin-right:6px}
+
+.illus{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;justify-content:safe center;gap:22px}
+.plate{
+  width:100%;max-width:300px;aspect-ratio:300/250;
+  border:1px solid #d9d1c0;outline:1px solid #e8e1d2;outline-offset:6px;
+  background:rgba(255,255,255,.45);display:grid;place-items:center;
+}
+.plate svg{width:88%;height:88%}
+.plate svg *{vector-effect:non-scaling-stroke}
+.fig{font-family:var(--font-display);font-size:12px;letter-spacing:.2em;color:var(--page-muted);margin-top:-10px}
+.example{border-top:1px solid #d9d1c0;padding-top:14px;width:100%}
+.example .lbl{font-family:var(--font-display);letter-spacing:.2em;font-size:12px;color:var(--gold-ink)}
+.example p{font-family:var(--font-serif);font-style:italic;font-size:22px;line-height:1.4;margin:6px 0 0}
+.example p em{font-style:normal;font-weight:600}
+
+/* índice */
+.index h2{font-family:var(--font-display);font-size:40px;margin:0 0 6px;font-weight:700}
+.index .sub{font-family:var(--font-serif);font-style:italic;color:var(--page-muted);font-size:18px;margin:0 0 22px}
+.index ol{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-template-rows:repeat(var(--rows,8),auto);grid-template-columns:1fr 1fr;column-gap:26px}
+.index button{
+  all:unset;box-sizing:border-box;width:100%;cursor:pointer;
+  display:flex;align-items:baseline;gap:8px;padding:3px 2px;
+  font-family:var(--font-serif);font-size:20px;color:var(--page-ink);
+}
+.index button .dots{flex:1;border-bottom:1.5px dotted #c6bca6;transform:translateY(-6px)}
+.index button .pg{font-variant-numeric:tabular-nums oldstyle-nums;color:var(--page-muted);font-size:20px}
+.index button:hover .w,.index button:focus-visible .w{color:var(--gold-ink)}
+.index button:focus-visible{outline:1px solid var(--gold);outline-offset:2px}
+
+/* tapas */
+.cover{
+  background:
+    radial-gradient(rgba(255,255,255,.04) 1px,transparent 1.4px) 0 0/4px 4px,
+    linear-gradient(90deg,var(--cloth-2) 0,var(--cloth) 8%,var(--cloth) 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  color:var(--gold);border-radius:2px 6px 6px 2px;
+}
+.cover.backcover{background:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1.4px) 0 0/4px 4px,linear-gradient(270deg,var(--cloth-2) 0,var(--cloth) 8%,var(--cloth) 100%);border-radius:6px 2px 2px 6px}
+.cover .frame{position:absolute;inset:28px;border:1.5px solid var(--gold);opacity:.75;outline:1px solid var(--gold);outline-offset:-8px}
+.cover h1{font-family:var(--font-display);font-weight:700;font-size:54px;letter-spacing:.06em;margin:0;line-height:1;text-align:center}
+.cover p{font-family:var(--font-serif);font-style:italic;font-size:21px;margin:0;opacity:.9}
+.cover .colophon{max-width:300px;text-align:center;font-size:24px;line-height:1.45;opacity:1;text-wrap:balance}
+.cover .orn{width:120px;height:14px}
+.cover .seal{filter:drop-shadow(0 1px 0 rgba(0,0,0,.45)) drop-shadow(0 -1px 0 rgba(255,235,180,.12))}
+.cover .logo{width:190px;height:190px;display:block}
+.cover .course{display:flex;align-items:baseline;gap:12px;font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:.16em;line-height:1;border:1.5px solid var(--gold);padding:10px 22px 12px;margin-top:8px}
+.cover .course b{font-family:var(--font-serif);font-size:64px;letter-spacing:0}
+.cover .mark{font-family:var(--font-display);letter-spacing:.3em;font-size:14px;opacity:.85}
+.endpaper{
+  background:
+    radial-gradient(circle at 25% 25%,rgba(255,255,255,.35) 0 2px,transparent 2.5px) 0 0/28px 28px,
+    radial-gradient(circle at 75% 75%,rgba(110,85,40,.18) 0 2px,transparent 2.5px) 0 0/28px 28px,
+    var(--endpaper);
+}
+.endpaper .label{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  background:var(--paper);border:1px solid #b7a37a;padding:18px 28px;
+  font-family:var(--font-serif);font-style:italic;color:#7b6c4e;font-size:18px;text-align:center;
+  box-shadow:0 1px 3px rgba(0,0,0,.12);white-space:nowrap;
+}
+.endpaper .label b{font-family:var(--font-display);font-style:normal;font-weight:700;font-size:24px;letter-spacing:.04em;color:#5e4f2f;display:inline-block;margin:4px 0}
+.endpaper .label{line-height:1.45}
+.endpaper .label small{display:block;font-family:var(--font-display);font-style:normal;letter-spacing:.2em;font-size:11px;margin-top:6px;color:#9a8a68}
+
+.rel{margin:4px 0 0;display:flex;flex-direction:column;gap:8px;border-left:2px solid var(--gold);padding-left:14px}
+.rel div{display:flex;flex-direction:column;gap:1px}
+.rel dt{font-family:var(--font-display);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+.rel dd{margin:0;font-family:var(--font-serif);font-style:italic;font-size:19px;line-height:1.3;color:var(--page-ink)}
+body.single .rel dt{font-size:13px}
+body.single .rel dd{font-size:21px}
+/* pestañas del canto (ordenador) */
+.tabs{position:absolute;top:18px;left:calc(100% + 12px);display:flex;flex-direction:column;gap:4px;z-index:3000}
+.tab{all:unset;box-sizing:border-box;cursor:pointer;width:30px;height:44px;display:grid;place-items:center;
+  font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--cloth);
+  background:linear-gradient(90deg,#d9cdb3,#efe6d1);border-radius:0 7px 7px 0;
+  box-shadow:1px 1px 2px rgba(0,0,0,.18);transition:transform .15s,background .2s,color .2s}
+.tab:hover{transform:translateX(3px)}
+.tab:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.tab[aria-current="true"]{background:linear-gradient(90deg,#b8913f,#d9bb72);color:#fff;transform:translateX(4px)}
+.book.closed-back .tabs{display:none}
+body.single .tabs{display:none}
+/* fila de letras (móvil) */
+.alpha{display:none;gap:3px;justify-content:center;flex-wrap:nowrap;width:100%}
+body.single .alpha{display:flex}
+.alpha button{all:unset;box-sizing:border-box;cursor:pointer;flex:1;max-width:32px;height:30px;display:grid;place-items:center;
+  font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--ink);
+  border:1px solid var(--btn-line);border-radius:6px;background:var(--btn)}
+.alpha button[aria-current="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.alpha button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.controls{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center}
+.controls button{
+  font-family:var(--font-ui);font-size:14px;color:var(--ink);background:var(--btn);
+  border:1px solid var(--btn-line);border-radius:999px;padding:6px 14px;cursor:pointer;
+  transition:transform .15s,border-color .15s;
+}
+.controls button:hover:not(:disabled){border-color:var(--gold);transform:translateY(-1px)}
+.controls button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.controls button:disabled{opacity:.4;cursor:default}
+.status{font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--muted);min-width:170px;text-align:center}
+.hint{font-size:12px;color:var(--muted);letter-spacing:.04em;margin:0;text-align:center}
+.hint .shelf{color:var(--gold-ink);font-weight:500;text-decoration:none;border-bottom:1px solid currentColor;white-space:nowrap}
+.hint .shelf:hover,.hint .shelf:focus-visible{color:var(--ink);outline:none}
+
+.controls button[aria-pressed="false"]{color:var(--muted)}
+.controls button svg{width:16px;height:16px;vertical-align:-3px;margin-right:6px}
+</style>
+
+</head>
+<body>
+<nav class="alpha" id="alpha" aria-label="Ir a la letra"></nav>
+<div class="stage" id="stage">
+  <div class="scaler" id="scaler">
+    <div class="book" id="book">
+      <div class="shadow"></div>
+      <div class="board left"></div>
+      <div class="board right"></div>
+      <div class="stack left"></div>
+      <div class="stack right"></div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button id="prev" type="button" aria-label="Página anterior">‹<span class="lbl"> Anterior</span></button>
+  <span class="status" id="status" aria-live="polite"></span>
+  <button id="next" type="button" aria-label="Página siguiente"><span class="lbl">Siguiente </span>›</button>
+  <button id="snd" type="button" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span id="sndtxt" class="lbl">Sonido</span></button>
+</div>
+<p class="hint"><span id="hint">Arrastra una página para pasarla, haz clic en ella o usa las flechas del teclado</span> · <a class="shelf" href="../">Otros cursos</a></p>
+
+<script>
+(function(){
+  const G = '#1f3b33', A = '#b8913f', P = '#fbf9f4';
+
+  function gear(cx,cy,r,teeth,depth){
+    let d='';
+    const step = Math.PI*2/teeth;
+    for(let i=0;i<teeth;i++){
+      const a=i*step, pts=[[a,r],[a+step*.18,r+depth],[a+step*.5,r+depth],[a+step*.68,r]];
+      pts.forEach(([ang,rad],k)=>{ d+=(i===0&&k===0?'M':'L')+(cx+Math.cos(ang)*rad).toFixed(1)+' '+(cy+Math.sin(ang)*rad).toFixed(1)+' '; });
+      const b=a+step;
+      d+='A'+r+' '+r+' 0 0 1 '+(cx+Math.cos(b)*r).toFixed(1)+' '+(cy+Math.sin(b)*r).toFixed(1)+' ';
+    }
+    return d+'Z';
+  }
+
+  const art = {
+    "automatización": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="150" y="186" width="136" height="12" rx="6" fill="${P}"/>
+  ${[0,1,2,3].map(k=>`<circle cx="${164+k*36}" cy="192" r="3" fill="${G}" stroke="none"/>`).join('')}
+  <rect x="206" y="158" width="32" height="28" fill="${A}" fill-opacity=".45"/>
+  <path d="M84 196V176H124V196Z" fill="${G}"/>
+  <rect x="56" y="196" width="96" height="14" rx="2" fill="${G}"/>
+  <path d="M104 176L134 106" stroke="${A}" stroke-width="15"/>
+  <path d="M134 106L204 92" stroke="${A}" stroke-width="13"/>
+  <circle cx="104" cy="176" r="10" fill="${G}" stroke="none"/>
+  <circle cx="134" cy="106" r="10" fill="${G}" stroke="none"/>
+  <path d="M204 92L222 120M204 92L230 104" stroke-width="5"/>
+  <path d="M222 120V136M230 104L240 116" stroke-width="4"/>
+</svg>`,
+    "brecha": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+  <defs><marker id="mbre" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="${G}" stroke="none"/></marker></defs>
+  <path d="M20 230V140H124L116 162L128 184L118 230Z" fill="${A}" fill-opacity=".38"/>
+  <path d="M280 230V140H178L186 164L174 190L184 230Z" fill="${A}" fill-opacity=".38"/>
+  <path d="M52 92A34 34 0 0 1 100 92M62 104A20 20 0 0 1 90 104" stroke-width="4"/>
+  <circle cx="76" cy="116" r="4" fill="${G}" stroke="none"/>
+  <path d="M202 92A34 34 0 0 1 250 92M212 104A20 20 0 0 1 240 104" stroke-width="4" stroke-opacity=".3"/>
+  <path d="M206 80L246 120" stroke="${A}" stroke-width="3"/>
+  <path d="M130 126H172" stroke-width="1.8" marker-start="url(#mbre)" marker-end="url(#mbre)"/>
+</svg>`,
+    "desinformación": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2" stroke-linejoin="round" font-family="Jost,sans-serif" text-anchor="middle">
+  <g transform="rotate(-3 150 125)">
+    <rect x="52" y="38" width="196" height="172" fill="${P}"/>
+    <rect x="68" y="54" width="164" height="16" fill="${G}" stroke="none"/>
+    <rect x="68" y="82" width="72" height="54" fill="${A}" fill-opacity=".3" stroke="none"/>
+    <path d="M152 86H230M152 100H226M152 114H230M152 128H210M68 152H230M68 166H220M68 180H230M68 194H190" stroke="${A}" stroke-width="3" stroke-opacity=".55"/>
+  </g>
+  <g transform="rotate(-15 150 146)">
+    <rect x="84" y="122" width="132" height="48" rx="6" fill="${P}" fill-opacity=".85" stroke="${A}" stroke-width="4"/>
+    <text x="150" y="157" font-size="27" font-weight="600" fill="${A}" stroke="none" letter-spacing="3">FALSO</text>
+  </g>
+</svg>`,
+    "dilema": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" font-family="Georgia,serif" text-anchor="middle">
+  <path d="M150 62V216" stroke-width="7" stroke-linecap="round"/>
+  <path d="M150 74H70L54 92L70 110H150Z" fill="${P}"/>
+  <path d="M150 122H230L246 140L230 158H150Z" fill="${A}" fill-opacity=".45"/>
+  <circle cx="150" cy="40" r="20" fill="${G}"/>
+  <text x="150" y="50" font-size="28" font-weight="700" fill="${P}" stroke="none">?</text>
+  <path d="M90 216H210" stroke="${A}" stroke-width="2.4"/>
+</svg>`,
+    "discrepancia": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M56 46H156Q166 46 166 56V108Q166 118 156 118H86L64 138L68 118H56Q46 118 46 108V56Q46 46 56 46Z" fill="${P}"/>
+  <path d="M84 84l14 14l26 -28" stroke-width="5"/>
+  <path d="M234 116H134Q124 116 124 126V178Q124 188 134 188H204L226 208L222 188H234Q244 188 244 178V126Q244 116 234 116Z" fill="#f0e6cf"/>
+  <path d="M168 136l32 32M200 136l-32 32" stroke="${A}" stroke-width="5"/>
+</svg>`,
+    "discriminación": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2">
+  <circle cx="118" cy="125" r="80" stroke-dasharray="5 6" stroke="${A}" stroke-width="2.4"/>
+  ${[[96,86],[140,86],[74,130],[118,130],[162,130],[96,174],[140,174]].map(([x,y])=>`<circle cx="${x}" cy="${y-10}" r="7" fill="${G}"/><path d="M${x-11} ${y+12}A11 11 0 0 1 ${x+11} ${y+12}Z" fill="${G}"/>`).join('')}
+  <circle cx="246" cy="120" r="9" fill="${A}"/><path d="M232 148A14 14 0 0 1 260 148Z" fill="${A}"/>
+  <path d="M206 112l14 12l-14 12" stroke="${A}" stroke-width="2"/>
+</svg>`,
+    "externalidad": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M30 206V140L60 160V140L90 160V122H112V206Z" fill="${P}"/>
+  <rect x="96" y="78" width="14" height="44" fill="${G}"/>
+  ${[[112,66,10],[136,54,14],[168,48,18],[206,52,21],[246,62,22]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${A}" fill-opacity=".28" stroke="none"/>`).join('')}
+  <path d="M190 206V164L216 142L242 164V206Z" fill="${P}"/>
+  <rect x="208" y="180" width="16" height="26" fill="${A}" fill-opacity=".4"/>
+  <path d="M250 206V178L268 162L286 178V206Z" fill="${P}"/>
+  <path d="M20 206H290" stroke="${A}" stroke-width="2.4"/>
+</svg>`,
+    "fiabilidad": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M150 22L222 50C222 135 194 188 150 218C106 188 78 135 78 50Z" fill="${A}" fill-opacity=".16"/>
+      <path d="M150 40L206 62C206 132 184 174 150 198C116 174 94 132 94 62Z"/>
+      <path d="M118 118L142 142L186 92" stroke-width="5" stroke="${G}"/>
+      <path d="M40 120h18M242 120h18M60 60l12 8M240 60l-12 8" stroke="${A}"/>
+    </svg>`,
+    "limitación": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M96 110A76 76 0 0 1 204 110" stroke-width="7"/>
+  <path d="M114 128A50 50 0 0 1 186 128" stroke-width="7"/>
+  <path d="M132 146A24 24 0 0 1 168 146" stroke-width="7"/>
+  <circle cx="150" cy="162" r="7" fill="${G}"/>
+  <path d="M92 52L208 176" stroke="${P}" stroke-width="16"/>
+  <path d="M92 52L208 176" stroke="${A}" stroke-width="8"/>
+  <rect x="44" y="192" width="212" height="16" fill="${P}" stroke-width="2"/>
+  ${[0,1,2,3,4,5].map(k=>`<path d="M${56+k*36} 192L${70+k*36} 192L${58+k*36} 208L${44+k*36} 208Z" fill="${A}" stroke="none"/>`).join('')}
+  <path d="M56 208V232M244 208V232" stroke-width="5"/>
+</svg>`,
+    "manipulación": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M96 40H204" stroke-width="7"/>
+  <path d="M150 26V62" stroke-width="7"/>
+  <path d="M96 40L112 142M204 40L188 142M150 62V86M122 40L134 204M178 40L166 204" stroke-width="1" stroke-opacity=".7"/>
+  <circle cx="150" cy="98" r="14" fill="${P}"/>
+  <path d="M150 112V164" stroke-width="5"/>
+  <path d="M150 124L112 142M150 124L188 142" stroke-width="4"/>
+  <path d="M150 164L134 204M150 164L166 204" stroke-width="4"/>
+  <path d="M60 220H240" stroke="${A}" stroke-dasharray="2 6"/>
+</svg>`,
+    "obsolescencia": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+  <defs><marker id="mobs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="${G}" stroke="none"/></marker></defs>
+  <g opacity=".55"><path d="M70 92V70" stroke-width="3"/><rect x="48" y="92" width="36" height="88" rx="5" fill="${A}" fill-opacity=".4"/>
+  <rect x="54" y="100" width="24" height="18" fill="${P}"/>
+  ${[0,1,2].map(r=>[0,1,2].map(c=>`<circle cx="${58+c*8}" cy="${130+r*12}" r="2.5" fill="${G}" stroke="none"/>`).join('')).join('')}</g>
+  <path d="M44 86L88 186" stroke="${A}" stroke-width="4"/>
+  <rect x="112" y="84" width="42" height="96" rx="8" fill="${P}"/>
+  <rect x="118" y="94" width="30" height="40" fill="${A}" fill-opacity=".25"/>
+  <rect x="180" y="62" width="58" height="118" rx="10" fill="${G}"/>
+  <rect x="186" y="72" width="46" height="94" rx="2" fill="${P}" stroke="none"/>
+  <path d="M40 206H250" stroke-width="2.4" marker-end="url(#mobs)"/>
+</svg>`,
+    "privacidad": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M60 125Q150 46 240 125Q150 204 60 125Z" fill="${P}"/>
+  <circle cx="150" cy="125" r="30" fill="${A}" fill-opacity=".45"/>
+  <circle cx="150" cy="125" r="13" fill="${G}"/>
+  <path d="M78 206L222 44" stroke="${P}" stroke-width="14"/>
+  <path d="M78 206L222 44" stroke-width="5"/>
+</svg>`,
+    "repercusión": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2">
+  <circle cx="150" cy="125" r="48" stroke="${A}" stroke-opacity=".7"/>
+  <circle cx="150" cy="125" r="78" stroke="${A}" stroke-opacity=".4" stroke-dasharray="4 6"/>
+  <circle cx="150" cy="125" r="16" fill="${G}"/>
+  ${[0,1,2,3,4,5].map(i=>{const a=i*Math.PI/3-Math.PI/2,x=150+Math.cos(a)*100,y=125+Math.sin(a)*96;return `<circle cx="${x.toFixed(1)}" cy="${(y-10).toFixed(1)}" r="7" fill="${i%2?P:A}"/><path d="M${(x-11).toFixed(1)} ${(y+12).toFixed(1)}A11 11 0 0 1 ${(x+11).toFixed(1)} ${(y+12).toFixed(1)}Z" fill="${i%2?P:A}"/>`}).join('')}
+</svg>`,
+    "resiliencia": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="${A}" stroke="none"/></marker></defs>
+      <path d="M40 222H260" stroke="${A}"/>
+      <rect x="108" y="210" width="84" height="10" rx="2" fill="${G}" stroke="none"/>
+      <path d="M150 210V200L120 192L180 178L120 164L180 150L120 136L180 122L150 114V106" stroke-width="2.6"/>
+      <rect x="104" y="64" width="92" height="42" rx="4" fill="${A}" fill-opacity=".3"/>
+      <path d="M78 176C58 146 58 112 82 84" stroke="${A}" marker-end="url(#ar)"/>
+      <path d="M222 176C242 146 242 112 218 84" stroke="${A}" marker-end="url(#ar)"/>
+      <path d="M128 50L150 30L172 50" stroke="${A}" stroke-width="1.6"/>
+    </svg>`,
+    "sesgo": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M150 64V206" stroke-width="5"/>
+  <path d="M104 210H196" stroke-width="7"/>
+  <path d="M70 80L230 116" stroke-width="5"/>
+  <circle cx="150" cy="98" r="7" fill="${A}"/>
+  <path d="M70 80L48 124M70 80L92 124M230 116L208 160M230 116L252 160" stroke-width="1.2"/>
+  <path d="M44 124H96Q90 140 70 140Q50 140 44 124Z" fill="${P}"/>
+  <path d="M204 160H256Q250 176 230 176Q210 176 204 160Z" fill="${P}"/>
+  <circle cx="70" cy="116" r="7" fill="${A}" fill-opacity=".6"/>
+  <rect x="212" y="134" width="20" height="24" fill="${G}"/><rect x="230" y="142" width="18" height="16" fill="${A}"/>
+</svg>`,
+    "soberanía": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+  ${[0,1,2,3,4].map(k=>`<path d="M${106+k*22} 132V118M${106+k*22} 200V214"/>`).join('')}
+  ${[0,1,2].map(k=>`<path d="M90 ${146+k*20}H76M210 ${146+k*20}H224"/>`).join('')}
+  <rect x="90" y="132" width="120" height="68" rx="6" fill="${G}"/>
+  <rect x="122" y="148" width="56" height="36" rx="3" fill="${A}" fill-opacity=".45" stroke="none"/>
+  <path d="M150 132V40" stroke-width="4"/>
+  <path d="M152 42H222L206 63L222 84H152Z" fill="${A}" fill-opacity=".7"/>
+</svg>`,
+    "sostenibilidad": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <defs><marker id="as" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="${A}" stroke="none"/></marker></defs>
+      ${[0,1,2].map(k=>{const a0=(-80+k*120)*Math.PI/180,a1=a0+95*Math.PI/180,r=88;
+        return `<path stroke="${A}" stroke-width="7" marker-end="url(#as)" d="M${(150+Math.cos(a0)*r).toFixed(1)} ${(122+Math.sin(a0)*r).toFixed(1)}A${r} ${r} 0 0 1 ${(150+Math.cos(a1)*r).toFixed(1)} ${(122+Math.sin(a1)*r).toFixed(1)}"/>`}).join('')}
+      <path d="M150 170C108 154 106 102 150 74C194 102 192 154 150 170Z" fill="${G}" fill-opacity=".85"/>
+      <path d="M150 166V92M150 132L130 116M150 118L170 102M150 148L170 134" stroke="${P}" stroke-width="1.6"/>
+    </svg>`,
+    "transparencia": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2" stroke-linejoin="round">
+  <path d="M130 56H230V156" stroke-dasharray="4 5" stroke-opacity=".6"/>
+  <path d="M130 56V156H230" stroke-dasharray="4 5" stroke-opacity=".35"/>
+  <path d="M90 196L130 156" stroke-dasharray="4 5" stroke-opacity=".35"/>
+  <path d="${gear(158,128,28,10,8)}" fill="${A}" fill-opacity=".55"/>
+  <circle cx="158" cy="128" r="9" fill="${G}" stroke="none"/>
+  <path d="${gear(120,166,12,8,4)}" fill="${P}" stroke-width="1.6"/>
+  <rect x="90" y="86" width="110" height="110" fill="${A}" fill-opacity=".08"/>
+  <path d="M90 86L130 56M200 86L230 56M200 196L230 156" />
+  <path d="M100 100L120 120M100 116L110 126" stroke="${P}" stroke-width="3"/>
+</svg>`,
+    "trazabilidad": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M56 186C96 120 120 206 160 140S236 88 252 66" stroke="${A}" stroke-width="3" stroke-dasharray="5 7"/>
+  <path d="M30 206L54 168L78 206Z" fill="${A}" fill-opacity=".45"/>
+  <path d="M44 206L54 190L64 206" stroke-width="1.4"/>
+  <path d="M138 162V136L150 144V136L162 144V128H176V162Z" fill="${P}"/>
+  <rect x="166" y="110" width="8" height="18" fill="${G}"/>
+  <rect x="232" y="36" width="44" height="28" rx="2" fill="${G}"/>
+  <path d="M226 64H282L286 72H222Z" fill="${P}"/>
+  <circle cx="54" cy="160" r="5" fill="${G}" stroke="none"/><circle cx="157" cy="122" r="5" fill="${G}" stroke="none"/>
+  <path d="M20 206H120" stroke="${A}" stroke-opacity=".5"/>
+</svg>`,
+    "vulnerabilidad": `<svg viewBox="0 0 300 250" fill="none" stroke="${G}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M120 112V80A30 30 0 0 1 180 80V64" stroke-width="11"/>
+  <rect x="98" y="110" width="104" height="94" rx="12" fill="${A}" fill-opacity=".4"/>
+  <circle cx="150" cy="146" r="9" fill="${G}" stroke="none"/>
+  <path d="M146 152H154L157 176H143Z" fill="${G}" stroke="none"/>
+  <path d="M112 124l12 14l-8 10l14 16l-6 14" stroke="${P}" stroke-width="3"/>
+  <path d="M112 124l12 14l-8 10l14 16l-6 14" stroke="${G}" stroke-width="1.2"/>
+  <path d="M206 46l14 -10M214 66l18 0M196 30l4 -16" stroke="${A}" stroke-width="2.4"/>
+</svg>`
+  };
+
+  const LOGO = 'data:image/svg+xml;base64,PHN2ZyB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIj48ZGVmcz48cGF0aCBpZD0iYXJjVCIgZD0iTTg4IDUwMEE0MTIgNDEyIDAgMCAxIDkxMiA1MDAiLz48cGF0aCBpZD0iYXJjQiIgZD0iTTQyIDUwMEE0NTggNDU4IDAgMCAwIDk1OCA1MDAiLz48L2RlZnM+PGcgZmlsbD0iIzlhN2EzMiIgc3Ryb2tlPSIjOWE3YTMyIj48Y2lyY2xlIGN4PSI1MDAiIGN5PSI1MDAiIHI9IjQ5NCIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSI3Ii8+PGNpcmNsZSBjeD0iNTAwIiBjeT0iNTAwIiByPSIzNjIiIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iNSIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iNTAwIiByPSIxMSIgc3Ryb2tlPSJub25lIi8+PGNpcmNsZSBjeD0iOTMwIiBjeT0iNTAwIiByPSIxMSIgc3Ryb2tlPSJub25lIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9Im5vbmUiIGQ9Ik01MDQgNzUxIEw0NzIgNzUwIEw0NTEgNzQ3IEw0MzMgNzQyIEw0MjEgNzM5IEw0MDMgNzMyIEwzNzggNzE5IEwzNDkgNzAwIEwzMzAgNjgyIEwzMTEgNjU5IEwyOTYgNjM1IEwyODggNjE0IEwyODQgNjA0IEwyNzkgNTgwIEwyNzggNTYxIEwyNzggMzA1IEwyNzggMzAwIEwyODIgMjk3IEwyODggMjk2IEw3MTQgMjk2IEw3MTggMjk3IEw3MjEgMjk5IEw3MjIgMzA0IEw3MjIgNTYxIEw3MjAgNTc4IEw3MTUgNjAzIEw3MTAgNjE4IEw3MDMgNjMzIEw2ODggNjU4IEw2NzggNjcyIEw2NjYgNjg1IEw2NDIgNzA1IEw2MTcgNzIyIEw1ODMgNzM3IEw1NjQgNzQzIEw1MjggNzUwIEw1MDQgNzUxWiBNNTI3IDY3NCBMNTI2IDY0NyBMNTE0IDQ5OSBMNTE3IDQ5NSBMNjM1IDQwMiBMNjM4IDM5OCBMNjM1IDM5NiBMNTI0IDM5MSBMNTE2IDM5NSBMNDU5IDQ0NCBMNDUxIDQ0OSBMNDQ1IDQ0OCBMNDIyIDQzOCBMMzkwIDQyNiBMMzg1IDQyOCBMMzc5IDQzMyBMMzYwIDQ1MiBMMzYwIDQ1NCBMMzYyIDQ1NiBMMzg0IDQ1NyBMMzg5IDQ2MCBMMzkxIDQ2NiBMMzkyIDQ5MiBMMzk2IDUwMiBMNDk5IDYwOCBMNTAxIDYxNCBMNDk5IDYzNiBMNTIyIDY3MSBMNTI1IDY3NCBMNTI3IDY3NFoiLz48ZyBzdHJva2U9Im5vbmUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXdlaWdodD0iNjAwIiBmb250LXNpemU9IjY2IiBsZXR0ZXItc3BhY2luZz0iNyI+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSI+PHRleHRQYXRoIHhsaW5rOmhyZWY9IiNhcmNUIiBzdGFydE9mZnNldD0iNTAlIj5TQ0lFTlRJQSBMQUVUSVRJQSBOT1NUUkE8L3RleHRQYXRoPjwvdGV4dD48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMTMiPjx0ZXh0UGF0aCB4bGluazpocmVmPSIjYXJjQiIgc3RhcnRPZmZzZXQ9IjUwJSI+SS5FLlMuIFBBTE9NQVJFUzwvdGV4dFBhdGg+PC90ZXh0PjwvZz48L2c+PC9zdmc+';
+  const words = [
+    {w:"automatización", sin:"mecanización, robotización", ant:"", cat:"sust. fem.",
+     def:"Realización de tareas mediante sistemas que funcionan con poca intervención humana.",
+     ex:"La <em>automatización</em> permite que algunas fábricas realicen tareas repetitivas sin que una persona tenga que controlarlas constantemente.", fig:"Brazo robótico"},
+    {w:"brecha", sin:"separación, distancia, desigualdad", ant:"igualdad, unión", cat:"sust. fem.",
+     def:"Separación o desigualdad entre personas o grupos que tienen distintas oportunidades o posibilidades.",
+     ex:"La <em>brecha</em> digital dificulta que algunas personas puedan acceder a la educación y a los servicios en línea.", fig:"Dos orillas"},
+    {w:"desinformación", sin:"bulo, noticia falsa, engaño", ant:"información veraz", cat:"sust. fem.",
+     def:"Difusión de información falsa, incompleta o engañosa que puede confundir a las personas.",
+     ex:"La <em>desinformación</em> en Internet puede influir en las decisiones que tomamos.", fig:"Noticia falsa"},
+    {w:"dilema", sin:"disyuntiva, encrucijada, duda", ant:"certeza", cat:"sust. masc.",
+     def:"Situación en la que hay que elegir entre varias opciones difíciles, cada una con ventajas e inconvenientes.",
+     ex:"El uso de la inteligencia artificial plantea el <em>dilema</em> de aprovechar sus ventajas sin perder nuestra capacidad de pensar por nosotros mismos.", fig:"Encrucijada"},
+    {w:"discrepancia", sin:"desacuerdo, divergencia, disconformidad", ant:"acuerdo, coincidencia", cat:"sust. fem.",
+     def:"Diferencia de opinión o desacuerdo entre dos o más personas.",
+     ex:"Existe una <em>discrepancia</em> entre quienes creen que las redes sociales ayudan a comunicarse y quienes creen que aíslan a las personas.", fig:"Dos opiniones"},
+    {w:"discriminación", sin:"desigualdad, exclusión, segregación", ant:"igualdad, inclusión", cat:"sust. fem.",
+     def:"Trato injusto hacia una persona o un grupo por determinadas características o circunstancias.",
+     ex:"Los sistemas tecnológicos no deben tomar decisiones que provoquen <em>discriminación</em>.", fig:"Fuera del grupo"},
+    {w:"externalidad", sin:"efecto externo, efecto colateral", ant:"", cat:"sust. fem.",
+     def:"Efecto positivo o negativo que una actividad produce sobre personas o sobre el entorno que no participan directamente en ella.",
+     ex:"La contaminación generada por una fábrica es una <em>externalidad</em> negativa de su actividad.", fig:"El humo llega al vecindario"},
+    {w:"fiabilidad", sin:"seguridad, confianza, solidez", ant:"inseguridad, desconfianza", cat:"sust. fem.",
+     def:"Cualidad de algo que ofrece confianza porque funciona correctamente y sus resultados son seguros.",
+     ex:"Antes de utilizar una página web para un trabajo, debemos comprobar su <em>fiabilidad</em>.", fig:"Escudo de garantía"},
+    {w:"limitación", sin:"restricción, límite, impedimento", ant:"posibilidad, libertad", cat:"sust. fem.",
+     def:"Circunstancia que impide o dificulta hacer algo de manera completa.",
+     ex:"Una <em>limitación</em> de algunos dispositivos es que necesitan conexión a Internet para funcionar.", fig:"Sin conexión"},
+    {w:"manipulación", sin:"engaño, tergiversación, influencia", ant:"", cat:"sust. fem.",
+     def:"Acción de influir sobre alguien o de modificar información para conseguir un determinado propósito.",
+     ex:"Algunas noticias falsas utilizan la <em>manipulación</em> para influir en la opinión de los lectores.", fig:"Marioneta"},
+    {w:"obsolescencia", sin:"caducidad, envejecimiento, desfase", ant:"actualidad, vigencia", cat:"sust. fem.",
+     def:"Pérdida de utilidad o de actualidad de un producto, incluso cuando todavía puede funcionar.",
+     ex:"La <em>obsolescencia</em> de los teléfonos móviles plantea dudas sobre nuestros hábitos de consumo.", fig:"Generaciones de móviles"},
+    {w:"privacidad", sin:"intimidad, confidencialidad, reserva", ant:"exposición", cat:"sust. fem.",
+     def:"Derecho a mantener protegida nuestra información personal y nuestra vida privada.",
+     ex:"Publicar fotografías de otras personas sin permiso puede perjudicar su <em>privacidad</em>.", fig:"Ojo tachado"},
+    {w:"repercusión", sin:"consecuencia, efecto, alcance", ant:"", cat:"sust. fem.",
+     def:"Consecuencia o efecto que un hecho tiene sobre otras personas o situaciones.",
+     ex:"La aparición de la inteligencia artificial está teniendo una gran <em>repercusión</em> en la educación.", fig:"Efecto que se extiende"},
+    {w:"resiliencia", sin:"fortaleza, entereza, resistencia", ant:"fragilidad", cat:"sust. fem.",
+     def:"Capacidad de adaptarse a situaciones difíciles, superar problemas y recuperarse de ellos.",
+     ex:"La <em>resiliencia</em> de una sociedad es importante cuando debe adaptarse a grandes cambios tecnológicos.", fig:"Muelle que recupera"},
+    {w:"sesgo", sin:"inclinación, parcialidad, prejuicio", ant:"imparcialidad, objetividad", cat:"sust. masc.",
+     def:"Tendencia o inclinación que hace que una opinión, una decisión o un resultado no sea completamente imparcial.",
+     ex:"Un sistema de inteligencia artificial puede presentar <em>sesgos</em> si aprende de información discriminatoria.", fig:"Balanza inclinada"},
+    {w:"soberanía", sin:"independencia, autonomía, autodeterminación", ant:"dependencia, sometimiento", cat:"sust. fem.",
+     def:"Capacidad de un país o de una comunidad para tomar sus propias decisiones y controlar determinados recursos.",
+     ex:"La <em>soberanía</em> tecnológica permite a un país reducir su dependencia de empresas tecnológicas extranjeras.", fig:"Bandera sobre un chip"},
+    {w:"sostenibilidad", sin:"equilibrio ecológico, conservación", ant:"", cat:"sust. fem.",
+     def:"Capacidad de mantener una actividad o una forma de vida a largo plazo respetando los recursos y el medioambiente.",
+     ex:"La <em>sostenibilidad</em> debe tenerse en cuenta al diseñar y fabricar nuevos productos tecnológicos.", fig:"Ciclo y hoja"},
+    {w:"transparencia", sin:"claridad, sinceridad, honestidad", ant:"opacidad, ocultación", cat:"sust. fem.",
+     def:"Cualidad de actuar o comunicar algo de manera clara, permitiendo conocer cómo se hacen las cosas.",
+     ex:"Una empresa debería explicar con <em>transparencia</em> qué hace con los datos de sus usuarios.", fig:"Caja de cristal"},
+    {w:"trazabilidad", sin:"seguimiento, rastreo", ant:"", cat:"sust. fem.",
+     def:"Posibilidad de conocer el recorrido, el origen y la evolución de un producto o de un proceso.",
+     ex:"La <em>trazabilidad</em> permite conocer de dónde proceden los materiales utilizados para fabricar un ordenador.", fig:"Ruta del producto"},
+    {w:"vulnerabilidad", sin:"debilidad, fragilidad, punto débil", ant:"fortaleza, protección", cat:"sust. fem.",
+     def:"Debilidad que puede ser aprovechada para causar un daño o provocar un problema.",
+     ex:"Compartir nuestra contraseña aumenta la <em>vulnerabilidad</em> de nuestras cuentas.", fig:"Candado abierto"},
+  ];
+  const NUM=['cero','una','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve','veinte','veintiuna','veintidós','veintitrés','veinticuatro','veinticinco','veintiséis','veintisiete','veintiocho','veintinueve','treinta'];
+  const numw = n => NUM[n] || String(n);
+  const roman = n => [['X',10],['IX',9],['V',5],['IV',4],['I',1]].reduce((s,[r,v])=>{while(n>=v){s+=r;n-=v;}return s;},'');
+
+  const book = document.getElementById('book');
+  const orn = '<svg class="orn" viewBox="0 0 120 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 7h46M74 7h46"/><path d="M60 1l6 6-6 6-6-6z"/><circle cx="50" cy="7" r="1.6" fill="currentColor"/><circle cx="70" cy="7" r="1.6" fill="currentColor"/></svg>';
+
+  // Páginas: índice = 1, palabra k → izquierda 2k, derecha 2k+1
+  const leftPage = (o,i)=>`<div class="inner">
+      <div class="runhead brand"><span>Plan de lectura · IES Palomares</span><img src="${LOGO}" alt="Logo del IES Palomares"></div>
+      <div class="entry">
+        <p class="initial" aria-hidden="true">${o.w[0].toUpperCase()}</p>
+        <h2 class="word">${o.w}</h2>
+        <div class="meta"><span class="cat">${o.cat}</span></div>
+        <div class="rule"></div>
+        <p class="def">${o.def}</p>
+        ${(o.sin||o.ant)?`<dl class="rel">${o.sin?`<div><dt>Sinónimos</dt><dd>${o.sin}</dd></div>`:''}${o.ant?`<div><dt>Antónimos</dt><dd>${o.ant}</dd></div>`:''}</dl>`:''}
+      </div></div><span class="folio">${2*i+2}</span>`;
+  const rightPage = (o,i)=>`<div class="inner">
+      <div class="runhead"><span>${o.w.toUpperCase()}</span><b>${i+1} / ${words.length}</b></div>
+      <div class="illus">
+        <div class="plate" role="img" aria-label="Ilustración: ${o.fig}">${art[o.w]}</div>
+        <span class="fig">LÁM. ${roman(i+1)} · ${o.fig.toUpperCase()}</span>
+        <div class="example"><span class="lbl">EJEMPLO</span><p>«${o.ex}»</p></div>
+      </div></div><span class="folio">${2*i+3}</span>`;
+  const indexPage = `<div class="inner index">
+      <div class="runhead brand"><span>Plan de lectura · IES Palomares</span><img src="${LOGO}" alt="Logo del IES Palomares"></div>
+      <div class="entry" style="justify-content:flex-start;padding-top:36px;gap:0">
+        <h2>Índice</h2>
+        <p class="sub">${numw(words.length).replace(/^./,c=>c.toUpperCase())} palabras, de la ${words[0].w[0].toUpperCase()} a la ${words[words.length-1].w[0].toUpperCase()}</p>
+        <ol style="--rows:${Math.ceil(words.length/2)}">${words.map((o,i)=>`<li><button type="button" data-go="${i+2}"><span class="w">${o.w}</span><span class="dots"></span><span class="pg">${2*i+2}</span></button></li>`).join('')}</ol>
+      </div></div><span class="folio">1</span>`;
+
+  // Cada hoja se divide en tiras verticales encadenadas: al girar cada tira un poco más que la anterior, la hoja se curva
+  const K = 10; let PW = 460, PH = 620, SW = PW/K;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const leaves = [];
+  function addLeaf(fHTML,fCls,bHTML,bCls){
+    const el=document.createElement('div'); el.className='leaf';
+    const L={el,segs:[],shF:[],shB:[],p:0,dir:1,active:false,raf:0};
+    let parent=el;
+    for(let j=0;j<K;j++){
+      const s=document.createElement('div'); s.className='seg';
+      const fw = SW + (j<K-1 ? 1 : 0);
+      s.style.width=SW+'px'; s.style.left=(j===0?0:SW)+'px';
+      s.innerHTML=
+        `<div class="face front" style="width:${fw}px"><div class="content ${fCls}" style="left:${-j*SW}px">${fHTML}</div><div class="sh"></div></div>`+
+        `<div class="face back" style="width:${fw}px"><div class="content ${bCls}" style="left:${-(PW-(j+1)*SW)}px">${bHTML}</div><div class="sh"></div></div>`;
+      parent.appendChild(s);
+      s._j=j; s._fc=s.querySelector(':scope > .front > .content'); s._bc=s.querySelector(':scope > .back > .content');
+      L.segs.push(s);
+      L.shF.push(s.querySelector(':scope > .front > .sh'));
+      L.shB.push(s.querySelector(':scope > .back > .sh'));
+      parent=s;
+    }
+    book.appendChild(el); leaves.push(L);
+  }
+  function relayout(pw,ph){
+    if(pw===PW && ph===PH) return;
+    PW=pw; PH=ph; SW=PW/K;
+    document.documentElement.style.setProperty('--pw',PW+'px');
+    document.documentElement.style.setProperty('--ph',PH+'px');
+    leaves.forEach(L=>L.segs.forEach(s=>{
+      const j=s._j, fw=SW+(j<K-1?1:0);
+      s.style.width=SW+'px'; s.style.left=(j===0?0:SW)+'px';
+      s.children[0].style.width=fw+'px'; s.children[1].style.width=fw+'px';
+      s._fc.style.left=(-j*SW)+'px'; s._bc.style.left=(-(PW-(j+1)*SW))+'px';
+    }));
+  }
+  function setLeaf(L,p){
+    L.p=p;
+    const th=-180*p, bend = reduced ? 0 : Math.sin(Math.PI*p)*55*L.dir;
+    let prev=0;
+    for(let j=0;j<K;j++){
+      let a = th - bend*Math.pow(j/(K-1),1.5);
+      a=Math.max(-180,Math.min(0,a));
+      L.segs[j].style.transform=`rotateY(${(a-prev).toFixed(2)}deg)`;
+      const curve = Math.abs(a-prev)*(j?1:0)*0.012;
+      L.shF[j].style.opacity=Math.min(.5,(-a/180)*.55 + curve).toFixed(3);
+      L.shB[j].style.opacity=Math.min(.45,((180+a)/180)*.45 + curve).toFixed(3);
+      prev=a;
+    }
+  }
+  addLeaf(`<div class="frame"></div><div class="seal" role="img" aria-label="Logo del IES Palomares"><svg class="logo" viewBox="0 0 1000 1000" aria-hidden="true"><defs><linearGradient id="gf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8843c"/><stop offset=".3" stop-color="#ecd38e"/><stop offset=".48" stop-color="#c8a55a"/><stop offset=".62" stop-color="#f3dea0"/><stop offset=".82" stop-color="#b08a3e"/><stop offset="1" stop-color="#d9bb72"/></linearGradient><path id="arcT" d="M88 500A412 412 0 0 1 912 500"/><path id="arcB" d="M42 500A458 458 0 0 0 958 500"/></defs><g fill="url(#gf)" stroke="url(#gf)"><circle cx="500" cy="500" r="494" fill="none" stroke-width="7"/><circle cx="500" cy="500" r="362" fill="none" stroke-width="5"/><circle cx="70" cy="500" r="11" stroke="none"/><circle cx="930" cy="500" r="11" stroke="none"/><path fill-rule="evenodd" stroke="none" d="M504 751 L472 750 L451 747 L433 742 L421 739 L403 732 L378 719 L349 700 L330 682 L311 659 L296 635 L288 614 L284 604 L279 580 L278 561 L278 305 L278 300 L282 297 L288 296 L714 296 L718 297 L721 299 L722 304 L722 561 L720 578 L715 603 L710 618 L703 633 L688 658 L678 672 L666 685 L642 705 L617 722 L583 737 L564 743 L528 750 L504 751Z M527 674 L526 647 L514 499 L517 495 L635 402 L638 398 L635 396 L524 391 L516 395 L459 444 L451 449 L445 448 L422 438 L390 426 L385 428 L379 433 L360 452 L360 454 L362 456 L384 457 L389 460 L391 466 L392 492 L396 502 L499 608 L501 614 L499 636 L522 671 L525 674 L527 674Z"/><g stroke="none" font-family="Cormorant Garamond,Georgia,serif" font-weight="600" font-size="66" letter-spacing="7"><text text-anchor="middle"><textPath href="#arcT" startOffset="50%">SCIENTIA LAETITIA NOSTRA</textPath></text><text text-anchor="middle" letter-spacing="13"><textPath href="#arcB" startOffset="50%">I.E.S. PALOMARES</textPath></text></g></g></svg></div><h1>Diccionario</h1>${orn}<p>Plan de Lectura</p><span class="course"><b>3.º</b> ESO</span>`,'cover',
+          `<div class="label">Este diccionario pertenece al<br><b>Plan de Lectura</b><br>del IES Palomares<small>3.º ESO · MMXXVI</small></div>`,'endpaper');
+  addLeaf(indexPage,'page', leftPage(words[0],0),'page');
+  for(let i=0;i<words.length;i++){
+    if(i<words.length-1) addLeaf(rightPage(words[i],i),'page', leftPage(words[i+1],i+1),'page');
+    else addLeaf(rightPage(words[i],i),'page',`<div class="frame"></div><p class="colophon">Este diccionario forma parte del Plan de Lectura del IES&nbsp;Palomares para 3.º&nbsp;ESO</p>${orn}`,'cover backcover');   // tras la última palabra, la contraportada
+  }
+
+  const N = leaves.length;
+  let current = 0, zc = 0;   // se abre cerrado, mostrando la portada
+
+  function zfix(){
+    leaves.forEach((L,i)=>{ if(!L.active) L.el.style.zIndex = i<current ? i+1 : N-i+1; });
+  }
+  function lift(L){ L.active=true; L.el.classList.add('active'); L.el.style.zIndex=1000+(++zc); }
+  function land(L){ L.active=false; L.el.classList.remove('active'); zfix(); }
+  const easeInOut=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const easeOut=t=>1-Math.pow(1-t,3);
+  function animate(L,to,dur,ease,done){
+    cancelAnimationFrame(L.raf);
+    const from=L.p, t0=performance.now();
+    if(reduced) dur=Math.min(dur,120);
+    const step=now=>{
+      const k=Math.min(1,(now-t0)/dur);
+      setLeaf(L, from+(to-from)*ease(k));
+      if(k<1) L.raf=requestAnimationFrame(step); else done&&done();
+    };
+    L.raf=requestAnimationFrame(step);
+  }
+
+  // Sonido de papel sintetizado (sin archivos externos)
+  let actx=null, soundOn=true;
+  function paperSound(soft, landAt){
+    if(!soundOn) return;
+    try{
+      actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+      if(actx.state==='suspended') actx.resume();
+      const t=actx.currentTime, sr=actx.sampleRate, dur=.6, n=Math.floor(sr*dur);
+      const buf=actx.createBuffer(1,n,sr), d=buf.getChannelData(0);
+      let g=0;
+      for(let i=0;i<n;i++){ if(Math.random()<.0035) g=.5+Math.random()*.7; g*=.9992; d[i]=(Math.random()*2-1)*(.3+g); }
+      const src=actx.createBufferSource(); src.buffer=buf;
+      const hp=actx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=350;
+      const bp=actx.createBiquadFilter(); bp.type='bandpass'; bp.Q.value=.7;
+      bp.frequency.setValueAtTime(900,t);
+      bp.frequency.exponentialRampToValueAtTime(3600+Math.random()*900,t+.2);
+      bp.frequency.exponentialRampToValueAtTime(1500,t+dur);
+      const gn=actx.createGain(), v=(soft?.22:.45)*(.85+Math.random()*.3);
+      gn.gain.setValueAtTime(.0001,t);
+      gn.gain.exponentialRampToValueAtTime(v,t+.07);
+      gn.gain.setValueAtTime(v*.8,t+.22);
+      gn.gain.exponentialRampToValueAtTime(.0001,t+dur);
+      src.connect(hp).connect(bp).connect(gn).connect(actx.destination);
+      src.start(t);
+      // golpecito suave al caer la hoja
+      const n2=Math.floor(sr*.14), b2=actx.createBuffer(1,n2,sr), d2=b2.getChannelData(0);
+      for(let i=0;i<n2;i++) d2[i]=(Math.random()*2-1)*Math.pow(1-i/n2,3);
+      const s2=actx.createBufferSource(); s2.buffer=b2;
+      const lp=actx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=650;
+      const g2=actx.createGain(); g2.gain.value=soft?.35:.7;
+      s2.connect(lp).connect(g2).connect(actx.destination);
+      s2.start(t+Math.max(.15,landAt));
+    }catch(e){}
+  }
+
+  // Modo una página (móvil): se ve media doble página y la vista se desplaza entre izquierda y derecha
+  const stage=document.getElementById('stage'), scaler=document.getElementById('scaler');
+  let single=false, side='R', scale=1;
+
+  // pestañas por letra
+  const letters=[]; words.forEach((o,i)=>{const L=o.w[0].toUpperCase(); if(!letters.find(x=>x.L===L)) letters.push({L,go:i+2});});
+  const tabs=document.createElement('div'); tabs.className='tabs';
+  tabs.innerHTML=letters.map(x=>`<button type="button" class="tab" data-go="${x.go}" data-l="${x.L}" aria-label="Letra ${x.L}">${x.L}</button>`).join('');
+  book.appendChild(tabs);
+  const alpha=document.getElementById('alpha');
+  alpha.innerHTML=letters.map(x=>`<button type="button" data-go="${x.go}" data-l="${x.L}" aria-label="Letra ${x.L}">${x.L}</button>`).join('');
+  alpha.addEventListener('click',e=>{const b=e.target.closest('[data-go]'); if(b) goTo(+b.dataset.go);});
+  function markLetter(){
+    const L = current>=2 && current-2<words.length ? words[current-2].w[0].toUpperCase() : '';
+    document.querySelectorAll('[data-l]').forEach(b=>b.setAttribute('aria-current', b.dataset.l===L));
+  }
+  function render(){
+    markLetter();
+    zfix();
+    book.classList.toggle('closed-front', current===0);
+    book.classList.toggle('closed-back', current===N);
+    const open = current>0 && current<N;
+    book.style.setProperty('--ls', (open ? (current-1)*1.5 : 0)+'px');
+    book.style.setProperty('--rs', (open ? (N-1-current)*1.5 : 0)+'px');
+    const st=document.getElementById('status');
+    if(current===0) st.textContent='Portada';
+    else if(current===N) st.textContent='Contraportada';
+    else if(current===1) st.textContent= single && side==='L' ? 'Guarda' : 'Índice';
+    else if(current-2 < words.length){
+      const w=words[current-2].w; st.textContent = w.charAt(0).toUpperCase()+w.slice(1) + (single ? (side==='L' ? ' · definición' : ' · ejemplo') : '');
+    }
+    else st.textContent='Fin';
+    document.getElementById('prev').disabled = current===0;
+    document.getElementById('next').disabled = current===N;
+    position();
+  }
+  function flip(dir,fast){
+    const idx = dir>0 ? current : current-1;
+    if(idx<0||idx>=N) return false;
+    const L=leaves[idx], dur = fast ? 650 : 1150;
+    current += dir;
+    if(single) side = dir>0 ? 'L' : 'R';
+    render();
+    L.dir=dir; lift(L);
+    paperSound(fast, dur/1000*.9);
+    animate(L, dir>0?1:0, dur, easeInOut, ()=>land(L));
+    return true;
+  }
+  function next(){
+    if(single){
+      if(current===N) return;
+      if(side==='L' && current>0){ side='R'; render(); return; }
+    }
+    flip(1);
+  }
+  function prev(){
+    if(single){
+      if(current===0) return;
+      if(side==='R' && current<N){ side='L'; render(); return; }
+    }
+    flip(-1);
+  }
+  let jumping=null;
+  function goTo(target){
+    clearInterval(jumping);
+    if(target===current){ if(single){ side='L'; render(); } return; }
+    const dir = target>current ? 1 : -1;
+    const step=()=>{ const ok=flip(dir,true); if(single && current===target) { side='L'; render(); } return ok; };
+    step();
+    jumping=setInterval(()=>{ if(current===target || !step()) clearInterval(jumping); }, 150);
+  }
+
+  // Arrastrar o tocar: arrastrar a la izquierda avanza, a la derecha retrocede
+  let drag=null;
+  book.addEventListener('pointerdown', e=>{
+    if(e.button>0 || e.target.closest('[data-go],a')) return;
+    clearInterval(jumping);
+    drag={x0:e.clientX,y0:e.clientY,decided:false,L:null,dir:0,w:book.getBoundingClientRect().width};
+    try{ book.setPointerCapture(e.pointerId); }catch(_){}
+  });
+  book.addEventListener('pointermove', e=>{
+    if(!drag) return;
+    const dx=e.clientX-drag.x0, dy=e.clientY-drag.y0;
+    if(!drag.decided){
+      if(Math.abs(dx)<8) return;
+      if(Math.abs(dy)>Math.abs(dx)*1.2){ drag=null; return; }   // gesto vertical: dejar hacer scroll
+      drag.decided=true;
+      const dir = dx<0 ? 1 : -1;
+      if(single && dir>0 && side==='L' && current>0 && current<N){ drag=null; next(); return; }
+      if(single && dir<0 && side==='R' && current>0 && current<N){ drag=null; prev(); return; }
+      const idx = dir>0 ? current : current-1;
+      if(idx<0 || idx>=N || leaves[idx].active){ drag=null; return; }
+      drag.dir=dir; drag.L=leaves[idx]; drag.L.dir=dir; lift(drag.L);
+    }
+    const span = single ? drag.w*.42 : drag.w*.85;
+    const p = drag.dir>0 ? -dx/span : 1-dx/span;
+    setLeaf(drag.L, Math.max(0,Math.min(1,p)));
+  });
+  function endDrag(e,cancel){
+    if(!drag) return;
+    const d=drag; drag=null;
+    if(!d.decided){
+      if(cancel) return;
+      // toque: lado izquierdo retrocede, lado derecho avanza
+      const r = single ? stage.getBoundingClientRect() : book.getBoundingClientRect();
+      const x = (e.clientX - r.left)/r.width;
+      if(x < (single ? .35 : .5)) prev(); else next();
+      return;
+    }
+    const {L,dir}=d;
+    const prog = dir>0 ? L.p : 1-L.p;
+    if(!cancel && prog>.22){
+      const dur=250+600*(1-prog);
+      current+=dir;
+      if(single) side = dir>0 ? 'L' : 'R';
+      render();
+      paperSound(prog>.6, dur/1000*.9);
+      animate(L, dir>0?1:0, dur, easeOut, ()=>land(L));
+    } else {
+      animate(L, dir>0?0:1, 320, easeOut, ()=>land(L));
+    }
+  }
+  book.addEventListener('pointerup', e=>endDrag(e,false));
+  book.addEventListener('pointercancel', e=>endDrag(e,true));
+
+  book.addEventListener('click', e=>{
+    const go=e.target.closest('[data-go]');
+    if(go){ e.stopPropagation(); goTo(+go.dataset.go); }
+  });
+  document.getElementById('next').addEventListener('click',next);
+  document.getElementById('prev').addEventListener('click',prev);
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight') next();
+    if(e.key==='ArrowLeft') prev();
+  });
+  const sndBtn=document.getElementById('snd');
+  sndBtn.addEventListener('click',()=>{
+    soundOn=!soundOn;
+    sndBtn.setAttribute('aria-pressed',soundOn);
+    document.getElementById('wave').style.display=soundOn?'':'none';
+    document.getElementById('sndtxt').textContent=soundOn?'Sonido':'Silencio';
+  });
+  leaves.forEach((L,i)=>setLeaf(L, i<current?1:0));
+
+  function position(){
+    let off=0;
+    if(single){
+      if(current===0) side='R';
+      if(current===N) side='L';
+      off = side==='L' ? PW/2 : -PW/2;
+    } else if(current===0){
+      off = -PW/2;                     // libro cerrado: portada centrada
+    } else if(current===N){
+      off = PW/2;                      // contraportada centrada
+    }
+    scaler.style.transform=`translateX(-50%) translateY(${12*scale}px) scale(${scale}) translateX(${off}px)`;
+  }
+  function fit(){
+    const vw=stage.clientWidth, vh=window.innerHeight;
+    const wasSingle=single;
+    single = vw < 720;                 // pantallas estrechas: una página
+    document.body.classList.toggle('single', single);
+    let H;
+    if(single){
+      const ctr=document.querySelector('.controls').offsetHeight + document.getElementById('hint').offsetHeight + document.getElementById('alpha').offsetHeight + 8;
+      const avail = vh - ctr - 8*2 - 16;
+      const pw = 380;
+      scale = Math.min(1.25, vw/(pw+20));
+      const ph = Math.round(Math.max(560, Math.min(1100, avail/scale - 46)));
+      relayout(pw, ph);
+      H = PH + 46;
+      if(!wasSingle) side = current===N ? 'L' : 'R';
+    } else {
+      relayout(460, 620);
+      H = PH + 70;
+      scale = Math.max(.3, Math.min(1, vw/(920+110), (vh-170)/H));
+    }
+    stage.style.height=(H*scale)+'px';
+    document.getElementById('hint').textContent = single
+      ? 'Toca los bordes o desliza para pasar página'
+      : 'Arrastra una página para pasarla, haz clic en ella o usa las flechas del teclado';
+    render();
+    autofit();
+  }
+  // Si el texto de una página no cabe (por ejemplo, con la letra del móvil agrandada), se reduce solo
+  function autofit(){
+    const items=[...book.querySelectorAll('.inner > .entry, .inner > .illus')];
+    items.forEach(el=>{ el.style.transform=''; el.style.width=''; el.style.height=''; el.style.flex=''; });
+    book.querySelectorAll('.word').forEach(el=>{ el.style.fontSize=''; const w=el.clientWidth, sw=el.scrollWidth; if(w>0 && sw>w+1){ el.style.fontSize=(parseFloat(getComputedStyle(el).fontSize)*w/sw*0.97).toFixed(1)+'px'; } });
+    const meas=items.map(el=>[el.clientHeight, el.scrollHeight]);
+    items.forEach((el,i)=>{
+      const [a,h]=meas[i];
+      if(!(a>0 && h>a+1)) return;
+      let k=a/h;
+      for(let n=0;n<3;n++){
+        el.style.flex='none'; el.style.transformOrigin='top left';
+        el.style.transform=`scale(${k})`; el.style.width=`${100/k}%`; el.style.height=`${a/k}px`;
+        const h2=el.scrollHeight, room=a/k;
+        if(h2<=room+1) break;
+        k=k*room/h2;
+      }
+    });
+  }
+  window.addEventListener('resize',fit);
+  fit(); fit();
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+
+</body>
+</html>
