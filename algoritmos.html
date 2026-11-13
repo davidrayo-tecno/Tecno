@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algoritmos · Cómo piensa un ordenador · IES Palomares</title>
+<meta name="description" content="Qué es un algoritmo, con ejercicios prácticos, y una simulación visual de cómo un ordenador guarda un programa en memoria y lo ejecuta paso a paso.">
+<meta name="author" content="David Rayo Torres">
+<link rel="icon" href="logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Paleta del sitio. En esta unidad: azul = memoria/datos, verde = CPU ejecutando, rojo = error o decisión, ámbar = el robot (salida). */
+:root{
+  --brand:#1B5F7E; --brand-ink:#FFFFFF; --brand-soft:#E3EEF3;
+  --bg:#F4F6F7; --surface:#FFFFFF; --ink:#16232B; --muted:#55636D; --line:#D5DDE2;
+  --hot:#B93A21; --hot-bg:#FBEAE5; --cold:#2160A8; --cold-bg:#E6EEF8; --work:#2B7547; --work-bg:#E4F2E9;
+  --amber:#C27C0E; --amber-bg:#FBF0DC;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --bar-h:64px; color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --brand:#174E67; --brand-soft:#17303C; --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E;
+  --hot:#FF8466; --hot-bg:#3A221B; --cold:#74AAF0; --cold-bg:#17263A; --work:#62C68D; --work-bg:#17301F; --amber:#F0B44C; --amber-bg:#352712; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --brand:#174E67; --brand-soft:#17303C; --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E;
+  --hot:#FF8466; --hot-bg:#3A221B; --cold:#74AAF0; --cold-bg:#17263A; --work:#62C68D; --work-bg:#17301F; --amber:#F0B44C; --amber-bg:#352712; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar-h) + 16px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
+a{color:var(--cold)}
+:focus-visible{outline:2px solid var(--cold);outline-offset:2px;border-radius:3px}
+.container{max-width:1160px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
+/* barra */
+.bar{position:sticky;top:0;z-index:50;background:var(--brand);color:var(--brand-ink);box-shadow:0 1px 0 rgba(0,0,0,.18)}
+.bar .container{height:var(--bar-h);display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;min-width:0}
+.brand img{width:42px;height:42px;object-fit:contain;border-radius:50%;background:#fff;padding:2px;flex:none}
+.brand span{display:grid;line-height:1.1;min-width:0}
+.brand b{font-family:var(--display);font-size:21px;font-weight:600}
+.brand small{font-size:13px;opacity:.82;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-nav{margin-left:auto;display:flex;align-items:center;gap:4px}
+.bar-nav a{color:inherit;text-decoration:none;font-size:14.5px;font-weight:500;padding:8px 12px;border-radius:6px}
+.bar-nav a:hover{background:rgba(255,255,255,.14)}
+.theme{background:none;border:0;color:inherit;width:38px;height:38px;border-radius:6px;cursor:pointer;display:grid;place-items:center}
+.theme:hover{background:rgba(255,255,255,.14)}
+.theme svg{width:20px;height:20px}
+/* cabecera */
+.hero{padding:40px 0 32px;border-bottom:1px solid var(--line);background:var(--surface)}
+.hero .container{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px;align-items:center}
+.crumbs{font-size:14px;color:var(--muted);margin:0 0 10px}.crumbs a{color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(44px,7vw,76px);line-height:.95;margin:0 0 16px}
+.lead{font-size:19px;color:var(--muted);max-width:50ch;margin:0 0 22px}
+.quick{display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0;list-style:none}
+.quick a{display:inline-flex;padding:9px 14px;border-radius:8px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:500;font-size:15px;background:var(--bg)}
+.quick a.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.hero svg{width:100%;max-width:440px;height:auto;display:block;margin-left:auto}
+@media (max-width:820px){.hero .container{grid-template-columns:1fr}.hero svg{margin:0 auto}}
+/* contenido */
+main{padding:36px 0 80px}
+section{padding:8px 0 40px;margin-bottom:40px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.narrow{max-width:76ch}
+h2{font-family:var(--display);font-weight:600;font-size:38px;line-height:1.05;margin:0 0 .5em;display:flex;align-items:baseline;gap:14px}
+h2 .n{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--brand);border:1.5px solid currentColor;border-radius:50%;width:32px;height:32px;display:inline-grid;place-items:center;flex:none;transform:translateY(-4px)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) h2 .n{color:var(--cold)}}
+h3{font-family:var(--display);font-weight:600;font-size:25px;margin:0 0 .3em}
+p{margin:0 0 1em}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+.ex-head{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px;margin-bottom:6px}.ex-head h3{margin:0}
+.tag{font:600 12px var(--body);letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:99px;background:var(--cold-bg);color:var(--cold)}
+.hint{font-size:14.5px;color:var(--muted)}
+.btn{font:500 15px var(--body);border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:9px 15px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{border-color:var(--brand)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.fb{font-weight:600;margin:12px 0 0;min-height:1.5em}
+.fb.ok{color:var(--work)}.fb.bad{color:var(--hot)}
+
+/* 1 · definición */
+.props{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 1.3em}
+.props div{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--brand);border-radius:10px;padding:14px}
+.props b{font-family:var(--display);font-size:24px;display:flex;align-items:center;gap:8px}
+.props svg{width:28px;height:28px;flex:none}
+.props p{font-size:15px;color:var(--muted);margin:4px 0 0}
+@media (max-width:640px){.props{grid-template-columns:1fr}}
+figure{margin:0 0 1.3em;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:14px;color:var(--muted);margin-top:8px}
+
+/* ejercicio ordenar */
+.pool,.seq{display:flex;flex-direction:column;gap:8px;min-height:60px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:14px 0}
+@media (max-width:700px){.two{grid-template-columns:1fr}}
+.zone{border:2px dashed var(--line);border-radius:12px;padding:12px}
+.zone h4{margin:0 0 8px;font-size:14px;color:var(--muted);font-weight:600}
+.step{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-size:16px;transition:transform .15s}
+.step:hover{border-color:var(--brand);transform:translateX(3px)}
+.step:focus-visible{outline:2px solid var(--cold)}
+.step .ico{font-size:22px;width:30px;text-align:center}
+.step .num{font:600 13px var(--mono);background:var(--brand);color:#fff;border-radius:6px;padding:2px 7px}
+.step.ok{border-color:var(--work);background:var(--work-bg)}
+.step.bad{border-color:var(--hot);background:var(--hot-bg)}
+
+/* ejercicio ¿es un algoritmo? */
+.cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+@media (max-width:700px){.cases{grid-template-columns:1fr}}
+.case{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg);display:flex;flex-direction:column;gap:10px}
+.case ol{margin:0;padding-left:1.3em;font-size:15.5px}
+.case .row .btn{flex:1;justify-content:center}
+.case.ok{border-color:var(--work);background:var(--work-bg)}
+.case.bad{border-color:var(--hot);background:var(--hot-bg)}
+.verdict{font-size:15px;display:flex;gap:10px;align-items:flex-start}
+.chk{display:flex;gap:6px;flex-wrap:wrap}
+.chk span{font:600 12.5px var(--body);padding:3px 9px;border-radius:99px;border:1px solid var(--line);background:var(--surface)}
+.chk span.y{color:var(--work);border-color:var(--work)}
+.chk span.n{color:var(--hot);border-color:var(--hot);text-decoration:line-through}
+
+/* diagrama de flujo */
+.flow{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:760px){.flow{grid-template-columns:1fr}}
+.flow svg .sh{fill:var(--surface);stroke:var(--ink);stroke-width:2;transition:fill .2s}
+.flow svg .on .sh{fill:var(--work-bg);stroke:var(--work);stroke-width:3.5}
+.flow svg .dec.on .sh{fill:var(--amber-bg);stroke:var(--amber)}
+.flow svg text{fill:var(--ink);font:500 14px var(--body)}
+.flow svg .ln{stroke:var(--muted);stroke-width:2;fill:none;marker-end:url(#ar)}
+.flow svg .lb{font:600 12px var(--body);fill:var(--muted)}
+.scene{border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.scene svg{display:block;width:100%;height:auto}
+.ask{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.ask .q{font-family:var(--display);font-size:24px;font-weight:600;margin:0}
+.trace{font:500 13px var(--mono);color:var(--muted);background:var(--bg);border-radius:8px;padding:10px;max-height:150px;overflow:auto;margin:0}
+
+/* simulación */
+.levels{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.levels button{font:600 15px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:99px;cursor:pointer}
+.levels button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.levels button.won::after{content:" ✓";color:var(--work)}
+.mission{display:flex;gap:14px;align-items:center;background:var(--amber-bg);border-radius:12px;padding:12px 16px;margin-bottom:16px}
+.mission svg{width:44px;height:44px;flex:none}
+.mission p{margin:0;font-size:16px}
+.sim{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.sim{grid-template-columns:1fr}.right>.panel:first-child{position:sticky;bottom:0;top:auto;z-index:20;box-shadow:0 -6px 20px rgba(0,0,0,.12);order:9}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.panel h3{font-size:21px;display:flex;align-items:center;gap:8px}
+.panel h3 .k{font:600 12px var(--mono);color:#fff;background:var(--muted);border-radius:6px;padding:2px 7px}
+.pal{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0 12px}
+.blk{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;color:#fff;font:600 14px var(--body);box-shadow:0 2px 0 rgba(0,0,0,.18)}
+.blk:active{transform:translateY(1px)}
+.blk:focus-visible{outline:3px solid var(--ink)}
+.blk .bi{font-size:18px;line-height:1}
+.c-mov{background:#2F7DC1}.c-turn{background:#7A55C2}.c-take{background:#C27C0E}.c-loop{background:#2B7547}
+.prog{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;min-height:120px;counter-reset:l}
+.prog li{display:flex;align-items:center;gap:6px}
+.prog li .ad{font:500 12px var(--mono);color:var(--muted);width:22px;text-align:right;flex:none}
+.prog li .blk{flex:1;cursor:default}
+.prog li.in .blk{margin-left:18px}
+.prog li.cur .blk{outline:3px solid var(--ink);outline-offset:1px}
+.prog li.err .blk{outline:3px solid var(--hot)}
+.prog .x{all:unset;cursor:pointer;width:26px;height:26px;border-radius:6px;display:grid;place-items:center;color:var(--muted);font-size:18px;flex:none}
+.prog .x:hover{background:var(--hot-bg);color:var(--hot)}
+.prog .nb{display:inline-flex;align-items:center;gap:2px;margin-left:auto}
+.prog .nb button{all:unset;cursor:pointer;width:22px;height:22px;border-radius:5px;background:rgba(255,255,255,.25);display:grid;place-items:center;font-weight:700}
+.prog .nb b{font-family:var(--mono);min-width:1.2em;text-align:center}
+.empty{color:var(--muted);font-size:14.5px;border:2px dashed var(--line);border-radius:10px;padding:16px;text-align:center}
+.count{font:500 13px var(--mono);color:var(--muted);margin-top:8px}
+.count.over{color:var(--hot)}
+.right{display:flex;flex-direction:column;gap:16px;min-width:0}
+.top2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:640px){.top2{grid-template-columns:1fr}}
+/* mundo */
+.world svg{display:block;width:100%;height:auto;max-width:420px;margin:0 auto}
+.robot{transition:transform var(--dur,.35s) ease-in-out}
+.robot .body{transition:fill .2s}
+.robot.crash .body{fill:var(--hot)}
+@keyframes shake{0%,100%{translate:0}25%{translate:-5px}75%{translate:5px}}
+.robot.crash .inner{animation:shake .3s 2}
+.carry{display:flex;gap:6px;align-items:center;font-size:14px;color:var(--muted);margin-top:6px;justify-content:center;min-height:28px}
+/* cpu */
+.cpu{border:3px solid var(--work);border-radius:14px;padding:12px;background:var(--work-bg);position:relative}
+.cpu .chip{font:700 13px var(--mono);color:var(--work);letter-spacing:.08em}
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0 10px}
+.phases div{text-align:center;padding:7px 4px;border-radius:8px;background:var(--surface);border:1px solid var(--line);font:600 12.5px var(--body);color:var(--muted);transition:all .15s}
+.phases div i{display:block;font-style:normal;font-size:20px;line-height:1.1}
+.phases div.on{background:var(--work);color:#fff;border-color:var(--work);transform:scale(1.05)}
+.regs{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.reg{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 9px}
+.reg small{display:block;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+.reg b{font:600 17px var(--mono)}
+.reg.flash{animation:fl .5s}
+@keyframes fl{0%{background:var(--amber-bg);border-color:var(--amber)}100%{}}
+.reg.wide{grid-column:1/-1}
+.reg .dec{font:600 14px var(--body);color:var(--work);margin-left:8px}
+/* memoria */
+.mem{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:6px;max-height:260px;overflow:auto;padding:2px}
+.cell{border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:var(--bg);display:grid;grid-template-columns:auto 1fr;gap:0 8px;align-items:center;transition:all .15s}
+.cell .a{font:600 12px var(--mono);color:var(--cold);grid-row:span 2}
+.cell .b{font:500 12.5px var(--mono);letter-spacing:.04em}
+.cell .m{font:600 11.5px var(--body);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cell.pc{border-color:var(--cold);background:var(--cold-bg);box-shadow:0 0 0 2px var(--cold)}
+.cell.read{animation:rd .6s}
+@keyframes rd{0%{background:var(--amber-bg);transform:scale(1.06)}100%{}}
+.cell.halt .m{color:var(--hot)}
+.bus{display:flex;align-items:center;gap:8px;font:600 12px var(--mono);color:var(--muted);margin:8px 0 0}
+.bus .line{flex:1;height:6px;border-radius:3px;background:var(--line);position:relative;overflow:hidden}
+.bus .line i{position:absolute;inset:0;width:30%;background:var(--amber);border-radius:3px;transform:translateX(-110%)}
+.bus.go .line i{animation:bus .55s ease-in-out}
+@keyframes bus{to{transform:translateX(360%)}}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.speed{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
+.log{font:500 13.5px var(--body);background:var(--ink);color:var(--bg);border-radius:10px;padding:10px 12px;min-height:84px;max-height:170px;overflow:auto;margin:0;display:flex;flex-direction:column;gap:3px}
+.log span{opacity:.6}.log span:last-child{opacity:1}
+.log b.c{color:#F0B44C}.log b.d{color:#74AAF0}.log b.e{color:#62C68D}.log b.x{color:#FF8466}
+.stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 16px}
+.stages div{border-radius:10px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);font-size:14.5px}
+.stages b{display:block;font-family:var(--display);font-size:20px}
+.stages div.on{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand) inset}
+@media (max-width:640px){.stages{grid-template-columns:1fr}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,160%);visibility:hidden;background:var(--surface);border:2px solid var(--work);border-radius:14px;padding:14px 18px;box-shadow:0 14px 40px rgba(0,0,0,.25);z-index:60;max-width:min(92vw,460px);transition:transform .3s;display:flex;gap:12px;align-items:center}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+.toast.bad{border-color:var(--hot)}
+.toast .big{font-size:34px}
+.toast p{margin:0;font-size:15.5px}
+.recap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.recap div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:15px}
+.recap b{font-family:var(--display);font-size:21px;display:block}
+@media (max-width:760px){.recap{grid-template-columns:1fr 1fr}}
+footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="container">
+    <a class="brand" href="./" aria-label="IES Palomares, inicio"><img src="logo-ies-palomares.png" alt="" width="42" height="42"><span><b>IES Palomares</b><small>David Rayo Torres</small></span></a>
+    <nav class="bar-nav" aria-label="Sitio">
+      <a href="./">Inicio</a>
+      <button class="theme" type="button" aria-label="Cambiar entre modo claro y oscuro" title="Modo claro / oscuro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="container">
+    <div>
+      <p class="crumbs"><a href="./">IES Palomares</a> · Programación · Primeros pasos</p>
+      <h1>Algoritmos: cómo piensa un ordenador</h1>
+      <p class="lead">Qué es un algoritmo, explicado con ejercicios, y una simulación para ver por dentro cómo un ordenador guarda tus instrucciones y las ejecuta una a una.</p>
+      <ul class="quick">
+        <li><a class="primary" href="#simulacion">Ir a la simulación</a></li>
+        <li><a href="#que-es">Empezar por el principio</a></li>
+      </ul>
+    </div>
+    <svg viewBox="0 0 440 260" role="img" aria-label="Una lista de pasos entra en un chip y sale un robot que se mueve">
+      <rect width="440" height="260" rx="14" style="fill:var(--brand-soft)"/>
+      <g transform="translate(24 40)">
+        <rect width="120" height="170" rx="10" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/>
+        <g style="font:600 13px var(--mono);fill:var(--ink)"><text x="14" y="32">1 AVANZAR</text><text x="14" y="62">2 GIRAR ↺</text><text x="14" y="92">3 AVANZAR</text><text x="14" y="122">4 COGER</text><text x="14" y="152" style="fill:var(--hot)">5 FIN</text></g>
+        <rect x="6" y="16" width="108" height="24" rx="5" style="fill:var(--work);opacity:.22"/>
+      </g>
+      <path d="M152 125 H186" style="stroke:var(--amber);stroke-width:5;stroke-linecap:round"/><polygon points="186,115 202,125 186,135" style="fill:var(--amber)"/>
+      <g transform="translate(206 70)">
+        <g style="stroke:var(--muted);stroke-width:4">
+          <line x1="20" y1="0" x2="20" y2="14"/><line x1="45" y1="0" x2="45" y2="14"/><line x1="70" y1="0" x2="70" y2="14"/>
+          <line x1="20" y1="96" x2="20" y2="110"/><line x1="45" y1="96" x2="45" y2="110"/><line x1="70" y1="96" x2="70" y2="110"/>
+        </g>
+        <rect y="14" width="90" height="82" rx="10" style="fill:var(--ink)"/>
+        <text x="45" y="62" text-anchor="middle" style="font:700 22px var(--mono);fill:var(--work)">CPU</text>
+      </g>
+      <path d="M302 125 H330" style="stroke:var(--amber);stroke-width:5;stroke-linecap:round"/><polygon points="330,115 346,125 330,135" style="fill:var(--amber)"/>
+      <g transform="translate(386 126)">
+        <circle r="30" style="fill:var(--amber)"/><circle cx="-10" cy="-6" r="6" style="fill:#fff"/><circle cx="10" cy="-6" r="6" style="fill:#fff"/><circle cx="-9" cy="-6" r="2.5" style="fill:var(--ink)"/><circle cx="11" cy="-6" r="2.5" style="fill:var(--ink)"/>
+        <path d="M-10 10 Q0 18 10 10" style="fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round"/>
+        <polygon points="30,-10 46,0 30,10" style="fill:var(--amber)"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<main class="container">
+
+<section id="que-es">
+  <div class="narrow">
+  <h2><span class="n">1</span>¿Qué es un algoritmo?</h2>
+  <p>Un <b>algoritmo</b> es una lista de pasos, en un orden concreto, que resuelve un problema o realiza una tarea. Lo usas cada día: una receta, las instrucciones de un mueble o el camino al instituto son algoritmos.</p>
+  <figure>
+    <svg viewBox="0 0 720 170" role="img" aria-label="Entrada, proceso y salida">
+      <defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" style="fill:var(--muted)"/></marker></defs>
+      <g transform="translate(10 30)"><rect width="180" height="110" rx="12" style="fill:var(--cold-bg);stroke:var(--cold);stroke-width:2"/>
+        <text x="90" y="34" text-anchor="middle" style="font:700 24px var(--display);fill:var(--cold)">ENTRADA</text>
+        <text x="90" y="64" text-anchor="middle" style="font:500 15px var(--body);fill:var(--ink)">Ingredientes:</text>
+        <text x="90" y="86" text-anchor="middle" style="font:500 15px var(--body);fill:var(--ink)">pan, tomate, aceite</text></g>
+      <line x1="196" y1="85" x2="262" y2="85" style="stroke:var(--muted);stroke-width:3" marker-end="url(#a1)"/>
+      <g transform="translate(270 10)"><rect width="190" height="150" rx="12" style="fill:var(--work-bg);stroke:var(--work);stroke-width:2"/>
+        <text x="95" y="32" text-anchor="middle" style="font:700 24px var(--display);fill:var(--work)">PROCESO</text>
+        <g style="font:500 14.5px var(--body);fill:var(--ink)"><text x="20" y="62">1. Tostar el pan</text><text x="20" y="86">2. Untar el tomate</text><text x="20" y="110">3. Echar el aceite</text><text x="20" y="134">4. Servir</text></g></g>
+      <line x1="466" y1="85" x2="532" y2="85" style="stroke:var(--muted);stroke-width:3" marker-end="url(#a1)"/>
+      <g transform="translate(540 30)"><rect width="170" height="110" rx="12" style="fill:var(--amber-bg);stroke:var(--amber);stroke-width:2"/>
+        <text x="85" y="34" text-anchor="middle" style="font:700 24px var(--display);fill:var(--amber)">SALIDA</text>
+        <text x="85" y="72" text-anchor="middle" style="font:500 15px var(--body);fill:var(--ink)">Tostada con tomate</text><text x="85" y="96" text-anchor="middle" style="font-size:22px">🍞</text></g>
+    </svg>
+    <figcaption>Todo algoritmo recibe unos datos (entrada), los transforma siguiendo unos pasos (proceso) y produce un resultado (salida).</figcaption>
+  </figure>
+  <p>Para que un ordenador pueda seguirlo, un algoritmo tiene que cumplir tres condiciones:</p>
+  </div>
+  <div class="props">
+    <div><b><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" style="fill:none;stroke:var(--brand);stroke-width:2.5"/><circle cx="14" cy="14" r="5" style="fill:none;stroke:var(--brand);stroke-width:2.5"/><circle cx="14" cy="14" r="1.6" style="fill:var(--brand)"/></svg>Preciso</b><p>Cada paso dice exactamente qué hacer. «Echa un poco de sal» no vale: ¿cuánto es un poco?</p></div>
+    <div><b><svg viewBox="0 0 28 28"><g style="fill:var(--brand)"><rect x="3" y="4" width="6" height="5" rx="1"/><rect x="3" y="12" width="6" height="5" rx="1"/><rect x="3" y="20" width="6" height="5" rx="1"/></g><g style="stroke:var(--brand);stroke-width:2.5;stroke-linecap:round"><line x1="13" y1="6.5" x2="25" y2="6.5"/><line x1="13" y1="14.5" x2="25" y2="14.5"/><line x1="13" y1="22.5" x2="25" y2="22.5"/></g></svg>Ordenado</b><p>Los pasos van en una secuencia. Si cambias el orden, el resultado cambia (o no funciona).</p></div>
+    <div><b><svg viewBox="0 0 28 28"><rect x="4" y="4" width="20" height="20" rx="3" style="fill:none;stroke:var(--brand);stroke-width:2.5"/><path d="M9 14l4 4 7-8" style="fill:none;stroke:var(--brand);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"/></svg>Finito</b><p>Tiene que terminar. Un algoritmo que se repite para siempre nunca da un resultado.</p></div>
+  </div>
+
+  <div class="card" id="ej1">
+    <div class="ex-head"><span class="tag">Ejercicio 1</span><h3>Ordena el algoritmo</h3></div>
+    <p class="hint">Queremos llamar a un amigo por el móvil. Toca los pasos en el orden correcto para construir el algoritmo. Si te equivocas, toca un paso de tu algoritmo para devolverlo.</p>
+    <div class="two">
+      <div class="zone"><h4>Pasos desordenados</h4><div class="pool" id="pool"></div></div>
+      <div class="zone"><h4>Tu algoritmo</h4><div class="seq" id="seq"></div></div>
+    </div>
+    <div class="row"><button class="btn primary" id="o-check">Comprobar</button><button class="btn" id="o-reset">Volver a empezar</button></div>
+    <p class="fb" id="o-fb"></p>
+  </div>
+
+  <div class="card" id="ej2" style="margin-top:18px">
+    <div class="ex-head"><span class="tag">Ejercicio 2</span><h3>¿Es un algoritmo?</h3></div>
+    <p class="hint">Lee cada lista de instrucciones y decide si un ordenador podría seguirla. Al responder verás qué condición cumple o falla.</p>
+    <div class="cases" id="cases"></div>
+    <p class="fb" id="c-fb"></p>
+  </div>
+</section>
+
+<section id="diagrama">
+  <div class="narrow">
+  <h2><span class="n">2</span>Dibujar un algoritmo: el diagrama de flujo</h2>
+  <p>Los algoritmos se pueden dibujar. En un <b>diagrama de flujo</b> cada forma tiene un significado: el óvalo es el inicio o el fin, el rectángulo es una acción y el rombo es una <b>pregunta</b> que solo puede responderse con Sí o No. Las flechas indican el orden.</p>
+  <p>Fíjate en que algunas flechas vuelven hacia atrás: eso es un <b>bucle</b>, una parte que se repite hasta que se cumple una condición.</p>
+  </div>
+  <div class="card">
+    <div class="ex-head"><span class="tag">Ejercicio 3</span><h3>Sigue el diagrama: cruzar la calle</h3></div>
+    <p class="hint">Pulsa «Siguiente paso» y responde a las preguntas mirando la calle. La forma iluminada es el paso que se está ejecutando.</p>
+    <div class="flow">
+      <svg viewBox="0 0 460 620" role="img" aria-label="Diagrama de flujo para cruzar la calle" id="fsvg">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" style="fill:var(--muted)"/></marker></defs>
+        <path class="ln" d="M180 62 V92"/>
+        <path class="ln" d="M180 138 V168"/>
+        <path class="ln" d="M180 248 V282"/><text class="lb" x="188" y="270">Sí</text>
+        <path class="ln" d="M100 208 H40 V115 H96"/><text class="lb" x="70" y="200">No</text>
+        <path class="ln" d="M180 328 V358"/>
+        <path class="ln" d="M180 438 V472"/><text class="lb" x="188" y="460">No</text>
+        <path class="ln" d="M260 398 H330"/><text class="lb" x="276" y="390">Sí</text>
+        <path class="ln" d="M380 378 V305 H264"/>
+        <path class="ln" d="M180 518 V548"/>
+        <g data-n="ini"><rect class="sh" x="110" y="18" width="140" height="44" rx="22"/><text x="180" y="45" text-anchor="middle">INICIO</text></g>
+        <g data-n="sem"><rect class="sh" x="96" y="92" width="168" height="46" rx="4"/><text x="180" y="120" text-anchor="middle">Mirar el semáforo</text></g>
+        <g data-n="ver" class="dec"><polygon class="sh" points="180,168 260,208 180,248 100,208"/><text x="180" y="204" text-anchor="middle">¿Está</text><text x="180" y="222" text-anchor="middle">en verde?</text></g>
+        <g data-n="lad"><rect class="sh" x="96" y="282" width="168" height="46" rx="4"/><text x="180" y="310" text-anchor="middle">Mirar a los dos lados</text></g>
+        <g data-n="coc" class="dec"><polygon class="sh" points="180,358 260,398 180,438 100,398"/><text x="180" y="394" text-anchor="middle">¿Viene</text><text x="180" y="412" text-anchor="middle">un coche?</text></g>
+        <g data-n="esp"><rect class="sh" x="330" y="378" width="100" height="46" rx="4"/><text x="380" y="406" text-anchor="middle">Esperar</text></g>
+        <g data-n="cru"><rect class="sh" x="96" y="472" width="168" height="46" rx="4"/><text x="180" y="500" text-anchor="middle">Cruzar</text></g>
+        <g data-n="fin"><rect class="sh" x="110" y="548" width="140" height="44" rx="22"/><text x="180" y="575" text-anchor="middle">FIN</text></g>
+      </svg>
+      <div>
+        <div class="scene"><svg viewBox="0 0 360 220" id="street" role="img" aria-label="Calle con semáforo, coche y peatón">
+          <rect width="360" height="220" style="fill:var(--work-bg)"/>
+          <rect y="70" width="360" height="90" style="fill:#4A5358"/>
+          <g style="fill:#fff"><rect x="150" y="76" width="60" height="9"/><rect x="150" y="94" width="60" height="9"/><rect x="150" y="112" width="60" height="9"/><rect x="150" y="130" width="60" height="9"/><rect x="150" y="148" width="60" height="9"/></g>
+          <g transform="translate(232 8)"><rect width="26" height="54" rx="5" style="fill:#222"/><circle id="lr" cx="13" cy="15" r="8" style="fill:#5a1d14"/><circle id="lg" cx="13" cy="39" r="8" style="fill:#174126"/><rect x="11" y="54" width="4" height="12" style="fill:#222"/></g>
+          <g id="car" style="transition:transform .9s ease-in-out" transform="translate(-90 0)"><rect x="0" y="94" width="70" height="30" rx="8" style="fill:var(--hot)"/><rect x="14" y="84" width="40" height="18" rx="6" style="fill:var(--hot)"/><circle cx="16" cy="126" r="7" style="fill:#222"/><circle cx="54" cy="126" r="7" style="fill:#222"/></g>
+          <g id="ped" style="transition:transform 1.2s ease-in-out" transform="translate(180 190)"><circle cy="-22" r="8" style="fill:var(--ink)"/><rect x="-6" y="-14" width="12" height="20" rx="4" style="fill:var(--cold)"/></g>
+        </svg></div>
+        <div class="ask">
+          <p class="q" id="f-q">Pulsa «Siguiente paso» para empezar.</p>
+          <div class="row" id="f-btns"><button class="btn primary" id="f-next">Siguiente paso</button><button class="btn" id="f-reset">Reiniciar</button></div>
+          <p class="trace" id="f-trace" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="simulacion">
+  <div class="narrow">
+  <h2><span class="n">3</span>Simulación: así ejecuta un ordenador tu algoritmo</h2>
+  <p>Un ordenador no entiende frases. Tu algoritmo se escribe con instrucciones muy simples, se <b>traduce a código máquina</b> (ceros y unos), se guarda en la <b>memoria</b>, y la <b>CPU</b> lo ejecuta repitiendo siempre el mismo ciclo para cada instrucción:</p>
+  </div>
+  <div class="stages">
+    <div><b>① Captar</b>La CPU lee de la memoria la instrucción que indica el contador de programa.</div>
+    <div><b>② Decodificar</b>La unidad de control traduce los ceros y unos a una orden: «avanzar», «girar»…</div>
+    <div><b>③ Ejecutar</b>Se realiza la orden (el robot se mueve) y el contador pasa a la siguiente instrucción.</div>
+  </div>
+  <div class="levels" id="levels"></div>
+  <div class="mission" id="mission"></div>
+  <div class="sim">
+    <div class="panel">
+      <h3><span class="k">1</span>Escribe el programa</h3>
+      <p class="hint" style="margin:0">Toca un bloque para añadirlo al final.</p>
+      <div class="pal" id="pal"></div>
+      <ol class="prog" id="prog"></ol>
+      <p class="count" id="count"></p>
+      <div class="row" style="margin-top:10px"><button class="btn" id="clear">Borrar todo</button><button class="btn" id="undo">Quitar el último</button></div>
+    </div>
+    <div class="right">
+      <div class="panel">
+        <div class="controls">
+          <button class="btn primary" id="load">⤓ Cargar en memoria</button>
+          <button class="btn" id="step" disabled>Paso (una fase)</button>
+          <button class="btn" id="run" disabled>▶ Ejecutar</button>
+          <button class="btn" id="reset">↺ Reiniciar</button>
+          <label class="speed">Velocidad <input type="range" id="speed" min="0" max="2" step="1" value="1"><span id="sp-l">normal</span></label>
+        </div>
+      </div>
+      <div class="top2">
+        <div class="panel world"><h3><span class="k">4</span>Salida: el robot</h3><svg id="wsvg" viewBox="0 0 360 360" role="img" aria-label="Cuadrícula del robot"></svg><div class="carry" id="carry"></div></div>
+        <div class="cpu"><span class="chip">CPU · PROCESADOR</span>
+          <div class="phases" id="phases"><div data-p="0"><i>⇩</i>Captar</div><div data-p="1"><i>⚙</i>Decodificar</div><div data-p="2"><i>⚡</i>Ejecutar</div></div>
+          <div class="regs">
+            <div class="reg" id="r-pc"><small>CONTADOR DE PROGRAMA (PC)</small><b>—</b></div>
+            <div class="reg" id="r-cnt"><small>CONTADOR DE REPETICIONES</small><b>—</b></div>
+            <div class="reg wide" id="r-ir"><small>REGISTRO DE INSTRUCCIÓN (IR)</small><b>—</b></div>
+            <div class="reg" id="r-pos"><small>POSICIÓN (x, y)</small><b>—</b></div>
+            <div class="reg" id="r-dir"><small>DIRECCIÓN</small><b>—</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3><span class="k">2</span>Memoria (RAM): el programa en código máquina</h3>
+        <p class="hint" style="margin:0 0 8px">Cada casilla tiene una dirección (00, 01…) y guarda una instrucción en binario: 4 bits de orden + 4 bits de dato.</p>
+        <div class="mem" id="mem"><p class="empty" style="grid-column:1/-1;margin:0">Pulsa «Cargar en memoria» para traducir tu programa.</p></div>
+        <div class="bus" id="bus">MEMORIA <span class="line"><i></i></span> CPU</div>
+      </div>
+      <div class="panel"><h3><span class="k">3</span>Qué está pasando</h3><div class="log" id="log" aria-live="polite"><span>Escribe un programa y cárgalo en memoria.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="resumen">
+  <div class="narrow"><h2><span class="n">4</span>En resumen</h2></div>
+  <div class="recap">
+    <div><b>Algoritmo</b>Lista de pasos precisa, ordenada y finita para resolver un problema.</div>
+    <div><b>Programa</b>El algoritmo escrito en un lenguaje que el ordenador puede traducir.</div>
+    <div><b>Código máquina</b>El programa convertido en ceros y unos y guardado en la memoria.</div>
+    <div><b>CPU</b>Capta, decodifica y ejecuta cada instrucción, una tras otra, sin pensar.</div>
+  </div>
+  <p class="narrow" style="margin-top:16px">La idea más importante: <b>el ordenador hace exactamente lo que dice el programa, ni más ni menos.</b> Si el robot choca, no es culpa del ordenador; es que el algoritmo tenía un error.</p>
+</section>
+</main>
+
+<div class="toast" id="toast" role="status"><span class="big" id="t-ico"></span><p id="t-msg"></p></div>
+<footer><div class="container">IES Palomares · Departamento de Tecnología · David Rayo Torres</div></footer>
+
+<script>
+/* ---------- tema ---------- */
+(()=>{const r=document.documentElement;try{const t=localStorage.getItem('theme');if(t)r.dataset.theme=t;}catch(e){}
+  document.querySelector('.theme').onclick=()=>{const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',r.dataset.theme);}catch(e){}};})();
+const $=id=>document.getElementById(id);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+let toastT;function toast(ico,msg,bad){$('t-ico').textContent=ico;$('t-msg').innerHTML=msg;const t=$('toast');t.classList.toggle('bad',!!bad);t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),4200);}
+
+/* ---------- ejercicio 1: ordenar ---------- */
+const STEPS=[['🔓','Desbloquear el móvil'],['📱','Abrir la aplicación de teléfono'],['🔢','Marcar el número de tu amigo'],['📞','Pulsar el botón de llamar'],['⏳','Esperar a que conteste'],['💬','Hablar'],['🔴','Colgar']];
+let pool=[],seq=[];
+function oReset(){pool=shuffle(STEPS.map((_,i)=>i));seq=[];$('o-fb').textContent='';oDraw();}
+function oDraw(state){
+  $('pool').innerHTML=pool.length?pool.map(i=>`<button class="step" data-i="${i}"><span class="ico">${STEPS[i][0]}</span>${STEPS[i][1]}</button>`).join(''):'<p class="hint" style="margin:0">¡Todos colocados! Pulsa «Comprobar».</p>';
+  $('seq').innerHTML=seq.length?seq.map((i,k)=>`<button class="step${state?(state[k]?' ok':' bad'):''}" data-i="${i}"><span class="num">${k+1}</span><span class="ico">${STEPS[i][0]}</span>${STEPS[i][1]}</button>`).join(''):'<p class="hint" style="margin:0">Aquí aparecerán los pasos en el orden que elijas.</p>';
+  $('pool').querySelectorAll('.step').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;pool=pool.filter(x=>x!==i);seq.push(i);$('o-fb').textContent='';oDraw();});
+  $('seq').querySelectorAll('.step').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;seq=seq.filter(x=>x!==i);pool.push(i);$('o-fb').textContent='';oDraw();});}
+$('o-check').onclick=()=>{if(pool.length){$('o-fb').textContent='Todavía faltan pasos por colocar.';$('o-fb').className='fb bad';return;}
+  const st=seq.map((i,k)=>i===k);oDraw(st);const n=st.filter(Boolean).length;
+  if(n===STEPS.length){$('o-fb').textContent='¡Perfecto! Es un algoritmo: pasos precisos, en orden y con un final.';$('o-fb').className='fb ok';}
+  else{$('o-fb').textContent=`${n} de ${STEPS.length} pasos en su sitio. Los rojos están desordenados: ¿podrías marcar antes de desbloquear el móvil?`;$('o-fb').className='fb bad';}};
+$('o-reset').onclick=oReset;oReset();
+
+/* ---------- ejercicio 2: ¿es un algoritmo? ---------- */
+const CASES=[
+ {t:'Hacer pasta',s:['Calienta agua','Echa un poco de pasta','Cocina hasta que esté buena'],ok:false,p:[0,1,1],why:'No es preciso: «un poco» y «hasta que esté buena» se pueden entender de muchas formas. Un ordenador necesita cantidades exactas: «100 g», «10 minutos».'},
+ {t:'Hacer una tostada',s:['Mete el pan en la tostadora','Pulsa el botón','Espera 2 minutos','Saca la tostada'],ok:true,p:[1,1,1],why:'Sí: cada paso es exacto, van en orden y termina. Un robot podría hacerlo.'},
+ {t:'Poner lavadoras',s:['Pon una lavadora','Vuelve al paso 1'],ok:false,p:[1,1,0],why:'No es finito: el paso 2 te devuelve al 1 una y otra vez y nunca acaba. Le falta una condición de parada, como «si no queda ropa sucia, termina».'},
+ {t:'Salir de casa',s:['Sal a la calle','Ponte los zapatos','Abre la puerta'],ok:false,p:[1,0,1],why:'No está ordenado: no puedes salir antes de abrir la puerta. El orden de los pasos importa.'}];
+const PN=['Preciso','Ordenado','Finito'];
+function cDraw(){$('cases').innerHTML=CASES.map((c,i)=>`<div class="case" id="case${i}"><b>${c.t}</b><ol>${c.s.map(x=>`<li>${x}</li>`).join('')}</ol>
+  <div class="row"><button class="btn" data-i="${i}" data-a="1">✔ Sí, es un algoritmo</button><button class="btn" data-i="${i}" data-a="0">✘ No lo es</button></div><div class="verdict" hidden></div></div>`).join('');
+  $('cases').querySelectorAll('button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i,c=CASES[i],right=(b.dataset.a==='1')===c.ok,el=$('case'+i);
+    el.className='case '+(right?'ok':'bad');el.querySelectorAll('button').forEach(x=>x.disabled=true);const v=el.querySelector('.verdict');v.hidden=false;
+    v.innerHTML=`<div><b>${right?'¡Bien!':'¡Ojo!'}</b> ${c.why}<div class="chk" style="margin-top:8px">${PN.map((n,k)=>`<span class="${c.p[k]?'y':'n'}">${n}</span>`).join('')}</div></div>`;
+    const done=CASES.filter((_,k)=>$('case'+k).classList.contains('ok')||$('case'+k).classList.contains('bad')).length;
+    if(done===CASES.length){const okn=CASES.filter((_,k)=>$('case'+k).classList.contains('ok')).length;$('c-fb').textContent=`Resultado: ${okn} de 4. ${okn===4?'¡Lo tienes claro!':'Repasa las tres condiciones de arriba.'}`;$('c-fb').className='fb '+(okn===4?'ok':'bad');}});}
+cDraw();
+
+/* ---------- ejercicio 3: diagrama de flujo ---------- */
+const F={node:null,green:false,car:false,waits:0,trace:[]};
+const FN={ini:'INICIO',sem:'Mirar el semáforo',ver:'¿Está en verde?',lad:'Mirar a los dos lados',coc:'¿Viene un coche?',esp:'Esperar',cru:'Cruzar',fin:'FIN'};
+function fLight(n){document.querySelectorAll('#fsvg g[data-n]').forEach(g=>g.classList.toggle('on',g.dataset.n===n));}
+function fScene(){$('lr').style.fill=F.green?'#5a1d14':'#E8452C';$('lg').style.fill=F.green?'#3BD16F':'#174126';$('car').setAttribute('transform',`translate(${F.car?120:-90} 0)`);}
+function fGo(n){F.node=n;fLight(n);F.trace.push(FN[n]);$('f-trace').textContent=F.trace.map((t,i)=>`${i+1}. ${t}`).join('\n');$('f-trace').scrollTop=1e6;fAsk();}
+function fAsk(){const b=$('f-btns');const n=F.node;
+  const btn=(lab,fn,p)=>`<button class="btn${p?' primary':''}" data-f="${fn}">${lab}</button>`;
+  let q='',html='';
+  if(n==='ver'){q='Mira el semáforo de la calle: ¿está en verde?';html=btn('Sí','si',1)+btn('No','no');}
+  else if(n==='coc'){q='Mira la calle: ¿viene un coche?';html=btn('Sí','si',1)+btn('No','no');}
+  else if(n==='fin'){q='¡Has cruzado! El algoritmo ha terminado.';html=btn('Otra vez','reset',1);}
+  else{q=n?`Ejecutando: «${FN[n]}»`:'Pulsa «Siguiente paso» para empezar.';html=btn('Siguiente paso','next',1)+btn('Reiniciar','reset');}
+  $('f-q').textContent=q;b.innerHTML=html;b.querySelectorAll('button').forEach(x=>x.onclick=()=>fAct(x.dataset.f));}
+function fAct(a){const n=F.node;
+  if(a==='reset'){F.node=null;F.trace=[];F.waits=0;F.green=false;F.car=Math.random()<.5;fScene();$('ped').setAttribute('transform','translate(180 190)');fLight(null);$('f-trace').textContent='';fAsk();return;}
+  if(a==='si'||a==='no'){const yes=a==='si',truth=n==='ver'?F.green:F.car;
+    if(yes!==truth){$('f-q').textContent=n==='ver'?`Mira bien: el semáforo está ${F.green?'verde':'rojo'}.`:`Mira bien: ${F.car?'sí viene un coche':'no viene ningún coche'}.`;return;}
+    if(n==='ver'&&!yes)F.trace.push('(vuelve atrás: bucle)');
+    if(n==='ver')fGo(yes?'lad':'sem');else fGo(yes?'esp':'cru');
+    return;}
+  // siguiente
+  if(!n)return fGo('ini');
+  if(n==='ini')return fGo('sem');
+  if(n==='sem'){F.waits++;if(F.waits>1)F.green=true;fScene();return fGo('ver');}
+  if(n==='lad')return fGo('coc');
+  if(n==='esp'){F.car=false;fScene();F.trace.push('(vuelve atrás: bucle)');return fGo('lad');}
+  if(n==='cru'){$('ped').setAttribute('transform','translate(180 40)');return fGo('fin');}}
+F.car=true;fScene();fAsk();
+
+/* ---------- simulación ---------- */
+const OPS={
+ AV:{n:'Avanzar',i:'⬆',c:'c-mov',bin:'0001'},
+ GI:{n:'Girar izquierda',i:'↺',c:'c-turn',bin:'0010'},
+ GD:{n:'Girar derecha',i:'↻',c:'c-turn',bin:'0011'},
+ CO:{n:'Coger',i:'✋',c:'c-take',bin:'0100'},
+ RE:{n:'Repetir',i:'🔁',c:'c-loop',bin:'0101'},
+ FR:{n:'Fin repetir',i:'⤴',c:'c-loop',bin:'0110'},
+ FIN:{n:'FIN',i:'⏹',c:'',bin:'1111'}};
+const DIRS=[[0,-1,'Norte ↑'],[1,0,'Este →'],[0,1,'Sur ↓'],[-1,0,'Oeste ←']];
+const LEVELS=[
+ {n:'Reto 1 · La batería',m:'Lleva el robot hasta la <b>batería</b> 🔋 y cógela con <b>Coger</b>. Recuerda terminar justo encima.',
+  start:[0,4,1],walls:['1,1','1,2','0,0','5,4','4,2','2,0'],items:{'3,1':'bat'},max:null,loops:false,
+  goal:s=>s.carry.has('bat'),fail:'El programa terminó, pero el robot no tiene la batería.'},
+ {n:'Reto 2 · Llave y puerta',m:'Coge la <b>llave</b> 🔑 y termina el programa sobre la <b>puerta</b> 🚪.',
+  start:[0,5,0],walls:['1,3','2,3','3,3','4,2','2,1','5,5','1,5'],items:{'0,2':'key'},door:'4,0',max:null,loops:false,
+  goal:s=>s.carry.has('key')&&`${s.x},${s.y}`==='4,0',fail:'El robot debe tener la llave y acabar encima de la puerta.'},
+ {n:'Reto 3 · La escalera',m:'Sube la escalera hasta la <b>batería</b> 🔋 usando <b>como máximo 8 bloques</b>. Pista: el movimiento se repite… ¡usa <b>Repetir</b>!',
+  start:[0,5,1],walls:['2,5','3,5','4,5','5,5','3,4','4,4','5,4','4,3','5,3','5,2','0,3','0,2','1,2','0,1','1,1','2,1','0,0','1,0','2,0','3,0'],items:{'4,1':'bat'},max:8,loops:true,
+  goal:s=>s.carry.has('bat'),fail:'El programa terminó, pero el robot no tiene la batería.'}];
+const ITEM={bat:'🔋',key:'🔑'};
+const SIM={lv:0,prog:[],mem:null,st:null,phase:-1,timer:null,running:false,won:new Set(),speed:1};
+try{const w=JSON.parse(localStorage.getItem('algo-won')||'[]');w.forEach(x=>SIM.won.add(x));}catch(e){}
+const SPEEDS=[[1100,'lenta'],[520,'normal'],[160,'rápida']];
+
+function lvDraw(){$('levels').innerHTML=LEVELS.map((l,i)=>`<button aria-pressed="${SIM.lv===i}" class="${SIM.won.has(i)?'won':''}" data-l="${i}">${l.n}</button>`).join('');
+  $('levels').querySelectorAll('button').forEach(b=>b.onclick=()=>{SIM.lv=+b.dataset.l;SIM.prog=[];unload();lvDraw();progDraw();});
+  const L=LEVELS[SIM.lv];$('mission').innerHTML=`<svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" style="fill:var(--amber)"/><circle cx="15" cy="18" r="5" fill="#fff"/><circle cx="29" cy="18" r="5" fill="#fff"/><circle cx="16" cy="18" r="2.2" style="fill:var(--ink)"/><circle cx="30" cy="18" r="2.2" style="fill:var(--ink)"/><path d="M14 29 Q22 35 30 29" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg><p>${L.m}</p>`;
+  const pal=['AV','GI','GD','CO'].concat(L.loops?['RE','FR']:[]);
+  $('pal').innerHTML=pal.map(k=>`<button class="blk ${OPS[k].c}" data-k="${k}"><span class="bi">${OPS[k].i}</span>${OPS[k].n}</button>`).join('');
+  $('pal').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(SIM.prog.length>=24)return;const k=b.dataset.k;SIM.prog.push(k==='RE'?{k,n:4}:{k});unload();progDraw();});}
+function progDraw(cur,err){const L=LEVELS[SIM.lv];let depth=0;
+  $('prog').innerHTML=SIM.prog.length?SIM.prog.map((p,i)=>{if(p.k==='FR')depth=Math.max(0,depth-1);const ind=depth>0;if(p.k==='RE')depth++;
+    return `<li class="${ind?'in':''}${cur===i?' cur':''}${err===i?' err':''}"><span class="ad">${String(i).padStart(2,'0')}</span><span class="blk ${OPS[p.k].c}"><span class="bi">${OPS[p.k].i}</span>${OPS[p.k].n}${p.k==='RE'?`<span class="nb"><button data-m="${i}" aria-label="menos">−</button><b>${p.n}</b><button data-p="${i}" aria-label="más">+</button> veces</span>`:''}</span><button class="x" data-x="${i}" aria-label="Quitar">×</button></li>`;}).join('')
+    :'<li class="empty">Tu programa está vacío. Toca los bloques de arriba.</li>';
+  $('prog').querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>{SIM.prog.splice(+b.dataset.x,1);unload();progDraw();});
+  $('prog').querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{const p=SIM.prog[+b.dataset.m];p.n=Math.max(2,p.n-1);unload();progDraw();});
+  $('prog').querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{const p=SIM.prog[+b.dataset.p];p.n=Math.min(9,p.n+1);unload();progDraw();});
+  const c=$('count');c.textContent=`${SIM.prog.length} bloque${SIM.prog.length===1?'':'s'}${L.max?` · máximo ${L.max}`:''}`;c.className='count'+(L.max&&SIM.prog.length>L.max?' over':'');}
+$('clear').onclick=()=>{SIM.prog=[];unload();progDraw();};
+$('undo').onclick=()=>{SIM.prog.pop();unload();progDraw();};
+
+/* mundo */
+const CS=60;
+function newState(){const L=LEVELS[SIM.lv];return {x:L.start[0],y:L.start[1],d:L.start[2],items:{...L.items},carry:new Set(),pc:0,ir:null,stack:[],halted:false,crash:false,steps:0};}
+function worldDraw(){const L=LEVELS[SIM.lv],s=SIM.st||newState();let h='';
+  for(let y=0;y<6;y++)for(let x=0;x<6;x++){const w=L.walls.includes(`${x},${y}`);
+    h+=`<rect x="${x*CS+1}" y="${y*CS+1}" width="${CS-2}" height="${CS-2}" rx="6" style="fill:${w?'var(--muted)':'var(--bg)'};stroke:var(--line)"/>`;
+    if(w)h+=`<path d="M${x*CS+8} ${y*CS+20}h44M${x*CS+8} ${y*CS+40}h44M${x*CS+30} ${y*CS+8}v12M${x*CS+18} ${y*CS+20}v20M${x*CS+42} ${y*CS+20}v20M${x*CS+30} ${y*CS+40}v12" style="stroke:var(--surface);stroke-width:2;opacity:.45"/>`;}
+  for(let i=0;i<6;i++)h+=`<text x="${i*CS+CS/2}" y="358" text-anchor="middle" style="font:500 10px var(--mono);fill:var(--muted)">${i}</text>`;
+  if(L.door){const [x,y]=L.door.split(',').map(Number);h+=`<text x="${x*CS+CS/2}" y="${y*CS+42}" text-anchor="middle" font-size="34">🚪</text>`;}
+  Object.entries(s.items).forEach(([k,v])=>{const [x,y]=k.split(',').map(Number);h+=`<text x="${x*CS+CS/2}" y="${y*CS+42}" text-anchor="middle" font-size="32">${ITEM[v]}</text>`;});
+  h+=`<g class="robot${s.crash?' crash':''}" id="robot" style="--dur:${Math.min(.5,SPEEDS[SIM.speed][0]/1000*.8)}s" transform="translate(${s.x*CS+CS/2} ${s.y*CS+CS/2}) rotate(${s.d*90})"><g class="inner">
+    <circle class="body" r="22" style="fill:var(--amber)"/><polygon points="-9,-17 0,-31 9,-17" style="fill:var(--amber)"/>
+    <circle cx="-8" cy="-5" r="5.5" fill="#fff"/><circle cx="8" cy="-5" r="5.5" fill="#fff"/><circle cx="-8" cy="-7" r="2.3" style="fill:#16232B"/><circle cx="8" cy="-7" r="2.3" style="fill:#16232B"/>
+    <path d="M-8 9 Q0 15 8 9" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></g></g>`;
+  $('wsvg').innerHTML=h;
+  $('carry').innerHTML=s.carry.size?`Lleva: <span style="font-size:22px">${[...s.carry].map(k=>ITEM[k]).join(' ')}</span>`:'<span>No lleva nada</span>';}
+function robotMove(){const s=SIM.st,r=$('robot');if(!r)return worldDraw();r.setAttribute('transform',`translate(${s.x*CS+CS/2} ${s.y*CS+CS/2}) rotate(${s.d*90})`);}
+
+/* compilar y cargar */
+function compile(){const mem=[],stack=[];
+  for(let i=0;i<SIM.prog.length;i++){const p=SIM.prog[i];
+    if(p.k==='RE')stack.push(i);
+    if(p.k==='FR'){if(!stack.length)return {err:i,msg:`La instrucción ${String(i).padStart(2,'0')} es «Fin repetir», pero no hay ningún «Repetir» abierto antes.`};stack.pop();}
+    const arg=p.k==='RE'?p.n:0;mem.push({k:p.k,arg,bin:OPS[p.k].bin+' '+arg.toString(2).padStart(4,'0')});}
+  if(stack.length)return {err:stack[stack.length-1],msg:`Falta un «Fin repetir» para cerrar el «Repetir» de la dirección ${String(stack[stack.length-1]).padStart(2,'0')}.`};
+  mem.push({k:'FIN',arg:0,bin:'1111 0000'});return {mem};}
+function memDraw(){if(!SIM.mem){$('mem').innerHTML='<p class="empty" style="grid-column:1/-1;margin:0">Pulsa «Cargar en memoria» para traducir tu programa.</p>';return;}
+  $('mem').innerHTML=SIM.mem.map((m,i)=>`<div class="cell${m.k==='FIN'?' halt':''}" data-a="${i}"><span class="a">${String(i).padStart(2,'0')}</span><span class="b">${m.bin}</span><span class="m">${OPS[m.k].i} ${OPS[m.k].n}${m.k==='RE'?' '+m.arg:''}</span></div>`).join('');}
+function regs(flash){const s=SIM.st;const set=(id,v)=>{const e=$(id).querySelector('b');if(e.innerHTML!==v){e.innerHTML=v;if(flash)$(id).classList.remove('flash'),void $(id).offsetWidth,$(id).classList.add('flash');}};
+  if(!s){['r-pc','r-cnt','r-ir','r-pos','r-dir'].forEach(id=>$(id).querySelector('b').innerHTML='—');return;}
+  set('r-pc',String(s.pc).padStart(2,'0'));set('r-cnt',s.stack.length?`${s.stack[s.stack.length-1].left} vuelta${s.stack[s.stack.length-1].left===1?'':'s'}`:'—');
+  set('r-ir',s.ir?`${s.ir.bin}${SIM.phase>=1?`<span class="dec">→ ${OPS[s.ir.k].i} ${OPS[s.ir.k].n}${s.ir.k==='RE'?' '+s.ir.arg+' veces':''}</span>`:''}`:'—');
+  set('r-pos',`(${s.x}, ${s.y})`);set('r-dir',DIRS[s.d][2]);
+  document.querySelectorAll('#mem .cell').forEach(c=>c.classList.toggle('pc',+c.dataset.a===s.pc&&!s.halted));
+  document.querySelectorAll('#phases div').forEach(d=>d.classList.toggle('on',+d.dataset.p===SIM.phase));}
+function log(html){const l=$('log');l.insertAdjacentHTML('beforeend',`<span>${html}</span>`);while(l.children.length>40)l.firstChild.remove();l.scrollTop=1e6;}
+function unload(){stop();SIM.mem=null;SIM.st=null;SIM.phase=-1;memDraw();regs();worldDraw();$('step').disabled=true;$('run').disabled=true;}
+$('load').onclick=()=>{stop();const L=LEVELS[SIM.lv];if(!SIM.prog.length){toast('✍','Primero escribe el programa con los bloques.',1);return;}
+  const r=compile();$('log').innerHTML='';
+  if(r.err!==undefined){progDraw(null,r.err);log(`<b class="x">ERROR AL TRADUCIR:</b> ${r.msg}`);toast('⚠',r.msg,1);return;}
+  if(L.max&&SIM.prog.length>L.max){log(`<b class="x">Atención:</b> usas ${SIM.prog.length} bloques y el reto pide como máximo ${L.max}. Se ejecutará, pero no contará como superado.`);}
+  SIM.mem=r.mem;SIM.st=newState();SIM.phase=-1;memDraw();worldDraw();regs();progDraw();
+  document.querySelectorAll('#mem .cell').forEach((c,i)=>{c.style.opacity=0;setTimeout(()=>{c.style.transition='opacity .25s';c.style.opacity=1;},60*i);});
+  log(`<b class="d">TRADUCCIÓN:</b> tu programa de ${SIM.prog.length} bloques se ha convertido en ${SIM.mem.length} instrucciones de código máquina (se añade FIN al final) y se ha guardado en la memoria, desde la dirección 00.`);
+  log(`<b class="e">LISTO:</b> el contador de programa (PC) apunta a 00. Pulsa «Paso» para ver cada fase, o «Ejecutar».`);
+  $('step').disabled=false;$('run').disabled=false;};
+
+/* ciclo de instrucción */
+const pad=n=>String(n).padStart(2,'0');
+function phaseStep(){const s=SIM.st;if(!s||s.halted)return false;
+  SIM.phase=(SIM.phase+1)%3;
+  if(SIM.phase===0){s.ir=SIM.mem[s.pc];const c=document.querySelector(`#mem .cell[data-a="${s.pc}"]`);if(c){c.classList.remove('read');void c.offsetWidth;c.classList.add('read');}
+    const b=$('bus');b.classList.remove('go');void b.offsetWidth;b.classList.add('go');
+    log(`<b class="c">① CAPTAR:</b> la CPU lee la dirección <b>${pad(s.pc)}</b> de la memoria y copia <b>${s.ir.bin}</b> en el registro de instrucción.`);
+    progDraw(s.pc<SIM.prog.length?s.pc:null);}
+  else if(SIM.phase===1){const k=s.ir.k;log(`<b class="d">② DECODIFICAR:</b> el código <b>${OPS[k].bin}</b> significa «${OPS[k].n}»${k==='RE'?` y el dato <b>${s.ir.arg.toString(2).padStart(4,'0')}</b> es el número ${s.ir.arg}`:''}.`);}
+  else{exec();}
+  regs(true);return true;}
+function exec(){const s=SIM.st,k=s.ir.k,L=LEVELS[SIM.lv];s.steps++;
+  const next=()=>{s.pc++;};
+  if(k==='AV'){const nx=s.x+DIRS[s.d][0],ny=s.y+DIRS[s.d][1];
+    if(nx<0||ny<0||nx>5||ny>5||L.walls.includes(`${nx},${ny}`)){s.crash=true;s.halted=true;worldDraw();progDraw(null,s.pc);
+      log(`<b class="x">③ EJECUTAR → ¡CHOQUE!</b> Delante hay ${nx<0||ny<0||nx>5||ny>5?'el borde':'un muro'}. El ordenador no «ve» el muro: hace exactamente lo que dice la instrucción ${pad(s.pc)}.`);
+      toast('💥',`¡Choque en la instrucción ${pad(s.pc)}! Revisa el programa: el ordenador solo hace lo que le dices.`,1);stop();return;}
+    s.x=nx;s.y=ny;robotMove();log(`<b class="e">③ EJECUTAR:</b> el robot avanza a (${s.x}, ${s.y}). El PC pasa a ${pad(s.pc+1)}.`);next();}
+  else if(k==='GI'||k==='GD'){s.d=(s.d+(k==='GI'?3:1))%4;robotMove();log(`<b class="e">③ EJECUTAR:</b> el robot gira y ahora mira al ${DIRS[s.d][2]}. El PC pasa a ${pad(s.pc+1)}.`);next();}
+  else if(k==='CO'){const key=`${s.x},${s.y}`,it=s.items[key];
+    if(!it){s.crash=true;s.halted=true;worldDraw();progDraw(null,s.pc);log(`<b class="x">③ EJECUTAR → ERROR:</b> en (${s.x}, ${s.y}) no hay nada que coger.`);toast('🤷',`Instrucción ${pad(s.pc)}: en esa casilla no hay nada que coger.`,1);stop();return;}
+    delete s.items[key];s.carry.add(it);worldDraw();log(`<b class="e">③ EJECUTAR:</b> el robot coge ${ITEM[it]}. El PC pasa a ${pad(s.pc+1)}.`);next();}
+  else if(k==='RE'){s.stack.push({start:s.pc+1,left:s.ir.arg});log(`<b class="e">③ EJECUTAR:</b> se guarda ${s.ir.arg} en el contador de repeticiones. El PC pasa a ${pad(s.pc+1)}.`);next();}
+  else if(k==='FR'){const t=s.stack[s.stack.length-1];t.left--;
+    if(t.left>0){log(`<b class="e">③ EJECUTAR:</b> quedan ${t.left} vuelta${t.left===1?'':'s'}: el PC <b>salta atrás</b> a ${pad(t.start)}.`);s.pc=t.start;}
+    else{s.stack.pop();log(`<b class="e">③ EJECUTAR:</b> el contador llega a 0: se acaba la repetición y el PC sigue en ${pad(s.pc+1)}.`);next();}}
+  else if(k==='FIN'){s.halted=true;stop();progDraw();const ok=L.goal(s)&&!(L.max&&SIM.prog.length>L.max);
+    log(`<b class="${ok?'e':'x'}">③ EJECUTAR → FIN:</b> la CPU se detiene después de ${Math.ceil(s.steps)} instrucciones.`);
+    if(ok){SIM.won.add(SIM.lv);try{localStorage.setItem('algo-won',JSON.stringify([...SIM.won]));}catch(e){}lvDraw();
+      toast('🏆',`¡Reto superado! El ordenador ejecutó ${s.steps} instrucciones.${SIM.lv<LEVELS.length-1?' Prueba el siguiente reto.':' ¡Has superado todos!'}`);}
+    else toast('🤔',L.goal(s)?`Funciona, pero usas ${SIM.prog.length} bloques y el máximo es ${L.max}. Usa «Repetir».`:L.fail,1);}
+  if(s.steps>400&&!s.halted){s.halted=true;stop();log('<b class="x">DETENIDO:</b> demasiadas instrucciones.');}}
+function stop(){SIM.running=false;clearTimeout(SIM.timer);$('run').textContent='▶ Ejecutar';}
+function loop(){if(!SIM.running)return;if(!phaseStep()){stop();return;}SIM.timer=setTimeout(loop,SPEEDS[SIM.speed][0]/ (SIM.phase===2?1:1.6));}
+$('step').onclick=()=>{stop();if(SIM.st&&SIM.st.halted)return;phaseStep();};
+$('run').onclick=()=>{if(SIM.running){stop();return;}if(!SIM.st||SIM.st.halted)return;SIM.running=true;$('run').textContent='⏸ Pausa';loop();};
+$('reset').onclick=()=>{stop();if(SIM.mem){SIM.st=newState();SIM.phase=-1;worldDraw();regs();progDraw();$('log').innerHTML='';log('<b class="e">REINICIO:</b> el robot vuelve a la salida y el PC a 00. El programa sigue en memoria.');}else{worldDraw();}};
+$('speed').oninput=e=>{SIM.speed=+e.target.value;$('sp-l').textContent=SPEEDS[SIM.speed][1];};
+lvDraw();progDraw();worldDraw();
+</script>
+</body>
+</html>
