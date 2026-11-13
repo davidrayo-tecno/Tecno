@@ -53,14 +53,30 @@ h3{font-family:var(--f-display);font-weight:600;font-size:17px;margin:0}
 .clock .n{font-size:14px;opacity:.85}
 .clock .btn{background:transparent;color:#F6EFE2;border-color:rgba(246,239,226,.35)}
 .clock .btn.primary{background:#E3B23C;border-color:#E3B23C;color:#2A1D00}
-.blocks{display:flex;flex-direction:column;gap:8px}
-.block{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--bg)}
-.block.on{border-color:var(--accent);background:var(--soft)}
-.block .min{font-family:var(--f-mono);font-size:13px;color:var(--muted);padding-top:2px}
-.block h3 span{font-family:var(--f-body);font-weight:500;font-size:12px;color:var(--muted);margin-left:6px;text-transform:uppercase;letter-spacing:.06em}
-.block p{margin:0;font-size:14px}
-.block .acts{grid-column:2;display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-.block .btn{font-size:13px;padding:5px 10px}
+.blocks{display:flex;flex-direction:column;gap:12px}
+.block{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg);scroll-margin-top:12px}
+.block.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.bh{display:flex;align-items:center;gap:10px}
+.bh .num{width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--bg);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
+.bh h3{flex:1}
+.bh .min{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.block .do{margin:0;font-size:16px;font-weight:500;line-height:1.4}
+.block .hint{margin:-4px 0 0}
+.ex{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:10px}
+.ex .board-scroll svg.mini{display:block;width:auto;min-width:0;max-width:none}
+.ex .board-scroll{border-radius:6px}
+.ex g.now circle{stroke:var(--ink);stroke-width:3}
+.ex g.now{transform-box:fill-box;transform-origin:center;transform:scale(1.18)}
+.strip{display:flex;flex-direction:column;gap:6px}
+.srow{display:flex;gap:4px;align-items:stretch}
+.tag{font-family:var(--f-display);font-weight:600;font-size:14px;min-width:46px;display:flex;align-items:center;color:var(--accent)}
+.tk{border:1px solid var(--line);border-radius:8px;padding:5px 2px;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;flex-basis:0;background:var(--bg);transition:background .08s}
+.tk .i{font-weight:700;font-size:13px;min-width:24px;padding:1px 6px;border-radius:999px;text-align:center;white-space:nowrap}
+.tk .p{font-family:var(--f-mono);font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.tk.rest .i{color:var(--muted)}
+.tk.now,.cell.now{border-color:var(--accent);background:var(--soft)}
+.block .acts{display:flex;gap:6px;flex-wrap:wrap}
+.block .btn{font-size:13px;padding:6px 11px}
 /* mástil */
 .board-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px}
 .board-scroll svg{display:block;width:100%;min-width:780px;height:auto;touch-action:manipulation}
@@ -240,85 +256,89 @@ const PATS={
  sincopa:{n:'Negra, negra, corcheas',p:'x-x-xxx-',tip:'«1, 2, 3 y 4». El 4 suena y su «y» queda en silencio. Fíjate en que el 4 cae con la púa abajo.'}};
 
 /* ---------- plan ---------- */
+// Notación de los ejemplos: «cuerda.traste/duración» (duración en corcheas, 2 = negra) · «r» silencio · «A5» acorde
+// sufijos: m = palm mute, > = acento, *n = repetir · «@pc» cambia la raíz de referencia · «|» separa compases
+const R=(s,n)=>Array(n).fill(s).join(' ');
+const CH={A5:['6.5+5.7+4.7','La5'],E5:['6.0+5.2+4.2','Mi5'],F5:['6.2+5.4+4.4','Fa♯5'],D5:['5.5+4.7+3.7','Re5'],AM:['6.5+5.7+4.7+3.6','La'],Am:['6.5+5.7+4.7+3.5','Lam']};
 const P1={prog:1,key:9,style:'poprock'};
+const PR=[0,1,2,3];
 const W=[
 {t:'Raíz, 5ª y octava',sub:'El esqueleto del power chord. Rítmica: pulso, negras, corcheas, silencios y palm mute.',
  goal:'Para pasar de semana: 18 de 20 en el quiz mezclando T, 4 y 5; corcheas con palm mute limpias a 80; y una grabación de 1 minuto en la que todo caiga a tiempo.',
  days:[
- {t:'La raíz y sus octavas',f:'Encontrar La en todo el mástil y moverte entre octavas.',r:'negras',bpm:60,
-  arm:'Busca todos los La entre los trastes 0 y 15. La forma de octava: dos cuerdas más agudas y dos trastes a la derecha; si en el camino cruzas la cuerda Si, tres trastes.',tool:'mastil',cfg:{root:9,ints:[0]},
-  comb:'Toca La en negras y cambia de octava cada compás: cuerda 6 traste 5 → cuerda 4 traste 7 → cuerda 2 traste 10, y vuelta.',
-  imp:'Sobre la pista toca solo la raíz de cada acorde (La, Mi, Fa♯, Re), en negras. Elige siempre la que tengas más cerca.',pis:{...P1,bpm:70},ints:[0],
+ {t:'La raíz y sus octavas',f:'Encontrar La en todo el mástil y moverte entre octavas.',r:'negras',bpm:60,tool:'mastil',cfg:{root:9,ints:[0]},pis:{...P1,bpm:70},ints:[0],
+  arm:{txt:'Toca estos cuatro La, de grave a agudo y vuelta. Forma de octava: 2 cuerdas más abajo y 2 trastes a la derecha (3 si cruzas la cuerda Si).',ex:'6.5 4.7 2.10 4.7'},
+  comb:{txt:'La en negras: un compás en la cuerda 6 y otro en la cuerda 4. Cuenta «1, 2, 3, 4» en voz alta.',ex:'6.5*4 | 4.7*4'},
+  imp:{txt:'Sobre la pista, toca solo la raíz de cada acorde en negras.',ex:'6.5*4 | 5.7*4 | 4.4*4 | 5.5*4',chords:PR},
   obj:'Señalar los La del mástil en menos de 30 segundos y que las negras caigan con el clic.'},
- {t:'La 5ª justa',f:'La distancia más estable después de la octava.',r:'corcheas',bpm:60,
-  arm:'5ª justa: en la misma cuerda, 7 trastes. En la cuerda aguda de al lado, 2 trastes a la derecha. Si la cuerda de arriba es la Si, 3 trastes. Desde La la 5ª es Mi.',tool:'quiz',cfg:{mode:'find',ints:[7],roots:[9]},
-  comb:'Alterna raíz y 5ª en corcheas: La (cuerda 6, traste 5) y Mi (cuerda 5, traste 7). Di «raíz, quinta» mientras tocas.',
-  imp:'Raíz y 5ª de cada acorde sobre la pista, en corcheas. Repetir notas está bien: lo importante es el ritmo.',pis:{...P1,bpm:70},ints:[0,7],
+ {t:'La 5ª justa',f:'La distancia más estable después de la octava.',r:'corcheas',bpm:60,tool:'quiz',cfg:{mode:'find',ints:[7],roots:[9]},pis:{...P1,bpm:70},ints:[0,7],
+  arm:{txt:'Raíz y su 5ª: cuerda de abajo, 2 trastes a la derecha (3 si llegas a la cuerda Si). Escucha las tres parejas.',ex:'6.5 5.7 | 4.7 3.9 | 3.2 2.5'},
+  comb:{txt:'Alterna raíz y 5ª en corcheas sin parar: púa abajo en la raíz, arriba en la 5ª.',ex:R('6.5/1 5.7/1',8)},
+  imp:{txt:'Raíz y 5ª de cada acorde, en corcheas.',ex:[['6.5','5.7'],['5.7','4.9'],['6.2','5.4'],['5.5','4.7']].map(([r,q])=>`${r}/1 ${r}/1 ${q}/1 ${q}/1 ${r}/1 ${r}/1 ${q}/1 ${r}/1`).join(' | '),chords:PR},
   obj:'10 aciertos seguidos encontrando la 5ª.'},
- {t:'Power chord: raíz, 5ª y octava',f:'Tres notas que ya son un acorde de rock.',r:'pm8',bpm:70,
-  arm:'Forma de power chord desde las cuerdas 6 y 5. Toca cada nota por separado diciendo «raíz, quinta, octava». La5: cuerda 6 traste 5 · Mi5: cuerda 6 traste 12 · Fa♯5: cuerda 6 traste 2 · Re5: cuerda 5 traste 5.',tool:'mastil',cfg:{root:9,ints:[0,7]},
-  comb:'La5 – Mi5 – Fa♯5 – Re5, un compás cada uno, corcheas con palm mute.',
-  imp:'Inventa un riff con power chords sobre la pista. Deja huecos: no hace falta tocar en todas las corcheas.',pis:{...P1,bpm:80},ints:[0,7],
+ {t:'Power chord: raíz, 5ª y octava',f:'Tres notas que ya son un acorde de rock.',r:'pm8',bpm:70,tool:'mastil',cfg:{root:9,ints:[0,7]},pis:{...P1,bpm:80},ints:[0,7],
+  arm:{txt:'Toca raíz, 5ª y octava una a una diciendo su nombre. Luego las tres juntas: eso es La5.',ex:'6.5 5.7 4.7 A5/4'},
+  comb:{txt:'La5 → Mi5 → Fa♯5 → Re5, un compás cada uno, corcheas con palm mute.',ex:['A5','E5','F5','D5'].map(c=>R(c+'m/1',8)).join(' | '),chords:PR},
+  imp:{txt:'Riff con huecos: toca, calla y vuelve a entrar. Copia este y luego inventa el tuyo.',ex:['A5','E5','F5','D5'].map(c=>`${c}m/1 ${c}m/1 r/1 ${c}m/1 ${c}>/2 r/2`).join(' | '),chords:PR},
   obj:'La progresión completa con palm mute a 70 sin cortes entre acordes.'},
- {t:'La 5ª por debajo es la 4ª',f:'Invertir un intervalo: 5ª + 4ª = octava.',r:'sil4',bpm:65,
-  arm:'Si bajas una 5ª desde La llegas a Re, que es la 4ª por encima de La. 4ª justa: en la cuerda aguda de al lado, mismo traste; hacia la Si, 1 traste a la derecha. Nombra cada nota que te marca el quiz.',tool:'quiz',cfg:{mode:'name',ints:[0,5,7],roots:[9]},
-  comb:'Raíz – 4ª – 5ª – raíz en negras, con el silencio en el 4: La, Re, Mi… y calla.',
-  imp:'Toca raíz, 4ª y 5ª de cada acorde. La 4ª suena tensa: déjala sonar y vuelve a la 5ª o a la raíz.',pis:{...P1,bpm:75},ints:[0,5,7],
+ {t:'La 5ª por debajo es la 4ª',f:'Invertir un intervalo: 5ª + 4ª = octava.',r:'sil4',bpm:65,tool:'quiz',cfg:{mode:'name',ints:[0,5,7],roots:[9]},pis:{...P1,bpm:75},ints:[0,5,7],
+  arm:{txt:'Raíz → 4ª (mismo traste, cuerda de abajo) → 5ª → octava. La 4ª suena «en el aire».',ex:'6.5 5.5 5.7 4.7'},
+  comb:{txt:'Raíz, 4ª y 5ª en negras, y silencio en el 4: apaga las cuerdas a tiempo.',ex:'6.5 5.5 5.7 r | 6.5 5.5 5.7 r'},
+  imp:{txt:'Raíz, 4ª y 5ª de cada acorde, callando en el 4.',ex:'6.5 5.5 5.7 r | 5.7 4.7 4.9 r | 6.2 5.2 5.4 r | 5.5 4.5 4.7 r',chords:PR},
   obj:'Distinguir T, 4 y 5 en el quiz «Nombra» con 2 fallos o menos en 20.'},
- {t:'Mapa: T y 5 por zonas',f:'Las mismas distancias con raíces distintas.',r:'mezcla',bpm:65,
-  arm:'Raíces de la progresión (La, Mi, Fa♯, Re) en zonas distintas del mástil. Encuentra la 5ª o la otra octava a menos de 5 trastes.',tool:'quiz',cfg:{mode:'find',ints:[0,7],roots:[9,4,6,2]},
-  comb:'Con el patrón «1, 2, 3 y 4 y»: raíz en las negras y 5ª en las corcheas, sobre cada acorde.',
-  imp:'Quédate entre los trastes 4 y 9 toda la pista. Solo raíces y 5ª.',pis:{...P1,bpm:80},ints:[0,7],
+ {t:'Mapa: T y 5 con otras raíces',f:'Las mismas formas, otra raíz.',r:'mezcla',bpm:65,tool:'quiz',cfg:{mode:'find',ints:[0,7],roots:[9,4,6,2]},pis:{...P1,bpm:80},ints:[0,7],
+  arm:{txt:'Misma forma con raíz Mi y con raíz Fa♯: raíz, 5ª y octava.',ex:'@4 5.7 4.9 3.9 | @6 4.4 3.6 2.7'},
+  comb:{txt:'Raíz en negras y 5ª en corcheas: «1, 2, 3 y 4 y».',ex:'6.5/2 6.5/2 5.7/1 6.5/1 5.7/1 6.5/1 | 5.7/2 5.7/2 4.9/1 5.7/1 4.9/1 5.7/1',chords:[0,1]},
+  imp:{txt:'Quédate entre los trastes 4 y 9: raíces y 5ª.',ex:'6.5/2 5.7/2 4.7/4 | 5.7/2 4.9/2 5.7/4 | 4.4/2 3.6/2 4.4/4 | 5.5/2 4.7/2 5.5/4',chords:PR},
   obj:'18 de 20 en «Encuentra» con raíces variadas.'},
- {t:'Oído: 8ª, 5ª y 4ª',f:'Escuchar antes de tocar.',r:'backbeat',bpm:75,
-  arm:'Reconoce de oído octava, 5ª y 4ª. Primero notas separadas; cuando aciertes 5 seguidas, pásalo a «notas a la vez».',tool:'oido',cfg:{ints:[12,7,5]},
-  comb:'Canta la 5ª de La antes de tocarla y comprueba si cantaste bien. Luego la 4ª.',
-  imp:'Pregunta y respuesta: dos compases tocas con raíz y 5ª, dos compases callas escuchando la pista.',pis:{...P1,bpm:80},ints:[0,5,7],
+ {t:'Oído: 8ª, 5ª y 4ª',f:'Escuchar antes de tocar.',r:'backbeat',bpm:75,tool:'oido',cfg:{ints:[12,7,5]},pis:{...P1,bpm:80},ints:[0,5,7],
+  arm:{txt:'Escucha y memoriza: raíz + 5ª, raíz + octava, raíz + 4ª. Luego adivínalas en «Oído».',ex:'6.5 5.7 r r | 6.5 4.7 r r | 6.5 5.5'},
+  comb:{txt:'Toca La, canta Mi en el silencio y después tócalo para comprobar.',ex:'6.5/2 r/2 5.7/4 | 6.5/2 r/2 5.5/4'},
+  imp:{txt:'Pregunta y silencio: dos compases tocas, dos escuchas la pista.',ex:'6.5/1 6.5/1 5.7/2 6.5/2 r/2 | 5.7/1 5.7/1 4.9/2 5.7/4 | r/8 | r/8',chords:PR},
   obj:'8 aciertos seguidos de oído.'},
- {t:'Repaso y grabación',f:'Comprobar la semana entera.',r:'pm8',bpm:80,
-  arm:'Quiz mixto con T, 4 y 5 en «Encuentra». Ronda de 20.',tool:'quiz',cfg:{mode:'find',ints:[0,5,7],roots:null},
-  comb:'La5 – Mi5 – Fa♯5 – Re5 con palm mute a 80.',
-  imp:'Graba 1 minuto sobre la pista con raíz, 4ª y 5ª, dejando silencios. Escúchalo: ¿caes a tiempo en el cambio de acorde?',pis:{...P1,bpm:80},ints:[0,5,7],
+ {t:'Repaso y grabación',f:'Comprobar la semana entera.',r:'pm8',bpm:80,tool:'quiz',cfg:{mode:'find',ints:[0,5,7],roots:null},pis:{...P1,bpm:80},ints:[0,5,7],
+  arm:{txt:'Las distancias de la semana desde La: raíz, 4ª, 5ª y octava. Después, ronda de 20 en el quiz.',ex:'6.5 5.5 5.7 4.7'},
+  comb:{txt:'La5 → Mi5 → Fa♯5 → Re5 con palm mute a 80.',ex:['A5','E5','F5','D5'].map(c=>R(c+'m/1',8)).join(' | '),chords:PR},
+  imp:{txt:'Graba 1 minuto así: raíz, 4ª y 5ª con silencios. Escúchalo: ¿caes a tiempo?',ex:'6.5 5.5 5.7 r | 5.7 4.7 4.9 r | 6.2 5.2 5.4 r | 5.5 4.5 4.7 r',chords:PR},
   obj:'El objetivo de la semana (abajo).'}]},
 {t:'3ª mayor y 3ª menor',sub:'El intervalo que da el color: alegre o triste. Rítmica: acentos, silencios antes del cambio y dinámica estrofa/estribillo.',
  goal:'Para pasar a la semana 3: 18 de 20 en el quiz mixto (T, ♭3, 3, 4, 5); distinguir 3ª mayor y menor de oído 8 veces seguidas; y la grabación estrofa/estribillo a 80.',
  days:[
- {t:'La 3ª mayor',f:'4 trastes que suenan a «mayor».',r:'acc1',bpm:70,
-  arm:'3ª mayor: en la misma cuerda, 4 trastes. En la cuerda aguda de al lado, 1 traste a la izquierda. Hacia la Si, mismo traste. Desde La la 3ª mayor es Do♯.',tool:'quiz',cfg:{mode:'find',ints:[4],roots:[9]},
-  comb:'Raíz – 3ª – 5ª – 3ª en corcheas: La, Do♯, Mi, Do♯. Di el intervalo de cada nota.',
-  imp:'Sobre un solo acorde de La, improvisa con T, 3 y 5. Busca terminar las frases en la 3ª.',pis:{prog:6,key:9,style:'poprock',bpm:75},ints:[0,4,7],chords:[0],
+ {t:'La 3ª mayor',f:'4 trastes que suenan a «mayor».',r:'acc1',bpm:70,tool:'quiz',cfg:{mode:'find',ints:[4],roots:[9]},pis:{prog:6,key:9,style:'poprock',bpm:75},ints:[0,4,7],chords:[0],
+  arm:{txt:'3ª mayor: cuerda de abajo, 1 traste a la izquierda (mismo traste si llegas a la Si). Escucha las tres parejas.',ex:'6.5 5.4 | 4.7 3.6 | 3.2 2.2'},
+  comb:{txt:'Raíz – 3ª – 5ª – 3ª en corcheas, acento en el 1.',ex:R('6.5>/1 5.4/1 5.7/1 5.4/1 6.5/1 5.4/1 5.7/1 5.4/1',2)},
+  imp:{txt:'Sobre La, termina cada frase en la 3ª (Do♯).',ex:'5.7/1 5.7/1 6.5/2 5.7/2 5.4/2 | 4.7/1 5.7/1 6.5/2 5.4/4',chords:[0,0]},
   obj:'10 aciertos seguidos encontrando la 3ª mayor.'},
- {t:'La 3ª menor',f:'3 trastes que suenan a «menor».',r:'respira',bpm:70,
-  arm:'3ª menor: en la misma cuerda, 3 trastes. En la cuerda aguda de al lado, 2 trastes a la izquierda. Hacia la Si, 1 a la izquierda. Desde Fa♯ la 3ª menor es La.',tool:'quiz',cfg:{mode:'find',ints:[3],roots:[6]},
-  comb:'Fa♯ – La – Do♯ – La en corcheas, con el respiro al final del compás.',
-  imp:'Sobre un acorde menor de Fa♯, improvisa con T, ♭3 y 5. Compara la sensación con la de ayer.',pis:{prog:7,key:6,style:'balada',bpm:70},ints:[0,3,7],chords:[2],
+ {t:'La 3ª menor',f:'3 trastes que suenan a «menor».',r:'respira',bpm:70,tool:'quiz',cfg:{mode:'find',ints:[3],roots:[6]},pis:{prog:7,key:6,style:'balada',bpm:70},ints:[0,3,7],chords:[2],
+  arm:{txt:'3ª menor: cuerda de abajo, 2 trastes a la izquierda (1 si llegas a la Si). Raíz Fa♯ → La.',ex:'@6 6.2 5.0 | 4.4 3.2 | 3.11 2.10'},
+  comb:{txt:'Fa♯ – La – Do♯ – La en corcheas y calla en el último «y».',ex:R('@6 6.2/1 5.0/1 5.4/1 5.0/1 6.2/1 5.0/1 5.4/1 r/1',2)},
+  imp:{txt:'Sobre Fa♯m, termina cada frase en la ♭3 (La).',ex:'4.4/2 3.2/2 3.6/2 3.2/2 | 4.4/1 4.4/1 3.6/2 3.2/4',chords:[2,2]},
   obj:'10 aciertos seguidos encontrando la 3ª menor.'},
- {t:'Mayor contra menor',f:'Misma raíz, una sola nota cambia el color.',r:'dinamica',bpm:70,
-  arm:'Raíz La: activa ♭3 y 3 a la vez y toca T–3–5 y luego T–♭3–5. Solo se mueve una nota un traste, pero el acorde cambia de carácter.',tool:'mastil',cfg:{root:9,ints:[0,3,4,7]},
-  comb:'Toca el power chord La5 y añade encima la 3ª (Do♯) o la ♭3 (Do). Compás apagado con una, compás abierto con la otra.',
-  imp:'Sobre la progresión, toca solo la 3ª de cada acorde: Do♯, Sol♯, La (la ♭3 de Fa♯m) y Fa♯.',pis:{...P1,bpm:75},ints:[0,3,4,7],
-  obj:'Oír la diferencia sin mirar: que alguien (o la app) toque y aciertes 4 de 5.'},
- {t:'La 3ª de cada acorde',f:'Notas guía: la 3ª define el acorde.',r:'cambio',bpm:70,
-  arm:'Encuentra la 3ª de cada acorde de la progresión. Atención: Fa♯m tiene 3ª menor.',tool:'quiz',cfg:{mode:'find',chords:true},
-  comb:'La 3ª de cada acorde en negras, cambiando con la progresión. Busca siempre la más cercana a la anterior: así la mano casi no se mueve.',
-  imp:'Alterna raíz y 3ª de cada acorde. Empieza la frase en la raíz y termínala en la 3ª.',pis:{...P1,bpm:75},ints:[0,3,4],
+ {t:'Mayor contra menor',f:'Misma raíz, una sola nota cambia el color.',r:'dinamica',bpm:70,tool:'mastil',cfg:{root:9,ints:[0,3,4,7]},pis:{...P1,bpm:75},ints:[0,3,4,7],
+  arm:{txt:'Escucha: T–3–5 (La mayor) y T–♭3–5 (La menor). Solo se mueve una nota, un traste.',ex:'6.5 5.4 5.7 r | 6.5 5.3 5.7 r'},
+  comb:{txt:'Compás 1: La mayor con palm mute. Compás 2: La menor abierto y con acentos.',ex:R('AMm/1',8)+' | '+'Am>/1 Am/1 Am/1 Am/1 Am>/1 Am/1 Am/1 Am/1'},
+  imp:{txt:'Toca solo la 3ª de cada acorde: Do♯, Sol♯, La, Fa♯.',ex:'3.6/8 | 4.6/8 | 4.7/8 | 4.4/8',chords:PR},
+  obj:'Oír la diferencia sin mirar: 4 de 5 aciertos en «Oído».'},
+ {t:'La 3ª de cada acorde',f:'Notas guía: la 3ª define el acorde.',r:'cambio',bpm:70,tool:'quiz',cfg:{mode:'find',chords:true},pis:{...P1,bpm:75},ints:[0,3,4],
+  arm:{txt:'Raíz y 3ª de los cuatro acordes, entre los trastes 4 y 7. Fa♯m lleva 3ª menor.',ex:'@9 6.5 5.4 | @4 5.7 4.6 | @6 4.4 4.7 | @2 5.5 4.4'},
+  comb:{txt:'La 3ª de cada acorde en negras, acento en el 1. La mano casi no se mueve.',ex:['5.4','4.6','4.7','4.4'].map(n=>`${n}>/2 ${n}/2 ${n}/2 ${n}/2`).join(' | '),chords:PR},
+  imp:{txt:'Empieza en la raíz y termina en la 3ª.',ex:'6.5/2 5.4/2 5.4/4 | 5.7/2 4.6/2 4.6/4 | 4.4/2 4.7/2 4.7/4 | 5.5/2 4.4/2 4.4/4',chords:PR},
   obj:'La progresión con las 3ªs a 70 sin parar y sin mirar el mástil.'},
- {t:'Mapa: T, 3 y 5 por zonas',f:'Ya tienes las tres piezas de una triada.',r:'sincopa',bpm:70,
-  arm:'Raíces variadas: encuentra 3ª mayor, 3ª menor o 5ª a menos de 5 trastes. Esto es la base de las triadas de la semana 5.',tool:'quiz',cfg:{mode:'find',ints:[3,4,7],roots:null},
-  comb:'T – 3 – 5 sobre La en dos zonas distintas (cerca del traste 5 y cerca del 9), con el patrón del día.',
-  imp:'Quédate entre los trastes 4 y 9. Usa T, 3 (o ♭3 en Fa♯m) y 5 de cada acorde.',pis:{...P1,bpm:80},ints:[0,3,4,7],
+ {t:'Mapa: T, 3 y 5 por zonas',f:'Ya tienes las tres piezas de una triada.',r:'sincopa',bpm:70,tool:'quiz',cfg:{mode:'find',ints:[3,4,7],roots:null},pis:{...P1,bpm:80},ints:[0,3,4,7],
+  arm:{txt:'T – 3 – 5 de La en dos zonas: cerca del traste 5 y cerca del 7.',ex:'6.5 5.4 5.7 r | 4.7 3.6 3.9 r'},
+  comb:{txt:'«1, 2, 3 y 4» con T, 3 y 5 en las dos zonas.',ex:'6.5/2 5.4/2 5.7/1 5.4/1 6.5/1 r/1 | 4.7/2 3.6/2 3.9/1 3.6/1 4.7/1 r/1',chords:[0,0]},
+  imp:{txt:'Entre los trastes 4 y 9: T, 3 y 5 de cada acorde.',ex:'5.4/2 5.7/2 4.7/4 | 4.6/2 4.9/2 5.7/4 | 4.7/2 3.6/2 4.4/4 | 4.4/2 4.7/2 5.5/4',chords:PR},
   obj:'18 de 20 en «Encuentra» con raíces aleatorias.'},
- {t:'Oído: 3ª mayor o menor',f:'El oído decide antes que los dedos.',r:'backbeat',bpm:80,
-  arm:'Reconoce 3ª menor, 3ª mayor, 5ª y octava. Primero separadas; luego a la vez.',tool:'oido',cfg:{ints:[3,4,7,12]},
-  comb:'Sobre cada acorde de la progresión, canta su 3ª antes de tocarla.',
-  imp:'Pregunta y respuesta: dos compases de pregunta, dos de respuesta. La respuesta siempre termina en una 3ª.',pis:{...P1,bpm:80},ints:[0,3,4,7],
+ {t:'Oído: 3ª mayor o menor',f:'El oído decide antes que los dedos.',r:'backbeat',bpm:80,tool:'oido',cfg:{ints:[3,4,7,12]},pis:{...P1,bpm:80},ints:[0,3,4,7],
+  arm:{txt:'Escucha la diferencia: T + ♭3 suena triste, T + 3 suena alegre. Luego adivínalas en «Oído».',ex:'6.5 5.3 r r | 6.5 5.4'},
+  comb:{txt:'Toca La, canta Do♯ en el silencio y compruébalo.',ex:'6.5/2 r/2 5.4/4 | 6.5/2 r/2 5.3/4'},
+  imp:{txt:'Pregunta y respuesta: la respuesta acaba en la 3ª del acorde.',ex:'5.7/1 5.7/1 6.5/2 5.7/2 r/2 | 4.9/1 5.7/1 4.6/4 r/2 | 4.4/1 4.4/1 3.6/2 4.4/2 r/2 | 4.7/1 5.5/1 4.4/6',chords:PR},
   obj:'8 aciertos seguidos distinguiendo 3ª mayor y menor.'},
- {t:'Repaso y grabación',f:'Estrofa y estribillo.',r:'dinamica',bpm:80,
-  arm:'Quiz mixto con T, ♭3, 3, 4 y 5. Ronda de 20.',tool:'quiz',cfg:{mode:'find',ints:[0,3,4,5,7],roots:null},
-  comb:'Progresión con las 3ªs a 80: un compás palm mute, otro abierto.',
-  imp:'Graba 1 minuto: «estrofa» con palm mute, raíz y 5ª; «estribillo» abierto apuntando a las 3ªs. Escúchalo y anota qué falló.',pis:{...P1,bpm:80},ints:[0,3,4,5,7],
+ {t:'Repaso y grabación',f:'Estrofa y estribillo.',r:'dinamica',bpm:80,tool:'quiz',cfg:{mode:'find',ints:[0,3,4,5,7],roots:null},pis:{...P1,bpm:80},ints:[0,3,4,5,7],
+  arm:{txt:'Todos los intervalos desde La: T, ♭3, 3, 4 y 5. Después, ronda de 20 en el quiz.',ex:'6.5 5.3 5.4 5.5 5.7'},
+  comb:{txt:'Compás 1: raíz con palm mute. Compás 2: 3ª abierta y acentuada.',ex:R('6.5m/1',8)+' | 5.4>/1 5.4/1 5.4/1 5.4/1 5.4>/1 5.4/1 5.4/1 5.4/1',chords:[0,0]},
+  imp:{txt:'Graba 1 minuto: estrofa con palm mute (raíz y 5ª) y estribillo abierto apuntando a las 3ªs.',ex:R('6.5m/1 6.5m/1 5.7m/1 6.5m/1',2)+' | '+R('5.7m/1 5.7m/1 4.9m/1 5.7m/1',2)+' | 4.7/2 4.4/2 4.7/4 | 4.4/2 5.5/2 4.4/4',chords:PR},
   obj:'El objetivo de la semana (abajo).'}]}];
-
 /* ---------- estado ---------- */
 let ST={w:0,d:0,log:{},bpm:{}};
 try{const s=JSON.parse(localStorage.getItem('planning2-v1')||'null');if(s)Object.assign(ST,s);}catch(e){}
@@ -329,21 +349,21 @@ const day=()=>W[ST.w].days[ST.d];
 const L=()=>ST.log[key()]||(ST.log[key()]={});
 
 /* ---------- audio ---------- */
-let AC=null;
+let AC=null,OUT=null;
 function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC;}
 const hz=m=>440*Math.pow(2,(m-69)/12);
 function pluck(m,t,dur=1.3,vol=.28){const c=ac();if(!c)return;t=t||c.currentTime;
   const g=c.createGain(),f=c.createBiquadFilter();f.type='lowpass';f.frequency.setValueAtTime(3200,t);f.frequency.exponentialRampToValueAtTime(700,t+dur);
   g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.006);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
   [['sawtooth',1,.6],['triangle',1.002,1]].forEach(([ty,d,v])=>{const o=c.createOscillator(),og=c.createGain();o.type=ty;o.frequency.value=hz(m)*d;og.gain.value=v;o.connect(og).connect(f);o.start(t);o.stop(t+dur+.05);});
-  f.connect(g).connect(c.destination);}
+  f.connect(g).connect(OUT||c.destination);}
 function click(t,hi,vol=.35){const c=ac();const o=c.createOscillator(),g=c.createGain();o.type='square';o.frequency.value=hi?1600:1050;
-  g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(0.0001,t+.035);o.connect(g).connect(c.destination);o.start(t);o.stop(t+.04);}
+  g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(0.0001,t+.035);o.connect(g).connect(OUT||c.destination);o.start(t);o.stop(t+.04);}
 let NOISE=null;
 function strum(t,pm,acc){const c=ac();if(!NOISE){NOISE=c.createBuffer(1,c.sampleRate*.2,c.sampleRate);const d=NOISE.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;}
   const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=NOISE;f.type=pm?'lowpass':'bandpass';f.frequency.value=pm?520:2000;f.Q.value=pm?.7:.9;
-  const v=(acc?.5:.28)*(pm?1.4:1),len=pm?.07:.13;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(0.0001,t+len);s.connect(f).connect(g).connect(c.destination);s.start(t);s.stop(t+len+.02);
-  const o=c.createOscillator(),og=c.createGain();o.type='triangle';o.frequency.value=pm?110:220;og.gain.setValueAtTime(pm?.25:.12,t);og.gain.exponentialRampToValueAtTime(0.0001,t+(pm?.09:.15));o.connect(og).connect(c.destination);o.start(t);o.stop(t+.2);}
+  const v=(acc?.5:.28)*(pm?1.4:1),len=pm?.07:.13;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(0.0001,t+len);s.connect(f).connect(g).connect(OUT||c.destination);s.start(t);s.stop(t+len+.02);
+  const o=c.createOscillator(),og=c.createGain();o.type='triangle';o.frequency.value=pm?110:220;og.gain.setValueAtTime(pm?.25:.12,t);og.gain.exponentialRampToValueAtTime(0.0001,t+(pm?.09:.15));o.connect(og).connect(OUT||c.destination);o.start(t);o.stop(t+.2);}
 function chime(){const c=ac();if(!c)return;const t=c.currentTime;[76,83].forEach((m,i)=>pluck(m,t+i*.18,1.2,.22));}
 
 /* ---------- mástil SVG ---------- */
@@ -445,11 +465,7 @@ function rCfg(pat,bpm){RZ.pat=pat;RZ.bpm=ST.bpm[key()]||bpm;rDraw();}
 function rDraw(){const ks=[...new Set(W.flatMap(w=>w.days.map(d=>d.r)))];
   $('r-pats').innerHTML=ks.map(k=>`<button class="chip" data-k="${k}" aria-pressed="${RZ.pat===k}">${PATS[k].n}</button>`).join('');
   $('r-pats').querySelectorAll('button').forEach(b=>b.onclick=()=>{RZ.pat=b.dataset.k;RZ.i=0;rDraw();});
-  const P=PATS[RZ.pat];$('r-tip').textContent=P.tip;let h='';
-  for(let b=0;b<P.p.length/8;b++){if(P.p.length>8)h+=`<p class="bar-lbl">Compás ${b+1}</p>`;h+='<div class="grid">';
-    for(let k=0;k<8;k++){const ch=P.p[b*8+k],rest=ch==='-',acc=ch==='X'||ch==='M',pm=ch==='m'||ch==='M';
-      h+=`<div class="cell${k%2?'':' beat'}${rest?' rest':''}${acc?' acc':''}" data-c="${b*8+k}"><span class="pm">${pm?'PM':acc?'&gt;':''}</span><span class="s">${k%2?'↑':'↓'}</span><span class="c">${CNT[k]}</span></div>`;}
-    h+='</div>';}
+  const P=PATS[RZ.pat];$('r-tip').textContent=P.tip;const h=gridHTML(P.p);
   $('r-grid').innerHTML=h;$('r-bpm').textContent=RZ.bpm;$('r-go').textContent=RZ.run?'■ Parar':'▶ Metrónomo';}
 function rTick(){const c=AC,P=PATS[RZ.pat].p,step=60/RZ.bpm/2;
   while(RZ.next<c.currentTime+.12){const i=RZ.i%P.length,k=i%8,ch=P[i];
@@ -469,7 +485,7 @@ function rInit(){$('r-go').onclick=()=>RZ.run?rStop():rStart();
 /* ---------- herramienta: pista ---------- */
 function pDraw(){const d=day(),p=d.pis,ints=d.ints,ch=d.chords?d.chords.map(i=>PROG[i]):PROG;
   const pn={1:'I–V–vi–IV en La (La – Mi – Fa♯m – Re)',6:'Un solo acorde: La mayor',7:'Un solo acorde: Fa♯ menor'}[p.prog];
-  $('p-n').textContent=pn;$('p-tip').textContent=d.imp;
+  $('p-n').textContent=pn;$('p-tip').textContent=d.imp.txt;
   $('p-open').href=`../pistas.html?prog=${p.prog}&key=${p.key}&style=${p.style}&bpm=${p.bpm}`;$('p-open').textContent=`Abrir backing track a ${p.bpm} bpm →`;
   const has3=ints.includes(3)||ints.includes(4);
   const cols=[0,has3?'3':null,5,7].filter(i=>i!==null&&(i==='3'||ints.includes(i)));
@@ -487,23 +503,100 @@ function showTool(t,scroll){TOOL=t;$('ttabs').innerHTML=TOOLS.map(([k,n])=>`<but
   if(t!=='ritmo'&&RZ.run)rStop();if(t==='mastil')mDraw();
   if(scroll)$('tools').scrollIntoView({behavior:'smooth',block:'start'});}
 
+/* ---------- ejemplos: lectura, dibujo y reproducción ---------- */
+const IVS=['T','♭2','2','♭3','3','4','♭5','5','♭6','6','♭7','7'];
+const IVC={0:'--c-r',3:'--c-b3',4:'--c-3',5:'--c-4',7:'--c-5'};
+const CHN=PROG.reduce((o,c)=>(o[c.r]=c.n,o),{});
+function parseEx(src,chords,root0=9){const rows=[];let row=[],t=0,root=root0,ri=0;
+  const rootOf=()=>chords?PROG[chords[Math.min(ri,chords.length-1)]].r:root;
+  const toks=src.split(/\s+/).filter(Boolean);
+  const flush=()=>{rows.push({ev:row,start:row.length?row[0].t:t,end:t,chord:chords?PROG[chords[Math.min(ri,chords.length-1)]]:null,tag:row.tag});row=[];ri++;};
+  for(const tk of toks){
+    if(tk==='|'){flush();continue;}
+    if(tk[0]==='@'){root=+tk.slice(1);row.tag=CHN[root]||PC[root];continue;}
+    const m=tk.match(new RegExp(`^(r|${Object.keys(CH).join('|')}|\\d\\.\\d+(?:\\+\\d\\.\\d+)*)(m)?(>)?(?:/(\\d+))?(?:\\*(\\d+))?$`));if(!m)continue;
+    const n=+(m[5]||1),d=+(m[4]||2);
+    for(let k=0;k<n;k++){const e={t,d,pm:!!m[2],acc:!!m[3],notes:[],rest:m[1]==='r'};
+      if(CH[m[1]]){e.chord=CH[m[1]][1];e.notes=CH[m[1]][0].split('+').map(x=>x.split('.').map(Number));}
+      else if(!e.rest)e.notes=m[1].split('+').map(x=>x.split('.').map(Number));
+      e.notes=e.notes.map(([s,f])=>[s-1,f]);
+      const r=rootOf();e.root=r;e.lab=e.chord||(e.rest?'':IVS[ivl(midi(e.notes[0][0],e.notes[0][1]),r)]);
+      row.push(e);t+=d;}}
+  if(row.length||row.tag)flush();
+  return {rows,len:t,ev:rows.flatMap(r=>r.ev)};}
+function miniBoard(ev){const pos=new Map();ev.forEach(e=>e.notes.forEach(([s,f])=>{const k=s+'-'+f;if(!pos.has(k))pos.set(k,{s,f,lab:e.chord?IVS[ivl(midi(s,f),e.root)]:e.lab,i:ivl(midi(s,f),e.root)});}));
+  if(!pos.size)return '';const multi=new Set(ev.filter(e=>!e.rest).map(e=>e.root)).size>1;
+  const fs=[...pos.values()].map(p=>p.f);let a=Math.max(0,Math.min(...fs)-1),b=Math.max(...fs)+1;if(b-a<4)b=a+4;
+  const FW=46,X0=a===0?30:14,fx=f=>f===0?16:X0+(f-a-.5)*FW,sy=s=>16+s*20,w=X0+(b-a)*FW+10;
+  let h=`<svg viewBox="0 0 ${w} 150" width="${w}" height="150" class="mini" role="img" aria-label="Posiciones en el mástil"><rect x="${X0}" y="6" width="${(b-a)*FW}" height="120" rx="3" fill="var(--wood)"/>`;
+  for(let f=a+1;f<=b;f++){h+=`<line x1="${X0+(f-a)*FW}" y1="6" x2="${X0+(f-a)*FW}" y2="126" stroke="var(--fret)" stroke-width="2"/>`;
+    h+=`<text x="${X0+(f-a-.5)*FW}" y="144" text-anchor="middle" font-size="11" font-family="var(--f-mono)" fill="var(--muted)">${f}</text>`;
+    if([3,5,7,9,15].includes(f))h+=`<circle cx="${X0+(f-a-.5)*FW}" cy="66" r="5" fill="var(--inlay)"/>`;}
+  if(a===0)h+=`<rect x="${X0-4}" y="6" width="5" height="120" fill="var(--nut)"/>`;
+  for(let s=0;s<6;s++)h+=`<line x1="${a===0?4:X0}" y1="${sy(s)}" x2="${X0+(b-a)*FW}" y2="${sy(s)}" stroke="var(--string)" stroke-width="${1+s*.35}"/><text x="${a===0?2:X0-4}" y="${sy(s)+4}" text-anchor="end" font-size="9" fill="var(--muted)" font-family="var(--f-mono)">${a===0?'':s+1}</text>`;
+  pos.forEach(p=>{const c=multi?'--ink':(IVC[p.i]||'--muted'),lab=multi?PC[midi(p.s,p.f)%12]:p.lab,fg=multi?'var(--bg)':c==='--c-5'?'#2A1D00':'#fff';h+=`<g data-k="${p.s}-${p.f}"><circle cx="${fx(p.f)}" cy="${sy(p.s)}" r="${multi?12:10}" fill="var(${c})"/><text x="${fx(p.f)}" y="${sy(p.s)+4}" text-anchor="middle" font-size="${multi?9.5:11}" font-weight="700" fill="${fg}" font-family="var(--f-body)">${lab}</text></g>`;});
+  return h+'</svg>';}
+function stripHTML(px){return px.rows.map((r,ri)=>`<div class="srow">${r.chord||r.tag?`<span class="tag">${r.chord?r.chord.n:r.tag}</span>`:''}${r.ev.map((e,i)=>{
+    const id=px.ev.indexOf(e),c=e.chord?'--ink':(IVC[IVS.indexOf(e.lab)]||'--muted');
+    const pos=e.rest?'silencio':e.chord?e.notes.map(([s,f])=>f).join('·'):`c${e.notes[0][0]+1}·${e.notes[0][1]}`;
+    return `<span class="tk${e.rest?' rest':''}" data-e="${id}" style="flex-grow:${e.d}"><span class="i" style="${e.rest?'':`background:var(${c});color:${c==='--c-5'?'#2A1D00':c==='--ink'?'var(--bg)':'#fff'}`}">${e.rest?'𝄽':(e.acc?'>':'')+e.lab}</span><span class="p">${pos}${e.pm?' PM':''}</span></span>`;}).join('')}</div>`).join('');}
+function gridHTML(p){let h='';for(let b=0;b<p.length/8;b++){if(p.length>8)h+=`<p class="bar-lbl">Compás ${b+1}</p>`;h+='<div class="grid">';
+    for(let k=0;k<8;k++){const ch=p[b*8+k],rest=ch==='-',acc=ch==='X'||ch==='M',pm=ch==='m'||ch==='M';
+      h+=`<div class="cell${k%2?'':' beat'}${rest?' rest':''}${acc?' acc':''}" data-c="${b*8+k}"><span class="pm">${pm?'PM':acc?'&gt;':''}</span><span class="s">${k%2?'↑':'↓'}</span><span class="c">${CNT[k]}</span></div>`;}
+    h+='</div>';}return h;}
+
+/* reproductor único: un ejemplo cada vez */
+const PL={g:null,raf:0,btn:null,box:null,q:[],end:0};
+function plStop(){if(PL.g){try{PL.g.gain.setValueAtTime(0,AC.currentTime);PL.g.disconnect();}catch(e){}}PL.g=null;cancelAnimationFrame(PL.raf);
+  if(PL.box)PL.box.querySelectorAll('.now').forEach(e=>e.classList.remove('now'));if(PL.btn)PL.btn.textContent='▶ Escuchar ejemplo';PL.btn=null;PL.box=null;}
+function plRun(box,btn,schedule){const was=PL.btn===btn;plStop();if(was)return;const c=ac();if(!c)return;if(RZ.run)rStop();
+  PL.g=c.createGain();PL.g.connect(c.destination);PL.btn=btn;PL.box=box;btn.textContent='■ Parar';PL.q=[];
+  OUT=PL.g;const t0=c.currentTime+.15;PL.end=schedule(t0);OUT=null;PL.q.sort((a,b)=>a[0]-b[0]);
+  const tick=()=>{if(!PL.g)return;const t=c.currentTime;let last=null;while(PL.q.length&&PL.q[0][0]<=t)last=PL.q.shift();
+    if(last){box.querySelectorAll('.now').forEach(e=>e.classList.remove('now'));last[1].forEach(sel=>box.querySelectorAll(sel).forEach(e=>e.classList.add('now')));}
+    if(t>PL.end){plStop();return;}PL.raf=requestAnimationFrame(tick);};tick();}
+function pad(c,t,dur){if(!c)return;const tri=[0,c.q==='m'?3:4,7].map(i=>48+((c.r+i)%12));tri.forEach(m=>{const o=AC.createOscillator(),g=AC.createGain();o.type='triangle';o.frequency.value=hz(m);
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(.05,t+.05);g.gain.setValueAtTime(.05,t+dur-.1);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.connect(g).connect(OUT);o.start(t);o.stop(t+dur+.05);});
+  const b=AC.createOscillator(),bg=AC.createGain();b.type='sine';b.frequency.value=hz(36+c.r%12+(c.r%12<4?12:0));bg.gain.setValueAtTime(.12,t);bg.gain.exponentialRampToValueAtTime(0.0001,t+dur);b.connect(bg).connect(OUT);b.start(t);b.stop(t+dur);}
+function playEx(box,btn,px,bpm,{countIn=true,pads=false}={}){plRun(box,btn,t0=>{const e8=60/bpm/2;let t=t0;
+    if(countIn){for(let k=0;k<4;k++)click(t+k*2*e8,k===0,.25);PL.q.push([t,['.cnt']]);t+=8*e8;}
+    const T0=t;for(let k=0;k<px.len;k+=2)click(T0+k*e8,k%8===0,.12);
+    if(pads)px.rows.forEach(r=>{if(r.chord&&r.end>r.start)pad(r.chord,T0+r.start*e8,(r.end-r.start)*e8);});
+    px.ev.forEach((e,i)=>{const tt=T0+e.t*e8;PL.q.push([tt,[`[data-e="${i}"]`,...e.notes.map(([s,f])=>`g[data-k="${s}-${f}"]`)]]);
+      if(e.rest)return;const dur=e.pm?.22:Math.min(1.6,e.d*e8+.25),vol=(e.acc?.34:.26)*(e.notes.length>1?.6:1);
+      e.notes.forEach(([s,f],k)=>pluck(midi(s,f),tt+k*.012,dur,vol));if(e.pm)strum(tt,true,e.acc);});
+    PL.q.push([T0+px.len*e8,[]]);return T0+px.len*e8+.3;});}
+function playGrid(box,btn,p,bpm){plRun(box,btn,t0=>{const e8=60/bpm/2,n=p.length*2;
+    for(let k=0;k<n;k++){const t=t0+k*e8,i=k%p.length,ch=p[i];if(k%2===0)click(t,i%8===0,i%8===0?.4:.28);
+      if(ch!=='-')strum(t,ch==='m'||ch==='M',ch==='X'||ch==='M');PL.q.push([t,[`.cell[data-c="${i}"]`]]);}
+    PL.q.push([t0+n*e8,[]]);return t0+n*e8+.2;});}
 /* ---------- sesión ---------- */
-const BL=[['Rítmica pura',5,'ritmo'],['Material armónico',10,null],['Combinación',5,'ritmo'],['Improvisación',5,'pista']];
+const BL=[['Rítmica pura',5,'ritmo'],['Intervalos',10,null],['Combinación',5,'ritmo'],['Improvisación',5,'pista']];
+const TN={ritmo:'metrónomo',mastil:'mástil',quiz:'quiz',oido:'oído',pista:'backing track'};
 const T={i:0,left:BL[0][1]*60,run:false,h:null};
-function blocksDraw(){const d=day(),txt=[`${PATS[d.r].n} a ${d.bpm} bpm, con las cuerdas apagadas con la mano izquierda. ${PATS[d.r].tip}`,d.arm,d.comb,d.imp];
-  $('blocks').innerHTML=BL.map(([n,m,tool],i)=>`<div class="block${T.i===i&&(T.run||T.left<BL[i][1]*60)?' on':''}"><span class="min">${m}′</span><div><h3>${n}<span>${['ritmo','intervalos','ritmo + intervalos','pista'][i]}</span></h3><p>${txt[i]}</p></div>
-    <div class="acts"><button class="btn" data-open="${i}">Abrir ${({ritmo:'ritmo',mastil:'mástil',quiz:'quiz',oido:'oído',pista:'pista'})[tool||d.tool]}</button><button class="btn" data-start="${i}">Empezar aquí</button></div></div>`).join('');
+function blocksDraw(){const d=day(),P=PATS[d.r];
+  const px=[null,parseEx(d.arm.ex,d.arm.chords),parseEx(d.comb.ex,d.comb.chords),parseEx(d.imp.ex,d.imp.chords)];
+  const txt=[`Cuerdas apagadas con la mano izquierda. Toca este ritmo a ${d.bpm} bpm contando en voz alta.`,d.arm.txt,d.comb.txt,d.imp.txt];
+  const sub=[P.tip,'','',`En la pista: ${d.pis.bpm} bpm.`];
+  $('blocks').innerHTML=BL.map(([n,m,tool],i)=>`<div class="block${T.i===i&&(T.run||T.left<BL[i][1]*60)?' on':''}" data-b="${i}">
+    <div class="bh"><span class="num">${i+1}</span><h3>${n}</h3><span class="min">${m} min</span></div>
+    <p class="do">${txt[i]}</p>${sub[i]?`<p class="hint">${sub[i]}</p>`:''}
+    <div class="ex">${i===0?gridHTML(P.p):`<div class="board-scroll">${miniBoard(px[i].ev)}</div><p class="hint">${new Set(px[i].ev.filter(e=>!e.rest).map(e=>e.root)).size>1?'Mástil: nombre de cada nota. Debajo, en orden: el intervalo respecto al acorde y dónde tocarlo':'Debajo, en orden: el intervalo y dónde tocarlo'} (c6·5 = cuerda 6, traste 5).</p><div class="strip">${stripHTML(px[i])}</div>`}</div>
+    <div class="acts"><button class="btn primary" data-play="${i}">▶ Escuchar ejemplo</button><button class="btn" data-open="${i}">Practicar con ${TN[tool||d.tool]}</button><button class="btn" data-start="${i}">⏱ Empezar aquí</button></div></div>`).join('');
+  $('blocks').querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>{const i=+b.dataset.play,box=b.closest('.block');
+    if(i===0)playGrid(box,b,P.p,d.bpm);else playEx(box,b,px[i],i===3?d.pis.bpm:d.bpm,{countIn:i>1,pads:i===3||!!(i===2&&d.comb.chords)});});
   $('blocks').querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{const i=+b.dataset.open;showTool(BL[i][2]||day().tool,true);});
   $('blocks').querySelectorAll('[data-start]').forEach(b=>b.onclick=()=>{T.i=+b.dataset.start;T.left=BL[T.i][1]*60;tStart();});}
+function blocksMark(){document.querySelectorAll('#blocks .block').forEach((e,i)=>e.classList.toggle('on',T.i===i&&(T.run||T.left<BL[i][1]*60)));}
 const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
-function tDraw(){$('c-time').textContent=fmt(T.left);$('c-name').textContent=`Bloque ${T.i+1} de 4 · ${BL[T.i][0]}`;$('c-go').textContent=T.run?'Pausa':(T.left<BL[T.i][1]*60?'Seguir':'Empezar sesión');blocksDraw();}
-function tStart(){ac();T.run=true;clearInterval(T.h);showTool(BL[T.i][2]||day().tool);T.h=setInterval(()=>{T.left--;if(T.left<=0){chime();if(T.i<3){T.i++;T.left=BL[T.i][1]*60;showTool(BL[T.i][2]||day().tool);}else{tPause();T.left=0;$('c-name').textContent='Sesión terminada · apúntalo en el registro';L().done=true;save();logDraw();daysDraw();return;}}tDraw();},1000);tDraw();}
+function tDraw(){$('c-time').textContent=fmt(T.left);$('c-name').textContent=`Bloque ${T.i+1} de 4 · ${BL[T.i][0]}`;$('c-go').textContent=T.run?'Pausa':(T.left<BL[T.i][1]*60?'Seguir':'Empezar sesión');blocksMark();}
+function tStart(){ac();T.run=true;clearInterval(T.h);T.h=setInterval(()=>{T.left--;if(T.left<=0){chime();if(T.i<3){T.i++;T.left=BL[T.i][1]*60;}else{tPause();T.left=0;$('c-name').textContent='Sesión terminada · apúntalo en el registro';L().done=true;save();logDraw();daysDraw();return;}}tDraw();},1000);tDraw();
+  const b=document.querySelector(`#blocks .block[data-b="${T.i}"]`);if(b)b.scrollIntoView({behavior:'smooth',block:'start'});}
 function tPause(){T.run=false;clearInterval(T.h);tDraw();}
 function tReset(){tPause();T.i=0;T.left=BL[0][1]*60;tDraw();}
 $('c-go').onclick=()=>T.run?tPause():tStart();
-$('c-skip').onclick=()=>{if(T.i<3){T.i++;T.left=BL[T.i][1]*60;showTool(BL[T.i][2]||day().tool);tDraw();}};
+$('c-skip').onclick=()=>{if(T.i<3){T.i++;T.left=BL[T.i][1]*60;tDraw();const b=document.querySelector(`#blocks .block[data-b="${T.i}"]`);if(b)b.scrollIntoView({behavior:'smooth',block:'start'});}};
 $('c-reset').onclick=tReset;
-
 /* ---------- semana / día ---------- */
 function weeksDraw(){$('weeks').innerHTML=W.map((w,i)=>`<button role="tab" aria-selected="${ST.w===i}" data-w="${i}">Semana ${i+1}</button>`).join('');
   $('weeks').querySelectorAll('button').forEach(b=>b.onclick=()=>{ST.w=+b.dataset.w;ST.d=0;save();loadDay();});}
@@ -514,7 +607,7 @@ function logDraw(){const l=L();$('l-bpm').value=l.bpm??'';$('l-quiz').value=l.qu
 ['bpm','quiz','ear'].forEach(k=>$('l-'+k).oninput=e=>{L()[k]=e.target.value===''?undefined:+e.target.value;save();});
 $('l-note').oninput=e=>{L().note=e.target.value;save();};
 $('l-done').onchange=e=>{L().done=e.target.checked;save();daysDraw();logDraw();};
-function loadDay(){const w=W[ST.w],d=day();tReset();if(RZ.run)rStop();
+function loadDay(){const w=W[ST.w],d=day();plStop();tReset();if(RZ.run)rStop();
   $('d-lbl').textContent=`Semana ${ST.w+1} · ${w.t} · Día ${ST.d+1}`;$('d-title').textContent=d.t;$('d-focus').textContent=d.f+' '+(ST.d===0?w.sub:'');
   $('d-goal').innerHTML=`<b>Objetivo de hoy:</b> ${d.obj}<br><b>Objetivo de la semana:</b> ${w.goal}`;
   weeksDraw();daysDraw();logDraw();
@@ -522,7 +615,7 @@ function loadDay(){const w=W[ST.w],d=day();tReset();if(RZ.run)rStop();
   const mc=d.tool==='mastil'?d.cfg:{root:9,ints:d.ints.filter(i=>i!==12)};MS.root=mc.root;MS.ints=mc.ints.slice();MS.hide=false;MS.rev={};
   qCfg(d.tool==='quiz'?d.cfg:{mode:'find',ints:d.ints.filter(i=>i!==0).length?d.ints.filter(i=>i!==0):[7],roots:null});
   eCfg(d.tool==='oido'?d.cfg:{ints:ST.w===0?[12,7,5]:[3,4,7,12]});
-  pDraw();showTool('ritmo');tDraw();}
+  pDraw();blocksDraw();showTool('ritmo');tDraw();}
 
 /* ---------- arranque ---------- */
 mInit();qInit();eInit();rInit();
