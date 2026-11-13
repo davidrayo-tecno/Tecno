@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Plan 2 · Intervalos primero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: una columna — semana y día arriba, sesión cronometrada de 4 bloques, herramientas en pestañas, registro al final */
+:root{
+  --bg:#F2F4F1; --surface:#FFFFFF; --ink:#1B201C; --muted:#5E675F; --line:#D9DED8;
+  --accent:#A8731A; --accent-ink:#FFFFFF; --soft:#F7EEDD;
+  --wood:#3B2A22; --fret:#A9A396; --nut:#E9E2D0; --string:#CFC6B4; --inlay:#6E5A4B;
+  --c-r:#E2553F; --c-3:#3E86D6; --c-b3:#8A63D2; --c-4:#3FA372; --c-5:#E3B23C;
+  --ok:#2F8F55; --bad:#C2412D;
+  --f-display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root{--bg:#111412;--surface:#1A1E1B;--ink:#E8ECE7;--muted:#9AA49B;--line:#2E352F;--accent:#E0A93F;--accent-ink:#1A1206;--soft:#2A2416;--ok:#5FC085;--bad:#EF6B55;color-scheme:dark}}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:900px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.home{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none}.home:hover{color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,40px);line-height:1.05;margin:6px 0 0;letter-spacing:-.01em}
+h2{font-family:var(--f-display);font-weight:600;font-size:22px;margin:0;line-height:1.15}
+h3{font-family:var(--f-display);font-weight:600;font-size:17px;margin:0}
+.sub{color:var(--muted);margin:6px 0 0;max-width:60ch}
+.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.between{justify-content:space-between}
+.tabs{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px;flex-wrap:wrap}
+.tabs button{border:0;background:none;color:var(--muted);font:600 14px var(--f-body);padding:7px 14px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 14px var(--f-body);padding:5px 11px;border-radius:8px;cursor:pointer;min-width:40px}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip.done::after{content:" ✓";color:var(--ok);font-weight:700}
+.chip[aria-pressed="true"].done::after{color:inherit}
+.btn{border:1px solid var(--line);background:var(--bg);color:var(--ink);font:500 14px var(--f-body);padding:7px 13px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
+.btn:focus-visible,.chip:focus-visible,.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.day-head{display:flex;flex-direction:column;gap:4px}
+.focus{margin:0;color:var(--muted)}
+.goal{background:var(--soft);border-radius:10px;padding:10px 12px;font-size:14px;margin:0}
+/* sesión */
+.clock{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--wood);color:#F6EFE2;border-radius:12px;padding:12px 16px}
+.clock .t{font-family:var(--f-mono);font-size:34px;line-height:1}
+.clock .n{font-size:14px;opacity:.85}
+.clock .btn{background:transparent;color:#F6EFE2;border-color:rgba(246,239,226,.35)}
+.clock .btn.primary{background:#E3B23C;border-color:#E3B23C;color:#2A1D00}
+.blocks{display:flex;flex-direction:column;gap:8px}
+.block{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--bg)}
+.block.on{border-color:var(--accent);background:var(--soft)}
+.block .min{font-family:var(--f-mono);font-size:13px;color:var(--muted);padding-top:2px}
+.block h3 span{font-family:var(--f-body);font-weight:500;font-size:12px;color:var(--muted);margin-left:6px;text-transform:uppercase;letter-spacing:.06em}
+.block p{margin:0;font-size:14px}
+.block .acts{grid-column:2;display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.block .btn{font-size:13px;padding:5px 10px}
+/* mástil */
+.board-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px}
+.board-scroll svg{display:block;width:100%;min-width:780px;height:auto;touch-action:manipulation}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted)}
+.legend i{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px}
+.hint{font-size:13px;color:var(--muted);margin:0}
+.q{font-family:var(--f-display);font-weight:600;font-size:20px;margin:0}
+.fb{font-weight:600;min-height:1.5em;margin:0}
+.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+.score{font-family:var(--f-mono);font-size:14px;color:var(--muted)}
+.answers{display:flex;flex-wrap:wrap;gap:8px}
+.answers .btn{min-width:84px;justify-content:center}
+.answers .btn.ok{border-color:var(--ok);color:var(--ok);font-weight:600}
+.answers .btn.bad{border-color:var(--bad);color:var(--bad)}
+/* ritmo */
+.grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.cell{border:1px solid var(--line);border-radius:8px;background:var(--bg);text-align:center;padding:8px 0 6px;display:flex;flex-direction:column;gap:2px;align-items:center}
+.cell .s{font-size:22px;line-height:1;height:24px}
+.cell .c{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.cell.beat .c{color:var(--ink);font-weight:600}
+.cell.rest .s{opacity:.22}
+.cell.acc .s{color:var(--accent);font-weight:700}
+.cell .pm{font-size:10px;font-weight:700;color:var(--muted);height:12px;line-height:12px}
+.cell.now{border-color:var(--accent);background:var(--soft)}
+.bar-lbl{font-size:12px;color:var(--muted);margin:6px 0 2px}
+.bpm{font-family:var(--f-mono);font-size:24px;min-width:3.2ch;text-align:center}
+.tgl{display:inline-flex;align-items:center;gap:6px;font-size:14px;cursor:pointer}
+/* tabla notas */
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td b{font-family:var(--f-display)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
+/* registro */
+.log{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.log label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+input[type=number],textarea{font:500 15px var(--f-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%}
+textarea{min-height:64px;resize:vertical}
+footer{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="home" href="../index.html">← Inicio</a>
+    <h1>Plan 2 · Intervalos primero</h1>
+    <p class="sub">Todo nace de los intervalos: de ellos salen las triadas, de las triadas los arpegios y de los arpegios las escalas. La rítmica avanza en paralelo desde el primer día. Estilo pop rock, en La mayor, sobre I–V–vi–IV (La–Mi–Fa♯m–Re).</p>
+  </header>
+
+  <div class="row between">
+    <div class="tabs" role="tablist" id="weeks"></div>
+    <div class="row" id="days"></div>
+  </div>
+
+  <section class="card">
+    <div class="day-head">
+      <span class="lbl" id="d-lbl"></span>
+      <h2 id="d-title"></h2>
+      <p class="focus" id="d-focus"></p>
+    </div>
+    <div class="clock">
+      <div><div class="t" id="c-time">25:00</div><div class="n" id="c-name">Sesión de 25 minutos · 4 bloques</div></div>
+      <div class="row"><button class="btn primary" id="c-go">Empezar sesión</button><button class="btn" id="c-skip">Siguiente bloque</button><button class="btn" id="c-reset">Reiniciar</button></div>
+    </div>
+    <div class="blocks" id="blocks"></div>
+    <p class="goal" id="d-goal"></p>
+  </section>
+
+  <section class="card" id="tools">
+    <div class="row between">
+      <h2>Herramientas</h2>
+      <div class="tabs" role="tablist" id="ttabs"></div>
+    </div>
+
+    <!-- Mástil -->
+    <div data-tool="mastil">
+      <div class="row"><span class="lbl">Raíz</span><div class="row" id="m-roots"></div></div>
+      <div class="row"><span class="lbl">Intervalos</span><div class="row" id="m-ints"></div></div>
+      <div class="row">
+        <button class="btn" id="m-hide" aria-pressed="false">Ocultar (toca para descubrir)</button>
+        <button class="btn" id="m-names" aria-pressed="false">Ver nombres de nota</button>
+      </div>
+      <div class="board-scroll"><svg id="m-svg" viewBox="0 0 820 190" role="img" aria-label="Mástil con intervalos"></svg></div>
+      <div class="legend" id="m-legend"></div>
+      <p class="hint">Toca cualquier traste para oír la nota y ver qué intervalo es respecto a la raíz. Di el nombre del intervalo en voz alta antes de tocar.</p>
+    </div>
+
+    <!-- Quiz -->
+    <div data-tool="quiz" hidden>
+      <div class="row between">
+        <div class="tabs" role="tablist" id="q-modes"></div>
+        <span class="score" id="q-score"></span>
+      </div>
+      <p class="q" id="q-q"></p>
+      <div class="board-scroll"><svg id="q-svg" viewBox="0 0 820 190" role="img" aria-label="Mástil del quiz"></svg></div>
+      <div class="answers" id="q-ans"></div>
+      <p class="fb" id="q-fb"></p>
+      <div class="row"><button class="btn" id="q-next">Siguiente</button><button class="btn" id="q-restart">Nueva ronda de 20</button></div>
+    </div>
+
+    <!-- Oído -->
+    <div data-tool="oido" hidden>
+      <div class="row between"><p class="q" id="e-q">¿Qué intervalo suena?</p><span class="score" id="e-score"></span></div>
+      <div class="row">
+        <button class="btn primary" id="e-play">▶ Escuchar</button>
+        <button class="btn" id="e-again">Repetir</button>
+        <button class="btn" id="e-harm" aria-pressed="false">Notas a la vez</button>
+      </div>
+      <div class="answers" id="e-ans"></div>
+      <p class="fb" id="e-fb"></p>
+      <p class="hint">Canta la nota de abajo y luego la de arriba antes de responder. Si aciertas, tócalo en el mástil desde La.</p>
+    </div>
+
+    <!-- Ritmo -->
+    <div data-tool="ritmo" hidden>
+      <div class="row"><span class="lbl">Patrón</span><div class="row" id="r-pats"></div></div>
+      <p class="hint" id="r-tip"></p>
+      <div id="r-grid"></div>
+      <div class="row between">
+        <div class="row"><button class="btn" id="r-minus">−5</button><span class="bpm" id="r-bpm">60</span><button class="btn" id="r-plus">+5</button><span class="hint">bpm</span></div>
+        <div class="row">
+          <label class="tgl"><input type="checkbox" id="r-guide" checked> Sonido guía</label>
+          <label class="tgl"><input type="checkbox" id="r-sub"> Clic en los «y»</label>
+          <button class="btn primary" id="r-go">▶ Metrónomo</button>
+        </div>
+      </div>
+      <p class="hint">↓ púa hacia abajo en el pulso, ↑ hacia arriba en el «y». Las flechas tenues son silencios: la mano sigue moviéndose sin tocar. PM = palm mute. Cuenta en voz alta «1 y 2 y 3 y 4 y».</p>
+    </div>
+
+    <!-- Pista -->
+    <div data-tool="pista" hidden>
+      <p class="q" id="p-n"></p>
+      <p class="hint" id="p-tip"></p>
+      <div class="row"><a class="btn primary" id="p-open" href="../pistas.html">Abrir backing track →</a></div>
+      <table id="p-table"></table>
+      <p class="hint">Notas objetivo: cuando cambia el acorde, cae en una de estas notas. Busca siempre la que esté más cerca de donde tienes la mano.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Registro del día</h2>
+    <div class="log">
+      <label>BPM limpio (ritmo)<input type="number" id="l-bpm" min="30" max="220" inputmode="numeric"></label>
+      <label>Mejor quiz (de 20)<input type="number" id="l-quiz" min="0" max="20" inputmode="numeric"></label>
+      <label>Oído (aciertos seguidos)<input type="number" id="l-ear" min="0" inputmode="numeric"></label>
+    </div>
+    <label class="hint" style="display:flex;flex-direction:column;gap:4px">Notas: qué costó, qué repetir mañana<textarea id="l-note"></textarea></label>
+    <div class="row between"><label class="tgl"><input type="checkbox" id="l-done"> Sesión completada</label><span class="hint" id="l-week"></span></div>
+  </section>
+
+  <footer>Semanas 1 y 2 del bloque de intervalos. Si un objetivo no sale, repite el día: la rítmica puede avanzar aunque la parte armónica no.</footer>
+</div>
+
+<script>
+/* ---------- teoría ---------- */
+const PC=['Do','Do♯','Re','Re♯','Mi','Fa','Fa♯','Sol','Sol♯','La','La♯','Si'];
+const TUNE=[64,59,55,50,45,40]; // cuerda 1 (Mi agudo) a 6 (Mi grave)
+const IN={0:{s:'T',n:'Tónica / octava',c:'--c-r'},3:{s:'♭3',n:'3ª menor',c:'--c-b3'},4:{s:'3',n:'3ª mayor',c:'--c-3'},5:{s:'4',n:'4ª justa',c:'--c-4'},7:{s:'5',n:'5ª justa',c:'--c-5'},12:{s:'8',n:'Octava',c:'--c-r'}};
+const PROG=[{n:'La',r:9,q:'M'},{n:'Mi',r:4,q:'M'},{n:'Fa♯m',r:6,q:'m'},{n:'Re',r:2,q:'M'}];
+const midi=(s,f)=>TUNE[s]+f;
+const ivl=(m,root)=>((m-root)%12+12)%12;
+const cv=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+/* ---------- patrones rítmicos ---------- */
+// x golpe · X golpe con acento · m palm mute · M palm mute con acento · - silencio (la mano sigue)
+const PATS={
+ negras:{n:'Negras',p:'x-x-x-x-',tip:'Una púa hacia abajo en cada pulso. Cuenta «1, 2, 3, 4» y que tu púa caiga exactamente con el clic.'},
+ corcheas:{n:'Corcheas',p:'xxxxxxxx',tip:'Abajo en el pulso, arriba en el «y». La mano no para nunca: es un péndulo.'},
+ pm8:{n:'Corcheas palm mute',p:'mmmmmmmm',tip:'Apoya el canto de la mano derecha sobre el puente. Todas las púas hacia abajo si puedes; es el «motor» de una estrofa pop rock.'},
+ sil4:{n:'Silencio en el 4',p:'x-x-x---',tip:'Tocas 1, 2 y 3, y en el 4 callas. Apaga las cuerdas con la mano izquierda justo a tiempo: el silencio también se toca.'},
+ mezcla:{n:'Negras y corcheas',p:'x-x-xxxx',tip:'Dos negras y cuatro corcheas: «1, 2, 3 y 4 y». Las corcheas no se deben acelerar.'},
+ backbeat:{n:'Acentos en 2 y 4',p:'xxXxxxXx',tip:'Corcheas, pero más fuerte en el 2 y el 4, donde suena la caja de la batería. Es el pulso del pop rock.'},
+ acc1:{n:'Acento en el 1',p:'Xxxxxxxx',tip:'Corcheas con el primer tiempo más fuerte. Te ayuda a no perder dónde empieza el compás.'},
+ respira:{n:'Respiro antes del cambio',p:'xxxxxxx-',tip:'Corcheas y silencio en el último «y». Ese hueco es el momento de mover la mano al acorde siguiente.'},
+ dinamica:{n:'Estrofa PM → estribillo abierto',p:'mmmmmmmmXxxxXxxx',tip:'Un compás apagado y suave, otro abierto y con acentos. Es el contraste estrofa/estribillo de casi cualquier canción pop rock.'},
+ cambio:{n:'Cambio a tiempo',p:'XxxxxxxxXxxxxxxx',tip:'Dos compases de corcheas. Acentúa el 1 de cada compás: ahí cambia el acorde.'},
+ sincopa:{n:'Negra, negra, corcheas',p:'x-x-xxx-',tip:'«1, 2, 3 y 4». El 4 suena y su «y» queda en silencio. Fíjate en que el 4 cae con la púa abajo.'}};
+
+/* ---------- plan ---------- */
+const P1={prog:1,key:9,style:'poprock'};
+const W=[
+{t:'Raíz, 5ª y octava',sub:'El esqueleto del power chord. Rítmica: pulso, negras, corcheas, silencios y palm mute.',
+ goal:'Para pasar de semana: 18 de 20 en el quiz mezclando T, 4 y 5; corcheas con palm mute limpias a 80; y una grabación de 1 minuto en la que todo caiga a tiempo.',
+ days:[
+ {t:'La raíz y sus octavas',f:'Encontrar La en todo el mástil y moverte entre octavas.',r:'negras',bpm:60,
+  arm:'Busca todos los La entre los trastes 0 y 15. La forma de octava: dos cuerdas más agudas y dos trastes a la derecha; si en el camino cruzas la cuerda Si, tres trastes.',tool:'mastil',cfg:{root:9,ints:[0]},
+  comb:'Toca La en negras y cambia de octava cada compás: cuerda 6 traste 5 → cuerda 4 traste 7 → cuerda 2 traste 10, y vuelta.',
+  imp:'Sobre la pista toca solo la raíz de cada acorde (La, Mi, Fa♯, Re), en negras. Elige siempre la que tengas más cerca.',pis:{...P1,bpm:70},ints:[0],
+  obj:'Señalar los La del mástil en menos de 30 segundos y que las negras caigan con el clic.'},
+ {t:'La 5ª justa',f:'La distancia más estable después de la octava.',r:'corcheas',bpm:60,
+  arm:'5ª justa: en la misma cuerda, 7 trastes. En la cuerda aguda de al lado, 2 trastes a la derecha. Si la cuerda de arriba es la Si, 3 trastes. Desde La la 5ª es Mi.',tool:'quiz',cfg:{mode:'find',ints:[7],roots:[9]},
+  comb:'Alterna raíz y 5ª en corcheas: La (cuerda 6, traste 5) y Mi (cuerda 5, traste 7). Di «raíz, quinta» mientras tocas.',
+  imp:'Raíz y 5ª de cada acorde sobre la pista, en corcheas. Repetir notas está bien: lo importante es el ritmo.',pis:{...P1,bpm:70},ints:[0,7],
+  obj:'10 aciertos seguidos encontrando la 5ª.'},
+ {t:'Power chord: raíz, 5ª y octava',f:'Tres notas que ya son un acorde de rock.',r:'pm8',bpm:70,
+  arm:'Forma de power chord desde las cuerdas 6 y 5. Toca cada nota por separado diciendo «raíz, quinta, octava». La5: cuerda 6 traste 5 · Mi5: cuerda 6 traste 12 · Fa♯5: cuerda 6 traste 2 · Re5: cuerda 5 traste 5.',tool:'mastil',cfg:{root:9,ints:[0,7]},
+  comb:'La5 – Mi5 – Fa♯5 – Re5, un compás cada uno, corcheas con palm mute.',
+  imp:'Inventa un riff con power chords sobre la pista. Deja huecos: no hace falta tocar en todas las corcheas.',pis:{...P1,bpm:80},ints:[0,7],
+  obj:'La progresión completa con palm mute a 70 sin cortes entre acordes.'},
+ {t:'La 5ª por debajo es la 4ª',f:'Invertir un intervalo: 5ª + 4ª = octava.',r:'sil4',bpm:65,
+  arm:'Si bajas una 5ª desde La llegas a Re, que es la 4ª por encima de La. 4ª justa: en la cuerda aguda de al lado, mismo traste; hacia la Si, 1 traste a la derecha. Nombra cada nota que te marca el quiz.',tool:'quiz',cfg:{mode:'name',ints:[0,5,7],roots:[9]},
+  comb:'Raíz – 4ª – 5ª – raíz en negras, con el silencio en el 4: La, Re, Mi… y calla.',
+  imp:'Toca raíz, 4ª y 5ª de cada acorde. La 4ª suena tensa: déjala sonar y vuelve a la 5ª o a la raíz.',pis:{...P1,bpm:75},ints:[0,5,7],
+  obj:'Distinguir T, 4 y 5 en el quiz «Nombra» con 2 fallos o menos en 20.'},
+ {t:'Mapa: T y 5 por zonas',f:'Las mismas distancias con raíces distintas.',r:'mezcla',bpm:65,
+  arm:'Raíces de la progresión (La, Mi, Fa♯, Re) en zonas distintas del mástil. Encuentra la 5ª o la otra octava a menos de 5 trastes.',tool:'quiz',cfg:{mode:'find',ints:[0,7],roots:[9,4,6,2]},
+  comb:'Con el patrón «1, 2, 3 y 4 y»: raíz en las negras y 5ª en las corcheas, sobre cada acorde.',
+  imp:'Quédate entre los trastes 4 y 9 toda la pista. Solo raíces y 5ª.',pis:{...P1,bpm:80},ints:[0,7],
+  obj:'18 de 20 en «Encuentra» con raíces variadas.'},
+ {t:'Oído: 8ª, 5ª y 4ª',f:'Escuchar antes de tocar.',r:'backbeat',bpm:75,
+  arm:'Reconoce de oído octava, 5ª y 4ª. Primero notas separadas; cuando aciertes 5 seguidas, pásalo a «notas a la vez».',tool:'oido',cfg:{ints:[12,7,5]},
+  comb:'Canta la 5ª de La antes de tocarla y comprueba si cantaste bien. Luego la 4ª.',
+  imp:'Pregunta y respuesta: dos compases tocas con raíz y 5ª, dos compases callas escuchando la pista.',pis:{...P1,bpm:80},ints:[0,5,7],
+  obj:'8 aciertos seguidos de oído.'},
+ {t:'Repaso y grabación',f:'Comprobar la semana entera.',r:'pm8',bpm:80,
+  arm:'Quiz mixto con T, 4 y 5 en «Encuentra». Ronda de 20.',tool:'quiz',cfg:{mode:'find',ints:[0,5,7],roots:null},
+  comb:'La5 – Mi5 – Fa♯5 – Re5 con palm mute a 80.',
+  imp:'Graba 1 minuto sobre la pista con raíz, 4ª y 5ª, dejando silencios. Escúchalo: ¿caes a tiempo en el cambio de acorde?',pis:{...P1,bpm:80},ints:[0,5,7],
+  obj:'El objetivo de la semana (abajo).'}]},
+{t:'3ª mayor y 3ª menor',sub:'El intervalo que da el color: alegre o triste. Rítmica: acentos, silencios antes del cambio y dinámica estrofa/estribillo.',
+ goal:'Para pasar a la semana 3: 18 de 20 en el quiz mixto (T, ♭3, 3, 4, 5); distinguir 3ª mayor y menor de oído 8 veces seguidas; y la grabación estrofa/estribillo a 80.',
+ days:[
+ {t:'La 3ª mayor',f:'4 trastes que suenan a «mayor».',r:'acc1',bpm:70,
+  arm:'3ª mayor: en la misma cuerda, 4 trastes. En la cuerda aguda de al lado, 1 traste a la izquierda. Hacia la Si, mismo traste. Desde La la 3ª mayor es Do♯.',tool:'quiz',cfg:{mode:'find',ints:[4],roots:[9]},
+  comb:'Raíz – 3ª – 5ª – 3ª en corcheas: La, Do♯, Mi, Do♯. Di el intervalo de cada nota.',
+  imp:'Sobre un solo acorde de La, improvisa con T, 3 y 5. Busca terminar las frases en la 3ª.',pis:{prog:6,key:9,style:'poprock',bpm:75},ints:[0,4,7],chords:[0],
+  obj:'10 aciertos seguidos encontrando la 3ª mayor.'},
+ {t:'La 3ª menor',f:'3 trastes que suenan a «menor».',r:'respira',bpm:70,
+  arm:'3ª menor: en la misma cuerda, 3 trastes. En la cuerda aguda de al lado, 2 trastes a la izquierda. Hacia la Si, 1 a la izquierda. Desde Fa♯ la 3ª menor es La.',tool:'quiz',cfg:{mode:'find',ints:[3],roots:[6]},
+  comb:'Fa♯ – La – Do♯ – La en corcheas, con el respiro al final del compás.',
+  imp:'Sobre un acorde menor de Fa♯, improvisa con T, ♭3 y 5. Compara la sensación con la de ayer.',pis:{prog:7,key:6,style:'balada',bpm:70},ints:[0,3,7],chords:[2],
+  obj:'10 aciertos seguidos encontrando la 3ª menor.'},
+ {t:'Mayor contra menor',f:'Misma raíz, una sola nota cambia el color.',r:'dinamica',bpm:70,
+  arm:'Raíz La: activa ♭3 y 3 a la vez y toca T–3–5 y luego T–♭3–5. Solo se mueve una nota un traste, pero el acorde cambia de carácter.',tool:'mastil',cfg:{root:9,ints:[0,3,4,7]},
+  comb:'Toca el power chord La5 y añade encima la 3ª (Do♯) o la ♭3 (Do). Compás apagado con una, compás abierto con la otra.',
+  imp:'Sobre la progresión, toca solo la 3ª de cada acorde: Do♯, Sol♯, La (la ♭3 de Fa♯m) y Fa♯.',pis:{...P1,bpm:75},ints:[0,3,4,7],
+  obj:'Oír la diferencia sin mirar: que alguien (o la app) toque y aciertes 4 de 5.'},
+ {t:'La 3ª de cada acorde',f:'Notas guía: la 3ª define el acorde.',r:'cambio',bpm:70,
+  arm:'Encuentra la 3ª de cada acorde de la progresión. Atención: Fa♯m tiene 3ª menor.',tool:'quiz',cfg:{mode:'find',chords:true},
+  comb:'La 3ª de cada acorde en negras, cambiando con la progresión. Busca siempre la más cercana a la anterior: así la mano casi no se mueve.',
+  imp:'Alterna raíz y 3ª de cada acorde. Empieza la frase en la raíz y termínala en la 3ª.',pis:{...P1,bpm:75},ints:[0,3,4],
+  obj:'La progresión con las 3ªs a 70 sin parar y sin mirar el mástil.'},
+ {t:'Mapa: T, 3 y 5 por zonas',f:'Ya tienes las tres piezas de una triada.',r:'sincopa',bpm:70,
+  arm:'Raíces variadas: encuentra 3ª mayor, 3ª menor o 5ª a menos de 5 trastes. Esto es la base de las triadas de la semana 5.',tool:'quiz',cfg:{mode:'find',ints:[3,4,7],roots:null},
+  comb:'T – 3 – 5 sobre La en dos zonas distintas (cerca del traste 5 y cerca del 9), con el patrón del día.',
+  imp:'Quédate entre los trastes 4 y 9. Usa T, 3 (o ♭3 en Fa♯m) y 5 de cada acorde.',pis:{...P1,bpm:80},ints:[0,3,4,7],
+  obj:'18 de 20 en «Encuentra» con raíces aleatorias.'},
+ {t:'Oído: 3ª mayor o menor',f:'El oído decide antes que los dedos.',r:'backbeat',bpm:80,
+  arm:'Reconoce 3ª menor, 3ª mayor, 5ª y octava. Primero separadas; luego a la vez.',tool:'oido',cfg:{ints:[3,4,7,12]},
+  comb:'Sobre cada acorde de la progresión, canta su 3ª antes de tocarla.',
+  imp:'Pregunta y respuesta: dos compases de pregunta, dos de respuesta. La respuesta siempre termina en una 3ª.',pis:{...P1,bpm:80},ints:[0,3,4,7],
+  obj:'8 aciertos seguidos distinguiendo 3ª mayor y menor.'},
+ {t:'Repaso y grabación',f:'Estrofa y estribillo.',r:'dinamica',bpm:80,
+  arm:'Quiz mixto con T, ♭3, 3, 4 y 5. Ronda de 20.',tool:'quiz',cfg:{mode:'find',ints:[0,3,4,5,7],roots:null},
+  comb:'Progresión con las 3ªs a 80: un compás palm mute, otro abierto.',
+  imp:'Graba 1 minuto: «estrofa» con palm mute, raíz y 5ª; «estribillo» abierto apuntando a las 3ªs. Escúchalo y anota qué falló.',pis:{...P1,bpm:80},ints:[0,3,4,5,7],
+  obj:'El objetivo de la semana (abajo).'}]}];
+
+/* ---------- estado ---------- */
+let ST={w:0,d:0,log:{},bpm:{}};
+try{const s=JSON.parse(localStorage.getItem('planning2-v1')||'null');if(s)Object.assign(ST,s);}catch(e){}
+const save=()=>{try{localStorage.setItem('planning2-v1',JSON.stringify(ST));}catch(e){}};
+const $=id=>document.getElementById(id);
+const key=()=>`${ST.w+1}-${ST.d+1}`;
+const day=()=>W[ST.w].days[ST.d];
+const L=()=>ST.log[key()]||(ST.log[key()]={});
+
+/* ---------- audio ---------- */
+let AC=null;
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC;}
+const hz=m=>440*Math.pow(2,(m-69)/12);
+function pluck(m,t,dur=1.3,vol=.28){const c=ac();if(!c)return;t=t||c.currentTime;
+  const g=c.createGain(),f=c.createBiquadFilter();f.type='lowpass';f.frequency.setValueAtTime(3200,t);f.frequency.exponentialRampToValueAtTime(700,t+dur);
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.006);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  [['sawtooth',1,.6],['triangle',1.002,1]].forEach(([ty,d,v])=>{const o=c.createOscillator(),og=c.createGain();o.type=ty;o.frequency.value=hz(m)*d;og.gain.value=v;o.connect(og).connect(f);o.start(t);o.stop(t+dur+.05);});
+  f.connect(g).connect(c.destination);}
+function click(t,hi,vol=.35){const c=ac();const o=c.createOscillator(),g=c.createGain();o.type='square';o.frequency.value=hi?1600:1050;
+  g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(0.0001,t+.035);o.connect(g).connect(c.destination);o.start(t);o.stop(t+.04);}
+let NOISE=null;
+function strum(t,pm,acc){const c=ac();if(!NOISE){NOISE=c.createBuffer(1,c.sampleRate*.2,c.sampleRate);const d=NOISE.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;}
+  const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=NOISE;f.type=pm?'lowpass':'bandpass';f.frequency.value=pm?520:2000;f.Q.value=pm?.7:.9;
+  const v=(acc?.5:.28)*(pm?1.4:1),len=pm?.07:.13;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(0.0001,t+len);s.connect(f).connect(g).connect(c.destination);s.start(t);s.stop(t+len+.02);
+  const o=c.createOscillator(),og=c.createGain();o.type='triangle';o.frequency.value=pm?110:220;og.gain.setValueAtTime(pm?.25:.12,t);og.gain.exponentialRampToValueAtTime(0.0001,t+(pm?.09:.15));o.connect(og).connect(c.destination);o.start(t);o.stop(t+.2);}
+function chime(){const c=ac();if(!c)return;const t=c.currentTime;[76,83].forEach((m,i)=>pluck(m,t+i*.18,1.2,.22));}
+
+/* ---------- mástil SVG ---------- */
+const FX=f=>f===0?18:40+(f-.5)*50, SY=s=>22+s*26, FRETS=15;
+function boardSVG(svg){const ns='http://www.w3.org/2000/svg';let h='';
+  h+=`<rect x="40" y="10" width="${FRETS*50}" height="154" rx="4" fill="var(--wood)"/>`;
+  [3,5,7,9,15].forEach(f=>h+=`<circle cx="${FX(f)}" cy="87" r="6" fill="var(--inlay)"/>`);
+  h+=`<circle cx="${FX(12)}" cy="61" r="6" fill="var(--inlay)"/><circle cx="${FX(12)}" cy="113" r="6" fill="var(--inlay)"/>`;
+  for(let f=1;f<=FRETS;f++)h+=`<line x1="${40+f*50}" y1="10" x2="${40+f*50}" y2="164" stroke="var(--fret)" stroke-width="2"/>`;
+  h+=`<rect x="36" y="10" width="6" height="154" fill="var(--nut)"/>`;
+  for(let s=0;s<6;s++)h+=`<line x1="10" y1="${SY(s)}" x2="${40+FRETS*50}" y2="${SY(s)}" stroke="var(--string)" stroke-width="${1+s*.35}"/>`;
+  for(let f=0;f<=FRETS;f++)h+=`<text x="${FX(f)}" y="183" text-anchor="middle" font-size="11" font-family="var(--f-mono)" fill="var(--muted)">${f}</text>`;
+  h+=`<g class="dots"></g><g class="hits">`;
+  for(let s=0;s<6;s++)for(let f=0;f<=FRETS;f++)h+=`<rect data-s="${s}" data-f="${f}" x="${f===0?2:40+(f-1)*50}" y="${SY(s)-13}" width="${f===0?34:50}" height="26" fill="transparent" style="cursor:pointer"/>`;
+  svg.innerHTML=h+'</g>';return svg.querySelector('.dots');}
+function dot(s,f,label,color,opts={}){const fg=opts.fg||'#fff',r=opts.r||12;
+  return `<g${opts.cls?` class="${opts.cls}"`:''}><circle cx="${FX(f)}" cy="${SY(s)}" r="${r}" fill="${color}" ${opts.ring?`stroke="${opts.ring}" stroke-width="3"`:''}/>${label?`<text x="${FX(f)}" y="${SY(s)+4.5}" text-anchor="middle" font-size="12" font-weight="700" font-family="var(--f-body)" fill="${fg}">${label}</text>`:''}</g>`;}
+const fgFor=c=>c==='--c-5'?'#2A1D00':'#fff';
+
+/* ---------- herramienta: mástil ---------- */
+const MS={root:9,ints:[0,7],hide:false,names:false,rev:{}};
+let mDots;
+function mInit(){mDots=boardSVG($('m-svg'));
+  $('m-svg').addEventListener('click',e=>{const r=e.target.closest('rect[data-s]');if(!r)return;const s=+r.dataset.s,f=+r.dataset.f;pluck(midi(s,f));MS.rev[s+'-'+f]=Date.now();mDraw();setTimeout(mDraw,1300);});
+  $('m-hide').onclick=()=>{MS.hide=!MS.hide;MS.rev={};mDraw();};
+  $('m-names').onclick=()=>{MS.names=!MS.names;mDraw();};}
+function mDraw(){
+  $('m-roots').innerHTML=PC.map((n,i)=>`<button class="chip" data-r="${i}" aria-pressed="${MS.root===i}">${n}</button>`).join('');
+  $('m-roots').querySelectorAll('button').forEach(b=>b.onclick=()=>{MS.root=+b.dataset.r;MS.rev={};mDraw();});
+  $('m-ints').innerHTML=[0,3,4,5,7].map(i=>`<button class="chip" data-i="${i}" aria-pressed="${MS.ints.includes(i)}">${IN[i].s}</button>`).join('');
+  $('m-ints').querySelectorAll('button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;MS.ints=MS.ints.includes(i)?MS.ints.filter(x=>x!==i):[...MS.ints,i];mDraw();});
+  $('m-hide').setAttribute('aria-pressed',MS.hide);$('m-names').setAttribute('aria-pressed',MS.names);
+  const now=Date.now();let h='';
+  for(let s=0;s<6;s++)for(let f=0;f<=FRETS;f++){const m=midi(s,f),i=ivl(m,MS.root),rv=now-(MS.rev[s+'-'+f]||0)<1250;
+    if(MS.ints.includes(i)&&(!MS.hide||rv)){const c=IN[i].c;h+=dot(s,f,MS.names?PC[m%12]:IN[i].s,cv(c),{fg:fgFor(c),ring:rv?cv('--ink'):null});}
+    else if(rv){const nm=IN[i]?IN[i].s:['T','♭2','2','♭3','3','4','♭5','5','♭6','6','♭7','7'][i];h+=dot(s,f,MS.names?PC[m%12]:nm,cv('--muted'),{r:11});}}
+  mDots.innerHTML=h;
+  $('m-legend').innerHTML=MS.ints.slice().sort((a,b)=>a-b).map(i=>`<span><i style="background:var(${IN[i].c})"></i>${IN[i].s} · ${IN[i].n}</span>`).join('')+`<span>Raíz: <b>${PC[MS.root]}</b></span>`;}
+
+/* ---------- herramienta: quiz ---------- */
+const QZ={mode:'find',ints:[7],roots:[9],chords:false,n:0,ok:0,cur:null,done:false,streak:0};
+let qDots;
+const QN={0:'la otra octava (T)',3:'la 3ª menor',4:'la 3ª mayor',5:'la 4ª justa',7:'la 5ª justa'};
+function qInit(){qDots=boardSVG($('q-svg'));
+  $('q-svg').addEventListener('click',e=>{const r=e.target.closest('rect[data-s]');if(!r||QZ.mode!=='find'||!QZ.cur||QZ.cur.answered)return;qFind(+r.dataset.s,+r.dataset.f);});
+  $('q-next').onclick=qNew;$('q-restart').onclick=()=>{QZ.n=0;QZ.ok=0;QZ.done=false;qNew();};}
+function qCfg(cfg){Object.assign(QZ,{mode:cfg.mode||'find',ints:cfg.ints||[4],roots:cfg.roots||null,chords:!!cfg.chords,n:0,ok:0,done:false,streak:0});qModes();qNew();}
+function qModes(){$('q-modes').innerHTML=[['find','Encuentra'],['name','Nombra']].map(([k,n])=>`<button role="tab" aria-selected="${QZ.mode===k}" data-k="${k}">${n}</button>`).join('');
+  $('q-modes').querySelectorAll('button').forEach(b=>b.onclick=()=>{QZ.mode=b.dataset.k;QZ.n=0;QZ.ok=0;QZ.done=false;qModes();qNew();});}
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+function qNew(){if(QZ.done)return;let rootPc,t,label;
+  if(QZ.chords){const c=rnd(PROG);rootPc=c.r;t=c.q==='m'?3:4;label=`Encuentra la 3ª de <b>${c.n}</b>`;}
+  else{rootPc=QZ.roots?rnd(QZ.roots):Math.floor(Math.random()*12);t=rnd(QZ.ints);label=`Encuentra ${QN[t]} de <b>${PC[rootPc]}</b>`;}
+  const pos=[];for(let s=0;s<6;s++)for(let f=1;f<=11;f++)if(midi(s,f)%12===rootPc)pos.push([s,f]);
+  const [rs,rf]=rnd(pos);QZ.cur={rootPc,t,rs,rf,answered:false};
+  if(QZ.mode==='name'){const ints=QZ.chords?[3,4]:QZ.ints,tt=rnd(ints);QZ.cur.t=tt;t=tt;}
+  if(!qCands(rs,rf,rootPc,t).length)return qNew();
+  if(QZ.mode==='name'){const ints=QZ.chords?[3,4]:QZ.ints,tt=QZ.cur.t;
+    const cand=qCands(rs,rf,rootPc,tt);const [ts,tf]=rnd(cand);QZ.cur.ts=ts;QZ.cur.tf=tf;label=`¿Qué intervalo es la nota marcada respecto a <b>${PC[rootPc]}</b>?`;
+    $('q-ans').innerHTML=ints.slice().sort((a,b)=>a-b).map(i=>`<button class="btn" data-i="${i}">${i===0?'Octava':IN[i].n}</button>`).join('');
+    $('q-ans').querySelectorAll('button').forEach(b=>b.onclick=()=>qName(+b.dataset.i,b));}
+  else $('q-ans').innerHTML='';
+  $('q-q').innerHTML=label;$('q-fb').textContent=QZ.mode==='find'?'Toca la nota en el mástil, a menos de 5 trastes de la raíz.':'';$('q-fb').className='fb';qDraw();qScore();}
+function qCands(rs,rf,rootPc,t){const c=[];for(let s=0;s<6;s++)for(let f=Math.max(0,rf-5);f<=Math.min(FRETS,rf+5);f++){if(s===rs&&f===rf)continue;if(ivl(midi(s,f),rootPc)===t)c.push([s,f]);}return c;}
+function qDraw(extra=''){const q=QZ.cur;let h=dot(q.rs,q.rf,'T',cv('--c-r'));
+  if(QZ.mode==='name')h+=dot(q.ts,q.tf,'?',cv('--ink'),{fg:cv('--bg')});qDots.innerHTML=h+extra;}
+function qResult(ok){QZ.cur.answered=true;QZ.n++;if(ok){QZ.ok++;QZ.streak++;}else QZ.streak=0;
+  if(QZ.n>=20){QZ.done=true;const l=L();l.quiz=Math.max(l.quiz||0,QZ.ok);save();logDraw();$('q-fb').textContent+=` · Ronda terminada: ${QZ.ok}/20${QZ.ok>=18?' — ¡objetivo cumplido!':''}`;}
+  qScore();if(ok&&!QZ.done)setTimeout(()=>{if(QZ.cur&&QZ.cur.answered)qNew();},1100);}
+function qFind(s,f){const q=QZ.cur,m=midi(s,f),ok=ivl(m,q.rootPc)===q.t&&Math.abs(f-q.rf)<=5&&!(s===q.rs&&f===q.rf);pluck(m);
+  const c=IN[q.t].c;let ex=qCands(q.rs,q.rf,q.rootPc,q.t).map(([cs,cf])=>dot(cs,cf,IN[q.t].s,cv(c),{fg:fgFor(c),r:cs===s&&cf===f?12:10})).join('');
+  if(!ok)ex+=dot(s,f,'✕',cv('--bad'));qDraw(ex);
+  $('q-fb').textContent=ok?`¡Bien! ${PC[m%12]} es ${IN[q.t].n.toLowerCase()} de ${PC[q.rootPc]}.`:`No: esa nota es ${PC[m%12]}. Mira dónde estaban las correctas.`;$('q-fb').className='fb '+(ok?'ok':'bad');qResult(ok);}
+function qName(i,b){const q=QZ.cur;if(q.answered)return;const ok=i===q.t;pluck(midi(q.rs,q.rf),0,1);setTimeout(()=>pluck(midi(q.ts,q.tf)),350);
+  b.classList.add(ok?'ok':'bad');if(!ok)$('q-ans').querySelector(`[data-i="${q.t}"]`).classList.add('ok');
+  const c=IN[q.t].c;qDraw(dot(q.ts,q.tf,IN[q.t].s,cv(c),{fg:fgFor(c)}));
+  $('q-fb').textContent=ok?'¡Correcto!':`Era ${q.t===0?'la octava':IN[q.t].n.toLowerCase()}.`;$('q-fb').className='fb '+(ok?'ok':'bad');qResult(ok);}
+function qScore(){$('q-score').textContent=`${QZ.ok}/${QZ.n} de 20 · racha ${QZ.streak}`;}
+
+/* ---------- herramienta: oído ---------- */
+const EZ={ints:[12,7,5],harm:false,cur:null,ok:0,n:0,streak:0};
+const EN={3:'3ª menor',4:'3ª mayor',5:'4ª justa',7:'5ª justa',12:'Octava'};
+function eCfg(cfg){EZ.ints=cfg.ints;EZ.cur=null;EZ.ok=0;EZ.n=0;EZ.streak=0;eDraw();$('e-fb').textContent='Pulsa «Escuchar».';$('e-fb').className='fb';}
+function eDraw(){$('e-ans').innerHTML=EZ.ints.slice().sort((a,b)=>a-b).map(i=>`<button class="btn" data-i="${i}">${EN[i]}</button>`).join('');
+  $('e-ans').querySelectorAll('button').forEach(b=>b.onclick=()=>eAns(+b.dataset.i,b));$('e-harm').setAttribute('aria-pressed',EZ.harm);
+  $('e-score').textContent=`${EZ.ok}/${EZ.n} · racha ${EZ.streak}`;}
+function ePlay(){const c=ac();if(!c||!EZ.cur)return;const t=c.currentTime+.05,{lo,i}=EZ.cur;pluck(lo,t,1.6);pluck(lo+i,EZ.harm?t:t+.6,1.6);}
+function eInit(){$('e-play').onclick=()=>{EZ.cur={lo:48+Math.floor(Math.random()*12),i:rnd(EZ.ints),answered:false};eDraw();$('e-fb').textContent='';ePlay();};
+  $('e-again').onclick=ePlay;$('e-harm').onclick=()=>{EZ.harm=!EZ.harm;eDraw();};}
+function eAns(i,b){if(!EZ.cur||EZ.cur.answered)return;EZ.cur.answered=true;const ok=i===EZ.cur.i;EZ.n++;if(ok){EZ.ok++;EZ.streak++;}else EZ.streak=0;
+  const l=L();if(EZ.streak>(l.ear||0)){l.ear=EZ.streak;save();logDraw();}
+  eDraw();const bb=$('e-ans').querySelector(`[data-i="${i}"]`);bb.classList.add(ok?'ok':'bad');if(!ok)$('e-ans').querySelector(`[data-i="${EZ.cur.i}"]`).classList.add('ok');
+  $('e-fb').textContent=ok?'¡Correcto! Pulsa «Escuchar» para otro.':`Era ${EN[EZ.cur.i].toLowerCase()}. Repítelo y cántalo.`;$('e-fb').className='fb '+(ok?'ok':'bad');}
+
+/* ---------- herramienta: ritmo ---------- */
+const RZ={pat:'negras',bpm:60,run:false,guide:true,sub:false,next:0,i:0,timer:null,q:[]};
+const CNT=['1','y','2','y','3','y','4','y'];
+function rCfg(pat,bpm){RZ.pat=pat;RZ.bpm=ST.bpm[key()]||bpm;rDraw();}
+function rDraw(){const ks=[...new Set(W.flatMap(w=>w.days.map(d=>d.r)))];
+  $('r-pats').innerHTML=ks.map(k=>`<button class="chip" data-k="${k}" aria-pressed="${RZ.pat===k}">${PATS[k].n}</button>`).join('');
+  $('r-pats').querySelectorAll('button').forEach(b=>b.onclick=()=>{RZ.pat=b.dataset.k;RZ.i=0;rDraw();});
+  const P=PATS[RZ.pat];$('r-tip').textContent=P.tip;let h='';
+  for(let b=0;b<P.p.length/8;b++){if(P.p.length>8)h+=`<p class="bar-lbl">Compás ${b+1}</p>`;h+='<div class="grid">';
+    for(let k=0;k<8;k++){const ch=P.p[b*8+k],rest=ch==='-',acc=ch==='X'||ch==='M',pm=ch==='m'||ch==='M';
+      h+=`<div class="cell${k%2?'':' beat'}${rest?' rest':''}${acc?' acc':''}" data-c="${b*8+k}"><span class="pm">${pm?'PM':acc?'&gt;':''}</span><span class="s">${k%2?'↑':'↓'}</span><span class="c">${CNT[k]}</span></div>`;}
+    h+='</div>';}
+  $('r-grid').innerHTML=h;$('r-bpm').textContent=RZ.bpm;$('r-go').textContent=RZ.run?'■ Parar':'▶ Metrónomo';}
+function rTick(){const c=AC,P=PATS[RZ.pat].p,step=60/RZ.bpm/2;
+  while(RZ.next<c.currentTime+.12){const i=RZ.i%P.length,k=i%8,ch=P[i];
+    if(k%2===0)click(RZ.next,k===0,k===0?.4:.28);else if(RZ.sub)click(RZ.next,false,.1);
+    if(RZ.guide&&ch!=='-')strum(RZ.next,ch==='m'||ch==='M',ch==='X'||ch==='M');
+    RZ.q.push([RZ.next,i]);RZ.next+=step;RZ.i++;}}
+function rAnim(){if(!RZ.run)return;const t=AC.currentTime;let cur=null;while(RZ.q.length&&RZ.q[0][0]<=t)cur=RZ.q.shift()[1];
+  if(cur!==null){document.querySelectorAll('#r-grid .cell.now').forEach(e=>e.classList.remove('now'));const e=document.querySelector(`#r-grid .cell[data-c="${cur}"]`);if(e)e.classList.add('now');}
+  requestAnimationFrame(rAnim);}
+function rStart(){const c=ac();if(!c)return;RZ.run=true;RZ.i=0;RZ.q=[];RZ.next=c.currentTime+.1;RZ.timer=setInterval(rTick,25);rTick();rAnim();rDraw();}
+function rStop(){RZ.run=false;clearInterval(RZ.timer);document.querySelectorAll('#r-grid .cell.now').forEach(e=>e.classList.remove('now'));rDraw();}
+function rInit(){$('r-go').onclick=()=>RZ.run?rStop():rStart();
+  const set=v=>{RZ.bpm=Math.max(40,Math.min(200,v));ST.bpm[key()]=RZ.bpm;save();$('r-bpm').textContent=RZ.bpm;};
+  $('r-minus').onclick=()=>set(RZ.bpm-5);$('r-plus').onclick=()=>set(RZ.bpm+5);
+  $('r-guide').onchange=e=>RZ.guide=e.target.checked;$('r-sub').onchange=e=>RZ.sub=e.target.checked;}
+
+/* ---------- herramienta: pista ---------- */
+function pDraw(){const d=day(),p=d.pis,ints=d.ints,ch=d.chords?d.chords.map(i=>PROG[i]):PROG;
+  const pn={1:'I–V–vi–IV en La (La – Mi – Fa♯m – Re)',6:'Un solo acorde: La mayor',7:'Un solo acorde: Fa♯ menor'}[p.prog];
+  $('p-n').textContent=pn;$('p-tip').textContent=d.imp;
+  $('p-open').href=`../pistas.html?prog=${p.prog}&key=${p.key}&style=${p.style}&bpm=${p.bpm}`;$('p-open').textContent=`Abrir backing track a ${p.bpm} bpm →`;
+  const has3=ints.includes(3)||ints.includes(4);
+  const cols=[0,has3?'3':null,5,7].filter(i=>i!==null&&(i==='3'||ints.includes(i)));
+  let h='<tr><th>Acorde</th>'+cols.map(i=>`<th>${i==='3'?'3ª':IN[i].n}</th>`).join('')+'</tr>';
+  ch.forEach(c=>{h+=`<tr><td><b>${c.n}</b></td>`;cols.forEach(i=>{const ii=i==='3'?(c.q==='m'?3:4):i;
+      h+=`<td><span class="dot" style="background:var(${IN[ii].c})"></span>${PC[(c.r+ii)%12]}${i==='3'?` <span class="hint">(${IN[ii].s})</span>`:''}</td>`;});h+='</tr>';});
+  $('p-table').innerHTML=h;}
+
+/* ---------- pestañas de herramientas ---------- */
+const TOOLS=[['ritmo','Ritmo'],['mastil','Mástil'],['quiz','Quiz'],['oido','Oído'],['pista','Pista']];
+let TOOL='ritmo';
+function showTool(t,scroll){TOOL=t;$('ttabs').innerHTML=TOOLS.map(([k,n])=>`<button role="tab" aria-selected="${k===t}" data-k="${k}">${n}</button>`).join('');
+  $('ttabs').querySelectorAll('button').forEach(b=>b.onclick=()=>showTool(b.dataset.k));
+  document.querySelectorAll('[data-tool]').forEach(e=>e.hidden=e.dataset.tool!==t);
+  if(t!=='ritmo'&&RZ.run)rStop();if(t==='mastil')mDraw();
+  if(scroll)$('tools').scrollIntoView({behavior:'smooth',block:'start'});}
+
+/* ---------- sesión ---------- */
+const BL=[['Rítmica pura',5,'ritmo'],['Material armónico',10,null],['Combinación',5,'ritmo'],['Improvisación',5,'pista']];
+const T={i:0,left:BL[0][1]*60,run:false,h:null};
+function blocksDraw(){const d=day(),txt=[`${PATS[d.r].n} a ${d.bpm} bpm, con las cuerdas apagadas con la mano izquierda. ${PATS[d.r].tip}`,d.arm,d.comb,d.imp];
+  $('blocks').innerHTML=BL.map(([n,m,tool],i)=>`<div class="block${T.i===i&&(T.run||T.left<BL[i][1]*60)?' on':''}"><span class="min">${m}′</span><div><h3>${n}<span>${['ritmo','intervalos','ritmo + intervalos','pista'][i]}</span></h3><p>${txt[i]}</p></div>
+    <div class="acts"><button class="btn" data-open="${i}">Abrir ${({ritmo:'ritmo',mastil:'mástil',quiz:'quiz',oido:'oído',pista:'pista'})[tool||d.tool]}</button><button class="btn" data-start="${i}">Empezar aquí</button></div></div>`).join('');
+  $('blocks').querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{const i=+b.dataset.open;showTool(BL[i][2]||day().tool,true);});
+  $('blocks').querySelectorAll('[data-start]').forEach(b=>b.onclick=()=>{T.i=+b.dataset.start;T.left=BL[T.i][1]*60;tStart();});}
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+function tDraw(){$('c-time').textContent=fmt(T.left);$('c-name').textContent=`Bloque ${T.i+1} de 4 · ${BL[T.i][0]}`;$('c-go').textContent=T.run?'Pausa':(T.left<BL[T.i][1]*60?'Seguir':'Empezar sesión');blocksDraw();}
+function tStart(){ac();T.run=true;clearInterval(T.h);showTool(BL[T.i][2]||day().tool);T.h=setInterval(()=>{T.left--;if(T.left<=0){chime();if(T.i<3){T.i++;T.left=BL[T.i][1]*60;showTool(BL[T.i][2]||day().tool);}else{tPause();T.left=0;$('c-name').textContent='Sesión terminada · apúntalo en el registro';L().done=true;save();logDraw();daysDraw();return;}}tDraw();},1000);tDraw();}
+function tPause(){T.run=false;clearInterval(T.h);tDraw();}
+function tReset(){tPause();T.i=0;T.left=BL[0][1]*60;tDraw();}
+$('c-go').onclick=()=>T.run?tPause():tStart();
+$('c-skip').onclick=()=>{if(T.i<3){T.i++;T.left=BL[T.i][1]*60;showTool(BL[T.i][2]||day().tool);tDraw();}};
+$('c-reset').onclick=tReset;
+
+/* ---------- semana / día ---------- */
+function weeksDraw(){$('weeks').innerHTML=W.map((w,i)=>`<button role="tab" aria-selected="${ST.w===i}" data-w="${i}">Semana ${i+1}</button>`).join('');
+  $('weeks').querySelectorAll('button').forEach(b=>b.onclick=()=>{ST.w=+b.dataset.w;ST.d=0;save();loadDay();});}
+function daysDraw(){$('days').innerHTML=W[ST.w].days.map((d,i)=>`<button class="chip${ST.log[`${ST.w+1}-${i+1}`]?.done?' done':''}" aria-pressed="${ST.d===i}" data-d="${i}" title="${d.t}">Día ${i+1}</button>`).join('');
+  $('days').querySelectorAll('button').forEach(b=>b.onclick=()=>{ST.d=+b.dataset.d;save();loadDay();});}
+function logDraw(){const l=L();$('l-bpm').value=l.bpm??'';$('l-quiz').value=l.quiz??'';$('l-ear').value=l.ear??'';$('l-note').value=l.note??'';$('l-done').checked=!!l.done;
+  const n=W[ST.w].days.filter((_,i)=>ST.log[`${ST.w+1}-${i+1}`]?.done).length;$('l-week').textContent=`Semana ${ST.w+1}: ${n} de 7 sesiones completadas`;}
+['bpm','quiz','ear'].forEach(k=>$('l-'+k).oninput=e=>{L()[k]=e.target.value===''?undefined:+e.target.value;save();});
+$('l-note').oninput=e=>{L().note=e.target.value;save();};
+$('l-done').onchange=e=>{L().done=e.target.checked;save();daysDraw();logDraw();};
+function loadDay(){const w=W[ST.w],d=day();tReset();if(RZ.run)rStop();
+  $('d-lbl').textContent=`Semana ${ST.w+1} · ${w.t} · Día ${ST.d+1}`;$('d-title').textContent=d.t;$('d-focus').textContent=d.f+' '+(ST.d===0?w.sub:'');
+  $('d-goal').innerHTML=`<b>Objetivo de hoy:</b> ${d.obj}<br><b>Objetivo de la semana:</b> ${w.goal}`;
+  weeksDraw();daysDraw();logDraw();
+  rCfg(d.r,d.bpm);
+  const mc=d.tool==='mastil'?d.cfg:{root:9,ints:d.ints.filter(i=>i!==12)};MS.root=mc.root;MS.ints=mc.ints.slice();MS.hide=false;MS.rev={};
+  qCfg(d.tool==='quiz'?d.cfg:{mode:'find',ints:d.ints.filter(i=>i!==0).length?d.ints.filter(i=>i!==0):[7],roots:null});
+  eCfg(d.tool==='oido'?d.cfg:{ints:ST.w===0?[12,7,5]:[3,4,7,12]});
+  pDraw();showTool('ritmo');tDraw();}
+
+/* ---------- arranque ---------- */
+mInit();qInit();eInit();rInit();
+if(!localStorage.getItem('planning2-v1')){const f=W[0].days.findIndex((_,i)=>!ST.log[`1-${i+1}`]?.done);ST.d=Math.max(0,f);}
+loadDay();
+</script>
+</body>
+</html>
