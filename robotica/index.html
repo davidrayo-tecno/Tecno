@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prácticas de Computación y Robótica 1º ESO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF8EE; --ink:#1B2140; --muted:#5B6280; --line:#E6DFD2;
+  --navy:#1E2A5A; --accent:#FF6B4A; --yellow:#FFC93C; --green:#22A06B; --red:#E5484D;
+  --move:#3B82F6; --turn:#8B5CF6; --loop:#F59E0B; --until:#EA580C; --if:#0EA5A4; --pen:#DB2777; --wait:#64748B;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.45}
+button{font-family:inherit;cursor:pointer}
+header{background:var(--navy);color:#fff;padding:12px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;position:sticky;top:0;z-index:20;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.25rem;cursor:pointer}
+.logo small{display:block;font-weight:600;font-size:.78rem;opacity:.7}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.langs{display:flex;gap:7px;align-items:center}
+.langs button{width:42px;height:28px;padding:0;border:3px solid transparent;border-radius:7px;overflow:hidden;background:none;opacity:.5;transition:opacity .15s,transform .15s}
+.langs button:hover{opacity:.85;transform:scale(1.06)}
+.langs button.on{opacity:1;border-color:var(--yellow)}
+.langs svg{width:100%;height:100%;display:block}
+nav button{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 16px;font-weight:800;font-size:.95rem}
+nav button:hover{border-color:rgba(255,255,255,.6)}
+nav button.on{background:var(--yellow);border-color:var(--yellow);color:var(--navy)}
+#fs{background:rgba(255,255,255,.12);border:0;color:#fff;border-radius:10px;padding:8px 11px;font-size:1rem}
+main{max-width:1320px;margin:0 auto;padding:22px 22px 60px}
+section.view{display:none}
+section.view.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+h1{font-size:2.3rem;line-height:1.1;margin:.3em 0 .2em;font-weight:900;letter-spacing:-.02em}
+h2{font-size:1.7rem;margin:.1em 0 .25em;font-weight:900;letter-spacing:-.01em}
+.pill{display:inline-block;background:var(--yellow);color:var(--navy);font-weight:900;border-radius:999px;padding:3px 12px;font-size:.85rem}
+.btn{border:0;border-radius:12px;padding:10px 14px;font-weight:800;font-size:1rem;background:var(--navy);color:#fff;transition:transform .08s}
+.btn:active{transform:scale(.96)}
+.btn.alt{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.btn.go{background:var(--green)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* INICIO */
+.apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:22px}
+@media(max-width:900px){.apps{grid-template-columns:1fr}}
+.app-card{color:var(--ink);background:#fff;border:3px solid var(--line);border-radius:24px;padding:24px;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s;text-align:left;font-size:1rem}
+.app-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(30,42,90,.12);border-color:var(--navy)}
+.app-card .ic{font-size:4rem;line-height:1}
+.app-card h3{font-size:1.6rem;margin:10px 0 4px;font-weight:900}
+.app-card p{margin:0 0 14px;color:var(--muted)}
+.app-card .tags{display:flex;gap:6px;flex-wrap:wrap}
+.app-card .tags span{font-size:.8rem;font-weight:800;border-radius:999px;padding:3px 10px;background:#F4F1EA}
+.app-card .prog{margin-top:14px;font-weight:900;color:var(--green)}
+
+/* ESTUDIO */
+.levels{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.levels button{min-width:46px;height:46px;padding:0 10px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:900;font-size:1.1rem;position:relative}
+.levels button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.levels button.done::after{content:'✓';position:absolute;top:-8px;right:-8px;background:var(--green);color:#fff;border-radius:50%;width:20px;height:20px;font-size:.75rem;display:flex;align-items:center;justify-content:center}
+.lvlDesc{font-size:1.1rem}
+.concept{background:#E9F6F1;border-left:5px solid var(--green);border-radius:10px;padding:8px 14px;font-weight:700;font-size:.95rem;margin:8px 0 14px}
+.studio{display:grid;grid-template-columns:210px minmax(260px,1fr) minmax(320px,460px);gap:16px;align-items:start}
+@media(max-width:1100px){.studio{grid-template-columns:190px 1fr}.studio .stage{grid-column:1/-1}}
+@media(max-width:640px){.studio{grid-template-columns:1fr}}
+.panel-t{font-weight:900;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 8px}
+.palette{display:flex;flex-direction:column;gap:8px}
+.hint{color:var(--muted);font-size:.85rem;margin-top:12px}
+.blk{border-radius:10px;color:#fff;font-weight:800;padding:9px 12px;user-select:none;position:relative;box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.palette .blk{cursor:grab}
+.palette .blk:hover{filter:brightness(1.08)}
+.c-move{background:var(--move)} .c-turn{background:var(--turn)} .c-loop{background:var(--loop)} .c-until{background:var(--until)} .c-if{background:var(--if)} .c-pen{background:var(--pen)} .c-wait{background:var(--wait)}
+.code{background:#fff;border:2px solid var(--line);border-radius:16px;padding:12px;min-height:340px}
+.code.locked{pointer-events:none}
+.slot{display:flex;flex-direction:column;gap:6px;min-height:44px;border-radius:10px;padding:6px;border:2px dashed transparent;transition:background .15s,border-color .15s}
+.slot.root{min-height:300px}
+.slot.selected{border-color:var(--accent);background:#FFF1EC}
+.slot.over{background:#E8F0FF;border-color:var(--move)}
+.slot .ph{color:#A3A8BD;font-weight:700;font-size:.9rem;padding:6px 4px}
+.code .blk{cursor:grab}
+.code .blk .hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.code .blk .del{margin-left:auto;background:rgba(0,0,0,.22);border:0;color:#fff;width:24px;height:24px;border-radius:7px;font-weight:900;line-height:1}
+.code .blk .del:hover{background:rgba(0,0,0,.4)}
+.code .blk select{font-family:inherit;font-weight:900;font-size:.95rem;border:0;border-radius:6px;padding:2px 4px;color:var(--ink)}
+.code .blk .slot{background:rgba(255,255,255,.92);margin-top:8px;margin-left:12px}
+.code .blk .slot.selected{background:#FFF1EC}
+.code .blk.running{outline:4px solid var(--yellow);outline-offset:2px;filter:brightness(1.12)}
+.target-lbl{font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:6px}
+.target-lbl b{color:var(--accent)}
+.counter{font-weight:900;font-size:.95rem;margin-top:8px}
+.counter.full{color:var(--red)}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.speed{display:flex;align-items:center;gap:8px;font-weight:800;font-size:.9rem;color:var(--muted);margin-top:10px}
+.msg{min-height:8px;margin-top:10px;font-weight:800;border-radius:12px}
+.msg.bad{background:#FDECEC;color:#B4232A;padding:10px 14px}
+.msg.info{background:#EEF3FF;color:var(--navy);padding:10px 14px}
+.brain{background:var(--navy);color:#fff;border-radius:16px;padding:14px 16px;margin-top:12px;font-size:.92rem}
+.brain h4{margin:0 0 8px;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--yellow)}
+.brain .lbl{font-size:.78rem;opacity:.7;margin-top:8px}
+.brain .regs{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:6px;margin-top:4px}
+.brain .regs div{background:rgba(255,255,255,.08);border-radius:8px;padding:6px;text-align:center}
+.brain .regs small{display:block;opacity:.65;font-size:.72rem}
+.brain .regs b{font-family:'JetBrains Mono',monospace;font-size:1.05rem}
+.brain .pc{font-family:'JetBrains Mono',monospace;background:rgba(255,255,255,.08);border-radius:8px;padding:6px 10px;min-height:32px}
+
+/* robot */
+.board{position:relative;width:100%;aspect-ratio:1;background:#DCE4F5;border-radius:16px;padding:6px;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(7,1fr);gap:4px}
+.cell{background:#F3F6FD;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:clamp(1rem,3.4vw,1.9rem)}
+.cell.fog{background:#0F172A}
+.c-act{background:#16A34A} .c-var{background:#475569} .c-fn{background:#BE185D}
+.cell.tgt{outline:3px dashed #8B5CF6;outline-offset:-5px}
+.cell.painted{background:#A78BFA}
+.cell.painted.tgt{background:#8B5CF6;outline-color:#6D28D9}
+.cell.soil{background:#E8D3B5} .cell.grass{background:#C8EBB5} .cell.tiles{background:#E2E8F0;background-image:linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px)}
+.cell.fence{background:#FDE68A}
+.cell.wet{box-shadow:inset 0 0 0 4px #60A5FA}
+.robot .cargo{position:absolute;right:-6px;top:-8px;font-size:clamp(.7rem,1.6vw,1.1rem)}
+.stageBox{position:relative}
+.say-bubble{position:absolute;top:10px;left:50%;transform:translateX(-50%) scale(.6);opacity:0;background:#fff;border:4px solid var(--navy);border-radius:20px;padding:10px 22px;font-size:2rem;font-weight:900;z-index:5;pointer-events:none;transition:all .3s cubic-bezier(.3,1.5,.6,1)}
+.say-bubble.on{opacity:1;transform:translateX(-50%) scale(1)}
+.cell.wall{background:#334155;background-image:repeating-linear-gradient(45deg,transparent 0 6px,rgba(255,255,255,.07) 6px 12px)}
+.robot{position:absolute;width:calc((100% - 12px)/7);height:calc((100% - 12px)/7);transition:left .25s ease,top .25s ease,transform .25s ease;padding:4px;pointer-events:none;z-index:3}
+.robot svg{width:100%;height:100%;display:block;filter:drop-shadow(0 3px 2px rgba(0,0,0,.25))}
+.shake{animation:shake .4s}
+@keyframes shake{0%,100%{translate:0}20%{translate:-6px}40%{translate:6px}60%{translate:-4px}80%{translate:4px}}
+
+/* lápiz */
+.paper{width:100%;aspect-ratio:1;background:#fff;border-radius:16px;border:2px solid var(--line);display:block}
+.paper .tgt{stroke:#C9D3EA;stroke-width:9;stroke-linecap:round;fill:none;stroke-dasharray:2 14}
+.paper .ink{stroke-width:6;stroke-linecap:round;fill:none;stroke-dasharray:1;stroke-dashoffset:1;animation:draw .3s linear forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.paper .turtle{transition:transform .3s ease}
+.legend{display:flex;gap:14px;font-size:.85rem;font-weight:700;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:22px;height:0;border-top:5px dotted #C9D3EA;vertical-align:middle;margin-right:4px}
+
+/* semáforo */
+.tl-wrap{background:#E8EDF7;border-radius:16px;padding:16px;display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
+.tl-wrap svg{width:130px;height:auto}
+.lamp{transition:fill .15s, filter .15s}
+.side{display:flex;flex-direction:column;gap:12px;align-items:center}
+.clock{background:var(--navy);color:#fff;border-radius:12px;padding:8px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:700}
+.pbtn{width:120px;height:120px;border-radius:50%;border:6px solid #9CA3AF;background:#D1D5DB;font-weight:900;font-size:.95rem;color:#374151;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:all .2s}
+.pbtn span{font-size:2rem}
+.pbtn.waiting{background:var(--yellow);border-color:#F0A500;color:var(--navy);box-shadow:0 0 0 0 rgba(255,201,60,.8);animation:pulse 1.1s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,201,60,.8)}100%{box-shadow:0 0 0 22px rgba(255,201,60,0)}}
+.timeline{margin-top:12px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px 12px;overflow-x:auto}
+.tl-row{display:flex;align-items:center;gap:4px;margin:6px 0;min-height:52px}
+.tl-row>b{width:86px;flex:none;font-size:.82rem;color:var(--muted)}
+.seg{height:48px;border-radius:8px;background:#F1F3F8;border:2px solid #E2E6F0;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;font-size:.72rem;font-weight:800;color:var(--muted)}
+.seg .dots{display:flex;gap:3px}
+.seg .dots i{width:12px;height:12px;border-radius:50%;display:block}
+.seg.bad{border-color:var(--red);background:#FDECEC}
+
+.overlay{position:fixed;inset:0;background:rgba(20,26,56,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+.overlay.on{display:flex}
+.modal{background:#fff;border-radius:24px;padding:30px;max-width:520px;text-align:center;animation:pop .3s ease}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal .big{font-size:4rem}
+.confetti{position:fixed;top:-20px;width:10px;height:14px;z-index:60;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+/* ===== ALGORITMOS ===== */
+.al-def{background:var(--navy);color:#fff;border-radius:20px;padding:18px 22px;font-size:1.35rem;font-weight:800;line-height:1.7;margin:10px 0 16px}
+.al-chip{display:inline-block;border-radius:10px;padding:0 12px;margin:0 2px;transition:all .4s}
+.al-chip.off{background:rgba(255,255,255,.12);color:rgba(255,255,255,.6);letter-spacing:.1em}
+.al-chip.on{background:var(--yellow);color:var(--navy);animation:pop .5s}
+.al-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.al-tabs button{border:2px solid var(--line);background:#fff;border-radius:14px;padding:10px 16px;font-weight:900;font-size:1rem;position:relative}
+.al-tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.al-tabs button.ok::after{content:'✓';position:absolute;top:-8px;right:-8px;background:var(--green);color:#fff;border-radius:50%;width:20px;height:20px;font-size:.75rem;display:flex;align-items:center;justify-content:center}
+.al-card{background:#fff;border:2px solid var(--line);border-radius:20px;padding:20px}
+.al-h{font-size:1.5rem;font-weight:900;margin:0 0 4px}
+.al-sub{color:var(--muted);margin:0 0 14px;font-size:1.05rem}
+.al-tasks{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.al-tasks button{border:2px solid var(--line);background:#F7F4EE;border-radius:12px;padding:8px 14px;font-weight:800;font-size:.95rem}
+.al-tasks button.on{border-color:var(--accent);background:#FFF1EC}
+.al-tasks button.ok{border-color:var(--green)}
+.al-pool{display:flex;flex-wrap:wrap;gap:10px;min-height:96px;background:#F4F1EA;border-radius:16px;padding:12px}
+.al-step{background:#fff;border:3px solid #D9DCE6;border-radius:14px;padding:10px 14px;font-weight:800;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;transition:transform .12s,border-color .2s;box-shadow:0 3px 0 rgba(0,0,0,.06)}
+.al-step:hover{transform:translateY(-2px);border-color:var(--move)}
+.al-step .em{font-size:1.9rem}
+.al-slots{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}
+@media(max-width:900px){.al-slots{grid-template-columns:1fr}}
+.al-slot{border:3px dashed #C9CCD8;border-radius:14px;min-height:110px;padding:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:800;position:relative;background:#FCFBF8}
+.al-slot .n{position:absolute;top:6px;left:10px;font-weight:900;color:var(--muted)}
+.al-slot .em{font-size:2.2rem}
+.al-slot.full{border-style:solid;border-color:#B8BDCC;background:#fff;cursor:pointer}
+.al-slot.good{border-color:var(--green);background:#EAF7F0}
+.al-slot.bad{border-color:var(--red);background:#FDECEC;animation:shake .4s}
+.al-slot.play{transform:scale(1.07);box-shadow:0 0 0 5px var(--yellow);transition:transform .2s}
+.al-arrow{display:none}
+.al-fb{min-height:30px;font-weight:800;font-size:1.1rem;margin-top:12px}
+.al-instr{display:flex;flex-direction:column;gap:10px}
+.al-ins{border:3px solid #D9DCE6;border-radius:14px;padding:12px 14px;font-weight:700;font-size:1.05rem;cursor:pointer;background:#fff;display:flex;gap:10px;align-items:flex-start;transition:all .15s}
+.al-ins:hover{border-color:var(--move)}
+.al-ins .mk{flex:none;width:30px;height:30px;border-radius:50%;border:3px solid #C9CCD8;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.al-ins.sel{border-color:var(--accent);background:#FFF1EC}
+.al-ins.sel .mk{border-color:var(--accent);background:var(--accent);color:#fff}
+.al-ins.good{border-color:var(--green);background:#EAF7F0}
+.al-ins.bad{border-color:var(--red);background:#FDECEC}
+.al-ins .why{display:block;font-weight:700;font-size:.92rem;color:#B4232A;margin-top:4px}
+.al-robot{text-align:center}
+.al-robot .face{font-size:6rem;line-height:1;transition:transform .3s}
+.al-robot .bubble{background:#fff;border:3px solid var(--navy);border-radius:18px;padding:12px 16px;font-weight:800;font-size:1.05rem;margin-top:12px;position:relative}
+.al-robot .bubble::before{content:'';position:absolute;top:-12px;left:50%;margin-left:-10px;border:10px solid transparent;border-top:0;border-bottom-color:var(--navy)}
+.al-two{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(220px,1fr);gap:20px;align-items:start}
+@media(max-width:900px){.al-two{grid-template-columns:1fr}}
+.al-grid{display:grid;grid-template-columns:28px repeat(8,1fr);gap:3px;max-width:430px;user-select:none}
+.al-grid .lb{display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--muted);font-size:.9rem}
+.al-grid .px{aspect-ratio:1;background:#fff;border:2px solid #D9DCE6;border-radius:5px;cursor:pointer;transition:background .12s}
+.al-grid .px:hover{border-color:var(--move)}
+.al-grid .px.wrong{outline:3px solid var(--red);outline-offset:-3px}
+.al-grid .px.miss{outline:3px dashed var(--red);outline-offset:-3px}
+.al-list{counter-reset:k;display:flex;flex-direction:column;gap:6px;font-family:'JetBrains Mono',monospace;font-size:.95rem}
+.al-list div{background:#F4F1EA;border-radius:10px;padding:8px 12px;border-left:5px solid transparent;transition:all .2s}
+.al-list div.cur{background:#FFF2C6;border-left-color:var(--yellow);transform:translateX(6px)}
+.al-pics{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.al-pics button{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;font-weight:800}
+.al-pics button.on{border-color:var(--accent);background:#FFF1EC}
+.al-time{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.al-time div{background:var(--navy);color:#fff;border-radius:12px;padding:8px 14px;font-weight:800}
+.al-time b{font-family:'JetBrains Mono',monospace;color:var(--yellow)}
+/* CPU */
+.cpu{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,.9fr);gap:16px;align-items:stretch}
+@media(max-width:1000px){.cpu{grid-template-columns:1fr}}
+.cpu-box{border-radius:18px;padding:14px;color:#fff;position:relative}
+.cpu-box h4{margin:0 0 10px;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase}
+.cpu-mem{background:#334155}
+.cpu-cpu{background:var(--navy)}
+.cpu-out{background:#0F766E}
+.mem-row{display:grid;grid-template-columns:30px 92px 1fr;gap:8px;align-items:center;padding:6px 8px;border-radius:10px;margin-bottom:4px;font-size:.88rem;transition:all .25s;position:relative;border:2px solid transparent}
+.mem-row .ad{font-family:'JetBrains Mono',monospace;font-weight:700;background:rgba(255,255,255,.15);border-radius:6px;text-align:center}
+.mem-row .bn{font-family:'JetBrains Mono',monospace;color:#93C5FD;font-size:.82rem}
+.mem-row .tx{font-weight:800}
+.mem-row.pc{background:rgba(255,201,60,.22);border-color:var(--yellow)}
+.mem-row.pc::before{content:'▶';position:absolute;left:-14px;color:var(--yellow);font-size:.9rem}
+.mem-row.bugged .tx{color:#FCA5A5}
+.phases{display:flex;gap:6px;margin-bottom:12px}
+.phases span{flex:1;text-align:center;border-radius:10px;padding:8px 4px;font-weight:900;font-size:.8rem;background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);transition:all .25s}
+.phases span.on{background:var(--yellow);color:var(--navy);transform:scale(1.06)}
+.cpu-unit{background:rgba(255,255,255,.08);border-radius:12px;padding:8px 10px;margin-bottom:8px;transition:all .25s}
+.cpu-unit small{display:block;opacity:.7;font-size:.75rem;font-weight:700}
+.cpu-unit b{font-family:'JetBrains Mono',monospace;font-size:1.05rem}
+.cpu-unit.flash{background:rgba(255,201,60,.35);box-shadow:0 0 0 3px var(--yellow)}
+.cpu-regs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.plate-wrap{position:relative;height:300px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.arm{position:absolute;top:0;font-size:3rem;transition:transform .35s ease;left:50%;margin-left:-24px}
+.arm.down{transform:translateY(60px)}
+.stack{display:flex;flex-direction:column-reverse;align-items:center;width:200px;margin-bottom:-6px;z-index:2}
+.layer{width:170px;height:18px;margin-top:-4px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;animation:drop .45s cubic-bezier(.3,1.4,.6,1)}
+@keyframes drop{from{transform:translateY(-140px);opacity:0}to{transform:none;opacity:1}}
+.l-bread{background:#E9B872;height:26px;border-radius:8px 8px 18px 18px;border:2px solid #B9853D}
+.l-top{background:#E9B872;height:34px;border-radius:60px 60px 10px 10px;border:2px solid #B9853D}
+.l-ham{background:#F4A6B4;border:2px solid #D97789;border-radius:12px;width:180px}
+.l-tomato{background:#E5484D;border:2px solid #B4232A;width:160px;height:14px}
+.l-cheese{background:#FFD43B;border:2px solid #E0A100;width:184px;border-radius:3px}
+.l-lettuce{background:#7BC96F;border:2px solid #4E9E43;width:186px;border-radius:14px}
+.plate{width:240px;height:28px;background:#fff;border-radius:50%;box-shadow:0 6px 0 #CBD5E1}
+.out-msg{text-align:center;font-weight:800;margin-top:12px;min-height:26px}
+.al-token{position:absolute;z-index:30;background:var(--yellow);color:var(--navy);font-family:'JetBrains Mono',monospace;font-weight:700;border-radius:10px;padding:6px 10px;box-shadow:0 6px 16px rgba(0,0,0,.3);pointer-events:none;transition:left .6s ease,top .6s ease,opacity .2s;opacity:0;white-space:nowrap}
+.narr{background:#FFF2C6;border:3px solid var(--yellow);border-radius:16px;padding:14px 18px;font-weight:800;font-size:1.1rem;margin-top:14px;min-height:60px}
+.cpu-ctrl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.cpu-edit{display:flex;flex-direction:column;gap:8px;margin-top:10px;font-size:.88rem;font-weight:700}
+.cpu-edit select{font-family:inherit;font-weight:800;border-radius:6px;border:0;padding:2px 4px}
+.cpu-edit button{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.3);border-radius:10px;padding:6px 10px;font-weight:800}
+.fact{color:var(--muted);font-weight:700;font-size:.92rem}
+.app-card .badge{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:900;margin-left:6px;vertical-align:middle}
+
+.printbar{margin-top:22px;background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px 18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.printbar label{font-weight:900}
+.printbar input{flex:1;min-width:240px;font-family:inherit;font-size:1.05rem;font-weight:700;padding:10px 14px;border:3px solid var(--line);border-radius:12px}
+.printbar input:focus{outline:none;border-color:var(--move)}
+.printbar input.need{border-color:var(--red);animation:shake .4s}
+.printbar .pmsg{font-weight:800;color:var(--muted)}
+#printOv .modal{max-width:920px;width:100%;padding:20px}
+#printOv img{max-width:100%;max-height:65vh;border-radius:12px;border:2px solid var(--line);display:block;margin:0 auto}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><span style="font-size:1.8rem">🤖</span><div><span data-t>Prácticas de Computación y Robótica 1º ESO</span><small data-t>🤖 Programa el robot · 24 prácticas</small></div></div>
+  <div style="margin-left:auto"></div>
+  <div class="langs">
+    <button data-lang="es" title="Español"><svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg></button>
+    <button data-lang="en" title="English"><svg viewBox="0 0 60 30" preserveAspectRatio="none"><clipPath id="uk1"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#uk1)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg></button>
+    <button data-lang="de" title="Deutsch"><svg viewBox="0 0 30 18" preserveAspectRatio="none"><rect width="30" height="6" fill="#000"/><rect y="6" width="30" height="6" fill="#DD0000"/><rect y="12" width="30" height="6" fill="#FFCE00"/></svg></button>
+  </div>
+  <button id="fs" title="⛶">⛶</button>
+</header>
+
+<main>
+<section class="view on" id="v-robot"></section>
+
+
+</main>
+
+<div class="overlay" id="win"><div class="modal">
+  <div class="big">🎉</div>
+  <h2 data-t>¡Práctica superada!</h2>
+  <p id="winText" style="font-size:1.1rem"></p>
+  <p data-t style="font-weight:800;background:#FFF2C6;border-radius:12px;padding:10px">🔄 ¡Cambiad los papeles! Ahora el ratón lo lleva tu pareja.</p>
+  <div class="row" style="justify-content:center">
+    <button class="btn alt" id="winStay" data-t>Quedarme aquí</button>
+    <button class="btn go" id="winNext">Siguiente nivel →</button>
+  </div>
+</div></div>
+
+<div class="overlay" id="printOv"><div class="modal">
+  <img id="printImg" alt="">
+  <p id="printHint" class="muted" style="font-weight:700;margin:10px 0"></p>
+  <div class="row" style="justify-content:center"><button class="btn alt" id="printClose"></button><button class="btn go" id="printDl"></button></div>
+</div></div>
+<script>
+/* ================= idioma ================= */
+let LANG='es';
+let PNAME='';
+function tr(s,v){ if(s==null) return s; let r=(LANG!=='es'&&DICT[s]&&DICT[s][LANG])||s; if(v) r=r.replace(/\{(\w+)\}/g,(m,k)=>v[k]!==undefined?v[k]:m); return r; }
+const DICT={"Cómo piensa un ordenador": {"en": "How a computer thinks", "de": "Wie ein Computer denkt"}, "Clase interactiva": {"en": "Interactive lesson", "de": "Interaktive Stunde"}, "Computación y Robótica · 1º ESO": {"en": "Computing & Robotics · Year 7", "de": "Informatik & Robotik · 7. Klasse"}, "🏠 Inicio": {"en": "🏠 Home", "de": "🏠 Start"}, "🤖 Robot": {"en": "🤖 Robot", "de": "🤖 Roboter"}, "✏️ Lápiz": {"en": "✏️ Pencil", "de": "✏️ Stift"}, "🚦 Semáforo": {"en": "🚦 Traffic light", "de": "🚦 Ampel"}, "¡Bienvenidos! · Willkommen!": {"en": "Welcome! · ¡Bienvenidos!", "de": "Willkommen! · ¡Bienvenidos!"}, "Elige una aplicación y empieza a programar": {"en": "Choose an app and start coding", "de": "Wähle eine App und fang an zu programmieren"}, "Robot": {"en": "Robot", "de": "Roboter"}, "Guía al robot por la cuadrícula hasta la bandera.": {"en": "Guide the robot across the grid to the flag.", "de": "Führe den Roboter über das Raster bis zur Flagge."}, "Secuencias": {"en": "Sequences", "de": "Sequenzen"}, "Bucles": {"en": "Loops", "de": "Schleifen"}, "Sensores": {"en": "Sensors", "de": "Sensoren"}, "Lápiz": {"en": "Pencil", "de": "Stift"}, "Programa un lápiz para dibujar figuras.": {"en": "Program a pencil to draw shapes.", "de": "Programmiere einen Stift, der Figuren zeichnet."}, "Geometría": {"en": "Geometry", "de": "Geometrie"}, "Patrones": {"en": "Patterns", "de": "Muster"}, "Bucles anidados": {"en": "Nested loops", "de": "Verschachtelte Schleifen"}, "Semáforo": {"en": "Traffic light", "de": "Ampel"}, "Controla las luces de un semáforo como un ingeniero de robótica.": {"en": "Control a traffic light like a robotics engineer.", "de": "Steuere eine Ampel wie ein Robotik-Ingenieur."}, "Tiempo": {"en": "Time", "de": "Zeit"}, "Botón": {"en": "Button", "de": "Taster"}, "¡Nivel superado!": {"en": "Level complete!", "de": "Level geschafft!"}, "🔄 ¡Cambiad los papeles! Ahora el ratón lo lleva tu pareja.": {"en": "🔄 Swap roles! Now your partner takes the mouse.", "de": "🔄 Rollentausch! Jetzt übernimmt dein Partner die Maus."}, "Quedarme aquí": {"en": "Stay here", "de": "Hierbleiben"}, "Siguiente nivel →": {"en": "Next level →", "de": "Nächstes Level →"}, "🏠 Elegir otra app": {"en": "🏠 Choose another app", "de": "🏠 Andere App wählen"}, "✓ {a} de {b} niveles": {"en": "✓ {a} of {b} levels", "de": "✓ {a} von {b} Levels"}, "{n} niveles": {"en": "{n} levels", "de": "{n} Levels"}, "Bloques": {"en": "Blocks", "de": "Blöcke"}, "Pulsa un bloque para añadirlo (o arrástralo). Pulsa dentro de un bucle para meter bloques en él.": {"en": "Click a block to add it (or drag it). Click inside a loop to put blocks into it.", "de": "Klicke auf einen Block, um ihn hinzuzufügen (oder ziehe ihn). Klicke in eine Schleife, um Blöcke hineinzulegen."}, "Programa": {"en": "Program", "de": "Programm"}, "▶ Ejecutar": {"en": "▶ Run", "de": "▶ Start"}, "⏭ Paso a paso": {"en": "⏭ Step by step", "de": "⏭ Schritt für Schritt"}, "⟲ Reiniciar": {"en": "⟲ Reset", "de": "⟲ Zurücksetzen"}, "🗑 Borrar": {"en": "🗑 Clear", "de": "🗑 Löschen"}, "▶ Continuar": {"en": "▶ Continue", "de": "▶ Weiter"}, "⏸ Pausa": {"en": "⏸ Pause", "de": "⏸ Pause"}, "🧠 Dentro del ordenador": {"en": "🧠 Inside the computer", "de": "🧠 Im Computer"}, "Instrucción que está ejecutando el procesador:": {"en": "Instruction the processor is running:", "de": "Befehl, den der Prozessor gerade ausführt:"}, "Memoria:": {"en": "Memory:", "de": "Speicher:"}, "Instrucciones ejecutadas:": {"en": "Instructions executed:", "de": "Ausgeführte Befehle:"}, "Nivel {a} de {b}": {"en": "Level {a} of {b}", "de": "Level {a} von {b}"}, "Bloques: {c} / {l}": {"en": "Blocks: {c} / {l}", "de": "Blöcke: {c} / {l}"}, "Bloques: {c}": {"en": "Blocks: {c}", "de": "Blöcke: {c}"}, "Programa principal": {"en": "Main program", "de": "Hauptprogramm"}, "dentro de «si no»": {"en": "inside «else»", "de": "in «sonst»"}, "dentro de «{x}»": {"en": "inside «{x}»", "de": "in «{x}»"}, "Los bloques nuevos van a:": {"en": "New blocks go into:", "de": "Neue Blöcke kommen in:"}, "Pulsa o arrastra bloques aquí…": {"en": "Click or drag blocks here…", "de": "Klicke oder ziehe Blöcke hierher…"}, "Mete aquí los bloques…": {"en": "Put the blocks in here…", "de": "Leg die Blöcke hier hinein…"}, "↪ si no:": {"en": "↪ else:", "de": "↪ sonst:"}, " … si no": {"en": " … else", "de": " … sonst"}, "Quitar bloque": {"en": "Remove block", "de": "Block entfernen"}, "🚫 Límite de {l} bloques.": {"en": "🚫 Limit: {l} blocks.", "de": "🚫 Limit: {l} Blöcke."}, "¿Puedes usar un bucle?": {"en": "Can you use a loop?", "de": "Kannst du eine Schleife benutzen?"}, "(vuelta {i} de {n})": {"en": "(round {i} of {n})", "de": "(Runde {i} von {n})"}, "(¿ya? no → vuelta {i})": {"en": "(done? no → round {i})", "de": "(fertig? nein → Runde {i})"}, "(¿ya? sí → salgo)": {"en": "(done? yes → exit)", "de": "(fertig? ja → raus)"}, "(sí → vuelta {i})": {"en": "(yes → round {i})", "de": "(ja → Runde {i})"}, "(no → salgo)": {"en": "(no → exit)", "de": "(nein → raus)"}, "→ sí": {"en": "→ yes", "de": "→ ja"}, "→ no, voy a «si no»": {"en": "→ no, go to «else»", "de": "→ nein, weiter bei «sonst»"}, "→ sí, entro": {"en": "→ yes, go in", "de": "→ ja, hinein"}, "→ no, me lo salto": {"en": "→ no, skip it", "de": "→ nein, überspringen"}, "El programa está vacío. ¡Añade bloques!": {"en": "The program is empty. Add some blocks!", "de": "Das Programm ist leer. Füge Blöcke hinzu!"}, "♾️ ¡Bucle infinito! El programa no termina nunca. Revisa qué hay dentro del bucle.": {"en": "♾️ Infinite loop! The program never ends. Check what is inside the loop.", "de": "♾️ Endlosschleife! Das Programm hört nie auf. Prüfe, was in der Schleife steht."}, "✔ Programa terminado": {"en": "✔ Program finished", "de": "✔ Programm beendet"}, "⭐ <b>¡Programa perfecto!</b> Habéis usado el mínimo de bloques ({c}).": {"en": "⭐ <b>Perfect program!</b> You used the minimum number of blocks ({c}).", "de": "⭐ <b>Perfektes Programm!</b> Ihr habt die wenigsten Blöcke benutzt ({c})."}, "Habéis usado {c} bloques. ¿Seríais capaces de hacerlo con <b>{p}</b>?": {"en": "You used {c} blocks. Could you do it with <b>{p}</b>?", "de": "Ihr habt {c} Blöcke benutzt. Schafft ihr es mit <b>{p}</b>?"}, "🏆 <b>¡Habéis completado {x}!</b> Probad otra aplicación.": {"en": "🏆 <b>You have completed {x}!</b> Try another app.", "de": "🏆 <b>Ihr habt {x} geschafft!</b> Probiert eine andere App aus."}, "el Robot": {"en": "the Robot", "de": "den Roboter"}, "el Lápiz": {"en": "the Pencil", "de": "den Stift"}, "el Semáforo": {"en": "the Traffic Light", "de": "die Ampel"}, "👆 El programa está esperando a que pulses el botón.": {"en": "👆 The program is waiting for you to press the button.", "de": "👆 Das Programm wartet darauf, dass du den Taster drückst."}, "⬆ Avanzar": {"en": "⬆ Move forward", "de": "⬆ Vorwärts"}, "↺ Girar izquierda": {"en": "↺ Turn left", "de": "↺ Links drehen"}, "↻ Girar derecha": {"en": "↻ Turn right", "de": "↻ Rechts drehen"}, "🔁 Repetir": {"en": "🔁 Repeat", "de": "🔁 Wiederhole"}, "veces": {"en": "times", "de": "mal"}, "🔁 Repetir hasta": {"en": "🔁 Repeat until", "de": "🔁 Wiederhole bis"}, "llegar a la meta 🏁": {"en": "reaching the goal 🏁", "de": "zum Ziel 🏁"}, "tener todas las ⭐": {"en": "all ⭐ collected", "de": "alle ⭐ gesammelt"}, "🔁 Mientras haya": {"en": "🔁 While there is", "de": "🔁 Solange"}, "📡 Si hay": {"en": "📡 If there is", "de": "📡 Wenn"}, "pared": {"en": "a wall", "de": "eine Wand"}, "camino": {"en": "a path", "de": "ein Weg"}, "delante": {"en": "ahead", "de": "vorne"}, "a la izquierda": {"en": "on the left", "de": "links"}, "a la derecha": {"en": "on the right", "de": "rechts"}, "❌ Ha fallado en el <b>mapa {a} de {b}</b>. ": {"en": "❌ It failed on <b>map {a} of {b}</b>. ", "de": "❌ Fehler auf <b>Karte {a} von {b}</b>. "}, "💥 ¡Choque! El robot ha chocado con una pared. Eso es un <b>bug</b>: busca la instrucción que falla (está marcada en amarillo).": {"en": "💥 Crash! The robot hit a wall. That is a <b>bug</b>: find the instruction that goes wrong (it is highlighted in yellow).", "de": "💥 Zusammenstoß! Der Roboter ist gegen eine Wand gefahren. Das ist ein <b>Bug</b>: Finde den falschen Befehl (er ist gelb markiert)."}, "✅ Mapa {a} de {b} superado. Probando con otro mapa distinto…": {"en": "✅ Map {a} of {b} solved. Now trying a different map…", "de": "✅ Karte {a} von {b} geschafft. Jetzt kommt eine andere Karte…"}, "⭐ ¡Has llegado, pero te faltan estrellas por recoger!": {"en": "⭐ You made it, but there are still stars to collect!", "de": "⭐ Du bist angekommen, aber es fehlen noch Sterne!"}, "🤔 El programa ha terminado, pero el robot no está en la meta. ¿Qué le falta?": {"en": "🤔 The program has finished, but the robot is not at the goal. What is missing?", "de": "🤔 Das Programm ist fertig, aber der Roboter ist nicht am Ziel. Was fehlt noch?"}, "dirección": {"en": "direction", "de": "Richtung"}, "estrellas": {"en": "stars", "de": "Sterne"}, "mapa": {"en": "map", "de": "Karte"}, "📡 izq · del · der": {"en": "📡 left · ahead · right", "de": "📡 links · vorne · rechts"}, "Primeros pasos": {"en": "First steps", "de": "Erste Schritte"}, "Lleva el robot hasta la bandera 🏁.": {"en": "Take the robot to the flag 🏁.", "de": "Bring den Roboter zur Flagge 🏁."}, "<b>Secuencia:</b> el ordenador ejecuta las instrucciones en orden, de arriba abajo.": {"en": "<b>Sequence:</b> the computer runs the instructions in order, from top to bottom.", "de": "<b>Sequenz:</b> Der Computer führt die Befehle der Reihe nach aus, von oben nach unten."}, "La esquina": {"en": "The corner", "de": "Die Ecke"}, "Ahora hay que girar. Ojo: el robot gira según hacia dónde mira <b>él</b>, no tú.": {"en": "Now you have to turn. Careful: the robot turns according to where <b>it</b> is facing, not you.", "de": "Jetzt musst du abbiegen. Achtung: Der Roboter dreht sich aus <b>seiner</b> Blickrichtung, nicht aus deiner."}, "<b>Orientación:</b> ponte en el lugar del robot. ¿Su izquierda es tu izquierda?": {"en": "<b>Orientation:</b> put yourself in the robot’s place. Is its left your left?", "de": "<b>Orientierung:</b> Versetz dich in den Roboter. Ist seine linke Seite auch deine?"}, "El pasillo largo": {"en": "The long corridor", "de": "Der lange Gang"}, "Solo puedes usar <b>2 bloques</b>. ¿Cómo avanzas 6 casillas?": {"en": "You can only use <b>2 blocks</b>. How do you move 6 squares?", "de": "Du darfst nur <b>2 Blöcke</b> benutzen. Wie kommst du 6 Felder weit?"}, "<b>Bucle:</b> «Repetir» hace lo mismo muchas veces sin tener que escribirlo muchas veces.": {"en": "<b>Loop:</b> «Repeat» does the same thing many times without you writing it many times.", "de": "<b>Schleife:</b> «Wiederhole» macht dasselbe viele Male, ohne dass du es oft hinschreiben musst."}, "La escalera": {"en": "The staircase", "de": "Die Treppe"}, "Sube la escalera con <b>5 bloques</b> como máximo. Busca el trozo que se repite.": {"en": "Climb the stairs with at most <b>5 blocks</b>. Look for the part that repeats.", "de": "Steig die Treppe mit höchstens <b>5 Blöcken</b> hinauf. Such den Teil, der sich wiederholt."}, "<b>Patrones:</b> los programadores buscan lo que se repite para escribir menos código.": {"en": "<b>Patterns:</b> programmers look for what repeats so they can write less code.", "de": "<b>Muster:</b> Programmierer suchen nach Wiederholungen, um weniger Code zu schreiben."}, "Cazaestrellas": {"en": "Star hunter", "de": "Sternenjäger"}, "Recoge las 3 estrellas ⭐ y vuelve a la bandera. Máximo <b>4 bloques</b>: ¡un bucle dentro de otro!": {"en": "Collect the 3 stars ⭐ and return to the flag. Maximum <b>4 blocks</b>: a loop inside a loop!", "de": "Sammle die 3 Sterne ⭐ und kehre zur Flagge zurück. Höchstens <b>4 Blöcke</b>: eine Schleife in einer Schleife!"}, "<b>Bucles anidados:</b> un cuadrado = 4 × (lado + giro), y cada lado = 4 × avanzar.": {"en": "<b>Nested loops:</b> a square = 4 × (side + turn), and each side = 4 × move forward.", "de": "<b>Verschachtelte Schleifen:</b> ein Quadrat = 4 × (Seite + Drehung), und jede Seite = 4 × vorwärts."}, "Caza el bug 🐛": {"en": "Bug hunt 🐛", "de": "Fehlerjagd 🐛"}, "Otro programador escribió este programa, pero tiene <b>2 errores</b>. Ejecútalo, mira dónde falla y arréglalo.": {"en": "Another programmer wrote this program, but it has <b>2 mistakes</b>. Run it, see where it fails and fix it.", "de": "Jemand anderes hat dieses Programm geschrieben, aber es hat <b>2 Fehler</b>. Starte es, schau, wo es schiefgeht, und repariere es."}, "<b>Depurar (debugging):</b> encontrar y corregir errores es la mitad del trabajo de un programador.": {"en": "<b>Debugging:</b> finding and fixing mistakes is half of a programmer’s job.", "de": "<b>Debugging:</b> Fehler finden und beheben ist die Hälfte der Arbeit eines Programmierers."}, "El robot aspirador": {"en": "The robot vacuum", "de": "Der Saugroboter"}, "El laberinto es muy largo, pero solo tienes <b>4 bloques</b>. Usa el sensor: si hay pared delante, gira a la derecha; después, avanza.": {"en": "The maze is very long, but you only have <b>4 blocks</b>. Use the sensor: if there is a wall ahead, turn right; then move forward.", "de": "Das Labyrinth ist sehr lang, aber du hast nur <b>4 Blöcke</b>. Benutze den Sensor: Wenn vorne eine Wand ist, dreh nach rechts; dann geh vorwärts."}, "<b>Sensores y condiciones:</b> así deciden los robots de verdad, como un robot aspirador o un coche autónomo.": {"en": "<b>Sensors and conditions:</b> this is how real robots decide, like a robot vacuum or a self-driving car.", "de": "<b>Sensoren und Bedingungen:</b> So entscheiden echte Roboter, zum Beispiel ein Saugroboter oder ein selbstfahrendes Auto."}, "Pasillos misteriosos 🎲": {"en": "Mystery corridors 🎲", "de": "Geheimnisvolle Gänge 🎲"}, "Los pasillos cambian de longitud en cada mapa: <b>no puedes contar los pasos</b>. Usa «Mientras haya camino delante → avanzar». Tu programa se probará en <b>3 mapas distintos</b>. Máximo 7 bloques.": {"en": "The corridors change length on every map: <b>you can’t count the steps</b>. Use «While there is a path ahead → move forward». Your program will be tested on <b>3 different maps</b>. Maximum 7 blocks.", "de": "Die Gänge sind auf jeder Karte unterschiedlich lang: <b>Du kannst die Schritte nicht zählen</b>. Benutze «Solange ein Weg vorne → vorwärts». Dein Programm wird auf <b>3 verschiedenen Karten</b> getestet. Höchstens 7 Blöcke."}, "<b>Bucle «mientras» (while):</b> repite algo mientras se cumpla una condición, sin saber de antemano cuántas veces.": {"en": "<b>«While» loop:</b> repeats something as long as a condition is true, without knowing in advance how many times.", "de": "<b>«Solange»-Schleife (while):</b> wiederholt etwas, solange eine Bedingung erfüllt ist – ohne vorher zu wissen, wie oft."}, "La serpiente 🎲": {"en": "The snake 🎲", "de": "Die Schlange 🎲"}, "Un camino que gira sin parar y es distinto en cada mapa. Crea una regla que funcione siempre: si hay camino delante, avanza; si no, gira hacia el lado donde haya camino. Se probará en <b>3 mapas</b>. Máximo 6 bloques.": {"en": "A path that keeps turning and is different on every map. Create a rule that always works: if there is a path ahead, move forward; otherwise, turn towards the side with a path. It will be tested on <b>3 maps</b>. Maximum 6 blocks.", "de": "Ein Weg, der ständig abbiegt und auf jeder Karte anders ist. Erfinde eine Regel, die immer funktioniert: Wenn vorne ein Weg ist, geh vorwärts; sonst dreh dich zu der Seite, wo ein Weg ist. Getestet wird auf <b>3 Karten</b>. Höchstens 6 Blöcke."}, "<b>Condición «si… si no» (if-else):</b> el programa elige entre dos caminos. ¡Puedes meter un «si» dentro de otro!": {"en": "<b>«If… else» condition:</b> the program chooses between two paths. You can put one «if» inside another!", "de": "<b>Bedingung «wenn… sonst» (if-else):</b> Das Programm wählt zwischen zwei Wegen. Du kannst ein «wenn» in ein anderes stecken!"}, "El laberinto 🎲": {"en": "The maze 🎲", "de": "Das Labyrinth 🎲"}, "Un laberinto de verdad, con caminos sin salida. Truco de exploradores: <b>sigue siempre la pared de tu derecha</b> (si hay camino a la derecha, gira y avanza; si no…). Se probará en <b>3 laberintos</b>. Máximo 7 bloques.": {"en": "A real maze, with dead ends. Explorer’s trick: <b>always follow the wall on your right</b> (if there is a path on the right, turn and move forward; otherwise…). It will be tested on <b>3 mazes</b>. Maximum 7 blocks.", "de": "Ein echtes Labyrinth mit Sackgassen. Trick der Entdecker: <b>Folge immer der Wand rechts von dir</b> (wenn rechts ein Weg ist, dreh dich und geh vorwärts; sonst …). Getestet wird in <b>3 Labyrinthen</b>. Höchstens 7 Blöcke."}, "<b>Algoritmo general:</b> una regla bien pensada resuelve cualquier laberinto sin conocerlo de antes.": {"en": "<b>General algorithm:</b> one well-designed rule solves any maze without knowing it beforehand.", "de": "<b>Allgemeiner Algorithmus:</b> Eine gut durchdachte Regel löst jedes Labyrinth, ohne es vorher zu kennen."}, "Explorador total 🎲": {"en": "Total explorer 🎲", "de": "Super-Entdecker 🎲"}, "Hay 3 estrellas escondidas en caminos sin salida. Recógelas <b>todas</b> y vuelve a la base 🏁 (donde empiezas). Se probará en <b>3 laberintos</b>. Máximo 15 bloques.": {"en": "There are 3 stars hidden in dead ends. Collect <b>all</b> of them and return to base 🏁 (where you start). It will be tested on <b>3 mazes</b>. Maximum 15 blocks.", "de": "In Sackgassen sind 3 Sterne versteckt. Sammle <b>alle</b> ein und kehre zur Basis 🏁 zurück (wo du startest). Getestet wird in <b>3 Labyrinthen</b>. Höchstens 15 Blöcke."}, "<b>Programas por fases:</b> primero una tarea y después otra. Los programas grandes se construyen juntando partes pequeñas.": {"en": "<b>Programs in phases:</b> first one task, then another. Big programs are built by joining small parts.", "de": "<b>Programme in Phasen:</b> erst eine Aufgabe, dann die nächste. Große Programme entstehen aus kleinen Teilen."}, "A oscuras 🌑🎲": {"en": "In the dark 🌑🎲", "de": "Im Dunkeln 🌑🎲"}, "Laberinto gigante y ¡sin luz! Solo ves lo que detectan los sensores del robot. Se probará en <b>3 laberintos</b>. Máximo 7 bloques.": {"en": "A giant maze with no light! You only see what the robot’s sensors detect. It will be tested on <b>3 mazes</b>. Maximum 7 blocks.", "de": "Ein riesiges Labyrinth – ohne Licht! Du siehst nur, was die Sensoren des Roboters erkennen. Getestet wird in <b>3 Labyrinthen</b>. Höchstens 7 Blöcke."}, "<b>Robots autónomos:</b> un robot real nunca ve el mapa entero; decide solo con lo que le dicen sus sensores.": {"en": "<b>Autonomous robots:</b> a real robot never sees the whole map; it decides only with what its sensors tell it.", "de": "<b>Autonome Roboter:</b> Ein echter Roboter sieht nie die ganze Karte; er entscheidet nur mit dem, was seine Sensoren melden."}, "pasos": {"en": "steps", "de": "Schritte"}, "↺ Girar izquierda 90°": {"en": "↺ Turn left 90°", "de": "↺ Links drehen 90°"}, "↻ Girar derecha 90°": {"en": "↻ Turn right 90°", "de": "↻ Rechts drehen 90°"}, "↺ Girar izquierda 45°": {"en": "↺ Turn left 45°", "de": "↺ Links drehen 45°"}, "↻ Girar derecha 45°": {"en": "↻ Turn right 45°", "de": "↻ Rechts drehen 45°"}, "✋ Subir lápiz": {"en": "✋ Pen up", "de": "✋ Stift hoch"}, "✏️ Bajar lápiz": {"en": "✏️ Pen down", "de": "✏️ Stift runter"}, "🎨 Color": {"en": "🎨 Colour", "de": "🎨 Farbe"}, "⚫ negro": {"en": "⚫ black", "de": "⚫ schwarz"}, "🔴 rojo": {"en": "🔴 red", "de": "🔴 rot"}, "🔵 azul": {"en": "🔵 blue", "de": "🔵 blau"}, "🟢 verde": {"en": "🟢 green", "de": "🟢 grün"}, "🟠 naranja": {"en": "🟠 orange", "de": "🟠 orange"}, "🟣 morado": {"en": "🟣 purple", "de": "🟣 lila"}, "Objetivo": {"en": "Target", "de": "Ziel"}, "✏️ Tu dibujo": {"en": "✏️ Your drawing", "de": "✏️ Deine Zeichnung"}, "✏️ ¡El lápiz se sale del papel! Revisa el número de pasos o la dirección.": {"en": "✏️ The pencil goes off the paper! Check the number of steps or the direction.", "de": "✏️ Der Stift fährt aus dem Papier! Prüfe die Schrittzahl oder die Richtung."}, "🎨 ¡Dibujo terminado! Pulsa «Reiniciar» para borrarlo o cambia el programa para mejorarlo.": {"en": "🎨 Drawing finished! Press «Reset» to clear it, or change the program to improve it.", "de": "🎨 Zeichnung fertig! Drücke «Zurücksetzen», um sie zu löschen, oder verbessere das Programm."}, "✏️ ¡Has dibujado de más! Hay líneas que no están en el objetivo.": {"en": "✏️ You drew too much! Some lines are not part of the target.", "de": "✏️ Du hast zu viel gezeichnet! Manche Linien gehören nicht zum Ziel."}, "✏️ ¡Vas bien, pero te falta una parte del dibujo!": {"en": "✏️ Good so far, but part of the drawing is missing!", "de": "✏️ Gut so, aber ein Teil der Zeichnung fehlt noch!"}, "✏️ El dibujo no coincide con el objetivo. Usa «Paso a paso» para ver dónde se desvía el lápiz.": {"en": "✏️ The drawing doesn’t match the target. Use «Step by step» to see where the pencil goes wrong.", "de": "✏️ Die Zeichnung passt nicht zum Ziel. Benutze «Schritt für Schritt», um zu sehen, wo der Stift abweicht."}, "lápiz": {"en": "pencil", "de": "Stift"}, "✏️ abajo": {"en": "✏️ down", "de": "✏️ unten"}, "✋ arriba": {"en": "✋ up", "de": "✋ oben"}, "color": {"en": "colour", "de": "Farbe"}, "Una línea recta": {"en": "A straight line", "de": "Eine gerade Linie"}, "Dibuja la línea punteada. Cambia el número de pasos del bloque para que llegue justo al final.": {"en": "Draw the dotted line. Change the number of steps in the block so it reaches exactly the end.", "de": "Zeichne die gepunktete Linie. Ändere die Schrittzahl im Block, damit sie genau bis zum Ende reicht."}, "<b>Parámetros:</b> muchos bloques tienen un valor que puedes cambiar, como el número de pasos.": {"en": "<b>Parameters:</b> many blocks have a value you can change, like the number of steps.", "de": "<b>Parameter:</b> Viele Blöcke haben einen Wert, den du ändern kannst, zum Beispiel die Schrittzahl."}, "El cuadrado": {"en": "The square", "de": "Das Quadrat"}, "Dibuja el cuadrado con <b>3 bloques</b> como máximo.": {"en": "Draw the square with at most <b>3 blocks</b>.", "de": "Zeichne das Quadrat mit höchstens <b>3 Blöcken</b>."}, "<b>Bucle:</b> un cuadrado son 4 lados iguales y 4 giros iguales. ¡Repítelo!": {"en": "<b>Loop:</b> a square is 4 equal sides and 4 equal turns. Repeat it!", "de": "<b>Schleife:</b> Ein Quadrat hat 4 gleiche Seiten und 4 gleiche Drehungen. Wiederhole es!"}, "Dibuja la escalera con <b>5 bloques</b> como máximo. El lápiz empieza mirando hacia arriba.": {"en": "Draw the staircase with at most <b>5 blocks</b>. The pencil starts facing up.", "de": "Zeichne die Treppe mit höchstens <b>5 Blöcken</b>. Der Stift schaut am Anfang nach oben."}, "<b>Patrones:</b> busca el trozo que se repite: subir, girar, avanzar, girar…": {"en": "<b>Patterns:</b> look for the part that repeats: up, turn, forward, turn…", "de": "<b>Muster:</b> Such den Teil, der sich wiederholt: hoch, drehen, vorwärts, drehen …"}, "Las almenas del castillo": {"en": "The castle battlements", "de": "Die Burgzinnen"}, "Dibuja las almenas del castillo 🏰 con un bucle. Máximo <b>9 bloques</b>.": {"en": "Draw the castle battlements 🏰 with a loop. Maximum <b>9 blocks</b>.", "de": "Zeichne die Burgzinnen 🏰 mit einer Schleife. Höchstens <b>9 Blöcke</b>."}, "<b>Descomponer:</b> divide el dibujo en trozos iguales y programa solo uno.": {"en": "<b>Decomposition:</b> split the drawing into equal pieces and program just one.", "de": "<b>Zerlegen:</b> Teile die Zeichnung in gleiche Stücke und programmiere nur eins."}, "Dos ventanas": {"en": "Two windows", "de": "Zwei Fenster"}, "Dibuja los dos cuadrados <b>sin unirlos</b>. Pista: con el lápiz subido, el lápiz se mueve sin pintar.": {"en": "Draw the two squares <b>without joining them</b>. Hint: with the pen up, the pencil moves without drawing.", "de": "Zeichne die zwei Quadrate, <b>ohne sie zu verbinden</b>. Tipp: Mit hochgehobenem Stift bewegt er sich, ohne zu malen."}, "<b>Estados:</b> el ordenador recuerda si el lápiz está subido o bajado y actúa según eso.": {"en": "<b>States:</b> the computer remembers whether the pen is up or down and acts accordingly.", "de": "<b>Zustände:</b> Der Computer merkt sich, ob der Stift oben oder unten ist, und handelt danach."}, "Dibujo libre 🎨": {"en": "Free drawing 🎨", "de": "Freies Zeichnen 🎨"}, "¡Sin objetivo! Usa colores y giros de 45° para crear lo que quieras: tu inicial, una casa, un cohete, un diamante…": {"en": "No target! Use colours and 45° turns to create whatever you like: your initial, a house, a rocket, a diamond…", "de": "Kein Ziel! Benutze Farben und 45°-Drehungen und erschaffe, was du willst: deinen Anfangsbuchstaben, ein Haus, eine Rakete, einen Diamanten …"}, "<b>Creatividad:</b> programar también sirve para crear arte. Enseñad vuestro dibujo a otra pareja.": {"en": "<b>Creativity:</b> coding can also be used to make art. Show your drawing to another pair.", "de": "<b>Kreativität:</b> Mit Programmieren kann man auch Kunst machen. Zeigt eure Zeichnung einem anderen Paar."}, "💡 Encender": {"en": "💡 Switch on", "de": "💡 Einschalten"}, "⚫ Apagar": {"en": "⚫ Switch off", "de": "⚫ Ausschalten"}, "⏳ Esperar": {"en": "⏳ Wait", "de": "⏳ Warte"}, "segundos": {"en": "seconds", "de": "Sekunden"}, "👆 Esperar hasta que pulsen el botón": {"en": "👆 Wait until the button is pressed", "de": "👆 Warte, bis der Taster gedrückt wird"}, "🟠 ámbar": {"en": "🟠 amber", "de": "🟠 gelb"}, "PULSAR": {"en": "PRESS", "de": "DRÜCKEN"}, "🎯 Objetivo": {"en": "🎯 Target", "de": "🎯 Ziel"}, "💡 Tu programa": {"en": "💡 Your program", "de": "💡 Dein Programm"}, "apagado": {"en": "off", "de": "aus"}, "👆 botón": {"en": "👆 button", "de": "👆 Taster"}, "fin": {"en": "end", "de": "Ende"}, "👆 El programa está esperando… ¡Pulsa el botón del peatón!": {"en": "👆 The program is waiting… Press the pedestrian button!", "de": "👆 Das Programm wartet … Drück den Fußgänger-Taster!"}, "🚦 ¡Cuidado! Hay dos luces encendidas a la vez. ¿Te has olvidado de apagar alguna?": {"en": "🚦 Careful! Two lights are on at the same time. Did you forget to switch one off?", "de": "🚦 Achtung! Zwei Lichter sind gleichzeitig an. Hast du vergessen, eins auszuschalten?"}, "🚦 La secuencia no coincide con el objetivo. Compara las dos líneas de tiempo: el recuadro rojo marca dónde empieza la diferencia.": {"en": "🚦 The sequence doesn’t match the target. Compare the two timelines: the red box shows where the difference starts.", "de": "🚦 Die Abfolge passt nicht zum Ziel. Vergleiche die beiden Zeitleisten: Das rote Kästchen zeigt, wo der Unterschied beginnt."}, "tiempo": {"en": "time", "de": "Zeit"}, "esperando": {"en": "waiting", "de": "wartet"}, "ON": {"en": "ON", "de": "AN"}, "off": {"en": "off", "de": "aus"}, "¡Luz roja!": {"en": "Red light!", "de": "Rotes Licht!"}, "Enciende el LED rojo del semáforo.": {"en": "Switch on the red LED of the traffic light.", "de": "Schalte die rote LED der Ampel ein."}, "<b>Salida:</b> un LED es un dispositivo de salida. El programa le dice cuándo encenderse.": {"en": "<b>Output:</b> an LED is an output device. The program tells it when to switch on.", "de": "<b>Ausgabe:</b> Eine LED ist ein Ausgabegerät. Das Programm sagt ihr, wann sie leuchten soll."}, "Parpadeo": {"en": "Blinking", "de": "Blinken"}, "Haz que la luz roja parpadee 3 veces: 1 segundo encendida, 1 segundo apagada. Al final debe quedar apagada. Máximo <b>5 bloques</b>.": {"en": "Make the red light blink 3 times: 1 second on, 1 second off. At the end it must stay off. Maximum <b>5 blocks</b>.", "de": "Lass das rote Licht 3-mal blinken: 1 Sekunde an, 1 Sekunde aus. Am Ende muss es aus sein. Höchstens <b>5 Blöcke</b>."}, "<b>Tiempo:</b> sin «Esperar», el ordenador va tan rápido que no verías el parpadeo.": {"en": "<b>Time:</b> without «Wait», the computer is so fast you wouldn’t see the blinking.", "de": "<b>Zeit:</b> Ohne «Warte» ist der Computer so schnell, dass du das Blinken nicht sehen würdest."}, "El semáforo": {"en": "The traffic light", "de": "Die Ampel"}, "Programa un ciclo de semáforo: <b>verde 3 s → ámbar 1 s → rojo 3 s</b>, y al final todo apagado. ¡Solo puede haber una luz encendida cada vez!": {"en": "Program one traffic-light cycle: <b>green 3 s → amber 1 s → red 3 s</b>, and everything off at the end. Only one light can be on at a time!", "de": "Programmiere einen Ampelzyklus: <b>Grün 3 s → Gelb 1 s → Rot 3 s</b>, und am Ende alles aus. Es darf immer nur ein Licht an sein!"}, "<b>Algoritmo:</b> una lista ordenada de pasos para resolver un problema real.": {"en": "<b>Algorithm:</b> an ordered list of steps to solve a real problem.", "de": "<b>Algorithmus:</b> eine geordnete Liste von Schritten, um ein echtes Problem zu lösen."}, "Semáforo que no para": {"en": "Non-stop traffic light", "de": "Ampel ohne Pause"}, "Ahora el ciclo verde → ámbar → rojo tiene que repetirse <b>3 veces</b>. Máximo <b>10 bloques</b>.": {"en": "Now the green → amber → red cycle has to repeat <b>3 times</b>. Maximum <b>10 blocks</b>.", "de": "Jetzt muss sich der Zyklus Grün → Gelb → Rot <b>3-mal</b> wiederholen. Höchstens <b>10 Blöcke</b>."}, "<b>Bucle:</b> los semáforos reales repiten el mismo programa todo el día.": {"en": "<b>Loop:</b> real traffic lights repeat the same program all day long.", "de": "<b>Schleife:</b> Echte Ampeln wiederholen den ganzen Tag dasselbe Programm."}, "Botón de peatones 🚶": {"en": "Pedestrian button 🚶", "de": "Fußgänger-Taster 🚶"}, "El semáforo está en <b>verde</b> hasta que un peatón pulsa el botón. Entonces: <b>ámbar 1 s → rojo 3 s → verde</b> otra vez.": {"en": "The light stays <b>green</b> until a pedestrian presses the button. Then: <b>amber 1 s → red 3 s → green</b> again.", "de": "Die Ampel bleibt <b>grün</b>, bis ein Fußgänger den Taster drückt. Dann: <b>Gelb 1 s → Rot 3 s → wieder Grün</b>."}, "<b>Entrada:</b> el botón es un sensor. El programa espera a que pase algo en el mundo real.": {"en": "<b>Input:</b> the button is a sensor. The program waits for something to happen in the real world.", "de": "<b>Eingabe:</b> Der Taster ist ein Sensor. Das Programm wartet, bis in der echten Welt etwas passiert."}, "🧩 Algoritmos": {"en": "🧩 Algorithms", "de": "🧩 Algorithmen"}, "Algoritmos": {"en": "Algorithms", "de": "Algorithmen"}, "⭐ Empieza aquí": {"en": "⭐ Start here", "de": "⭐ Starte hier"}, "Empieza aquí": {"en": "Start here", "de": "Starte hier"}, "Descubre qué es un algoritmo y mira cómo lo ejecuta un ordenador por dentro.": {"en": "Discover what an algorithm is and see how a computer runs it on the inside.", "de": "Entdecke, was ein Algorithmus ist, und sieh, wie ein Computer ihn von innen ausführt."}, "Orden": {"en": "Order", "de": "Reihenfolge"}, "Precisión": {"en": "Precision", "de": "Genauigkeit"}, "Procesador": {"en": "Processor", "de": "Prozessor"}, "¿Qué es un algoritmo?": {"en": "What is an algorithm?", "de": "Was ist ein Algorithmus?"}, "Un algoritmo es una lista de pasos {a}, {b} y {c} para resolver un problema.": {"en": "An algorithm is a list of {a}, {b} and {c} steps to solve a problem.", "de": "Ein Algorithmus ist eine Liste von {a}, {b} und {c} Schritten, um ein Problem zu lösen."}, "ordenados": {"en": "ordered", "de": "geordneten"}, "precisos": {"en": "precise", "de": "genauen"}, "finitos": {"en": "finite", "de": "endlichen"}, "Completa los ejercicios para descubrir las palabras que faltan.": {"en": "Complete the exercises to reveal the missing words.", "de": "Löse die Übungen, um die fehlenden Wörter aufzudecken."}, "1 · Ordena los pasos": {"en": "1 · Put the steps in order", "de": "1 · Bring die Schritte in Reihenfolge"}, "2 · ¿Lo entendería un ordenador?": {"en": "2 · Would a computer understand it?", "de": "2 · Würde ein Computer das verstehen?"}, "3 · Sé el ordenador": {"en": "3 · Be the computer", "de": "3 · Sei der Computer"}, "4 · Dentro del ordenador": {"en": "4 · Inside the computer", "de": "4 · Im Inneren des Computers"}, "Ordena los pasos": {"en": "Put the steps in order", "de": "Bring die Schritte in Reihenfolge"}, "Elige una tarea. Pulsa los pasos en el orden correcto para construir el algoritmo.": {"en": "Choose a task. Click the steps in the right order to build the algorithm.", "de": "Wähle eine Aufgabe. Klicke die Schritte in der richtigen Reihenfolge an, um den Algorithmus zu bauen."}, "Pasos desordenados:": {"en": "Mixed-up steps:", "de": "Durcheinander geratene Schritte:"}, "¡Todos colocados! Pulsa «Comprobar».": {"en": "All placed! Click «Check».", "de": "Alle platziert! Klicke auf «Prüfen»."}, "Tu algoritmo:": {"en": "Your algorithm:", "de": "Dein Algorithmus:"}, "✔ Comprobar": {"en": "✔ Check", "de": "✔ Prüfen"}, "🔀 Mezclar otra vez": {"en": "🔀 Shuffle again", "de": "🔀 Neu mischen"}, "Te faltan pasos por colocar.": {"en": "You still have steps to place.", "de": "Es fehlen noch Schritte."}, "El paso {n} no está en su sitio. Si el orden cambia, el resultado cambia.": {"en": "Step {n} is in the wrong place. If the order changes, the result changes.", "de": "Schritt {n} ist an der falschen Stelle. Wenn sich die Reihenfolge ändert, ändert sich das Ergebnis."}, "Ejecutando el algoritmo paso a paso…": {"en": "Running the algorithm step by step…", "de": "Der Algorithmus läuft Schritt für Schritt …"}, "¡Algoritmo correcto! Has puesto los pasos en orden: eso es lo primero que necesita un algoritmo.": {"en": "Correct algorithm! You put the steps in order: that is the first thing an algorithm needs.", "de": "Richtiger Algorithmus! Du hast die Schritte geordnet: Das ist das Erste, was ein Algorithmus braucht."}, "Lavarse los dientes": {"en": "Brushing your teeth", "de": "Zähne putzen"}, "Coger el cepillo": {"en": "Pick up the toothbrush", "de": "Die Zahnbürste nehmen"}, "Poner pasta en el cepillo": {"en": "Put toothpaste on the brush", "de": "Zahnpasta auf die Bürste geben"}, "Cepillar los dientes 2 minutos": {"en": "Brush your teeth for 2 minutes", "de": "2 Minuten Zähne putzen"}, "Enjuagarse la boca": {"en": "Rinse your mouth", "de": "Den Mund ausspülen"}, "Guardar el cepillo": {"en": "Put the toothbrush away", "de": "Die Zahnbürste wegräumen"}, "Cruzar la calle": {"en": "Crossing the street", "de": "Über die Straße gehen"}, "Llegar al paso de peatones": {"en": "Arrive at the pedestrian crossing", "de": "Zum Fußgängerüberweg gehen"}, "Pararse en el bordillo": {"en": "Stop at the kerb", "de": "Am Bordstein stehen bleiben"}, "Pulsar el botón": {"en": "Press the button", "de": "Den Knopf drücken"}, "Esperar a que el muñeco se ponga verde": {"en": "Wait for the green man", "de": "Warten, bis das Männchen grün wird"}, "Cruzar caminando": {"en": "Walk across", "de": "Hinübergehen"}, "Plantar una semilla": {"en": "Planting a seed", "de": "Einen Samen pflanzen"}, "Llenar la maceta de tierra": {"en": "Fill the pot with soil", "de": "Den Topf mit Erde füllen"}, "Hacer un agujero con el dedo": {"en": "Make a hole with your finger", "de": "Mit dem Finger ein Loch machen"}, "Meter la semilla en el agujero": {"en": "Put the seed in the hole", "de": "Den Samen ins Loch legen"}, "Tapar la semilla con tierra": {"en": "Cover the seed with soil", "de": "Den Samen mit Erde bedecken"}, "Regar": {"en": "Water it", "de": "Gießen"}, "Hacer un bocadillo": {"en": "Making a sandwich", "de": "Ein Brötchen belegen"}, "Coger una barra de pan": {"en": "Take a bread roll", "de": "Ein Brötchen nehmen"}, "Abrir el pan por la mitad": {"en": "Cut the bread in half", "de": "Das Brötchen aufschneiden"}, "Poner el jamón dentro": {"en": "Put the ham inside", "de": "Den Schinken hineinlegen"}, "Cerrar el pan": {"en": "Close the bread", "de": "Das Brötchen zuklappen"}, "¡Comer!": {"en": "Eat!", "de": "Essen!"}, "¿Lo entendería un ordenador?": {"en": "Would a computer understand it?", "de": "Würde ein Computer das verstehen?"}, "Un ordenador no adivina nada. Marca las instrucciones que un ordenador <b>NO</b> podría seguir.": {"en": "A computer can’t guess anything. Mark the instructions a computer could <b>NOT</b> follow.", "de": "Ein Computer kann nichts erraten. Markiere die Anweisungen, die ein Computer <b>NICHT</b> befolgen könnte."}, "Dibujar una casa": {"en": "Drawing a house", "de": "Ein Haus zeichnen"}, "Dibuja un cuadrado de 4 cm de lado.": {"en": "Draw a square with 4 cm sides.", "de": "Zeichne ein Quadrat mit 4 cm Seitenlänge."}, "Pon encima un tejado bonito.": {"en": "Put a nice roof on top.", "de": "Setz ein schönes Dach darauf."}, "Dibuja una puerta de 1 cm de ancho y 2 cm de alto en el centro del lado de abajo.": {"en": "Draw a door 1 cm wide and 2 cm high in the middle of the bottom side.", "de": "Zeichne eine Tür, 1 cm breit und 2 cm hoch, in die Mitte der unteren Seite."}, "Añade algunas ventanas.": {"en": "Add some windows.", "de": "Füge ein paar Fenster hinzu."}, "Pinta la puerta de color marrón.": {"en": "Colour the door brown.", "de": "Male die Tür braun an."}, "Sigue dibujando hasta que te parezca que está bien.": {"en": "Keep drawing until you think it looks good.", "de": "Zeichne weiter, bis du findest, dass es gut aussieht."}, "¿Qué es «bonito»? El ordenador no tiene gustos: necesita formas y medidas exactas.": {"en": "What is «nice»? A computer has no taste: it needs exact shapes and measurements.", "de": "Was ist «schön»? Ein Computer hat keinen Geschmack: Er braucht genaue Formen und Maße."}, "¿Cuántas son «algunas»? ¿Dónde? Hay que decir el número y la posición.": {"en": "How many is «some»? Where? You need to give the number and the position.", "de": "Wie viele sind «ein paar»? Wo? Man muss die Anzahl und die Position angeben."}, "¿Cuándo termina? Un algoritmo debe ser finito: tiene que acabar en un momento claro.": {"en": "When does it end? An algorithm must be finite: it has to stop at a clear moment.", "de": "Wann ist Schluss? Ein Algorithmus muss endlich sein: Er muss zu einem klaren Zeitpunkt aufhören."}, "Hacer zumo de naranja": {"en": "Making orange juice", "de": "Orangensaft machen"}, "Coge 3 naranjas.": {"en": "Take 3 oranges.", "de": "Nimm 3 Orangen."}, "Corta cada naranja por la mitad.": {"en": "Cut each orange in half.", "de": "Schneide jede Orange in der Mitte durch."}, "Exprímelas un rato.": {"en": "Squeeze them for a while.", "de": "Presse sie eine Weile aus."}, "Echa el zumo en un vaso.": {"en": "Pour the juice into a glass.", "de": "Gieß den Saft in ein Glas."}, "Añade azúcar al gusto.": {"en": "Add sugar to taste.", "de": "Gib Zucker nach Geschmack dazu."}, "Repite para siempre: remueve el zumo.": {"en": "Repeat forever: stir the juice.", "de": "Wiederhole für immer: Rühre den Saft um."}, "¿Cuánto es «un rato»? Mejor: «exprime cada mitad hasta que no salga más zumo».": {"en": "How long is «a while»? Better: «squeeze each half until no more juice comes out».", "de": "Wie lange ist «eine Weile»? Besser: «Presse jede Hälfte aus, bis kein Saft mehr kommt»."}, "¿Al gusto de quién? Hay que dar una cantidad exacta, por ejemplo «1 cucharadita».": {"en": "To whose taste? You need an exact amount, for example «1 teaspoon».", "de": "Nach wessen Geschmack? Man braucht eine genaue Menge, zum Beispiel «1 Teelöffel»."}, "¡Nunca termina! Un algoritmo tiene que acabar.": {"en": "It never ends! An algorithm has to finish.", "de": "Das hört nie auf! Ein Algorithmus muss enden."}, "¡Esta tampoco la entendería!": {"en": "It wouldn’t understand this one either!", "de": "Das würde er auch nicht verstehen!"}, "Esta sí es precisa: el ordenador sabría hacerla.": {"en": "This one is precise: the computer could do it.", "de": "Diese ist genau: Der Computer könnte sie ausführen."}, "Dame instrucciones exactas y las cumpliré sin equivocarme.": {"en": "Give me exact instructions and I’ll follow them without mistakes.", "de": "Gib mir genaue Anweisungen, und ich führe sie fehlerfrei aus."}, "¡Perfecto! Ya sabes qué instrucciones son <b>precisas</b> y cuáles hacen que un algoritmo no sea <b>finito</b>.": {"en": "Perfect! Now you know which instructions are <b>precise</b> and which ones make an algorithm not <b>finite</b>.", "de": "Perfekt! Jetzt weißt du, welche Anweisungen <b>genau</b> sind und welche einen Algorithmus <b>unendlich</b> machen."}, "¡Error de sistema! Revisa las instrucciones marcadas en rojo.": {"en": "System error! Check the instructions marked in red.", "de": "Systemfehler! Prüfe die rot markierten Anweisungen."}, "Sé el ordenador": {"en": "Be the computer", "de": "Sei der Computer"}, "Ahora tú eres el procesador: sigue el algoritmo <b>exactamente</b> y pinta las casillas. ¿Qué dibujo aparece?": {"en": "Now you are the processor: follow the algorithm <b>exactly</b> and colour the squares. What picture appears?", "de": "Jetzt bist du der Prozessor: Befolge den Algorithmus <b>genau</b> und male die Kästchen aus. Welches Bild erscheint?"}, "Dibujo {n}": {"en": "Picture {n}", "de": "Bild {n}"}, "Tú": {"en": "You", "de": "Du"}, "Algoritmo:": {"en": "Algorithm:", "de": "Algorithmus:"}, "Fila {r}: pinta {c}": {"en": "Row {r}: colour {c}", "de": "Zeile {r}: male {c}"}, "🧽 Borrar": {"en": "🧽 Clear", "de": "🧽 Löschen"}, "⚡ Que lo haga el ordenador": {"en": "⚡ Let the computer do it", "de": "⚡ Lass es den Computer machen"}, "❤️ ¡Es un corazón!": {"en": "❤️ It’s a heart!", "de": "❤️ Es ist ein Herz!"}, "😊 ¡Es una carita sonriente!": {"en": "😊 It’s a smiley face!", "de": "😊 Es ist ein Smiley!"}, "🏠 ¡Es una casa!": {"en": "🏠 It’s a house!", "de": "🏠 Es ist ein Haus!"}, "Hay {w} casillas pintadas de más y {m} sin pintar. ¡Un ordenador no se equivoca nunca al seguir el algoritmo!": {"en": "There are {w} squares coloured by mistake and {m} missing. A computer never makes mistakes when following the algorithm!", "de": "{w} Kästchen sind zu viel ausgemalt und {m} fehlen. Ein Computer macht nie Fehler, wenn er dem Algorithmus folgt!"}, "Este ordenador va despacio para que puedas verlo. Uno de verdad lo haría en menos de una millonésima de segundo, y nunca se equivoca… si el algoritmo está bien.": {"en": "This computer goes slowly so you can watch. A real one would do it in less than a millionth of a second, and it never makes mistakes… if the algorithm is right.", "de": "Dieser Computer ist absichtlich langsam, damit du zusehen kannst. Ein echter würde es in weniger als einer millionstel Sekunde schaffen – und er irrt sich nie … wenn der Algorithmus stimmt."}, "Dentro del ordenador: así se ejecuta un algoritmo": {"en": "Inside the computer: this is how an algorithm runs", "de": "Im Computer: So wird ein Algorithmus ausgeführt"}, "El programa está guardado en la memoria. El procesador repite siempre el mismo ciclo: <b>buscar → descodificar → ejecutar</b>. Mira cómo prepara un bocadillo.": {"en": "The program is stored in memory. The processor always repeats the same cycle: <b>fetch → decode → execute</b>. Watch it make a sandwich.", "de": "Das Programm ist im Speicher abgelegt. Der Prozessor wiederholt immer denselben Zyklus: <b>holen → dekodieren → ausführen</b>. Sieh zu, wie er ein Brötchen belegt."}, "Memoria (RAM)": {"en": "Memory (RAM)", "de": "Arbeitsspeicher (RAM)"}, "Número de tomates:": {"en": "Number of tomatoes:", "de": "Anzahl Tomaten:"}, "Último ingrediente:": {"en": "Last ingredient:", "de": "Letzte Zutat:"}, "✔ Quitar el bug": {"en": "✔ Remove the bug", "de": "✔ Bug entfernen"}, "🐛 Meter un bug en el programa": {"en": "🐛 Put a bug in the program", "de": "🐛 Einen Bug ins Programm einbauen"}, "Procesador (CPU)": {"en": "Processor (CPU)", "de": "Prozessor (CPU)"}, "BUSCAR": {"en": "FETCH", "de": "HOLEN"}, "DESCODIFICAR": {"en": "DECODE", "de": "DEKODIEREN"}, "EJECUTAR": {"en": "EXECUTE", "de": "AUSFÜHREN"}, "Contador de programa (PC)": {"en": "Program counter (PC)", "de": "Befehlszähler (PC)"}, "Ciclo nº": {"en": "Cycle no.", "de": "Zyklus Nr."}, "Registro de instrucción (IR)": {"en": "Instruction register (IR)", "de": "Befehlsregister (IR)"}, "Unidad de control: ¿qué significa?": {"en": "Control unit: what does it mean?", "de": "Steuerwerk: Was bedeutet das?"}, "ALU (calculadora)": {"en": "ALU (calculator)", "de": "ALU (Rechenwerk)"}, "Registro «contador»": {"en": "«counter» register", "de": "Register «Zähler»"}, "Salida: robot cocinero": {"en": "Output: robot chef", "de": "Ausgabe: Koch-Roboter"}, "Pulsa «▶ Ejecutar» o «⏭ Siguiente fase» para que el procesador empiece.": {"en": "Click «▶ Run» or «⏭ Next phase» to start the processor.", "de": "Klicke auf «▶ Start» oder «⏭ Nächste Phase», damit der Prozessor loslegt."}, "⏭ Siguiente fase": {"en": "⏭ Next phase", "de": "⏭ Nächste Phase"}, "Un procesador real hace este ciclo unos 3.000 millones de veces por segundo (3 GHz).": {"en": "A real processor does this cycle about 3 billion times per second (3 GHz).", "de": "Ein echter Prozessor durchläuft diesen Zyklus etwa 3 Milliarden Mal pro Sekunde (3 GHz)."}, "COGER {x}": {"en": "TAKE {x}", "de": "NIMM {x}"}, "PONER {x}": {"en": "ADD {x}", "de": "LEG {x}"}, "TAPAR con pan": {"en": "CLOSE with bread", "de": "ZUKLAPPEN mit Brot"}, "contador = 0": {"en": "counter = 0", "de": "Zähler = 0"}, "contador = contador + 1": {"en": "counter = counter + 1", "de": "Zähler = Zähler + 1"}, "SI contador < {n} → IR A {a}": {"en": "IF counter < {n} → GO TO {a}", "de": "WENN Zähler < {n} → GEH ZU {a}"}, "FIN": {"en": "END", "de": "ENDE"}, "pan": {"en": "bread", "de": "Brot"}, "jamón": {"en": "ham", "de": "Schinken"}, "tomate": {"en": "tomato", "de": "Tomate"}, "queso": {"en": "cheese", "de": "Käse"}, "lechuga": {"en": "lettuce", "de": "Salat"}, "SÍ": {"en": "YES", "de": "JA"}, "NO": {"en": "NO", "de": "NEIN"}, "el procesador mira el contador de programa (PC = {pc}) y trae la instrucción guardada en la dirección {pc} de la memoria.": {"en": "the processor looks at the program counter (PC = {pc}) and fetches the instruction stored at address {pc} in memory.", "de": "Der Prozessor schaut auf den Befehlszähler (PC = {pc}) und holt den Befehl, der an Adresse {pc} im Speicher steht."}, "la unidad de control traduce el código binario {b}: significa «{t}».": {"en": "the control unit translates the binary code {b}: it means «{t}».", "de": "Das Steuerwerk übersetzt den Binärcode {b}: Er bedeutet «{t}»."}, "envía la orden al robot cocinero: «{t}». Después, el PC pasa a la siguiente dirección.": {"en": "it sends the order to the robot chef: «{t}». Then the PC moves on to the next address.", "de": "Er schickt den Befehl an den Koch-Roboter: «{t}». Danach springt der PC zur nächsten Adresse."}, "guarda el número 0 en el registro «contador». Lo usará para contar.": {"en": "it stores the number 0 in the «counter» register. It will use it to count.", "de": "Er speichert die Zahl 0 im Register «Zähler». Damit wird gezählt."}, "la ALU hace una suma: {a} + 1 = {b}, y guarda el resultado en «contador».": {"en": "the ALU adds: {a} + 1 = {b}, and stores the result in «counter».", "de": "Die ALU rechnet: {a} + 1 = {b} und speichert das Ergebnis in «Zähler»."}, "la ALU compara {c} < {n} → <b>SÍ</b>. El PC salta otra vez a la dirección {a}. ¡Esto es un bucle!": {"en": "the ALU compares {c} < {n} → <b>YES</b>. The PC jumps back to address {a}. This is a loop!", "de": "Die ALU vergleicht {c} < {n} → <b>JA</b>. Der PC springt zurück zu Adresse {a}. Das ist eine Schleife!"}, "la ALU compara {c} < {n} → <b>NO</b>. Se acabó el bucle: el PC sigue con la siguiente instrucción.": {"en": "the ALU compares {c} < {n} → <b>NO</b>. The loop is over: the PC continues with the next instruction.", "de": "Die ALU vergleicht {c} < {n} → <b>NEIN</b>. Die Schleife ist vorbei: Der PC macht mit dem nächsten Befehl weiter."}, "El ordenador ha obedecido exactamente… pero el bocadillo ha salido mal porque el algoritmo tenía un <b>bug</b>. 🐛": {"en": "The computer obeyed exactly… but the sandwich came out wrong because the algorithm had a <b>bug</b>. 🐛", "de": "Der Computer hat genau gehorcht … aber das Brötchen ist misslungen, weil der Algorithmus einen <b>Bug</b> hatte. 🐛"}, "¡Bocadillo terminado! El ordenador ha seguido el algoritmo instrucción por instrucción. 😋": {"en": "Sandwich done! The computer followed the algorithm instruction by instruction. 😋", "de": "Brötchen fertig! Der Computer hat den Algorithmus Befehl für Befehl ausgeführt. 😋"}, "🏆 <b>¡Habéis completado todos los niveles!</b> Ya sois programadores.": {"en": "🏆 <b>You have completed every level!</b> You are programmers now.", "de": "🏆 <b>Ihr habt alle Level geschafft!</b> Jetzt seid ihr Programmierer."}, "👤 Nombre y apellidos:": {"en": "👤 Name and surname:", "de": "👤 Vor- und Nachname:"}, "Escribe aquí tu nombre y apellidos": {"en": "Type your name and surname here", "de": "Schreib hier deinen Vor- und Nachnamen"}, "🖨️ Imprimir (JPG)": {"en": "🖨️ Print (JPG)", "de": "🖨️ Drucken (JPG)"}, "✏️ Escribe primero tu nombre y apellidos.": {"en": "✏️ Type your name and surname first.", "de": "✏️ Schreib zuerst deinen Vor- und Nachnamen."}, "✅ Imagen guardada.": {"en": "✅ Image saved.", "de": "✅ Bild gespeichert."}, "Descarga cancelada.": {"en": "Download cancelled.", "de": "Download abgebrochen."}, "Programa el robot": {"en": "Program the robot", "de": "Programmiere den Roboter"}, "Nivel {a}: {t}": {"en": "Level {a}: {t}", "de": "Level {a}: {t}"}, "Nivel": {"en": "Level", "de": "Level"}, "Reto": {"en": "Challenge", "de": "Aufgabe"}, "Solución del alumno": {"en": "Student’s solution", "de": "Lösung des Schülers / der Schülerin"}, "✅ SOLUCIÓN CORRECTA": {"en": "✅ CORRECT SOLUTION", "de": "✅ RICHTIGE LÖSUNG"}, "❌ SOLUCIÓN NO CORRECTA": {"en": "❌ INCORRECT SOLUTION", "de": "❌ FALSCHE LÖSUNG"}, "El robot llega a la meta.": {"en": "The robot reaches the goal.", "de": "Der Roboter erreicht das Ziel."}, "Funciona en los {n} mapas de prueba.": {"en": "It works on all {n} test maps.", "de": "Es funktioniert auf allen {n} Testkarten."}, "⭐ Programa perfecto: usa el mínimo de bloques ({c}).": {"en": "⭐ Perfect program: it uses the minimum number of blocks ({c}).", "de": "⭐ Perfektes Programm: Es nutzt die wenigsten Blöcke ({c})."}, "Usa {c} bloques (el mínimo posible es {p}).": {"en": "It uses {c} blocks (the minimum possible is {p}).", "de": "Es nutzt {c} Blöcke (das Minimum ist {p})."}, "El programa está vacío.": {"en": "The program is empty.", "de": "Das Programm ist leer."}, "El robot choca con una pared.": {"en": "The robot crashes into a wall.", "de": "Der Roboter fährt gegen eine Wand."}, "El programa no termina nunca (bucle infinito).": {"en": "The program never ends (infinite loop).", "de": "Das Programm hört nie auf (Endlosschleife)."}, "El robot no llega a la meta.": {"en": "The robot does not reach the goal.", "de": "Der Roboter erreicht das Ziel nicht."}, "Faltan estrellas por recoger.": {"en": "Some stars were not collected.", "de": "Es wurden nicht alle Sterne gesammelt."}, "Usa más bloques de los permitidos ({c} de {l}).": {"en": "It uses more blocks than allowed ({c} of {l}).", "de": "Es nutzt mehr Blöcke als erlaubt ({c} von {l})."}, "Falla en el mapa de prueba {k} de {n}.": {"en": "It fails on test map {k} of {n}.", "de": "Es scheitert auf Testkarte {k} von {n}."}, "Mapa de prueba {k} de {n}": {"en": "Test map {k} of {n}", "de": "Testkarte {k} von {n}"}, "(programa vacío)": {"en": "(empty program)", "de": "(leeres Programm)"}, "Recorrido del robot con este programa": {"en": "The robot’s route with this program", "de": "Weg des Roboters mit diesem Programm"}, "Mantén pulsada la imagen (o clic derecho) y elige «Guardar imagen».": {"en": "Press and hold the image (or right-click) and choose «Save image».", "de": "Halte das Bild gedrückt (oder Rechtsklick) und wähle «Bild speichern»."}, "⬇️ Descargar JPG": {"en": "⬇️ Download JPG", "de": "⬇️ JPG herunterladen"}, "Cerrar": {"en": "Close", "de": "Schließen"}, "Prácticas de Computación y Robótica 1º ESO": {"en": "Computing & Robotics Activities · Year 7 (1º ESO)", "de": "Praxisübungen Informatik & Robotik · 7. Klasse (1º ESO)"}, "🤖 Programa el robot · 12 prácticas": {"en": "🤖 Program the robot · 12 activities", "de": "🤖 Programmiere den Roboter · 12 Übungen"}, "Práctica {a} de {b}": {"en": "Activity {a} of {b}", "de": "Übung {a} von {b}"}, "¡Práctica superada!": {"en": "Activity complete!", "de": "Übung geschafft!"}, "Siguiente práctica →": {"en": "Next activity →", "de": "Nächste Übung →"}, "🏆 <b>¡Habéis completado todas las prácticas!</b> Ya sois programadores.": {"en": "🏆 <b>You have completed all the activities!</b> You are programmers now.", "de": "🏆 <b>Ihr habt alle Übungen geschafft!</b> Jetzt seid ihr Programmierer."}, "Práctica {a}: {t}": {"en": "Activity {a}: {t}", "de": "Übung {a}: {t}"}, "Práctica": {"en": "Activity", "de": "Uebung"}, "🤖 Programa el robot · 24 prácticas": {"en": "🤖 Program the robot · 24 activities", "de": "🤖 Programmiere den Roboter · 24 Übungen"}, "💬 El robot ha dicho: {n}": {"en": "💬 The robot said: {n}", "de": "💬 Der Roboter hat gesagt: {n}"}, "📡 Si debajo hay": {"en": "📡 If underneath there is", "de": "📡 Wenn darunter"}, "una planta 🌱": {"en": "a plant 🌱", "de": "eine Pflanze 🌱 ist"}, "una manzana madura 🍎": {"en": "a ripe apple 🍎", "de": "ein reifer Apfel 🍎 ist"}, "una oveja 🐑": {"en": "a sheep 🐑", "de": "ein Schaf 🐑 ist"}, "hojas 🍂": {"en": "leaves 🍂", "de": "Laub 🍂 ist"}, "un paquete 📦": {"en": "a parcel 📦", "de": "ein Paket 📦 ist"}, "🖌️ Pintar casilla": {"en": "🖌️ Paint square", "de": "🖌️ Feld anmalen"}, "✋ Coger paquete": {"en": "✋ Pick up parcel", "de": "✋ Paket aufheben"}, "📦 Dejar paquete": {"en": "📦 Drop parcel", "de": "📦 Paket abgeben"}, "💧 Regar": {"en": "💧 Water", "de": "💧 Gießen"}, "🧺 Recoger manzana": {"en": "🧺 Pick apple", "de": "🧺 Apfel pflücken"}, "🧹 Barrer": {"en": "🧹 Sweep", "de": "🧹 Fegen"}, "🔢 contador = 0": {"en": "🔢 counter = 0", "de": "🔢 Zähler = 0"}, "➕ Sumar 1 al contador": {"en": "➕ Add 1 to counter", "de": "➕ Zähler um 1 erhöhen"}, "💬 Decir el contador": {"en": "💬 Say the counter", "de": "💬 Zähler sagen"}, "🧩 Definir «mi función»": {"en": "🧩 Define «my function»", "de": "🧩 «Meine Funktion» festlegen"}, "▶ Usar «mi función»": {"en": "▶ Use «my function»", "de": "▶ «Meine Funktion» benutzen"}, "🧩 Solo puede haber una «mi función».": {"en": "🧩 There can only be one «my function».", "de": "🧩 Es kann nur eine «meine Funktion» geben."}, "(salto a «mi función»)": {"en": "(jump to «my function»)", "de": "(Sprung zu «meine Funktion»)"}, "(vuelvo de «mi función»)": {"en": "(back from «my function»)", "de": "(zurück von «meine Funktion»)"}, "🧩 Usas «mi función», pero no la has definido. Añade el bloque «Definir mi función».": {"en": "🧩 You use «my function» but haven’t defined it. Add the «Define my function» block.", "de": "🧩 Du benutzt «meine Funktion», hast sie aber nicht festgelegt. Füge den Block «Meine Funktion festlegen» hinzu."}, "♾️ La función se llama a sí misma sin parar.": {"en": "♾️ The function keeps calling itself forever.", "de": "♾️ Die Funktion ruft sich endlos selbst auf."}, "♾️ ¡Bucle infinito! El programa no termina nunca.": {"en": "♾️ Infinite loop! The program never ends.", "de": "♾️ Endlosschleife! Das Programm hört nie auf."}, "💥 ¡Choque! El robot ha chocado. Eso es un <b>bug</b>: busca la instrucción que falla (está marcada en amarillo).": {"en": "💥 Crash! The robot hit something. That is a <b>bug</b>: find the instruction that goes wrong (it is highlighted in yellow).", "de": "💥 Zusammenstoß! Der Roboter ist angestoßen. Das ist ein <b>Bug</b>: Finde den falschen Befehl (er ist gelb markiert)."}, "✋ ¡Ya llevas un paquete! Primero déjalo en una casa.": {"en": "✋ You are already carrying a parcel! Drop it at a house first.", "de": "✋ Du trägst schon ein Paket! Gib es zuerst an einem Haus ab."}, "✋ Aquí no hay ningún paquete que coger.": {"en": "✋ There is no parcel to pick up here.", "de": "✋ Hier gibt es kein Paket zum Aufheben."}, "📦 No llevas ningún paquete.": {"en": "📦 You are not carrying a parcel.", "de": "📦 Du trägst kein Paket."}, "📦 ¡Aquí no hay ninguna casa! Los paquetes se dejan en las casas.": {"en": "📦 There is no house here! Parcels are dropped at houses.", "de": "📦 Hier ist kein Haus! Pakete werden an Häusern abgegeben."}, "💧 ¡Aquí no hay nada que regar!": {"en": "💧 There is nothing to water here!", "de": "💧 Hier gibt es nichts zu gießen!"}, "🧺 Aquí no hay ninguna manzana madura.": {"en": "🧺 There is no ripe apple here.", "de": "🧺 Hier gibt es keinen reifen Apfel."}, "🧹 ¡Aquí no hay hojas que barrer!": {"en": "🧹 There are no leaves to sweep here!", "de": "🧹 Hier gibt es kein Laub zum Fegen!"}, "🔢 Primero tienes que poner el contador a 0.": {"en": "🔢 First you have to set the counter to 0.", "de": "🔢 Zuerst musst du den Zähler auf 0 setzen."}, "🖌️ Has pintado casillas que no están marcadas.": {"en": "🖌️ You painted squares that are not marked.", "de": "🖌️ Du hast Felder angemalt, die nicht markiert sind."}, "🖌️ Te faltan casillas por pintar.": {"en": "🖌️ Some squares still need painting.", "de": "🖌️ Es fehlen noch Felder zum Anmalen."}, "📦 Quedan paquetes sin entregar.": {"en": "📦 Some parcels have not been delivered.", "de": "📦 Es wurden noch nicht alle Pakete zugestellt."}, "💧 Quedan plantas sin regar.": {"en": "💧 Some plants have not been watered.", "de": "💧 Es wurden noch nicht alle Pflanzen gegossen."}, "🍎 Quedan árboles sin atender.": {"en": "🍎 Some trees have not been looked after.", "de": "🍎 Um manche Bäume hat sich noch niemand gekümmert."}, "🍂 Quedan hojas sin barrer.": {"en": "🍂 Some leaves have not been swept.", "de": "🍂 Es wurde noch nicht alles Laub gefegt."}, "💬 El robot no ha dicho ningún número. Usa «Decir el contador» al final.": {"en": "💬 The robot didn’t say any number. Use «Say the counter» at the end.", "de": "💬 Der Roboter hat keine Zahl gesagt. Benutze am Ende «Zähler sagen»."}, "💬 El robot ha dicho {a}, pero la respuesta correcta es {b}.": {"en": "💬 The robot said {a}, but the correct answer is {b}.", "de": "💬 Der Roboter hat {a} gesagt, aber die richtige Antwort ist {b}."}, "🧩 Esta práctica hay que resolverla usando «mi función».": {"en": "🧩 This activity must be solved using «my function».", "de": "🧩 Diese Übung muss mit «meine Funktion» gelöst werden."}, "📦 carga": {"en": "📦 load", "de": "📦 Ladung"}, "🔢 contador": {"en": "🔢 counter", "de": "🔢 Zähler"}, "💬 dijo": {"en": "💬 said", "de": "💬 sagte"}, "📡 debajo": {"en": "📡 underneath", "de": "📡 darunter"}, "El robot pintor 🖌️": {"en": "The painter robot 🖌️", "de": "Der Maler-Roboter 🖌️"}, "Pinta las casillas marcadas con línea discontinua. El robot pinta la casilla en la que está.": {"en": "Paint the squares marked with a dashed line. The robot paints the square it is standing on.", "de": "Male die gestrichelt markierten Felder an. Der Roboter malt das Feld an, auf dem er steht."}, "<b>Salida:</b> un programa no solo mueve cosas: también puede crear un resultado, como un dibujo.": {"en": "<b>Output:</b> a program doesn’t just move things: it can also create a result, like a drawing.", "de": "<b>Ausgabe:</b> Ein Programm bewegt nicht nur Dinge: Es kann auch ein Ergebnis erzeugen, zum Beispiel ein Bild."}, "El marco": {"en": "The frame", "de": "Der Rahmen"}, "Pinta el borde del cuadrado con <b>5 bloques</b> como máximo.": {"en": "Paint the border of the square with at most <b>5 blocks</b>.", "de": "Male den Rand des Quadrats mit höchstens <b>5 Blöcken</b> an."}, "<b>Bucles anidados:</b> un lado = 3 × (pintar + avanzar); el marco = 4 × (lado + girar).": {"en": "<b>Nested loops:</b> one side = 3 × (paint + move); the frame = 4 × (side + turn).", "de": "<b>Verschachtelte Schleifen:</b> eine Seite = 3 × (malen + vorwärts); der Rahmen = 4 × (Seite + drehen)."}, "El collar de cuentas": {"en": "The bead necklace", "de": "Die Perlenkette"}, "Pinta una casilla sí y otra no alrededor del cuadrado. Máximo <b>6 bloques</b>.": {"en": "Paint every other square around the square. Maximum <b>6 blocks</b>.", "de": "Male rund um das Quadrat jedes zweite Feld an. Höchstens <b>6 Blöcke</b>."}, "<b>Patrones:</b> encuentra la parte que se repite (pintar, avanzar, avanzar) y repítela.": {"en": "<b>Patterns:</b> find the part that repeats (paint, move, move) and repeat it.", "de": "<b>Muster:</b> Finde den Teil, der sich wiederholt (malen, vorwärts, vorwärts), und wiederhole ihn."}, "Mi primera función 🧩": {"en": "My first function 🧩", "de": "Meine erste Funktion 🧩"}, "Pinta los tres cuadrados. Primero <b>define «mi función»</b> para pintar un cuadrado de 2×2 y después úsala tres veces. Pista: repetir 4 veces (pintar, avanzar, girar derecha).": {"en": "Paint the three squares. First <b>define «my function»</b> to paint a 2×2 square, then use it three times. Hint: repeat 4 times (paint, move forward, turn right).", "de": "Male die drei Quadrate an. <b>Lege zuerst «meine Funktion» fest</b>, die ein 2×2-Quadrat malt, und benutze sie dann dreimal. Tipp: 4-mal wiederholen (malen, vorwärts, rechts drehen)."}, "<b>Funciones:</b> le pones nombre a un trozo de programa y lo usas todas las veces que quieras.": {"en": "<b>Functions:</b> you give a piece of program a name and use it as many times as you like.", "de": "<b>Funktionen:</b> Du gibst einem Programmteil einen Namen und benutzt ihn, so oft du willst."}, "Las cuatro esquinas": {"en": "The four corners", "de": "Die vier Ecken"}, "Pinta los cuatro cuadrados de las esquinas usando <b>«mi función»</b> dentro de un bucle. Ojo: el cuadrado se pinta según hacia dónde mira el robot.": {"en": "Paint the four corner squares using <b>«my function»</b> inside a loop. Careful: the square is painted according to where the robot is facing.", "de": "Male die vier Eckquadrate mit <b>«meine Funktion»</b> in einer Schleife. Achtung: Das Quadrat wird je nach Blickrichtung des Roboters gemalt."}, "<b>Reutilizar:</b> la misma función funciona en cualquier sitio y en cualquier dirección.": {"en": "<b>Reuse:</b> the same function works anywhere and in any direction.", "de": "<b>Wiederverwenden:</b> Dieselbe Funktion funktioniert überall und in jede Richtung."}, "El repartidor 📦": {"en": "The delivery robot 📦", "de": "Der Paketbote 📦"}, "Coge el paquete 📦 y llévalo a la casa 🏠.": {"en": "Pick up the parcel 📦 and take it to the house 🏠.", "de": "Nimm das Paket 📦 und bring es zum Haus 🏠."}, "<b>Estado:</b> el ordenador recuerda si el robot lleva un paquete o no. Eso es información guardada en memoria.": {"en": "<b>State:</b> the computer remembers whether the robot is carrying a parcel. That is information stored in memory.", "de": "<b>Zustand:</b> Der Computer merkt sich, ob der Roboter ein Paket trägt. Das ist eine im Speicher abgelegte Information."}, "Reparto en cadena": {"en": "Chain delivery", "de": "Lieferkette"}, "Lleva cada paquete a la casa que tiene a su derecha. Máximo <b>5 bloques</b>.": {"en": "Take each parcel to the house on its right. Maximum <b>5 blocks</b>.", "de": "Bring jedes Paket zum Haus rechts daneben. Höchstens <b>5 Blöcke</b>."}, "<b>Patrón con estado:</b> coger, avanzar, dejar… y otra vez. El robot nunca lleva dos paquetes a la vez.": {"en": "<b>Pattern with state:</b> pick up, move, drop… and again. The robot never carries two parcels at once.", "de": "<b>Muster mit Zustand:</b> aufheben, vorwärts, abgeben … und noch einmal. Der Roboter trägt nie zwei Pakete gleichzeitig."}, "El jardinero 🎲": {"en": "The gardener 🎲", "de": "Der Gärtner 🎲"}, "Riega solo las macetas que tienen planta 🌱. Si riegas tierra vacía, ¡error! Las plantas cambian en cada prueba: se probará en <b>3 jardines</b>. Máximo 6 bloques.": {"en": "Water only the pots that have a plant 🌱. If you water empty soil: error! The plants change in every test: it will be tested in <b>3 gardens</b>. Maximum 6 blocks.", "de": "Gieß nur die Töpfe, in denen eine Pflanze 🌱 ist. Wenn du leere Erde gießt: Fehler! Die Pflanzen ändern sich bei jedem Test: Getestet wird in <b>3 Gärten</b>. Höchstens 6 Blöcke."}, "<b>Condición:</b> el robot mira con su sensor qué hay debajo y decide si regar o no.": {"en": "<b>Condition:</b> the robot uses its sensor to see what is underneath and decides whether to water.", "de": "<b>Bedingung:</b> Der Roboter prüft mit seinem Sensor, was darunter ist, und entscheidet, ob er gießt."}, "La cosecha 🎲": {"en": "The harvest 🎲", "de": "Die Ernte 🎲"}, "En cada árbol hay una manzana: si está <b>madura 🍎</b>, recógela; si está <b>verde 🍏</b>, riégala. Se probará en <b>3 huertos</b>. Máximo 8 bloques.": {"en": "Each tree has an apple: if it is <b>ripe 🍎</b>, pick it; if it is <b>green 🍏</b>, water it. It will be tested in <b>3 orchards</b>. Maximum 8 blocks.", "de": "An jedem Baum hängt ein Apfel: Ist er <b>reif 🍎</b>, pflück ihn; ist er <b>grün 🍏</b>, gieß ihn. Getestet wird in <b>3 Obstgärten</b>. Höchstens 8 Blöcke."}, "<b>Si… si no:</b> siempre se hace una de las dos cosas, nunca las dos.": {"en": "<b>If… else:</b> one of the two things always happens, never both.", "de": "<b>Wenn… sonst:</b> Es passiert immer eines von beiden, nie beides."}, "Cuenta ovejas 🎲": {"en": "Count the sheep 🎲", "de": "Schafe zählen 🎲"}, "Recorre el prado, cuenta cuántas ovejas 🐑 hay y al final haz que el robot <b>diga</b> el número. Se probará en <b>3 prados</b>. Máximo 9 bloques.": {"en": "Walk across the meadow, count how many sheep 🐑 there are and at the end make the robot <b>say</b> the number. It will be tested in <b>3 meadows</b>. Maximum 9 blocks.", "de": "Lauf über die Wiese, zähle die Schafe 🐑 und lass den Roboter am Ende die Zahl <b>sagen</b>. Getestet wird auf <b>3 Wiesen</b>. Höchstens 9 Blöcke."}, "<b>Variables:</b> el «contador» es una caja en la memoria donde el programa guarda un número que va cambiando.": {"en": "<b>Variables:</b> the «counter» is a box in memory where the program keeps a number that changes.", "de": "<b>Variablen:</b> Der «Zähler» ist ein Kästchen im Speicher, in dem das Programm eine Zahl aufbewahrt, die sich ändert."}, "El barrendero 🎲": {"en": "The street sweeper 🎲", "de": "Der Straßenfeger 🎲"}, "Barre las hojas 🍂 del andén hasta llegar a la valla 🚧. ¡La valla está en un sitio distinto en cada prueba! Se probará en <b>3 andenes</b>. Máximo 6 bloques.": {"en": "Sweep the leaves 🍂 on the platform until you reach the fence 🚧. The fence is in a different place in every test! It will be tested on <b>3 platforms</b>. Maximum 6 blocks.", "de": "Feg das Laub 🍂 auf dem Bahnsteig bis zum Zaun 🚧. Der Zaun steht bei jedem Test an einer anderen Stelle! Getestet wird auf <b>3 Bahnsteigen</b>. Höchstens 6 Blöcke."}, "<b>Mientras + si:</b> repetir sin saber cuántas veces y decidir en cada paso.": {"en": "<b>While + if:</b> repeat without knowing how many times and decide at every step.", "de": "<b>Solange + wenn:</b> wiederholen, ohne zu wissen, wie oft, und bei jedem Schritt entscheiden."}, "Gran final: el granjero 🏆🎲": {"en": "Grand finale: the farmer 🏆🎲", "de": "Großes Finale: der Bauer 🏆🎲"}, "Usa <b>«mi función»</b> para atender cada árbol (recoger si está madura, regar si está verde), <b>cuenta</b> las manzanas recogidas y al final <b>di</b> el número. Se probará en <b>3 huertos</b>.": {"en": "Use <b>«my function»</b> to look after each tree (pick if ripe, water if green), <b>count</b> the apples picked and at the end <b>say</b> the number. It will be tested in <b>3 orchards</b>.", "de": "Benutze <b>«meine Funktion»</b>, um dich um jeden Baum zu kümmern (pflücken, wenn reif; gießen, wenn grün), <b>zähle</b> die gepflückten Äpfel und <b>sag</b> am Ende die Zahl. Getestet wird in <b>3 Obstgärten</b>."}, "<b>Pensamiento computacional:</b> descomponer, buscar patrones, usar funciones, condiciones y variables… ¡todo junto!": {"en": "<b>Computational thinking:</b> decomposing, finding patterns, using functions, conditions and variables… all together!", "de": "<b>Informatisches Denken:</b> zerlegen, Muster finden, Funktionen, Bedingungen und Variablen benutzen … alles zusammen!"}};
+/* ================= utilidades ================= */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const NS='http://www.w3.org/2000/svg';
+function svgEl(tag,attrs,parent){ const e=document.createElementNS(NS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); if(parent) parent.appendChild(e); return e; }
+function confetti(){
+  const cols=['#FFC93C','#FF6B4A','#3B82F6','#22A06B','#8B5CF6'];
+  for(let i=0;i<70;i++){ const d=document.createElement('div'); d.className='confetti';
+    d.style.left=Math.random()*100+'vw'; d.style.background=cols[i%cols.length];
+    d.style.animationDuration=(1.6+Math.random()*1.6)+'s'; d.style.animationDelay=(Math.random()*.4)+'s';
+    document.body.appendChild(d); setTimeout(()=>d.remove(),3800); }
+}
+const VIEWS=['robot'];
+const STUDIOS={};
+function show(v){
+  v='robot';
+  $$('section.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+  $$('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  if(location.hash.slice(1)!==v) history.replaceState(null,'','#'+v);
+  if(v==='inicio') updateHome();
+  window.scrollTo({top:0});
+}
+function updateHome(){ $$('[data-prog]').forEach(el=>{ const s=STUDIOS[el.dataset.prog]; if(s) el.textContent=s.done.size?tr('✓ {a} de {b} niveles',{a:s.done.size,b:s.app.levels.length}):tr('{n} niveles',{n:s.app.levels.length}); }); }
+
+$$('[data-go]').forEach(c=>c.onclick=()=>show(c.dataset.go));
+window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
+$('#fs').onclick=()=>{ try{ if(document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(()=>{}); }catch(e){} };
+
+/* ================= motor de bloques ================= */
+const REPEAT={label:'🔁 Repetir',cls:'c-loop',kind:'repeat',params:[{k:'n',opts:[2,3,4,5,6,7,8,9,10].map(v=>[v,String(v)]),def:3,after:'veces'}]};
+const R=(type,p,children)=>({type,p:p||{},children});
+const isBox=d=>['repeat','until','if','while','ifelse','def'].includes(d.kind);
+const DELAYS=[900,600,380,200,70,12];
+let winHandler=null;
+$('#winStay').onclick=()=>$('#win').classList.remove('on');
+$('#winNext').onclick=()=>{ $('#win').classList.remove('on'); if(winHandler) winHandler(); };
+
+class Studio{
+  constructor(app){
+    this.app=app; app.st=this; this.root=$('#v-'+app.id); this.uid=1;
+    this.program=[]; this.sel='root'; this.run=null; this.timer=null; this.lvl=0;
+    this.done=new Set(); try{ JSON.parse(localStorage.getItem('done-'+app.id)||'[]').forEach(i=>this.done.add(i)); }catch(e){}
+    this.build(); app.mount(this.q('.stageBox')); this.loadLevel(0);
+    STUDIOS[app.id]=this;
+  }
+  q(s){ return this.root.querySelector(s); }
+  build(){
+    this.root.innerHTML=`
+      <div class="levels"></div>
+      <span class="pill lvlPill"></span><h2 class="lvlTitle"></h2><div class="lvlDesc"></div><div class="concept lvlConcept"></div>
+      <div class="studio">
+        <div><p class="panel-t">${tr('Bloques')}</p><div class="palette"></div>
+          <p class="hint">${tr('Pulsa un bloque para añadirlo (o arrástralo). Pulsa dentro de un bucle para meter bloques en él.')}</p></div>
+        <div><p class="panel-t">${tr('Programa')}</p><div class="target-lbl"></div><div class="code"></div><div class="counter"></div></div>
+        <div class="stage"><div class="stageBox"></div>
+          <div class="controls">
+            <button class="btn go runBtn">${tr('▶ Ejecutar')}</button><button class="btn stepBtn">${tr('⏭ Paso a paso')}</button>
+            <button class="btn alt resetBtn">${tr('⟲ Reiniciar')}</button><button class="btn alt clearBtn">${tr('🗑 Borrar')}</button>
+          </div>
+          <div class="speed">🐢 <input type="range" class="spd" min="1" max="6" value="3"> ⚡</div>
+          <div class="msg"></div>
+          <div class="brain"><h4>${tr('🧠 Dentro del ordenador')}</h4>
+            <div class="lbl" style="margin-top:0">${tr('Instrucción que está ejecutando el procesador:')}</div><div class="pc">—</div>
+            <div class="lbl">${tr('Memoria:')}</div><div class="regs"></div>
+            <div class="lbl">${tr('Instrucciones ejecutadas:')} <b class="nsteps">0</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="printbar"><label>${tr('👤 Nombre y apellidos:')}</label>
+        <input class="pname" maxlength="60" placeholder="${tr('Escribe aquí tu nombre y apellidos')}">
+        <button class="btn printBtn">${tr('🖨️ Imprimir (JPG)')}</button><span class="pmsg"></span></div>`;
+    this.q('.pname').value=PNAME;
+    this.q('.pname').oninput=e=>{ PNAME=e.target.value; e.target.classList.remove('need'); };
+    this.q('.printBtn').onclick=()=>printSheet(this);
+    this.code=this.q('.code');
+    this.q('.levels').onclick=e=>{ const b=e.target.closest('button'); if(b) this.loadLevel(+b.dataset.l); };
+    this.q('.runBtn').onclick=()=>this.onRun();
+    this.q('.stepBtn').onclick=()=>this.onStep();
+    this.q('.resetBtn').onclick=()=>{ this.stop(); this.reset(); this.msg(''); };
+    this.pending=null;
+    this.q('.clearBtn').onclick=()=>{ this.program=[]; this.sel='root'; this.changed(); };
+    this.code.onclick=e=>{
+      if(e.target.closest('select,.del')) return;
+      const blk=e.target.closest('.blk'), slot=e.target.closest('.slot');
+      if(blk&&slot&&slot.contains(blk)){ const f=this.find(+blk.dataset.id); if(f&&isBox(this.app.blocks[f.node.type])){ this.sel=blk.dataset.id; this.renderProgram(); } }
+      else if(slot){ this.sel=slot.dataset.slot; this.renderProgram(); }
+    };
+  }
+  get L(){ return this.app.levels[this.lvl]; }
+  speed(){ return +this.q('.spd').value; }
+  baseDelay(){ return DELAYS[this.speed()-1]; }
+  label(n,info){ const d=this.app.blocks[n.type]; let s=tr(d.label);
+    (d.params||[]).forEach(pr=>{ const o=pr.opts.find(o=>o[0]==n.p[pr.k]); s+=' '+(o?tr(o[1]):n.p[pr.k])+(pr.after?' '+tr(pr.after):''); });
+    return s+(info?' '+info:''); }
+  defaults(type){ const p={}; (this.app.blocks[type].params||[]).forEach(pr=>p[pr.k]=pr.def); return Object.assign(p,((this.L&&this.L.dflt)||{})[type]||{}); }
+  newNode(type,p){ const d=this.app.blocks[type]; return {id:this.uid++,type,p:Object.assign(this.defaults(type),p||{}),children:isBox(d)?[]:undefined,other:d.kind==='ifelse'?[]:undefined}; }
+  clone(spec){ return spec.map(s=>{ const n=this.newNode(s.type,s.p); if(s.children) n.children=this.clone(s.children); if(s.other) n.other=this.clone(s.other); return n; }); }
+  count(nodes=this.program){ return nodes.reduce((a,n)=>a+1+(n.children?this.count(n.children):0)+(n.other?this.count(n.other):0),0); }
+  find(id,nodes=this.program){ for(const n of nodes){ if(n.id===id) return {node:n,list:nodes}; for(const sub of [n.children,n.other]) if(sub){ const r=this.find(id,sub); if(r) return r; } } return null; }
+  slotList(s){ s=String(s); if(s==='root') return this.program; const e=s.endsWith('e'); const f=this.find(parseInt(s)); return f?(e?f.node.other:f.node.children):this.program; }
+  contains(node,id){ return node.id===id||[...(node.children||[]),...(node.other||[])].some(c=>this.contains(c,id)); }
+  msg(t,cls){ const m=this.q('.msg'); m.className='msg'+(cls?' '+cls:''); m.innerHTML=t; }
+
+  loadLevel(i){
+    this.stop(); this.lvl=i; const lv=this.L;
+    this.program=lv.pre?this.clone(lv.pre):[]; this.sel='root';
+    this.q('.lvlPill').textContent=tr('Práctica {a} de {b}',{a:i+1,b:this.app.levels.length});
+    this.q('.lvlTitle').innerHTML=tr(lv.t); this.q('.lvlDesc').innerHTML=tr(lv.d); this.q('.lvlConcept').innerHTML='💡 '+tr(lv.c);
+    const pal=this.q('.palette'); pal.innerHTML='';
+    lv.p.forEach(t=>{ const def=this.app.blocks[t];
+      const b=document.createElement('div'); b.className='blk '+def.cls; b.draggable=true;
+      b.textContent=this.label({type:t,p:this.defaults(t)})+(def.kind==='ifelse'?tr(' … si no'):'');
+      b.onclick=()=>this.add(t);
+      b.ondragstart=e=>e.dataTransfer.setData('text/plain','new:'+t);
+      pal.appendChild(b); });
+    this.renderLevels(); this.app.setup(lv); this.reset(); this.renderProgram(); this.msg('');
+  }
+  renderLevels(){
+    this.q('.levels').innerHTML=this.app.levels.map((l,i)=>`<button class="${i===this.lvl?'on':''} ${this.done.has(i)?'done':''}" data-l="${i}" title="${tr(l.t).replace(/<[^>]+>/g,'')}">${i+1}</button>`).join('');
+  }
+  reset(keep){ this.app.reset(keep); this.highlight(null); this.brain('—',0); }
+  brain(pc,n){ this.q('.pc').textContent=pc; if(n!==undefined) this.q('.nsteps').textContent=n;
+    this.q('.regs').innerHTML=this.app.regs().map(r=>`<div><small>${tr(String(r[0]))}</small><b>${tr(String(r[1]))}</b></div>`).join(''); }
+
+  /* editor */
+  renderProgram(){
+    this.code.innerHTML=''; this.code.appendChild(this.renderSlot(this.program,'root'));
+    const lim=this.L.lim, c=this.count(), cn=this.q('.counter');
+    cn.textContent=lim?tr('Bloques: {c} / {l}',{c,l:lim}):tr('Bloques: {c}',{c}); cn.classList.toggle('full',!!lim&&c>=lim);
+    let name=tr('Programa principal');
+    if(this.sel!=='root'){ const f=this.find(parseInt(this.sel)); if(f) name=String(this.sel).endsWith('e')?tr('dentro de «si no»'):tr('dentro de «{x}»',{x:tr(this.app.blocks[f.node.type].label)}); else this.sel='root'; }
+    this.q('.target-lbl').innerHTML=`${tr('Los bloques nuevos van a:')} <b>${name}</b>`;
+  }
+  renderSlot(nodes,slotId){
+    const s=document.createElement('div'); s.className='slot'+(slotId==='root'?' root':''); s.dataset.slot=slotId;
+    if(String(this.sel)===String(slotId)) s.classList.add('selected');
+    if(!nodes.length){ const ph=document.createElement('div'); ph.className='ph'; ph.textContent=slotId==='root'?tr('Pulsa o arrastra bloques aquí…'):tr('Mete aquí los bloques…'); s.appendChild(ph); }
+    nodes.forEach(n=>s.appendChild(this.renderBlock(n)));
+    s.ondragover=e=>{ e.preventDefault(); e.stopPropagation(); s.classList.add('over'); };
+    s.ondragleave=e=>{ e.stopPropagation(); s.classList.remove('over'); };
+    s.ondrop=e=>{
+      e.preventDefault(); e.stopPropagation(); s.classList.remove('over');
+      const data=e.dataTransfer.getData('text/plain'); if(!data) return;
+      let el=e.target, idx=nodes.length;
+      while(el&&el!==s&&el.parentElement!==s) el=el.parentElement;
+      if(el&&el!==s&&el.classList.contains('blk')) idx=[...s.children].filter(c=>c.classList.contains('blk')).indexOf(el);
+      if(data.startsWith('new:')) this.add(data.slice(4),slotId,idx); else this.move(+data.slice(5),slotId,idx);
+    };
+    return s;
+  }
+  renderBlock(n){
+    const def=this.app.blocks[n.type];
+    const b=document.createElement('div'); b.className='blk '+def.cls; b.dataset.id=n.id; b.draggable=true;
+    b.ondragstart=e=>{ e.stopPropagation(); e.dataTransfer.setData('text/plain','move:'+n.id); };
+    const hd=document.createElement('div'); hd.className='hd';
+    const sp=document.createElement('span'); sp.textContent=tr(def.label); hd.appendChild(sp);
+    (def.params||[]).forEach(pr=>{
+      const sel=document.createElement('select');
+      sel.innerHTML=pr.opts.map(o=>`<option value="${o[0]}" ${o[0]==n.p[pr.k]?'selected':''}>${tr(o[1])}</option>`).join('');
+      sel.onchange=()=>{ n.p[pr.k]=typeof pr.def==='number'?+sel.value:sel.value; this.changed(); };
+      hd.appendChild(sel);
+      if(pr.after){ const a=document.createElement('span'); a.textContent=tr(pr.after); hd.appendChild(a); }
+    });
+    const del=document.createElement('button'); del.className='del'; del.textContent='×'; del.title=tr('Quitar bloque');
+    del.onclick=e=>{ e.stopPropagation(); const f=this.find(n.id); f.list.splice(f.list.indexOf(f.node),1); if(this.sel!=='root'&&!this.find(parseInt(this.sel))) this.sel='root'; this.changed(); };
+    hd.appendChild(del); b.appendChild(hd);
+    if(isBox(def)) b.appendChild(this.renderSlot(n.children,String(n.id)));
+    if(def.kind==='ifelse'){ const el=document.createElement('div'); el.className='hd'; el.style.marginTop='8px'; el.textContent=tr('↪ si no:'); b.appendChild(el); b.appendChild(this.renderSlot(n.other,n.id+'e')); }
+    return b;
+  }
+  add(type,slotId=this.sel,idx){
+    if(this.run&&this.run.running) return;
+    if(type==='def'&&this.app.findDef&&this.app.findDef(this.program)){ this.msg(tr('🧩 Solo puede haber una «mi función».'),'bad'); return; }
+    const lim=this.L.lim;
+    if(lim&&this.count()>=lim){ this.msg(tr('🚫 Límite de {l} bloques.',{l:lim})+' '+(this.L.p.includes('repeat')?tr('¿Puedes usar un bucle?'):''),'bad'); return; }
+    const node=this.newNode(type); const list=this.slotList(String(slotId));
+    if(idx===undefined) list.push(node); else list.splice(idx,0,node);
+    if(isBox(this.app.blocks[type])) this.sel=String(node.id);
+    this.changed();
+  }
+  move(id,slotId,idx){
+    const f=this.find(id); if(!f) return;
+    if(slotId!=='root'&&this.contains(f.node,parseInt(slotId))) return;
+    const from=f.list, old=from.indexOf(f.node); from.splice(old,1);
+    const to=this.slotList(String(slotId)); if(to===from&&idx>old) idx--;
+    to.splice(Math.max(0,Math.min(idx,to.length)),0,f.node); this.changed();
+  }
+  changed(){ this.stop(); this.reset(); this.msg(''); this.renderProgram(); }
+
+  /* ejecución */
+  *exec(nodes){
+    for(const n of nodes){
+      const d=this.app.blocks[n.type];
+      if(d.kind==='repeat'){ for(let i=1;i<=n.p.n;i++){ yield {n,info:tr('(vuelta {i} de {n})',{i,n:n.p.n})}; yield* this.exec(n.children); } }
+      else if(d.kind==='until'){ let i=0; while(!this.app.cond(n)){ i++; yield {n,info:tr('(¿ya? no → vuelta {i})',{i})}; yield* this.exec(n.children); } yield {n,info:tr('(¿ya? sí → salgo)')}; }
+      else if(d.kind==='while'){ let i=0; while(this.app.cond(n)){ i++; yield {n,info:tr('(sí → vuelta {i})',{i})}; yield* this.exec(n.children); } yield {n,info:tr('(no → salgo)')}; }
+      else if(d.kind==='def'){ continue; }
+      else if(d.kind==='call'){ const df=this.app.findDef(this.program);
+        if(!df){ yield {n,err:tr('🧩 Usas «mi función», pero no la has definido. Añade el bloque «Definir mi función».')}; return; }
+        if((this.depth=(this.depth||0)+1)>30){ yield {n,err:tr('♾️ La función se llama a sí misma sin parar.')}; return; }
+        yield {n,info:tr('(salto a «mi función»)')}; yield* this.exec(df.children); this.depth--; yield {n,info:tr('(vuelvo de «mi función»)')}; }
+      else if(d.kind==='ifelse'){ const c=this.app.cond(n); yield {n,info:c?tr('→ sí'):tr('→ no, voy a «si no»')}; yield* this.exec(c?n.children:n.other); }
+      else if(d.kind==='if'){ const c=this.app.cond(n); yield {n,info:c?tr('→ sí, entro'):tr('→ no, me lo salto')}; if(c) yield* this.exec(n.children); }
+      else yield {n,leaf:true};
+    }
+  }
+  highlight(id){ this.code.querySelectorAll('.blk.running').forEach(b=>b.classList.remove('running')); if(id){ const el=this.code.querySelector(`.blk[data-id="${id}"]`); if(el) el.classList.add('running'); } }
+  stop(){ clearTimeout(this.pending); clearTimeout(this.timer); this.timer=null; this.run=null; this.code.classList.remove('locked'); this.q('.runBtn').textContent=tr('▶ Ejecutar'); this.app.onStop&&this.app.onStop(); }
+  ensure(){
+    if(this.run) return true;
+    if(!this.program.length){ this.msg(tr('El programa está vacío. ¡Añade bloques!'),'info'); return false; }
+    this.reset(); this.msg(''); this.depth=0; this.run={gen:this.exec(this.program),steps:0,running:false,waitBtn:false}; this.code.classList.add('locked'); return true;
+  }
+  step(){
+    const r=this.run.gen.next();
+    if(r.done){ this.finish(); return -1; }
+    const {n,info,leaf,err}=r.value; this.run.steps++; this.highlight(n.id);
+    if(err){ this.brain(this.label(n),this.run.steps); this.msg(err,'bad'); this.end(true); return -1; }
+    let res={}; if(leaf) res=this.app.act(n)||{};
+    this.brain(this.label(n,info),this.run.steps);
+    if(res.crash){ this.msg(res.crash,'bad'); this.end(true); return -1; }
+    if(this.run.steps>4000){ this.msg(tr('♾️ ¡Bucle infinito! El programa no termina nunca. Revisa qué hay dentro del bucle.'),'bad'); this.end(); return -1; }
+    if(res.button){ this.run.waitBtn=true; return 'btn'; }
+    return res.ms!==undefined?res.ms:this.baseDelay();
+  }
+  loop(){ if(!this.run||!this.run.running) return; const d=this.step(); if(typeof d==='number'&&d>=0) this.timer=setTimeout(()=>this.loop(),d); }
+  buttonPressed(){ if(!this.run||!this.run.waitBtn) return false; this.run.waitBtn=false; if(this.run.running) this.timer=setTimeout(()=>this.loop(),this.baseDelay()); return true; }
+  end(keepHL){ clearTimeout(this.timer); this.timer=null; this.run=null; this.code.classList.remove('locked'); this.q('.runBtn').textContent=tr('▶ Ejecutar'); if(!keepHL) this.highlight(null); this.app.onStop&&this.app.onStop(); }
+  finish(){
+    const was=this.run&&this.run.running;
+    this.end(); this.brain(tr('✔ Programa terminado'));
+    const r=this.app.check();
+    if(r.again){
+      this.msg(r.again,'info');
+      this.pending=setTimeout(()=>{ this.app.nextTest(); this.reset(true); this.depth=0;
+        this.run={gen:this.exec(this.program),steps:0,running:was,waitBtn:false}; this.code.classList.add('locked');
+        if(was){ this.q('.runBtn').textContent=tr('⏸ Pausa'); this.loop(); } else this.q('.runBtn').textContent=tr('▶ Continuar'); },1400);
+      return;
+    }
+    if(r.win) this.win(); else this.msg(r.msg,r.cls||'bad');
+  }
+  win(){
+    this.done.add(this.lvl); try{ localStorage.setItem('done-'+this.app.id,JSON.stringify([...this.done])); }catch(e){}
+    this.renderLevels(); const c=this.count(), par=this.L.par, last=this.lvl===this.app.levels.length-1;
+    $('#winText').innerHTML=c<=par?tr('⭐ <b>¡Programa perfecto!</b> Habéis usado el mínimo de bloques ({c}).',{c}):tr('Habéis usado {c} bloques. ¿Seríais capaces de hacerlo con <b>{p}</b>?',{c,p:par});
+    if(last) $('#winText').innerHTML+='<br><br>'+tr('🏆 <b>¡Habéis completado todas las prácticas!</b> Ya sois programadores.');
+    $('#winNext').style.display=last?'none':'';
+    $('#winNext').textContent=last?tr('🏠 Elegir otra app'):tr('Siguiente práctica →');
+    winHandler=()=>{ if(!last) this.loadLevel(this.lvl+1); };
+    $('#win').classList.add('on'); confetti();
+  }
+  onRun(){
+    if(this.run&&this.run.running){ this.run.running=false; clearTimeout(this.timer); this.q('.runBtn').textContent=tr('▶ Continuar'); return; }
+    if(!this.ensure()) return;
+    this.run.running=true; this.q('.runBtn').textContent=tr('⏸ Pausa');
+    if(!this.run.waitBtn) this.loop();
+  }
+  onStep(){
+    if(this.run&&this.run.waitBtn){ this.msg(tr('👆 El programa está esperando a que pulses el botón.'),'info'); return; }
+    if(this.run&&this.run.running){ this.run.running=false; clearTimeout(this.timer); }
+    if(!this.ensure()) return;
+    this.q('.runBtn').textContent=tr('▶ Continuar'); this.step();
+  }
+}
+
+/* ================= APP 1: ROBOT ================= */
+const robotApp=(()=>{
+  const DIRS=[[1,0],[0,1],[-1,0],[0,-1]], ARROWS=['→','↓','←','↑'];
+  const SENS={k:'w',opts:[['pared','pared'],['camino','camino']],def:'pared'};
+  const SDIR={k:'dir',opts:[['del','delante'],['izq','a la izquierda'],['der','a la derecha']],def:'del'};
+  const SDIR2={...SDIR}, SENS2={...SENS,def:'camino'};
+  const OBJS=[['plant','una planta 🌱'],['ripe','una manzana madura 🍎'],['sheep','una oveja 🐑'],['leaf','hojas 🍂'],['box','un paquete 📦']];
+  const blocks={
+    fwd:{label:'⬆ Avanzar',cls:'c-move'}, left:{label:'↺ Girar izquierda',cls:'c-turn'}, right:{label:'↻ Girar derecha',cls:'c-turn'},
+    repeat:REPEAT,
+    until:{label:'🔁 Repetir hasta',cls:'c-until',kind:'until',params:[{k:'c',opts:[['goal','llegar a la meta 🏁'],['stars','tener todas las ⭐']],def:'goal'}]},
+    while:{label:'🔁 Mientras haya',cls:'c-until',kind:'while',params:[SENS2,SDIR2]},
+    ifwall:{label:'📡 Si hay',cls:'c-if',kind:'if',params:[SENS,SDIR]},
+    ifelse:{label:'📡 Si hay',cls:'c-if',kind:'ifelse',params:[SENS2,SDIR]},
+    ifhere:{label:'📡 Si debajo hay',cls:'c-if',kind:'if',params:[{k:'o',opts:OBJS,def:'plant'}]},
+    ifelsehere:{label:'📡 Si debajo hay',cls:'c-if',kind:'ifelse',params:[{k:'o',opts:OBJS,def:'plant'}]},
+    paint:{label:'🖌️ Pintar casilla',cls:'c-pen'},
+    take:{label:'✋ Coger paquete',cls:'c-act'}, drop:{label:'📦 Dejar paquete',cls:'c-act'},
+    water:{label:'💧 Regar',cls:'c-act'}, harvest:{label:'🧺 Recoger manzana',cls:'c-act'}, sweep:{label:'🧹 Barrer',cls:'c-act'},
+    setc:{label:'🔢 contador = 0',cls:'c-var'}, inc:{label:'➕ Sumar 1 al contador',cls:'c-var'}, say:{label:'💬 Decir el contador',cls:'c-var'},
+    def:{label:'🧩 Definir «mi función»',cls:'c-fn',kind:'def'}, call:{label:'▶ Usar «mi función»',cls:'c-fn',kind:'call'}
+  };
+  const P1=['fwd','left','right'], P2=[...P1,'repeat'], P3=[...P2,'until','ifwall'];
+  const P4=[...P1,'repeat','until','while'], P5=[...P1,'until','while','ifwall','ifelse'];
+
+  /* ---- generadores de mapas aleatorios ---- */
+  const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+  const k=(x,y)=>x+','+y;
+  function fromPath(n,path,extra){ const ps=new Set(path.map(p=>k(p[0],p[1]))); const w=[]; for(let y=0;y<n;y++)for(let x=0;x<n;x++) if(!ps.has(k(x,y))) w.push([x,y]); return Object.assign({n,w,st:[]},extra); }
+  function dirTo(a,b){ return DIRS.findIndex(d=>a[0]+d[0]===b[0]&&a[1]+d[1]===b[1]); }
+  function genCorridors(){
+    const n=9, path=[[0,8]]; let x=0,y=8; const L=[rnd(2,4),rnd(2,4),rnd(2,4),rnd(2,4)];
+    for(let i=0;i<L[0];i++) path.push([x,--y]); for(let i=0;i<L[1];i++) path.push([++x,y]);
+    for(let i=0;i<L[2];i++) path.push([x,--y]); for(let i=0;i<L[3];i++) path.push([++x,y]);
+    return fromPath(n,path,{s:[0,8,3],g:[x,y]});
+  }
+  function genSnake(){
+    const n=9;
+    for(let tries=0;tries<500;tries++){
+      const path=[[0,8]], ps=new Set([k(0,8)]); let d=3;
+      while(path.length<40){
+        const c=path[path.length-1];
+        const opts=[0,1,2,3].filter(nd=>{ const nx=c[0]+DIRS[nd][0], ny=c[1]+DIRS[nd][1];
+          if(nx<0||ny<0||nx>=n||ny>=n||ps.has(k(nx,ny))) return false;
+          return DIRS.every(dd=>{ const ax=nx+dd[0], ay=ny+dd[1]; return (ax===c[0]&&ay===c[1])||!ps.has(k(ax,ay)); }); });
+        if(!opts.length) break;
+        d = opts.includes(d)&&Math.random()<.6 ? d : opts[Math.floor(Math.random()*opts.length)];
+        const nc=[c[0]+DIRS[d][0],c[1]+DIRS[d][1]]; path.push(nc); ps.add(k(nc[0],nc[1]));
+      }
+      if(path.length>=22) return fromPath(n,path,{s:[0,8,dirTo(path[0],path[1])],g:path[path.length-1]});
+    }
+  }
+  function carve(n){
+    const open=new Set([k(0,n-1)]), stack=[[0,n-1]];
+    while(stack.length){ const c=stack[stack.length-1];
+      const nb=DIRS.map(d=>[c[0]+2*d[0],c[1]+2*d[1],d]).filter(p=>p[0]>=0&&p[1]>=0&&p[0]<n&&p[1]<n&&!open.has(k(p[0],p[1])));
+      if(!nb.length){ stack.pop(); continue; }
+      const p=nb[Math.floor(Math.random()*nb.length)]; open.add(k(c[0]+p[2][0],c[1]+p[2][1])); open.add(k(p[0],p[1])); stack.push([p[0],p[1]]); }
+    return open;
+  }
+  function mazeMap(n,open,extra){ const w=[]; for(let y=0;y<n;y++)for(let x=0;x<n;x++) if(!open.has(k(x,y))) w.push([x,y]);
+    const s0=open.has(k(0,n-2))?3:0; return Object.assign({n,w,st:[],s:[0,n-1,s0]},extra); }
+  const genMaze=()=>{ const n=9, o=carve(n); return mazeMap(n,o,{g:[n-1,0]}); };
+  const genDark=()=>{ const n=11, o=carve(n); return mazeMap(n,o,{g:[n-1,0],dark:true}); };
+  function genStars(){
+    for(;;){ const n=9, o=carve(n);
+      const dead=[...o].map(s=>s.split(',').map(Number)).filter(([x,y])=>!(x===0&&y===n-1)&&DIRS.filter(d=>o.has(k(x+d[0],y+d[1]))).length===1);
+      if(dead.length<3) continue;
+      const st=dead.sort(()=>Math.random()-.5).slice(0,3);
+      return mazeMap(n,o,{g:[0,n-1],st}); }
+  }
+
+  /* ---- generadores 20–24 ---- */
+  function rowObjs(n,y,cells){ const o={}; cells.forEach(([x,t])=>o[k(x,y)]=t); return o; }
+  const pickSome=(arr,a,b)=>{ const s=arr.slice().sort(()=>Math.random()-.5); return s.slice(0,rnd(a,b)); };
+  function genGarden(){ const xs=pickSome([0,1,2,3,4,5,6],3,5); return {n:7,s:[0,3,0],w:[],soil:[0,1,2,3,4,5,6].map(x=>k(x,3)),obj:rowObjs(7,3,xs.map(x=>[x,'plant']))}; }
+  function genOrchard(){ for(;;){ const t=[0,1,2,3,4,5,6].map(()=>Math.random()<.5?'ripe':'unripe'); if(t.includes('ripe')&&t.includes('unripe'))
+      return {n:7,s:[0,3,0],w:[],soil:[0,1,2,3,4,5,6].map(x=>k(x,3)),soilCls:'grass',obj:rowObjs(7,3,t.map((v,x)=>[x,v]))}; } }
+  function genMeadow(){ const xs=pickSome([0,1,2,3,4,5,6],1,6); return {n:7,s:[0,3,0],w:[],soil:[0,1,2,3,4,5,6].map(x=>k(x,3)),soilCls:'grass',obj:rowObjs(7,3,xs.map(x=>[x,'sheep']))}; }
+  function genPlatform(){ const n=9, L=rnd(4,9), xs=pickSome([...Array(L).keys()],2,Math.max(2,L-2));
+    return {n,s:[0,4,0],w:L<n?[[L,4]]:[],fence:true,soil:[...Array(L).keys()].map(x=>k(x,4)),soilCls:'tiles',obj:rowObjs(n,4,xs.map(x=>[x,'leaf']))}; }
+
+  const path=[]; for(let x=0;x<7;x++)path.push([x,0]); for(let y=1;y<7;y++)path.push([6,y]); for(let x=0;x<6;x++)path.push([x,6]);
+  for(let y=2;y<6;y++)path.push([0,y]); for(let x=1;x<5;x++)path.push([x,2]); path.push([4,3],[4,4],[3,4],[2,4]);
+  const row=y=>[0,1,2,3,4,5,6].map(x=>[x,y]);
+  const levels=[
+    {t:'Primeros pasos',d:'Lleva el robot hasta la bandera 🏁.',c:'<b>Secuencia:</b> el ordenador ejecuta las instrucciones en orden, de arriba abajo.',
+     map:{s:[1,3,0],g:[5,3],w:[[1,2],[2,2],[3,2],[4,2],[5,2],[1,4],[2,4],[3,4],[4,4],[5,4]],st:[]},p:P1,par:4},
+    {t:'La esquina',d:'Ahora hay que girar. Ojo: el robot gira según hacia dónde mira <b>él</b>, no tú.',c:'<b>Orientación:</b> ponte en el lugar del robot. ¿Su izquierda es tu izquierda?',
+     map:{s:[1,5,0],g:[4,2],w:[[0,5],[1,4],[2,4],[3,4],[3,3],[3,2],[5,5],[5,4],[5,3],[5,2],[4,1]],st:[]},p:P1,par:7},
+    {t:'El pasillo largo',d:'Solo puedes usar <b>2 bloques</b>. ¿Cómo avanzas 6 casillas?',c:'<b>Bucle:</b> «Repetir» hace lo mismo muchas veces sin tener que escribirlo muchas veces.',
+     map:{s:[0,3,0],g:[6,3],w:[...row(2),...row(4)],st:[]},p:P2,lim:2,par:2},
+    {t:'La escalera',d:'Sube la escalera con <b>5 bloques</b> como máximo. Busca el trozo que se repite.',c:'<b>Patrones:</b> los programadores buscan lo que se repite para escribir menos código.',
+     map:{s:[0,6,0],g:[5,1],w:[[2,6],[3,5],[4,4],[5,3],[6,2],[0,5],[1,4],[2,3],[3,2],[4,1],[6,1],[5,0]],st:[]},p:P2,lim:5,par:5},
+    {t:'Cazaestrellas',d:'Recoge las 3 estrellas ⭐ y vuelve a la bandera. Máximo <b>4 bloques</b>: ¡un bucle dentro de otro!',c:'<b>Bucles anidados:</b> un cuadrado = 4 × (lado + giro), y cada lado = 4 × avanzar.',
+     map:{s:[1,1,0],g:[1,1],w:[[3,3],[2,3],[4,3],[3,2],[3,4]],st:[[5,1],[5,5],[1,5]]},p:P2,lim:4,par:4},
+    {t:'Caza el bug 🐛',d:'Otro programador escribió este programa, pero tiene <b>2 errores</b>. Ejecútalo, mira dónde falla y arréglalo.',c:'<b>Depurar (debugging):</b> encontrar y corregir errores es la mitad del trabajo de un programador.',
+     map:{s:[1,1,0],g:[5,5],w:[[2,0],[1,2],[2,3],[3,4],[4,5],[3,1],[4,2],[5,3],[6,4],[6,5],[5,6]],st:[]},p:P2,par:5,
+     pre:[R('repeat',{n:3},[R('fwd'),R('left'),R('fwd'),R('right')])]},
+    {t:'El robot aspirador',d:'El laberinto es muy largo, pero solo tienes <b>4 bloques</b>. Usa el sensor: si hay pared delante, gira a la derecha; después, avanza.',c:'<b>Sensores y condiciones:</b> así deciden los robots de verdad, como un robot aspirador o un coche autónomo.',
+     map:fromPath(7,path,{s:[0,0,0],g:[2,4]}),p:P3,lim:4,par:4},
+    {t:'Pasillos misteriosos 🎲',d:'Los pasillos cambian de longitud en cada mapa: <b>no puedes contar los pasos</b>. Usa «Mientras haya camino delante → avanzar». Tu programa se probará en <b>3 mapas distintos</b>. Máximo 7 bloques.',c:'<b>Bucle «mientras» (while):</b> repite algo mientras se cumpla una condición, sin saber de antemano cuántas veces.',
+     gen:genCorridors,tests:3,p:P4,lim:7,par:6},
+    {t:'La serpiente 🎲',d:'Un camino que gira sin parar y es distinto en cada mapa. Crea una regla que funcione siempre: si hay camino delante, avanza; si no, gira hacia el lado donde haya camino. Se probará en <b>3 mapas</b>. Máximo 6 bloques.',c:'<b>Condición «si… si no» (if-else):</b> el programa elige entre dos caminos. ¡Puedes meter un «si» dentro de otro!',
+     gen:genSnake,tests:3,p:P5,lim:6,par:6},
+    {t:'El laberinto 🎲',d:'Un laberinto de verdad, con caminos sin salida. Truco de exploradores: <b>sigue siempre la pared de tu derecha</b> (si hay camino a la derecha, gira y avanza; si no…). Se probará en <b>3 laberintos</b>. Máximo 7 bloques.',c:'<b>Algoritmo general:</b> una regla bien pensada resuelve cualquier laberinto sin conocerlo de antes.',
+     gen:genMaze,tests:3,p:P5,lim:7,par:7},
+    {t:'Explorador total 🎲',d:'Hay 3 estrellas escondidas en caminos sin salida. Recógelas <b>todas</b> y vuelve a la base 🏁 (donde empiezas). Se probará en <b>3 laberintos</b>. Máximo 15 bloques.',c:'<b>Programas por fases:</b> primero una tarea y después otra. Los programas grandes se construyen juntando partes pequeñas.',
+     gen:genStars,tests:3,p:P5,lim:15,par:14},
+    {t:'A oscuras 🌑🎲',d:'Laberinto gigante y ¡sin luz! Solo ves lo que detectan los sensores del robot. Se probará en <b>3 laberintos</b>. Máximo 7 bloques.',c:'<b>Robots autónomos:</b> un robot real nunca ve el mapa entero; decide solo con lo que le dicen sus sensores.',
+     gen:genDark,tests:3,p:P5,lim:7,par:7},
+    /* ---------- 13–24: más allá de los laberintos ---------- */
+    {t:'El robot pintor 🖌️',d:'Pinta las casillas marcadas con línea discontinua. El robot pinta la casilla en la que está.',c:'<b>Salida:</b> un programa no solo mueve cosas: también puede crear un resultado, como un dibujo.',
+     map:{n:7,s:[1,3,0],w:[]},ref:[R('repeat',{n:4},[R('paint'),R('fwd')]),R('paint')],win:'paint',p:['fwd','left','right','paint'],par:9},
+    {t:'El marco',d:'Pinta el borde del cuadrado con <b>5 bloques</b> como máximo.',c:'<b>Bucles anidados:</b> un lado = 3 × (pintar + avanzar); el marco = 4 × (lado + girar).',
+     map:{n:7,s:[1,1,0],w:[]},ref:[R('repeat',{n:4},[R('repeat',{n:3},[R('paint'),R('fwd')]),R('right')])],win:'paint',p:['fwd','left','right','paint','repeat'],lim:5,par:5},
+    {t:'El collar de cuentas',d:'Pinta una casilla sí y otra no alrededor del cuadrado. Máximo <b>6 bloques</b>.',c:'<b>Patrones:</b> encuentra la parte que se repite (pintar, avanzar, avanzar) y repítela.',
+     map:{n:7,s:[1,1,0],w:[]},ref:[R('repeat',{n:4},[R('repeat',{n:2},[R('paint'),R('fwd'),R('fwd')]),R('right')])],win:'paint',p:['fwd','left','right','paint','repeat'],lim:6,par:6},
+    {t:'Mi primera función 🧩',d:'Pinta los tres cuadrados. Primero <b>define «mi función»</b> para pintar un cuadrado de 2×2 y después úsala tres veces. Pista: repetir 4 veces (pintar, avanzar, girar derecha).',c:'<b>Funciones:</b> le pones nombre a un trozo de programa y lo usas todas las veces que quieras.',
+     map:{n:8,s:[0,2,0],w:[]},ref:[R('def',{},[R('repeat',{n:4},[R('paint'),R('fwd'),R('right')])]),R('call'),R('repeat',{n:2},[R('repeat',{n:3},[R('fwd')]),R('call')])],win:'paint',must:'call',p:['fwd','left','right','paint','repeat','def','call'],par:10},
+    {t:'Las cuatro esquinas',d:'Pinta los cuatro cuadrados de las esquinas usando <b>«mi función»</b> dentro de un bucle. Ojo: el cuadrado se pinta según hacia dónde mira el robot.',c:'<b>Reutilizar:</b> la misma función funciona en cualquier sitio y en cualquier dirección.',
+     map:{n:7,s:[1,1,0],w:[]},ref:[R('def',{},[R('repeat',{n:4},[R('paint'),R('fwd'),R('right')])]),R('repeat',{n:4},[R('call'),R('repeat',{n:4},[R('fwd')]),R('right')])],win:'paint',must:'call',p:['fwd','left','right','paint','repeat','def','call'],par:10},
+    {t:'El repartidor 📦',d:'Coge el paquete 📦 y llévalo a la casa 🏠.',c:'<b>Estado:</b> el ordenador recuerda si el robot lleva un paquete o no. Eso es información guardada en memoria.',
+     map:{n:7,s:[0,5,0],w:[],obj:{'2,5':'box','5,1':'house'}},win:'deliver',p:['fwd','left','right','repeat','take','drop'],par:9},
+    {t:'Reparto en cadena',d:'Lleva cada paquete a la casa que tiene a su derecha. Máximo <b>5 bloques</b>.',c:'<b>Patrón con estado:</b> coger, avanzar, dejar… y otra vez. El robot nunca lleva dos paquetes a la vez.',
+     map:{n:7,s:[0,3,0],w:[],obj:{'1,3':'box','2,3':'house','3,3':'box','4,3':'house','5,3':'box','6,3':'house'}},win:'deliver',p:['fwd','left','right','repeat','take','drop'],lim:5,par:5},
+    {t:'El jardinero 🎲',d:'Riega solo las macetas que tienen planta 🌱. Si riegas tierra vacía, ¡error! Las plantas cambian en cada prueba: se probará en <b>3 jardines</b>. Máximo 6 bloques.',c:'<b>Condición:</b> el robot mira con su sensor qué hay debajo y decide si regar o no.',
+     gen:genGarden,tests:3,win:'water',dflt:{ifhere:{o:'plant'}},p:['fwd','left','right','repeat','ifhere','water'],lim:6,par:6},
+    {t:'La cosecha 🎲',d:'En cada árbol hay una manzana: si está <b>madura 🍎</b>, recógela; si está <b>verde 🍏</b>, riégala. Se probará en <b>3 huertos</b>. Máximo 8 bloques.',c:'<b>Si… si no:</b> siempre se hace una de las dos cosas, nunca las dos.',
+     gen:genOrchard,tests:3,win:'harvest',dflt:{ifelsehere:{o:'ripe'}},p:['fwd','left','right','repeat','ifelsehere','harvest','water'],lim:8,par:8},
+    {t:'Cuenta ovejas 🎲',d:'Recorre el prado, cuenta cuántas ovejas 🐑 hay y al final haz que el robot <b>diga</b> el número. Se probará en <b>3 prados</b>. Máximo 9 bloques.',c:'<b>Variables:</b> el «contador» es una caja en la memoria donde el programa guarda un número que va cambiando.',
+     gen:genMeadow,tests:3,win:'count',dflt:{ifhere:{o:'sheep'}},p:['fwd','left','right','repeat','ifhere','setc','inc','say'],lim:9,par:8},
+    {t:'El barrendero 🎲',d:'Barre las hojas 🍂 del andén hasta llegar a la valla 🚧. ¡La valla está en un sitio distinto en cada prueba! Se probará en <b>3 andenes</b>. Máximo 6 bloques.',c:'<b>Mientras + si:</b> repetir sin saber cuántas veces y decidir en cada paso.',
+     gen:genPlatform,tests:3,win:'clean',dflt:{ifhere:{o:'leaf'}},p:['fwd','left','right','repeat','while','ifhere','sweep'],lim:6,par:6},
+    {t:'Gran final: el granjero 🏆🎲',d:'Usa <b>«mi función»</b> para atender cada árbol (recoger si está madura, regar si está verde), <b>cuenta</b> las manzanas recogidas y al final <b>di</b> el número. Se probará en <b>3 huertos</b>.',c:'<b>Pensamiento computacional:</b> descomponer, buscar patrones, usar funciones, condiciones y variables… ¡todo junto!',
+     gen:genOrchard,tests:3,win:'farm',must:'call',dflt:{ifelsehere:{o:'ripe'}},p:['fwd','left','right','repeat','ifelsehere','harvest','water','setc','inc','say','def','call'],par:11}
+
+  ];
+  const SVG=`<svg viewBox="0 0 64 64"><line x1="30" y1="10" x2="30" y2="3" stroke="#1E2A5A" stroke-width="3"/><circle cx="30" cy="3" r="3" fill="#FF6B4A"/>
+<rect x="8" y="10" width="44" height="44" rx="12" fill="#FFC93C" stroke="#1E2A5A" stroke-width="3"/>
+<circle cx="40" cy="24" r="5" fill="#1E2A5A"/><circle cx="40" cy="40" r="5" fill="#1E2A5A"/><circle cx="41.5" cy="22.5" r="1.6" fill="#fff"/><circle cx="41.5" cy="38.5" r="1.6" fill="#fff"/>
+<path d="M54 26 L62 32 L54 38 Z" fill="#FF6B4A"/><rect x="14" y="26" width="10" height="12" rx="3" fill="#F0A500"/></svg>`;
+  const relOf={del:0,izq:-1,der:1};
+  const EMO={box:'📦',house:'🏠',housefull:'🏡',plant:'🌱',flower:'🌻',ripe:'🍎',unripe:'🍏',unripew:'🍏',harvested:'🧺',sheep:'🐑',leaf:'🍂',clean:'✨'};
+  const hasType=(nodes,t)=>nodes.some(n=>n.type===t||(n.children&&hasType(n.children,t))||(n.other&&hasType(n.other,t)));
+  const findType=(nodes,t)=>{ for(const n of nodes){ if(n.type===t) return n; for(const s of [n.children,n.other]) if(s){ const r=findType(s,t); if(r) return r; } } return null; };
+
+  /* ---- el mundo del robot: lo usan la animación y el corrector ---- */
+  class World{
+    constructor(m){ this.m=m; this.n=m.n||7; this.walls=new Set((m.w||[]).map(w=>k(w[0],w[1]))); this.st=m.st||[];
+      this.x=m.s[0]; this.y=m.s[1]; this.d=m.s[2]; this.got=new Set(); this.painted=new Set();
+      this.obj=new Map(Object.entries(m.obj||{})); this.carry=null; this.counter=null; this.said=null; this.path=[[this.x,this.y]]; }
+    wall(x,y){ return x<0||y<0||x>=this.n||y>=this.n||this.walls.has(k(x,y)); }
+    look(rel){ const d=DIRS[(this.d+rel+4)%4]; return this.wall(this.x+d[0],this.y+d[1]); }
+    here(){ return this.obj.get(k(this.x,this.y)); }
+    goal(){ return !!this.m.g&&this.x===this.m.g[0]&&this.y===this.m.g[1]; }
+    allStars(){ return this.got.size===this.st.length; }
+    cond(n){
+      if(n.type==='until') return n.p.c==='stars'?this.allStars():this.goal();
+      if(n.type==='ifhere'||n.type==='ifelsehere') return this.here()===n.p.o;
+      const b=this.look(relOf[n.p.dir]); return n.p.w==='pared'?b:!b;
+    }
+    act(t){   // devuelve un mensaje de error (clave) o null
+      const c=k(this.x,this.y), o=this.obj.get(c);
+      switch(t){
+        case 'fwd': { const [dx,dy]=DIRS[this.d], nx=this.x+dx, ny=this.y+dy; if(this.wall(nx,ny)){ this.crashAt=[nx,ny]; return 'crash'; }
+          this.x=nx; this.y=ny; this.path.push([nx,ny]); if(this.st.some(s=>s[0]===nx&&s[1]===ny)) this.got.add(k(nx,ny)); return null; }
+        case 'left': this.d=(this.d+3)%4; return null;
+        case 'right': this.d=(this.d+1)%4; return null;
+        case 'paint': this.painted.add(c); return null;
+        case 'take': if(this.carry) return 'carry2'; if(o!=='box') return 'nobox'; this.carry='box'; this.obj.delete(c); return null;
+        case 'drop': if(!this.carry) return 'nocarry'; if(o!=='house') return 'nohouse'; this.carry=null; this.obj.set(c,'housefull'); return null;
+        case 'water': if(o==='plant'){ this.obj.set(c,'flower'); return null; } if(o==='unripe'){ this.obj.set(c,'unripew'); return null; } return 'nowater';
+        case 'harvest': if(o!=='ripe') return 'noripe'; this.obj.set(c,'harvested'); return null;
+        case 'sweep': if(o!=='leaf') return 'noleaf'; this.obj.set(c,'clean'); return null;
+        case 'setc': this.counter=0; return null;
+        case 'inc': if(this.counter==null) return 'nocounter'; this.counter++; return null;
+        case 'say': if(this.counter==null) return 'nocounter'; this.said=this.counter; return null;
+      }
+      return null;
+    }
+    count(t){ let c=0; this.obj.forEach(v=>{ if(v===t) c++; }); return c; }
+    check(lv,prog){
+      if(lv.must==='call'&&!hasType(prog,'call')) return {why:'must_call'};
+      const w=lv.win||'goal', m=this.m;
+      if(w==='goal'){ if(this.goal()&&this.allStars()) return {ok:true}; return {why:this.goal()?'stars':'goal'}; }
+      if(w==='paint'){ const T=m.paint; const extra=[...this.painted].some(c=>!T.has(c)), miss=[...T].some(c=>!this.painted.has(c));
+        return !extra&&!miss?{ok:true}:{why:extra?'paint_extra':'paint_miss'}; }
+      if(w==='deliver') return this.count('house')===0&&!this.carry?{ok:true}:{why:'deliver'};
+      if(w==='water') return this.count('plant')===0?{ok:true}:{why:'water'};
+      if(w==='harvest') return this.count('ripe')+this.count('unripe')===0?{ok:true}:{why:'harvest'};
+      if(w==='clean') return this.count('leaf')===0?{ok:true}:{why:'clean'};
+      if(w==='count'||w==='farm'){
+        const target=w==='count'?this.count('sheep'):Object.values(m.obj).filter(v=>v==='ripe').length;
+        if(w==='farm'&&this.count('ripe')+this.count('unripe')>0) return {why:'harvest'};
+        if(this.said==null) return {why:'count_none'};
+        return this.said===target?{ok:true}:{why:'count_wrong',a:this.said,b:target};
+      }
+      return {ok:true};
+    }
+  }
+  const ERR={crash:'💥 ¡Choque! El robot ha chocado. Eso es un <b>bug</b>: busca la instrucción que falla (está marcada en amarillo).',
+    carry2:'✋ ¡Ya llevas un paquete! Primero déjalo en una casa.',nobox:'✋ Aquí no hay ningún paquete que coger.',nocarry:'📦 No llevas ningún paquete.',
+    nohouse:'📦 ¡Aquí no hay ninguna casa! Los paquetes se dejan en las casas.',nowater:'💧 ¡Aquí no hay nada que regar!',noripe:'🧺 Aquí no hay ninguna manzana madura.',
+    noleaf:'🧹 ¡Aquí no hay hojas que barrer!',nocounter:'🔢 Primero tienes que poner el contador a 0.',
+    no_def:'🧩 Usas «mi función», pero no la has definido. Añade el bloque «Definir mi función».',deep:'♾️ La función se llama a sí misma sin parar.',inf:'♾️ ¡Bucle infinito! El programa no termina nunca.'};
+  const WHY={goal:'🤔 El programa ha terminado, pero el robot no está en la meta. ¿Qué le falta?',stars:'⭐ ¡Has llegado, pero te faltan estrellas por recoger!',
+    paint_extra:'🖌️ Has pintado casillas que no están marcadas.',paint_miss:'🖌️ Te faltan casillas por pintar.',deliver:'📦 Quedan paquetes sin entregar.',
+    water:'💧 Quedan plantas sin regar.',harvest:'🍎 Quedan árboles sin atender.',clean:'🍂 Quedan hojas sin barrer.',
+    count_none:'💬 El robot no ha dicho ningún número. Usa «Decir el contador» al final.',count_wrong:'💬 El robot ha dicho {a}, pero la respuesta correcta es {b}.',
+    must_call:'🧩 Esta práctica hay que resolverla usando «mi función».'};
+
+  /* ---- simulador sin animación (para la hoja JPG) ---- */
+  function simulate(prog,map){
+    const W=new World(map); let steps=0, depth=0;
+    const tick=()=>{ if(++steps>6000) throw {e:'inf'}; };
+    const run=nodes=>{ for(const nd of nodes){ const kd=blocks[nd.type].kind;
+      if(kd==='def') continue; tick();
+      if(kd==='repeat'){ for(let i=0;i<nd.p.n;i++) run(nd.children); }
+      else if(kd==='until'){ while(!W.cond(nd)){ tick(); run(nd.children); } }
+      else if(kd==='while'){ while(W.cond(nd)){ tick(); run(nd.children); } }
+      else if(kd==='if'){ if(W.cond(nd)) run(nd.children); }
+      else if(kd==='ifelse'){ run(W.cond(nd)?nd.children:nd.other); }
+      else if(kd==='call'){ const df=findType(prog,'def'); if(!df) throw {e:'no_def'}; if(++depth>30) throw {e:'deep'}; run(df.children); depth--; }
+      else { const er=W.act(nd.type); if(er) throw {e:er}; } } };
+    let res;
+    try{ run(prog); res=W.check(curLv,prog); res.ok=!!res.ok; }
+    catch(x){ if(x&&x.e) res={ok:false,why:x.e,err:true,at:x.e==='crash'?W.crashAt:null}; else throw x; }
+    return Object.assign(res,{path:W.path,world:W});
+  }
+  function targetOf(l){ const W=new World(l.map); const run=nodes=>{ for(const nd of nodes){ const kd=blocks[nd.type].kind;
+      if(kd==='def') continue; if(kd==='repeat'){ for(let i=0;i<nd.p.n;i++) run(nd.children); } else if(kd==='call') run(findType(l.ref,'def').children); else W.act(nd.type); } };
+    run(l.ref); return W.painted; }
+  let curLv=null;
+  function report(prog,count){
+    const base={tests:lv.tests||0,lim:lv.lim,par:lv.par,count};
+    if(!prog.length) return {...base,ok:false,why:'empty',map:maps[0],mapIdx:0,sim:null};
+    if(lv.lim&&count>lv.lim) return {...base,ok:false,why:'limit',map:maps[0],mapIdx:0,sim:simulate(prog,maps[0])};
+    for(let i=0;i<maps.length;i++){ const sim=simulate(prog,maps[i]); if(!sim.ok) return {...base,ok:false,why:sim.why,a:sim.a,b:sim.b,map:maps[i],mapIdx:i,sim}; }
+    return {...base,ok:true,map:maps[0],mapIdx:0,sim:simulate(prog,maps[0])};
+  }
+
+  /* ---- animación en el tablero ---- */
+  let board, lv, maps, ti=0, m, N, W, seen, bubble;
+  function cellEl(x,y){ return board.children[y*N+x]; }
+  function paintCell(x,y){
+    const c=cellEl(x,y), key=k(x,y), fog=m.dark&&!seen.has(key); c.className='cell'; c.textContent='';
+    if(m.g&&m.g[0]===x&&m.g[1]===y) c.textContent='🏁';
+    if(fog){ c.classList.add('fog'); return; }
+    if(W.walls.has(key)){ c.classList.add(m.fence?'fence':'wall'); if(m.fence) c.textContent='🚧'; return; }
+    if(m.soil&&m.soil.includes(key)) c.classList.add(m.soilCls||'soil');
+    if(m.paint&&m.paint.has(key)) c.classList.add('tgt');
+    if(W.painted.has(key)) c.classList.add('painted');
+    const o=W.obj.get(key); if(o){ c.textContent=EMO[o]; if(o==='unripew') c.classList.add('wet'); }
+    else if(W.st.some(s=>s[0]===x&&s[1]===y)&&!W.got.has(key)) c.textContent='⭐';
+  }
+  function reveal(){ if(!m.dark) return; [[0,0],...DIRS].forEach(d=>{ const x=W.x+d[0], y=W.y+d[1]; if(x>=0&&y>=0&&x<N&&y<N&&!seen.has(k(x,y))){ seen.add(k(x,y)); paintCell(x,y); } }); }
+  let rot=0;
+  function place(instant){ const r=board.querySelector('.robot'); if(instant) r.style.transition='none';
+    r.style.left=`calc(6px + ${W.x} * ((100% - 12px) / ${N}))`; r.style.top=`calc(6px + ${W.y} * ((100% - 12px) / ${N}))`; r.querySelector('svg').style.transform=`rotate(${rot}deg)`;
+    r.querySelector('.cargo').style.display=W.carry?'':'none';
+    if(instant){ r.offsetHeight; r.style.transition=''; } }
+  return {
+    report,
+    id:'robot', name:'el Robot', blocks, levels,
+    mount(el){ el.innerHTML='<div class="board"></div><div class="say-bubble"></div>'; board=el.firstChild; bubble=el.querySelector('.say-bubble'); },
+    setup(l){ lv=l; curLv=l; if(l.ref&&!l.map.paint) l.map.paint=targetOf(l); maps=lv.gen?Array.from({length:lv.tests},()=>lv.gen()):[lv.map]; ti=0; },
+    nextTest(){ ti++; },
+    reset(keep){
+      if(!keep) ti=0; m=maps[ti]; N=m.n||7; W=new World(m); seen=new Set(); rot=m.s[2]*90;
+      board.innerHTML=''; board.style.gridTemplateColumns=board.style.gridTemplateRows=`repeat(${N},1fr)`;
+      board.style.gap=N>8?'3px':'4px'; board.style.fontSize=N>8?'clamp(.8rem,2.2vw,1.3rem)':'';
+      for(let i=0;i<N*N;i++){ const c=document.createElement('div'); c.className='cell'; board.appendChild(c); }
+      for(let y=0;y<N;y++)for(let x=0;x<N;x++) paintCell(x,y);
+      const r=document.createElement('div'); r.className='robot'; r.innerHTML=SVG+'<span class="cargo">📦</span>';
+      r.style.width=r.style.height=`calc((100% - 12px) / ${N})`; board.appendChild(r); reveal(); place(true);
+      bubble.classList.remove('on');
+    },
+    act(n){
+      const er=W.act(n.type);
+      if(er){ const r=board.querySelector('.robot'); r.classList.remove('shake'); r.offsetWidth; r.classList.add('shake');
+        return {crash:(lv.tests&&ti>0?tr('❌ Ha fallado en el <b>mapa {a} de {b}</b>. ',{a:ti+1,b:lv.tests}):'')+tr(ERR[er])}; }
+      if(n.type==='left') rot-=90; if(n.type==='right') rot+=90;
+      if(n.type==='fwd'){ const p=W.path[W.path.length-1]; paintCell(p[0],p[1]); reveal(); }
+      else paintCell(W.x,W.y);
+      if(n.type==='say'){ bubble.textContent='💬 '+W.said; bubble.classList.remove('on'); bubble.offsetWidth; bubble.classList.add('on'); }
+      place();
+    },
+    cond(n){ return W.cond(n); },
+    whyText(r){ return tr(ERR[r.why]||WHY[r.why]||'',r); },
+    findDef(prog){ return findType(prog,'def'); },
+    check(){
+      const pre=lv.tests&&ti>0?tr('❌ Ha fallado en el <b>mapa {a} de {b}</b>. ',{a:ti+1,b:lv.tests}):'';
+      const r=W.check(lv,this.st.program);
+      if(r.ok){ if(lv.tests&&ti<lv.tests-1) return {again:tr('✅ Mapa {a} de {b} superado. Probando con otro mapa distinto…',{a:ti+1,b:lv.tests})}; return {win:true}; }
+      return {msg:pre+tr(WHY[r.why],r)};
+    },
+    regs(){ const r=[['x',W.x],['y',W.y],['dirección',ARROWS[W.d]]];
+      if(W.st.length) r.push(['estrellas',`${W.got.size}/${W.st.length}`]);
+      if(lv.tests) r.push(['mapa',`${ti+1}/${lv.tests}`]);
+      if(lv.win==='deliver') r.push(['📦 carga',W.carry?'📦':'—']);
+      if(lv.win==='count'||lv.win==='farm'){ r.push(['🔢 contador',W.counter==null?'—':W.counter]); r.push(['💬 dijo',W.said==null?'—':W.said]); }
+      if(lv.p.includes('ifhere')||lv.p.includes('ifelsehere')){ const o=W.here(); r.push(['📡 debajo',o?EMO[o]:'—']); }
+      if(lv.p.some(t=>['ifwall','ifelse','while','until'].includes(t))||!lv.win){ const f=b=>b?'🧱':'·'; r.push(['📡 izq · del · der',`${f(W.look(-1))} ${f(W.look(0))} ${f(W.look(1))}`]); }
+      return r; }
+  };
+})();
+
+new Studio(robotApp);
+/* ================= hoja imprimible (JPG) ================= */
+let DL=null; try{ if(window.claude&&claude.use) claude.use('downloads').then(d=>{ DL=d; }).catch(()=>{}); }catch(e){}
+const strip=h=>{ const d=document.createElement('div'); d.innerHTML=h; return d.textContent; };
+function rr(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+function wrap(ctx,text,maxW){ const words=text.split(' '), lines=[]; let cur='';
+  words.forEach(w=>{ const t=cur?cur+' '+w:w; if(ctx.measureText(t).width>maxW&&cur){ lines.push(cur); cur=w; } else cur=t; }); if(cur) lines.push(cur); return lines; }
+const BCOL={'c-move':'#3B82F6','c-turn':'#8B5CF6','c-loop':'#F59E0B','c-until':'#EA580C','c-if':'#0EA5A4','c-pen':'#DB2777','c-act':'#16A34A','c-var':'#475569','c-fn':'#BE185D'};
+function drawProgram(ctx,st,nodes,x,y,w,dry){
+  ctx.font='800 19px Nunito, sans-serif';
+  for(const n of nodes){
+    const def=st.app.blocks[n.type], col=BCOL[def.cls]||'#64748B', top=y;
+    if(!dry){ ctx.fillStyle=col; rr(ctx,x,y,w,42,9); ctx.fill(); ctx.fillStyle='#fff'; ctx.fillText(st.label(n),x+14,y+28); }
+    y+=46;
+    if(isBox(def)){
+      const inner=(list)=>{ if(list.length) return drawProgram(ctx,st,list,x+24,y,w-24,dry);
+        if(!dry){ ctx.strokeStyle='#C9CCD8'; ctx.setLineDash([6,5]); ctx.lineWidth=2; rr(ctx,x+24,y,w-24,30,8); ctx.stroke(); ctx.setLineDash([]); } return y+36; };
+      y=inner(n.children);
+      if(def.kind==='ifelse'){ if(!dry){ ctx.fillStyle=col; rr(ctx,x,y,150,30,8); ctx.fill(); ctx.fillStyle='#fff'; ctx.font='800 17px Nunito, sans-serif'; ctx.fillText(tr('↪ si no:'),x+12,y+21); ctx.font='800 19px Nunito, sans-serif'; } y+=36; y=inner(n.other); }
+      if(!dry){ ctx.fillStyle=col; ctx.fillRect(x,top+38,14,y-top-38); rr(ctx,x,y,Math.min(w,180),14,6); ctx.fill(); }
+      y+=20;
+    }
+  }
+  return y;
+}
+function drawBoard(ctx,map,sim,x,y,S){
+  const n=map.n||7, pad=8, cs=(S-2*pad)/n, W=new Set(map.w.map(w=>w[0]+','+w[1]));
+  ctx.fillStyle='#DCE4F5'; rr(ctx,x,y,S,S,18); ctx.fill();
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  for(let j=0;j<n;j++) for(let i=0;i<n;i++){
+    const key=i+','+j, cx=x+pad+i*cs, cy=y+pad+j*cs, wd=sim&&sim.world;
+    const soil=map.soil&&map.soil.includes(key)?({grass:'#C8EBB5',tiles:'#E2E8F0'}[map.soilCls]||'#E8D3B5'):'#F3F6FD';
+    ctx.fillStyle=W.has(key)?(map.fence?'#FDE68A':'#334155'):(wd&&wd.painted.has(key)?(map.paint&&map.paint.has(key)?'#8B5CF6':'#F87171'):soil);
+    rr(ctx,cx+2,cy+2,cs-4,cs-4,Math.min(8,cs/5)); ctx.fill();
+    if(map.paint&&map.paint.has(key)){ ctx.strokeStyle='#6D28D9'; ctx.lineWidth=3; ctx.setLineDash([7,5]); rr(ctx,cx+6,cy+6,cs-12,cs-12,6); ctx.stroke(); ctx.setLineDash([]); }
+    ctx.font=`${Math.round(cs*.55)}px sans-serif`;
+    const EM={box:'📦',house:'🏠',housefull:'🏡',plant:'🌱',flower:'🌻',ripe:'🍎',unripe:'🍏',unripew:'🍏',harvested:'🧺',sheep:'🐑',leaf:'🍂',clean:'✨'};
+    const ob=wd?wd.obj.get(key):(map.obj||{})[key];
+    if(W.has(key)&&map.fence) ctx.fillText('🚧',cx+cs/2,cy+cs/2+2);
+    else if(map.g&&map.g[0]===i&&map.g[1]===j) ctx.fillText('🏁',cx+cs/2,cy+cs/2+2);
+    else if(ob) ctx.fillText(EM[ob],cx+cs/2,cy+cs/2+2);
+    else if((map.st||[]).some(s=>s[0]===i&&s[1]===j)) ctx.fillText('⭐',cx+cs/2,cy+cs/2+2);
+  }
+  const C=p=>[x+pad+p[0]*cs+cs/2,y+pad+p[1]*cs+cs/2];
+  if(sim&&sim.path.length>1){ ctx.strokeStyle='rgba(255,107,74,.85)'; ctx.lineWidth=Math.max(4,cs*.16); ctx.lineJoin='round'; ctx.lineCap='round';
+    ctx.beginPath(); sim.path.forEach((p,i)=>{ const [a,b]=C(p); i?ctx.lineTo(a,b):ctx.moveTo(a,b); }); ctx.stroke(); }
+  const [sx,sy]=C(map.s), r=cs*.36;
+  ctx.save(); ctx.translate(sx,sy); ctx.rotate(map.s[2]*Math.PI/2);
+  ctx.fillStyle='#FFC93C'; ctx.strokeStyle='#1E2A5A'; ctx.lineWidth=Math.max(2,cs*.05); rr(ctx,-r,-r,2*r,2*r,r*.35); ctx.fill(); ctx.stroke();
+  ctx.fillStyle='#1E2A5A'; ctx.beginPath(); ctx.arc(r*.35,-r*.35,r*.17,0,7); ctx.arc(r*.35,r*.35,r*.17,0,7); ctx.fill();
+  ctx.fillStyle='#FF6B4A'; ctx.beginPath(); ctx.moveTo(r*1.05,-r*.32); ctx.lineTo(r*1.5,0); ctx.lineTo(r*1.05,r*.32); ctx.fill(); ctx.restore();
+  if(sim&&sim.at){ const [a,b]=C([Math.max(0,Math.min(n-1,sim.at[0])),Math.max(0,Math.min(n-1,sim.at[1]))]); ctx.font=`${Math.round(cs*.7)}px sans-serif`; ctx.fillText('💥',a,b); }
+  ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+}
+async function buildSheet(st,name){
+  try{ await document.fonts.ready; }catch(e){}
+  const lv=st.L, rep=st.app.report(st.program,st.count());
+  const W=1400, P=44, BS=600, colW=W-BS-3*P;
+  const tmp=document.createElement('canvas').getContext('2d');
+  tmp.font='600 21px Nunito, sans-serif'; const desc=wrap(tmp,strip(tr(lv.d)),W-2*P);
+  const progEnd=st.program.length?drawProgram(tmp,st,st.program,0,0,colW,true):40;
+  const reasons=[];
+  const WHY={empty:'El programa está vacío.',crash:'El robot choca con una pared.',inf:'El programa no termina nunca (bucle infinito).',goal:'El robot no llega a la meta.',stars:'Faltan estrellas por recoger.'};
+  if(rep.sim&&rep.sim.world&&rep.sim.world.said!=null) reasons.push(tr('💬 El robot ha dicho: {n}',{n:rep.sim.world.said}));
+  if(rep.ok){ reasons.unshift(rep.tests?tr('Funciona en los {n} mapas de prueba.',{n:rep.tests}):tr('El robot llega a la meta.'));
+    reasons.push(rep.count<=rep.par?tr('⭐ Programa perfecto: usa el mínimo de bloques ({c}).',{c:rep.count}):tr('Usa {c} bloques (el mínimo posible es {p}).',{c:rep.count,p:rep.par})); }
+  else { reasons.push(rep.why==='limit'?tr('Usa más bloques de los permitidos ({c} de {l}).',{c:rep.count,l:rep.lim}):WHY[rep.why]?tr(WHY[rep.why]):strip(st.app.whyText(rep)));
+    if(rep.tests&&rep.why!=='empty'&&rep.why!=='limit') reasons.push(tr('Falla en el mapa de prueba {k} de {n}.',{k:rep.mapIdx+1,n:rep.tests})); }
+  const headH=165, descH=desc.length*30+24, colTop=headH+descH+50, colH=Math.max(BS+40,progEnd+70), banTop=colTop+colH+20, banH=80+reasons.length*32;
+  const H=banTop+banH+P;
+  const cv=document.createElement('canvas'); cv.width=W; cv.height=H; const ctx=cv.getContext('2d');
+  ctx.fillStyle='#FFF8EE'; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#1E2A5A'; ctx.fillRect(0,0,W,headH);
+  ctx.fillStyle='#fff'; ctx.font='900 34px Nunito, sans-serif';
+  ctx.fillText('🤖 '+tr('Prácticas de Computación y Robótica 1º ESO'),P,54);
+  ctx.font='900 28px Nunito, sans-serif'; ctx.fillStyle='#FFC93C';
+  ctx.fillText(tr('Práctica {a}: {t}',{a:st.lvl+1,t:strip(tr(lv.t))}),P,98);
+  ctx.font='700 21px Nunito, sans-serif'; ctx.fillStyle='#fff';
+  ctx.fillText('👤 '+name+'      📅 '+new Date().toLocaleString(LANG==='en'?'en-GB':LANG),P,138);
+  ctx.fillStyle='#5B6280'; ctx.font='600 21px Nunito, sans-serif'; desc.forEach((l,i)=>ctx.fillText(l,P,headH+38+i*30));
+  ctx.fillStyle='#1B2140'; ctx.font='900 24px Nunito, sans-serif';
+  ctx.fillText('🎯 '+tr('Reto'),P,colTop-14); ctx.fillText('🧩 '+tr('Solución del alumno'),2*P+BS,colTop-14);
+  drawBoard(ctx,rep.map,rep.sim,P,colTop,BS);
+  ctx.fillStyle='#5B6280'; ctx.font='700 17px Nunito, sans-serif';
+  ctx.fillText(tr('Recorrido del robot con este programa')+(rep.tests?'  ·  '+tr('Mapa de prueba {k} de {n}',{k:rep.mapIdx+1,n:rep.tests}):''),P,colTop+BS+28);
+  ctx.fillStyle='#fff'; ctx.strokeStyle='#E6DFD2'; ctx.lineWidth=2; rr(ctx,2*P+BS-14,colTop-2,colW+28,colH-10,16); ctx.fill(); ctx.stroke();
+  if(st.program.length) drawProgram(ctx,st,st.program,2*P+BS,colTop+10,colW,false);
+  else { ctx.fillStyle='#A3A8BD'; ctx.font='700 21px Nunito, sans-serif'; ctx.fillText(tr('(programa vacío)'),2*P+BS,colTop+40); }
+  ctx.fillStyle='#1B2140'; ctx.font='800 18px Nunito, sans-serif';
+  ctx.fillText(rep.lim?tr('Bloques: {c} / {l}',{c:rep.count,l:rep.lim}):tr('Bloques: {c}',{c:rep.count}),2*P+BS,colTop+colH-24);
+  ctx.fillStyle=rep.ok?'#22A06B':'#E5484D'; rr(ctx,P,banTop,W-2*P,banH,20); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font='900 38px Nunito, sans-serif'; ctx.fillText(rep.ok?tr('✅ SOLUCIÓN CORRECTA'):tr('❌ SOLUCIÓN NO CORRECTA'),P+28,banTop+54);
+  ctx.font='700 22px Nunito, sans-serif'; reasons.forEach((t,i)=>ctx.fillText('• '+t,P+30,banTop+92+i*32));
+  return {cv,ok:rep.ok};
+}
+async function printSheet(st){
+  const inp=st.q('.pname'), msg=st.q('.pmsg'), name=inp.value.trim();
+  if(!name){ inp.classList.remove('need'); inp.offsetWidth; inp.classList.add('need'); inp.focus(); msg.textContent=tr('✏️ Escribe primero tu nombre y apellidos.'); return; }
+  msg.textContent='…';
+  const {cv}=await buildSheet(st,name);
+  const blob=await new Promise(r=>cv.toBlob(r,'image/jpeg',0.92));
+  const file=(tr('Práctica')+'_'+(st.lvl+1)+'_'+name).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9_-]+/g,'_').replace(/_+/g,'_')+'.jpg';
+  const img=$('#printImg'); if(img.src) URL.revokeObjectURL(img.src); img.src=URL.createObjectURL(blob);
+  $('#printClose').textContent=tr('Cerrar'); $('#printDl').textContent=tr('⬇️ Descargar JPG');
+  $('#printDl').style.display='';
+  $('#printHint').textContent='';
+  $('#printOv').classList.add('on'); msg.textContent='';
+  const save=async()=>{
+    if(!DL){ try{ const a=document.createElement('a'); a.href=img.src; a.download=file; document.body.appendChild(a); a.click(); a.remove(); msg.textContent=tr('✅ Imagen guardada.'); }
+      catch(e){ $('#printHint').textContent=tr('Mantén pulsada la imagen (o clic derecho) y elige «Guardar imagen».'); } return; }
+    try{ await DL.save({filename:file,data:blob}); msg.textContent=tr('✅ Imagen guardada.'); $('#printHint').textContent=tr('✅ Imagen guardada.'); }
+    catch(e){ const c=e&&e.code; $('#printHint').textContent=c==='declined'?tr('Descarga cancelada.'):tr('Mantén pulsada la imagen (o clic derecho) y elige «Guardar imagen».'); if(c==='unavailable'||c==='not_granted'){ $('#printDl').style.display='none'; } } };
+  $('#printDl').onclick=save;
+  save();
+}
+$('#printClose').onclick=()=>$('#printOv').classList.remove('on');
+function setLang(l){
+  if(!['es','en','de'].includes(l)) l='es';
+  LANG=l; try{ localStorage.setItem('lang',l); }catch(e){}
+  document.documentElement.lang=l; document.title=tr('Prácticas de Computación y Robótica 1º ESO');
+  $$('.langs button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+  $$('[data-t]').forEach(el=>{ if(el.dataset.t==='') el.dataset.t=el.innerHTML; el.innerHTML=tr(el.dataset.t); });
+  Object.values(STUDIOS).forEach(st=>{ const prog=st.program, lvl=st.lvl; st.stop(); st.build(); st.app.mount(st.q('.stageBox')); st.loadLevel(lvl); st.program=prog; st.sel='root'; st.renderProgram(); });
+  updateHome();
+}
+$('.langs').onclick=e=>{ const b=e.target.closest('button'); if(b) setLang(b.dataset.lang); };
+let savedLang='es'; try{ savedLang=localStorage.getItem('lang')||'es'; }catch(e){}
+setLang(savedLang);
+show('robot');
+</script>
+</body>
+</html>
