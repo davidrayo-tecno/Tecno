@@ -140,6 +140,10 @@ figcaption{font-size:14px;color:var(--muted);margin-top:8px}
 .strokes li:nth-child(3){border-top-color:var(--hot)}
 .strokes b{font-family:var(--display);font-size:21px;display:block;font-weight:600;margin-bottom:2px}
 .strokes small{font-family:var(--mono);font-size:12.5px;color:var(--muted);display:block;margin-bottom:6px}
+.anim{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;margin:0 0 1.3em}
+.anim a{display:flex;flex-direction:column;gap:2px;padding:14px 16px;min-height:44px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:10px;color:var(--ink);text-decoration:none}
+.anim a:hover{border-color:var(--brand)}.anim a:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.anim b{font-size:17px}.anim span{font-size:14.5px;color:var(--muted)}
 .tbl{overflow-x:auto;margin:0 0 1.3em;background:var(--surface);border:1px solid var(--line);border-radius:10px}
 table{border-collapse:collapse;width:100%;font-size:15px;min-width:480px}
 th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -602,6 +606,11 @@ details.prob > summary::after{margin-left:auto}
       <tr><td>Rendimiento real típico</td><td>25 a 35 %</td><td>30 a 45 %</td></tr>
     </tbody>
   </table></div>
+  <h3>Animaciones de los motores</h3>
+  <div class="anim">
+    <a href="motorgasolina/"><b>Motor Otto (gasolina) →</b><span>Los 4 tiempos con su diagrama p-V, balance de Q, W y ΔU y 10 problemas resueltos.</span></a>
+    <a href="motordiesel/"><b>Motor Otto y motor Diésel →</b><span>Los dos motores a la vez para comparar sus cuatro tiempos y sus ciclos.</span></a>
+  </div>
   <h3>Motor Diésel de cuatro tiempos</h3>
   <p>En la admisión solo entra <strong>aire</strong>, que en la compresión llega a unos 40 bar y más de 600 °C. Al final de la compresión el inyector pulveriza el gasóleo, que se inflama solo al contacto con ese aire caliente. No necesita bujías (como mucho, de precalentamiento para arrancar en frío), pero sí una bomba inyectora de alta presión. Como solo se comprime aire, admite relaciones de compresión mayores y rinde más que el de gasolina.</p>
   <figure>
