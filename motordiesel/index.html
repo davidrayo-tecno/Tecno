@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Los 4 tiempos: motor Otto y motor Diesel</title>
+<style>body{margin:0;background:#F4F0E8;color:#161A21;font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+main{max-width:1700px;margin:0 auto;padding:32px 20px}h1{font-size:clamp(26px,3vw,44px);margin:0 0 6px}p.s{margin:0 0 20px;color:#5A6170;font-size:18px}
+canvas{width:100%;height:auto;aspect-ratio:1664/650;display:block}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:center}
+button{font-family:inherit;font-size:17px;font-weight:600;padding:10px 16px;border-radius:10px;border:2px solid #D6CFC1;background:#FBF9F4;color:#161A21;cursor:pointer}
+button.on{background:#C24E1C;border-color:#C24E1C;color:#FBF9F4}button:focus-visible{outline:3px solid #2A62AE;outline-offset:2px}
+.sep{width:1px;height:32px;background:#D6CFC1;margin:0 6px}label{font-size:16px;color:#5A6170}</style></head><body><main>
+<h1>Los 4 tiempos del motor Otto y del motor Diesel</h1><p class="s">Pistón, válvulas, bujía / inyector y diagrama P-V sincronizados. 1 ciclo = 4 carreras = 2 vueltas del cigüeñal.</p>
+<canvas id="c" role="img" aria-label="Animación de los cuatro tiempos en un motor Otto y un motor Diesel con su diagrama presión-volumen"></canvas>
+<div class="ctl"><button id="pp">⏸ Pausa</button><span class="sep"></span><label>Velocidad</label>
+<button data-v="0.4">Lenta</button><button data-v="1" class="on">Normal</button><button data-v="2">Rápida</button><span class="sep"></span><label>Ir a</label>
+<button data-g="0">1 Admisión</button><button data-g="1">2 Compresión</button><button data-g="2">3 Explosión</button><button data-g="3">4 Escape</button></div>
+</main><script>const C=document.getElementById('c'),X=C.getContext('2d'),W=1664,H=650,D=Math.max(1,window.devicePixelRatio||1);
+C.width=W*D;C.height=H*D;X.scale(D,D);
+const F='-apple-system,"Segoe UI",Helvetica,Arial,sans-serif',PI=Math.PI;
+const E=[{n:'Motor Otto · gasolina',r:9,otto:1,mix:[236,160,80],d:['Entra mezcla de aire y gasolina','Se comprime la mezcla (r ≈ 9)','La bujía hace saltar la chispa: explosión','Salen los gases quemados']},
+{n:'Motor Diesel · gasóleo',r:18,otto:0,mix:[120,170,230],d:['Entra solo aire','Se comprime el aire (r ≈ 18) y se calienta mucho','Se inyecta gasóleo y se autoinflama','Salen los gases quemados']}];
+const S=['Admisión','Compresión','Explosión','Escape'],R=65,L=190,CY=520,G=1.4,YH=180;
+const PMS=CY-R-L,PMI=CY+R-L;
+function pin(a){a*=PI/180;return CY-(R*Math.cos(a)+Math.sqrt(L*L-R*R*Math.sin(a)**2))}
+function vol(e,a){return 1+(e.r-1)*(pin(a)-PMS)/(PMI-PMS)}
+function pres(e,a){const V=vol(e,a),p2=Math.pow(e.r,G);
+ if(a<180)return 1;if(a<360)return Math.pow(e.r/V,G);
+ if(a<540){if(e.otto){const p3=p2*2.6;if(a<372)return p2+(p3-p2)*(a-360)/12;return p3*Math.pow(vol(e,372)/V,G)}
+  if(V<2&&a<450)return p2;return p2*Math.pow(2/V,G)}
+ const p4=pres(e,539.9);if(a<560)return p4+(1-p4)*(a-540)/20;return 1}
+function rr(x,y,w,h,r){X.beginPath();X.roundRect(x,y,w,h,r)}
+function txt(s,x,y,sz,c,b,al){X.font=(b?'700 ':'400 ')+sz+'px '+F;X.fillStyle=c;X.textAlign=al||'left';X.fillText(s,x,y)}
+function wrap(s,x,y,mw,sz,c){X.font='400 '+sz+'px '+F;let w=s.split(' '),l='',n=0;for(const k of w){const t=l?l+' '+k:k;if(X.measureText(t).width>mw&&l){txt(l,x,y+n*34,sz,c);n++;l=k}else l=t}txt(l,x,y+n*34,sz,c)}
+function lerp(a,b,k){return a.map((v,i)=>Math.round(v+(b[i]-v)*k))}
+function gas(e,a){if(a<360)return[e.mix,.25+.45*a/360];
+ if(a<540){const k=(a-360)/180;return[lerp([255,110,30],[205,150,120],k),.9-.45*k]}
+ return[[140,145,155],.5-.35*(a-540)/180]}
+function valve(vx,lift,open,col){X.fillStyle=open?col:'#4A515E';X.fillRect(vx-28,128,56,YH-128);
+ X.strokeStyle='#C8CCD3';X.lineWidth=6;X.beginPath();X.moveTo(vx,70);X.lineTo(vx,YH-8+lift);X.stroke();
+ X.fillStyle='#C8CCD3';rr(vx-30,YH-10+lift,60,10,3);X.fill()}
+function eng(ox,e,a){const cx=ox+220,p=pin(a),pt=p-45,ca=a*PI/180,kx=cx+R*Math.sin(ca),ky=CY-R*Math.cos(ca);
+ const g=gas(e,a);X.fillStyle=`rgba(${g[0]},${g[1]})`;X.fillRect(cx-100,YH,200,pt-YH);
+ if(e.otto&&a>356&&a<384){X.fillStyle='rgba(255,220,60,.9)';X.beginPath();for(let i=0;i<16;i++){const ang=i*PI/8,rad=i%2?14:40;X.lineTo(cx+rad*Math.cos(ang),YH+22+rad*Math.sin(ang))}X.fill()}
+ if(!e.otto&&a>352&&a<420){X.strokeStyle='rgba(255,200,60,.95)';X.lineWidth=4;for(let i=-2;i<=2;i++){X.beginPath();X.moveTo(cx,YH+4);X.lineTo(cx+i*22,YH+4+Math.min(60,(a-352)*3));X.stroke()}}
+ X.fillStyle='#2B313C';X.fillRect(cx-140,120,280,YH-120);X.fillRect(cx-112,YH,12,290);X.fillRect(cx+100,YH,12,290);
+ const li=a<180?22*Math.sin(a/180*PI):0,le=a>=540?22*Math.sin((a-540)/180*PI):0;
+ valve(cx-55,li,li>1,`rgb(${e.mix})`);valve(cx+55,le,le>1,'#9AA0A8');
+ txt('ADM',cx-92,108,24,'#2A62AE',1,'right');txt('ESC',cx+92,108,24,'#5A6170',1);
+ if(e.otto){X.fillStyle='#E9E3D7';X.fillRect(cx-8,96,16,YH-92);X.fillStyle='#C24E1C';X.fillRect(cx-4,YH,8,8)}
+ else{X.fillStyle='#7A5BB0';X.fillRect(cx-9,92,18,YH-88)}
+ X.strokeStyle='#5A6170';X.lineWidth=12;X.lineCap='round';X.beginPath();X.moveTo(cx,p);X.lineTo(kx,ky);X.stroke();
+ X.fillStyle='#8A919C';rr(cx-98,pt,196,80,6);X.fill();X.fillStyle='#5A6170';X.fillRect(cx-98,pt+12,196,5);X.fillRect(cx-98,pt+24,196,5);
+ X.fillStyle='#2B313C';X.beginPath();X.arc(cx,p,9,0,2*PI);X.fill();
+ X.strokeStyle='#2A62AE';X.lineWidth=5;X.beginPath();X.arc(cx,CY,85,0,2*PI);X.stroke();
+ X.lineWidth=16;X.beginPath();X.moveTo(cx,CY);X.lineTo(kx,ky);X.stroke();X.fillStyle='#2A62AE';X.beginPath();X.arc(cx,CY,14,0,2*PI);X.fill();
+ X.setLineDash([8,8]);X.strokeStyle='#A9AFBA';X.lineWidth=2;[PMS-45,PMI-45].forEach(y=>{X.beginPath();X.moveTo(cx+116,y);X.lineTo(cx+150,y);X.stroke()});X.setLineDash([]);
+ txt('PMS',cx+156,PMS-37,24,'#5A6170',1);txt('PMI',cx+156,PMI-37,24,'#5A6170',1)}
+const PTS=E.map(e=>{const q=[];for(let a=0;a<720;a+=2)q.push([vol(e,a),pres(e,a)]);return q});
+function pv(ox,i,a){const e=E[i],x0=ox+480,y0=240,w=310,h=290,mx=V=>x0+(V-1)/(e.r-1)*w,my=p=>y0+h-p/60*h;
+ X.strokeStyle='#161A21';X.lineWidth=3;X.beginPath();X.moveTo(x0,y0-10);X.lineTo(x0,y0+h);X.lineTo(x0+w+14,y0+h);X.stroke();
+ txt('P',x0-28,y0+12,26,'#161A21',1);txt('V',x0+w+4,y0+h+34,26,'#161A21',1);
+ X.strokeStyle='#C9C2B4';X.lineWidth=4;X.beginPath();PTS[i].forEach((q,k)=>{k?X.lineTo(mx(q[0]),my(q[1])):X.moveTo(mx(q[0]),my(q[1]))});X.closePath();X.stroke();
+ X.strokeStyle='#C24E1C';X.lineWidth=5;X.beginPath();for(let b=0;b<=a;b+=2){const v=vol(e,b),p=pres(e,b);b?X.lineTo(mx(v),my(p)):X.moveTo(mx(v),my(p))}X.stroke();
+ X.fillStyle='#C24E1C';X.beginPath();X.arc(mx(vol(e,a)),my(pres(e,a)),11,0,2*PI);X.fill()}
+function panel(i,a){const ox=i*840,e=E[i],s=Math.floor(a/180);
+ X.fillStyle='#FBF9F4';rr(ox+2,2,820,H-4,20);X.fill();X.strokeStyle='#D6CFC1';X.lineWidth=3;X.stroke();
+ txt(e.n,ox+32,48,30,'#161A21',1);eng(ox,e,a);
+ txt((s+1)+' · '+S[s],ox+450,120,40,s==2?'#C24E1C':'#161A21',1);wrap(e.d[s],ox+450,162,360,26,'#5A6170');
+ pv(ox,i,a);
+ const bx=ox+450,bw=340;for(let k=0;k<4;k++){const x=bx+k*(bw/4);X.fillStyle=k==s?'#C24E1C':'#E8E2D5';rr(x,582,bw/4-8,40,8);X.fill();
+  if(k==s){X.fillStyle='rgba(255,255,255,.35)';X.fillRect(x,582,(bw/4-8)*((a%180)/180),40)}
+  txt(String(k+1),x+(bw/4-8)/2,611,24,k==s?'#FBF9F4':'#5A6170',1,'center')}}
+let ang=0,last=performance.now(),PER=8000;window.ST={paused:0,speed:1};
+function draw(){X.clearRect(0,0,W,H);panel(0,ang);panel(1,ang)}
+function loop(t){const dt=Math.min(100,t-last);last=t;if(!ST.paused)ang=(ang+dt/PER*720*ST.speed)%720;draw();requestAnimationFrame(loop)}
+window.goTo=s=>{ang=s*180+0.5;draw()};
+requestAnimationFrame(loop);
+
+const pp=document.getElementById('pp');pp.onclick=()=>{ST.paused=!ST.paused;pp.textContent=ST.paused?'▶ Reproducir':'⏸ Pausa'};
+document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{ST.speed=+b.dataset.v;document.querySelectorAll('[data-v]').forEach(x=>x.classList.toggle('on',x==b))});
+document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{goTo(+b.dataset.g);ST.paused=1;pp.textContent='▶ Reproducir'});
+</script></body></html>
