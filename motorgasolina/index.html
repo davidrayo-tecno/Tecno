@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Motor Otto: los 4 tiempos</title>
+<style>/*
+VOICE: explicativo de aula, claro y directo, como el de la página del motor Diesel.
+IDEA: lámina de taller animada: corte del cilindro junto a su diagrama P-V.
+PICTURE: el motor de gasolina funcionando grande, sincronizado con el ciclo Otto.
+COLOUR and TYPE: fondo papel, tinta oscura, naranja de la chispa como acento, azul del cigüeñal.
+LAYOUT: título, lámina animada, controles, relación de compresión y fichas de los 4 tiempos.
+*/
+body{margin:0;background:#F4F0E8;color:#161A21;font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box;min-width:0}
+main{max-width:1300px;margin:0 auto;padding:32px 20px}h1{font-size:clamp(26px,3vw,44px);margin:0 0 6px;line-height:1.1}p.s{margin:0 0 20px;color:#5A6170;font-size:18px}
+canvas{width:100%;height:auto;aspect-ratio:1200/650;display:block}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:center}
+button{font-family:inherit;font-size:17px;font-weight:600;padding:10px 16px;min-height:44px;border-radius:10px;border:2px solid #D6CFC1;background:#FBF9F4;color:#161A21;cursor:pointer}
+button.on{background:#C24E1C;border-color:#C24E1C;color:#FBF9F4}button:focus-visible,input:focus-visible{outline:3px solid #2A62AE;outline-offset:2px}
+.sep{width:1px;height:32px;background:#D6CFC1;margin:0 6px}label{font-size:16px;color:#5A6170}
+.rc{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;margin-top:18px;padding:16px 20px;background:#FBF9F4;border:2px solid #D6CFC1;border-radius:14px}
+.rc input{width:220px;accent-color:#C24E1C;height:32px}
+.rc b{font-size:22px}.eta{font-size:22px;font-weight:700;color:#C24E1C;white-space:nowrap}.f{color:#5A6170;font-size:16px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}
+.card{background:#FBF9F4;border:2px solid #D6CFC1;border-radius:14px;padding:16px 18px;transition:border-color .2s,background .2s}
+.card.on{border-color:#C24E1C;background:#FFF4EC}
+.card h2{font-size:20px;margin:0 0 4px}.card .g{font-size:14px;color:#5A6170;margin:0 0 8px}.card p{margin:0;font-size:16px;line-height:1.45}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:15px;color:#3A404C}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.cards{grid-template-columns:minmax(0,1fr)}.rc input{width:100%}}
+@media(prefers-reduced-motion:reduce){.card{transition:none}}</style></head><body><main>
+<h1>Los 4 tiempos del motor Otto (gasolina)</h1><p class="s">Pistón, válvulas, bujía y diagrama P-V sincronizados. 1 ciclo = 4 carreras = 2 vueltas del cigüeñal (720°).</p>
+<canvas id="c" role="img" aria-label="Animación de los cuatro tiempos de un motor Otto de gasolina con su diagrama presión-volumen"></canvas>
+<div class="ctl"><button id="pp">⏸ Pausa</button><span class="sep"></span><label>Velocidad</label>
+<button data-v="0.4">Lenta</button><button data-v="1" class="on">Normal</button><button data-v="2">Rápida</button><span class="sep"></span><label>Ir a</label>
+<button data-g="0">1 Admisión</button><button data-g="1">2 Compresión</button><button data-g="2">3 Explosión</button><button data-g="3">4 Escape</button></div>
+<div class="rc"><label for="r">Relación de compresión</label><input id="r" type="range" min="6" max="12" step="0.5" value="9"><b>r = <span id="rv">9</span></b>
+<span class="f">Rendimiento teórico η = 1 − 1 / r<sup>γ−1</sup> (γ = 1,4)</span><span class="eta">η = <span id="ev">58</span> %</span></div>
+<div class="cards">
+<div class="card" data-k="0"><h2>1 · Admisión</h2><p class="g">0° – 180° · pistón baja (PMS → PMI)</p><p>La válvula de admisión se abre y el pistón, al bajar, aspira la mezcla de aire y gasolina.</p><ul><li>Admisión: abierta</li><li>Escape: cerrada</li></ul></div>
+<div class="card" data-k="1"><h2>2 · Compresión</h2><p class="g">180° – 360° · pistón sube (PMI → PMS)</p><p>Con las dos válvulas cerradas, el pistón sube y comprime la mezcla. Suben la presión y la temperatura.</p><ul><li>Admisión: cerrada</li><li>Escape: cerrada</li></ul></div>
+<div class="card" data-k="2"><h2>3 · Explosión</h2><p class="g">360° – 540° · pistón baja (PMS → PMI)</p><p>Cerca del PMS salta la chispa de la bujía, la mezcla arde y los gases empujan el pistón. Es el único tiempo que produce trabajo.</p><ul><li>Admisión: cerrada</li><li>Escape: cerrada</li></ul></div>
+<div class="card" data-k="3"><h2>4 · Escape</h2><p class="g">540° – 720° · pistón sube (PMI → PMS)</p><p>La válvula de escape se abre y el pistón, al subir, expulsa los gases quemados. El ciclo vuelve a empezar.</p><ul><li>Admisión: cerrada</li><li>Escape: abierta</li></ul></div>
+</div>
+</main><script>{
+const C=document.getElementById('c'),X=C.getContext('2d'),W=1200,H=650,D=Math.max(1,window.devicePixelRatio||1);
+C.width=W*D;C.height=H*D;X.scale(D,D);
+const F='-apple-system,"Segoe UI",Helvetica,Arial,sans-serif',PI=Math.PI,MIX=[236,160,80];
+const S=['Admisión','Compresión','Explosión','Escape'];
+const DS=['Se abre la admisión y entra la mezcla de aire y gasolina','Válvulas cerradas: se comprime la mezcla','La bujía hace saltar la chispa: explosión y expansión','Se abre el escape y salen los gases quemados'];
+const R=65,L=190,CY=520,G=1.4,YH=180,PMS=CY-R-L,PMI=CY+R-L;
+let r=9,PTS=[];
+function pin(a){a*=PI/180;return CY-(R*Math.cos(a)+Math.sqrt(L*L-R*R*Math.sin(a)**2))}
+function vol(a){return 1+(r-1)*(pin(a)-PMS)/(PMI-PMS)}
+function pres(a){const V=vol(a),p2=Math.pow(r,G),p3=p2*2.6;
+ if(a<180)return 1;if(a<360)return Math.pow(r/V,G);
+ if(a<540){if(a<372)return p2+(p3-p2)*(a-360)/12;return p3*Math.pow(vol(372)/V,G)}
+ const p4=pres(539.9);if(a<560)return p4+(1-p4)*(a-540)/20;return 1}
+function calc(){PTS=[];for(let a=0;a<720;a+=2)PTS.push([vol(a),pres(a)])}
+function rr(x,y,w,h,q){X.beginPath();X.roundRect(x,y,w,h,q)}
+function txt(s,x,y,sz,c,b,al){X.font=(b?'700 ':'400 ')+sz+'px '+F;X.fillStyle=c;X.textAlign=al||'left';X.fillText(s,x,y)}
+function wrap(s,x,y,mw,sz,c){X.font='400 '+sz+'px '+F;let w=s.split(' '),l='',n=0;for(const k of w){const t=l?l+' '+k:k;if(X.measureText(t).width>mw&&l){txt(l,x,y+n*34,sz,c);n++;l=k}else l=t}txt(l,x,y+n*34,sz,c)}
+function lerp(a,b,k){return a.map((v,i)=>Math.round(v+(b[i]-v)*k))}
+function gas(a){if(a<360)return[MIX,.25+.45*a/360];
+ if(a<540){const k=(a-360)/180;return[lerp([255,110,30],[205,150,120],k),.9-.45*k]}
+ return[[140,145,155],.5-.35*(a-540)/180]}
+function valve(vx,lift,open,col){X.fillStyle=open?col:'#4A515E';X.fillRect(vx-28,128,56,YH-128);
+ X.strokeStyle='#C8CCD3';X.lineWidth=6;X.beginPath();X.moveTo(vx,70);X.lineTo(vx,YH-8+lift);X.stroke();
+ X.fillStyle='#C8CCD3';rr(vx-30,YH-10+lift,60,10,3);X.fill()}
+function eng(a){const cx=240,p=pin(a),pt=p-45,ca=a*PI/180,kx=cx+R*Math.sin(ca),ky=CY-R*Math.cos(ca);
+ const g=gas(a);X.fillStyle=`rgba(${g[0]},${g[1]})`;X.fillRect(cx-100,YH,200,pt-YH);
+ if(a>356&&a<384){X.fillStyle='rgba(255,220,60,.9)';X.beginPath();for(let i=0;i<16;i++){const an=i*PI/8,rad=i%2?14:40;X.lineTo(cx+rad*Math.cos(an),YH+22+rad*Math.sin(an))}X.fill()}
+ X.fillStyle='#2B313C';X.fillRect(cx-140,120,280,YH-120);X.fillRect(cx-112,YH,12,290);X.fillRect(cx+100,YH,12,290);
+ const li=a<180?22*Math.sin(a/180*PI):0,le=a>=540?22*Math.sin((a-540)/180*PI):0;
+ valve(cx-55,li,li>1,`rgb(${MIX})`);valve(cx+55,le,le>1,'#9AA0A8');
+ txt('ADM',cx-92,108,24,'#2A62AE',1,'right');txt('ESC',cx+92,108,24,'#5A6170',1);
+ X.fillStyle='#E9E3D7';X.fillRect(cx-8,96,16,YH-92);X.fillStyle='#C24E1C';X.fillRect(cx-4,YH,8,8);
+ txt('Bujía',cx,88,20,'#C24E1C',1,'center');
+ X.strokeStyle='#5A6170';X.lineWidth=12;X.lineCap='round';X.beginPath();X.moveTo(cx,p);X.lineTo(kx,ky);X.stroke();
+ X.fillStyle='#8A919C';rr(cx-98,pt,196,80,6);X.fill();X.fillStyle='#5A6170';X.fillRect(cx-98,pt+12,196,5);X.fillRect(cx-98,pt+24,196,5);
+ X.fillStyle='#2B313C';X.beginPath();X.arc(cx,p,9,0,2*PI);X.fill();
+ X.strokeStyle='#2A62AE';X.lineWidth=5;X.beginPath();X.arc(cx,CY,85,0,2*PI);X.stroke();
+ X.lineWidth=16;X.beginPath();X.moveTo(cx,CY);X.lineTo(kx,ky);X.stroke();X.fillStyle='#2A62AE';X.beginPath();X.arc(cx,CY,14,0,2*PI);X.fill();
+ X.setLineDash([8,8]);X.strokeStyle='#A9AFBA';X.lineWidth=2;[PMS-45,PMI-45].forEach(y=>{X.beginPath();X.moveTo(cx+116,y);X.lineTo(cx+150,y);X.stroke()});X.setLineDash([]);
+ txt('PMS',cx+156,PMS-37,24,'#5A6170',1);txt('PMI',cx+156,PMI-37,24,'#5A6170',1);
+ const dn=(a%360)<180;txt(dn?'↓':'↑',cx-170,(PMS+PMI)/2-20,44,'#C24E1C',1,'center')}
+const VM=13,PM=90;
+function pv(a){const x0=560,y0=250,w=560,h=280,mx=V=>x0+V/VM*w,my=p=>y0+h-p/PM*h;
+ txt('Diagrama P-V · ciclo Otto teórico',x0,y0-20,20,'#5A6170',1);
+ X.strokeStyle='#161A21';X.lineWidth=3;X.beginPath();X.moveTo(x0,y0-6);X.lineTo(x0,y0+h);X.lineTo(x0+w+14,y0+h);X.stroke();
+ txt('P',x0-28,y0+14,26,'#161A21',1);txt('V',x0+w+4,y0+h+34,26,'#161A21',1);
+ X.strokeStyle='#C9C2B4';X.lineWidth=4;X.beginPath();PTS.forEach((q,k)=>{k?X.lineTo(mx(q[0]),my(q[1])):X.moveTo(mx(q[0]),my(q[1]))});X.closePath();X.stroke();
+ X.strokeStyle='#C24E1C';X.lineWidth=5;X.beginPath();for(let b=0;b<=a;b+=2){const v=vol(b),p=pres(b);b?X.lineTo(mx(v),my(p)):X.moveTo(mx(v),my(p))}X.stroke();
+ const p2=Math.pow(r,G),p3=p2*2.6,p4=pres(539.9);
+ [[1,1,'1',14,24],[1,p2,'2',-30,8],[1,p3,'3',14,8],[r,p4,'4',12,-12]].forEach(([v,p,s,dx,dy],k)=>{const V=k==0?r:v;
+  X.fillStyle='#161A21';X.beginPath();X.arc(mx(V),my(p),5,0,2*PI);X.fill();txt(s,mx(V)+dx,my(p)+dy,22,'#161A21',1)});
+ txt('chispa',mx(1)+14,(my(p2)+my(p3))/2+6,18,'#C24E1C',1);
+ txt('Vc',mx(1),y0+h+50,18,'#5A6170',1,'center');txt('Vc + Vu',mx(r),y0+h+50,18,'#5A6170',1,'center');
+ X.fillStyle='#C24E1C';X.beginPath();X.arc(mx(vol(a)),my(pres(a)),11,0,2*PI);X.fill()}
+function panel(a){const s=Math.floor(a/180);
+ X.fillStyle='#FBF9F4';rr(2,2,W-4,H-4,20);X.fill();X.strokeStyle='#D6CFC1';X.lineWidth=3;X.stroke();
+ txt('Motor Otto · gasolina · 4 tiempos',32,48,30,'#161A21',1);txt('Cigüeñal: '+Math.floor(a)+'°',W-32,48,24,'#5A6170',1,'right');
+ eng(a);
+ txt((s+1)+' · '+S[s],560,120,40,s==2?'#C24E1C':'#161A21',1);wrap(DS[s],560,162,580,26,'#5A6170');
+ pv(a);
+ const bx=560,bw=560;for(let k=0;k<4;k++){const x=bx+k*(bw/4);X.fillStyle=k==s?'#C24E1C':'#E8E2D5';rr(x,586,bw/4-8,40,8);X.fill();
+  if(k==s){X.fillStyle='rgba(255,255,255,.35)';X.fillRect(x,586,(bw/4-8)*((a%180)/180),40)}
+  txt((k+1)+' '+S[k],x+(bw/4-8)/2,612,17,k==s?'#FBF9F4':'#5A6170',1,'center')}
+ return s}
+const cards=[...document.querySelectorAll('.card')];let ls=-1;
+let ang=0,last=performance.now(),PER=8000;const ST={paused:0,speed:1};
+function draw(){X.clearRect(0,0,W,H);const s=panel(ang);if(s!=ls){ls=s;cards.forEach((c,k)=>c.classList.toggle('on',k==s))}}
+function loop(t){const dt=Math.min(100,t-last);last=t;if(!ST.paused)ang=(ang+dt/PER*720*ST.speed)%720;draw();requestAnimationFrame(loop)}
+function goTo(s){ang=s*180+0.5;draw()}
+const ri=document.getElementById('r'),rv=document.getElementById('rv'),ev=document.getElementById('ev');
+function setR(){r=+ri.value;rv.textContent=String(r).replace('.',',');ev.textContent=Math.round(100*(1-1/Math.pow(r,G-1)));calc();draw()}
+ri.oninput=setR;setR();
+if(matchMedia('(prefers-reduced-motion: reduce)').matches)ST.speed=0.4;
+requestAnimationFrame(loop);
+const pp=document.getElementById('pp');pp.onclick=()=>{ST.paused=!ST.paused;pp.textContent=ST.paused?'▶ Reproducir':'⏸ Pausa'};
+document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{ST.speed=+b.dataset.v;document.querySelectorAll('[data-v]').forEach(x=>x.classList.toggle('on',x==b))});
+document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{goTo(+b.dataset.g);ST.paused=1;pp.textContent='▶ Reproducir'});
+}</script></body></html>
