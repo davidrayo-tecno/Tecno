@@ -32,6 +32,20 @@ button.on{background:#C24E1C;border-color:#C24E1C;color:#FBF9F4}button:focus-vis
 .pr ol{margin:8px 0 0;padding-left:22px;font-size:16px;line-height:1.6}
 .res{font-weight:700;background:#FFF4EC;padding:1px 6px;border-radius:6px;white-space:nowrap}
 .all{margin-bottom:14px}
+
+.en{margin-top:40px}.en h2.t{font-size:clamp(24px,2.6vw,34px);margin:0 0 6px}
+.tw{overflow-x:auto;background:#FBF9F4;border:2px solid #D6CFC1;border-radius:14px;margin-top:14px}
+table.e{width:100%;border-collapse:collapse;font-size:16px}
+table.e th,table.e td{padding:10px 14px;border-bottom:1px solid #E5DFD2;text-align:right;white-space:nowrap}
+table.e th:first-child,table.e td:first-child{text-align:left;white-space:normal}
+table.e thead th{background:#EFE9DD;font-size:15px}
+table.e tr.on td{background:#FFF4EC}table.e tr.tot td{font-weight:700;border-top:2px solid #161A21;border-bottom:0}
+table.e td small{display:block;color:#5A6170;font-size:13px}
+.neg{color:#2A62AE}.pos{color:#C24E1C}
+.kp{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}.kp div{flex:1 1 200px;background:#FBF9F4;border:2px solid #D6CFC1;border-radius:14px;padding:12px 16px}
+.kp b{display:block;font-size:24px;color:#C24E1C}.kp span{font-size:15px;color:#5A6170}
+.card .q{margin-top:10px;font-size:15px;font-weight:600;color:#161A21;background:#EFE9DD;border-radius:8px;padding:6px 10px}
+@media(max-width:600px){table.e{font-size:14px}table.e th,table.e td{padding:8px}}
 @media(max-width:900px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.cards{grid-template-columns:minmax(0,1fr)}.rc input{width:100%}}
 @media(prefers-reduced-motion:reduce){.card{transition:none}}</style></head><body><main>
@@ -43,11 +57,18 @@ button.on{background:#C24E1C;border-color:#C24E1C;color:#FBF9F4}button:focus-vis
 <div class="rc"><label for="r">Relación de compresión</label><input id="r" type="range" min="6" max="12" step="0.5" value="9"><b>r = <span id="rv">9</span></b>
 <span class="f">Rendimiento teórico η = 1 − 1 / r<sup>γ−1</sup> (γ = 1,4)</span><span class="eta">η = <span id="ev">58</span> %</span></div>
 <div class="cards">
-<div class="card" data-k="0"><h2>1 · Admisión</h2><p class="g">0° – 180° · pistón baja (PMS → PMI)</p><p>La válvula de admisión se abre y el pistón, al bajar, aspira la mezcla de aire y gasolina.</p><ul><li>Admisión: abierta</li><li>Escape: cerrada</li></ul></div>
-<div class="card" data-k="1"><h2>2 · Compresión</h2><p class="g">180° – 360° · pistón sube (PMI → PMS)</p><p>Con las dos válvulas cerradas, el pistón sube y comprime la mezcla. Suben la presión y la temperatura.</p><ul><li>Admisión: cerrada</li><li>Escape: cerrada</li></ul></div>
-<div class="card" data-k="2"><h2>3 · Explosión</h2><p class="g">360° – 540° · pistón baja (PMS → PMI)</p><p>Cerca del PMS salta la chispa de la bujía, la mezcla arde y los gases empujan el pistón. Es el único tiempo que produce trabajo.</p><ul><li>Admisión: cerrada</li><li>Escape: cerrada</li></ul></div>
-<div class="card" data-k="3"><h2>4 · Escape</h2><p class="g">540° – 720° · pistón sube (PMI → PMS)</p><p>La válvula de escape se abre y el pistón, al subir, expulsa los gases quemados. El ciclo vuelve a empezar.</p><ul><li>Admisión: cerrada</li><li>Escape: abierta</li></ul></div>
+<div class="card" data-k="0"><h2>1 · Admisión</h2><p class="g">0° – 180° · pistón baja (PMS → PMI)</p><p>La válvula de admisión se abre y el pistón, al bajar, aspira la mezcla de aire y gasolina.</p><ul><li>Admisión: abierta</li><li>Escape: cerrada</li></ul><p class="q">0→1 isóbara: entra la mezcla · W = −p<sub>0</sub>·V<sub>u</sub> (se anula con el escape)</p></div>
+<div class="card" data-k="1"><h2>2 · Compresión</h2><p class="g">180° – 360° · pistón sube (PMI → PMS)</p><p>Con las dos válvulas cerradas, el pistón sube y comprime la mezcla. Suben la presión y la temperatura.</p><ul><li>Admisión: cerrada</li><li>Escape: cerrada</li></ul><p class="q">1→2 adiabática: Q = 0 · W > 0 · ΔU = W > 0</p></div>
+<div class="card" data-k="2"><h2>3 · Explosión</h2><p class="g">360° – 540° · pistón baja (PMS → PMI)</p><p>Cerca del PMS salta la chispa de la bujía, la mezcla arde y los gases empujan el pistón. Es el único tiempo que produce trabajo.</p><ul><li>Admisión: cerrada</li><li>Escape: cerrada</li></ul><p class="q">2→3 isócora: W = 0 · Q<sub>1</sub> = ΔU > 0 · 3→4 adiabática: Q = 0 · W = ΔU < 0</p></div>
+<div class="card" data-k="3"><h2>4 · Escape</h2><p class="g">540° – 720° · pistón sube (PMI → PMS)</p><p>La válvula de escape se abre y el pistón, al subir, expulsa los gases quemados. El ciclo vuelve a empezar.</p><ul><li>Admisión: cerrada</li><li>Escape: abierta</li></ul><p class="q">4→1 isócora: W = 0 · Q<sub>2</sub> = ΔU < 0 · 1→0: W = +p<sub>0</sub>·V<sub>u</sub></p></div>
 </div>
+<section class="en" id="energia"><h2 class="t">Trabajo, calor y energía interna en cada etapa</h2>
+<p class="s">Primer principio con el criterio IUPAC: <b>ΔU = Q + W</b>. Q &gt; 0 si el gas recibe calor y W &gt; 0 si se hace trabajo sobre el gas (compresión). La fila de la etapa en curso se ilumina con la animación y los valores cambian con la relación de compresión.</p>
+<div class="dat"><b>Datos del ejemplo:</b> 1 cilindro con V<sub>1</sub> = V<sub>c</sub> + V<sub>u</sub> = 500 cm³, p<sub>1</sub> = 1 bar, T<sub>1</sub> = 300 K, aire como gas ideal (γ = 1,4; c<sub>v</sub> = 5R/2 = 20,79 J/mol·K). La combustión multiplica la presión por 2,6, como en la animación. <span id="nm"></span></div>
+<div class="tw"><table class="e"><thead><tr><th>Estado</th><th>V (cm³)</th><th>p (bar)</th><th>T (K)</th></tr></thead><tbody id="st"></tbody></table></div>
+<div class="tw"><table class="e"><thead><tr><th>Etapa</th><th>Q (J)</th><th>W (J)</th><th>ΔU (J)</th></tr></thead><tbody id="et"></tbody></table></div>
+<div class="kp" id="kp"></div>
+</section>
 <section class="pb" id="problemas"><h2 class="t">10 problemas sobre motores de ciclo Otto</h2>
 <p class="s">Con la solución paso a paso. Pulsa «Ver solución» después de intentarlo.</p>
 <div class="dat"><b>Fórmulas:</b> η = 1 − 1 / r<sup>γ−1</sup> (γ = 1,4) · r = (V<sub>u</sub> + V<sub>c</sub>) / V<sub>c</sub> · V<sub>u</sub> = π·D²/4 · c · V<sub>T</sub> = z·V<sub>u</sub> · M = P / ω, ω = 2π·n/60 · 4 tiempos: n/120 ciclos por segundo · W = p<sub>me</sub>·V<sub>T</sub></div>
@@ -130,11 +151,36 @@ function panel(a){const s=Math.floor(a/180);
  return s}
 const cards=[...document.querySelectorAll('.card')];let ls=-1;
 let ang=0,last=performance.now(),PER=8000;const ST={paused:0,speed:1};
-function draw(){X.clearRect(0,0,W,H);const s=panel(ang);if(s!=ls){ls=s;cards.forEach((c,k)=>c.classList.toggle('on',k==s))}}
+function draw(){X.clearRect(0,0,W,H);const s=panel(ang);if(s!=ls){ls=s;cards.forEach((c,k)=>c.classList.toggle('on',k==s))}
+ if(s!=lr){lr=s;rows.forEach(t=>t.classList.toggle('on',+t.dataset.s==s))}}
 function loop(t){const dt=Math.min(100,t-last);last=t;if(!ST.paused)ang=(ang+dt/PER*720*ST.speed)%720;draw();requestAnimationFrame(loop)}
 function goTo(s){ang=s*180+0.5;draw()}
+
+const Rg=8.314,CV=2.5*Rg,P1=1e5,V1=500e-6,T1=300;
+const fm=(x,d=1)=>(x>0.05?'+':'')+x.toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d}).replace(/^-/,'−');
+const fv=(x,d=1)=>x.toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
+const cl=x=>x>0.05?'pos':x<-0.05?'neg':'';
+const td=x=>typeof x=='string'?`<td>${x}</td>`:`<td class="${cl(x)}">${fm(x)}</td>`;
+let rows=[];
+function energy(){const n=P1*V1/(Rg*T1),V2=V1/r,T2=T1*Math.pow(r,G-1),T3=2.6*T2,T4=T3/Math.pow(r,G-1),Vu=V1-V2,Wa=P1*Vu;
+ const p2=P1*Math.pow(r,G)/1e5,p3=2.6*p2,p4=P1*T4/T1/1e5;
+ document.getElementById('nm').textContent='Cantidad de gas: n = p₁V₁/(R·T₁) = '+fv(n*1000,2)+' mmol.';
+ document.getElementById('st').innerHTML=[['1 · inicio de la compresión',V1,1,T1],['2 · fin de la compresión',V2,p2,T2],['3 · tras la combustión',V2,p3,T3],['4 · fin de la expansión',V1,p4,T4]].map(([a,v,p,t])=>`<tr><td>${a}</td><td>${fv(v*1e6)}</td><td>${fv(p,2)}</td><td>${fv(t,0)}</td></tr>`).join('');
+ const U12=n*CV*(T2-T1),Q1=n*CV*(T3-T2),U34=n*CV*(T4-T3),Q2=n*CV*(T1-T4);
+ const R=[[0,'0→1 Admisión<small>isóbara a p atmosférica</small>','—',-Wa,'—'],
+ [1,'1→2 Compresión<small>adiabática</small>',0,U12,U12],
+ [2,'2→3 Combustión<small>isócora (salta la chispa)</small>',Q1,0,Q1],
+ [2,'3→4 Expansión<small>adiabática (carrera de trabajo)</small>',0,U34,U34],
+ [3,'4→1 Apertura del escape<small>isócora (cede calor)</small>',Q2,0,Q2],
+ [3,'1→0 Escape<small>isóbara a p atmosférica</small>','—',Wa,'—']];
+ const Wt=U12+U34;
+ document.getElementById('et').innerHTML=R.map(x=>`<tr data-s="${x[0]}"><td>${x[1]}</td>${td(x[2])}${td(x[3])}${td(x[4])}</tr>`).join('')+
+  `<tr class="tot"><td>Ciclo completo<small>admisión y escape se anulan</small></td>${td(Q1+Q2)}${td(Wt)}<td>0,0</td></tr>`;
+ rows=[...document.querySelectorAll('#et tr[data-s]')];lr=-1;
+ document.getElementById('kp').innerHTML=`<div><b>${fv(Q1)} J</b><span>Q<sub>1</sub>: calor absorbido en la combustión</span></div><div><b>${fv(-Q2)} J</b><span>|Q<sub>2</sub>|: calor cedido al ambiente</span></div><div><b>${fv(-Wt)} J</b><span>Trabajo útil del ciclo = Q<sub>1</sub> − |Q<sub>2</sub>| (área encerrada)</span></div><div><b>${fv(100*(-Wt)/Q1)} %</b><span>η = W<sub>útil</sub> / Q<sub>1</sub>, igual que 1 − 1/r<sup>γ−1</sup></span></div>`}
+let lr=-1;
 const ri=document.getElementById('r'),rv=document.getElementById('rv'),ev=document.getElementById('ev');
-function setR(){r=+ri.value;rv.textContent=String(r).replace('.',',');ev.textContent=Math.round(100*(1-1/Math.pow(r,G-1)));calc();draw()}
+function setR(){r=+ri.value;rv.textContent=String(r).replace('.',',');ev.textContent=Math.round(100*(1-1/Math.pow(r,G-1)));calc();energy();draw()}
 ri.oninput=setR;setR();
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)ST.speed=0.4;
 requestAnimationFrame(loop);
