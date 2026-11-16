@@ -414,7 +414,7 @@ details.prob summary .stitle{display:block}
     <div>
       <p class="crumbs"><a href="./">Tecnología e Ingeniería II</a> / <a href="maquinas-termicas.html">Máquinas térmicas</a></p>
       <h1>Problemas de máquinas térmicas</h1>
-      <p class="lead">Formulario y 104 problemas resueltos paso a paso: energía, combustible, motores, cilindrada, potencia, ciclo de Carnot, frigoríficas y bomba de calor.</p>
+      <p class="lead">Formulario y 122 problemas resueltos paso a paso: energía, combustible, motores, cilindrada, potencia, transformaciones termodinámicas, ciclo de Carnot, frigoríficas y bomba de calor.</p>
       <ul class="quick">
         <li><a class="primary" href="#p1">Empezar por el problema 1</a></li>
         <li><a href="#formulario">Formulario</a></li>
@@ -481,9 +481,17 @@ details.prob summary .stitle{display:block}
   <div class="f">P = M · ω &nbsp;&nbsp;|&nbsp;&nbsp; ω = 2π · n / 60<span>P en W, M en N·m, ω en rad/s, n en rpm. 1 CV ≈ 735 W.</span></div>
   <div class="f">P<sub>útil</sub> = W / t = m · g · h / t = m · g · v<span>Potencia para elevar una carga a velocidad constante (v = h / t).</span></div>
   <div class="f">P = p<sub>me</sub> · V<sub>T</sub> · n / 120<span>Potencia con la presión media efectiva en un motor de cuatro tiempos (un ciclo cada dos vueltas). 1 kgf/cm² = 9,8·10⁴ Pa.</span></div>
+  <h3>Transformaciones de un gas ideal</h3>
+  <div class="f">p · V = n · R · T &nbsp;&nbsp;|&nbsp;&nbsp; Q = ΔU + W &nbsp;&nbsp;|&nbsp;&nbsp; ΔU = n · c<sub>v</sub> · ΔT<span>R = 8,31 J/(mol·K). Q &gt; 0 si el gas recibe calor; W &gt; 0 si el gas hace trabajo. ΔU solo depende de la temperatura.</span></div>
+  <div class="f">c<sub>v</sub> = 3/2 · R, c<sub>p</sub> = 5/2 · R, γ = 1,67 (monoatómico) &nbsp;&nbsp;|&nbsp;&nbsp; c<sub>v</sub> = 5/2 · R, c<sub>p</sub> = 7/2 · R, γ = 1,40 (diatómico, aire)<span>c<sub>p</sub> = c<sub>v</sub> + R y γ = c<sub>p</sub> / c<sub>v</sub>.</span></div>
+  <div class="f">Isócora: W = 0; Q = n · c<sub>v</sub> · ΔT; p<sub>1</sub>/T<sub>1</sub> = p<sub>2</sub>/T<sub>2</sub></div>
+  <div class="f">Isóbara: W = p · (V<sub>2</sub> − V<sub>1</sub>); Q = n · c<sub>p</sub> · ΔT; V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub></div>
+  <div class="f">Isoterma: ΔU = 0; Q = W = n · R · T · ln(V<sub>2</sub>/V<sub>1</sub>); p<sub>1</sub> · V<sub>1</sub> = p<sub>2</sub> · V<sub>2</sub></div>
+  <div class="f">Adiabática: Q = 0; W = −ΔU = (p<sub>1</sub>V<sub>1</sub> − p<sub>2</sub>V<sub>2</sub>) / (γ − 1)<span>p · V<sup>γ</sup> = cte &nbsp;|&nbsp; T · V<sup>γ−1</sup> = cte</span></div>
   <h3>Motores térmicos y ciclo de Carnot</h3>
   <div class="f">η = W / Q<sub>c</sub> &nbsp;&nbsp;|&nbsp;&nbsp; W = Q<sub>c</sub> − Q<sub>f</sub><span>Q<sub>c</sub>: calor absorbido del foco caliente. Q<sub>f</sub>: calor cedido al foco frío.</span></div>
   <div class="f">η<sub>Carnot</sub> = 1 − T<sub>f</sub> / T<sub>c</sub> &nbsp;&nbsp;|&nbsp;&nbsp; T(K) = T(°C) + 273<span>Rendimiento máximo teórico entre dos focos.</span></div>
+  <div class="f">Q<sub>c</sub> = n · R · T<sub>c</sub> · ln(V<sub>2</sub>/V<sub>1</sub>) &nbsp;&nbsp;|&nbsp;&nbsp; Q<sub>f</sub> = n · R · T<sub>f</sub> · ln(V<sub>3</sub>/V<sub>4</sub>) &nbsp;&nbsp;|&nbsp;&nbsp; V<sub>3</sub>/V<sub>4</sub> = V<sub>2</sub>/V<sub>1</sub><span>Ciclo de Carnot con un gas ideal: 1‑2 expansión isoterma a T<sub>c</sub>, 2‑3 expansión adiabática, 3‑4 compresión isoterma a T<sub>f</sub>, 4‑1 compresión adiabática.</span></div>
   <h3>Máquina frigorífica y bomba de calor</h3>
   <div class="f">COP<sub>R</sub> = ε = Q<sub>f</sub> / W &nbsp;&nbsp;|&nbsp;&nbsp; ε<sub>Carnot</sub> = T<sub>f</sub> / (T<sub>c</sub> − T<sub>f</sub>)<span>Frigorífica: interesa el calor extraído del foco frío.</span></div>
   <div class="f">COP<sub>BC</sub> = ε′ = Q<sub>c</sub> / W &nbsp;&nbsp;|&nbsp;&nbsp; ε′<sub>Carnot</sub> = T<sub>c</sub> / (T<sub>c</sub> − T<sub>f</sub>)<span>Bomba de calor: interesa el calor entregado al foco caliente. ε′ = ε + 1.</span></div>
@@ -496,17 +504,18 @@ details.prob summary .stitle{display:block}
 
 <section id="problemas">
   <h2><span class="n">2</span>Problemas resueltos</h2>
-  <p>104 problemas ordenados por temática, de lo más sencillo a lo más completo. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
-  <nav class="temas" aria-label="Temas"><b>Temas:</b> <a href="#energia-calor">Energía, calor y trabajo</a> · <a href="#rendimiento">Rendimiento: motores eléctricos y elevadores</a> · <a href="#vehiculos">Vehículos: energía mecánica y combustible</a> · <a href="#combustible">Combustible, potencia, par y rendimiento</a> · <a href="#presion-media">Presión media efectiva y potencia indicada</a> · <a href="#cilindrada">Cilindrada, relación de compresión y par</a> · <a href="#cilindrada-consumo">Cilindrada, consumo y rendimiento</a> · <a href="#carnot">Motores térmicos y ciclo de Carnot</a> · <a href="#frigorificas">Máquinas frigoríficas</a> · <a href="#bombas">Bombas de calor</a> · <a href="#reversibles">Frigorífica y bomba de calor: equipos reversibles</a></nav>
+  <p>122 problemas ordenados por temática, de lo más sencillo a lo más completo. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
+  <nav class="temas" aria-label="Temas"><b>Temas:</b> <a href="#energia-calor">Energía, calor y trabajo</a> · <a href="#rendimiento">Rendimiento: motores eléctricos y elevadores</a> · <a href="#vehiculos">Vehículos: energía mecánica y combustible</a> · <a href="#combustible">Combustible, potencia, par y rendimiento</a> · <a href="#presion-media">Presión media efectiva y potencia indicada</a> · <a href="#cilindrada">Cilindrada, relación de compresión y par</a> · <a href="#cilindrada-consumo">Cilindrada, consumo y rendimiento</a> · <a href="#carnot">Motores térmicos y ciclo de Carnot</a> · <a href="#frigorificas">Máquinas frigoríficas</a> · <a href="#bombas">Bombas de calor</a> · <a href="#reversibles">Frigorífica y bomba de calor: equipos reversibles</a> · <a href="#transformaciones">Transformaciones termodinámicas de un gas ideal</a> · <a href="#ciclo-carnot">Ciclo de Carnot: estados, calores y trabajo</a></nav>
   <div class="filters-m" role="group" aria-label="Filtrar por tema">
     <button type="button" data-f="all" aria-pressed="true">Todos</button>
     <button type="button" data-f="energia" aria-pressed="false">Energía y potencia</button>
     <button type="button" data-f="combustible" aria-pressed="false">Combustible</button>
     <button type="button" data-f="motores" aria-pressed="false">Motores</button>
+    <button type="button" data-f="transformaciones" aria-pressed="false">Transformaciones</button>
     <button type="button" data-f="carnot" aria-pressed="false">Carnot</button>
     <button type="button" data-f="frigorifica" aria-pressed="false">Frigorífica y bomba de calor</button>
   </div>
-  <p class="fcount" id="fcount" aria-live="polite">104 problemas</p>
+  <p class="fcount" id="fcount" aria-live="polite">122 problemas</p>
   <h3 id="energia-calor" class="extra-h grp-h">Energía, calor y trabajo</h3>
   <details class="prob" id="p1" data-tags="energia">
     <summary><span class="stitle">1. Energía de una bombilla<span class="ptags"><span class="ptag">Energía</span></span></span></summary>
@@ -2929,6 +2938,514 @@ details.prob summary .stitle{display:block}
           <li>Invierno, calor extraído del exterior:<span class="eq">Q<sub>f</sub> = 2,17·10⁷ − 3,15·10⁶ = 1,85·10⁷ J</span></li>
       </ol>
       <p class="res">Verano: Q<sub>c</sub> ≈ 1,90·10⁷ J. Invierno: Q<sub>f</sub> ≈ 1,85·10⁷ J.</p>
+    </div>
+  </details>
+  <h3 id="transformaciones" class="extra-h grp-h">Transformaciones termodinámicas de un gas ideal</h3>
+  <p><a href="maquinas-termicas-transformaciones-carnot.pdf" download>📄 Descargar la hoja de problemas de transformaciones y ciclo de Carnot (PDF)</a></p>
+  <details class="prob" id="p105" data-tags="transformaciones">
+    <summary><span class="stitle">105. Calentamiento de aire en un recipiente rígido<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Un depósito rígido contiene 2 mol de aire a 20 °C y 1 atm. Se calienta hasta 120 °C. Considera el aire un gas ideal diatómico. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El volumen del depósito.</li><li class="q"><b>b)</b> El trabajo, la variación de energía interna y el calor intercambiado.</li><li class="q"><b>c)</b> La presión final.</li></ol>
+    <p class="datos"><b>Datos:</b> n = 2 mol; T<sub>1</sub> = 293 K; T<sub>2</sub> = 393 K; p<sub>1</sub> = 1 atm = 1,013·10⁵ Pa; c<sub>v</sub> = 5/2 · R = 20,78 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>El volumen del depósito.</h4>
+      <ol class="steps">
+          <li>Ecuación de los gases ideales:<span class="eq">V = n · R · T<sub>1</sub> / p<sub>1</sub> = 2 · 8,31 · 293 / 1,013·10⁵ = 4,807·10⁻² m³</span></li>
+      </ol>
+      <p class="res">V ≈ 48,1 L</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El trabajo, la variación de energía interna y el calor intercambiado.</h4>
+      <ol class="steps">
+          <li>Volumen constante, no hay trabajo:<span class="eq">W = 0</span></li>
+          <li>Energía interna:<span class="eq">ΔU = n · c<sub>v</sub> · ΔT = 2 · 20,78 · 100 = 4 155 J</span></li>
+          <li>Primer principio:<span class="eq">Q = ΔU + W = 4 155 J</span></li>
+      </ol>
+      <p class="res">W = 0; ΔU = Q ≈ 4 155 J (el gas absorbe calor)</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La presión final.</h4>
+      <ol class="steps">
+          <li>Isócora:<span class="eq">p<sub>2</sub> = p<sub>1</sub> · T<sub>2</sub> / T<sub>1</sub> = 1 · 393 / 293 = 1,341 atm</span></li>
+      </ol>
+      <p class="res">p<sub>2</sub> ≈ 1,34 atm</p>
+    </div>
+  </details>
+  <details class="prob" id="p106" data-tags="transformaciones">
+    <summary><span class="stitle">106. Expansión de helio a presión constante<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>0,5 mol de helio (gas monoatómico) se expanden a la presión constante de 2·10⁵ Pa desde 5 L hasta 9 L. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El trabajo realizado por el gas.</li><li class="q"><b>b)</b> Las temperaturas inicial y final.</li><li class="q"><b>c)</b> La variación de energía interna y el calor absorbido.</li></ol>
+    <p class="datos"><b>Datos:</b> n = 0,5 mol; p = 2·10⁵ Pa; V<sub>1</sub> = 5·10⁻³ m³; V<sub>2</sub> = 9·10⁻³ m³; c<sub>v</sub> = 3/2 · R = 12,47 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>El trabajo realizado por el gas.</h4>
+      <ol class="steps">
+          <li>Isóbara:<span class="eq">W = p · (V<sub>2</sub> − V<sub>1</sub>) = 2·10⁵ · 4·10⁻³ = 800 J</span></li>
+      </ol>
+      <p class="res">W = 800 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Las temperaturas inicial y final.</h4>
+      <ol class="steps">
+          <li>Estado 1:<span class="eq">T<sub>1</sub> = p · V<sub>1</sub> / (n · R) = 1 000 / 4,155 = 240,7 K</span></li>
+          <li>Estado 2:<span class="eq">T<sub>2</sub> = p · V<sub>2</sub> / (n · R) = 1 800 / 4,155 = 433,2 K</span></li>
+      </ol>
+      <p class="res">T<sub>1</sub> ≈ 240,7 K; T<sub>2</sub> ≈ 433,2 K</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La variación de energía interna y el calor absorbido.</h4>
+      <ol class="steps">
+          <li>Energía interna:<span class="eq">ΔU = n · c<sub>v</sub> · ΔT = 0,5 · 12,47 · 192,5 = 1 200 J</span></li>
+          <li>Primer principio:<span class="eq">Q = ΔU + W = 1 200 + 800 = 2 000 J</span></li>
+      </ol>
+      <p class="res">ΔU ≈ 1 200 J; Q ≈ 2 000 J</p>
+    </div>
+  </details>
+  <details class="prob" id="p107" data-tags="transformaciones">
+    <summary><span class="stitle">107. Expansión isoterma<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>3 mol de un gas ideal se expanden de forma isoterma a 27 °C desde un volumen de 10 L hasta 30 L. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El trabajo realizado por el gas.</li><li class="q"><b>b)</b> La variación de energía interna y el calor intercambiado.</li><li class="q"><b>c)</b> Las presiones inicial y final.</li></ol>
+    <p class="datos"><b>Datos:</b> n = 3 mol; T = 300 K; V<sub>1</sub> = 10 L; V<sub>2</sub> = 30 L</p>
+    <div class="ap">
+      <h4><span>a)</span>El trabajo realizado por el gas.</h4>
+      <ol class="steps">
+          <li>Isoterma:<span class="eq">W = n · R · T · ln(V<sub>2</sub>/V<sub>1</sub>) = 3 · 8,31 · 300 · ln 3 = 7 479 · 1,0986 = 8 216,5 J</span></li>
+      </ol>
+      <p class="res">W ≈ 8 217 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La variación de energía interna y el calor intercambiado.</h4>
+      <ol class="steps">
+          <li>La temperatura no cambia:<span class="eq">ΔU = 0</span></li>
+          <li>Primer principio:<span class="eq">Q = ΔU + W = 8 216,5 J</span></li>
+      </ol>
+      <p class="res">ΔU = 0; Q ≈ 8 217 J (todo el calor absorbido se convierte en trabajo)</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>Las presiones inicial y final.</h4>
+      <ol class="steps">
+          <li>Estado 1:<span class="eq">p<sub>1</sub> = n · R · T / V<sub>1</sub> = 7 479 / 0,010 = 7,48·10⁵ Pa</span></li>
+          <li>Estado 2:<span class="eq">p<sub>2</sub> = p<sub>1</sub> · V<sub>1</sub> / V<sub>2</sub> = 2,49·10⁵ Pa</span></li>
+      </ol>
+      <p class="res">p<sub>1</sub> ≈ 7,48·10⁵ Pa; p<sub>2</sub> ≈ 2,49·10⁵ Pa</p>
+    </div>
+  </details>
+  <details class="prob" id="p108" data-tags="transformaciones">
+    <summary><span class="stitle">108. Compresión isoterma de aire<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Se comprimen 20 L de aire, inicialmente a 1 atm y 20 °C, hasta 5 L manteniendo constante la temperatura. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cantidad de gas.</li><li class="q"><b>b)</b> El trabajo y el calor. Interpreta los signos.</li><li class="q"><b>c)</b> La presión final.</li></ol>
+    <p class="datos"><b>Datos:</b> p<sub>1</sub> = 1,013·10⁵ Pa; V<sub>1</sub> = 2·10⁻² m³; V<sub>2</sub> = 5·10⁻³ m³; T = 293 K</p>
+    <div class="ap">
+      <h4><span>a)</span>La cantidad de gas.</h4>
+      <ol class="steps">
+          <li>Gases ideales:<span class="eq">n = p<sub>1</sub> · V<sub>1</sub> / (R · T) = 2 026 / (8,31 · 293) = 0,832 mol</span></li>
+      </ol>
+      <p class="res">n ≈ 0,83 mol</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El trabajo y el calor. Interpreta los signos.</h4>
+      <ol class="steps">
+          <li>Isoterma (n · R · T = p<sub>1</sub> · V<sub>1</sub>):<span class="eq">W = p<sub>1</sub> · V<sub>1</sub> · ln(V<sub>2</sub>/V<sub>1</sub>) = 2 026 · ln 0,25 = −2 808,6 J</span></li>
+          <li>ΔU = 0, por tanto:<span class="eq">Q = W = −2 808,6 J</span></li>
+      </ol>
+      <p class="res">W ≈ −2 809 J (el gas recibe trabajo); Q ≈ −2 809 J (el gas cede calor al exterior)</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La presión final.</h4>
+      <ol class="steps">
+          <li>Ley de Boyle:<span class="eq">p<sub>2</sub> = p<sub>1</sub> · V<sub>1</sub> / V<sub>2</sub> = 1 · 20 / 5 = 4 atm</span></li>
+      </ol>
+      <p class="res">p<sub>2</sub> = 4 atm</p>
+    </div>
+  </details>
+  <details class="prob" id="p109" data-tags="transformaciones">
+    <summary><span class="stitle">109. Expansión adiabática de aire<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>1 mol de aire (γ = 1,4) a 400 K y 8·10⁵ Pa se expande adiabáticamente hasta duplicar su volumen. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Los volúmenes inicial y final.</li><li class="q"><b>b)</b> La temperatura y la presión finales.</li><li class="q"><b>c)</b> El trabajo realizado y la variación de energía interna.</li></ol>
+    <p class="datos"><b>Datos:</b> n = 1 mol; T<sub>1</sub> = 400 K; p<sub>1</sub> = 8·10⁵ Pa; V<sub>2</sub> = 2 · V<sub>1</sub>; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>Los volúmenes inicial y final.</h4>
+      <ol class="steps">
+          <li>Gases ideales:<span class="eq">V<sub>1</sub> = n · R · T<sub>1</sub> / p<sub>1</sub> = 8,31 · 400 / 8·10⁵ = 4,155·10⁻³ m³</span></li>
+          <li>Volumen final:<span class="eq">V<sub>2</sub> = 2 · V<sub>1</sub> = 8,310·10⁻³ m³</span></li>
+      </ol>
+      <p class="res">V<sub>1</sub> ≈ 4,16 L; V<sub>2</sub> ≈ 8,31 L</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La temperatura y la presión finales.</h4>
+      <ol class="steps">
+          <li>Temperatura:<span class="eq">T<sub>2</sub> = T<sub>1</sub> · (V<sub>1</sub>/V<sub>2</sub>)<sup>γ−1</sup> = 400 · 0,5<sup>0,4</sup> = 303,1 K</span></li>
+          <li>Presión:<span class="eq">p<sub>2</sub> = p<sub>1</sub> · (V<sub>1</sub>/V<sub>2</sub>)<sup>γ</sup> = 8·10⁵ · 0,5<sup>1,4</sup> = 3,031·10⁵ Pa</span></li>
+      </ol>
+      <p class="res">T<sub>2</sub> ≈ 303,1 K; p<sub>2</sub> ≈ 3,03·10⁵ Pa</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El trabajo realizado y la variación de energía interna.</h4>
+      <ol class="steps">
+          <li>Energía interna:<span class="eq">ΔU = n · c<sub>v</sub> · (T<sub>2</sub> − T<sub>1</sub>) = 20,78 · (−96,9) = −2 012 J</span></li>
+          <li>Adiabática (Q = 0):<span class="eq">W = −ΔU = 2 012 J</span></li>
+      </ol>
+      <p class="res">ΔU ≈ −2 012 J; W ≈ 2 012 J. El gas se enfría porque hace trabajo a costa de su energía interna.</p>
+    </div>
+  </details>
+  <details class="prob" id="p110" data-tags="transformaciones motores">
+    <summary><span class="stitle">110. Compresión en un motor diésel<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag">Motores</span></span></span></summary>
+    <div class="enun"><p>En un motor diésel, el aire entra en el cilindro a 1 bar y 27 °C y se comprime adiabáticamente con una relación de compresión de 18. Considera el aire un gas ideal con γ = 1,4. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La temperatura al final de la compresión. ¿Por qué el motor diésel no necesita bujía?</li><li class="q"><b>b)</b> La presión al final de la compresión.</li><li class="q"><b>c)</b> El trabajo por cada mol de aire comprimido.</li></ol>
+    <p class="datos"><b>Datos:</b> p<sub>1</sub> = 10⁵ Pa; T<sub>1</sub> = 300 K; V<sub>1</sub>/V<sub>2</sub> = 18; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>La temperatura al final de la compresión. ¿Por qué el motor diésel no necesita bujía?</h4>
+      <ol class="steps">
+          <li>Adiabática:<span class="eq">T<sub>2</sub> = T<sub>1</sub> · (V<sub>1</sub>/V<sub>2</sub>)<sup>γ−1</sup> = 300 · 18<sup>0,4</sup> = 300 · 3,178 = 953,3 K</span></li>
+      </ol>
+      <p class="res">T<sub>2</sub> ≈ 953 K ≈ 680 °C. El aire queda tan caliente que el gasóleo se inflama solo al inyectarlo.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La presión al final de la compresión.</h4>
+      <ol class="steps">
+          <li>Adiabática:<span class="eq">p<sub>2</sub> = p<sub>1</sub> · (V<sub>1</sub>/V<sub>2</sub>)<sup>γ</sup> = 10⁵ · 18<sup>1,4</sup> = 5,720·10⁶ Pa</span></li>
+      </ol>
+      <p class="res">p<sub>2</sub> ≈ 57,2 bar</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El trabajo por cada mol de aire comprimido.</h4>
+      <ol class="steps">
+          <li>Adiabática (Q = 0):<span class="eq">W = −ΔU = −c<sub>v</sub> · (T<sub>2</sub> − T<sub>1</sub>) = −20,78 · 653,3 = −13 572 J/mol</span></li>
+      </ol>
+      <p class="res">W ≈ −13 572 J por mol (negativo: el pistón hace trabajo sobre el gas)</p>
+    </div>
+  </details>
+  <details class="prob" id="p111" data-tags="transformaciones">
+    <summary><span class="stitle">111. Primer principio: interpreta los signos<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Aplica el primer principio (Q = ΔU + W, con Q &gt; 0 si el gas recibe calor y W &gt; 0 si el gas hace trabajo) en cada caso y di si la temperatura del gas sube o baja:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Un gas absorbe 800 J de calor y realiza un trabajo de 300 J.</li><li class="q"><b>b)</b> Un gas se comprime con un trabajo de 500 J mientras cede 200 J de calor.</li><li class="q"><b>c)</b> Un gas se expande adiabáticamente y realiza un trabajo de 150 J.</li></ol>
+    <p class="datos"><b>Datos:</b> Q = calor recibido por el gas; W = trabajo realizado por el gas</p>
+    <div class="ap">
+      <h4><span>a)</span>Un gas absorbe 800 J de calor y realiza un trabajo de 300 J.</h4>
+      <ol class="steps">
+          <li>Primer principio:<span class="eq">ΔU = Q − W = 800 − 300 = 500 J</span></li>
+      </ol>
+      <p class="res">ΔU = +500 J: la energía interna aumenta y el gas se calienta.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Un gas se comprime con un trabajo de 500 J mientras cede 200 J de calor.</h4>
+      <ol class="steps">
+          <li>Signos:<span class="eq">W = −500 J; Q = −200 J</span></li>
+          <li>Primer principio:<span class="eq">ΔU = Q − W = −200 − (−500) = 300 J</span></li>
+      </ol>
+      <p class="res">ΔU = +300 J: el gas se calienta.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>Un gas se expande adiabáticamente y realiza un trabajo de 150 J.</h4>
+      <ol class="steps">
+          <li>Adiabática:<span class="eq">Q = 0</span></li>
+          <li>Primer principio:<span class="eq">ΔU = 0 − 150 = −150 J</span></li>
+      </ol>
+      <p class="res">ΔU = −150 J: el gas se enfría.</p>
+    </div>
+  </details>
+  <details class="prob" id="p112" data-tags="transformaciones">
+    <summary><span class="stitle">112. Calentar a volumen constante o a presión constante<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Queremos calentar 2 mol de nitrógeno (gas diatómico) desde 300 K hasta 400 K. Calcula el calor necesario, el trabajo y la variación de energía interna:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Si se calienta a volumen constante.</li><li class="q"><b>b)</b> Si se calienta a presión constante.</li><li class="q"><b>c)</b> Explica por qué hace falta más calor a presión constante.</li></ol>
+    <p class="datos"><b>Datos:</b> n = 2 mol; ΔT = 100 K; c<sub>v</sub> = 5/2 · R = 20,78 J/(mol·K); c<sub>p</sub> = 7/2 · R = 29,09 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>Si se calienta a volumen constante.</h4>
+      <ol class="steps">
+          <li>Calor:<span class="eq">Q<sub>v</sub> = n · c<sub>v</sub> · ΔT = 2 · 20,78 · 100 = 4 155 J</span></li>
+          <li>Sin trabajo:<span class="eq">W = 0</span></li>
+          <li>Energía interna:<span class="eq">ΔU = Q<sub>v</sub> = 4 155 J</span></li>
+      </ol>
+      <p class="res">Q<sub>v</sub> = ΔU ≈ 4 155 J; W = 0</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Si se calienta a presión constante.</h4>
+      <ol class="steps">
+          <li>Calor:<span class="eq">Q<sub>p</sub> = n · c<sub>p</sub> · ΔT = 2 · 29,09 · 100 = 5 817 J</span></li>
+          <li>Trabajo (p · ΔV = n · R · ΔT):<span class="eq">W = 2 · 8,31 · 100 = 1 662 J</span></li>
+          <li>Energía interna:<span class="eq">ΔU = Q<sub>p</sub> − W = 4 155 J</span></li>
+      </ol>
+      <p class="res">Q<sub>p</sub> ≈ 5 817 J; W ≈ 1 662 J; ΔU ≈ 4 155 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>Explica por qué hace falta más calor a presión constante.</h4>
+      <p class="res">ΔU es la misma en los dos casos porque solo depende de la temperatura. A presión constante el gas se dilata y gasta parte del calor en hacer trabajo, así que hay que aportar más.</p>
+    </div>
+  </details>
+  <details class="prob" id="p113" data-tags="transformaciones">
+    <summary><span class="stitle">113. Proceso en dos etapas: isóbara + isócora<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>1 mol de aire (diatómico) se encuentra en el estado A (2·10⁵ Pa; 10 L). Primero se expande a presión constante hasta 25 L (estado B) y después se enfría a volumen constante hasta 10⁵ Pa (estado C). Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Las temperaturas de los estados A, B y C.</li><li class="q"><b>b)</b> W, Q y ΔU en cada etapa.</li><li class="q"><b>c)</b> W, Q y ΔU del proceso completo A→C.</li></ol>
+    <p class="datos"><b>Datos:</b> n = 1 mol; p<sub>A</sub> = 2·10⁵ Pa; V<sub>A</sub> = 10 L; V<sub>B</sub> = V<sub>C</sub> = 25 L; p<sub>C</sub> = 10⁵ Pa; c<sub>v</sub> = 20,78 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>Las temperaturas de los estados A, B y C.</h4>
+      <ol class="steps">
+          <li>T = p · V / (n · R):<span class="eq">T<sub>A</sub> = 2 000 / 8,31 = 240,7 K; T<sub>B</sub> = 5 000 / 8,31 = 601,7 K; T<sub>C</sub> = 2 500 / 8,31 = 300,8 K</span></li>
+      </ol>
+      <p class="res">T<sub>A</sub> ≈ 240,7 K; T<sub>B</sub> ≈ 601,7 K; T<sub>C</sub> ≈ 300,8 K</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>W, Q y ΔU en cada etapa.</h4>
+      <ol class="steps">
+          <li>A→B, trabajo:<span class="eq">W = p · ΔV = 2·10⁵ · 0,015 = 3 000 J</span></li>
+          <li>A→B, energía interna:<span class="eq">ΔU = n · c<sub>v</sub> · (T<sub>B</sub> − T<sub>A</sub>) = 7 500 J</span></li>
+          <li>A→B, calor:<span class="eq">Q = ΔU + W = 10 500 J</span></li>
+          <li>B→C, isócora:<span class="eq">W = 0; ΔU = Q = n · c<sub>v</sub> · (T<sub>C</sub> − T<sub>B</sub>) = −6 250 J</span></li>
+      </ol>
+      <p class="res">A→B: W = 3 000 J; ΔU ≈ 7 500 J; Q ≈ 10 500 J. B→C: W = 0; ΔU = Q ≈ −6 250 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>W, Q y ΔU del proceso completo A→C.</h4>
+      <ol class="steps">
+          <li>Trabajo total:<span class="eq">W = 3 000 + 0 = 3 000 J</span></li>
+          <li>Calor total:<span class="eq">Q = 10 500 + (−6 250) = 4 250 J</span></li>
+          <li>Comprobación:<span class="eq">ΔU = Q − W = 1 250 J = n · c<sub>v</sub> · (T<sub>C</sub> − T<sub>A</sub>)</span></li>
+      </ol>
+      <p class="res">W = 3 000 J; Q ≈ 4 250 J; ΔU ≈ 1 250 J</p>
+    </div>
+  </details>
+  <details class="prob" id="p114" data-tags="transformaciones">
+    <summary><span class="stitle">114. El trabajo depende del camino<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Un gas ideal pasa del estado 1 (4·10⁵ Pa; 2 L) al estado 2 (2·10⁵ Pa; 4 L). Calcula el trabajo y el calor si el proceso es:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Una isoterma (comprueba primero que es posible).</li><li class="q"><b>b)</b> Una isóbara a 4·10⁵ Pa seguida de una isócora.</li><li class="q"><b>c)</b> Una isócora seguida de una isóbara a 2·10⁵ Pa. ¿Qué conclusión sacas?</li></ol>
+    <p class="datos"><b>Datos:</b> p<sub>1</sub> · V<sub>1</sub> = 4·10⁵ · 2·10⁻³ = 800 J; p<sub>2</sub> · V<sub>2</sub> = 2·10⁵ · 4·10⁻³ = 800 J</p>
+    <div class="ap">
+      <h4><span>a)</span>Una isoterma (comprueba primero que es posible).</h4>
+      <ol class="steps">
+          <li>p · V es igual en 1 y en 2, así que T<sub>1</sub> = T<sub>2</sub>:<span class="eq">ΔU = 0</span></li>
+          <li>Isoterma:<span class="eq">W = p<sub>1</sub> · V<sub>1</sub> · ln(V<sub>2</sub>/V<sub>1</sub>) = 800 · ln 2 = 554,5 J</span></li>
+          <li>Primer principio:<span class="eq">Q = W = 554,5 J</span></li>
+      </ol>
+      <p class="res">W = Q ≈ 555 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Una isóbara a 4·10⁵ Pa seguida de una isócora.</h4>
+      <ol class="steps">
+          <li>Isóbara:<span class="eq">W = 4·10⁵ · 2·10⁻³ = 800 J; la isócora no hace trabajo</span></li>
+          <li>T<sub>1</sub> = T<sub>2</sub>, ΔU = 0:<span class="eq">Q = W = 800 J</span></li>
+      </ol>
+      <p class="res">W = Q = 800 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>Una isócora seguida de una isóbara a 2·10⁵ Pa. ¿Qué conclusión sacas?</h4>
+      <ol class="steps">
+          <li>Isóbara:<span class="eq">W = 2·10⁵ · 2·10⁻³ = 400 J</span></li>
+          <li>ΔU = 0:<span class="eq">Q = W = 400 J</span></li>
+      </ol>
+      <p class="res">W = Q = 400 J. Entre los mismos estados, W y Q dependen del camino; ΔU no.</p>
+    </div>
+  </details>
+  <h3 id="ciclo-carnot" class="extra-h grp-h">Ciclo de Carnot: estados, calores y trabajo</h3>
+  <details class="prob" id="p115" data-tags="carnot">
+    <summary><span class="stitle">115. Ciclo de Carnot completo: estados del gas<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>1 mol de aire (γ = 1,4) describe un ciclo de Carnot entre 600 K y 300 K. En el estado 1 ocupa 2 L y, tras la expansión isoterma, ocupa 6 L (estado 2). Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La presión y el volumen de los cuatro estados.</li><li class="q"><b>b)</b> El calor absorbido, el calor cedido y el trabajo neto por ciclo.</li><li class="q"><b>c)</b> El rendimiento. Compruébalo con la fórmula de Carnot.</li><li class="q"><b>d)</b> El trabajo en cada adiabática. ¿Por qué no influyen en el trabajo neto?</li></ol>
+    <p class="datos"><b>Datos:</b> n = 1 mol; T<sub>c</sub> = 600 K; T<sub>f</sub> = 300 K; V<sub>1</sub> = 2 L; V<sub>2</sub> = 6 L; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>La presión y el volumen de los cuatro estados.</h4>
+      <ol class="steps">
+          <li>Volúmenes 3 y 4 (adiabáticas, T · V<sup>γ−1</sup> = cte):<span class="eq">V<sub>3</sub> = V<sub>2</sub> · (T<sub>c</sub>/T<sub>f</sub>)<sup>1/(γ−1)</sup> = 6 · 2<sup>2,5</sup> = 33,94 L; V<sub>4</sub> = 2 · 2<sup>2,5</sup> = 11,31 L</span></li>
+          <li>Presiones (p = n · R · T / V):<span class="eq">p<sub>1</sub> = 2,493·10⁶ Pa; p<sub>2</sub> = 8,310·10⁵ Pa; p<sub>3</sub> = 7,345·10⁴ Pa; p<sub>4</sub> = 2,204·10⁵ Pa</span></li>
+      </ol>
+      <p class="res">1: 2,49·10⁶ Pa, 2 L · 2: 8,31·10⁵ Pa, 6 L · 3: 7,35·10⁴ Pa, 33,9 L · 4: 2,20·10⁵ Pa, 11,3 L</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El calor absorbido, el calor cedido y el trabajo neto por ciclo.</h4>
+      <ol class="steps">
+          <li>Isoterma 1‑2 (absorbe):<span class="eq">Q<sub>c</sub> = n · R · T<sub>c</sub> · ln(V<sub>2</sub>/V<sub>1</sub>) = 4 986 · ln 3 = 5 477,7 J</span></li>
+          <li>Isoterma 3‑4 (cede):<span class="eq">Q<sub>f</sub> = n · R · T<sub>f</sub> · ln(V<sub>3</sub>/V<sub>4</sub>) = 2 493 · ln 3 = 2 738,8 J</span></li>
+          <li>Trabajo neto:<span class="eq">W = Q<sub>c</sub> − Q<sub>f</sub> = 2 738,8 J</span></li>
+      </ol>
+      <p class="res">Q<sub>c</sub> ≈ 5 478 J; Q<sub>f</sub> ≈ 2 739 J; W ≈ 2 739 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El rendimiento. Compruébalo con la fórmula de Carnot.</h4>
+      <ol class="steps">
+          <li>Con los calores:<span class="eq">η = W / Q<sub>c</sub> = 2 738,8 / 5 477,7 = 0,500</span></li>
+          <li>Con las temperaturas:<span class="eq">η = 1 − 300 / 600 = 0,500</span></li>
+      </ol>
+      <p class="res">η = 50 % por los dos caminos.</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>El trabajo en cada adiabática. ¿Por qué no influyen en el trabajo neto?</h4>
+      <ol class="steps">
+          <li>Expansión 2‑3:<span class="eq">W = n · c<sub>v</sub> · (T<sub>c</sub> − T<sub>f</sub>) = 20,78 · 300 = 6 233 J</span></li>
+          <li>Compresión 4‑1:<span class="eq">W = −6 233 J</span></li>
+      </ol>
+      <p class="res">Son iguales y de signo contrario: se anulan. El trabajo neto sale solo de las dos isotermas.</p>
+    </div>
+  </details>
+  <details class="prob" id="p116" data-tags="carnot">
+    <summary><span class="stitle">116. Tabla de energías de un ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>2 mol de un gas monoatómico describen un ciclo de Carnot entre 500 K y 350 K. En la expansión isoterma el volumen se multiplica por 2,5. Completa una tabla con Q, W y ΔU de cada etapa y del ciclo, y calcula el rendimiento.</p></div>
+    <p class="datos"><b>Datos:</b> n = 2 mol; T<sub>c</sub> = 500 K; T<sub>f</sub> = 350 K; V<sub>2</sub>/V<sub>1</sub> = V<sub>3</sub>/V<sub>4</sub> = 2,5; c<sub>v</sub> = 3/2 · R = 12,47 J/(mol·K)</p>
+    <div class="ap">
+      <ol class="steps">
+          <li>1‑2, isoterma:<span class="eq">Q = W = n · R · T<sub>c</sub> · ln 2,5 = 8 310 · 0,9163 = 7 614,4 J; ΔU = 0</span></li>
+          <li>2‑3, adiabática:<span class="eq">Q = 0; W = n · c<sub>v</sub> · (T<sub>c</sub> − T<sub>f</sub>) = 2 · 12,47 · 150 = 3 739,5 J; ΔU = −W</span></li>
+          <li>3‑4, isoterma:<span class="eq">Q = W = −n · R · T<sub>f</sub> · ln 2,5 = −5 330,1 J; ΔU = 0</span></li>
+          <li>4‑1, adiabática:<span class="eq">Q = 0; W = −3 739,5 J; ΔU = +3 739,5 J</span></li>
+          <li>Rendimiento:<span class="eq">η = W / Q<sub>c</sub> = 2 284,3 / 7 614,4 = 0,30 = 1 − 350/500</span></li>
+      </ol>
+      <p class="res">W<sub>ciclo</sub> ≈ 2 284 J; η = 30 %.</p>
+      <div class="tbl" style="margin-top:12px"><table class='tt'><thead><tr><th>Etapa</th><th>Q (J)</th><th>W (J)</th><th>ΔU (J)</th></tr></thead><tbody><tr><td>1‑2 isoterma</td><td>7 614,4</td><td>7 614,4</td><td>0</td></tr><tr><td>2‑3 adiabática</td><td>0</td><td>3 739,5</td><td>−3 739,5</td></tr><tr><td>3‑4 isoterma</td><td>−5 330,1</td><td>−5 330,1</td><td>0</td></tr><tr><td>4‑1 adiabática</td><td>0</td><td>−3 739,5</td><td>3 739,5</td></tr><tr><td><b>Ciclo</b></td><td><b>2 284,3</b></td><td><b>2 284,3</b></td><td><b>0</b></td></tr></tbody></table></div>
+    </div>
+  </details>
+  <details class="prob" id="p117" data-tags="carnot">
+    <summary><span class="stitle">117. Volúmenes de un ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>Un ciclo de Carnot con aire (γ = 1,4) trabaja entre 675 K y 300 K. En el estado 1 el gas ocupa 1 L y al final de la expansión isoterma, 3 L. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Los volúmenes de los estados 3 y 4.</li><li class="q"><b>b)</b> Comprueba que V₃/V₄ = V₂/V₁ y explica qué consecuencia tiene.</li><li class="q"><b>c)</b> El rendimiento del ciclo.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 675 K; T<sub>f</sub> = 300 K; V<sub>1</sub> = 1 L; V<sub>2</sub> = 3 L; γ − 1 = 0,4</p>
+    <div class="ap">
+      <h4><span>a)</span>Los volúmenes de los estados 3 y 4.</h4>
+      <ol class="steps">
+          <li>Adiabática 2‑3:<span class="eq">T<sub>c</sub> · V<sub>2</sub><sup>0,4</sup> = T<sub>f</sub> · V<sub>3</sub><sup>0,4</sup> → V<sub>3</sub> = V<sub>2</sub> · (675/300)<sup>2,5</sup> = 3 · 7,5938 = 22,78 L</span></li>
+          <li>Adiabática 4‑1:<span class="eq">V<sub>4</sub> = V<sub>1</sub> · (675/300)<sup>2,5</sup> = 7,59 L</span></li>
+      </ol>
+      <p class="res">V<sub>3</sub> ≈ 22,78 L; V<sub>4</sub> ≈ 7,59 L</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Comprueba que V3/V4 = V2/V1 y explica qué consecuencia tiene.</h4>
+      <ol class="steps">
+          <li>Cociente:<span class="eq">V<sub>3</sub>/V<sub>4</sub> = 22,78 / 7,59 = 3 = V<sub>2</sub>/V<sub>1</sub></span></li>
+      </ol>
+      <p class="res">Como los dos cocientes de volúmenes coinciden, los logaritmos de las isotermas son iguales y Q<sub>f</sub>/Q<sub>c</sub> = T<sub>f</sub>/T<sub>c</sub>. De ahí sale η = 1 − T<sub>f</sub>/T<sub>c</sub>.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El rendimiento del ciclo.</h4>
+      <ol class="steps">
+          <li>Carnot:<span class="eq">η = 1 − 300 / 675 = 0,556</span></li>
+      </ol>
+      <p class="res">η ≈ 55,6 %</p>
+    </div>
+  </details>
+  <details class="prob" id="p118" data-tags="carnot">
+    <summary><span class="stitle">118. Diseñar los focos de un motor de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>Responde a estas dos cuestiones sobre un motor de Carnot:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Si el foco caliente está a 600 K, ¿a qué temperatura debe estar el foco frío para que el rendimiento sea del 40 %?</li><li class="q"><b>b)</b> Si el foco frío está a 300 K, ¿a qué temperatura debe estar el caliente para alcanzar un 60 %?</li></ol>
+    <p class="datos"><b>Datos:</b> η = 1 − T<sub>f</sub> / T<sub>c</sub></p>
+    <div class="ap">
+      <h4><span>a)</span>Si el foco caliente está a 600 K, ¿a qué temperatura debe estar el foco frío para que el rendimiento sea del 40 %?</h4>
+      <ol class="steps">
+          <li>Despejamos:<span class="eq">T<sub>f</sub> = T<sub>c</sub> · (1 − η) = 600 · 0,60 = 360 K</span></li>
+      </ol>
+      <p class="res">T<sub>f</sub> = 360 K = 87 °C</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Si el foco frío está a 300 K, ¿a qué temperatura debe estar el caliente para alcanzar un 60 %?</h4>
+      <ol class="steps">
+          <li>Despejamos:<span class="eq">T<sub>c</sub> = T<sub>f</sub> / (1 − η) = 300 / 0,40 = 750 K</span></li>
+      </ol>
+      <p class="res">T<sub>c</sub> = 750 K = 477 °C</p>
+    </div>
+  </details>
+  <details class="prob" id="p119" data-tags="carnot">
+    <summary><span class="stitle">119. ¿Subir el foco caliente o bajar el frío?<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>Un motor de Carnot trabaja entre 600 K y 300 K. Para mejorar su rendimiento podemos subir 50 K la temperatura del foco caliente o bajar 50 K la del foco frío. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El rendimiento inicial.</li><li class="q"><b>b)</b> El rendimiento con cada opción. ¿Cuál es mejor?</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 600 K; T<sub>f</sub> = 300 K; variación de 50 K</p>
+    <div class="ap">
+      <h4><span>a)</span>El rendimiento inicial.</h4>
+      <ol class="steps">
+          <li>Carnot:<span class="eq">η = 1 − 300 / 600 = 0,500</span></li>
+      </ol>
+      <p class="res">η = 50 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El rendimiento con cada opción. ¿Cuál es mejor?</h4>
+      <ol class="steps">
+          <li>Subir T<sub>c</sub>:<span class="eq">η = 1 − 300 / 650 = 0,538</span></li>
+          <li>Bajar T<sub>f</sub>:<span class="eq">η = 1 − 250 / 600 = 0,583</span></li>
+      </ol>
+      <p class="res">Subiendo T<sub>c</sub>: 53,8 %. Bajando T<sub>f</sub>: 58,3 %. Es más eficaz bajar el foco frío, aunque en la práctica está limitado por la temperatura ambiente.</p>
+    </div>
+  </details>
+  <details class="prob" id="p120" data-tags="carnot">
+    <summary><span class="stitle">120. Potencia de un motor de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>Un motor de Carnot funciona entre 527 °C y 27 °C. En cada ciclo absorbe 2 000 J del foco caliente y realiza 25 ciclos por segundo. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El rendimiento y el trabajo por ciclo.</li><li class="q"><b>b)</b> La potencia del motor en kW y en CV.</li><li class="q"><b>c)</b> El calor cedido al foco frío en una hora.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 800 K; T<sub>f</sub> = 300 K; Q<sub>c</sub> = 2 000 J/ciclo; f = 25 ciclos/s; 1 CV = 735 W</p>
+    <div class="ap">
+      <h4><span>a)</span>El rendimiento y el trabajo por ciclo.</h4>
+      <ol class="steps">
+          <li>Rendimiento:<span class="eq">η = 1 − 300 / 800 = 0,625</span></li>
+          <li>Trabajo:<span class="eq">W = η · Q<sub>c</sub> = 0,625 · 2 000 = 1 250 J</span></li>
+      </ol>
+      <p class="res">η = 62,5 %; W = 1 250 J/ciclo</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La potencia del motor en kW y en CV.</h4>
+      <ol class="steps">
+          <li>Potencia:<span class="eq">P = W · f = 1 250 · 25 = 31 250 W</span></li>
+          <li>En CV:<span class="eq">P = 31 250 / 735 = 42,5 CV</span></li>
+      </ol>
+      <p class="res">P = 31,25 kW ≈ 42,5 CV</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El calor cedido al foco frío en una hora.</h4>
+      <ol class="steps">
+          <li>Por ciclo:<span class="eq">Q<sub>f</sub> = 2 000 − 1 250 = 750 J</span></li>
+          <li>En una hora:<span class="eq">Q = 750 · 25 · 3 600 = 6,750·10⁷ J</span></li>
+      </ol>
+      <p class="res">Q<sub>f</sub> ≈ 67,5 MJ cada hora</p>
+    </div>
+  </details>
+  <details class="prob" id="p121" data-tags="carnot">
+    <summary><span class="stitle">121. Motor real frente a motor de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>Un motor real trabaja entre 800 K y 300 K. En cada ciclo absorbe 50 kJ y produce 12 kJ de trabajo. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El rendimiento real y el de Carnot entre los mismos focos.</li><li class="q"><b>b)</b> Qué fracción del rendimiento máximo alcanza el motor real.</li><li class="q"><b>c)</b> El calor cedido por ciclo por el motor real y el que cedería uno de Carnot.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 800 K; T<sub>f</sub> = 300 K; Q<sub>c</sub> = 50 kJ; W = 12 kJ</p>
+    <div class="ap">
+      <h4><span>a)</span>El rendimiento real y el de Carnot entre los mismos focos.</h4>
+      <ol class="steps">
+          <li>Real:<span class="eq">η = 12 / 50 = 0,24</span></li>
+          <li>Carnot:<span class="eq">η = 1 − 300 / 800 = 0,625</span></li>
+      </ol>
+      <p class="res">η = 24 %; η<sub>Carnot</sub> = 62,5 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Qué fracción del rendimiento máximo alcanza el motor real.</h4>
+      <ol class="steps">
+          <li>Cociente:<span class="eq">0,24 / 0,625 = 0,384</span></li>
+      </ol>
+      <p class="res">El motor real alcanza el 38,4 % del máximo teórico.</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El calor cedido por ciclo por el motor real y el que cedería uno de Carnot.</h4>
+      <ol class="steps">
+          <li>Real:<span class="eq">Q<sub>f</sub> = 50 − 12 = 38 kJ</span></li>
+          <li>Carnot:<span class="eq">W = 0,625 · 50 = 31,25 kJ → Q<sub>f</sub> = 18,75 kJ</span></li>
+      </ol>
+      <p class="res">Real: 38 kJ. Carnot: 18,75 kJ.</p>
+    </div>
+  </details>
+  <details class="prob" id="p122" data-tags="carnot">
+    <summary><span class="stitle">122. Relación de volúmenes a partir del calor<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>0,5 mol de un gas ideal describen un ciclo de Carnot entre 500 K y 300 K y absorben 1 000 J por ciclo del foco caliente. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Cuánto aumenta el volumen en la expansión isoterma (V₂/V₁).</li><li class="q"><b>b)</b> El rendimiento, el trabajo y el calor cedido por ciclo.</li><li class="q"><b>c)</b> Cuánto se reduce el volumen en la compresión isoterma (V₃/V₄).</li></ol>
+    <p class="datos"><b>Datos:</b> n = 0,5 mol; T<sub>c</sub> = 500 K; T<sub>f</sub> = 300 K; Q<sub>c</sub> = 1 000 J</p>
+    <div class="ap">
+      <h4><span>a)</span>Cuánto aumenta el volumen en la expansión isoterma (V2/V1).</h4>
+      <ol class="steps">
+          <li>Isoterma 1‑2:<span class="eq">ln(V<sub>2</sub>/V<sub>1</sub>) = Q<sub>c</sub> / (n · R · T<sub>c</sub>) = 1 000 / 2 077,5 = 0,4813</span></li>
+          <li>Despejamos:<span class="eq">V<sub>2</sub>/V<sub>1</sub> = e<sup>0,4813</sup> = 1,618</span></li>
+      </ol>
+      <p class="res">V<sub>2</sub>/V<sub>1</sub> ≈ 1,62</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El rendimiento, el trabajo y el calor cedido por ciclo.</h4>
+      <ol class="steps">
+          <li>Rendimiento:<span class="eq">η = 1 − 300 / 500 = 0,40</span></li>
+          <li>Trabajo:<span class="eq">W = 0,40 · 1 000 = 400 J</span></li>
+          <li>Calor cedido:<span class="eq">Q<sub>f</sub> = 1 000 − 400 = 600 J</span></li>
+      </ol>
+      <p class="res">η = 40 %; W = 400 J; Q<sub>f</sub> = 600 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>Cuánto se reduce el volumen en la compresión isoterma (V3/V4).</h4>
+      <ol class="steps">
+          <li>Isoterma 3‑4:<span class="eq">ln(V<sub>3</sub>/V<sub>4</sub>) = Q<sub>f</sub> / (n · R · T<sub>f</sub>) = 600 / 1 246,5 = 0,4813</span></li>
+      </ol>
+      <p class="res">V<sub>3</sub>/V<sub>4</sub> ≈ 1,62, igual que V<sub>2</sub>/V<sub>1</sub></p>
     </div>
   </details>
 </section>
