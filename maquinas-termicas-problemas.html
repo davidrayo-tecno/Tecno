@@ -414,7 +414,7 @@ details.prob summary .stitle{display:block}
     <div>
       <p class="crumbs"><a href="./">Tecnología e Ingeniería II</a> / <a href="maquinas-termicas.html">Máquinas térmicas</a></p>
       <h1>Problemas de máquinas térmicas</h1>
-      <p class="lead">Formulario y 116 problemas resueltos paso a paso: energía, combustible, motores, cilindrada, potencia, transformaciones termodinámicas, ciclo de Carnot, frigoríficas y bomba de calor.</p>
+      <p class="lead">Formulario y 131 problemas resueltos paso a paso: energía, combustible, motores, cilindrada, potencia, transformaciones termodinámicas, ciclo de Carnot, frigoríficas y bomba de calor.</p>
       <ul class="quick">
         <li><a class="primary" href="#p1">Empezar por el problema 1</a></li>
         <li><a href="#formulario">Formulario</a></li>
@@ -491,6 +491,10 @@ details.prob summary .stitle{display:block}
   <div class="f">η = W / Q<sub>c</sub> &nbsp;&nbsp;|&nbsp;&nbsp; W = Q<sub>c</sub> − Q<sub>f</sub><span>Q<sub>c</sub>: calor absorbido del foco caliente. Q<sub>f</sub>: calor cedido al foco frío.</span></div>
   <div class="f">η<sub>Carnot</sub> = 1 − T<sub>f</sub> / T<sub>c</sub> &nbsp;&nbsp;|&nbsp;&nbsp; T(K) = T(°C) + 273<span>Rendimiento máximo teórico entre dos focos.</span></div>
   <div class="f">Q<sub>c</sub> = n · R · T<sub>c</sub> · ln(V<sub>2</sub>/V<sub>1</sub>) &nbsp;&nbsp;|&nbsp;&nbsp; Q<sub>f</sub> = n · R · T<sub>f</sub> · ln(V<sub>3</sub>/V<sub>4</sub>) &nbsp;&nbsp;|&nbsp;&nbsp; V<sub>3</sub>/V<sub>4</sub> = V<sub>2</sub>/V<sub>1</sub><span>Ciclo de Carnot con un gas ideal: 1‑2 expansión isoterma a T<sub>c</sub>, 2‑3 expansión adiabática, 3‑4 compresión isoterma a T<sub>f</sub>, 4‑1 compresión adiabática.</span></div>
+  <h3>Ciclos Otto y Diésel ideales</h3>
+  <div class="f">η<sub>Otto</sub> = 1 − 1 / r<sup>γ−1</sup> &nbsp;&nbsp;|&nbsp;&nbsp; Q<sub>1</sub> = n · c<sub>v</sub> · (T<sub>3</sub> − T<sub>2</sub>) &nbsp;&nbsp;|&nbsp;&nbsp; Q<sub>2</sub> = n · c<sub>v</sub> · (T<sub>4</sub> − T<sub>1</sub>)<span>Otto: 1‑2 y 3‑4 adiabáticas; el calor entra (2‑3) y sale (4‑1) a volumen constante. r = V<sub>1</sub>/V<sub>2</sub>.</span></div>
+  <div class="f">η<sub>Diésel</sub> = 1 − [1 / r<sup>γ−1</sup>] · (α<sup>γ</sup> − 1) / [γ · (α − 1)] &nbsp;&nbsp;|&nbsp;&nbsp; α = V<sub>3</sub>/V<sub>2</sub> = T<sub>3</sub>/T<sub>2</sub><span>Diésel: el calor entra a presión constante, Q<sub>1</sub> = n · c<sub>p</sub> · (T<sub>3</sub> − T<sub>2</sub>), y sale a volumen constante. α es la relación de combustión (o de corte).</span></div>
+  <div class="f">T<sub>2</sub> = T<sub>1</sub> · r<sup>γ−1</sup> &nbsp;&nbsp;|&nbsp;&nbsp; p<sub>2</sub> = p<sub>1</sub> · r<sup>γ</sup> &nbsp;&nbsp;|&nbsp;&nbsp; ciclos/s = z · n / 120 (4 tiempos)<span>Compresión adiabática. En un motor de cuatro tiempos cada cilindro hace un ciclo cada dos vueltas.</span></div>
   <h3>Máquina frigorífica y bomba de calor</h3>
   <div class="f">COP<sub>R</sub> = ε = Q<sub>f</sub> / W &nbsp;&nbsp;|&nbsp;&nbsp; ε<sub>Carnot</sub> = T<sub>f</sub> / (T<sub>c</sub> − T<sub>f</sub>)<span>Frigorífica: interesa el calor extraído del foco frío.</span></div>
   <div class="f">COP<sub>BC</sub> = ε′ = Q<sub>c</sub> / W &nbsp;&nbsp;|&nbsp;&nbsp; ε′<sub>Carnot</sub> = T<sub>c</sub> / (T<sub>c</sub> − T<sub>f</sub>)<span>Bomba de calor: interesa el calor entregado al foco caliente. ε′ = ε + 1.</span></div>
@@ -503,8 +507,8 @@ details.prob summary .stitle{display:block}
 
 <section id="problemas">
   <h2><span class="n">2</span>Problemas resueltos</h2>
-  <p>116 problemas ordenados por temática, de lo más sencillo a lo más completo. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
-  <nav class="temas" aria-label="Temas"><b>Temas:</b> <a href="#energia-calor">Energía, calor y trabajo</a> · <a href="#rendimiento">Rendimiento: motores eléctricos y elevadores</a> · <a href="#vehiculos">Vehículos: energía mecánica y combustible</a> · <a href="#combustible">Combustible, potencia, par y rendimiento</a> · <a href="#cilindrada">Cilindrada, relación de compresión y par</a> · <a href="#cilindrada-consumo">Cilindrada, consumo y rendimiento</a> · <a href="#carnot">Motores térmicos y ciclo de Carnot</a> · <a href="#frigorificas">Máquinas frigoríficas</a> · <a href="#bombas">Bombas de calor</a> · <a href="#reversibles">Frigorífica y bomba de calor: equipos reversibles</a> · <a href="#transformaciones">Transformaciones termodinámicas de un gas ideal</a> · <a href="#ciclo-carnot">Ciclo de Carnot: estados, calores y trabajo</a></nav>
+  <p>131 problemas ordenados por temática, de lo más sencillo a lo más completo. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
+  <nav class="temas" aria-label="Temas"><b>Temas:</b> <a href="#energia-calor">Energía, calor y trabajo</a> · <a href="#rendimiento">Rendimiento: motores eléctricos y elevadores</a> · <a href="#vehiculos">Vehículos: energía mecánica y combustible</a> · <a href="#combustible">Combustible, potencia, par y rendimiento</a> · <a href="#cilindrada">Cilindrada, relación de compresión y par</a> · <a href="#cilindrada-consumo">Cilindrada, consumo y rendimiento</a> · <a href="#carnot">Motores térmicos y ciclo de Carnot</a> · <a href="#frigorificas">Máquinas frigoríficas</a> · <a href="#bombas">Bombas de calor</a> · <a href="#reversibles">Frigorífica y bomba de calor: equipos reversibles</a> · <a href="#transformaciones">Transformaciones termodinámicas de un gas ideal</a> · <a href="#ciclo-carnot">Ciclo de Carnot: estados, calores y trabajo</a> · <a href="#ciclos-pau">Ciclos Otto, Diésel y Carnot (nivel PAU)</a></nav>
   <div class="filters-m" role="group" aria-label="Filtrar por tema">
     <button type="button" data-f="all" aria-pressed="true">Todos</button>
     <button type="button" data-f="energia" aria-pressed="false">Energía y potencia</button>
@@ -514,7 +518,7 @@ details.prob summary .stitle{display:block}
     <button type="button" data-f="carnot" aria-pressed="false">Carnot</button>
     <button type="button" data-f="frigorifica" aria-pressed="false">Frigorífica y bomba de calor</button>
   </div>
-  <p class="fcount" id="fcount" aria-live="polite">116 problemas</p>
+  <p class="fcount" id="fcount" aria-live="polite">131 problemas</p>
   <h3 id="energia-calor" class="extra-h grp-h">Energía, calor y trabajo</h3>
   <details class="prob" id="p1" data-tags="energia">
     <summary><span class="stitle">1. Energía de una bombilla<span class="ptags"><span class="ptag">Energía</span></span></span></summary>
@@ -3307,6 +3311,567 @@ details.prob summary .stitle{display:block}
           <li>Isoterma 3‑4:<span class="eq">ln(V<sub>3</sub>/V<sub>4</sub>) = Q<sub>f</sub> / (n · R · T<sub>f</sub>) = 600 / 1 246,5 = 0,4813</span></li>
       </ol>
       <p class="res">V<sub>3</sub>/V<sub>4</sub> ≈ 1,62, igual que V<sub>2</sub>/V<sub>1</sub></p>
+    </div>
+  </details>
+  <h3 id="ciclos-pau" class="extra-h grp-h">Ciclos Otto, Diésel y Carnot (nivel PAU)</h3>
+  <p><a href="maquinas-termicas-ciclos-otto-diesel-carnot.pdf" download>📄 Descargar la hoja de problemas de ciclos Otto, Diésel y Carnot (PDF)</a></p>
+  <details class="prob" id="p123" data-tags="motores transformaciones">
+    <summary><span class="stitle">117. Ciclo Otto ideal: estados y rendimiento<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Un motor de gasolina sigue un ciclo Otto ideal con relación de compresión 9. El aire entra a 1 bar y 27 °C, y la temperatura máxima del ciclo es 1 800 K. Considera 1 mol de aire como gas ideal (γ = 1,4). Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La temperatura y la presión al final de la compresión.</li><li class="q"><b>b)</b> La presión máxima, y la temperatura y la presión al final de la expansión.</li><li class="q"><b>c)</b> El calor absorbido, el calor cedido y el trabajo por mol en cada ciclo.</li><li class="q"><b>d)</b> El rendimiento. Compruébalo con la fórmula del ciclo Otto.</li></ol>
+    <p class="datos"><b>Datos:</b> n = 1 mol; T<sub>1</sub> = 300 K; p<sub>1</sub> = 10⁵ Pa; r = 9; T<sub>3</sub> = 1 800 K; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>La temperatura y la presión al final de la compresión.</h4>
+      <p>Ciclo Otto: 1‑2 compresión adiabática, 2‑3 calor a volumen constante, 3‑4 expansión adiabática y 4‑1 cesión de calor a volumen constante.</p>
+      <ol class="steps">
+          <li>Compresión adiabática:<span class="eq">T<sub>2</sub> = T<sub>1</sub> · r<sup>γ−1</sup> = 300 · 9<sup>0,4</sup> = 300 · 2,408 = 722,5 K</span></li>
+          <li>Presión:<span class="eq">p<sub>2</sub> = p<sub>1</sub> · r<sup>γ</sup> = 10⁵ · 9<sup>1,4</sup> = 2,167·10⁶ Pa</span></li>
+      </ol>
+      <p class="res">T<sub>2</sub> ≈ 722,5 K; p<sub>2</sub> ≈ 2,17·10⁶ Pa (21,7 bar)</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La presión máxima, y la temperatura y la presión al final de la expansión.</h4>
+      <ol class="steps">
+          <li>Isócora 2‑3:<span class="eq">p<sub>3</sub> = p<sub>2</sub> · T<sub>3</sub> / T<sub>2</sub> = 2,167·10⁶ · 1 800 / 722,5 = 5,40·10⁶ Pa</span></li>
+          <li>Expansión adiabática:<span class="eq">T<sub>4</sub> = T<sub>3</sub> / r<sup>γ−1</sup> = 1 800 / 2,408 = 747,4 K</span></li>
+          <li>Isócora 4‑1:<span class="eq">p<sub>4</sub> = p<sub>1</sub> · T<sub>4</sub> / T<sub>1</sub> = 10⁵ · 747,4 / 300 = 2,49·10⁵ Pa</span></li>
+      </ol>
+      <p class="res">p<sub>3</sub> ≈ 5,40·10⁶ Pa (54 bar); T<sub>4</sub> ≈ 747 K; p<sub>4</sub> ≈ 2,49·10⁵ Pa</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El calor absorbido, el calor cedido y el trabajo por mol en cada ciclo.</h4>
+      <ol class="steps">
+          <li>Calor absorbido (2‑3):<span class="eq">Q<sub>1</sub> = n · c<sub>v</sub> · (T<sub>3</sub> − T<sub>2</sub>) = 20,78 · 1 077,5 = 22,4 kJ</span></li>
+          <li>Calor cedido (4‑1):<span class="eq">Q<sub>2</sub> = n · c<sub>v</sub> · (T<sub>4</sub> − T<sub>1</sub>) = 20,78 · 447,4 = 9,30 kJ</span></li>
+          <li>Trabajo:<span class="eq">W = Q<sub>1</sub> − Q<sub>2</sub> = 22,39 − 9,30 = 13,1 kJ</span></li>
+      </ol>
+      <p class="res">Q<sub>1</sub> ≈ 22,4 kJ; Q<sub>2</sub> ≈ 9,30 kJ; W ≈ 13,1 kJ por mol</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>El rendimiento. Compruébalo con la fórmula del ciclo Otto.</h4>
+      <ol class="steps">
+          <li>Con los calores:<span class="eq">η = W / Q<sub>1</sub> = 13,09 / 22,39 = 0,585</span></li>
+          <li>Fórmula del Otto:<span class="eq">η = 1 − 1 / r<sup>γ−1</sup> = 1 − 1 / 2,408 = 0,585</span></li>
+      </ol>
+      <p class="res">η ≈ 58,5 %: las dos formas dan lo mismo</p>
+    </div>
+  </details>
+  <details class="prob" id="p124" data-tags="motores transformaciones">
+    <summary><span class="stitle">118. Motor de cuatro cilindros: rendimiento ideal y potencia<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Un motor de gasolina de cuatro tiempos y cuatro cilindros tiene 80 mm de diámetro, 90 mm de carrera y relación de compresión 10. El aire entra a 1 bar y 20 °C, y la temperatura máxima del ciclo es 2 200 K. Supón un ciclo Otto ideal con γ = 1,4. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cilindrada total y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> El rendimiento ideal.</li><li class="q"><b>c)</b> Los moles de aire por cilindro y ciclo, y el calor absorbido y el trabajo en cada ciclo de un cilindro.</li><li class="q"><b>d)</b> La potencia ideal del motor a 5 000 rpm.</li></ol>
+    <p class="datos"><b>Datos:</b> z = 4; D = 0,08 m; L = 0,09 m; r = 10; p<sub>1</sub> = 10⁵ Pa; T<sub>1</sub> = 293 K; T<sub>3</sub> = 2 200 K; c<sub>v</sub> = 20,78 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>La cilindrada total y el volumen de la cámara de combustión.</h4>
+      <ol class="steps">
+          <li>Cilindrada unitaria:<span class="eq">V<sub>u</sub> = (π · D² / 4) · L = (π · 0,08² / 4) · 0,09 = 4,524·10⁻⁴ m³ = 452,4 cm³</span></li>
+          <li>Cilindrada total:<span class="eq">V<sub>T</sub> = z · V<sub>u</sub> = 4 · 452,4 = 1 809,6 cm³</span></li>
+          <li>Cámara de combustión:<span class="eq">V<sub>c</sub> = V<sub>u</sub> / (r − 1) = 452,4 / 9 = 50,3 cm³</span></li>
+      </ol>
+      <p class="res">V<sub>T</sub> ≈ 1 810 cm³; V<sub>c</sub> ≈ 50,3 cm³</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El rendimiento ideal.</h4>
+      <ol class="steps">
+          <li>Fórmula del Otto:<span class="eq">η = 1 − 1 / r<sup>γ−1</sup> = 1 − 1 / 10<sup>0,4</sup> = 1 − 1 / 2,512 = 0,602</span></li>
+      </ol>
+      <p class="res">η ≈ 60,2 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>Los moles de aire por cilindro y ciclo, y el calor absorbido y el trabajo en cada ciclo de un cilindro.</h4>
+      <ol class="steps">
+          <li>Volumen al empezar la compresión:<span class="eq">V<sub>1</sub> = V<sub>u</sub> + V<sub>c</sub> = 502,7 cm³ = 5,027·10⁻⁴ m³</span></li>
+          <li>Moles de aire:<span class="eq">n = p<sub>1</sub> · V<sub>1</sub> / (R · T<sub>1</sub>) = 10⁵ · 5,027·10⁻⁴ / (8,31 · 293) = 0,02064 mol</span></li>
+          <li>Fin de la compresión:<span class="eq">T<sub>2</sub> = T<sub>1</sub> · r<sup>0,4</sup> = 293 · 2,512 = 736,0 K</span></li>
+          <li>Calor absorbido:<span class="eq">Q<sub>1</sub> = n · c<sub>v</sub> · (T<sub>3</sub> − T<sub>2</sub>) = 0,02064 · 20,78 · 1 464 = 628 J</span></li>
+          <li>Trabajo:<span class="eq">W = η · Q<sub>1</sub> = 0,602 · 628 = 378 J</span></li>
+      </ol>
+      <p class="res">n ≈ 0,0206 mol; Q<sub>1</sub> ≈ 628 J; W ≈ 378 J por cilindro y ciclo</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>La potencia ideal del motor a 5 000 rpm.</h4>
+      <ol class="steps">
+          <li>Ciclos por segundo (4 tiempos: un ciclo cada dos vueltas):<span class="eq">z · n / 120 = 4 · 5 000 / 120 = 166,7 ciclos/s</span></li>
+          <li>Potencia:<span class="eq">P = W · ciclos/s = 378 · 166,7 = 6,30·10⁴ W</span></li>
+      </ol>
+      <p class="res">P ≈ 63 kW (≈ 86 CV)</p>
+    </div>
+  </details>
+  <details class="prob" id="p125" data-tags="motores transformaciones">
+    <summary><span class="stitle">119. Relación de compresión a partir del rendimiento<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Un motor que sigue un ciclo Otto ideal tiene un rendimiento del 56,5 %. El aire entra a 300 K y alcanza 2 000 K tras la combustión. Considera 1 mol de aire con γ = 1,4. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La relación de compresión.</li><li class="q"><b>b)</b> Las temperaturas al final de la compresión y al final de la expansión.</li><li class="q"><b>c)</b> El calor absorbido y el trabajo por mol en cada ciclo.</li><li class="q"><b>d)</b> El rendimiento si la relación de compresión subiera a 11. ¿Por qué un motor de gasolina no puede tener relaciones de compresión tan altas como un diésel?</li></ol>
+    <p class="datos"><b>Datos:</b> η = 0,565; T<sub>1</sub> = 300 K; T<sub>3</sub> = 2 000 K; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>La relación de compresión.</h4>
+      <ol class="steps">
+          <li>Despejamos de la fórmula del Otto:<span class="eq">r<sup>0,4</sup> = 1 / (1 − η) = 1 / 0,435 = 2,299</span></li>
+          <li>Relación de compresión:<span class="eq">r = 2,299<sup>1/0,4</sup> = 2,299<sup>2,5</sup> = 8,0</span></li>
+      </ol>
+      <p class="res">r ≈ 8</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Las temperaturas al final de la compresión y al final de la expansión.</h4>
+      <ol class="steps">
+          <li>Compresión adiabática:<span class="eq">T<sub>2</sub> = T<sub>1</sub> · r<sup>0,4</sup> = 300 · 2,297 = 689,2 K</span></li>
+          <li>Expansión adiabática:<span class="eq">T<sub>4</sub> = T<sub>3</sub> / r<sup>0,4</sup> = 2 000 / 2,297 = 870,6 K</span></li>
+      </ol>
+      <p class="res">T<sub>2</sub> ≈ 689 K; T<sub>4</sub> ≈ 871 K</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El calor absorbido y el trabajo por mol en cada ciclo.</h4>
+      <ol class="steps">
+          <li>Calor absorbido:<span class="eq">Q<sub>1</sub> = c<sub>v</sub> · (T<sub>3</sub> − T<sub>2</sub>) = 20,78 · 1 310,8 = 27,2 kJ</span></li>
+          <li>Trabajo:<span class="eq">W = η · Q<sub>1</sub> = 0,565 · 27,24 = 15,4 kJ (y Q<sub>2</sub> = 27,2 − 15,4 = 11,9 kJ)</span></li>
+      </ol>
+      <p class="res">Q<sub>1</sub> ≈ 27,2 kJ; W ≈ 15,4 kJ por mol</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>El rendimiento si la relación de compresión subiera a 11. ¿Por qué un motor de gasolina no puede tener relaciones de compresión tan altas como un diésel?</h4>
+      <ol class="steps">
+          <li>Con r = 11:<span class="eq">η = 1 − 1 / 11<sup>0,4</sup> = 1 − 1 / 2,606 = 0,617</span></li>
+      </ol>
+      <p class="res">η ≈ 61,7 %. En el motor de gasolina se comprime la mezcla de aire y combustible: con una compresión muy alta se calienta tanto que se inflama sola antes de la chispa (detonación o picado), lo que daña el motor. El diésel solo comprime aire, así que puede llegar a r = 14 a 22.</p>
+    </div>
+  </details>
+  <details class="prob" id="p126" data-tags="motores transformaciones">
+    <summary><span class="stitle">120. Ciclo Otto limitado por la presión máxima<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Un cilindro de un motor que sigue un ciclo Otto ideal contiene 0,5 L de aire a 1 bar y 27 °C al empezar la compresión. La relación de compresión es 9,5 y la presión máxima del ciclo es 60 bar. Con γ = 1,4, calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Los moles de aire, y la temperatura y la presión al final de la compresión.</li><li class="q"><b>b)</b> La temperatura máxima, y la temperatura y la presión al final de la expansión.</li><li class="q"><b>c)</b> El calor absorbido, el calor cedido, el trabajo por ciclo y el rendimiento.</li></ol>
+    <p class="datos"><b>Datos:</b> V<sub>1</sub> = 5·10⁻⁴ m³; p<sub>1</sub> = 10⁵ Pa; T<sub>1</sub> = 300 K; r = 9,5; p<sub>3</sub> = 6·10⁶ Pa; c<sub>v</sub> = 20,78 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>Los moles de aire, y la temperatura y la presión al final de la compresión.</h4>
+      <ol class="steps">
+          <li>Moles:<span class="eq">n = p<sub>1</sub> · V<sub>1</sub> / (R · T<sub>1</sub>) = 10⁵ · 5·10⁻⁴ / (8,31 · 300) = 0,02006 mol</span></li>
+          <li>Temperatura:<span class="eq">T<sub>2</sub> = 300 · 9,5<sup>0,4</sup> = 300 · 2,461 = 738,3 K</span></li>
+          <li>Presión:<span class="eq">p<sub>2</sub> = 10⁵ · 9,5<sup>1,4</sup> = 2,338·10⁶ Pa</span></li>
+      </ol>
+      <p class="res">n ≈ 0,0201 mol; T<sub>2</sub> ≈ 738 K; p<sub>2</sub> ≈ 23,4 bar</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La temperatura máxima, y la temperatura y la presión al final de la expansión.</h4>
+      <ol class="steps">
+          <li>Isócora 2‑3:<span class="eq">T<sub>3</sub> = T<sub>2</sub> · p<sub>3</sub> / p<sub>2</sub> = 738,3 · 60 / 23,38 = 1 895 K</span></li>
+          <li>Expansión adiabática:<span class="eq">T<sub>4</sub> = T<sub>3</sub> / r<sup>0,4</sup> = 1 895 / 2,461 = 770 K</span></li>
+          <li>Isócora 4‑1:<span class="eq">p<sub>4</sub> = p<sub>1</sub> · T<sub>4</sub> / T<sub>1</sub> = 10⁵ · 770 / 300 = 2,57·10⁵ Pa</span></li>
+      </ol>
+      <p class="res">T<sub>3</sub> ≈ 1 895 K; T<sub>4</sub> ≈ 770 K; p<sub>4</sub> ≈ 2,57 bar</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El calor absorbido, el calor cedido, el trabajo por ciclo y el rendimiento.</h4>
+      <ol class="steps">
+          <li>Calor absorbido:<span class="eq">Q<sub>1</sub> = n · c<sub>v</sub> · (T<sub>3</sub> − T<sub>2</sub>) = 0,02006 · 20,78 · 1 156,5 = 482 J</span></li>
+          <li>Calor cedido:<span class="eq">Q<sub>2</sub> = n · c<sub>v</sub> · (T<sub>4</sub> − T<sub>1</sub>) = 0,02006 · 20,78 · 470 = 196 J</span></li>
+          <li>Trabajo y rendimiento:<span class="eq">W = 482 − 196 = 286 J; η = 286 / 482 = 0,594</span></li>
+      </ol>
+      <p class="res">Q<sub>1</sub> ≈ 482 J; Q<sub>2</sub> ≈ 196 J; W ≈ 286 J; η ≈ 59,4 % (igual que 1 − 1/9,5<sup>0,4</sup>)</p>
+    </div>
+  </details>
+  <details class="prob" id="p127" data-tags="motores combustible">
+    <summary><span class="stitle">121. Rendimiento real frente al ideal en un motor de gasolina<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
+    <div class="enun"><p>Un motor de gasolina de cuatro tiempos, cuatro cilindros y relación de compresión 10 da 75 kW a 5 500 rpm. En esas condiciones consume 22 kg/h de gasolina, de poder calorífico 43 900 kJ/kg. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El rendimiento del ciclo Otto ideal con esa relación de compresión (γ = 1,4).</li><li class="q"><b>b)</b> El rendimiento real del motor y qué fracción del ideal consigue.</li><li class="q"><b>c)</b> El trabajo útil por ciclo en cada cilindro.</li><li class="q"><b>d)</b> El calor que se pierde en una hora. Nombra dos causas de que el rendimiento real sea menor que el ideal.</li></ol>
+    <p class="datos"><b>Datos:</b> P = 75 kW; z = 4; n = 5 500 rpm; ṁ = 22 kg/h; P<sub>c</sub> = 43 900 kJ/kg; r = 10</p>
+    <div class="ap">
+      <h4><span>a)</span>El rendimiento del ciclo Otto ideal con esa relación de compresión (γ = 1,4).</h4>
+      <ol class="steps">
+          <li>Fórmula del Otto:<span class="eq">η<sub>ideal</sub> = 1 − 1 / 10<sup>0,4</sup> = 0,602</span></li>
+      </ol>
+      <p class="res">η<sub>ideal</sub> ≈ 60,2 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El rendimiento real del motor y qué fracción del ideal consigue.</h4>
+      <ol class="steps">
+          <li>Potencia del combustible:<span class="eq">ṁ · P<sub>c</sub> = (22 / 3 600) · 43 900 = 268,3 kW</span></li>
+          <li>Rendimiento real:<span class="eq">η = 75 / 268,3 = 0,280</span></li>
+          <li>Fracción del ideal:<span class="eq">0,280 / 0,602 = 0,46</span></li>
+      </ol>
+      <p class="res">η<sub>real</sub> ≈ 28,0 %: algo menos de la mitad del ideal</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El trabajo útil por ciclo en cada cilindro.</h4>
+      <ol class="steps">
+          <li>Ciclos por segundo:<span class="eq">z · n / 120 = 4 · 5 500 / 120 = 183,3 ciclos/s</span></li>
+          <li>Trabajo por ciclo:<span class="eq">W = 75 000 / 183,3 = 409 J</span></li>
+      </ol>
+      <p class="res">W ≈ 409 J por cilindro y ciclo</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>El calor que se pierde en una hora. Nombra dos causas de que el rendimiento real sea menor que el ideal.</h4>
+      <ol class="steps">
+          <li>Energía del combustible en 1 h:<span class="eq">22 · 43 900 = 965 800 kJ</span></li>
+          <li>Energía útil en 1 h:<span class="eq">75 kW · 3 600 s = 270 000 kJ</span></li>
+          <li>Pérdidas:<span class="eq">965 800 − 270 000 = 695 800 kJ</span></li>
+      </ol>
+      <p class="res">Se pierden ≈ 6,96·10⁵ kJ por hora. Causas: el calor que se va por las paredes y la refrigeración, los gases de escape calientes, el rozamiento, la combustión que no es instantánea y el trabajo de aspirar y expulsar los gases.</p>
+    </div>
+  </details>
+  <details class="prob" id="p128" data-tags="motores transformaciones">
+    <summary><span class="stitle">122. Ciclo Diésel ideal: estados y rendimiento<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Un motor sigue un ciclo Diésel ideal con relación de compresión 18 y relación de combustión (de corte) 2. El aire entra a 1 bar y 27 °C. Para 1 mol de aire (γ = 1,4), calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La temperatura y la presión al final de la compresión.</li><li class="q"><b>b)</b> La temperatura al final de la combustión y al final de la expansión.</li><li class="q"><b>c)</b> El calor absorbido, el calor cedido y el trabajo por mol.</li><li class="q"><b>d)</b> El rendimiento. Compruébalo con la fórmula del ciclo Diésel.</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>1</sub> = 300 K; p<sub>1</sub> = 10⁵ Pa; r = 18; α = V<sub>3</sub>/V<sub>2</sub> = 2; c<sub>v</sub> = 20,78 J/(mol·K); c<sub>p</sub> = 29,09 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>La temperatura y la presión al final de la compresión.</h4>
+      <p>Ciclo Diésel: 1‑2 compresión adiabática, 2‑3 calor a presión constante (inyección), 3‑4 expansión adiabática y 4‑1 cesión de calor a volumen constante.</p>
+      <ol class="steps">
+          <li>Compresión adiabática:<span class="eq">T<sub>2</sub> = 300 · 18<sup>0,4</sup> = 300 · 3,178 = 953,3 K</span></li>
+          <li>Presión:<span class="eq">p<sub>2</sub> = 10⁵ · 18<sup>1,4</sup> = 5,72·10⁶ Pa</span></li>
+      </ol>
+      <p class="res">T<sub>2</sub> ≈ 953 K; p<sub>2</sub> ≈ 57,2 bar</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La temperatura al final de la combustión y al final de la expansión.</h4>
+      <ol class="steps">
+          <li>Isóbara 2‑3: V y T son proporcionales:<span class="eq">T<sub>3</sub> = α · T<sub>2</sub> = 2 · 953,3 = 1 906,6 K</span></li>
+          <li>Expansión adiabática: V<sub>4</sub>/V<sub>3</sub> = r / α = 9:<span class="eq">T<sub>4</sub> = T<sub>3</sub> / 9<sup>0,4</sup> = 1 906,6 / 2,408 = 791,7 K</span></li>
+      </ol>
+      <p class="res">T<sub>3</sub> ≈ 1 907 K; T<sub>4</sub> ≈ 792 K</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El calor absorbido, el calor cedido y el trabajo por mol.</h4>
+      <ol class="steps">
+          <li>Calor absorbido a presión constante:<span class="eq">Q<sub>1</sub> = c<sub>p</sub> · (T<sub>3</sub> − T<sub>2</sub>) = 29,09 · 953,3 = 27,7 kJ</span></li>
+          <li>Calor cedido a volumen constante:<span class="eq">Q<sub>2</sub> = c<sub>v</sub> · (T<sub>4</sub> − T<sub>1</sub>) = 20,78 · 491,7 = 10,2 kJ</span></li>
+          <li>Trabajo:<span class="eq">W = 27,73 − 10,22 = 17,5 kJ</span></li>
+      </ol>
+      <p class="res">Q<sub>1</sub> ≈ 27,7 kJ; Q<sub>2</sub> ≈ 10,2 kJ; W ≈ 17,5 kJ por mol</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>El rendimiento. Compruébalo con la fórmula del ciclo Diésel.</h4>
+      <ol class="steps">
+          <li>Con los calores:<span class="eq">η = 17,51 / 27,73 = 0,632</span></li>
+          <li>Fórmula del Diésel:<span class="eq">η = 1 − [1 / r<sup>γ−1</sup>] · (α<sup>γ</sup> − 1) / [γ · (α − 1)] = 1 − (1 / 3,178) · (1,639 / 1,4) = 1 − 0,368 = 0,632</span></li>
+      </ol>
+      <p class="res">η ≈ 63,2 %</p>
+    </div>
+  </details>
+  <details class="prob" id="p129" data-tags="motores transformaciones">
+    <summary><span class="stitle">123. Diésel con temperatura máxima: comparación con el Otto<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Un ciclo Diésel ideal tiene relación de compresión 20. El aire entra a 290 K y la temperatura máxima, al terminar la inyección, es 2 000 K (γ = 1,4). Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La temperatura al final de la compresión y la relación de combustión.</li><li class="q"><b>b)</b> El rendimiento del ciclo.</li><li class="q"><b>c)</b> El rendimiento de un ciclo Otto con la misma relación de compresión y el de un Otto con r = 9, típico de un motor de gasolina. Comenta el resultado.</li></ol>
+    <p class="datos"><b>Datos:</b> r = 20; T<sub>1</sub> = 290 K; T<sub>3</sub> = 2 000 K; γ = 1,4</p>
+    <div class="ap">
+      <h4><span>a)</span>La temperatura al final de la compresión y la relación de combustión.</h4>
+      <ol class="steps">
+          <li>Compresión adiabática:<span class="eq">T<sub>2</sub> = 290 · 20<sup>0,4</sup> = 290 · 3,314 = 961,2 K</span></li>
+          <li>Isóbara 2‑3:<span class="eq">α = V<sub>3</sub> / V<sub>2</sub> = T<sub>3</sub> / T<sub>2</sub> = 2 000 / 961,2 = 2,08</span></li>
+      </ol>
+      <p class="res">T<sub>2</sub> ≈ 961 K; α ≈ 2,08</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El rendimiento del ciclo.</h4>
+      <ol class="steps">
+          <li>Factor del Diésel:<span class="eq">(α<sup>γ</sup> − 1) / [γ · (α − 1)] = (2,789 − 1) / (1,4 · 1,08) = 1,183</span></li>
+          <li>Rendimiento:<span class="eq">η = 1 − 1,183 / 3,314 = 0,643</span></li>
+      </ol>
+      <p class="res">η ≈ 64,3 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El rendimiento de un ciclo Otto con la misma relación de compresión y el de un Otto con r = 9, típico de un motor de gasolina. Comenta el resultado.</h4>
+      <ol class="steps">
+          <li>Otto con r = 20:<span class="eq">η = 1 − 1 / 3,314 = 0,698</span></li>
+          <li>Otto con r = 9:<span class="eq">η = 1 − 1 / 9<sup>0,4</sup> = 0,585</span></li>
+      </ol>
+      <p class="res">Otto r = 20: 69,8 %; Otto r = 9: 58,5 %. Con la misma relación de compresión el Otto rinde más, pero un motor de gasolina no puede llegar a r = 20 por la detonación. El diésel trabaja con relaciones mucho mayores y por eso rinde más que el de gasolina.</p>
+    </div>
+  </details>
+  <details class="prob" id="p130" data-tags="motores transformaciones">
+    <summary><span class="stitle">124. Motor diésel de un cilindro: calor, trabajo y potencia<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+    <div class="enun"><p>Un motor diésel de cuatro tiempos y un cilindro tiene 100 mm de diámetro, 120 mm de carrera y relación de compresión 17. El aire entra a 1 bar y 27 °C, y la inyección dura mientras el pistón recorre el 6 % de la carrera. Supón un ciclo Diésel ideal con γ = 1,4. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cilindrada, el volumen de la cámara de combustión y la relación de combustión.</li><li class="q"><b>b)</b> Los moles de aire por ciclo y las temperaturas T<sub>2</sub>, T<sub>3</sub> y T<sub>4</sub>.</li><li class="q"><b>c)</b> El calor absorbido y el trabajo por ciclo, y el rendimiento.</li><li class="q"><b>d)</b> La potencia ideal a 2 000 rpm.</li></ol>
+    <p class="datos"><b>Datos:</b> D = 0,1 m; L = 0,12 m; r = 17; p<sub>1</sub> = 10⁵ Pa; T<sub>1</sub> = 300 K; c<sub>v</sub> = 20,78 J/(mol·K); c<sub>p</sub> = 29,09 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>La cilindrada, el volumen de la cámara de combustión y la relación de combustión.</h4>
+      <ol class="steps">
+          <li>Cilindrada:<span class="eq">V<sub>u</sub> = (π · 0,1² / 4) · 0,12 = 9,425·10⁻⁴ m³ = 942,5 cm³</span></li>
+          <li>Cámara de combustión:<span class="eq">V<sub>c</sub> = 942,5 / 16 = 58,9 cm³ (= V<sub>2</sub>)</span></li>
+          <li>Volumen al acabar la inyección:<span class="eq">V<sub>3</sub> = 58,9 + 0,06 · 942,5 = 115,5 cm³</span></li>
+          <li>Relación de combustión:<span class="eq">α = V<sub>3</sub> / V<sub>2</sub> = 115,5 / 58,9 = 1,96</span></li>
+      </ol>
+      <p class="res">V<sub>u</sub> ≈ 942,5 cm³; V<sub>c</sub> ≈ 58,9 cm³; α ≈ 1,96</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Los moles de aire por ciclo y las temperaturas T<sub>2</sub>, T<sub>3</sub> y T<sub>4</sub>.</h4>
+      <ol class="steps">
+          <li>Moles:<span class="eq">n = p<sub>1</sub> · V<sub>1</sub> / (R · T<sub>1</sub>) = 10⁵ · 1,0014·10⁻³ / (8,31 · 300) = 0,0402 mol</span></li>
+          <li>Compresión adiabática:<span class="eq">T<sub>2</sub> = 300 · 17<sup>0,4</sup> = 300 · 3,106 = 931,8 K</span></li>
+          <li>Isóbara 2‑3:<span class="eq">T<sub>3</sub> = α · T<sub>2</sub> = 1,96 · 931,8 = 1 826 K</span></li>
+          <li>Expansión adiabática:<span class="eq">T<sub>4</sub> = T<sub>3</sub> · (α / r)<sup>0,4</sup> = T<sub>1</sub> · α<sup>γ</sup> = 300 · 1,96<sup>1,4</sup> = 769,6 K</span></li>
+      </ol>
+      <p class="res">n ≈ 0,0402 mol; T<sub>2</sub> ≈ 932 K; T<sub>3</sub> ≈ 1 826 K; T<sub>4</sub> ≈ 770 K</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El calor absorbido y el trabajo por ciclo, y el rendimiento.</h4>
+      <ol class="steps">
+          <li>Calor absorbido:<span class="eq">Q<sub>1</sub> = n · c<sub>p</sub> · (T<sub>3</sub> − T<sub>2</sub>) = 0,0402 · 29,09 · 894,5 = 1 045 J</span></li>
+          <li>Calor cedido:<span class="eq">Q<sub>2</sub> = n · c<sub>v</sub> · (T<sub>4</sub> − T<sub>1</sub>) = 0,0402 · 20,78 · 469,6 = 392 J</span></li>
+          <li>Trabajo y rendimiento:<span class="eq">W = 1 045 − 392 = 653 J; η = 653 / 1 045 = 0,625</span></li>
+      </ol>
+      <p class="res">Q<sub>1</sub> ≈ 1 045 J; W ≈ 653 J; η ≈ 62,5 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>La potencia ideal a 2 000 rpm.</h4>
+      <ol class="steps">
+          <li>Ciclos por segundo (un cilindro, 4 tiempos):<span class="eq">n / 120 = 2 000 / 120 = 16,67 ciclos/s</span></li>
+          <li>Potencia:<span class="eq">P = 653 · 16,67 = 1,09·10⁴ W</span></li>
+      </ol>
+      <p class="res">P ≈ 10,9 kW</p>
+    </div>
+  </details>
+  <details class="prob" id="p131" data-tags="motores combustible">
+    <summary><span class="stitle">125. ¿Gasolina o gasóleo? Rendimiento y consumo<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
+    <div class="enun"><p>Se comparan un motor de gasolina con ciclo Otto (r = 9) y un motor diésel (r = 18, relación de combustión 2,2). Supón que cada motor real consigue la mitad del rendimiento de su ciclo ideal (γ = 1,4). Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El rendimiento ideal de cada ciclo.</li><li class="q"><b>b)</b> El rendimiento real de cada motor.</li><li class="q"><b>c)</b> La masa de combustible que necesita cada uno para dar 100 kWh de trabajo útil. Poder calorífico: gasolina 43 900 kJ/kg; gasóleo 42 700 kJ/kg.</li><li class="q"><b>d)</b> Explica por qué el motor diésel puede trabajar con relaciones de compresión mayores.</li></ol>
+    <p class="datos"><b>Datos:</b> Otto: r = 9. Diésel: r = 18; α = 2,2. η<sub>real</sub> = 0,5 · η<sub>ideal</sub>; E<sub>útil</sub> = 100 kWh = 3,6·10⁵ kJ</p>
+    <div class="ap">
+      <h4><span>a)</span>El rendimiento ideal de cada ciclo.</h4>
+      <ol class="steps">
+          <li>Otto:<span class="eq">η = 1 − 1 / 9<sup>0,4</sup> = 0,585</span></li>
+          <li>Diésel:<span class="eq">η = 1 − (1 / 18<sup>0,4</sup>) · (2,2<sup>1,4</sup> − 1) / (1,4 · 1,2) = 1 − (1 / 3,178) · 1,200 = 0,622</span></li>
+      </ol>
+      <p class="res">Otto: 58,5 %; Diésel: 62,2 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El rendimiento real de cada motor.</h4>
+      <ol class="steps">
+          <li>La mitad del ideal:<span class="eq">Otto: 0,5 · 0,585 = 0,292; Diésel: 0,5 · 0,622 = 0,311</span></li>
+      </ol>
+      <p class="res">Otto: 29,2 %; Diésel: 31,1 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>La masa de combustible que necesita cada uno para dar 100 kWh de trabajo útil. Poder calorífico: gasolina 43 900 kJ/kg; gasóleo 42 700 kJ/kg.</h4>
+      <ol class="steps">
+          <li>Energía del combustible:<span class="eq">E<sub>comb</sub> = E<sub>útil</sub> / η</span></li>
+          <li>Gasolina:<span class="eq">m = 3,6·10⁵ / (0,292 · 43 900) = 28,0 kg</span></li>
+          <li>Gasóleo:<span class="eq">m = 3,6·10⁵ / (0,311 · 42 700) = 27,1 kg</span></li>
+      </ol>
+      <p class="res">Gasolina ≈ 28,0 kg; gasóleo ≈ 27,1 kg</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>Explica por qué el motor diésel puede trabajar con relaciones de compresión mayores.</h4>
+      <p class="res">El diésel solo comprime aire: no hay mezcla que pueda inflamarse antes de tiempo (detonación). El gasóleo se inyecta al final de la compresión y se enciende solo, y para eso hace falta que el aire esté muy caliente, es decir, una relación de compresión alta.</p>
+    </div>
+  </details>
+  <details class="prob" id="p132" data-tags="motores combustible">
+    <summary><span class="stitle">126. Motor diésel de camión: rendimiento real<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
+    <div class="enun"><p>Un motor diésel de camión de cuatro tiempos tiene 6 cilindros y 12 L de cilindrada. A 1 800 rpm da un par de 2 000 N·m y su consumo específico es de 195 g/kWh. El gasóleo tiene un poder calorífico de 42 700 kJ/kg. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La potencia del motor, en kW y en CV.</li><li class="q"><b>b)</b> El rendimiento real.</li><li class="q"><b>c)</b> El trabajo útil por ciclo de cada cilindro.</li><li class="q"><b>d)</b> El rendimiento de un ciclo Diésel ideal con r = 17 y relación de combustión 2,5 (γ = 1,4), y qué fracción de él consigue el motor real.</li></ol>
+    <p class="datos"><b>Datos:</b> z = 6; n = 1 800 rpm; M = 2 000 N·m; c<sub>e</sub> = 195 g/kWh; P<sub>c</sub> = 42 700 kJ/kg</p>
+    <div class="ap">
+      <h4><span>a)</span>La potencia del motor, en kW y en CV.</h4>
+      <ol class="steps">
+          <li>Velocidad angular:<span class="eq">ω = 2π · 1 800 / 60 = 188,5 rad/s</span></li>
+          <li>Potencia:<span class="eq">P = M · ω = 2 000 · 188,5 = 3,77·10⁵ W = 377 000 / 735 = 513 CV</span></li>
+      </ol>
+      <p class="res">P ≈ 377 kW ≈ 513 CV</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El rendimiento real.</h4>
+      <ol class="steps">
+          <li>Energía del combustible por kWh útil:<span class="eq">0,195 kg · 42 700 kJ/kg = 8 327 kJ</span></li>
+          <li>Rendimiento:<span class="eq">η = 3 600 / 8 327 = 0,432</span></li>
+      </ol>
+      <p class="res">η<sub>real</sub> ≈ 43,2 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El trabajo útil por ciclo de cada cilindro.</h4>
+      <ol class="steps">
+          <li>Ciclos por segundo:<span class="eq">z · n / 120 = 6 · 1 800 / 120 = 90 ciclos/s</span></li>
+          <li>Trabajo por ciclo:<span class="eq">W = 377 000 / 90 = 4 189 J</span></li>
+      </ol>
+      <p class="res">W ≈ 4,19 kJ por cilindro y ciclo</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>El rendimiento de un ciclo Diésel ideal con r = 17 y relación de combustión 2,5 (γ = 1,4), y qué fracción de él consigue el motor real.</h4>
+      <ol class="steps">
+          <li>Factor del Diésel:<span class="eq">(2,5<sup>1,4</sup> − 1) / (1,4 · 1,5) = (3,607 − 1) / 2,1 = 1,241</span></li>
+          <li>Rendimiento ideal:<span class="eq">η = 1 − 1,241 / 17<sup>0,4</sup> = 1 − 1,241 / 3,106 = 0,600</span></li>
+          <li>Fracción:<span class="eq">0,432 / 0,600 = 0,72</span></li>
+      </ol>
+      <p class="res">η<sub>ideal</sub> ≈ 60,0 %; el motor real consigue el 72 % del ideal</p>
+    </div>
+  </details>
+  <details class="prob" id="p133" data-tags="carnot">
+    <summary><span class="stitle">127. Ciclo de Carnot con un gas monoatómico<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>1 mol de un gas monoatómico (γ = 5/3) describe un ciclo de Carnot entre 600 K y 300 K. Al principio de la expansión isoterma la presión es 10 bar, y en esa expansión el volumen se duplica. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El volumen y la presión en los cuatro vértices del ciclo.</li><li class="q"><b>b)</b> El calor absorbido y el calor cedido en cada ciclo.</li><li class="q"><b>c)</b> El trabajo neto y el rendimiento. Compruébalo con la fórmula de Carnot.</li><li class="q"><b>d)</b> El trabajo en la expansión adiabática.</li></ol>
+    <p class="datos"><b>Datos:</b> n = 1 mol; T<sub>c</sub> = 600 K; T<sub>f</sub> = 300 K; p<sub>1</sub> = 10⁶ Pa; V<sub>2</sub> = 2 · V<sub>1</sub>; γ = 5/3; c<sub>v</sub> = 3/2 · R = 12,47 J/(mol·K)</p>
+    <div class="ap">
+      <h4><span>a)</span>El volumen y la presión en los cuatro vértices del ciclo.</h4>
+      <p>1‑2 expansión isoterma a T<sub>c</sub>, 2‑3 expansión adiabática, 3‑4 compresión isoterma a T<sub>f</sub> y 4‑1 compresión adiabática.</p>
+      <ol class="steps">
+          <li>Vértice 1:<span class="eq">V<sub>1</sub> = n · R · T<sub>c</sub> / p<sub>1</sub> = 8,31 · 600 / 10⁶ = 4,99·10⁻³ m³ (4,99 L)</span></li>
+          <li>Vértice 2 (isoterma):<span class="eq">V<sub>2</sub> = 9,97 L; p<sub>2</sub> = p<sub>1</sub> / 2 = 5·10⁵ Pa</span></li>
+          <li>Adiabática 2‑3: T · V<sup>γ−1</sup> = cte:<span class="eq">V<sub>3</sub> = V<sub>2</sub> · (T<sub>c</sub> / T<sub>f</sub>)<sup>1/(γ−1)</sup> = 9,97 · 2<sup>1,5</sup> = 9,97 · 2,828 = 28,2 L</span></li>
+          <li>Presión en 3:<span class="eq">p<sub>3</sub> = n · R · T<sub>f</sub> / V<sub>3</sub> = 8,31 · 300 / 0,0282 = 8,84·10⁴ Pa</span></li>
+          <li>Adiabática 4‑1:<span class="eq">V<sub>4</sub> = V<sub>1</sub> · 2,828 = 14,1 L; p<sub>4</sub> = 8,31 · 300 / 0,0141 = 1,77·10⁵ Pa</span></li>
+      </ol>
+      <p class="res">V<sub>1</sub> = 4,99 L, 10 bar · V<sub>2</sub> = 9,97 L, 5 bar · V<sub>3</sub> = 28,2 L, 0,88 bar · V<sub>4</sub> = 14,1 L, 1,77 bar</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El calor absorbido y el calor cedido en cada ciclo.</h4>
+      <ol class="steps">
+          <li>Isoterma 1‑2:<span class="eq">Q<sub>c</sub> = n · R · T<sub>c</sub> · ln(V<sub>2</sub>/V<sub>1</sub>) = 8,31 · 600 · ln 2 = 3 456 J</span></li>
+          <li>Isoterma 3‑4:<span class="eq">Q<sub>f</sub> = n · R · T<sub>f</sub> · ln(V<sub>3</sub>/V<sub>4</sub>) = 8,31 · 300 · ln 2 = 1 728 J</span></li>
+      </ol>
+      <p class="res">Q<sub>c</sub> ≈ 3 456 J; Q<sub>f</sub> ≈ 1 728 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El trabajo neto y el rendimiento. Compruébalo con la fórmula de Carnot.</h4>
+      <ol class="steps">
+          <li>Trabajo neto:<span class="eq">W = Q<sub>c</sub> − Q<sub>f</sub> = 1 728 J</span></li>
+          <li>Rendimiento:<span class="eq">η = 1 728 / 3 456 = 0,50 = 1 − 300 / 600</span></li>
+      </ol>
+      <p class="res">W ≈ 1 728 J; η = 50 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>El trabajo en la expansión adiabática.</h4>
+      <ol class="steps">
+          <li>Adiabática (Q = 0):<span class="eq">W<sub>23</sub> = −ΔU = n · c<sub>v</sub> · (T<sub>c</sub> − T<sub>f</sub>) = 12,47 · 300 = 3 740 J</span></li>
+      </ol>
+      <p class="res">W<sub>23</sub> ≈ 3 740 J (en la compresión 4‑1 vale −3 740 J y se anulan)</p>
+    </div>
+  </details>
+  <details class="prob" id="p134" data-tags="carnot combustible">
+    <summary><span class="stitle">128. Central térmica frente al ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span><span class="ptag">Combustible</span></span></span></summary>
+    <div class="enun"><p>Una central térmica produce vapor a 540 °C y lo condensa a 40 °C. Da una potencia eléctrica de 600 MW con un rendimiento global del 38 %. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El rendimiento de un ciclo de Carnot entre esas temperaturas, y qué fracción de él consigue la central.</li><li class="q"><b>b)</b> La potencia térmica que absorbe y la que cede en el condensador.</li><li class="q"><b>c)</b> El carbón que consume en una hora, si su poder calorífico es 29 MJ/kg.</li><li class="q"><b>d)</b> El caudal de agua de refrigeración si esta se calienta 8 °C (c = 4 180 J/(kg·K)).</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 813 K; T<sub>f</sub> = 313 K; P = 600 MW; η = 0,38; P<sub>c</sub> = 29·10⁶ J/kg; ΔT<sub>agua</sub> = 8 K</p>
+    <div class="ap">
+      <h4><span>a)</span>El rendimiento de un ciclo de Carnot entre esas temperaturas, y qué fracción de él consigue la central.</h4>
+      <ol class="steps">
+          <li>Carnot:<span class="eq">η<sub>C</sub> = 1 − 313 / 813 = 0,615</span></li>
+          <li>Fracción:<span class="eq">0,38 / 0,615 = 0,62</span></li>
+      </ol>
+      <p class="res">η<sub>Carnot</sub> ≈ 61,5 %; la central consigue el 62 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La potencia térmica que absorbe y la que cede en el condensador.</h4>
+      <ol class="steps">
+          <li>Potencia absorbida:<span class="eq">P<sub>abs</sub> = 600 / 0,38 = 1 579 MW</span></li>
+          <li>Potencia cedida:<span class="eq">P<sub>ced</sub> = 1 579 − 600 = 979 MW</span></li>
+      </ol>
+      <p class="res">P<sub>abs</sub> ≈ 1 579 MW; P<sub>ced</sub> ≈ 979 MW</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El carbón que consume en una hora, si su poder calorífico es 29 MJ/kg.</h4>
+      <ol class="steps">
+          <li>Energía en 1 h:<span class="eq">E = 1,579·10⁹ · 3 600 = 5,68·10¹² J</span></li>
+          <li>Carbón:<span class="eq">m = 5,68·10¹² / 29·10⁶ = 1,96·10⁵ kg</span></li>
+      </ol>
+      <p class="res">≈ 196 t de carbón por hora</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>El caudal de agua de refrigeración si esta se calienta 8 °C (c = 4 180 J/(kg·K)).</h4>
+      <ol class="steps">
+          <li>Calor que se lleva el agua:<span class="eq">ṁ = P<sub>ced</sub> / (c · ΔT) = 9,79·10⁸ / (4 180 · 8) = 2,93·10⁴ kg/s</span></li>
+      </ol>
+      <p class="res">ṁ ≈ 2,93·10⁴ kg/s (unos 29 m³ de agua por segundo)</p>
+    </div>
+  </details>
+  <details class="prob" id="p135" data-tags="carnot frigorifica">
+    <summary><span class="stitle">129. Un motor de Carnot que mueve un frigorífico<span class="ptags"><span class="ptag">Carnot</span><span class="ptag">Frigorífica</span></span></span></summary>
+    <div class="enun"><p>Un motor de Carnot trabaja entre 800 K y 300 K y absorbe 5 kJ por ciclo. Todo su trabajo mueve un frigorífico de Carnot que enfría una cámara a −13 °C y cede el calor al ambiente, a 300 K. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El rendimiento del motor y el trabajo por ciclo.</li><li class="q"><b>b)</b> La eficiencia del frigorífico.</li><li class="q"><b>c)</b> El calor que se extrae de la cámara en cada ciclo.</li><li class="q"><b>d)</b> El calor total que reciben los alrededores, a 300 K, en cada ciclo.</li></ol>
+    <p class="datos"><b>Datos:</b> Motor: T<sub>c</sub> = 800 K; T<sub>f</sub> = 300 K; Q<sub>c</sub> = 5 000 J. Frigorífico: T<sub>cámara</sub> = 260 K; T<sub>amb</sub> = 300 K</p>
+    <div class="ap">
+      <h4><span>a)</span>El rendimiento del motor y el trabajo por ciclo.</h4>
+      <ol class="steps">
+          <li>Rendimiento:<span class="eq">η = 1 − 300 / 800 = 0,625</span></li>
+          <li>Trabajo:<span class="eq">W = 0,625 · 5 000 = 3 125 J</span></li>
+      </ol>
+      <p class="res">η = 62,5 %; W = 3 125 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>La eficiencia del frigorífico.</h4>
+      <ol class="steps">
+          <li>Eficiencia de Carnot:<span class="eq">ε = T<sub>cámara</sub> / (T<sub>amb</sub> − T<sub>cámara</sub>) = 260 / 40 = 6,5</span></li>
+      </ol>
+      <p class="res">ε = 6,5</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El calor que se extrae de la cámara en cada ciclo.</h4>
+      <ol class="steps">
+          <li>Calor extraído:<span class="eq">Q<sub>extr</sub> = ε · W = 6,5 · 3 125 = 20 313 J</span></li>
+      </ol>
+      <p class="res">≈ 20,3 kJ por ciclo</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>El calor total que reciben los alrededores, a 300 K, en cada ciclo.</h4>
+      <ol class="steps">
+          <li>Cedido por el motor:<span class="eq">5 000 − 3 125 = 1 875 J</span></li>
+          <li>Cedido por el frigorífico:<span class="eq">20 313 + 3 125 = 23 438 J</span></li>
+          <li>Total:<span class="eq">1 875 + 23 438 = 25 313 J (= 5 000 + 20 313)</span></li>
+      </ol>
+      <p class="res">≈ 25,3 kJ por ciclo</p>
+    </div>
+  </details>
+  <details class="prob" id="p136" data-tags="carnot">
+    <summary><span class="stitle">130. Motor de Carnot: potencia, calor por ciclo y entropía<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>Un motor de Carnot funciona entre 727 °C y 27 °C a 1 200 ciclos por minuto y da una potencia de 15 kW. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> El rendimiento.</li><li class="q"><b>b)</b> El trabajo, el calor absorbido y el calor cedido en cada ciclo.</li><li class="q"><b>c)</b> El calor que absorbe del foco caliente en una hora.</li><li class="q"><b>d)</b> La variación de entropía de cada foco en un ciclo. ¿Cuánto vale la del universo?</li></ol>
+    <p class="datos"><b>Datos:</b> T<sub>c</sub> = 1 000 K; T<sub>f</sub> = 300 K; 1 200 ciclos/min = 20 ciclos/s; P = 15 kW</p>
+    <div class="ap">
+      <h4><span>a)</span>El rendimiento.</h4>
+      <ol class="steps">
+          <li>Carnot:<span class="eq">η = 1 − 300 / 1 000 = 0,70</span></li>
+      </ol>
+      <p class="res">η = 70 %</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El trabajo, el calor absorbido y el calor cedido en cada ciclo.</h4>
+      <ol class="steps">
+          <li>Trabajo por ciclo:<span class="eq">W = 15 000 / 20 = 750 J</span></li>
+          <li>Calor absorbido:<span class="eq">Q<sub>c</sub> = W / η = 750 / 0,70 = 1 071 J</span></li>
+          <li>Calor cedido:<span class="eq">Q<sub>f</sub> = 1 071 − 750 = 321 J</span></li>
+      </ol>
+      <p class="res">W = 750 J; Q<sub>c</sub> ≈ 1 071 J; Q<sub>f</sub> ≈ 321 J</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>El calor que absorbe del foco caliente en una hora.</h4>
+      <ol class="steps">
+          <li>En una hora:<span class="eq">1 071 · 20 · 3 600 = 7,71·10⁷ J</span></li>
+      </ol>
+      <p class="res">≈ 77,1 MJ</p>
+    </div>
+    <div class="ap">
+      <h4><span>d)</span>La variación de entropía de cada foco en un ciclo. ¿Cuánto vale la del universo?</h4>
+      <ol class="steps">
+          <li>Foco caliente (cede calor):<span class="eq">ΔS<sub>c</sub> = −Q<sub>c</sub> / T<sub>c</sub> = −1 071 / 1 000 = −1,071 J/K</span></li>
+          <li>Foco frío (recibe calor):<span class="eq">ΔS<sub>f</sub> = Q<sub>f</sub> / T<sub>f</sub> = 321 / 300 = +1,071 J/K</span></li>
+      </ol>
+      <p class="res">ΔS<sub>c</sub> ≈ −1,07 J/K; ΔS<sub>f</sub> ≈ +1,07 J/K. La del universo es 0: el ciclo de Carnot es reversible y el gas vuelve al estado inicial.</p>
+    </div>
+  </details>
+  <details class="prob" id="p137" data-tags="carnot">
+    <summary><span class="stitle">131. ¿Es posible este motor? El segundo principio<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <div class="enun"><p>Un inventor dice que su motor absorbe 250 kJ de un foco a 500 K, cede 100 kJ a un foco a 300 K y produce 150 kJ de trabajo.</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> Calcula el rendimiento que dice tener y el de un motor de Carnot entre esos focos. ¿Es posible el motor?</li><li class="q"><b>b)</b> Calcula el trabajo máximo que podría dar con ese calor absorbido y el calor mínimo que debe ceder.</li><li class="q"><b>c)</b> Otro inventor dice que su motor absorbe 200 kJ a 600 K, cede 110 kJ a 300 K y produce 90 kJ. ¿Es posible?</li></ol>
+    <p class="datos"><b>Datos:</b> Motor 1: Q<sub>c</sub> = 250 kJ; T<sub>c</sub> = 500 K; Q<sub>f</sub> = 100 kJ; T<sub>f</sub> = 300 K; W = 150 kJ. Motor 2: Q<sub>c</sub> = 200 kJ; T<sub>c</sub> = 600 K; Q<sub>f</sub> = 110 kJ; T<sub>f</sub> = 300 K; W = 90 kJ</p>
+    <div class="ap">
+      <h4><span>a)</span>Calcula el rendimiento que dice tener y el de un motor de Carnot entre esos focos. ¿Es posible el motor?</h4>
+      <ol class="steps">
+          <li>Rendimiento que dice tener:<span class="eq">η = 150 / 250 = 0,60</span></li>
+          <li>Carnot:<span class="eq">η<sub>C</sub> = 1 − 300 / 500 = 0,40</span></li>
+      </ol>
+      <p class="res">60 % &gt; 40 %: es imposible. Cumple el primer principio (250 = 100 + 150), pero ningún motor puede superar el rendimiento de Carnot (segundo principio).</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>Calcula el trabajo máximo que podría dar con ese calor absorbido y el calor mínimo que debe ceder.</h4>
+      <ol class="steps">
+          <li>Trabajo máximo:<span class="eq">W<sub>máx</sub> = 0,40 · 250 = 100 kJ</span></li>
+          <li>Calor mínimo cedido:<span class="eq">Q<sub>f</sub><sub>mín</sub> = 250 − 100 = 150 kJ</span></li>
+      </ol>
+      <p class="res">W<sub>máx</sub> = 100 kJ; Q<sub>f,mín</sub> = 150 kJ</p>
+    </div>
+    <div class="ap">
+      <h4><span>c)</span>Otro inventor dice que su motor absorbe 200 kJ a 600 K, cede 110 kJ a 300 K y produce 90 kJ. ¿Es posible?</h4>
+      <ol class="steps">
+          <li>Balance de energía:<span class="eq">200 = 110 + 90 ✓</span></li>
+          <li>Rendimientos:<span class="eq">η = 90 / 200 = 0,45; η<sub>C</sub> = 1 − 300 / 600 = 0,50</span></li>
+      </ol>
+      <p class="res">Es posible: cumple el primer principio y su rendimiento (45 %) es menor que el de Carnot (50 %).</p>
     </div>
   </details>
 </section>
