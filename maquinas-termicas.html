@@ -488,7 +488,7 @@ details.prob > summary::after{margin-left:auto}
       <tr><td>Diatómico (aire, O₂, N₂)</td><td>5/2 R ≈ 20,8 J/(mol·K) ≈ 5 cal/(mol·K)</td><td>7/2 R ≈ 29,1 J/(mol·K) ≈ 7 cal/(mol·K)</td><td>1,40</td></tr>
     </tbody>
   </table></div>
-  <p>El coeficiente adiabático γ aparece en las transformaciones adiabáticas (p · V<sup>γ</sup> = cte) y en el rendimiento del ciclo Otto.</p>
+  <p>El coeficiente adiabático γ aparece en las transformaciones adiabáticas (p · V<sup>γ</sup> = cte) y en el rendimiento de los ciclos Otto y Diésel.</p>
   <p class="note"><b>Ejemplo.</b> Calentar 3 mol de helio de 15 °C a 25 °C (c<sub>v</sub> = 3 cal/(mol·K)). A volumen constante: Q<sub>v</sub> = 3 · 3 · 10 = 90 cal. A presión constante: c<sub>p</sub> = 3 + 2 = 5 cal/(mol·K), así que Q<sub>p</sub> = 3 · 5 · 10 = 150 cal. Los 60 cal de diferencia son el trabajo que hace el gas al expandirse: p · ΔV = n · R · ΔT = 3 · 2 · 10 = 60 cal.</p>
 </section>
 
@@ -649,6 +649,10 @@ details.prob > summary::after{margin-left:auto}
   <div class="f">V<sub>u</sub> = (π · D² / 4) · L &nbsp;&nbsp;|&nbsp;&nbsp; V<sub>T</sub> = z · V<sub>u</sub><span>Cilindrada unitaria y total. D diámetro (calibre), L carrera, z número de cilindros.</span></div>
   <div class="f">r<sub>c</sub> = (V<sub>u</sub> + V<sub>c</sub>) / V<sub>c</sub><span>Relación de compresión. V<sub>c</sub> es el volumen de la cámara de combustión.</span></div>
   <div class="f">η<sub>Otto ideal</sub> = 1 − 1 / r<sub>c</sub><sup>γ−1</sup><span>γ = c<sub>p</sub>/c<sub>v</sub> ≈ 1,4 para el aire.</span></div>
+  <p class="def">La <strong>relación de combustión</strong> (o de corte) α de un motor Diésel es el cociente entre el volumen al terminar la inyección y el volumen al empezarla: α = V₃ / V₂. Mide cuánto dura el aporte de calor a presión constante.</p>
+  <div class="f">η<sub>Diésel ideal</sub> = 1 − [1 / r<sub>c</sub><sup>γ−1</sup>] · (α<sup>γ</sup> − 1) / [γ · (α − 1)]<span>r<sub>c</sub> relación de compresión, α = V₃/V₂ relación de combustión, γ ≈ 1,4 para el aire.</span></div>
+  <p>El factor (α<sup>γ</sup> − 1) / [γ · (α − 1)] es siempre mayor que 1, así que con la misma relación de compresión el ciclo Diésel rinde algo menos que el Otto. En la práctica rinde más porque trabaja con relaciones de compresión mucho mayores (14 a 22 frente a 8 a 12). Cuanto más corta es la inyección (α más cerca de 1), más se acerca su rendimiento al del Otto.</p>
+  <p class="note"><b>Ejemplo.</b> Un Diésel ideal con r<sub>c</sub> = 18 y α = 2: 18<sup>0,4</sup> = 3,18 y (2<sup>1,4</sup> − 1) / (1,4 · 1) = 1,639 / 1,4 = 1,17. η = 1 − 1,17 / 3,18 = 1 − 0,368 = 0,632, es decir, <strong>63,2 %</strong>. Un Otto con la misma r<sub>c</sub> daría 1 − 1/3,18 = 68,5 %.</p>
   <div class="f">P = M · ω &nbsp;&nbsp;|&nbsp;&nbsp; ω = 2π · n / 60<span>Potencia (W) a partir del par M (N·m) y el régimen n (rpm).</span></div>
   <div class="f">η = P<sub>útil</sub> / (ṁ · P<sub>c</sub>)<span>Rendimiento real a partir del consumo de combustible ṁ (kg/s).</span></div>
 </section>
