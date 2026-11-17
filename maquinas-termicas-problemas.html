@@ -414,7 +414,7 @@ details.prob summary .stitle{display:block}
     <div>
       <p class="crumbs"><a href="./">Tecnología e Ingeniería II</a> / <a href="maquinas-termicas.html">Máquinas térmicas</a></p>
       <h1>Problemas de máquinas térmicas</h1>
-      <p class="lead">Formulario y 118 problemas resueltos paso a paso: energía, combustible, motores, cilindrada, potencia, transformaciones termodinámicas, ciclo de Carnot, frigoríficas y bomba de calor.</p>
+      <p class="lead">Formulario y 116 problemas resueltos paso a paso: energía, combustible, motores, cilindrada, potencia, transformaciones termodinámicas, ciclo de Carnot, frigoríficas y bomba de calor.</p>
       <ul class="quick">
         <li><a class="primary" href="#p1">Empezar por el problema 1</a></li>
         <li><a href="#formulario">Formulario</a></li>
@@ -503,8 +503,8 @@ details.prob summary .stitle{display:block}
 
 <section id="problemas">
   <h2><span class="n">2</span>Problemas resueltos</h2>
-  <p>118 problemas ordenados por temática, de lo más sencillo a lo más completo. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
-  <nav class="temas" aria-label="Temas"><b>Temas:</b> <a href="#energia-calor">Energía, calor y trabajo</a> · <a href="#rendimiento">Rendimiento: motores eléctricos y elevadores</a> · <a href="#vehiculos">Vehículos: energía mecánica y combustible</a> · <a href="#combustible">Combustible, potencia, par y rendimiento</a> · <a href="#potencia-indicada">Potencia indicada y potencia efectiva</a> · <a href="#cilindrada">Cilindrada, relación de compresión y par</a> · <a href="#cilindrada-consumo">Cilindrada, consumo y rendimiento</a> · <a href="#carnot">Motores térmicos y ciclo de Carnot</a> · <a href="#frigorificas">Máquinas frigoríficas</a> · <a href="#bombas">Bombas de calor</a> · <a href="#reversibles">Frigorífica y bomba de calor: equipos reversibles</a> · <a href="#transformaciones">Transformaciones termodinámicas de un gas ideal</a> · <a href="#ciclo-carnot">Ciclo de Carnot: estados, calores y trabajo</a></nav>
+  <p>116 problemas ordenados por temática, de lo más sencillo a lo más completo. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
+  <nav class="temas" aria-label="Temas"><b>Temas:</b> <a href="#energia-calor">Energía, calor y trabajo</a> · <a href="#rendimiento">Rendimiento: motores eléctricos y elevadores</a> · <a href="#vehiculos">Vehículos: energía mecánica y combustible</a> · <a href="#combustible">Combustible, potencia, par y rendimiento</a> · <a href="#cilindrada">Cilindrada, relación de compresión y par</a> · <a href="#cilindrada-consumo">Cilindrada, consumo y rendimiento</a> · <a href="#carnot">Motores térmicos y ciclo de Carnot</a> · <a href="#frigorificas">Máquinas frigoríficas</a> · <a href="#bombas">Bombas de calor</a> · <a href="#reversibles">Frigorífica y bomba de calor: equipos reversibles</a> · <a href="#transformaciones">Transformaciones termodinámicas de un gas ideal</a> · <a href="#ciclo-carnot">Ciclo de Carnot: estados, calores y trabajo</a></nav>
   <div class="filters-m" role="group" aria-label="Filtrar por tema">
     <button type="button" data-f="all" aria-pressed="true">Todos</button>
     <button type="button" data-f="energia" aria-pressed="false">Energía y potencia</button>
@@ -514,7 +514,7 @@ details.prob summary .stitle{display:block}
     <button type="button" data-f="carnot" aria-pressed="false">Carnot</button>
     <button type="button" data-f="frigorifica" aria-pressed="false">Frigorífica y bomba de calor</button>
   </div>
-  <p class="fcount" id="fcount" aria-live="polite">118 problemas</p>
+  <p class="fcount" id="fcount" aria-live="polite">116 problemas</p>
   <h3 id="energia-calor" class="extra-h grp-h">Energía, calor y trabajo</h3>
   <details class="prob" id="p1" data-tags="energia">
     <summary><span class="stitle">1. Energía de una bombilla<span class="ptags"><span class="ptag">Energía</span></span></span></summary>
@@ -1265,55 +1265,9 @@ details.prob summary .stitle{display:block}
       <p class="res">η ≈ 43,1 %.</p>
     </div>
   </details>
-  <h3 id="potencia-indicada" class="extra-h grp-h">Potencia indicada y potencia efectiva</h3>
-  <details class="prob" id="p34" data-tags="motores">
-    <summary><span class="stitle">32. Potencia efectiva con el freno dinamométrico<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
-    <div class="enun"><p>La velocidad media del émbolo de un motor es 8,6 m/s y su carrera 90 cm. El dinamómetro del freno marca 500 N y la barra de freno mide 1,5 m. Halla la potencia efectiva.</p></div>
-    <p class="datos"><b>Datos:</b> v<sub>m</sub> = 8,6 m/s; L = 0,9 m; F = 500 N; r = 1,5 m</p>
-    <div class="ap">
-      <p>En cada vuelta el émbolo recorre dos carreras (sube y baja): v<sub>m</sub> = 2 · L · n / 60. El freno mide el par: M = F · r.</p>
-      <ol class="steps">
-          <li>Régimen:<span class="eq">n = 60 · v<sub>m</sub> / (2 · L) = 60 · 8,6 / 1,8 = 286,7 rpm</span></li>
-          <li>Velocidad angular:<span class="eq">ω = 2π · 286,7 / 60 = 30,02 rad/s</span></li>
-          <li>Par:<span class="eq">M = 500 N · 1,5 m = 750 N·m</span></li>
-          <li>Potencia:<span class="eq">P = 750 · 30,02 = 22 515 W</span></li>
-      </ol>
-      <p class="res">P ≈ 22,5 kW (30,6 CV).</p>
-    </div>
-  </details>
-  <details class="prob" id="p35" data-tags="motores">
-    <summary><span class="stitle">33. Rendimiento mecánico y trabajo indicado<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
-    <div class="enun"><p>Un motor Otto de cuatro tiempos tiene un rendimiento mecánico del 50 % y da una potencia útil de 60 kW a 4 000 rpm. Calcula:</p></div>
-    <ol class="aps"><li class="q"><b>a)</b> El par que está suministrando.</li><li class="q"><b>b)</b> El trabajo producido en una hora.</li><li class="q"><b>c)</b> El trabajo indicado por ciclo.</li></ol>
-    <p class="datos"><b>Datos:</b> η<sub>m</sub> = 0,50; P<sub>e</sub> = 60 kW; n = 4 000 rpm</p>
-    <div class="ap">
-      <h4><span>a)</span>El par que está suministrando.</h4>
-      <ol class="steps">
-          <li>Par:<span class="eq">M = 60 000 / (2π · 4 000 / 60) = 60 000 / 418,88 = 143,24 N·m</span></li>
-      </ol>
-      <p class="res">M ≈ 143,2 N·m.</p>
-    </div>
-    <div class="ap">
-      <h4><span>b)</span>El trabajo producido en una hora.</h4>
-      <ol class="steps">
-          <li>Trabajo:<span class="eq">W = 60 000 W · 3 600 s = 2,16·10⁸ J</span></li>
-      </ol>
-      <p class="res">W = 2,16·10⁸ J (60 kWh).</p>
-    </div>
-    <div class="ap">
-      <h4><span>c)</span>El trabajo indicado por ciclo.</h4>
-      <p>La potencia indicada es la que desarrollan los gases: P<sub>i</sub> = P<sub>e</sub> / η<sub>m</sub>. En cuatro tiempos el ciclo dura dos vueltas, así que hay n/120 ciclos por segundo.</p>
-      <ol class="steps">
-          <li>Potencia indicada:<span class="eq">P<sub>i</sub> = 60 / 0,5 = 120 kW</span></li>
-          <li>Ciclos por segundo:<span class="eq">4 000 / 120 = 33,33 ciclos/s</span></li>
-          <li>Trabajo por ciclo:<span class="eq">W<sub>i</sub> = 120 000 / 33,33 = 3 600 J</span></li>
-      </ol>
-      <p class="res">W<sub>i</sub> = 3 600 J por ciclo.</p>
-    </div>
-  </details>
   <h3 id="cilindrada" class="extra-h grp-h">Cilindrada, relación de compresión y par</h3>
   <details class="prob" id="p37" data-tags="motores">
-    <summary><span class="stitle">34. Motor Citroën Xsara RFY<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">32. Motor Citroën Xsara RFY<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Según el fabricante, el motor del Citroën Xsara RFY tiene 4 cilindros, calibre 86 mm, carrera 86 mm y relación de compresión 10,4:1. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor.</li><li class="q"><b>b)</b> El volumen de la cámara de combustión.</li><li class="q"><b>c)</b> El volumen total del cilindro.</li><li class="q"><b>d)</b> La potencia máxima, que se da a 6 500 rpm con un par de 164 N·m.</li></ol>
     <p class="datos"><b>Datos:</b> z = 4; D = 8,6 cm; L = 8,6 cm; r<sub>c</sub> = 10,4; M = 164 N·m a 6 500 rpm</p>
@@ -1351,7 +1305,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">El enunciado da el par a 6 500 rpm; en la ficha real ese es el régimen de potencia máxima, no el de par máximo.</p>
   </details>
   <details class="prob" id="p38" data-tags="motores">
-    <summary><span class="stitle">35. Interpretar la ficha de un automóvil<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">33. Interpretar la ficha de un automóvil<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Una revista da estos datos de un automóvil: diámetro × carrera 82,5 × 92,8 mm; relación de compresión 10,5:1; potencia máxima 110 kW a 6 000 rpm; par máximo 180,32 N·m a 4 600 rpm. Responde:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> ¿Es un motor de encendido por chispa o por compresión? Razona la respuesta.</li><li class="q"><b>b)</b> ¿Cuál es su cilindrada si tiene cuatro cilindros?</li><li class="q"><b>c)</b> ¿Cuál es el par motor al régimen de potencia máxima?</li><li class="q"><b>d)</b> Compara ese par con el par máximo y comenta el resultado.</li></ol>
     <p class="datos"><b>Datos:</b> D = 8,25 cm; L = 9,28 cm; r<sub>c</sub> = 10,5; z = 4</p>
@@ -1384,7 +1338,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p39" data-tags="motores">
-    <summary><span class="stitle">36. Moto de 125 cc para el carné A1<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">34. Moto de 125 cc para el carné A1<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>La ley permite a jóvenes de 16 años conducir motos de 125 cm³ y hasta 15 CV. Un modelo tiene una carrera de 54,5 mm, relación de compresión 12:1 y alcanza la potencia máxima a 10 000 rpm. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La potencia máxima permitida en kW.</li><li class="q"><b>b)</b> El diámetro del cilindro.</li><li class="q"><b>c)</b> El volumen de la cámara de combustión.</li><li class="q"><b>d)</b> El par a la potencia máxima.</li></ol>
     <p class="datos"><b>Datos:</b> V<sub>u</sub> = 125 cm³; P = 15 CV; L = 5,45 cm; r<sub>c</sub> = 12; n = 10 000 rpm</p>
@@ -1419,7 +1373,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p40" data-tags="motores">
-    <summary><span class="stitle">37. Moto: rectificar la culata<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">35. Moto: rectificar la culata<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Una moto tiene un motor de D × C = 40 × 39 mm, relación de compresión 12:1, y da 7 kW a 8 500 rpm. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> El par motor.</li><li class="q"><b>c)</b> Si se rectifica la culata y la cámara pierde un 10 % de volumen, ¿cambia la relación de compresión? ¿Cuánto vale?</li></ol>
     <p class="datos"><b>Datos:</b> D = 4 cm; L = 3,9 cm; r<sub>c</sub> = 12; P = 7 000 W; n = 8 500 rpm</p>
@@ -1449,7 +1403,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p41" data-tags="motores">
-    <summary><span class="stitle">38. Motor cuadrado<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">36. Motor cuadrado<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor es «cuadrado» cuando su diámetro es igual a su carrera. Un cilindro de 123,67 cm³ con relación de compresión 12:1 da un par de 14 N·m a 8 000 rpm. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La carrera.</li><li class="q"><b>b)</b> El volumen de la cámara de combustión.</li><li class="q"><b>c)</b> La potencia que está suministrando.</li></ol>
     <p class="datos"><b>Datos:</b> V<sub>u</sub> = 123,67 cm³; D = L; r<sub>c</sub> = 12; M = 14 N·m; n = 8 000 rpm</p>
@@ -1477,7 +1431,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p42" data-tags="motores carnot">
-    <summary><span class="stitle">39. Bicilíndrico: cilindrada, par y potencia<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">37. Bicilíndrico: cilindrada, par y potencia<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un motor de dos cilindros y cuatro tiempos tiene 80 mm de diámetro y 75 mm de carrera. Su relación de compresión es 11:1, su potencia máxima 40 kW a 7 500 rpm y su par máximo 70 N·m a 4 700 rpm. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada total y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> La potencia a par máximo y el par a potencia máxima.</li><li class="q"><b>c)</b> Dibuja el ciclo de Carnot y describe sus transformaciones.</li></ol>
     <p class="datos"><b>Datos:</b> z = 2; D = 8 cm; L = 7,5 cm; r<sub>c</sub> = 11</p>
@@ -1504,7 +1458,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p43" data-tags="motores">
-    <summary><span class="stitle">40. Moto de 1 237 cm³: carrera y régimen<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">38. Moto de 1 237 cm³: carrera y régimen<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>El motor de una moto de 1 237 cm³ y cuatro cilindros tiene pistones de 81 mm y relación de compresión 12:1. Cuando da 127 kW, el par es de 121 N·m. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La carrera del pistón y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> El régimen de giro en rpm.</li></ol>
     <p class="datos"><b>Datos:</b> V<sub>T</sub> = 1 237 cm³; z = 4; D = 8,1 cm; r<sub>c</sub> = 12; P = 127 kW; M = 121 N·m</p>
@@ -1528,7 +1482,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p44" data-tags="motores">
-    <summary><span class="stitle">41. Moto de 1 000 cm³ con cuatro cilindros en línea<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">39. Moto de 1 000 cm³ con cuatro cilindros en línea<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Una moto de cuatro tiempos y 1 000 cm³ tiene cuatro cilindros en línea. Da 130 kW a 12 000 rpm y un par máximo de 110 N·m a 8 500 rpm. La relación de compresión es 12:1 y la carrera 55 mm. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El diámetro y el volumen de la cámara de combustión de cada cilindro.</li><li class="q"><b>b)</b> La potencia a par máximo y el par a potencia máxima.</li></ol>
     <p class="datos"><b>Datos:</b> V<sub>T</sub> = 1 000 cm³; z = 4; r<sub>c</sub> = 12; L = 5,5 cm</p>
@@ -1552,7 +1506,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p45" data-tags="motores">
-    <summary><span class="stitle">42. Motor Otto bicilíndrico de 100 cm³<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">40. Motor Otto bicilíndrico de 100 cm³<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor Otto de dos cilindros tiene 100 cm³ de cilindrada, pistones de 50 mm de diámetro y relación de compresión 14:1. Da un par de 8 N·m con una potencia de 5 kW. Calcula la carrera, el volumen de la cámara de combustión y la velocidad de giro.</p></div>
     <p class="datos"><b>Datos:</b> V<sub>T</sub> = 100 cm³; z = 2; D = 5 cm; r<sub>c</sub> = 14; M = 8 N·m; P = 5 000 W</p>
     <div class="ap">
@@ -1567,7 +1521,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p46" data-tags="motores">
-    <summary><span class="stitle">43. Motor tricilíndrico: diámetro y par<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">41. Motor tricilíndrico: diámetro y par<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor de cuatro tiempos y tres cilindros da 60 kW a 5 300 rpm. Su cilindrada es de 700 cm³ y la carrera mide 70 mm. Calcula el diámetro de los cilindros y el par a potencia máxima.</p></div>
     <p class="datos"><b>Datos:</b> z = 3; V<sub>T</sub> = 700 cm³; L = 7 cm; P = 60 000 W; n = 5 300 rpm</p>
     <div class="ap">
@@ -1582,7 +1536,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p47" data-tags="motores">
-    <summary><span class="stitle">44. Motor monocilíndrico de dos tiempos<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">42. Motor monocilíndrico de dos tiempos<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor monocilíndrico de dos tiempos y encendido por chispa tiene 101,3 cm³ de cilindrada y una cámara de combustión de 12,66 cm³. Da 6 kW a 6 200 rpm y un par máximo de 10 N·m a 4 580 rpm. La carrera mide 4,96 cm. Calcula la relación de compresión, el diámetro, el par a potencia máxima y la potencia a par máximo.</p></div>
     <p class="datos"><b>Datos:</b> V<sub>u</sub> = 101,3 cm³; V<sub>c</sub> = 12,66 cm³; L = 4,96 cm; P<sub>máx</sub> = 6 kW a 6 200 rpm; M<sub>máx</sub> = 10 N·m a 4 580 rpm</p>
     <div class="ap">
@@ -1596,7 +1550,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p48" data-tags="motores">
-    <summary><span class="stitle">45. Motor bicilíndrico de 99 cm³<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">43. Motor bicilíndrico de 99 cm³<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor de dos cilindros y 99 cm³ en total tiene pistones de 40 mm de diámetro y relación de compresión 10:1. Da un par de 8 N·m con 7 kW. Calcula la carrera, el volumen de la cámara de combustión y el régimen de giro en rad/s.</p></div>
     <p class="datos"><b>Datos:</b> V<sub>T</sub> = 99 cm³; z = 2; D = 4 cm; r<sub>c</sub> = 10; M = 8 N·m; P = 7 000 W</p>
     <div class="ap">
@@ -1611,7 +1565,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p49" data-tags="motores">
-    <summary><span class="stitle">46. Motocicleta bicilíndrica en V<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">44. Motocicleta bicilíndrica en V<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Una moto lleva un motor de cuatro tiempos con dos cilindros en V a 45°, 888 cm³ de cilindrada, cilindros de 76,2 mm de diámetro y relación de compresión 9:1. Calcula la carrera y el volumen de la cámara de combustión.</p></div>
     <p class="datos"><b>Datos:</b> V<sub>T</sub> = 888 cm³; z = 2; D = 7,62 cm; r<sub>c</sub> = 9</p>
     <div class="ap">
@@ -1626,7 +1580,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">La disposición en V solo cambia la forma del motor, no el cálculo de cilindrada.</p>
   </details>
   <details class="prob" id="p50" data-tags="motores">
-    <summary><span class="stitle">47. Quad bicilíndrico: carrera, cámara y trabajo en un viaje<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">45. Quad bicilíndrico: carrera, cámara y trabajo en un viaje<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Se realiza un viaje de Córdoba a Sevilla en quad en el que se recorren 150 km a 75 km/h. El quad tiene un motor Otto bicilíndrico de cuatro tiempos: cilindrada 500 cm³, diámetro del cilindro 60 mm y relación de compresión 10:1. La potencia máxima se obtiene con un par de 30 N·m a 5 000 rpm. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La carrera del cilindro y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> El trabajo desarrollado en el viaje, suponiendo que el motor trabaja a potencia máxima todo el trayecto.</li></ol>
     <p class="datos"><b>Datos:</b> N = 2; V<sub>T</sub> = 500 cm³; D = 60 mm = 6 cm; RC = 10; M = 30 N·m; n = 5 000 rpm; d = 150 km; v = 75 km/h</p>
@@ -1653,7 +1607,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p51" data-tags="motores">
-    <summary><span class="stitle">48. Diésel 20:1: cámara, cilindrada y régimen de giro<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">46. Diésel 20:1: cámara, cilindrada y régimen de giro<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>De un motor diésel de cuatro cilindros y cuatro tiempos se sabe que el diámetro de sus cilindros es 60 mm, la carrera 90 mm y la relación volumétrica de compresión 20:1. El motor desarrolla un par de 53 N·m para una potencia de 20 kW. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El volumen de la cámara de combustión y la cilindrada del motor.</li><li class="q"><b>b)</b> El régimen de giro en rpm cuando desarrolla un par motor de 53 N·m.</li></ol>
     <p class="datos"><b>Datos:</b> N = 4; D = 6 cm; C = 9 cm; RC = 20; M = 53 N·m; P = 20 kW</p>
@@ -1678,7 +1632,7 @@ details.prob summary .stitle{display:block}
   </details>
   <h3 id="cilindrada-consumo" class="extra-h grp-h">Cilindrada, consumo y rendimiento</h3>
   <details class="prob" id="p52" data-tags="motores combustible">
-    <summary><span class="stitle">49. Diámetro, cámara y calor consumido<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
+    <summary><span class="stitle">47. Diámetro, cámara y calor consumido<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
     <div class="enun"><p>Un motor de cuatro cilindros tiene 1 800 cm³ de cilindrada total y consume 7,2 kg/h de gasolina. La relación de compresión es 9:1 y la carrera 75 mm. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El diámetro de los cilindros y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> La cantidad de calor consumida si el poder calorífico es 41 000 kJ/kg.</li><li class="q"><b>c)</b> Explica PMS, PMI, cilindrada y carrera, con fórmulas y unidades.</li></ol>
     <p class="datos"><b>Datos:</b> V<sub>T</sub> = 1 800 cm³; z = 4; ṁ = 7,2 kg/h; r<sub>c</sub> = 9; L = 7,5 cm; P<sub>c</sub> = 41 000 kJ/kg</p>
@@ -1706,7 +1660,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p53" data-tags="motores combustible">
-    <summary><span class="stitle">50. Moto monocilíndrica: compresión y consumo<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
+    <summary><span class="stitle">48. Moto monocilíndrica: compresión y consumo<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
     <div class="enun"><p>Una moto tiene un motor monocilíndrico de cuatro tiempos con 120 cm³ de cilindrada y 12 cm³ de cámara de combustión. Su potencia máxima es 8 kW a 9 000 rpm. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La relación de compresión y el diámetro del cilindro si la carrera es 50 mm.</li><li class="q"><b>b)</b> Con un rendimiento total del 35 %, ¿cuánta gasolina de 46 000 kJ/kg consume en una hora a potencia máxima?</li></ol>
     <p class="datos"><b>Datos:</b> V<sub>u</sub> = 120 cm³; V<sub>cc</sub> = 12 cm³; L = 5 cm; P = 8 kW; η = 0,35; P<sub>c</sub> = 46 000 kJ/kg</p>
@@ -1731,7 +1685,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">El apartado c) aparece vacío en el enunciado original.</p>
   </details>
   <details class="prob" id="p54" data-tags="motores combustible">
-    <summary><span class="stitle">51. Cilindrada, potencias y par de un turismo<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
+    <summary><span class="stitle">49. Cilindrada, potencias y par de un turismo<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
     <div class="enun"><p>El motor de un vehículo tiene 4 cilindros de 82,5 mm de diámetro y 93 mm de carrera. Consume 12,5 litros en 100 km, que recorre en una hora. El combustible tiene 45 000 kJ/kg y 0,75 g/cm³. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor.</li><li class="q"><b>b)</b> La potencia producida en la combustión.</li><li class="q"><b>c)</b> La potencia útil si el rendimiento es del 45 %.</li><li class="q"><b>d)</b> El par motor a 4 000 rpm.</li></ol>
     <p class="datos"><b>Datos:</b> z = 4; D = 8,25 cm; L = 9,3 cm; 12,5 L/h; ρ = 0,75 kg/L; P<sub>c</sub> = 45 000 kJ/kg; η = 0,45; n = 4 000 rpm</p>
@@ -1767,7 +1721,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p55" data-tags="motores combustible">
-    <summary><span class="stitle">52. Rendimiento efectivo de un motor de 30 CV<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
+    <summary><span class="stitle">50. Rendimiento efectivo de un motor de 30 CV<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
     <div class="enun"><p>El motor de un automóvil tiene 4 cilindros y da una potencia efectiva de 30 CV a 6 200 rpm. Cada pistón mide 80,5 mm de diámetro, la carrera es 97,6 mm y la relación de compresión 10:1. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada total.</li><li class="q"><b>b)</b> El rendimiento efectivo si consume 7,2 L/h de un combustible de 43 700 kJ/kg y 0,7 g/cm³.</li><li class="q"><b>c)</b> El par motor.</li></ol>
     <p class="datos"><b>Datos:</b> z = 4; D = 8,05 cm; L = 9,76 cm; P = 30 CV; n = 6 200 rpm; 7,2 L/h; ρ = 0,7 kg/L; P<sub>c</sub> = 43 700 kJ/kg</p>
@@ -1798,7 +1752,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p56" data-tags="motores">
-    <summary><span class="stitle">53. Motor de 4 cilindros: cilindrada, compresión y rendimiento<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">51. Motor de 4 cilindros: cilindrada, compresión y rendimiento<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor Otto de 4 cilindros tiene un diámetro D = 80 mm, una carrera L = 90 mm y un volumen de la cámara de combustión V<sub>c</sub> = 50 cm³. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada unitaria y la cilindrada total.</li><li class="q"><b>b)</b> La relación de compresión.</li><li class="q"><b>c)</b> El rendimiento ideal del ciclo Otto (γ = 1,4).</li></ol>
     <p class="datos"><b>Datos:</b> z = 4; D = 80 mm = 8 cm; L = 90 mm = 9 cm; V<sub>c</sub> = 50 cm³; γ = 1,4</p>
@@ -1831,7 +1785,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">El rendimiento real será mucho menor (rozamientos, pérdidas de calor, combustión incompleta): en un motor de gasolina suele estar entre el 25 y el 35 %.</p>
   </details>
   <details class="prob" id="p57" data-tags="motores combustible">
-    <summary><span class="stitle">54. Potencia y consumo de combustible<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">52. Potencia y consumo de combustible<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>El motor del problema anterior da un par de 150 N·m a 4 000 rpm con un rendimiento real del 30 %. Calcula la potencia y el consumo de gasolina por hora (P<sub>c</sub> = 43 000 kJ/kg).</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La potencia del motor.</li><li class="q"><b>b)</b> El consumo de gasolina por hora.</li></ol>
     <p class="datos"><b>Datos:</b> M = 150 N·m; n = 4 000 rpm; η = 0,30; P<sub>c</sub> = 43 000 kJ/kg</p>
@@ -1857,7 +1811,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">Error frecuente: olvidar pasar las revoluciones por minuto a radianes por segundo.</p>
   </details>
   <details class="prob" id="p58" data-tags="motores combustible">
-    <summary><span class="stitle">55. Otto de 4 cilindros: potencia y cilindrada<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">53. Otto de 4 cilindros: potencia y cilindrada<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor Otto de 4T y 4 cilindros consume 9 litros a la hora de un combustible cuyo poder calorífico es 41 000 kJ/kg y densidad 0,850 kg/L. Se sabe que tiene un rendimiento del 40 %, el diámetro de cada pistón es 70 mm y la carrera 90 mm. Obtén la potencia desarrollada y la cilindrada del motor.</p></div>
     <p class="datos"><b>Datos:</b> N = 4; V = 9 L/h; P<sub>c</sub> = 41 000 kJ/kg; ρ = 0,85 kg/L; η = 0,40; D = 7 cm; C = 9 cm</p>
     <div class="ap">
@@ -1871,7 +1825,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p59" data-tags="motores combustible">
-    <summary><span class="stitle">56. Motor 11:1: cilindrada y energía disipada en 8 horas<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">54. Motor 11:1: cilindrada y energía disipada en 8 horas<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un vehículo dispone de un motor de combustión de 4 cilindros con una relación de compresión de 11:1, que consume 7 litros a la hora de un combustible de densidad 0,8 kg/L y poder calorífico 41 000 kJ/kg. El rendimiento del motor es el 32 %. Los cilindros tienen 70 mm de diámetro y 80 mm de carrera. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y el volumen de la cámara de combustión de un cilindro.</li><li class="q"><b>b)</b> La energía transformada en trabajo y la energía disipada en calor en 8 horas de funcionamiento.</li></ol>
     <p class="datos"><b>Datos:</b> N = 4; RC = 11; V = 7 L/h; ρ = 0,8 kg/L; P<sub>c</sub> = 41 000 kJ/kg; η = 0,32; D = 7 cm; C = 8 cm; t = 8 h</p>
@@ -1895,7 +1849,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p60" data-tags="motores combustible">
-    <summary><span class="stitle">57. Motor de 1 200 cm³: diámetro, cámara y consumo en un trayecto<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">55. Motor de 1 200 cm³: diámetro, cámara y consumo en un trayecto<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor de combustión interna de 1 200 cm³ de cilindrada y relación de compresión 11:1 tiene 4 cilindros de 80 mm de carrera. Desarrolla una potencia de 12 kW con un consumo específico de 300 g/(kW·h). El combustible tiene una densidad de 850 kg/m³ y un poder calorífico de 41 000 kJ/kg. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El diámetro y el volumen de la cámara de combustión de cada cilindro.</li><li class="q"><b>b)</b> El consumo de combustible, en litros, en un trayecto de 3 h y la energía aportada por el combustible en ese tiempo.</li></ol>
     <p class="datos"><b>Datos:</b> V<sub>T</sub> = 1 200 cm³; RC = 11; N = 4; C = 8 cm; P = 12 kW; c<sub>e</sub> = 300 g/(kW·h); ρ = 850 kg/m³ = 0,85 kg/L; P<sub>c</sub> = 41 000 kJ/kg; t = 3 h</p>
@@ -1922,7 +1876,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p61" data-tags="motores combustible">
-    <summary><span class="stitle">58. Vehículo utilitario: cilindrada, carrera y par<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">56. Vehículo utilitario: cilindrada, carrera y par<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor Otto de 4T y 4 cilindros propulsa un vehículo utilitario. En régimen estacionario gira a 3 000 rpm y consume 8 litros a la hora de un combustible de poder calorífico 41 000 kJ/kg y densidad 0,850 kg/L. Tiene un rendimiento del 45 % y el diámetro de cada pistón es de 70 mm. El volumen de la cámara de combustión es 40 cm³ y la relación de compresión es 12:1. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y la carrera que deben tener los pistones para dicha cilindrada.</li><li class="q"><b>b)</b> El par motor desarrollado en esas condiciones de funcionamiento.</li></ol>
     <p class="datos"><b>Datos:</b> N = 4; n = 3 000 rpm; V = 8 L/h; P<sub>c</sub> = 41 000 kJ/kg; ρ = 0,85 kg/L; η = 0,45; D = 7 cm; V<sub>cc</sub> = 40 cm³; RC = 12</p>
@@ -1948,7 +1902,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p62" data-tags="motores combustible">
-    <summary><span class="stitle">59. Moto bicilíndrica de 4 válvulas: cilindrada y eficiencia<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">57. Moto bicilíndrica de 4 válvulas: cilindrada y eficiencia<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Una marca de motocicletas desarrolla un modelo con motor Otto bicilíndrico de 4 válvulas por cilindro. Se obtiene una potencia máxima de 50 kW a 8 000 rpm y un par máximo de 64 N·m a 6 700 rpm. El diámetro de los pistones es 83 mm y su carrera 60 mm. La relación de compresión es 10,8:1. En un banco de pruebas, funcionando una hora en el régimen del par máximo, consume 14,3 litros de gasolina de poder calorífico 41 500 kJ/kg y densidad 0,75 kg/dm³. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> La eficiencia del motor durante la prueba que se realiza para obtener el consumo.</li></ol>
     <p class="datos"><b>Datos:</b> N = 2; D = 8,3 cm; C = 6 cm; RC = 10,8; M<sub>máx</sub> = 64 N·m a 6 700 rpm; V = 14,3 L en 1 h; P<sub>c</sub> = 41 500 kJ/kg; ρ = 0,75 kg/dm³</p>
@@ -1975,7 +1929,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">Error frecuente: usar los 50 kW de potencia máxima. Esa potencia corresponde a 8 000 rpm, no al régimen de la prueba.</p>
   </details>
   <details class="prob" id="p63" data-tags="motores combustible">
-    <summary><span class="stitle">60. Gasolina de 4 cilindros: compresión, par y eficiencia<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">58. Gasolina de 4 cilindros: compresión, par y eficiencia<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor de gasolina de 4 cilindros tiene un diámetro de 84 mm y una carrera de 90 mm. El volumen de la cámara de combustión de cada cilindro es 52,50 cm³. La potencia máxima es 90 kW a 5 000 rpm. El combustible tiene un poder calorífico de 43 000 kJ/kg y una densidad de 0,8 kg/dm³. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y la relación de compresión.</li><li class="q"><b>b)</b> El par que entrega el motor a potencia máxima.</li><li class="q"><b>c)</b> La eficiencia del motor si consume 25 dm³/h trabajando a la máxima potencia.</li></ol>
     <p class="datos"><b>Datos:</b> N = 4; D = 8,4 cm; C = 9 cm; V<sub>cc</sub> = 52,5 cm³; P = 90 kW a 5 000 rpm; P<sub>c</sub> = 43 000 kJ/kg; ρ = 0,8 kg/dm³; V = 25 dm³/h</p>
@@ -2007,7 +1961,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p64" data-tags="motores combustible">
-    <summary><span class="stitle">61. Otto 10:1 con carrera 1,5 veces el diámetro<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">59. Otto 10:1 con carrera 1,5 veces el diámetro<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>Un motor Otto de cuatro cilindros con relación de compresión 10:1 y un volumen de la cámara de combustión de 25 cm³ alcanza un par máximo de 350 N·m a 2 500 rpm consumiendo 12 L/h de un combustible de densidad 0,85 kg/L y poder calorífico 41 400 kJ/kg. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada total y la carrera del cilindro sabiendo que esta es 1,5 veces mayor que su diámetro.</li><li class="q"><b>b)</b> El rendimiento del motor cuando trabaja a par máximo.</li></ol>
     <p class="datos"><b>Datos:</b> N = 4; RC = 10; V<sub>cc</sub> = 25 cm³; M = 350 N·m; n = 2 500 rpm; V = 12 L/h; ρ = 0,85 kg/L; P<sub>c</sub> = 41 400 kJ/kg; C = 1,5 · D</p>
@@ -2035,7 +1989,7 @@ details.prob summary .stitle{display:block}
   </details>
   <h3 id="carnot" class="extra-h grp-h">Motores térmicos y ciclo de Carnot</h3>
   <details class="prob" id="p65" data-tags="carnot">
-    <summary><span class="stitle">62. ¿Compraríamos la patente?<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">60. ¿Compraríamos la patente?<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un inventor ofrece un motor térmico reversible que trabaja entre 270 °C y 610 °C y asegura que tiene un rendimiento del 48 %. ¿Le comprarías la patente? Razona la respuesta.</p></div>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 270 + 273 = 543 K; T<sub>c</sub> = 610 + 273 = 883 K; η<sub>anunciado</sub> = 0,48</p>
     <div class="ap">
@@ -2047,7 +2001,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p66" data-tags="carnot combustible">
-    <summary><span class="stitle">63. Motor de Carnot entre 460 °C y 15 °C<span class="ptags"><span class="ptag">Carnot</span><span class="ptag">Combustible</span></span></span></summary>
+    <summary><span class="stitle">61. Motor de Carnot entre 460 °C y 15 °C<span class="ptags"><span class="ptag">Carnot</span><span class="ptag">Combustible</span></span></span></summary>
     <div class="enun"><p>Un motor que sigue un ciclo ideal de Carnot da un trabajo de 1 500 J por ciclo. Absorbe calor de un foco a 460 °C y cede calor a otro a 15 °C. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El calor absorbido y el cedido por el motor.</li><li class="q"><b>b)</b> El consumo por ciclo de un combustible de 41 000 kJ/kg.</li><li class="q"><b>c)</b> Dibuja el ciclo de Carnot y analiza sus transformaciones.</li></ol>
     <p class="datos"><b>Datos:</b> W = 1 500 J/ciclo; T<sub>c</sub> = 733 K; T<sub>f</sub> = 288 K; P<sub>c</sub> = 41 000 kJ/kg</p>
@@ -2073,7 +2027,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p67" data-tags="carnot combustible">
-    <summary><span class="stitle">64. Motor de Carnot entre 300 °C y 25 °C<span class="ptags"><span class="ptag">Carnot</span><span class="ptag">Combustible</span></span></span></summary>
+    <summary><span class="stitle">62. Motor de Carnot entre 300 °C y 25 °C<span class="ptags"><span class="ptag">Carnot</span><span class="ptag">Combustible</span></span></span></summary>
     <div class="enun"><p>Un motor que sigue un ciclo ideal de Carnot da un trabajo de 1 500 J por ciclo. Absorbe calor de un foco a 300 °C y cede calor a otro a 25 °C. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El calor absorbido y el cedido por el motor.</li><li class="q"><b>b)</b> El consumo por ciclo de un combustible de 41 000 kJ/kg.</li></ol>
     <p class="datos"><b>Datos:</b> W = 1 500 J/ciclo; T<sub>c</sub> = 573 K; T<sub>f</sub> = 298 K; P<sub>c</sub> = 41 000 kJ/kg</p>
@@ -2095,7 +2049,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p68" data-tags="carnot combustible">
-    <summary><span class="stitle">65. Motor de Carnot: calores y consumo<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">63. Motor de Carnot: calores y consumo<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un motor que sigue un ciclo de Carnot da 1 200 J por ciclo trabajando entre un foco a 450 °C y otro a 20 °C. Calcula el calor absorbido y cedido por ciclo y el consumo de un combustible de 41 000 kJ/kg.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Calor absorbido y cedido por ciclo.</li><li class="q"><b>b)</b> Consumo de combustible por ciclo.</li></ol>
     <p class="datos"><b>Datos:</b> W = 1 200 J/ciclo; t₁ = 450 °C; t₂ = 20 °C; P<sub>c</sub> = 41 000 kJ/kg</p>
@@ -2119,7 +2073,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">Sin redondear el rendimiento (0,5947) sale Q₁ ≈ 2 018 J. Con η = 0,59 redondeado sale el valor de arriba.</p>
   </details>
   <details class="prob" id="p70" data-tags="carnot">
-    <summary><span class="stitle">66. Rendimiento de una central térmica<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">64. Rendimiento de una central térmica<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Una turbina de vapor trabaja entre 550 °C y 40 °C. Recibe 800 MJ por segundo y produce 300 MW. Compara su rendimiento con el de Carnot.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Rendimiento real.</li><li class="q"><b>b)</b> Rendimiento de Carnot.</li><li class="q"><b>c)</b> Calor cedido al foco frío.</li></ol>
     <p class="datos"><b>Datos:</b> t₁ = 550 °C; t₂ = 40 °C; Q̇₁ = 800 MW; P = 300 MW</p>
@@ -2152,7 +2106,7 @@ details.prob summary .stitle{display:block}
   </details>
   <h3 id="frigorificas" class="extra-h grp-h">Máquinas frigoríficas</h3>
   <details class="prob" id="p71" data-tags="frigorifica">
-    <summary><span class="stitle">67. Tiempo para enfriar agua con una frigorífica<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">65. Tiempo para enfriar agua con una frigorífica<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span></span></span></summary>
     <div class="enun"><p>Una máquina frigorífica con un «rendimiento» (eficiencia) del 140 % consume una potencia de 120 W. ¿Cuánto tarda en enfriar 200 g de agua de 18 °C a 12 °C? Calor específico del agua: 1 cal/(g·°C).</p></div>
     <p class="datos"><b>Datos:</b> ε = 1,4; P = 120 W; m = 200 g; ΔT = 6 °C; c = 1 cal/(g·°C); 1 cal = 4,18 J</p>
     <div class="ap">
@@ -2167,7 +2121,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">En las máquinas frigoríficas se habla de eficiencia, no de rendimiento, porque puede superar el 100 %.</p>
   </details>
   <details class="prob" id="p72" data-tags="frigorifica carnot">
-    <summary><span class="stitle">68. Frigorífica con la mitad de la eficiencia de Carnot<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">66. Frigorífica con la mitad de la eficiencia de Carnot<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Una máquina frigorífica trabaja entre un foco frío a 200 K y uno caliente a 300 K. Absorbe 1 000 J del foco frío y su eficiencia es la mitad de la de un ciclo de Carnot entre esos focos. ¿Qué calor cede al foco caliente?</p></div>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 200 K; T<sub>c</sub> = 300 K; Q<sub>f</sub> = 1 000 J; ε = ½ · ε<sub>Carnot</sub></p>
     <div class="ap">
@@ -2181,7 +2135,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p73" data-tags="frigorifica carnot">
-    <summary><span class="stitle">69. Congelador ideal de Carnot<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">67. Congelador ideal de Carnot<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un congelador ideal de Carnot extrae 800 kJ por hora de su interior para mantenerlo a −15 °C. Fuera hay 25 °C. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia teórica y la potencia necesaria del motor del compresor.</li><li class="q"><b>b)</b> Si la eficiencia real fuese el 70 % de la teórica, ¿qué potencia tendría el motor?</li></ol>
     <p class="datos"><b>Datos:</b> Q<sub>f</sub> = 800 kJ/h; T<sub>f</sub> = 258 K; T<sub>c</sub> = 298 K</p>
@@ -2204,7 +2158,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p74" data-tags="frigorifica carnot">
-    <summary><span class="stitle">70. Congelador de Carnot: esquema y calores<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">68. Congelador de Carnot: esquema y calores<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Una máquina frigorífica de Carnot mantiene un congelador a −20 °C con un trabajo de 42 J. Fuera hay 20 °C. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Un esquema con temperaturas y flujos de calor, y la eficiencia.</li><li class="q"><b>b)</b> El calor extraído del congelador y el cedido al ambiente.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 253 K; T<sub>c</sub> = 293 K; W = 42 J</p>
@@ -2226,7 +2180,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p75" data-tags="frigorifica carnot">
-    <summary><span class="stitle">71. Coste mensual de un congelador<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">69. Coste mensual de un congelador<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un congelador de Carnot absorbe 800 kJ de su interior cada hora. El interior está a −18 °C y la habitación a 20 °C. Funciona una hora al día de media y el kWh cuesta 0,20 €. Calcula el coste en 30 días y la potencia del compresor si la eficiencia fuese el 40 % de la ideal.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El coste en 30 días.</li><li class="q"><b>b)</b> La potencia del compresor si la eficiencia fuese el 40 % de la ideal.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 255 K; T<sub>c</sub> = 293 K; Q<sub>f</sub> = 800 kJ/h; 1 h/día; 30 días; 0,20 €/kWh</p>
@@ -2251,7 +2205,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p76" data-tags="frigorifica carnot">
-    <summary><span class="stitle">72. Frigorífica con la mitad de la eficiencia ideal<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">70. Frigorífica con la mitad de la eficiencia ideal<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Una máquina frigorífica de congelación trabaja entre −20 °C y 30 °C. Su eficiencia es la mitad de la ideal y necesita un trabajo de 1 692 kJ por hora. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia y el calor extraído del foco frío cada hora.</li><li class="q"><b>b)</b> El calor cedido al foco caliente cada hora.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 253 K; T<sub>c</sub> = 303 K; W = 1 692 kJ/h</p>
@@ -2273,7 +2227,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p77" data-tags="frigorifica carnot">
-    <summary><span class="stitle">73. Calor extraído y cedido cada día<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">71. Calor extraído y cedido cada día<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>El compresor de una máquina frigorífica tiene 100 W. Dentro hay −19 °C y fuera 24 °C. Funciona 10 horas al día y su eficiencia es el 60 % de la ideal. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El calor que extrae del interior cada día.</li><li class="q"><b>b)</b> El calor que cede al exterior cada día.</li></ol>
     <p class="datos"><b>Datos:</b> P = 100 W; T<sub>f</sub> = 254 K; T<sub>c</sub> = 297 K; t = 10 h/día; ε = 0,6 · ε<sub>ideal</sub></p>
@@ -2296,7 +2250,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p78" data-tags="frigorifica carnot">
-    <summary><span class="stitle">74. Frigorífico doméstico de dos zonas<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">72. Frigorífico doméstico de dos zonas<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un frigorífico tiene dos máquinas independientes: refrigeración a 5 °C y congelación a −15 °C. La cocina está a 20 °C. Se pide (suponiendo ciclos ideales de Carnot):</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia de cada máquina.</li><li class="q"><b>b)</b> El calor extraído en una hora si el frigorífico consume 300 W y el congelador 450 W.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>ref</sub> = 278 K; T<sub>cong</sub> = 258 K; T<sub>c</sub> = 293 K; P<sub>ref</sub> = 300 W; P<sub>cong</sub> = 450 W</p>
@@ -2319,7 +2273,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">La congelación rinde menos: cuanto mayor es la diferencia de temperaturas, menor es la eficiencia.</p>
   </details>
   <details class="prob" id="p79" data-tags="frigorifica carnot">
-    <summary><span class="stitle">75. Frigorífico de restaurante con dos compartimentos<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">73. Frigorífico de restaurante con dos compartimentos<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>El frigorífico de un restaurante tiene dos máquinas de Carnot independientes: refrigeración a 5 °C y congelación a −25 °C. El local está a 25 °C. Calcula la eficiencia de cada una.</p></div>
     <p class="datos"><b>Datos:</b> T<sub>ref</sub> = 278 K; T<sub>cong</sub> = 248 K; T<sub>c</sub> = 298 K</p>
     <div class="ap">
@@ -2331,7 +2285,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p80" data-tags="frigorifica carnot">
-    <summary><span class="stitle">76. Aire acondicionado con un tercio de la eficiencia de Carnot<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">74. Aire acondicionado con un tercio de la eficiencia de Carnot<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un aire acondicionado con un tercio de la eficiencia de Carnot saca calor de una habitación a 13 °C y cede 80 kJ cada segundo al exterior, a 30 °C. Calcula su eficiencia y la potencia del motor.</p></div>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 286 K; T<sub>c</sub> = 303 K; Q̇<sub>c</sub> = 80 kW; ε = ε<sub>Carnot</sub> / 3</p>
     <div class="ap">
@@ -2345,7 +2299,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p81" data-tags="frigorifica carnot">
-    <summary><span class="stitle">77. Frigorífico doméstico con el 25 % de la eficiencia ideal<span class="ptags"><span class="ptag">Frigorífica</span></span></span></summary>
+    <summary><span class="stitle">75. Frigorífico doméstico con el 25 % de la eficiencia ideal<span class="ptags"><span class="ptag">Frigorífica</span></span></span></summary>
     <div class="enun"><p>Un frigorífico está en una vivienda cuya temperatura media es 22 °C y su eficiencia es el 25 % de la ideal. La potencia del compresor es 1 kW y la temperatura en el interior del frigorífico es 5 °C. Calcula la eficiencia de la máquina y el calor cedido al foco caliente por unidad de tiempo.</p></div>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 22 °C = 295 K; T<sub>f</sub> = 5 °C = 278 K; ε = 0,25 · ε<sub>Carnot</sub>; P = 1 kW</p>
     <div class="ap">
@@ -2359,7 +2313,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p82" data-tags="frigorifica carnot">
-    <summary><span class="stitle">78. Frigorífica entre −3 °C y 24 °C<span class="ptags"><span class="ptag">Frigorífica</span></span></span></summary>
+    <summary><span class="stitle">76. Frigorífica entre −3 °C y 24 °C<span class="ptags"><span class="ptag">Frigorífica</span></span></span></summary>
     <div class="enun"><p>Una máquina frigorífica cuya eficiencia es el 50 % de la ideal trabaja entre −3 °C y 24 °C. El compresor consume 5 400 kJ en cada hora de funcionamiento. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia real de la máquina y el calor extraído del foco frío en una hora de funcionamiento.</li><li class="q"><b>b)</b> La potencia frigorífica y el calor cedido al medio ambiente en cuatro horas de funcionamiento.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = −3 °C = 270 K; T<sub>c</sub> = 24 °C = 297 K; ε = 0,5 · ε<sub>Carnot</sub>; W = 5 400 kJ por hora</p>
@@ -2383,7 +2337,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p83" data-tags="frigorifica carnot">
-    <summary><span class="stitle">79. Cámara frigorífica de Carnot a 5 °C<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">77. Cámara frigorífica de Carnot a 5 °C<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Una máquina frigorífica que funciona según el ciclo ideal de Carnot debe mantener el interior de una cámara a 5 °C, para lo que consume 200·10⁶ J en 8 horas de funcionamiento. La temperatura media del exterior es 24 °C. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El calor cedido al exterior en una hora.</li><li class="q"><b>b)</b> La potencia que debería tener el frigorífico si tuviera una eficiencia del 75 % de la ideal de Carnot.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 5 °C = 278 K; T<sub>c</sub> = 24 °C = 297 K; W = 200·10⁶ J en 8 h</p>
@@ -2410,7 +2364,7 @@ details.prob summary .stitle{display:block}
   </details>
   <h3 id="bombas" class="extra-h grp-h">Bombas de calor</h3>
   <details class="prob" id="p84" data-tags="frigorifica carnot">
-    <summary><span class="stitle">80. Bomba de calor de Carnot<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">78. Bomba de calor de Carnot<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Una bomba de calor de Carnot trabaja entre −5 °C y 25 °C y necesita un trabajo exterior de 9 000 kJ/h. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El coeficiente de amplificación calorífica (ε′).</li><li class="q"><b>b)</b> La potencia necesaria del motor del compresor.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 268 K; T<sub>c</sub> = 298 K; W = 9 000 kJ/h</p>
@@ -2430,7 +2384,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p85" data-tags="frigorifica carnot">
-    <summary><span class="stitle">81. Bomba de calor de 2,5 kW<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">79. Bomba de calor de 2,5 kW<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Para mantener un recinto a 25 °C se usa una bomba de calor de Carnot de 2,5 kW. Fuera hay 5 °C. Calcula su eficiencia, el calor que entrega al foco caliente y el que extrae del frío.</p></div>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 298 K; T<sub>f</sub> = 278 K; W = 2,5 kW</p>
     <div class="ap">
@@ -2444,7 +2398,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">Cuidado con no sumar en lugar de restar: Q<sub>f</sub> = Q<sub>c</sub> − W = 37,25 − 2,5 = 34,75 kJ/s.</p>
   </details>
   <details class="prob" id="p86" data-tags="frigorifica carnot">
-    <summary><span class="stitle">82. Bomba de calor reversible entre 280 K y 300 K<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">80. Bomba de calor reversible entre 280 K y 300 K<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Una bomba de calor reversible trabaja entre 280 K y 300 K. En cada ciclo se aportan 2 kWh de energía. Calcula el calor entregado al foco caliente, el absorbido del frío y la eficiencia como bomba de calor y como frigorífica.</p></div>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 280 K; T<sub>c</sub> = 300 K; W = 2 kWh = 7 200 kJ</p>
     <div class="ap">
@@ -2458,7 +2412,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p87" data-tags="frigorifica carnot">
-    <summary><span class="stitle">83. Bomba de calor de 10 kW para un local<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">81. Bomba de calor de 10 kW para un local<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un local a 25 °C se calienta con una bomba de calor de Carnot de 10 kW. Fuera hay 6 °C de media. Calcula la eficiencia, el calor aportado al local y el retirado del exterior.</p></div>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 298 K; T<sub>f</sub> = 279 K; W = 10 kW</p>
     <div class="ap">
@@ -2471,7 +2425,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p88" data-tags="frigorifica carnot">
-    <summary><span class="stitle">84. Bomba de calor para calefacción<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">82. Bomba de calor para calefacción<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>Una bomba de calor mantiene una vivienda a 21 °C cuando fuera hay 3 °C. Consume 1,5 kW y su eficiencia real es el 45 % de la ideal. ¿Cuánto calor entrega?</p></div>
     
     <p class="datos"><b>Datos:</b> t₁ = 21 °C; t₂ = 3 °C; W = 1,5 kW; ε<sub>real</sub> = 0,45 · ε<sub>Carnot</sub></p>
@@ -2489,7 +2443,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">La eficiencia es mayor que 1 porque la bomba no fabrica el calor: lo traslada del exterior al interior. Por eso no se llama rendimiento.</p>
   </details>
   <details class="prob" id="p89" data-tags="frigorifica carnot">
-    <summary><span class="stitle">85. Hotel con bomba de calor: 1 500 J al foco caliente<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">83. Hotel con bomba de calor: 1 500 J al foco caliente<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>La calefacción de un hotel funciona en invierno con una bomba de calor. Las habitaciones se mantienen a 24 °C mientras en el exterior hay 6 °C. La eficiencia de la máquina es la tercera parte de la ideal y aporta al foco caliente 1 500 J. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia real de la bomba de calor y el trabajo aplicado al sistema para su funcionamiento.</li><li class="q"><b>b)</b> La cantidad de calor que se extrae del foco frío.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 24 °C = 297 K; T<sub>f</sub> = 6 °C = 279 K; ε′ = ε′<sub>Carnot</sub> / 3; Q<sub>c</sub> = 1 500 J</p>
@@ -2511,7 +2465,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p90" data-tags="frigorifica carnot">
-    <summary><span class="stitle">86. Hotel en Málaga: 90 000 J por minuto<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">84. Hotel en Málaga: 90 000 J por minuto<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>Se quiere climatizar un hotel de un pueblo de Málaga con una bomba de calor. Las habitaciones deben estar a 24 °C mientras en el exterior hay 6 °C. La eficiencia de la bomba es la tercera parte de la ideal y deberá aportar 90 000 J en un minuto al foco caliente. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia real de la bomba de calor y el trabajo aplicado al sistema para su funcionamiento en una hora.</li><li class="q"><b>b)</b> La cantidad de calor que se extrae del foco frío en un minuto y la potencia calorífica, expresada en kW.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 297 K; T<sub>f</sub> = 279 K; ε′ = ε′<sub>Carnot</sub> / 3; Q<sub>c</sub> = 90 000 J por minuto</p>
@@ -2535,7 +2489,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p91" data-tags="frigorifica carnot">
-    <summary><span class="stitle">87. Calefacción de 3 kW entre 2 °C y 22 °C<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">85. Calefacción de 3 kW entre 2 °C y 22 °C<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>Un sistema de calefacción mantiene un recinto a 22 °C mientras en el exterior hay 2 °C. La eficiencia de la máquina es el 40 % de la ideal y la potencia del compresor es 3 kW. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia real de la máquina y la potencia calorífica del sistema de calefacción.</li><li class="q"><b>b)</b> La energía consumida por el compresor y el calor absorbido del exterior en 3 horas de funcionamiento.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 22 °C = 295 K; T<sub>f</sub> = 2 °C = 275 K; ε′ = 0,40 · ε′<sub>Carnot</sub>; P = 3 kW; t = 3 h = 10 800 s</p>
@@ -2558,7 +2512,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p92" data-tags="frigorifica carnot">
-    <summary><span class="stitle">88. Vivienda a 21 °C con bomba de calor de 1,2 kW<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">86. Vivienda a 21 °C con bomba de calor de 1,2 kW<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>Para mantener una vivienda a 21 °C se usa una bomba de calor que consume 1,2 kW. Su eficiencia es el 48 % de la ideal de Carnot y la temperatura media del exterior es 8 °C. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El calor que se cede a la vivienda en 8 horas para calentarla.</li><li class="q"><b>b)</b> El calor que se extrae del exterior en una hora.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 21 °C = 294 K; T<sub>f</sub> = 8 °C = 281 K; P = 1,2 kW; ε′ = 0,48 · ε′<sub>Carnot</sub></p>
@@ -2580,7 +2534,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p93" data-tags="frigorifica carnot">
-    <summary><span class="stitle">89. Bomba de calor ideal con −2 °C en el exterior<span class="ptags"><span class="ptag">Bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">87. Bomba de calor ideal con −2 °C en el exterior<span class="ptags"><span class="ptag">Bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Una bomba de calor ideal mantiene un local a 24 °C cuando la temperatura exterior es −2 °C. El calor suministrado al local es 12·10⁹ J en 8 horas de funcionamiento. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La potencia del compresor para que la bomba funcione en esas condiciones.</li><li class="q"><b>b)</b> El calor absorbido del foco frío en 1 hora de trabajo, si la eficiencia real fuera el 50 % de la ideal.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 24 °C = 297 K; T<sub>f</sub> = −2 °C = 271 K; Q<sub>c</sub> = 12·10⁹ J en 8 h = 28 800 s</p>
@@ -2606,7 +2560,7 @@ details.prob summary .stitle{display:block}
     <p class="note com">Si en lugar de mantener el compresor se mantiene el calor entregado al local (1,5·10⁹ J por hora), el compresor tendría que trabajar el doble y el resultado sería Q<sub>f</sub> = 1,5·10⁹ − 2,63·10⁸ ≈ 1,24·10⁹ J. Indica siempre qué supones.</p>
   </details>
   <details class="prob" id="p94" data-tags="frigorifica carnot">
-    <summary><span class="stitle">90. Casa rural en la Alpujarra: ¿bastan 3 kW?<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">88. Casa rural en la Alpujarra: ¿bastan 3 kW?<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>Una vivienda rural de la Alpujarra granadina usa una bomba de calor en invierno. En una noche fría hay 1 °C en el exterior y se quieren 20 °C dentro, para lo que hay que aportar una potencia térmica de 10 kW. El equipo trabaja con una eficiencia real del 20 % de la de Carnot. La instalación eléctrica para climatización no puede superar 3,0 kW. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El coeficiente de operación ideal y el real.</li><li class="q"><b>b)</b> Determinar si el equipo puede aportar el calor necesario sin superar la potencia máxima disponible. Justifica la respuesta.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 20 °C = 293 K; T<sub>f</sub> = 1 °C = 274 K; Q̇<sub>c</sub> = 10 kW; COP = 0,20 · COP<sub>Carnot</sub>; P<sub>máx</sub> = 3,0 kW</p>
@@ -2628,7 +2582,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p95" data-tags="frigorifica carnot">
-    <summary><span class="stitle">91. Nave industrial: temperatura del exterior<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">89. Nave industrial: temperatura del exterior<span class="ptags"><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>Con una bomba de calor reversible se quiere climatizar una nave industrial a 23 °C en invierno. La máquina tiene una eficiencia real de 5 y se sabe que es el 30 % de la ideal. Calcula la temperatura media en el exterior.</p></div>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 23 °C = 296 K; ε′ = 5 = 0,30 · ε′<sub>Carnot</sub></p>
     <div class="ap">
@@ -2643,7 +2597,7 @@ details.prob summary .stitle{display:block}
   </details>
   <h3 id="reversibles" class="extra-h grp-h">Frigorífica y bomba de calor: equipos reversibles</h3>
   <details class="prob" id="p96" data-tags="frigorifica carnot">
-    <summary><span class="stitle">92. Climatizador: frigorífica y bomba de calor<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">90. Climatizador: frigorífica y bomba de calor<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un climatizador trabaja entre −5 °C y 20 °C con una eficiencia del 45 % de la ideal. El calor absorbido del foco frío es 1 500 J. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia real como máquina frigorífica y como bomba de calor.</li><li class="q"><b>b)</b> Como frigorífica, el calor cedido al foco caliente y el trabajo del compresor.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 268 K; T<sub>c</sub> = 293 K; 45 % de la ideal; Q<sub>f</sub> = 1 500 J</p>
@@ -2665,7 +2619,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p97" data-tags="frigorifica carnot">
-    <summary><span class="stitle">93. Frigorífica ideal usada como bomba de calor<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">91. Frigorífica ideal usada como bomba de calor<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Una máquina frigorífica ideal de Carnot trabaja entre −5 °C y 35 °C y recibe un trabajo de 7 200 kJ cada hora. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia como bomba de calor y el calor absorbido del foco frío cada hora.</li><li class="q"><b>b)</b> La potencia del compresor y la potencia calorífica como bomba de calor.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 268 K; T<sub>c</sub> = 308 K; W = 7 200 kJ/h</p>
@@ -2688,7 +2642,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p98" data-tags="frigorifica carnot">
-    <summary><span class="stitle">94. Frigorífica de Carnot: ε y ε′<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">92. Frigorífica de Carnot: ε y ε′<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Una máquina frigorífica de Carnot trabaja entre un foco caliente a 30 °C y uno frío a −10 °C, y recibe un trabajo de 90 000 kJ. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia (ε) y el coeficiente de amplificación calorífica (ε′).</li><li class="q"><b>b)</b> El calor cedido al foco caliente.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 303 K; T<sub>f</sub> = 263 K; W = 90 000 kJ</p>
@@ -2709,7 +2663,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p99" data-tags="frigorifica carnot">
-    <summary><span class="stitle">95. Polideportivo: pista de hielo y agua caliente<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">93. Polideportivo: pista de hielo y agua caliente<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un polideportivo quiere mantener una pista de hielo a −4 °C y obtener calor a 42 °C para duchas, calefacción y piscina. Usa una máquina frigorífica que consume el doble de trabajo que una de Carnot en las mismas condiciones. Extrae 100 kW de la pista y entrega 130 kW a la piscina. Determina el calor entregado a duchas y calefacción.</p></div>
     <p class="datos"><b>Datos:</b> T<sub>f</sub> = 269 K; T<sub>c</sub> = 315 K; Q̇<sub>f</sub> = 100 kW; Q̇<sub>piscina</sub> = 130 kW; W<sub>real</sub> = 2 · W<sub>Carnot</sub></p>
     <div class="ap">
@@ -2725,7 +2679,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p100" data-tags="frigorifica carnot">
-    <summary><span class="stitle">96. Almacén de comida: invierno y verano<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">94. Almacén de comida: invierno y verano<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un almacén de comida debe estar a 15 °C. Se usa una máquina de Carnot reversible que en invierno (como bomba de calor) tiene una eficiencia de 32,1. En verano fuera hay 32 °C. Calcula la temperatura media exterior en invierno y la eficiencia de la máquina en verano.</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Temperatura exterior en invierno.</li><li class="q"><b>b)</b> Eficiencia en verano.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>almacén</sub> = 288 K; ε′<sub>invierno</sub> = 32,1; T<sub>verano</sub> = 305 K</p>
@@ -2748,7 +2702,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p101" data-tags="frigorifica carnot">
-    <summary><span class="stitle">97. Invernadero a 25 °C todo el año<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">95. Invernadero a 25 °C todo el año<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>Con un acondicionador de aire se quiere mantener un pequeño invernadero (o un local) a 25 °C todo el año. La temperatura media del exterior es 10 °C en invierno y 35 °C en verano. La eficiencia de la máquina es el 35 % de la ideal y la potencia del compresor es 4 kW. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La eficiencia de la máquina en invierno y en verano.</li><li class="q"><b>b)</b> El calor que extrae del local cada día en verano y el que cede al local cada día en invierno, con 5 horas de funcionamiento diario.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>int</sub> = 25 °C = 298 K; T<sub>inv</sub> = 10 °C = 283 K; T<sub>ver</sub> = 35 °C = 308 K; ε = 0,35 · ε<sub>Carnot</sub>; P = 4 kW; t = 5 h = 18 000 s</p>
@@ -2774,7 +2728,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p102" data-tags="frigorifica carnot">
-    <summary><span class="stitle">98. Aula climatizada a 24 °C<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">96. Aula climatizada a 24 °C<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>Para climatizar un aula se usa un aire acondicionado con bomba de calor con un compresor de 3,4 kW, que mantiene el aula a 24 °C en invierno y en verano. La temperatura media exterior es 5 °C en invierno y 38 °C en los meses de más calor. La máquina funciona todos los días lectivos durante 6 horas al día. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cantidad de calor extraído del aula un día de calor, suponiendo que el sistema es ideal.</li><li class="q"><b>b)</b> La cantidad de calor aportado al aula un día de frío, si la eficiencia del sistema es el 40 % de la ideal.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>aula</sub> = 24 °C = 297 K; T<sub>inv</sub> = 5 °C = 278 K; T<sub>ver</sub> = 38 °C = 311 K; P = 3,4 kW; t = 6 h = 21 600 s</p>
@@ -2798,7 +2752,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p103" data-tags="frigorifica carnot">
-    <summary><span class="stitle">99. Piscina cubierta a 28 °C<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">97. Piscina cubierta a 28 °C<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>La climatización de una piscina cubierta mantiene el recinto a 28 °C en invierno y en verano, con un compresor de 10 kW. La temperatura media exterior es 5 °C en invierno y 38 °C en verano. La máquina funciona en verano de 11 h a 21 h y en invierno de 8 h a 22 h. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cantidad de calor extraído del recinto un día de verano, suponiendo que el sistema es ideal.</li><li class="q"><b>b)</b> La cantidad de calor aportado al recinto un día de invierno si la eficacia del sistema es el 40 % de la ideal.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>int</sub> = 28 °C = 301 K; T<sub>inv</sub> = 5 °C = 278 K; T<sub>ver</sub> = 38 °C = 311 K; P = 10 kW; t<sub>ver</sub> = 10 h = 36 000 s; t<sub>inv</sub> = 14 h = 50 400 s</p>
@@ -2821,7 +2775,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p104" data-tags="frigorifica carnot">
-    <summary><span class="stitle">100. Vivienda con equipo reversible: potencia mínima del compresor<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span></span></span></summary>
+    <summary><span class="stitle">98. Vivienda con equipo reversible: potencia mínima del compresor<span class="ptags"><span class="ptag">Frigorífica</span><span class="ptag">Bomba de calor</span></span></span></summary>
     <div class="enun"><p>En una vivienda se quiere instalar un aire acondicionado reversible, frigorífico en verano y bomba de calor en invierno, que mantenga el interior a 22 °C. En verano, con 40 °C de media en el exterior, hay que extraer de la vivienda 1,62·10⁷ J en una hora. En invierno, con 7 °C en el exterior, hay que aportar 2,17·10⁷ J en una hora para compensar las pérdidas. El equipo funciona con una eficiencia real del 35 % de la de Carnot en ambos modos. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La potencia mínima del compresor para que el sistema funcione correctamente en verano y en invierno.</li><li class="q"><b>b)</b> El calor cedido al exterior en una hora en verano y el calor extraído del exterior en una hora en invierno.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>int</sub> = 22 °C = 295 K; T<sub>ver</sub> = 40 °C = 313 K; T<sub>inv</sub> = 7 °C = 280 K; Q<sub>f,ver</sub> = 1,62·10⁷ J/h; Q<sub>c,inv</sub> = 2,17·10⁷ J/h; ε = 0,35 · ε<sub>Carnot</sub></p>
@@ -2850,7 +2804,7 @@ details.prob summary .stitle{display:block}
   <h3 id="transformaciones" class="extra-h grp-h">Transformaciones termodinámicas de un gas ideal</h3>
   <p><a href="maquinas-termicas-transformaciones-carnot.pdf" download>📄 Descargar la hoja de problemas de transformaciones y ciclo de Carnot (PDF)</a></p>
   <details class="prob" id="p105" data-tags="transformaciones">
-    <summary><span class="stitle">101. Calentamiento de aire en un recipiente rígido<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <summary><span class="stitle">99. Calentamiento de aire en un recipiente rígido<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
     <div class="enun"><p>Un depósito rígido contiene 2 mol de aire a 20 °C y 1 atm. Se calienta hasta 120 °C. Considera el aire un gas ideal diatómico. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El volumen del depósito.</li><li class="q"><b>b)</b> El trabajo, la variación de energía interna y el calor intercambiado.</li><li class="q"><b>c)</b> La presión final.</li></ol>
     <p class="datos"><b>Datos:</b> n = 2 mol; T<sub>1</sub> = 293 K; T<sub>2</sub> = 393 K; p<sub>1</sub> = 1 atm = 1,013·10⁵ Pa; c<sub>v</sub> = 5/2 · R = 20,78 J/(mol·K)</p>
@@ -2879,7 +2833,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p106" data-tags="transformaciones">
-    <summary><span class="stitle">102. Expansión de helio a presión constante<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <summary><span class="stitle">100. Expansión de helio a presión constante<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
     <div class="enun"><p>0,5 mol de helio (gas monoatómico) se expanden a la presión constante de 2·10⁵ Pa desde 5 L hasta 9 L. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El trabajo realizado por el gas.</li><li class="q"><b>b)</b> Las temperaturas inicial y final.</li><li class="q"><b>c)</b> La variación de energía interna y el calor absorbido.</li></ol>
     <p class="datos"><b>Datos:</b> n = 0,5 mol; p = 2·10⁵ Pa; V<sub>1</sub> = 5·10⁻³ m³; V<sub>2</sub> = 9·10⁻³ m³; c<sub>v</sub> = 3/2 · R = 12,47 J/(mol·K)</p>
@@ -2908,7 +2862,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p107" data-tags="transformaciones">
-    <summary><span class="stitle">103. Expansión isoterma<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <summary><span class="stitle">101. Expansión isoterma<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
     <div class="enun"><p>3 mol de un gas ideal se expanden de forma isoterma a 27 °C desde un volumen de 10 L hasta 30 L. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El trabajo realizado por el gas.</li><li class="q"><b>b)</b> La variación de energía interna y el calor intercambiado.</li><li class="q"><b>c)</b> Las presiones inicial y final.</li></ol>
     <p class="datos"><b>Datos:</b> n = 3 mol; T = 300 K; V<sub>1</sub> = 10 L; V<sub>2</sub> = 30 L</p>
@@ -2937,7 +2891,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p108" data-tags="transformaciones">
-    <summary><span class="stitle">104. Compresión isoterma de aire<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <summary><span class="stitle">102. Compresión isoterma de aire<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
     <div class="enun"><p>Se comprimen 20 L de aire, inicialmente a 1 atm y 20 °C, hasta 5 L manteniendo constante la temperatura. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cantidad de gas.</li><li class="q"><b>b)</b> El trabajo y el calor. Interpreta los signos.</li><li class="q"><b>c)</b> La presión final.</li></ol>
     <p class="datos"><b>Datos:</b> p<sub>1</sub> = 1,013·10⁵ Pa; V<sub>1</sub> = 2·10⁻² m³; V<sub>2</sub> = 5·10⁻³ m³; T = 293 K</p>
@@ -2965,7 +2919,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p109" data-tags="transformaciones">
-    <summary><span class="stitle">105. Expansión adiabática de aire<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <summary><span class="stitle">103. Expansión adiabática de aire<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
     <div class="enun"><p>1 mol de aire (γ = 1,4) a 400 K y 8·10⁵ Pa se expande adiabáticamente hasta duplicar su volumen. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Los volúmenes inicial y final.</li><li class="q"><b>b)</b> La temperatura y la presión finales.</li><li class="q"><b>c)</b> El trabajo realizado y la variación de energía interna.</li></ol>
     <p class="datos"><b>Datos:</b> n = 1 mol; T<sub>1</sub> = 400 K; p<sub>1</sub> = 8·10⁵ Pa; V<sub>2</sub> = 2 · V<sub>1</sub>; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -2995,7 +2949,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p110" data-tags="transformaciones motores">
-    <summary><span class="stitle">106. Compresión en un motor diésel<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag">Motores</span></span></span></summary>
+    <summary><span class="stitle">104. Compresión en un motor diésel<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag">Motores</span></span></span></summary>
     <div class="enun"><p>En un motor diésel, el aire entra en el cilindro a 1 bar y 27 °C y se comprime adiabáticamente con una relación de compresión de 18. Considera el aire un gas ideal con γ = 1,4. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La temperatura al final de la compresión. ¿Por qué el motor diésel no necesita bujía?</li><li class="q"><b>b)</b> La presión al final de la compresión.</li><li class="q"><b>c)</b> El trabajo por cada mol de aire comprimido.</li></ol>
     <p class="datos"><b>Datos:</b> p<sub>1</sub> = 10⁵ Pa; T<sub>1</sub> = 300 K; V<sub>1</sub>/V<sub>2</sub> = 18; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -3022,7 +2976,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p111" data-tags="transformaciones">
-    <summary><span class="stitle">107. Primer principio: interpreta los signos<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <summary><span class="stitle">105. Primer principio: interpreta los signos<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
     <div class="enun"><p>Aplica el primer principio (Q = ΔU + W, con Q &gt; 0 si el gas recibe calor y W &gt; 0 si el gas hace trabajo) en cada caso y di si la temperatura del gas sube o baja:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Un gas absorbe 800 J de calor y realiza un trabajo de 300 J.</li><li class="q"><b>b)</b> Un gas se comprime con un trabajo de 500 J mientras cede 200 J de calor.</li><li class="q"><b>c)</b> Un gas se expande adiabáticamente y realiza un trabajo de 150 J.</li></ol>
     <p class="datos"><b>Datos:</b> Q = calor recibido por el gas; W = trabajo realizado por el gas</p>
@@ -3051,7 +3005,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p112" data-tags="transformaciones">
-    <summary><span class="stitle">108. Calentar a volumen constante o a presión constante<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <summary><span class="stitle">106. Calentar a volumen constante o a presión constante<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
     <div class="enun"><p>Queremos calentar 2 mol de nitrógeno (gas diatómico) desde 300 K hasta 400 K. Calcula el calor necesario, el trabajo y la variación de energía interna:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Si se calienta a volumen constante.</li><li class="q"><b>b)</b> Si se calienta a presión constante.</li><li class="q"><b>c)</b> Explica por qué hace falta más calor a presión constante.</li></ol>
     <p class="datos"><b>Datos:</b> n = 2 mol; ΔT = 100 K; c<sub>v</sub> = 5/2 · R = 20,78 J/(mol·K); c<sub>p</sub> = 7/2 · R = 29,09 J/(mol·K)</p>
@@ -3079,7 +3033,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p113" data-tags="transformaciones">
-    <summary><span class="stitle">109. Proceso en dos etapas: isóbara + isócora<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <summary><span class="stitle">107. Proceso en dos etapas: isóbara + isócora<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
     <div class="enun"><p>1 mol de aire (diatómico) se encuentra en el estado A (2·10⁵ Pa; 10 L). Primero se expande a presión constante hasta 25 L (estado B) y después se enfría a volumen constante hasta 10⁵ Pa (estado C). Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Las temperaturas de los estados A, B y C.</li><li class="q"><b>b)</b> W, Q y ΔU en cada etapa.</li><li class="q"><b>c)</b> W, Q y ΔU del proceso completo A→C.</li></ol>
     <p class="datos"><b>Datos:</b> n = 1 mol; p<sub>A</sub> = 2·10⁵ Pa; V<sub>A</sub> = 10 L; V<sub>B</sub> = V<sub>C</sub> = 25 L; p<sub>C</sub> = 10⁵ Pa; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -3111,7 +3065,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p114" data-tags="transformaciones">
-    <summary><span class="stitle">110. El trabajo depende del camino<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+    <summary><span class="stitle">108. El trabajo depende del camino<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
     <div class="enun"><p>Un gas ideal pasa del estado 1 (4·10⁵ Pa; 2 L) al estado 2 (2·10⁵ Pa; 4 L). Calcula el trabajo y el calor si el proceso es:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Una isoterma (comprueba primero que es posible).</li><li class="q"><b>b)</b> Una isóbara a 4·10⁵ Pa seguida de una isócora.</li><li class="q"><b>c)</b> Una isócora seguida de una isóbara a 2·10⁵ Pa. ¿Qué conclusión sacas?</li></ol>
     <p class="datos"><b>Datos:</b> p<sub>1</sub> · V<sub>1</sub> = 4·10⁵ · 2·10⁻³ = 800 J; p<sub>2</sub> · V<sub>2</sub> = 2·10⁵ · 4·10⁻³ = 800 J</p>
@@ -3143,7 +3097,7 @@ details.prob summary .stitle{display:block}
   </details>
   <h3 id="ciclo-carnot" class="extra-h grp-h">Ciclo de Carnot: estados, calores y trabajo</h3>
   <details class="prob" id="p115" data-tags="carnot">
-    <summary><span class="stitle">111. Ciclo de Carnot completo: estados del gas<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">109. Ciclo de Carnot completo: estados del gas<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>1 mol de aire (γ = 1,4) describe un ciclo de Carnot entre 600 K y 300 K. En el estado 1 ocupa 2 L y, tras la expansión isoterma, ocupa 6 L (estado 2). Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La presión y el volumen de los cuatro estados.</li><li class="q"><b>b)</b> El calor absorbido, el calor cedido y el trabajo neto por ciclo.</li><li class="q"><b>c)</b> El rendimiento. Compruébalo con la fórmula de Carnot.</li><li class="q"><b>d)</b> El trabajo en cada adiabática. ¿Por qué no influyen en el trabajo neto?</li></ol>
     <p class="datos"><b>Datos:</b> n = 1 mol; T<sub>c</sub> = 600 K; T<sub>f</sub> = 300 K; V<sub>1</sub> = 2 L; V<sub>2</sub> = 6 L; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -3182,7 +3136,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p116" data-tags="carnot">
-    <summary><span class="stitle">112. Tabla de energías de un ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">110. Tabla de energías de un ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>2 mol de un gas monoatómico describen un ciclo de Carnot entre 500 K y 350 K. En la expansión isoterma el volumen se multiplica por 2,5. Completa una tabla con Q, W y ΔU de cada etapa y del ciclo, y calcula el rendimiento.</p></div>
     <p class="datos"><b>Datos:</b> n = 2 mol; T<sub>c</sub> = 500 K; T<sub>f</sub> = 350 K; V<sub>2</sub>/V<sub>1</sub> = V<sub>3</sub>/V<sub>4</sub> = 2,5; c<sub>v</sub> = 3/2 · R = 12,47 J/(mol·K)</p>
     <div class="ap">
@@ -3198,7 +3152,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p117" data-tags="carnot">
-    <summary><span class="stitle">113. Volúmenes de un ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">111. Volúmenes de un ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un ciclo de Carnot con aire (γ = 1,4) trabaja entre 675 K y 300 K. En el estado 1 el gas ocupa 1 L y al final de la expansión isoterma, 3 L. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Los volúmenes de los estados 3 y 4.</li><li class="q"><b>b)</b> Comprueba que V₃/V₄ = V₂/V₁ y explica qué consecuencia tiene.</li><li class="q"><b>c)</b> El rendimiento del ciclo.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 675 K; T<sub>f</sub> = 300 K; V<sub>1</sub> = 1 L; V<sub>2</sub> = 3 L; γ − 1 = 0,4</p>
@@ -3226,7 +3180,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p118" data-tags="carnot">
-    <summary><span class="stitle">114. Diseñar los focos de un motor de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">112. Diseñar los focos de un motor de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Responde a estas dos cuestiones sobre un motor de Carnot:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Si el foco caliente está a 600 K, ¿a qué temperatura debe estar el foco frío para que el rendimiento sea del 40 %?</li><li class="q"><b>b)</b> Si el foco frío está a 300 K, ¿a qué temperatura debe estar el caliente para alcanzar un 60 %?</li></ol>
     <p class="datos"><b>Datos:</b> η = 1 − T<sub>f</sub> / T<sub>c</sub></p>
@@ -3246,7 +3200,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p119" data-tags="carnot">
-    <summary><span class="stitle">115. ¿Subir el foco caliente o bajar el frío?<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">113. ¿Subir el foco caliente o bajar el frío?<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un motor de Carnot trabaja entre 600 K y 300 K. Para mejorar su rendimiento podemos subir 50 K la temperatura del foco caliente o bajar 50 K la del foco frío. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El rendimiento inicial.</li><li class="q"><b>b)</b> El rendimiento con cada opción. ¿Cuál es mejor?</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 600 K; T<sub>f</sub> = 300 K; variación de 50 K</p>
@@ -3267,7 +3221,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p120" data-tags="carnot">
-    <summary><span class="stitle">116. Potencia de un motor de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">114. Potencia de un motor de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un motor de Carnot funciona entre 527 °C y 27 °C. En cada ciclo absorbe 2 000 J del foco caliente y realiza 25 ciclos por segundo. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El rendimiento y el trabajo por ciclo.</li><li class="q"><b>b)</b> La potencia del motor en kW y en CV.</li><li class="q"><b>c)</b> El calor cedido al foco frío en una hora.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 800 K; T<sub>f</sub> = 300 K; Q<sub>c</sub> = 2 000 J/ciclo; f = 25 ciclos/s; 1 CV = 735 W</p>
@@ -3297,7 +3251,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p121" data-tags="carnot">
-    <summary><span class="stitle">117. Motor real frente a motor de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">115. Motor real frente a motor de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>Un motor real trabaja entre 800 K y 300 K. En cada ciclo absorbe 50 kJ y produce 12 kJ de trabajo. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El rendimiento real y el de Carnot entre los mismos focos.</li><li class="q"><b>b)</b> Qué fracción del rendimiento máximo alcanza el motor real.</li><li class="q"><b>c)</b> El calor cedido por ciclo por el motor real y el que cedería uno de Carnot.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 800 K; T<sub>f</sub> = 300 K; Q<sub>c</sub> = 50 kJ; W = 12 kJ</p>
@@ -3326,7 +3280,7 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <details class="prob" id="p122" data-tags="carnot">
-    <summary><span class="stitle">118. Relación de volúmenes a partir del calor<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+    <summary><span class="stitle">116. Relación de volúmenes a partir del calor<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
     <div class="enun"><p>0,5 mol de un gas ideal describen un ciclo de Carnot entre 500 K y 300 K y absorben 1 000 J por ciclo del foco caliente. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Cuánto aumenta el volumen en la expansión isoterma (V₂/V₁).</li><li class="q"><b>b)</b> El rendimiento, el trabajo y el calor cedido por ciclo.</li><li class="q"><b>c)</b> Cuánto se reduce el volumen en la compresión isoterma (V₃/V₄).</li></ol>
     <p class="datos"><b>Datos:</b> n = 0,5 mol; T<sub>c</sub> = 500 K; T<sub>f</sub> = 300 K; Q<sub>c</sub> = 1 000 J</p>
