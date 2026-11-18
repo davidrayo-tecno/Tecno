@@ -414,7 +414,7 @@ details.prob summary .stitle{display:block}
     <div>
       <p class="crumbs"><a href="./">Tecnología e Ingeniería II</a> / <a href="maquinas-termicas.html">Máquinas térmicas</a></p>
       <h1>Problemas de máquinas térmicas</h1>
-      <p class="lead">Formulario y 111 problemas resueltos paso a paso: energía, combustible, motores, cilindrada, potencia, transformaciones termodinámicas, ciclo de Carnot, frigoríficas y bomba de calor.</p>
+      <p class="lead">Formulario y 112 problemas resueltos paso a paso: energía, combustible, motores, cilindrada, potencia, transformaciones termodinámicas, ciclo de Carnot, frigoríficas y bomba de calor.</p>
       <ul class="quick">
         <li><a class="primary" href="#p1">Empezar por el problema 1</a></li>
         <li><a href="#formulario">Formulario</a></li>
@@ -507,7 +507,7 @@ details.prob summary .stitle{display:block}
 
 <section id="problemas">
   <h2><span class="n">2</span>Problemas resueltos</h2>
-  <p>111 problemas ordenados por temática, de lo más sencillo a lo más completo. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
+  <p>112 problemas ordenados por temática, de lo más sencillo a lo más completo. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
   <nav class="temas" aria-label="Temas"><b>Temas:</b> <a href="#energia-calor">Energía, calor y trabajo</a> · <a href="#rendimiento">Rendimiento: motores eléctricos y elevadores</a> · <a href="#vehiculos">Vehículos: energía mecánica y combustible</a> · <a href="#combustible">Combustible, potencia, par y rendimiento</a> · <a href="#cilindrada">Cilindrada, relación de compresión y par</a> · <a href="#cilindrada-consumo">Cilindrada, consumo y rendimiento</a> · <a href="#carnot">Motores térmicos y ciclo de Carnot</a> · <a href="#frigorificas">Máquinas frigoríficas</a> · <a href="#bombas">Bombas de calor</a> · <a href="#reversibles">Frigorífica y bomba de calor: equipos reversibles</a> · <a href="#transformaciones">Transformaciones termodinámicas de un gas ideal</a> · <a href="#ciclo-carnot">Ciclo de Carnot: estados, calores y trabajo</a> · <a href="#ciclos-pau">Ciclos Otto, Diésel y Carnot (nivel PAU)</a></nav>
   <div class="filters-m" role="group" aria-label="Filtrar por tema">
     <button type="button" data-f="all" aria-pressed="true">Todos</button>
@@ -518,7 +518,7 @@ details.prob summary .stitle{display:block}
     <button type="button" data-f="carnot" aria-pressed="false">Carnot</button>
     <button type="button" data-f="frigorifica" aria-pressed="false">Frigorífica y bomba de calor</button>
   </div>
-  <p class="fcount" id="fcount" aria-live="polite">111 problemas</p>
+  <p class="fcount" id="fcount" aria-live="polite">112 problemas</p>
   <h3 id="energia-calor" class="extra-h grp-h">Energía, calor y trabajo</h3>
   <details class="prob" id="p1" data-tags="energia">
     <summary><span class="stitle">1. Energía de una bombilla<span class="ptags"><span class="ptag">Energía</span></span></span></summary>
@@ -3382,6 +3382,32 @@ details.prob summary .stitle{display:block}
           <li>Rendimiento:<span class="eq">η = P / Q̇ = 44,9 / 123,6 = 0,363</span></li>
       </ol>
       <p class="res">η ≈ 36,3 %: de los 445,1 MJ aportados por el combustible, el motor convierte 161,7 MJ en trabajo en la hora de la prueba.</p>
+    </div>
+  </details>
+  <details class="prob" id="p112" data-tags="motores combustible">
+    <summary><span class="stitle">112. Motor diésel de cuatro cilindros: cilindrada y rendimiento (PAU 2026)<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
+    <div class="enun"><p>Un motor diésel de cuatro tiempos y cuatro cilindros en línea tiene un par máximo de 400 N·m a 1 500 rpm. El diámetro de los pistones es 100 mm, la carrera 120 mm y la relación de compresión 18:1. Para obtener el consumo, el motor funciona durante una hora en el régimen de par máximo y consume 20 litros de gasóleo. Calcula:</p></div>
+    <ol class="aps"><li class="q"><b>a)</b> La cilindrada total del motor y el volumen de la cámara de combustión de cada cilindro.</li><li class="q"><b>b)</b> El rendimiento del motor durante la prueba que se realiza para obtener el consumo.</li></ol>
+    <p class="datos"><b>Datos:</b> D = 0,100 m; L = 0,120 m; r = 18; M = 400 N·m; n = 1 500 rpm; V = 20 dm³ en 1 h; ρ = 0,84 kg/dm³; PCI = 42 700 kJ/kg</p>
+    <div class="ap">
+      <h4><span>a)</span>La cilindrada total del motor y el volumen de la cámara de combustión de cada cilindro.</h4>
+      <ol class="steps">
+          <li>Cilindrada de un cilindro:<span class="eq">V<sub>u</sub> = π/4 · D² · L = π/4 · 0,100² · 0,120 = 9,425·10<sup>−4</sup> m³ = 942,5 cm³</span></li>
+          <li>Cilindrada total (4 cilindros):<span class="eq">V<sub>t</sub> = 4 · 942,5 = 3 770 cm³</span></li>
+          <li>Volumen de la cámara:<span class="eq">r = (V<sub>u</sub> + V<sub>c</sub>) / V<sub>c</sub> ⇒ V<sub>c</sub> = V<sub>u</sub> / (r − 1) = 942,5 / 17 = 55,4 cm³</span></li>
+      </ol>
+      <p class="res">Cilindrada total ≈ 3 770 cm³ (3,77 L); cámara de combustión ≈ 55,4 cm³ por cilindro.</p>
+    </div>
+    <div class="ap">
+      <h4><span>b)</span>El rendimiento del motor durante la prueba que se realiza para obtener el consumo.</h4>
+      <ol class="steps">
+          <li>Masa de gasóleo:<span class="eq">m = 20 dm³ · 0,84 kg/dm³ = 16,8 kg</span></li>
+          <li>Calor aportado en 1 h:<span class="eq">Q = 16,8 · 42 700 = 717 360 kJ</span></li>
+          <li>Potencia térmica:<span class="eq">Q̇ = 717 360 / 3 600 = 199,3 kW</span></li>
+          <li>Potencia útil al par máximo:<span class="eq">ω = 2π · 1 500 / 60 = 157,08 rad/s; P = M · ω = 400 · 157,08 = 62 832 W = 62,8 kW</span></li>
+          <li>Rendimiento:<span class="eq">η = P / Q̇ = 62,8 / 199,3 = 0,315</span></li>
+      </ol>
+      <p class="res">η ≈ 31,5 %: de los 717,4 MJ aportados por el gasóleo, el motor convierte 226,2 MJ en trabajo en la hora de la prueba.</p>
     </div>
   </details>
 </section>
