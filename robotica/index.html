@@ -279,17 +279,17 @@ h2{font-size:1.7rem;margin:.1em 0 .25em;font-weight:900;letter-spacing:-.01em}
 .hb-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .hb-note{color:var(--muted);font-weight:700;font-size:.9rem}
 .hbtn{border:3px solid;border-radius:999px;padding:6px 16px;font-weight:900;font-size:1rem;background:#fff}
-.hbtn.u1{border-color:#D97706;color:#B45309} .hbtn.u2{border-color:#7C3AED;color:#6D28D9}
-.hbtn.used.u1{background:#D97706;color:#fff} .hbtn.used.u2{background:#7C3AED;color:#fff}
+.hbtn.u1{border-color:#2563EB;color:#1D4ED8} .hbtn.u2{border-color:#7C3AED;color:#6D28D9}
+.hbtn.used.u1{background:#2563EB;color:#fff} .hbtn.used.u2{background:#7C3AED;color:#fff}
 .hbtn.u3{border-color:#DC2626;color:#B91C1C} .hbtn.used.u3{background:#DC2626;color:#fff}
 .hbtn:disabled{opacity:.4;cursor:not-allowed}
 .hb-ask{background:#FFF7E6;border-radius:12px;padding:10px 12px;margin-top:10px;font-weight:800;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .hb-txt{border-left:6px solid;border-radius:10px;padding:8px 14px;margin-top:10px;font-weight:700}
-.hb-txt.u1{border-color:#D97706;background:#FEF3E2} .hb-txt.u2{border-color:#7C3AED;background:#F1EAFE} .hb-txt.u3{border-color:#DC2626;background:#FDECEC}
+.hb-txt.u1{border-color:#2563EB;background:#E8EFFD} .hb-txt.u2{border-color:#7C3AED;background:#F1EAFE} .hb-txt.u3{border-color:#DC2626;background:#FDECEC}
 .hb-txt .btn{margin-left:8px}
-.levels button.done.u1::after{background:#D97706} .levels button.done.u2::after{background:#7C3AED} .levels button.done.u3::after{background:#DC2626}
+.levels button.done.u1::after{background:#2563EB} .levels button.done.u2::after{background:#7C3AED} .levels button.done.u3::after{background:#DC2626}
 .res{border-radius:12px;padding:10px 14px;font-weight:900;color:#fff;margin:6px 0 12px;font-size:1.2rem}
-.res.u0{background:var(--green)} .res.u1{background:#D97706} .res.u2{background:#7C3AED} .res.u3{background:#DC2626}
+.res.u0{background:var(--green)} .res.u1{background:#2563EB} .res.u2{background:#7C3AED} .res.u3{background:#DC2626}
 </style>
 </head>
 <body>
@@ -1055,7 +1055,7 @@ async function buildSheet(st,name){
   else { ctx.fillStyle='#A3A8BD'; ctx.font='700 21px Nunito, sans-serif'; ctx.fillText(tr('(programa vacío)'),2*P+BS,colTop+40); }
   ctx.fillStyle='#1B2140'; ctx.font='800 18px Nunito, sans-serif';
   ctx.fillText(rep.lim?tr('Bloques: {c} / {l}',{c:rep.count,l:rep.lim}):tr('Bloques: {c}',{c:rep.count}),2*P+BS,colTop+colH-24);
-  ctx.fillStyle=!rep.ok?'#475569':['#22A06B','#D97706','#7C3AED','#DC2626'][hu||0]; rr(ctx,P,banTop,W-2*P,banH,20); ctx.fill();
+  ctx.fillStyle=!rep.ok?'#475569':['#22A06B','#2563EB','#7C3AED','#DC2626'][hu||0]; rr(ctx,P,banTop,W-2*P,banH,20); ctx.fill();
   ctx.fillStyle='#fff'; ctx.font='900 38px Nunito, sans-serif'; ctx.fillText(!rep.ok?tr('❌ SOLUCIÓN NO CORRECTA'):hu===null?tr('✅ SOLUCIÓN CORRECTA'):tr(['✅ SOLUCIÓN CORRECTA SIN AYUDAS','✅ SOLUCIÓN CORRECTA CON 1 AYUDA','✅ SOLUCIÓN CORRECTA CON 2 AYUDAS','✅ CORRECTA CON 3 AYUDAS: GRAN DIFICULTAD'][hu]),P+28,banTop+54);
   ctx.font='700 22px Nunito, sans-serif'; reasons.forEach((t,i)=>ctx.fillText('• '+t,P+30,banTop+92+i*32));
   return {cv,ok:rep.ok,helps:hu};
