@@ -310,6 +310,7 @@ svg.art{display:block;width:100%;height:auto}
 .site-footer img{width:40px;height:40px;border-radius:50%;background:#fff}
 .site-footer strong{color:var(--ink);font-weight:600}
 .site-footer a{color:var(--muted)}
+.site-footer .visitas{display:inline-flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}.site-footer .visitas[hidden]{display:none}.site-footer .visitas b{color:var(--ink);font-weight:600}
 
 /* ---------- Responsive ---------- */
 @media (max-width:520px){.bar .container{gap:8px}.bar-nav{gap:0}.bar-nav a,.bar-nav summary{padding:8px 7px}.units summary::after{margin-left:5px}.brand{gap:8px}.brand b{font-size:18px}.brand img{width:36px;height:36px}}
@@ -520,8 +521,10 @@ svg.art{display:block;width:100%;height:auto}
       <div><strong>David Rayo Torres</strong><br>Departamento de Tecnología, IES Palomares</div>
     </div>
     <div>© <span id="yr">2026</span> David Rayo Torres. Material didáctico de Tecnología e Ingeniería II · 2º de Bachillerato.</div>
+    <div class="visitas" id="visitas" hidden><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg> <span>Visitas: <b id="contador-visitas"></b></span></div>
   </div>
 </footer>
+<script src="contador.js" defer></script>
 
 <button class="totop" type="button" aria-label="Volver arriba">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg>
