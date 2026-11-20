@@ -328,6 +328,26 @@ h2{font-size:1.7rem;margin:.1em 0 .25em;font-weight:900;letter-spacing:-.01em}
   <div class="row" style="justify-content:center"><button class="btn alt" id="printClose"></button><button class="btn go" id="printDl"></button></div>
 </div></div>
 <script>
+/* Privacidad en ordenadores compartidos: esta página no deja nada guardado en el navegador.
+   El progreso solo dura mientras la pestaña está abierta; al abrirla se borran los datos de
+   robótica que pudieran quedar de otro alumno. (Ninguna web puede borrar el historial del
+   navegador: eso solo puede hacerse con el modo incógnito o desde el propio navegador.) */
+var almacen=(function(){
+  var claves=/^(done-|help-|robot-v2$|lang$)/;
+  try{
+    for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(claves.test(k))localStorage.removeItem(k);}
+    sessionStorage.clear();
+  }catch(e){}
+  var mem={};
+  return{
+    getItem:function(k){return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null;},
+    setItem:function(k,v){mem[k]=String(v);},
+    removeItem:function(k){delete mem[k];},
+    clear:function(){mem={};}
+  };
+})();
+</script>
+<script>
 /* ================= idioma ================= */
 let LANG='es';
 let PNAME='';
@@ -373,10 +393,10 @@ class Studio{
   constructor(app){
     this.app=app; app.st=this; this.root=$('#v-'+app.id); this.uid=1;
     this.program=[]; this.sel='root'; this.run=null; this.timer=null; this.lvl=0;
-    this.done=new Set(); try{ JSON.parse(localStorage.getItem('done-'+app.id)||'[]').forEach(i=>this.done.add(i)); }catch(e){}
-    this.help={}; try{ Object.assign(this.help,JSON.parse(localStorage.getItem('help-'+app.id)||'{}')); }catch(e){}
-    try{ if(app.id==='robot'&&!localStorage.getItem('robot-v2')){ [...this.done].forEach(i=>{ if(i>=8) this.done.delete(i); }); Object.keys(this.help).forEach(i=>{ if(+i>=8) delete this.help[i]; });
-      localStorage.setItem('done-robot',JSON.stringify([...this.done])); localStorage.setItem('help-robot',JSON.stringify(this.help)); localStorage.setItem('robot-v2','1'); } }catch(e){}
+    this.done=new Set(); try{ JSON.parse(almacen.getItem('done-'+app.id)||'[]').forEach(i=>this.done.add(i)); }catch(e){}
+    this.help={}; try{ Object.assign(this.help,JSON.parse(almacen.getItem('help-'+app.id)||'{}')); }catch(e){}
+    try{ if(app.id==='robot'&&!almacen.getItem('robot-v2')){ [...this.done].forEach(i=>{ if(i>=8) this.done.delete(i); }); Object.keys(this.help).forEach(i=>{ if(+i>=8) delete this.help[i]; });
+      almacen.setItem('done-robot',JSON.stringify([...this.done])); almacen.setItem('help-robot',JSON.stringify(this.help)); almacen.setItem('robot-v2','1'); } }catch(e){}
     this.build(); app.mount(this.q('.stageBox')); this.loadLevel(0);
     STUDIOS[app.id]=this;
   }
@@ -410,7 +430,7 @@ class Studio{
     this.q('.pname').oninput=e=>{ PNAME=e.target.value; e.target.classList.remove('need'); };
     this.q('.printBtn').onclick=()=>printSheet(this);
     this.q('.helpbar').onclick=e=>{ const b=e.target.closest('button'); if(!b||b.disabled) return;
-      if(b.dataset.yes){ const n=+b.dataset.yes; if(this.helps()<n){ this.help[this.lvl]=n; try{ localStorage.setItem('help-'+this.app.id,JSON.stringify(this.help)); }catch(e){} } this.renderHelp(); this.renderLevels(); if(n===3) this.loadSolution(); return; }
+      if(b.dataset.yes){ const n=+b.dataset.yes; if(this.helps()<n){ this.help[this.lvl]=n; try{ almacen.setItem('help-'+this.app.id,JSON.stringify(this.help)); }catch(e){} } this.renderHelp(); this.renderLevels(); if(n===3) this.loadSolution(); return; }
       if(b.dataset.load!==undefined){ this.loadSolution(); return; }
       if(b.dataset.no!==undefined){ this.renderHelp(); return; }
       const n=+b.dataset.h; if(n&&this.helps()===n-1) this.renderHelp(n); };
@@ -597,7 +617,7 @@ class Studio{
     if(r.win) this.win(); else this.msg(r.msg,r.cls||'bad');
   }
   win(){
-    this.done.add(this.lvl); try{ localStorage.setItem('done-'+this.app.id,JSON.stringify([...this.done])); }catch(e){}
+    this.done.add(this.lvl); try{ almacen.setItem('done-'+this.app.id,JSON.stringify([...this.done])); }catch(e){}
     this.renderLevels(); const c=this.count(), par=this.L.par, last=this.lvl===this.app.levels.length-1;
     $('#winText').innerHTML=c<=par?tr('⭐ <b>¡Programa perfecto!</b> Habéis usado el mínimo de bloques ({c}).',{c}):tr('Habéis usado {c} bloques. ¿Seríais capaces de hacerlo con <b>{p}</b>?',{c,p:par});
     const res=$('#winRes'), u=this.helps();
@@ -1086,7 +1106,7 @@ async function printSheet(st){
 $('#printClose').onclick=()=>$('#printOv').classList.remove('on');
 function setLang(l){
   if(!['es','en','de'].includes(l)) l='es';
-  LANG=l; try{ localStorage.setItem('lang',l); }catch(e){}
+  LANG=l; try{ almacen.setItem('lang',l); }catch(e){}
   document.documentElement.lang=l; document.title=tr('Prácticas de Computación y Robótica 1º ESO');
   $$('.langs button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
   $$('[data-t]').forEach(el=>{ if(el.dataset.t==='') el.dataset.t=el.innerHTML; el.innerHTML=tr(el.dataset.t); });
@@ -1094,7 +1114,7 @@ function setLang(l){
   updateHome();
 }
 $('.langs').onclick=e=>{ const b=e.target.closest('button'); if(b) setLang(b.dataset.lang); };
-let savedLang='es'; try{ savedLang=localStorage.getItem('lang')||'es'; }catch(e){}
+let savedLang='es'; try{ savedLang=almacen.getItem('lang')||'es'; }catch(e){}
 setLang(savedLang);
 show('robot');
 </script>
