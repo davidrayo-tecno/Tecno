@@ -34,7 +34,8 @@ button,input,select{font:inherit;color:inherit}
 
 /* Disposición */
 .app{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0}
-.editor{position:relative;min-width:0;min-height:0;border-right:1px solid var(--line);background:#F9FAFC}
+.editor{position:relative;min-width:0;min-height:0;border-right:1px solid var(--line);background:#F9FAFC;display:flex;flex-direction:column}
+.blockly-caja{position:relative;flex:1;min-height:0}
 #blockly{position:absolute;inset:0}
 .lado{display:flex;flex-direction:column;width:min(500px,44vw);min-height:0;background:var(--bg)}
 @media (max-width:900px){
@@ -81,7 +82,8 @@ body.grande .panel{display:none}
 .info .vis{display:flex;gap:4px}
 .info .vis button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:3px 7px;cursor:pointer}
 .info .vis button.on{background:var(--sel);border-color:var(--sel);color:#fff}
-.zona{flex:1;min-height:0;display:grid;grid-template-columns:1fr 104px}
+.zona{flex:1;min-height:96px;display:grid;grid-template-columns:1fr 104px;overflow:hidden}
+.zona > *{min-height:0}
 .objetos{overflow:auto;padding:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;align-content:start;background:#F7F9FC}
 .ficha{position:relative;border:2px solid var(--line);border-radius:10px;background:#fff;padding:5px 4px 4px;cursor:pointer;text-align:center;font-size:12px;font-weight:800;overflow:hidden}
 .ficha img{width:100%;height:52px;object-fit:contain;display:block}
@@ -92,11 +94,11 @@ body.grande .panel{display:none}
 .nuevo{border:2px dashed #B9C4D8;border-radius:10px;background:transparent;cursor:pointer;font-weight:800;font-size:12px;color:var(--muted);min-height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
 .nuevo:hover{border-color:var(--sel);color:var(--sel)}
 .nuevo b{font-size:22px;line-height:1}
-.escenario-col{border-left:1px solid var(--line);padding:10px 8px;display:flex;flex-direction:column;gap:6px;align-items:stretch;text-align:center;font-size:12px;font-weight:800;color:var(--muted)}
+.escenario-col{overflow:auto;border-left:1px solid var(--line);padding:10px 8px;display:flex;flex-direction:column;gap:6px;align-items:stretch;text-align:center;font-size:12px;font-weight:800;color:var(--muted)}
 .escenario-col .ficha img{height:50px}
 
 /* Disfraces / fondos */
-.trajes{border-top:1px solid var(--line);padding:8px 10px;display:flex;gap:8px;align-items:center;overflow-x:auto;min-height:92px}
+.trajes{flex:none;border-top:1px solid var(--line);padding:8px 10px;display:flex;gap:8px;align-items:center;overflow-x:auto;min-height:92px}
 .trajes .tit{font-size:12px;font-weight:800;color:var(--muted);writing-mode:vertical-rl;transform:rotate(180deg)}
 .traje{flex:none;width:70px;border:2px solid var(--line);border-radius:9px;background:#fff;padding:3px;cursor:pointer;text-align:center;font-size:11px;font-weight:700;position:relative}
 .traje img{width:100%;height:44px;object-fit:contain;display:block}
@@ -127,3 +129,37 @@ body.grande .panel{display:none}
 .ayuda li{margin-bottom:4px}
 .blocklyToolboxDiv{font-family:'Nunito',system-ui,sans-serif!important;font-weight:800}
 .resultado{position:fixed;z-index:60;background:#fff;border:2px solid var(--line);border-radius:14px;padding:6px 12px;font-weight:800;box-shadow:0 6px 18px rgba(0,0,0,.15);pointer-events:none;max-width:280px;word-break:break-word}
+
+/* Prácticas guiadas */
+.practica{margin:8px 8px 6px;background:#fff;border:2px solid #FFD666;border-radius:14px;flex:none;max-height:40vh;display:flex;flex-direction:column;box-shadow:0 3px 10px rgba(224,138,0,.12)}
+.pr-cab{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid #FFE9A8;background:#FFF8E1;border-radius:12px 12px 0 0}
+.pr-num{flex:none;background:var(--rayo);color:var(--ink);font-weight:900;border-radius:8px;padding:1px 8px;font-size:13px}
+.pr-cab h2{margin:0;font-size:16px;font-weight:900;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr-b{flex:none;width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:900;line-height:1}
+.pr-b:hover{border-color:var(--muted)}
+.pr-b:disabled{opacity:.35;cursor:not-allowed}
+.pr-cuerpo{overflow:auto;padding:10px 12px;font-size:14.5px;line-height:1.5;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:4px 16px;align-items:start}
+.pr-cuerpo .helpbar{margin-top:0}
+@media (max-width:1180px){.pr-cuerpo{grid-template-columns:minmax(0,1fr)}.pr-cuerpo .helpbar{margin-top:10px}}
+.practica.plegada .pr-cuerpo{display:none}
+.pr-desc{font-weight:600}
+.pr-extra{margin-top:8px;font-size:13.5px;background:#F2F7FF;border-radius:10px;padding:6px 10px;font-weight:600}
+.helpbar{margin-top:10px}
+.hb-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hb-note{color:var(--muted);font-weight:700;font-size:12.5px}
+.hbtn{border:3px solid;border-radius:999px;padding:4px 12px;font-weight:900;font-size:13.5px;background:#fff;cursor:pointer}
+.hbtn.u1{border-color:#2563EB;color:#1D4ED8} .hbtn.u2{border-color:#7C3AED;color:#6D28D9} .hbtn.u3{border-color:#DC2626;color:#B91C1C}
+.hbtn.used.u1{background:#2563EB;color:#fff} .hbtn.used.u2{background:#7C3AED;color:#fff} .hbtn.used.u3{background:#DC2626;color:#fff}
+.hbtn:disabled{opacity:.4;cursor:not-allowed}
+.hb-ask{background:#FFF7E6;border-radius:12px;padding:8px 10px;margin-top:8px;font-weight:800;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13.5px}
+.hb-txt{border-left:6px solid;border-radius:10px;padding:7px 12px;margin-top:8px;font-weight:600;font-size:13.5px}
+.hb-txt.u1{border-color:#2563EB;background:#E8EFFD} .hb-txt.u2{border-color:#7C3AED;background:#F1EAFE} .hb-txt.u3{border-color:#DC2626;background:#FDECEC}
+.hb-txt .btn{margin-left:6px;padding:3px 10px;font-size:13px}
+.btn.go{background:var(--go);border-color:var(--go);color:#fff}
+.lista-pr{display:grid;gap:8px}
+.lista-pr button{display:flex;gap:12px;align-items:center;text-align:left;border:2px solid var(--line);border-radius:12px;background:#fff;padding:10px 12px;cursor:pointer}
+.lista-pr button:hover{border-color:var(--sel);background:#EAF2FF}
+.lista-pr .nn{flex:none;width:34px;height:34px;border-radius:10px;background:var(--rayo);display:grid;place-items:center;font-weight:900}
+.lista-pr b{display:block;font-size:15px}
+.lista-pr small{color:var(--muted);font-weight:700}
+.lista-pr .ay{margin-left:auto;font-size:12px;font-weight:800;color:var(--muted);white-space:nowrap}

@@ -29,6 +29,7 @@
       <button data-acc="ejemplo-juego">🎮 <span data-i="ej3">Ejemplo: atrapa la estrella</span></button>
     </div>
   </div>
+  <button class="tb" id="b-practicas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c3-1.5 5.5-1.5 8 0 2.5-1.5 5-1.5 8 0v14c-3-1.5-5.5-1.5-8 0-2.5-1.5-5-1.5-8 0z"/><path d="M12 5v14"/></svg><span data-i="practicas">Prácticas</span></button>
   <button class="tb hide-sm" id="b-ayuda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg><span data-i="ayuda">Ayuda</span></button>
   <span class="spacer"></span>
   <div class="langs" role="group" aria-label="Idioma / Language">
@@ -39,7 +40,22 @@
 </header>
 
 <main class="app">
-  <section class="editor" aria-label="Editor de bloques"><div id="blockly"></div></section>
+  <section class="editor" aria-label="Editor de bloques">
+    <section class="practica" id="practica" hidden aria-labelledby="pr-tit">
+      <div class="pr-cab">
+        <span class="pr-num" id="pr-num"></span><h2 id="pr-tit"></h2>
+        <button class="pr-b" id="pr-ant" aria-label="Práctica anterior" title="‹">‹</button>
+        <button class="pr-b" id="pr-sig" aria-label="Práctica siguiente" title="›">›</button>
+        <button class="pr-b" id="pr-plegar" aria-label="Plegar" aria-expanded="true">▾</button>
+        <button class="pr-b" id="pr-cerrar" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="pr-cuerpo" id="pr-cuerpo">
+        <div class="pr-izq"><div class="pr-desc" id="pr-desc"></div><div class="pr-extra" id="pr-extra"></div></div>
+        <div class="helpbar" id="pr-ayuda"></div>
+      </div>
+    </section>
+    <div class="blockly-caja"><div id="blockly"></div></div>
+  </section>
 
   <aside class="lado">
     <div class="ctrl">
@@ -96,6 +112,7 @@
 <script src="biblioteca.js"></script>
 <script src="bloques.js"></script>
 <script src="motor.js"></script>
+<script src="practicas.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

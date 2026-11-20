@@ -21,7 +21,16 @@
       guardado: 'Proyecto guardado en tu equipo', abierto: 'Proyecto abierto', errorAbrir: 'Ese archivo no es un proyecto de RayoBlocks.',
       renombrar: 'Nuevo nombre:', nombreUsado: 'Ya hay un objeto con ese nombre.', salir: 'Tienes cambios sin guardar.',
       unDisfraz: 'Un objeto necesita al menos un disfraz.', unFondo: 'El escenario necesita al menos un fondo.',
-      soloEscenario: 'El escenario no tiene posición ni tamaño', resultado: 'Resultado'
+      soloEscenario: 'El escenario no tiene posición ni tamaño', resultado: 'Resultado',
+      practicas: 'Prácticas', practica: 'Práctica', elegirPractica: 'Elige una práctica', reto: '⭐ Reto extra:',
+      ayuda1: '💡 Ayuda 1', ayuda2: '💡 Ayuda 2', ayuda3: '🆘 Ayuda 3', primero1: 'Primero abre la ayuda 1.', primero2: 'Primero abre la ayuda 2.',
+      nota0: 'Intenta resolverla sin ayuda. Si usas una ayuda, quedará anotado en tu proyecto.', nota1: 'Has usado 1 ayuda: quedará anotado en tu proyecto.',
+      nota2: 'Has usado 2 ayudas: quedará anotado en tu proyecto.', nota3: 'Has usado 3 ayudas: quedará anotado en tu proyecto.',
+      seguro3: 'La ayuda 3 te da la solución completa y sustituye tu programa. ¿Seguro que quieres abrirla? Quedará anotado que has resuelto la práctica con gran dificultad.',
+      seguroN: '¿Seguro que quieres abrir la ayuda {n}? Quedará anotado que la has usado.', si: 'Sí, ver la ayuda', no: 'No, sigo probando',
+      ayudaN: '💡 Ayuda {n}:', ayuda3t: '🆘 Ayuda 3:', solPuesta: 'La solución completa ya está en tu programa. Pulsa la bandera verde para probarla y fíjate en cómo funciona cada bloque.',
+      volverSol: '↺ Volver a poner la solución', sinAyudas: 'sin ayudas', conAyudas: '{n} ayuda(s)',
+      cambiarPractica: '¿Empezar otra práctica? Se perderá lo que no hayas guardado de esta.', guardaPractica: 'Cuando termines, guarda tu proyecto con Archivo → Guardar en tu equipo.'
     },
     en: {
       archivo: 'File', nuevo: 'New project', abrir: 'Load from your computer', guardar: 'Save to your computer',
@@ -34,7 +43,16 @@
       guardado: 'Project saved to your computer', abierto: 'Project loaded', errorAbrir: 'That file is not a RayoBlocks project.',
       renombrar: 'New name:', nombreUsado: 'There is already a sprite with that name.', salir: 'You have unsaved changes.',
       unDisfraz: 'A sprite needs at least one costume.', unFondo: 'The stage needs at least one backdrop.',
-      soloEscenario: 'The stage has no position or size', resultado: 'Result'
+      soloEscenario: 'The stage has no position or size', resultado: 'Result',
+      practicas: 'Activities', practica: 'Activity', elegirPractica: 'Choose an activity', reto: '⭐ Extra challenge:',
+      ayuda1: '💡 Help 1', ayuda2: '💡 Help 2', ayuda3: '🆘 Help 3', primero1: 'Open help 1 first.', primero2: 'Open help 2 first.',
+      nota0: 'Try to solve it without help. If you use a help, it will be recorded in your project.', nota1: 'You have used 1 help: it will be recorded in your project.',
+      nota2: 'You have used 2 helps: it will be recorded in your project.', nota3: 'You have used 3 helps: it will be recorded in your project.',
+      seguro3: 'Help 3 gives you the complete solution and replaces your program. Are you sure you want to open it? It will be recorded that you solved the activity with great difficulty.',
+      seguroN: 'Are you sure you want to open help {n}? It will be recorded that you used it.', si: 'Yes, show the help', no: 'No, I will keep trying',
+      ayudaN: '💡 Help {n}:', ayuda3t: '🆘 Help 3:', solPuesta: 'The complete solution is now in your program. Click the green flag to try it and look at how each block works.',
+      volverSol: '↺ Put the solution back', sinAyudas: 'no help', conAyudas: '{n} help(s)',
+      cambiarPractica: 'Start another activity? Anything you have not saved from this one will be lost.', guardaPractica: 'When you finish, save your project with File → Save to your computer.'
     }
   };
   var NOMBRES_EN = { 'Chispa': 'Chispa', 'Robot': 'Robot', 'Pelota': 'Ball', 'Coche': 'Car', 'Pez': 'Fish', 'Estrella': 'Star', 'Flecha': 'Arrow', 'Cohete': 'Rocket', 'Bloque': 'Block',
@@ -464,6 +482,7 @@
   }
 
   /* ------------------------------ Archivos ------------------------------ */
+  var PRACTICAS = [], practicaActual = null, ayudas = {}, preguntaAyuda = 0;
   function proyectoJSON() {
     guardarActual();
     return {
@@ -475,7 +494,8 @@
           bloques: o.bloques };
       }),
       variables: Object.keys(motor.variables).map(function (id) { var v = motor.variables[id]; return { id: id, nombre: v.nombre, valor: v.valor, monitor: !!motor.monitores[id] }; }),
-      mensajes: RB.proyecto.mensajes.slice()
+      mensajes: RB.proyecto.mensajes.slice(),
+      practica: practicaActual === null ? undefined : { n: practicaActual + 1, ayudas: ayudas[practicaActual] || 0, titulo: PRACTICAS[practicaActual].t.es }
     };
   }
   function abrirProyecto(datos) {
@@ -496,6 +516,13 @@
     actual = null;
     seleccionar(sprites()[0] || motor.escenario());
     cambios = false;
+    var pr = datos.practica, k = pr && Math.round(+pr.n) - 1;
+    if (pr && k >= 0 && k < PRACTICAS.length) {
+      practicaActual = k;
+      ayudas[k] = Math.max(ayudas[k] || 0, Math.min(3, Math.max(0, Math.round(+pr.ayudas) || 0)));
+      nombreProyecto = (RB.lang === 'en' ? 'activity-' : 'practica-') + (k + 1);
+    } else practicaActual = null;
+    pintarPractica();
   }
   function descargar(nombre, texto) {
     var a = document.createElement('a');
@@ -603,9 +630,87 @@
           ]) })] };
     }
   };
+  PRACTICAS = window.RBPracticas ? window.RBPracticas({ L: function (es, en) { return RB.lang === 'en' ? en : es; }, blk: blk, n: n, tx: tx, sub: sub,
+    programa: programa, estado: estado, obj: obj, esc: esc2, nom: nombreLib }) : [];
   function proyectoNuevo() {
     abrirProyecto({ formato: 'rayoblocks', version: 1, mensajes: [], variables: [], objetos: [esc2(['Blanco']), obj('Chispa')] });
   }
+
+  /* ------------------------------ Prácticas ------------------------------ */
+  function L2(o) { return o[RB.lang] || o.es; }
+  function abrirPractica(k) {
+    if (k < 0 || k >= PRACTICAS.length) return;
+    if (cambios && !confirm(t('cambiarPractica'))) return;
+    var d = PRACTICAS[k].inicio();
+    d.practica = { n: k + 1, ayudas: ayudas[k] || 0 };
+    preguntaAyuda = 0;
+    abrirProyecto(d);
+    $('#practica').classList.remove('plegada');
+  }
+  function cargarSolucion() {
+    var k = practicaActual; if (k === null) return;
+    var d = PRACTICAS[k].sol();
+    d.practica = { n: k + 1, ayudas: ayudas[k] || 0 };
+    abrirProyecto(d);
+    cambios = true;
+  }
+  function pintarPractica() {
+    var caja = $('#practica');
+    if (practicaActual === null) { caja.hidden = true; return; }
+    var P = PRACTICAS[practicaActual], u = ayudas[practicaActual] || 0;
+    caja.hidden = false;
+    $('#pr-num').textContent = t('practica') + ' ' + (practicaActual + 1);
+    $('#pr-tit').textContent = L2(P.t);
+    $('#pr-tit').title = L2(P.t);
+    $('#pr-desc').innerHTML = L2(P.d) + '<div class="hint" style="margin-top:6px;color:#5B6280;font-size:12.5px">' + esc(t('guardaPractica')) + '</div>';
+    $('#pr-extra').innerHTML = '<b>' + esc(t('reto')) + '</b> ' + esc(L2(P.extra));
+    $('#pr-ant').disabled = practicaActual === 0;
+    $('#pr-sig').disabled = practicaActual === PRACTICAS.length - 1;
+    var h = '<div class="hb-top"><button class="hbtn u1 ' + (u >= 1 ? 'used' : '') + '" data-h="1">' + t('ayuda1') + '</button>' +
+      '<button class="hbtn u2 ' + (u >= 2 ? 'used' : '') + '" data-h="2" ' + (u < 1 ? 'disabled title="' + esc(t('primero1')) + '"' : '') + '>' + t('ayuda2') + '</button>' +
+      '<button class="hbtn u3 ' + (u >= 3 ? 'used' : '') + '" data-h="3" ' + (u < 2 ? 'disabled title="' + esc(t('primero2')) + '"' : '') + '>' + t('ayuda3') + '</button>' +
+      '<span class="hb-note">' + esc(t('nota' + u)) + '</span></div>';
+    if (preguntaAyuda) h += '<div class="hb-ask">⚠️ ' + esc(preguntaAyuda === 3 ? t('seguro3') : t('seguroN').replace('{n}', preguntaAyuda)) +
+      '<button class="btn go" data-yes="' + preguntaAyuda + '">' + esc(t('si')) + '</button><button class="btn" data-no>' + esc(t('no')) + '</button></div>';
+    for (var i = 0; i < Math.min(u, 2); i++) h += '<div class="hb-txt u' + (i + 1) + '"><b>' + esc(t('ayudaN').replace('{n}', i + 1)) + '</b> ' + L2(P.h[i]) + '</div>';
+    if (u >= 3) h += '<div class="hb-txt u3"><b>' + esc(t('ayuda3t')) + '</b> ' + esc(t('solPuesta')) + '<button class="btn" data-load>' + esc(t('volverSol')) + '</button></div>';
+    $('#pr-ayuda').innerHTML = h;
+    var nuevo = $('#pr-ayuda .hb-ask') || $('#pr-ayuda .hb-txt:last-child');
+    if (nuevo && (preguntaAyuda || u)) nuevo.scrollIntoView({ block: 'nearest' });
+  }
+  $('#pr-ayuda').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b || b.disabled || practicaActual === null) return;
+    var u = ayudas[practicaActual] || 0;
+    if (b.dataset.yes) {
+      var k = +b.dataset.yes;
+      preguntaAyuda = 0;
+      if (u < k) ayudas[practicaActual] = k;
+      cambios = true;
+      if (k === 3) cargarSolucion(); else pintarPractica();
+      return;
+    }
+    if (b.dataset.load !== undefined) { cargarSolucion(); return; }
+    if (b.dataset.no !== undefined) { preguntaAyuda = 0; pintarPractica(); return; }
+    var nn = +b.dataset.h;
+    if (nn && u === nn - 1) { preguntaAyuda = nn; pintarPractica(); }
+  });
+  $('#pr-ant').addEventListener('click', function () { abrirPractica(practicaActual - 1); });
+  $('#pr-sig').addEventListener('click', function () { abrirPractica(practicaActual + 1); });
+  $('#pr-plegar').addEventListener('click', function () {
+    var pl = $('#practica').classList.toggle('plegada');
+    this.textContent = pl ? '▸' : '▾'; this.setAttribute('aria-expanded', !pl);
+  });
+  $('#pr-cerrar').addEventListener('click', function () { $('#practica').hidden = true; });
+  $('#b-practicas').addEventListener('click', function () {
+    ventana(t('elegirPractica'), '<div class="lista-pr">' + PRACTICAS.map(function (P, k) {
+      var u = ayudas[k];
+      return '<button data-k="' + k + '"><span class="nn">' + (k + 1) + '</span><span><b>' + esc(L2(P.t)) + '</b><small>' +
+        esc(L2(P.d).replace(/<[^>]+>/g, '').slice(0, 95)) + '…</small></span>' +
+        (u !== undefined ? '<span class="ay">' + esc(u ? t('conAyudas').replace('{n}', u) : t('sinAyudas')) + '</span>' : '') + '</button>';
+    }).join('') + '</div>', function (c) {
+      c.addEventListener('click', function (e) { var b = e.target.closest('[data-k]'); if (!b) return; cerrarVentana(); abrirPractica(+b.dataset.k); });
+    });
+  });
 
   /* ------------------------------ Ayuda ------------------------------ */
   var AYUDA = {
@@ -640,6 +745,7 @@
       Blockly.setLocale(BLOCKLY_MSG[RB.lang]);
       ws.updateToolbox(RBBloques.toolbox(!!(actual && actual.esEscenario)));
       if (actual) { cargarWs(actual); pintarTodo(); }
+      pintarPractica();
     }
   }
   document.querySelector('.langs').addEventListener('click', function (e) { var b = e.target.closest('[data-lang]'); if (b) ponerIdioma(b.dataset.lang); });
@@ -649,5 +755,6 @@
   ponerIdioma('es');
   abrirProyecto(EJEMPLOS['ejemplo-gato']());
   cambios = false;
-  window.RBApp = { motor: motor, ws: function () { return ws; }, proyectoJSON: proyectoJSON, abrirProyecto: abrirProyecto, seleccionar: seleccionar, ejemplos: EJEMPLOS };
+  window.RBApp = { motor: motor, ws: function () { return ws; }, proyectoJSON: proyectoJSON, abrirProyecto: abrirProyecto, seleccionar: seleccionar, ejemplos: EJEMPLOS,
+    practicas: PRACTICAS, abrirPractica: function (k) { cambios = false; abrirPractica(k); }, cargarSolucion: cargarSolucion };
 })();

@@ -6,6 +6,7 @@ Autor: David Rayo Torres · IES Palomares.
 - **Bloques:** Movimiento, Apariencia, Sonido, Eventos, Control (incluidos clones), Sensores, Operadores, Variables y Lápiz.
 - **Objetos y fondos:** biblioteca propia (mascota *Chispa*) y posibilidad de subir imágenes.
 - **Idiomas:** español e inglés.
+- **10 prácticas guiadas** (botón «Prácticas»): título, enunciado, reto extra y tres ayudas (dos pistas y la solución). Las ayudas usadas quedan anotadas dentro del archivo `.rayo` que entrega el alumno.
 - **Proyectos:** se guardan y se abren como archivo `.rayo` en el equipo. RayoBlocks no guarda nada en el navegador.
 
 ## Archivos
@@ -15,6 +16,7 @@ Autor: David Rayo Torres · IES Palomares.
 | `index.html`, `rayoblocks.css` | Página y estilos |
 | `bloques.js` | Definición de los bloques (es/en) y de la caja de herramientas |
 | `motor.js` | Motor que ejecuta los programas (hilos, eventos, clones, choques, lápiz, sonido) |
+| `practicas.js` | Las 10 prácticas (enunciados, ayudas, proyecto inicial y solución) |
 | `biblioteca.js` | Objetos, fondos y sonidos originales |
 | `app.js` | Interfaz: editor, escenario, objetos, archivos, ejemplos e idioma |
 | `vendor/` | [Blockly](https://github.com/google/blockly) 12.5.1 de Google |
