@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RayoBlocks · Programa a la velocidad del rayo</title>
+<meta name="description" content="RayoBlocks: programación por bloques en el navegador para Computación y Robótica (IES Palomares, David Rayo Torres).">
+<meta name="author" content="David Rayo Torres">
+<link rel="icon" href="chispa.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap">
+<link rel="stylesheet" href="rayoblocks.css">
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="./" aria-label="RayoBlocks"><img src="chispa.svg" alt="" width="30" height="36"><span>Rayo<b>Blocks</b></span></a>
+  <div class="menu">
+    <button class="tb" id="b-archivo" aria-haspopup="true" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h6l2 2h8v12H4z"/></svg><span data-i="archivo">Archivo</span>
+    </button>
+    <div class="menu-list" id="m-archivo" hidden>
+      <button data-acc="nuevo">🆕 <span data-i="nuevo">Nuevo proyecto</span></button>
+      <button data-acc="abrir">📂 <span data-i="abrir">Abrir desde tu equipo</span></button>
+      <button data-acc="guardar">💾 <span data-i="guardar">Guardar en tu equipo</span></button>
+      <hr>
+      <button data-acc="ejemplo-gato">⚡ <span data-i="ej1">Ejemplo: Chispa pasea</span></button>
+      <button data-acc="ejemplo-dibujo">✏️ <span data-i="ej2">Ejemplo: dibujar un polígono</span></button>
+      <button data-acc="ejemplo-juego">🎮 <span data-i="ej3">Ejemplo: atrapa la estrella</span></button>
+    </div>
+  </div>
+  <button class="tb hide-sm" id="b-ayuda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg><span data-i="ayuda">Ayuda</span></button>
+  <span class="spacer"></span>
+  <div class="langs" role="group" aria-label="Idioma / Language">
+    <button data-lang="es" title="Español"><svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg></button>
+    <button data-lang="en" title="English"><svg viewBox="0 0 60 30" preserveAspectRatio="none"><clipPath id="uk"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#uk)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg></button>
+  </div>
+  <a class="volver hide-sm" href="../robotica/" data-i="volver">← Robótica</a>
+</header>
+
+<main class="app">
+  <section class="editor" aria-label="Editor de bloques"><div id="blockly"></div></section>
+
+  <aside class="lado">
+    <div class="ctrl">
+      <button class="btn-ico" id="b-bandera" title="Empezar" data-i-title="empezar"><svg viewBox="0 0 24 24"><path d="M5 3v18" stroke="#3d7a1f" stroke-width="2.4" stroke-linecap="round"/><path d="M6 4c4-2 7 2 12 0v9c-5 2-8-2-12 0z" fill="#4cbf56" stroke="#3d7a1f" stroke-width="1.4" stroke-linejoin="round"/></svg></button>
+      <button class="btn-ico" id="b-parar" title="Detener" data-i-title="detener"><svg viewBox="0 0 24 24"><path d="M8 3h8l5 5v8l-5 5H8l-5-5V8z" fill="#E5484D" stroke="#B5262B" stroke-width="1.4" stroke-linejoin="round"/></svg></button>
+      <span class="t" id="estado"></span>
+      <button class="btn-ico" id="b-grande" title="Escenario grande" data-i-title="grande"><svg viewBox="0 0 24 24" fill="none" stroke="#5B6280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    </div>
+    <div class="escena-caja">
+      <div class="escena" id="escena">
+        <canvas id="lienzo" width="480" height="360" aria-label="Escenario"></canvas>
+        <div class="coords" id="coords">x: 0 · y: 0</div>
+        <div class="preguntar" id="preguntar" hidden>
+          <div class="q" id="preguntar-q"></div>
+          <form id="f-respuesta"><input id="respuesta" autocomplete="off" aria-label="Respuesta"><button type="submit" aria-label="OK">✓</button></form>
+        </div>
+        <div class="aviso" id="aviso" hidden></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="info" id="info">
+        <span data-i="objeto">Objeto</span><input type="text" class="nombre" id="i-nombre" maxlength="30">
+        <span>x</span><input type="number" id="i-x">
+        <span>y</span><input type="number" id="i-y">
+        <span data-i="mostrar">Mostrar</span><span class="vis"><button id="i-ver" title="Mostrar">👁</button><button id="i-ocultar" title="Esconder">⊘</button></span>
+        <span data-i="tamano">Tamaño</span><input type="number" id="i-tam">
+        <span data-i="direccion">Dirección</span><input type="number" id="i-dir">
+      </div>
+      <div class="zona">
+        <div class="objetos" id="objetos"></div>
+        <div class="escenario-col">
+          <span data-i="escenario">Escenario</span>
+          <div class="ficha" id="ficha-escenario"><img alt=""><span data-i="fondos">Fondos</span></div>
+        </div>
+      </div>
+      <div class="trajes" id="trajes"></div>
+    </div>
+  </aside>
+</main>
+
+<input type="file" id="f-abrir" accept=".rayo,.json,application/json" hidden>
+<input type="file" id="f-imagen" accept="image/png,image/jpeg,image/svg+xml,image/gif,image/webp" hidden>
+
+<div class="velo" id="velo" hidden>
+  <div class="ventana" role="dialog" aria-modal="true" aria-labelledby="v-tit">
+    <header><h2 id="v-tit"></h2><button class="btn" id="v-cerrar" data-i="cerrar">Cerrar</button></header>
+    <div class="cuerpo" id="v-cuerpo"></div>
+  </div>
+</div>
+
+<script src="vendor/blockly_compressed.js"></script>
+<script src="vendor/blockly-msg.js"></script>
+<script src="biblioteca.js"></script>
+<script src="bloques.js"></script>
+<script src="motor.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
