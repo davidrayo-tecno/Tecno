@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tareas · IES Palomares</title>
+<meta name="description" content="Plataforma de tareas del Departamento de Tecnología del IES Palomares.">
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="tareas.css">
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="comun.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="bar">
+  <div class="container">
+    <a class="brand" href="../" aria-label="IES Palomares, inicio">
+      <img src="../logo-ies-palomares.png" alt="" width="42" height="42">
+      <span><b>IES Palomares</b><small>David Rayo Torres</small></span>
+    </a>
+    <nav class="bar-nav" aria-label="Sitio">
+      <a class="hide-sm" href="../">Inicio</a>
+      <a href="./" aria-current="page">Tareas</a>
+      <button class="theme" type="button" aria-label="Cambiar entre modo claro y oscuro" title="Modo claro / oscuro">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido" class="container narrow">
+  <div class="page-head">
+    <p class="crumbs">IES Palomares · Departamento de Tecnología</p>
+    <h1>Tareas</h1>
+  </div>
+
+  <div class="aviso warn" data-modo-prueba hidden><b>Modo de prueba.</b> La plataforma aún no está conectada a la hoja de Google: lo que entregues se guarda solo en este navegador.</div>
+  <div id="msg"></div>
+
+  <!-- 1. Identificación -->
+  <section id="v-login" hidden>
+    <p class="lead">Identifícate con tus datos y tu correo de Educaand para ver las tareas de tu grupo.</p>
+    <form class="card" id="f-login" novalidate>
+      <div class="grid2">
+        <label class="f">Nombre<input type="text" name="nombre" autocomplete="given-name" required></label>
+        <label class="f">Apellidos<input type="text" name="apellidos" autocomplete="family-name" required></label>
+      </div>
+      <label class="f">Correo de Educaand
+        <span class="hint">El que termina en @g.educaand.es</span>
+        <input type="email" name="correo" autocomplete="email" placeholder="nombre.apellido@g.educaand.es" required>
+      </label>
+      <label class="f">Grupo
+        <select name="grupo" required><option value="">Cargando grupos…</option></select>
+      </label>
+      <div class="row end"><button class="btn primary" type="submit">Entrar</button></div>
+    </form>
+    <p class="hint" style="margin-top:14px">Tus datos se usan solo para guardar tus entregas y tus notas. Si usas un ordenador del centro, pulsa «Salir» al terminar.</p>
+  </section>
+
+  <!-- 2. Lista de tareas y notas -->
+  <section id="v-lista" hidden>
+    <div class="row">
+      <p class="lead" style="margin:0" id="saludo"></p>
+      <span class="spacer"></span>
+      <button class="btn small" type="button" id="b-salir">Salir</button>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="t-tareas" id="tab-tareas">Tareas</button>
+      <button role="tab" aria-selected="false" data-tab="t-notas" id="tab-notas">Mis notas</button>
+    </div>
+    <div id="t-tareas" role="tabpanel" aria-labelledby="tab-tareas"><ul class="tasks" id="lista"></ul></div>
+    <div id="t-notas" role="tabpanel" aria-labelledby="tab-notas" hidden><div id="notas"></div></div>
+  </section>
+
+  <!-- 3. Hacer una tarea -->
+  <section id="v-tarea" hidden>
+    <button class="btn small" type="button" data-volver>← Volver a mis tareas</button>
+    <h2 id="t-titulo"></h2>
+    <p class="hint" id="t-meta"></p>
+    <div id="t-desc" class="q-text" style="margin-bottom:18px"></div>
+    <form id="f-tarea" novalidate>
+      <div id="t-preguntas"></div>
+      <div class="card">
+        <p style="margin:0 0 12px">Entregas como <b id="t-quien"></b>. Revisa tus respuestas antes de enviar.</p>
+        <div class="row end"><button class="btn primary" type="submit" id="b-entregar">Entregar tarea</button></div>
+      </div>
+    </form>
+  </section>
+
+  <!-- 4. Resultado -->
+  <section id="v-resultado" hidden>
+    <button class="btn small" type="button" data-volver>← Volver a mis tareas</button>
+    <div id="resultado" style="margin-top:18px"></div>
+  </section>
+</main>
+
+<footer class="site"><div class="container narrow">IES Palomares · Departamento de Tecnología · David Rayo Torres</div></footer>
+
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var msg = $('#msg');
+  var alumno = null;         // { nombre, apellidos, correo, grupo }
+  var tareas = [];
+  var actual = null;         // tarea abierta
+  var cambios = false;       // respuestas sin entregar
+  var maxMb = 10;
+
+  // Los datos del alumno solo se guardan mientras la pestaña está abierta (ordenadores compartidos).
+  try { alumno = JSON.parse(sessionStorage.getItem('tareas-alumno') || 'null'); } catch (e) {}
+
+  function ver(id) {
+    ['#v-login', '#v-lista', '#v-tarea', '#v-resultado'].forEach(function (v) { $(v).hidden = v !== id; });
+    window.scrollTo(0, 0);
+  }
+
+  function error(e) { T.aviso(msg, 'error', T.esc(e && e.message || e)); }
+
+  /* ---------- Identificación ---------- */
+  function cargarGrupos() {
+    var sel = $('#f-login').grupo;
+    return TareasAPI.llamar('grupos').then(function (d) {
+      maxMb = d.maxMb || maxMb;
+      sel.innerHTML = '<option value="">Elige tu grupo</option>' + d.grupos.map(function (g) {
+        return '<option>' + T.esc(g) + '</option>';
+      }).join('');
+      if (!d.grupos.length) sel.innerHTML = '<option value="">Aún no hay tareas publicadas</option>';
+    }).catch(error);
+  }
+
+  $('#f-login').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var f = ev.target;
+    var a = { nombre: f.nombre.value.trim(), apellidos: f.apellidos.value.trim(), correo: f.correo.value.trim().toLowerCase(), grupo: f.grupo.value };
+    if (a.nombre.length < 2 || a.apellidos.length < 2) return error('Escribe tu nombre y tus apellidos.');
+    if (!/^[a-z0-9._%+-]+@g\.educaand\.es$/.test(a.correo)) return error('Escribe tu correo de Educaand (termina en @g.educaand.es).');
+    if (!a.grupo) return error('Elige tu grupo.');
+    alumno = a;
+    try { sessionStorage.setItem('tareas-alumno', JSON.stringify(a)); } catch (e) {}
+    T.aviso(msg, '', '');
+    abrirLista();
+  });
+
+  $('#b-salir').addEventListener('click', function () {
+    if (cambios && !confirm('Tienes respuestas sin entregar. ¿Salir de todos modos?')) return;
+    alumno = null; cambios = false;
+    try { sessionStorage.removeItem('tareas-alumno'); } catch (e) {}
+    $('#f-login').reset();
+    T.aviso(msg, '', '');
+    ver('#v-login');
+  });
+
+  /* ---------- Lista ---------- */
+  function abrirLista() {
+    $('#saludo').innerHTML = 'Hola, <b>' + T.esc(alumno.nombre) + '</b> · ' + T.esc(alumno.grupo);
+    ver('#v-lista');
+    pestaña('t-tareas');
+    var ul = $('#lista');
+    ul.innerHTML = '<li class="empty"><span class="spin"></span> Cargando tareas…</li>';
+    TareasAPI.llamar('tareas', { grupo: alumno.grupo, correo: alumno.correo }).then(function (d) {
+      tareas = d;
+      if (!d.length) { ul.innerHTML = '<li class="empty">No hay tareas publicadas para tu grupo.</li>'; return; }
+      ul.innerHTML = d.map(function (t) {
+        var puede = !t.cerrada && t.estado !== 'revisada';
+        var txt = t.estado === '' ? 'Hacer la tarea' : (puede ? 'Volver a entregar' : 'Ver');
+        return '<li class="task"><div class="body"><h3>' + T.esc(t.titulo) + '</h3><div class="meta">' +
+          t.preguntas.length + (t.preguntas.length === 1 ? ' pregunta' : ' preguntas') +
+          (t.fechaLimite ? ' · Entrega hasta el ' + T.esc(T.fecha(t.fechaLimite)) : '') + '</div>' +
+          '<div style="margin-top:6px">' + T.etiqueta(t.estado) + (t.cerrada ? ' <span class="tag cerrada">Plazo cerrado</span>' : '') + '</div></div>' +
+          (puede ? '<button class="btn' + (t.estado === '' ? ' primary' : '') + '" type="button" data-abrir="' + T.esc(t.id) + '">' + txt + '</button>'
+                 : '<button class="btn" type="button" data-notas>Ver nota</button>') + '</li>';
+      }).join('');
+    }).catch(function (e) { ul.innerHTML = ''; error(e); });
+  }
+
+  $('#lista').addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-abrir]');
+    if (b) abrirTarea(b.dataset.abrir);
+    if (ev.target.closest('[data-notas]')) pestaña('t-notas');
+  });
+
+  function pestaña(id) {
+    document.querySelectorAll('.tabs [data-tab]').forEach(function (b) {
+      var si = b.dataset.tab === id;
+      b.setAttribute('aria-selected', si);
+      $('#' + b.dataset.tab).hidden = !si;
+    });
+    if (id === 't-notas') cargarNotas();
+  }
+  document.querySelector('.tabs').addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-tab]'); if (b) pestaña(b.dataset.tab);
+  });
+
+  function cargarNotas() {
+    var box = $('#notas');
+    box.innerHTML = '<p class="empty"><span class="spin"></span> Cargando…</p>';
+    TareasAPI.llamar('misEntregas', alumno).then(function (d) {
+      if (!d.length) { box.innerHTML = '<p class="empty">Todavía no has entregado ninguna tarea.</p>'; return; }
+      box.innerHTML = d.map(htmlEntrega).join('');
+    }).catch(function (e) { box.innerHTML = ''; error(e); });
+  }
+
+  function htmlEntrega(e) {
+    var nota = e.nota !== null ? e.nota : e.notaProvisional;
+    var titulo = e.nota !== null ? 'Nota' : 'Nota provisional';
+    var t = tareas.filter(function (x) { return x.id === e.tareaId; })[0];
+    var preguntas = t ? t.preguntas : [];
+    return '<div class="card"><div class="row"><div><h3>' + T.esc(e.titulo) + '</h3><div class="hint">Entregada el ' + T.esc(T.fecha(e.fecha)) + '</div></div>' +
+      '<span class="spacer"></span>' + T.etiqueta(e.estado) + '</div>' +
+      '<div class="row" style="margin:14px 0 6px;gap:24px"><div><div class="hint">' + titulo + '</div><div class="score"><b>' + T.num(nota) + '</b><span>/ 10</span></div></div>' +
+      (e.estado === 'pendiente' ? '<p class="hint" style="flex:1;min-width:200px">Tu profesor todavía tiene que corregir parte de la tarea. La nota puede cambiar.</p>' : '') + '</div>' +
+      (e.comentario ? '<div class="aviso info"><b>Comentario del profesor:</b> ' + T.esc(e.comentario) + '</div>' : '') +
+      '<div class="table-wrap"><table><thead><tr><th>Pregunta</th><th>Puntos</th><th>Valoración</th></tr></thead><tbody>' +
+      e.detalle.map(function (d, i) {
+        var p = preguntas.filter(function (q) { return q.id === d.id; })[0];
+        return '<tr><td>' + (i + 1) + (p ? '. ' + T.esc(recorta(p.enunciado, 70)) : '') + '</td><td class="num">' + (d.revisar ? '—' : T.num(d.puntos)) + ' / ' + T.num(d.maximo) + '</td><td>' +
+          T.esc(d.nota) + (d.comentario ? '<div class="hint">Profesor: ' + T.esc(d.comentario) + '</div>' : '') + '</td></tr>';
+      }).join('') + '</tbody></table></div></div>';
+  }
+
+  function recorta(s, n) { s = String(s || ''); return s.length > n ? s.slice(0, n - 1) + '…' : s; }
+
+  /* ---------- Hacer la tarea ---------- */
+  function abrirTarea(id) {
+    actual = tareas.filter(function (t) { return t.id === id; })[0];
+    if (!actual) return;
+    cambios = false;
+    T.aviso(msg, '', '');
+    $('#t-titulo').textContent = actual.titulo;
+    $('#t-meta').textContent = (actual.fechaLimite ? 'Entrega hasta el ' + T.fecha(actual.fechaLimite) + ' · ' : '') +
+      'Valor total: ' + actual.preguntas.reduce(function (s, p) { return s + Number(p.puntos || 0); }, 0) + ' puntos';
+    $('#t-desc').textContent = actual.descripcion || '';
+    $('#t-quien').textContent = alumno.nombre + ' ' + alumno.apellidos + ' (' + alumno.correo + ')';
+    var aviso = actual.estado === 'pendiente' || actual.estado === 'corregida'
+      ? '<div class="aviso warn">Ya entregaste esta tarea. Si la vuelves a entregar, <b>se sustituirá tu entrega anterior</b>.</div>' : '';
+    $('#t-preguntas').innerHTML = aviso + actual.preguntas.map(htmlPregunta).join('');
+    ver('#v-tarea');
+  }
+
+  function htmlPregunta(p, i) {
+    var h = '<div class="q" role="group" aria-labelledby="qt' + i + '"><div class="q-head"><span class="q-num">' + (i + 1) + '</span>' +
+      '<span class="q-text" id="qt' + i + '">' + T.esc(p.enunciado) + '</span><span class="q-pts">' + T.num(p.puntos) + ' pt</span></div>';
+    var name = 'q_' + p.id;
+    if (p.tipo === 'test') {
+      h += '<div class="opts" role="radiogroup">' + (p.opciones || []).map(function (o, j) {
+        return '<label class="opt"><input type="radio" name="' + T.esc(name) + '" value="' + j + '"><span>' + T.esc(o) + '</span></label>';
+      }).join('') + '</div>';
+    } else if (p.tipo === 'abierta') {
+      h += '<textarea name="' + T.esc(name) + '" aria-label="Tu respuesta a la pregunta ' + (i + 1) + '" data-min="' + (p.minPalabras || 0) + '"></textarea>' +
+        '<div class="count" data-count="' + T.esc(name) + '">0 palabras' + (p.minPalabras ? ' · mínimo recomendado: ' + p.minPalabras : '') + '</div>';
+    } else if (p.tipo === 'archivo') {
+      h += '<div class="file-box"><input type="file" name="' + T.esc(name) + '" aria-label="Archivo para la pregunta ' + (i + 1) + '"' +
+        (p.formatos ? ' accept="' + T.esc(p.formatos) + '"' : '') + '><div class="hint" style="margin-top:6px">Tamaño máximo: ' + maxMb + ' MB' +
+        (p.formatos ? ' · Formatos: ' + T.esc(p.formatos.replace('image/*', 'imagen').split(',').join(', ')) : '') + '</div></div>';
+    }
+    return h + '</div>';
+  }
+
+  $('#f-tarea').addEventListener('input', function (ev) {
+    cambios = true;
+    var ta = ev.target;
+    if (ta.tagName === 'TEXTAREA') {
+      var n = (ta.value.trim().match(/\S+/g) || []).length, min = Number(ta.dataset.min);
+      $('[data-count="' + ta.name + '"]').textContent = n + (n === 1 ? ' palabra' : ' palabras') + (min ? ' · mínimo recomendado: ' + min : '');
+    }
+  });
+  $('#f-tarea').addEventListener('change', function (ev) {
+    var f = ev.target;
+    if (f.type === 'file' && f.files[0] && f.files[0].size > maxMb * 1024 * 1024) {
+      alert('El archivo pesa más de ' + maxMb + ' MB. Reduce su tamaño (por ejemplo, haz la foto con menos resolución).');
+      f.value = '';
+    }
+  });
+
+  $('#f-tarea').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var f = ev.target, faltan = [], lecturas = [], resp = {};
+    actual.preguntas.forEach(function (p, i) {
+      var el = f.elements['q_' + p.id];
+      if (p.tipo === 'test') {
+        var sel = f.querySelector('input[name="q_' + p.id + '"]:checked');
+        resp[p.id] = sel ? Number(sel.value) : '';
+        if (!sel) faltan.push(i + 1);
+      } else if (p.tipo === 'abierta') {
+        resp[p.id] = el.value;
+        if (!el.value.trim()) faltan.push(i + 1);
+      } else if (p.tipo === 'archivo') {
+        if (el.files[0]) lecturas.push(TareasAPI.leerArchivo(el.files[0]).then(function (a) { resp[p.id] = a; }));
+        else faltan.push(i + 1);
+      }
+    });
+    var texto = faltan.length
+      ? 'Te faltan por responder: pregunta' + (faltan.length > 1 ? 's ' : ' ') + faltan.join(', ') + '.\n\n¿Entregar de todos modos?'
+      : '¿Entregar la tarea? Revisa que todo esté bien.';
+    if (!confirm(texto)) return;
+    var b = $('#b-entregar');
+    T.ocupado(b, true, 'Entregando…');
+    Promise.all(lecturas).then(function () {
+      return TareasAPI.llamar('entregar', Object.assign({ tareaId: actual.id, respuestas: resp }, alumno));
+    }).then(function (r) {
+      cambios = false;
+      actual.estado = r.estado;
+      T.aviso(msg, 'ok', '<b>¡Tarea entregada!</b> Se ha guardado correctamente.');
+      $('#resultado').innerHTML = htmlEntrega(r);
+      ver('#v-resultado');
+    }).catch(error).then(function () { T.ocupado(b, false); });
+  });
+
+  document.querySelectorAll('[data-volver]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (cambios && !confirm('Tienes respuestas sin entregar. Si sales, se perderán. ¿Salir?')) return;
+      cambios = false; T.aviso(msg, '', ''); abrirLista();
+    });
+  });
+  window.addEventListener('beforeunload', function (e) { if (cambios) { e.preventDefault(); e.returnValue = ''; } });
+
+  /* ---------- Inicio ---------- */
+  cargarGrupos();
+  if (alumno) abrirLista(); else ver('#v-login');
+})();
+</script>
+</body>
+</html>
