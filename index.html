@@ -460,9 +460,9 @@ svg.art{display:block;width:100%;height:auto}
         <li><button type="button" class="howto" data-bs-toggle="modal" data-bs-target="#guia">Cómo usar esta web</button></li>
       </ul>
       <dl class="stats">
-        <div><dt>Unidades disponibles</dt><dd>3</dd></div>
-        <div><dt>Problemas resueltos</dt><dd>99</dd></div>
-        <div><dt>Tu progreso</dt><dd id="miprogreso">0</dd></div>
+        <div><dt>Unidades disponibles</dt><dd id="numunidades">3</dd></div>
+        <div><dt>Problemas resueltos</dt><dd id="numproblemas">207</dd></div>
+        <div><dt>Tu progreso</dt><dd id="miprogreso">0 / 207</dd></div>
       </dl>
     </div>
     <div id="destacados" class="carousel slide feat" data-bs-ride="carousel" data-bs-interval="5000" aria-label="Contenidos destacados">
@@ -954,9 +954,18 @@ svg.art{display:block;width:100%;height:auto}
     empty.hidden=shown>0;
   }
   q.addEventListener('input',apply);document.querySelectorAll('input[name=f]').forEach(r=>r.addEventListener('change',apply));
-  // progreso total guardado en este navegador
-  let n=0;try{for(let i=0;i<localStorage.length;i++){if(localStorage.key(i).startsWith('prob:'))n++;}}catch(e){}
-  document.getElementById('miprogreso').textContent=n+' / 99';
+  // Cifras de la portada, calculadas a partir de las tarjetas de las unidades
+  // (data-progress / data-total), para que no se queden desfasadas al añadir problemas.
+  // Solo se cuentan los problemas que existen: p1…pN de cada página.
+  let total=0,n=0;
+  document.querySelectorAll('#lista [data-progress]').forEach(el=>{
+    const p=el.dataset.progress,t=+el.dataset.total||0;total+=t;
+    try{for(let i=1;i<=t;i++)if(localStorage.getItem('prob:'+p+'#p'+i))n++;}catch(e){}
+  });
+  const fmt=x=>x.toLocaleString('es-ES');
+  document.getElementById('numunidades').textContent=document.querySelectorAll('#lista > .col[data-state="ok"]').length;
+  document.getElementById('numproblemas').textContent=fmt(total);
+  document.getElementById('miprogreso').textContent=fmt(n)+' / '+fmt(total);
   // progreso de Materiales (suma de los 4 ensayos)
 })();
 </script>
