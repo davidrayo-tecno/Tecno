@@ -55,32 +55,47 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(42px,7vw,76px);lin
 .lead{color:var(--muted);font-size:clamp(17px,2vw,20px);max-width:44em;margin:0}
 
 /* Tarjetas de las secciones */
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:26px 0 8px;list-style:none;padding:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin:28px 0 8px;list-style:none;padding:0}
 @media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
-.card{position:relative;display:flex;gap:20px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;color:inherit;text-decoration:none;height:100%;
-  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
-a.card:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(16,35,45,.45);border-color:var(--c)}
-.card .ico{flex:none;width:78px;height:78px;border-radius:18px;background:var(--cbg);display:grid;place-items:center}
-.card .ico svg{width:52px;height:52px}
-.card .num{position:absolute;top:18px;right:20px;font-family:var(--display);font-weight:700;font-size:40px;line-height:1;color:var(--line)}
-.card .level{display:inline-block;font-size:13px;font-weight:600;color:var(--c);background:var(--cbg);border-radius:999px;padding:2px 10px;margin-bottom:6px}
-.card h2{font-family:var(--display);font-weight:700;font-size:31px;line-height:1.02;margin:0 0 6px;padding-right:34px}
-.card p{margin:0;color:var(--muted);font-size:15.5px}
-.card .go{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-weight:600;font-size:15px;color:var(--c)}
-.card .go svg{width:17px;height:17px;transition:transform .18s}
-a.card:hover .go svg{transform:translateX(3px)}
-.card .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.go-btn{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:15px;color:var(--c);background:var(--cbg);border:1px solid transparent;border-radius:10px;padding:7px 14px;text-decoration:none}
-.go-btn:hover{border-color:var(--c)}
-.card.soon{background:transparent;border-style:dashed}
-.card.soon .ico{filter:grayscale(1);opacity:.65}
+.grid > li{display:flex}
+.card{position:relative;display:flex;flex-direction:column;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;color:inherit;text-decoration:none;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -26px var(--sh);border-color:var(--c)}
+.card:focus-within{border-color:var(--c)}
+.scene{position:relative;aspect-ratio:400/176;background:var(--sbg);overflow:hidden;border-bottom:1px solid var(--line)}
+.scene svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.card .body{padding:20px 24px 24px;display:flex;flex-direction:column;flex:1}
+.card .level{align-self:flex-start;font-size:13px;font-weight:600;color:var(--c);background:var(--cbg);border-radius:999px;padding:2px 11px;margin-bottom:8px}
+.card h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.2vw,34px);line-height:1;margin:0 0 8px;letter-spacing:-.005em}
+.card p{margin:0;color:var(--muted);font-size:15.5px;max-width:42ch}
+.card .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:16px}
+.go-btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#fff;background:var(--c-solid);border:2px solid var(--c-solid);border-radius:12px;padding:8px 16px;text-decoration:none;transition:background .15s,color .15s}
+.go-btn.alt{background:transparent;color:var(--c)}
+.go-btn:hover{background:var(--c-dark);border-color:var(--c-dark);color:#fff}
+.go-btn svg{width:16px;height:16px}
+/* «Próximamente» */
+.card.soon{border-style:dashed;background:transparent}
+.card.soon:hover{transform:none;box-shadow:none;border-color:var(--line)}
 .card.soon h2{color:var(--muted)}
-.tag-soon{display:inline-block;font-size:13px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-top:12px}
-@media (max-width:520px){.card{flex-direction:column;gap:12px;padding:20px}.card .ico{width:58px;height:58px;border-radius:14px}.card .ico svg{width:38px;height:38px}.card h2{padding-right:0}}
-.c-teii{--c:var(--cold);--cbg:var(--cold-bg)}
-.c-robot{--c:var(--robot);--cbg:var(--robot-bg)}
-.c-dic{--c:var(--dic);--cbg:var(--dic-bg)}
-.c-t4{--c:var(--work);--cbg:var(--work-bg)}
+.tag-soon{align-self:flex-start;margin-top:auto;font-size:13.5px;font-weight:600;color:var(--muted);border:1.5px dashed var(--line);border-radius:999px;padding:4px 14px}
+/* Movimiento de las ilustraciones al pasar el ratón */
+.scene .gear{transform-box:fill-box;transform-origin:center;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.card:hover .scene .gear{transform:rotate(120deg)}
+.card:hover .scene .gear.rev{transform:rotate(-160deg)}
+.scene .bot{transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+.card:hover .scene .bot{transform:translate(52px,0)}
+.scene .flecha-w{transition:transform .5s ease}
+.card:hover .scene .flecha-w{transform:translateX(8px)}
+.scene .letra-on{transition:fill .3s}
+.card:hover .scene .letra-on{fill:#F5B700}
+@media (prefers-reduced-motion:reduce){.card,.scene *{transition:none!important}.card:hover{transform:none}}
+.c-teii{--c:var(--cold);--cbg:var(--cold-bg);--c-solid:#1F5FA8;--c-dark:#174C88;--sbg:#0F3B52;--sh:rgba(15,59,82,.6)}
+.c-robot{--c:var(--robot);--cbg:var(--robot-bg);--c-solid:#E2532F;--c-dark:#C44220;--sbg:#FFE9DF;--sh:rgba(226,83,47,.5)}
+.c-dic{--c:var(--dic);--cbg:var(--dic-bg);--c-solid:#7A4FB5;--c-dark:#633D99;--sbg:#F1E9FC;--sh:rgba(122,79,181,.5)}
+.c-t4{--c:var(--work);--cbg:var(--work-bg);--sbg:#EAF3EC;--sh:transparent}
+.c-robot .tile{fill-opacity:var(--tile-op,1)}.c-t4 .t4grid{opacity:var(--grid-op,.6)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c-robot{--sbg:#3A2219;--tile-op:.22}:root:not([data-theme="light"]) .c-t4{--grid-op:.1}:root:not([data-theme="light"]) .c-dic{--sbg:#2A2138}:root:not([data-theme="light"]) .c-t4{--sbg:#17301F}}
+:root[data-theme="dark"] .c-robot{--sbg:#3A2219;--tile-op:.22}:root[data-theme="dark"] .c-t4{--grid-op:.1}:root[data-theme="dark"] .c-dic{--sbg:#2A2138}:root[data-theme="dark"] .c-t4{--sbg:#17301F}
 
 /* Otros recursos */
 h3.sec{font-family:var(--display);font-weight:600;font-size:26px;margin:42px 0 12px}
@@ -125,56 +140,98 @@ footer strong{color:var(--ink);font-weight:600}
   <ul class="grid" aria-label="Secciones">
     <li>
       <a class="card c-teii" href="tecnologia-ingenieria.html">
-        <span class="num" aria-hidden="true">1</span>
-        <span class="ico" aria-hidden="true"><svg viewBox="0 0 52 52" fill="none" stroke="var(--c)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="26" cy="26" r="8"/><path d="M26 6v6M26 40v6M6 26h6M40 26h6M11.9 11.9l4.2 4.2M35.9 35.9l4.2 4.2M11.9 40.1l4.2-4.2M35.9 16.1l4.2-4.2"/></svg></span>
-        <span>
+        <div class="scene"><svg viewBox="0 0 400 176" aria-hidden="true" font-family="'IBM Plex Sans',system-ui,sans-serif">
+  <g stroke="#2C6A86" stroke-width="1" opacity=".55"><path d="M0 0V176" /><path d="M20 0V176" /><path d="M40 0V176" /><path d="M60 0V176" /><path d="M80 0V176" /><path d="M100 0V176" /><path d="M120 0V176" /><path d="M140 0V176" /><path d="M160 0V176" /><path d="M180 0V176" /><path d="M200 0V176" /><path d="M220 0V176" /><path d="M240 0V176" /><path d="M260 0V176" /><path d="M280 0V176" /><path d="M300 0V176" /><path d="M320 0V176" /><path d="M340 0V176" /><path d="M360 0V176" /><path d="M380 0V176" /><path d="M400 0V176" /><path d="M0 0H400" /><path d="M0 20H400" /><path d="M0 40H400" /><path d="M0 60H400" /><path d="M0 80H400" /><path d="M0 100H400" /><path d="M0 120H400" /><path d="M0 140H400" /><path d="M0 160H400" /></g>
+  <g class="gear" transform="translate(330 128)"><path d="M0-30l6 0 2 8 7 3 7-4 5 5-4 7 3 7 8 2v7l-8 2-3 7 4 7-5 5-7-4-7 3-2 8h-7l-2-8-7-3-7 4-5-5 4-7-3-7-8-2v-7l8-2 3-7-4-7 5-5 7 4 7-3 2-8z" transform="translate(-3 0)" fill="none" stroke="#7FB6CF" stroke-width="2"/><circle r="8" fill="none" stroke="#7FB6CF" stroke-width="2"/></g>
+  <g class="gear rev" transform="translate(372 92)"><circle r="14" fill="none" stroke="#7FB6CF" stroke-width="2" stroke-dasharray="5 4"/><circle r="4" fill="#7FB6CF"/></g>
+  <rect x="20" y="22" width="148" height="40" rx="7" fill="#FBEAE5" stroke="#E0533A" stroke-width="2.5"/>
+  <text x="94" y="47" text-anchor="middle" font-size="13.5" font-weight="600" fill="#B93A21">Foco caliente · T₁</text>
+  <path d="M94 62v22" stroke="#FF8466" stroke-width="3"/><path d="M87 80l7 10 7-10z" fill="#FF8466"/>
+  <text x="104" y="80" font-size="13" font-weight="600" fill="#FFB4A2">Q₁</text>
+  <circle cx="94" cy="110" r="19" fill="#0F3B52" stroke="#fff" stroke-width="2.5"/><text x="94" y="115" text-anchor="middle" font-size="15" font-weight="600" fill="#fff">M</text>
+  <g class="flecha-w"><path d="M114 110h58" stroke="#62C68D" stroke-width="3"/><path d="M170 103l11 7-11 7z" fill="#62C68D"/><text x="140" y="102" font-size="13" font-weight="600" fill="#9BE3B7">W</text></g>
+  <path d="M94 129v14" stroke="#74AAF0" stroke-width="3"/><path d="M87 140l7 9 7-9z" fill="#74AAF0"/>
+  <text x="104" y="144" font-size="13" font-weight="600" fill="#A9CBF7">Q₂</text>
+  <rect x="30" y="151" width="128" height="22" rx="6" fill="#E6EEF8" stroke="#2160A8" stroke-width="2"/>
+  <text x="94" y="166" text-anchor="middle" font-size="12" font-weight="600" fill="#2160A8">Foco frío · T₂</text>
+  <text x="206" y="40" font-size="12" fill="#9CC6D9">η = W / Q₁</text>
+  <path d="M206 64c22-30 52-30 74 0s52 30 74 0" fill="none" stroke="#FFC857" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="206" y="92" font-size="11" fill="#7FB6CF">σ = F / S</text>
+</svg></div>
+        <div class="body">
           <span class="level">2º de Bachillerato</span>
           <h2>Tecnología e Ingeniería II</h2>
           <p>Teoría ilustrada y problemas resueltos tipo PAU: materiales, máquinas térmicas, electrónica digital…</p>
-          <span class="go">Entrar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </span>
+          <span class="links"><span class="go-btn">Entrar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+        </div>
       </a>
     </li>
     <li>
-      <div class="card c-robot multi">
-        <span class="num" aria-hidden="true">2</span>
-        <span class="ico" aria-hidden="true"><svg viewBox="0 0 52 52" fill="none" stroke="var(--c)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M26 6v6"/><circle cx="26" cy="5" r="2" fill="var(--c)"/><rect x="11" y="12" width="30" height="22" rx="7"/><circle cx="20" cy="23" r="2.6" fill="var(--c)"/><circle cx="32" cy="23" r="2.6" fill="var(--c)"/><path d="M17 40h18M20 34v6M32 34v6M6 22v6M46 22v6"/></svg></span>
-        <span>
+      <div class="card c-robot">
+        <div class="scene"><svg viewBox="0 0 400 176" aria-hidden="true" font-family="'IBM Plex Sans',system-ui,sans-serif">
+  <rect class="tile" x="150" y="70" width="42" height="32" rx="5" fill="#FFE0D3"/><rect class="tile" x="194" y="70" width="42" height="32" rx="5" fill="#FFD3C2"/><rect class="tile" x="238" y="70" width="42" height="32" rx="5" fill="#FFE0D3"/><rect class="tile" x="282" y="70" width="42" height="32" rx="5" fill="#FFD3C2"/><rect class="tile" x="326" y="70" width="42" height="32" rx="5" fill="#FFE0D3"/><rect class="tile" x="150" y="104" width="42" height="32" rx="5" fill="#FFD3C2"/><rect class="tile" x="194" y="104" width="42" height="32" rx="5" fill="#FFE0D3"/><rect class="tile" x="238" y="104" width="42" height="32" rx="5" fill="#FFD3C2"/><rect class="tile" x="282" y="104" width="42" height="32" rx="5" fill="#FFE0D3"/><rect class="tile" x="326" y="104" width="42" height="32" rx="5" fill="#FFD3C2"/><rect class="tile" x="150" y="138" width="42" height="32" rx="5" fill="#FFE0D3"/><rect class="tile" x="194" y="138" width="42" height="32" rx="5" fill="#FFD3C2"/><rect class="tile" x="238" y="138" width="42" height="32" rx="5" fill="#FFE0D3"/><rect class="tile" x="282" y="138" width="42" height="32" rx="5" fill="#FFD3C2"/><rect class="tile" x="326" y="138" width="42" height="32" rx="5" fill="#FFE0D3"/>
+  <path d="M193 121h44 44 44" stroke="#E2532F" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+  <path d="M347 104l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" fill="#F5B700" stroke="#C98F00" stroke-width="1.5" stroke-linejoin="round"/>
+  <g class="bot">
+    <line x1="171" y1="88" x2="171" y2="98" stroke="#5B6280" stroke-width="3"/><circle cx="171" cy="86" r="4" fill="#E2532F"/>
+    <rect x="156" y="98" width="30" height="22" rx="7" fill="#C9D3EC" stroke="#5B6280" stroke-width="2.5"/>
+    <rect x="161" y="103" width="20" height="9" rx="4" fill="#1E2A5A"/><circle cx="166" cy="107.5" r="2.4" fill="#5CE1E6"/><circle cx="176" cy="107.5" r="2.4" fill="#5CE1E6"/>
+    <rect x="160" y="121" width="22" height="13" rx="4" fill="#8EA0CF" stroke="#5B6280" stroke-width="2.5"/>
+  </g>
+  <g font-size="11.5" font-weight="700" fill="#fff">
+    <path d="M18 20h14l4 4h8l4-4h88a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H48l-4 4h-8l-4-4H18a6 6 0 0 1-6-6V26a6 6 0 0 1 6-6z" fill="#FFBF00"/><text x="22" y="36">al hacer clic en 🚩</text>
+    <path d="M18 46h14l4 4h8l4-4h72a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H48l-4 4h-8l-4-4H18a6 6 0 0 1-6-6V52a6 6 0 0 1 6-6z" fill="#4C97FF"/><text x="22" y="62">mover 10 pasos</text>
+    <path d="M18 72h14l4 4h8l4-4h58a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H48l-4 4h-8l-4-4H18a6 6 0 0 1-6-6V78a6 6 0 0 1 6-6z" fill="#4C97FF"/><text x="22" y="88">girar ↻ 90</text>
+    <path d="M18 98h14l4 4h8l4-4h80a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H48l-4 4h-8l-4-4H18a6 6 0 0 1-6-6v-12a6 6 0 0 1 6-6z" fill="#9966FF"/><text x="22" y="114">decir ¡Lo logré!</text>
+  </g>
+  <g transform="translate(360 16) scale(.36)"><path d="M52 4 L18 62 L42 62 L30 112 L80 44 L54 44 L70 4 Z" fill="#FFC93C" stroke="#E08A00" stroke-width="5" stroke-linejoin="round"/><circle cx="40" cy="40" r="6.5" fill="#fff"/><circle cx="56" cy="40" r="6.5" fill="#fff"/><circle cx="41.5" cy="41" r="3.6" fill="#1B2140"/><circle cx="57.5" cy="41" r="3.6" fill="#1B2140"/><path d="M40 54 Q49 62 58 53" fill="none" stroke="#1B2140" stroke-width="3.5" stroke-linecap="round"/></g>
+</svg></div>
+        <div class="body">
           <span class="level">1º de ESO</span>
           <h2>Computación y Robótica</h2>
-          <p>Prácticas para programar un robot paso a paso y RayoBlocks, para crear tus propios programas con bloques.</p>
+          <p>Programa un robot paso a paso y crea tus propios juegos y animaciones con bloques en RayoBlocks.</p>
           <span class="links">
             <a class="go-btn" href="robotica/">🤖 Prácticas del robot</a>
-            <a class="go-btn" href="rayoblocks/">⚡ RayoBlocks</a>
+            <a class="go-btn alt" href="rayoblocks/">⚡ RayoBlocks</a>
           </span>
-        </span>
+        </div>
       </div>
     </li>
     <li>
-      <div class="card c-dic multi">
-        <span class="num" aria-hidden="true">3</span>
-        <span class="ico" aria-hidden="true"><svg viewBox="0 0 52 52" fill="none" stroke="var(--c)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11c6-3 12-3 18 1 6-4 12-4 18-1v30c-6-3-12-3-18 1-6-4-12-4-18-1z"/><path d="M26 12v30"/><path d="M14 20h6M14 27h6M32 20h6M32 27h6"/></svg></span>
-        <span>
+      <div class="card c-dic">
+        <div class="scene"><svg viewBox="0 0 400 176" aria-hidden="true" font-family="'IBM Plex Sans',system-ui,sans-serif">
+  <circle cx="48.8" cy="95.6" r="11.5" fill="#7A4FB5"/><text x="48.8" y="100.1" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">A</text><circle cx="55.4" cy="79.3" r="11.5" fill="#7A4FB5"/><text x="55.4" y="83.8" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">B</text><circle cx="68.4" cy="64.0" r="11.5" fill="#7A4FB5"/><text x="68.4" y="68.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">C</text><circle cx="87.0" cy="50.5" r="11.5" fill="#7A4FB5"/><text x="87.0" y="55.0" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">D</text><circle cx="110.7" cy="39.3" r="11.5" fill="#7A4FB5"/><text x="110.7" y="43.8" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">E</text><circle cx="138.2" cy="30.9" r="11.5" fill="#7A4FB5"/><text x="138.2" y="35.4" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">F</text><circle cx="168.4" cy="25.7" r="11.5" fill="#7A4FB5"/><text x="168.4" y="30.2" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">G</text><circle cx="200.0" cy="24.0" r="11.5" fill="#7A4FB5"/><text x="200.0" y="28.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">H</text><circle cx="231.6" cy="25.7" r="11.5" fill="#7A4FB5"/><text x="231.6" y="30.2" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">I</text><circle cx="261.8" cy="30.9" r="11.5" fill="#7A4FB5"/><text x="261.8" y="35.4" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">J</text><circle cx="289.3" cy="39.3" r="11.5" fill="#7A4FB5"/><text x="289.3" y="43.8" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">L</text><circle class="letra-on" cx="313.0" cy="50.5" r="11.5" fill="#F5B700"/><text x="313.0" y="55.0" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">M</text><circle cx="331.6" cy="64.0" r="11.5" fill="#7A4FB5"/><text x="331.6" y="68.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">N</text><circle cx="344.6" cy="79.3" r="11.5" fill="#7A4FB5"/><text x="344.6" y="83.8" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">O</text><circle cx="351.2" cy="95.6" r="11.5" fill="#7A4FB5"/><text x="351.2" y="100.1" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">P</text>
+  <path d="M200 104c-26-14-56-16-86-8v62c30-8 60-6 86 8z" fill="#fff" stroke="#7A4FB5" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M200 104c26-14 56-16 86-8v62c-30-8-60-6-86 8z" fill="#FBF8FF" stroke="#7A4FB5" stroke-width="2.5" stroke-linejoin="round"/>
+  <g stroke="#C7B2E6" stroke-width="2.5" stroke-linecap="round"><path d="M126 112h56M126 122h48M126 132h56M126 142h40M216 112h58M216 122h46M216 132h56M216 142h36"/></g>
+</svg></div>
+        <div class="body">
           <span class="level">De 1º a 4º de ESO</span>
           <h2>Plan de Lectura</h2>
           <p>Vocabulario de Tecnología para cada curso: diccionarios que se hojean como un libro y el juego del rosco.</p>
           <span class="links">
             <a class="go-btn" href="diccionario/">📖 Diccionarios</a>
-            <a class="go-btn" href="rosco/">🔤 El Rosco</a>
+            <a class="go-btn alt" href="rosco/">🔤 El Rosco</a>
           </span>
-        </span>
+        </div>
       </div>
     </li>
     <li>
       <div class="card soon c-t4" aria-disabled="true">
-        <span class="num" aria-hidden="true">4</span>
-        <span class="ico" aria-hidden="true"><svg viewBox="0 0 52 52" fill="none" stroke="var(--c)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h16M22 8v12L10 40a4 4 0 0 0 3.5 6h25a4 4 0 0 0 3.5-6L30 20V8"/><path d="M15 32h22"/></svg></span>
-        <span>
+        <div class="scene"><svg viewBox="0 0 400 176" aria-hidden="true" font-family="'IBM Plex Sans',system-ui,sans-serif">
+  <g class="t4grid" stroke="#9CC7A8" stroke-width="1" opacity=".6"><path d="M0 0V176" /><path d="M20 0V176" /><path d="M40 0V176" /><path d="M60 0V176" /><path d="M80 0V176" /><path d="M100 0V176" /><path d="M120 0V176" /><path d="M140 0V176" /><path d="M160 0V176" /><path d="M180 0V176" /><path d="M200 0V176" /><path d="M220 0V176" /><path d="M240 0V176" /><path d="M260 0V176" /><path d="M280 0V176" /><path d="M300 0V176" /><path d="M320 0V176" /><path d="M340 0V176" /><path d="M360 0V176" /><path d="M380 0V176" /><path d="M400 0V176" /><path d="M0 0H400" /><path d="M0 20H400" /><path d="M0 40H400" /><path d="M0 60H400" /><path d="M0 80H400" /><path d="M0 100H400" /><path d="M0 120H400" /><path d="M0 140H400" /><path d="M0 160H400" /></g>
+  <g fill="none" stroke="#2B7547" stroke-width="2.5" stroke-dasharray="7 6" stroke-linejoin="round" opacity=".7">
+    <rect x="70" y="40" width="120" height="86" rx="10"/><path d="M190 83h50"/><circle cx="276" cy="83" r="36"/><path d="M276 47v-16M276 135v16M240 83h-0M312 83h16"/>
+  </g>
+  <g transform="rotate(-8 200 150)"><rect x="40" y="136" width="320" height="26" fill="#F5C400"/>
+    <g fill="#1F2A2E"><path d="M50 136h14l-14 26h-14z"/><path d="M78 136h14l-14 26h-14z"/><path d="M106 136h14l-14 26h-14z"/><path d="M134 136h14l-14 26h-14z"/><path d="M162 136h14l-14 26h-14z"/><path d="M190 136h14l-14 26h-14z"/><path d="M218 136h14l-14 26h-14z"/><path d="M246 136h14l-14 26h-14z"/><path d="M274 136h14l-14 26h-14z"/><path d="M302 136h14l-14 26h-14z"/><path d="M330 136h14l-14 26h-14z"/><path d="M358 136h14l-14 26h-14z"/></g></g>
+</svg></div>
+        <div class="body">
           <span class="level">4º de ESO</span>
           <h2>Tecnología</h2>
           <p>Materiales y prácticas de Tecnología de 4º de ESO.</p>
           <span class="tag-soon">Próximamente</span>
-        </span>
+        </div>
       </div>
     </li>
   </ul>
