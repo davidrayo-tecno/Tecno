@@ -71,6 +71,9 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(42px,7vw,76px);lin
 .card .level{font-size:13px;font-weight:600;color:var(--c);background:var(--cbg);border-radius:999px;padding:2px 11px}
 .card h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.2vw,34px);line-height:1;margin:0 0 8px;letter-spacing:-.005em}
 .card p{margin:0;color:var(--muted);font-size:15.5px;max-width:42ch}
+.card .items{margin:0;padding:0;list-style:none;color:var(--muted);font-size:15.5px;display:grid;gap:4px}
+.card .items li{position:relative;padding-left:20px}
+.card .items li::before{content:"";position:absolute;left:2px;top:.62em;width:8px;height:8px;border-radius:2px;background:var(--c)}
 .card .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:16px}
 .go-btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#fff;background:var(--c-solid);border:2px solid var(--c-solid);border-radius:12px;padding:8px 16px;text-decoration:none;transition:background .15s,color .15s}
 .go-btn.alt{background:transparent;color:var(--c)}
@@ -196,7 +199,11 @@ footer strong{color:var(--ink);font-weight:600}
   <g transform="translate(360 16) scale(.36)"><path d="M52 4 L18 62 L42 62 L30 112 L80 44 L54 44 L70 4 Z" fill="#FFC93C" stroke="#E08A00" stroke-width="5" stroke-linejoin="round"/><circle cx="40" cy="40" r="6.5" fill="#fff"/><circle cx="56" cy="40" r="6.5" fill="#fff"/><circle cx="41.5" cy="41" r="3.6" fill="#1B2140"/><circle cx="57.5" cy="41" r="3.6" fill="#1B2140"/><path d="M40 54 Q49 62 58 53" fill="none" stroke="#1B2140" stroke-width="3.5" stroke-linecap="round"/></g>
 </svg></div>
         <div class="body">
-          <p>Programa un robot paso a paso y crea tus propios juegos y animaciones con bloques en RayoBlocks.</p>
+          <ul class="items">
+            <li>Introducción a la programación por bloques.</li>
+            <li>Prácticas de programación.</li>
+            <li>Creación de proyectos con RayoBlocks.</li>
+          </ul>
           <span class="links">
             <a class="go-btn" href="robotica/">🤖 Prácticas del robot</a>
             <a class="go-btn alt" href="rayoblocks/">⚡ RayoBlocks</a>
