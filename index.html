@@ -74,7 +74,9 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(42px,7vw,76px);lin
 .card .items{margin:0;padding:0;list-style:none;color:var(--muted);font-size:15.5px;display:grid;gap:4px}
 .card .items li{position:relative;padding-left:20px}
 .card .items li::before{content:"";position:absolute;left:2px;top:.62em;width:8px;height:8px;border-radius:2px;background:var(--c)}
-.card .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:16px}
+.card .links{display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:10px;margin-top:auto;padding-top:16px;align-self:flex-start;max-width:100%}
+.card .links .go-btn{justify-content:center;white-space:nowrap}
+@media (max-width:440px){.card .links{grid-auto-flow:row;align-self:stretch}}
 .go-btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#fff;background:var(--c-solid);border:2px solid var(--c-solid);border-radius:12px;padding:8px 16px;text-decoration:none;transition:background .15s,color .15s}
 .go-btn.alt{background:transparent;color:var(--c)}
 .go-btn:hover{background:var(--c-dark);border-color:var(--c-dark);color:#fff}
