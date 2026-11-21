@@ -100,7 +100,10 @@ h1{font-family:var(--display);font-weight:700;font-size:clamp(42px,7vw,76px);lin
 .c-teii{--c:var(--cold);--cbg:var(--cold-bg);--c-solid:#1F5FA8;--c-dark:#174C88;--sbg:#0F3B52;--sh:rgba(15,59,82,.6)}
 .c-robot{--c:var(--robot);--cbg:var(--robot-bg);--c-solid:#E2532F;--c-dark:#C44220;--sbg:#FFE9DF;--sh:rgba(226,83,47,.5)}
 .c-dic{--c:var(--dic);--cbg:var(--dic-bg);--c-solid:#7A4FB5;--c-dark:#633D99;--sbg:#F1E9FC;--sh:rgba(122,79,181,.5)}
-.c-t4{--c:var(--work);--cbg:var(--work-bg);--sbg:#EAF3EC;--sh:transparent}
+.c-t4{--c:var(--work);--cbg:var(--work-bg);--c-solid:#2B7547;--c-dark:#215C37;--sbg:#EAF3EC;--sh:rgba(43,117,71,.5)}
+.c-t4 .lamp{opacity:.2}.c-t4 .lamp.r{animation:t4r 6s infinite}.c-t4 .lamp.a{animation:t4a 6s infinite}.c-t4 .lamp.g{animation:t4g 6s infinite}
+@keyframes t4g{0%,44%{opacity:1}45%,100%{opacity:.2}}@keyframes t4a{0%,44%{opacity:.2}45%,62%{opacity:1}63%,100%{opacity:.2}}@keyframes t4r{0%,62%{opacity:.2}63%,100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.c-t4 .lamp{animation:none!important;opacity:1}}
 .c-robot .tile{fill-opacity:var(--tile-op,1)}.c-t4 .t4grid{opacity:var(--grid-op,.6)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c-robot{--sbg:#3A2219;--tile-op:.22}:root:not([data-theme="light"]) .c-t4{--grid-op:.1}:root:not([data-theme="light"]) .c-dic{--sbg:#2A2138}:root:not([data-theme="light"]) .c-t4{--sbg:#17301F}}
 :root[data-theme="dark"] .c-robot{--sbg:#3A2219;--tile-op:.22}:root[data-theme="dark"] .c-t4{--grid-op:.1}:root[data-theme="dark"] .c-dic{--sbg:#2A2138}:root[data-theme="dark"] .c-t4{--sbg:#17301F}
@@ -265,22 +268,34 @@ footer strong{color:var(--ink);font-weight:600}
       </div>
     </li>
     <li>
-      <div class="card soon c-t4" aria-disabled="true">
+      <div class="card c-t4">
         <div class="head">
           <h2>Tecnología</h2>
           <span class="level">4º de ESO</span>
         </div>
         <div class="scene"><svg viewBox="0 0 400 176" aria-hidden="true" font-family="'IBM Plex Sans',system-ui,sans-serif">
   <g class="t4grid" stroke="#9CC7A8" stroke-width="1" opacity=".6"><path d="M0 0V176" /><path d="M20 0V176" /><path d="M40 0V176" /><path d="M60 0V176" /><path d="M80 0V176" /><path d="M100 0V176" /><path d="M120 0V176" /><path d="M140 0V176" /><path d="M160 0V176" /><path d="M180 0V176" /><path d="M200 0V176" /><path d="M220 0V176" /><path d="M240 0V176" /><path d="M260 0V176" /><path d="M280 0V176" /><path d="M300 0V176" /><path d="M320 0V176" /><path d="M340 0V176" /><path d="M360 0V176" /><path d="M380 0V176" /><path d="M400 0V176" /><path d="M0 0H400" /><path d="M0 20H400" /><path d="M0 40H400" /><path d="M0 60H400" /><path d="M0 80H400" /><path d="M0 100H400" /><path d="M0 120H400" /><path d="M0 140H400" /><path d="M0 160H400" /></g>
-  <g fill="none" stroke="#2B7547" stroke-width="2.5" stroke-dasharray="7 6" stroke-linejoin="round" opacity=".7">
-    <rect x="70" y="40" width="120" height="86" rx="10"/><path d="M190 83h50"/><circle cx="276" cy="83" r="36"/><path d="M276 47v-16M276 135v16M240 83h-0M312 83h16"/>
+  <g fill="none" stroke="#2B7547" stroke-width="2" stroke-dasharray="6 5" opacity=".55"><path d="M60 40h70M60 40v60M285 52h60v70"/></g>
+  <g transform="translate(160 8)">
+    <rect x="34" y="104" width="12" height="30" fill="#C89B63" stroke="#8A5A2B" stroke-width="2"/>
+    <path d="M14 10h52l4-8H10z" fill="#3B4650"/>
+    <rect x="16" y="10" width="48" height="96" rx="8" fill="#26313A" stroke="#11181E" stroke-width="2"/>
+    <circle cx="40" cy="31" r="12" fill="#3a1512"/><circle cx="40" cy="58" r="12" fill="#3a2a08"/><circle cx="40" cy="85" r="12" fill="#0c2a17"/>
+    <circle class="lamp r" cx="40" cy="31" r="11" fill="#FF4A3A"/><circle class="lamp a" cx="40" cy="58" r="11" fill="#FFC21A"/><circle class="lamp g" cx="40" cy="85" r="11" fill="#2EE07A"/>
   </g>
+  <g transform="translate(278 60)"><rect width="62" height="44" rx="5" fill="#1F6FA8" stroke="#124A72" stroke-width="2"/><g fill="#E8EEF2"><rect x="8" y="4" width="46" height="6" rx="1"/></g><text x="8" y="32" font-size="11" font-weight="700" fill="#fff">UNO</text></g>
+  <path d="M200 70 C240 70 250 82 278 82" stroke="#D93A2B" stroke-width="2.5" fill="none"/><path d="M200 66 C245 60 255 76 278 76" stroke="#1F2A2E" stroke-width="2.5" fill="none" opacity=".6"/>
   <g transform="rotate(-8 200 150)"><rect x="40" y="136" width="320" height="26" fill="#F5C400"/>
     <g fill="#1F2A2E"><path d="M50 136h14l-14 26h-14z"/><path d="M78 136h14l-14 26h-14z"/><path d="M106 136h14l-14 26h-14z"/><path d="M134 136h14l-14 26h-14z"/><path d="M162 136h14l-14 26h-14z"/><path d="M190 136h14l-14 26h-14z"/><path d="M218 136h14l-14 26h-14z"/><path d="M246 136h14l-14 26h-14z"/><path d="M274 136h14l-14 26h-14z"/><path d="M302 136h14l-14 26h-14z"/><path d="M330 136h14l-14 26h-14z"/><path d="M358 136h14l-14 26h-14z"/></g></g>
 </svg></div>
         <div class="body">
-          <p>Materiales y prácticas de Tecnología de 4º de ESO.</p>
-          <span class="tag-soon">Próximamente</span>
+          <ul class="items">
+            <li>Proyecto Semáforo: estructura, LED y Arduino.</li>
+            <li>14 pasos con planos, esquema y programa.</li>
+          </ul>
+          <span class="links">
+            <a class="go-btn" href="proyecto-semaforo.html">🚦 Proyecto Semáforo</a>
+          </span>
         </div>
       </div>
     </li>
