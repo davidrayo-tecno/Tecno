@@ -217,18 +217,6 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
   </section>
 
   <!-- 3. Hoja de entrega -->
-  <section id="done" hidden>
-    <div class="card" style="text-align:center;margin-top:24px">
-      <div style="font-size:64px;line-height:1" aria-hidden="true">✅</div>
-      <h2 style="font-size:34px">Cuestionario entregado</h2>
-      <p id="dWho" style="margin:0 0 6px;font-weight:600"></p>
-      <p style="margin:0">Tus respuestas han llegado al profesor.</p>
-      <p class="muted" style="margin:6px 0 18px;font-size:15px">Por seguridad, se han borrado de este ordenador.</p>
-      <button class="btn go big" id="bFin" type="button">Terminar</button>
-      <p class="muted" style="margin:12px 0 0;font-size:14px" id="dCnt"></p>
-    </div>
-  </section>
-
   <section id="end" hidden>
     <div class="card">
       <h2 id="eTitle">✅ Cuestionario entregado</h2>
@@ -468,6 +456,7 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
   function estadoEnvio(){
     var e=$('eSend'); if(!e||!st) return;
     $('eList').hidden=enviando; // las respuestas solo se muestran si el envío falla (para guardarlas en PDF)
+    if(!enviando && !st.enviado) $('eTitle').textContent='⚠️ Tus respuestas aún no se han enviado';
     if(st.enviado){ e.className='note ok'; e.innerHTML='✅ Tus respuestas han llegado al profesor.'; $('bRetry').hidden=true; }
     else if(enviando){ e.className='note'; e.innerHTML='⏳ Enviando tus respuestas al profesor…'; $('bRetry').hidden=true; }
     else { e.className='note x'; e.innerHTML='⚠️ No se han podido enviar tus respuestas'+(st.errEnvio?' ('+esc(st.errEnvio)+')':'')+'. Pulsa «Reintentar el envío». Si sigue fallando, avisa al profesor y guarda la hoja en PDF.'; $('bRetry').hidden=false; }
@@ -486,29 +475,23 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
       .then(function(){ enviando=false; if(st.enviado){ limpiar(); return; } guardar(); estadoEnvio(); });
   }
 
-  /* Tras un envío correcto no queda ningún dato del alumno en este ordenador */
-  var finT=null;
+  /* Tras un envío correcto no queda ningún dato del alumno y el cuestionario vuelve a estar listo para el siguiente */
   function limpiar(){
-    var quien=st.nom+' '+st.ape+' · '+st.grupo+' · '+hora(st.end);
     borrar();
     try{ sessionStorage.clear(); }catch(e){}
     st=null;
     ['eList','eHead','eScore','qText','qExtra','qAns','map','who'].forEach(function(id){ $(id).innerHTML=''; });
     $('nom').value=''; $('ape').value=''; $('gru').value=''; okNombre();
-    ['intro','quiz','end'].forEach(function(id){ $(id).hidden=true; }); $('clock').hidden=true;
-    $('dWho').textContent=quien; $('done').hidden=false;
-    // Sustituye la entrada del historial: «Atrás» no devuelve al cuestionario de este alumno
+    ['quiz','end'].forEach(function(id){ $(id).hidden=true; }); $('clock').hidden=true; $('modal').hidden=true;
+    $('intro').hidden=false;
+    // Sustituye la entrada del historial: «Atrás» no devuelve al cuestionario del alumno anterior
     try{ history.replaceState(null,'',location.pathname); }catch(e){}
-    var n=30; $('dCnt').textContent='Esta pantalla se cerrará sola en '+n+' s.';
-    clearInterval(finT); finT=setInterval(function(){ n--; $('dCnt').textContent='Esta pantalla se cerrará sola en '+n+' s.'; if(n<=0) terminar(); },1000);
     window.scrollTo(0,0);
   }
-  function terminar(){ clearInterval(finT); location.replace('../'); }
-  $('bFin').addEventListener('click',terminar);
 
   function hoja(){
     $('intro').hidden=true; $('quiz').hidden=true; $('clock').hidden=true; $('modal').hidden=true; $('end').hidden=false;
-    $('eTitle').textContent=st.motivo==='tiempo'?'⏱ Se acabó el tiempo: cuestionario entregado':st.motivo==='salidas'?'🚫 Entregado automáticamente por salir '+MAX_SALIDAS+' veces de la pantalla completa':'✅ Cuestionario entregado';
+    $('eTitle').textContent=!st.enviado&&!st.errEnvio?'⏳ Enviando tus respuestas…':st.motivo==='tiempo'?'⏱ Se acabó el tiempo: cuestionario entregado':st.motivo==='salidas'?'🚫 Entregado automáticamente por salir '+MAX_SALIDAS+' veces de la pantalla completa':'✅ Cuestionario entregado';
     var usado=Math.round((st.end-st.start)/1000);
     $('eHead').innerHTML=[
       ['Alumno/a',esc(st.nom+' '+st.ape)],
