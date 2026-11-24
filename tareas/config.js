@@ -7,5 +7,5 @@
  * Contraseña del profesor en modo de prueba: prueba
  */
 window.TAREAS_CONFIG = {
-  url: ''
+  url: 'https://script.google.com/macros/s/AKfycbw-11MWZeLnjgeixEfpQB-zJVq1PJ_Wc8yRSZH7jXOVJnOiQ7JaxJ4Lb7ZAS1LQacLMEA/exec'
 };
