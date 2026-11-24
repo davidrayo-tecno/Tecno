@@ -33,6 +33,14 @@ h1{font-family:var(--display);font-size:clamp(34px,6vw,52px);line-height:1;margi
 .grid .e{font-size:30px}
 .grid b{display:block;font-family:var(--display);font-size:30px;line-height:1.1;margin-top:6px}
 .grid small{color:var(--muted);font-size:15px}
+.prof{display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--brand);border-radius:12px;padding:20px 22px;margin:0 0 48px}
+.prof .e{font-size:36px;line-height:1}
+.prof h2{font-family:var(--display);font-size:28px;line-height:1.1;margin:0}
+.prof p{margin:2px 0 0;color:var(--muted);font-size:15px}
+.prof .txt{flex:1;min-width:220px}
+.prof a{display:inline-block;background:var(--brand);color:#fff;font-weight:600;text-decoration:none;border-radius:10px;padding:11px 20px}
+.prof a:hover,.prof a:focus-visible{filter:brightness(1.12)}
+.grid{margin-bottom:28px}
 @media (prefers-reduced-motion:reduce){.grid a{transition:none}}
 </style>
 </head>
@@ -49,6 +57,14 @@ h1{font-family:var(--display);font-size:clamp(34px,6vw,52px);line-height:1;margi
     <li><a href="4ESO-cuestionario/" style="--c:#2160A8"><span class="e" aria-hidden="true">📘</span><b>4.º ESO</b><small>Electricidad básica (Tema 2)</small></a></li>
     <li><a href="1Bach-cuestionario/" style="--c:#B93A21"><span class="e" aria-hidden="true">📕</span><b>1.º Bachillerato</b><small>Tecnología e Ingeniería I</small></a></li>
   </ul>
+  <section class="prof" aria-labelledby="tProf">
+    <span class="e" aria-hidden="true">🔒</span>
+    <div class="txt">
+      <h2 id="tProf">Zona del profesor</h2>
+      <p>Resultados de los cuestionarios por grupo-clase, corrección y exportación a Excel. Acceso solo con la contraseña del profesor.</p>
+    </div>
+    <a href="profesor.html">Ver resultados →</a>
+  </section>
 </main>
 </body>
 </html>
