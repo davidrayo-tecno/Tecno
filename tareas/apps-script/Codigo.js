@@ -44,6 +44,9 @@ function instalar() {
   if (CLAVE_INICIAL === 'cambia-esta-clave') {
     throw new Error('Antes de instalar, cambia CLAVE_INICIAL por una contraseña tuya.');
   }
+  if (String(CLAVE_INICIAL).length < 8) {
+    throw new Error('La contraseña de profesor debe tener al menos 8 caracteres.');
+  }
   props.setProperty('CLAVE_PROFESOR', CLAVE_INICIAL);
   if (!props.getProperty('CARPETA_ID')) {
     var carpeta = DriveApp.createFolder('Entregas de alumnos · ' + ss.getName());
@@ -144,7 +147,11 @@ function nuevoId_() {
 
 function comprobarClave_(req) {
   var clave = PropertiesService.getScriptProperties().getProperty('CLAVE_PROFESOR');
-  if (!clave || req.clave !== clave) throw new Error('Contraseña de profesor incorrecta');
+  if (!clave || req.clave !== clave) {
+    // Espera antes de responder para que no se puedan probar contraseñas a toda velocidad.
+    if (typeof Utilities !== 'undefined' && Utilities.sleep) Utilities.sleep(2000);
+    throw new Error('Contraseña de profesor incorrecta');
+  }
 }
 
 function plazoCerrado_(t) {

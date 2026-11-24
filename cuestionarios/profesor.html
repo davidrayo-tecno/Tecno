@@ -113,11 +113,11 @@ tbody tr:hover{background:var(--bg)}
   <!-- Acceso -->
   <section id="vLogin">
     <h1>Resultados de los cuestionarios</h1>
-    <p class="note" id="nPrueba" hidden>Modo de prueba: los datos están solo en este navegador. La contraseña es <b>prueba</b>. Para recibir las entregas de todos los ordenadores, conecta la plataforma con tu hoja de Google (instrucciones en <code>tareas/LEEME.md</code>).</p>
+    <p class="note" id="nPrueba" hidden>Modo de prueba: los datos están solo en este navegador. Para usar tu propia contraseña y recibir las entregas de todos los ordenadores, conecta la plataforma con tu hoja de Google.</p>
     <form class="card" id="fLogin" style="max-width:420px">
       <label for="clave">Contraseña de profesor</label>
       <input type="password" id="clave" autocomplete="current-password" style="width:100%" required>
-      <p class="muted" style="font-size:14px;margin:8px 0 14px">Es la misma contraseña que la de la plataforma de Tareas.</p>
+      <p class="muted" style="font-size:14px;margin:8px 0 14px">Acceso solo para el profesor. Es la misma contraseña que la de la plataforma de Tareas. La sesión se cierra sola al cerrar la pestaña o tras 20 minutos sin actividad.</p>
       <button class="btn" id="bLogin" type="submit">Entrar</button>
       <p class="note x" id="eLogin" hidden style="margin:14px 0 0"></p>
     </form>
@@ -237,11 +237,22 @@ tbody tr:hover{background:var(--bg)}
   $('fLogin').addEventListener('submit',function(ev){
     ev.preventDefault(); var c=$('clave').value; $('bLogin').disabled=true; $('eLogin').hidden=true;
     API.llamar('login',{clave:c}).then(function(){
-      clave=c; try{ sessionStorage.setItem('cuest-prof',c); }catch(e){} entrar();
+      clave=c; actividad(); entrar();
     },function(err){ $('eLogin').textContent=err.message; $('eLogin').hidden=false; })
       .then(function(){ $('bLogin').disabled=false; });
   });
-  $('bOut').addEventListener('click',function(){ try{ sessionStorage.removeItem('cuest-prof'); }catch(e){} clave=''; $('clave').value=''; $('bOut').hidden=true; vista('vLogin'); });
+  function salir(msg){
+    try{ sessionStorage.removeItem('cuest-prof'); }catch(e){}
+    clave=''; datos=[]; cur=null; $('clave').value=''; $('bOut').hidden=true;
+    $('tabla').innerHTML=''; $('tiles').innerHTML=''; $('stats').innerHTML=''; $('dList').innerHTML='';
+    $('eLogin').textContent=msg||''; $('eLogin').hidden=!msg; vista('vLogin');
+  }
+  $('bOut').addEventListener('click',function(){ salir(); });
+  /* Cierre automático de la sesión tras 20 minutos sin actividad */
+  var INACTIVIDAD=20*60*1000, ultima=Date.now();
+  function actividad(){ ultima=Date.now(); if(clave){ try{ sessionStorage.setItem('cuest-prof',JSON.stringify({c:clave,t:ultima})); }catch(e){} } }
+  ['click','keydown','scroll','mousemove','touchstart'].forEach(function(t){ document.addEventListener(t,function(){ if(clave && Date.now()-ultima>5000) actividad(); },{passive:true}); });
+  setInterval(function(){ if(clave && Date.now()-ultima>INACTIVIDAD) salir('Sesión cerrada por inactividad. Vuelve a escribir tu contraseña.'); },15000);
 
   function entrar(){
     $('bOut').hidden=false;
@@ -264,7 +275,7 @@ tbody tr:hover{background:var(--bg)}
       else { var conDatos=Object.keys(gs).sort().filter(function(g){return datos.some(function(e){return e.grupo===g;});}); if(conDatos.length===1) $('sGrupo').value=conDatos[0]; }
       pintar();
     },function(err){
-      if(/contraseña/i.test(err.message)){ $('bOut').click(); return; }
+      if(/contraseña/i.test(err.message)){ salir('La contraseña ya no es válida. Vuelve a entrar.'); return; }
       $('tabla').innerHTML='<tbody><tr><td class="empty">⚠️ '+esc(err.message)+'</td></tr></tbody>';
     }).then(function(){ $('bReload').disabled=false; });
   }
@@ -422,7 +433,11 @@ tbody tr:hover{background:var(--bg)}
   });
 
   /* Sesión guardada en esta pestaña */
-  try{ var s=sessionStorage.getItem('cuest-prof'); if(s){ API.llamar('login',{clave:s}).then(function(){ clave=s; entrar(); },function(){}); } }catch(e){}
+  try{
+    var s=JSON.parse(sessionStorage.getItem('cuest-prof')||'null');
+    if(s && s.c && Date.now()-s.t<INACTIVIDAD){ API.llamar('login',{clave:s.c}).then(function(){ clave=s.c; actividad(); entrar(); },function(){ salir(); }); }
+    else sessionStorage.removeItem('cuest-prof');
+  }catch(e){}
 })();
 </script>
 </body>

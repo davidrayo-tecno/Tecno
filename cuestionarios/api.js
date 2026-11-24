@@ -2,7 +2,7 @@
  * Conexión de los cuestionarios con el servidor de Tareas (Google Apps Script).
  * - Usa la misma URL que tareas/config.js: una sola instalación sirve para Tareas y Cuestionarios.
  * - Sin URL: «modo de prueba». El servidor se ejecuta dentro del navegador y los datos
- *   se guardan solo en este navegador. Contraseña del profesor: prueba
+ *   se guardan solo en este navegador (contraseña del modo de prueba en tareas/LEEME.md).
  * Antes de este archivo hay que cargar tareas/config.js.
  */
 (function () {
