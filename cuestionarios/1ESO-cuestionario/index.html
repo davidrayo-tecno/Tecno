@@ -157,10 +157,10 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
 
   <!-- 1. Inicio -->
   <section id="intro">
-    <h1>Cuestionario 1.º ESO · Prácticas del robot</h1>
+    <h1 id="tit"></h1>
     <div class="card">
       <h2>¿En qué consiste?</h2>
-      <p style="margin:0">Es un cuestionario sobre las <b>24 prácticas del robot</b> de Computación y Robótica: secuencias, giros, bucles, sensores, condiciones, estado y depuración de errores. Hay preguntas de varios tipos:</p>
+      <p style="margin:0" id="desc"></p>
       <ul class="types">
         <li>Test</li><li>Verdadero o falso</li><li>Respuesta cerrada</li><li>Respuesta abierta</li><li>Reflexión</li><li>Pensamiento crítico</li>
       </ul>
@@ -263,7 +263,7 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
 <script>
 (function(){
   'use strict';
-  var CLAVE='cuestionario-1eso-robot-v3';
+  var CLAVE='cuestionario-'+window.CUESTIONARIO.id+'-v3';
   /* Número de salidas de la pantalla completa con las que el cuestionario se entrega solo (0 = nunca). */
   var MAX_SALIDAS=3;
 
@@ -272,6 +272,7 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
 
   /* ---------- Utilidades ---------- */
   var $=function(id){return document.getElementById(id);};
+  document.title=C.titulo+' · IES Palomares'; $('tit').textContent=C.titulo; $('desc').innerHTML=C.descripcion;
   function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   function shuffle(a){ a=a.slice(); for(var j=a.length-1;j>0;j--){ var r=Math.floor(Math.random()*(j+1)); var t=a[j]; a[j]=a[r]; a[r]=t; } return a; }
   function mmss(ms){ var s=Math.max(0,Math.ceil(ms/1000)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
