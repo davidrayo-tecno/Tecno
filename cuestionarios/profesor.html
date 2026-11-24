@@ -184,14 +184,12 @@ tbody tr:hover{background:var(--bg)}
 
 <script src="../tareas/config.js"></script>
 <script src="api.js"></script>
+<script src="lista.js"></script>
 <script>
 (function(){
   'use strict';
-  /* Cuestionarios disponibles. Para añadir uno nuevo, añade aquí su id y su archivo de preguntas. */
-  var CUESTIONARIOS=[
-    {id:'1eso-robot',titulo:'1.º ESO · Prácticas del robot',src:'1ESO-cuestionario/preguntas.js'},
-    {id:'4eso-electricidad',titulo:'4.º ESO · Electricidad básica',src:'4ESO-cuestionario/preguntas.js'}
-  ];
+  /* Cuestionarios disponibles: lista.js */
+  var CUESTIONARIOS=window.LISTA_CUESTIONARIOS||[];
   var API=window.CuestAPI, $=function(id){return document.getElementById(id);};
   var MOTIVO={boton:'Botón «Entregar»',tiempo:'Fin del tiempo',salidas:'Automática por salidas'};
   var clave='', bancos={}, datos=[], cur=null, orden={col:'apellidos',dir:1};
