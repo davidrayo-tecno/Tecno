@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Resultados de los cuestionarios · Profesor · IES Palomares</title>
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --brand:#1B5F7E; --bg:#F4F6F7; --surface:#FFFFFF; --ink:#16232B; --muted:#55636D; --line:#D5DDE2;
+  --ok:#22A06B; --ok-bg:#E4F4EC; --ko:#D9363E; --ko-bg:#FBE9EA; --warn:#C27803; --warn-bg:#FDF3DC;
+  --move:#3B82F6; --turn:#8B5CF6; --loop:#F59E0B; --until:#EA580C; --if:#0EA5A4; --pen:#DB2777; --act:#16A34A;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --brand:#174E67; --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E;
+  --ok-bg:#16301F; --ko-bg:#3A1C1E; --warn-bg:#3A2E14; color-scheme:dark}}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.bar{background:var(--brand);color:#fff}
+.container{max-width:1160px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left))}
+.bar .container{height:64px;display:flex;align-items:center;gap:12px}
+.bar a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:12px}
+.bar img{width:42px;height:42px;border-radius:50%;background:#fff;padding:2px}
+.bar b{font-family:var(--display);font-size:22px;font-weight:600}
+.bar .out{margin-left:auto;background:rgba(255,255,255,.15);border:0;color:#fff;font:inherit;font-weight:600;padding:7px 14px;border-radius:10px;cursor:pointer}
+h1{font-family:var(--display);font-size:clamp(30px,5vw,44px);line-height:1.05;margin:22px 0 14px}
+h2{font-family:var(--display);font-size:26px;line-height:1.1;margin:0 0 12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 18px}
+.muted{color:var(--muted)}
+.btn{font:inherit;font-weight:600;border:0;border-radius:10px;padding:9px 16px;background:var(--brand);color:#fff;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.ko{background:var(--ko)} .btn.go{background:var(--ok)}
+.btn:disabled{opacity:.5;cursor:wait}
+label{display:block;font-weight:600;font-size:14px;margin:0 0 4px}
+input,select,textarea{font:inherit;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:8px 10px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand)}
+textarea{width:100%;min-height:70px;resize:vertical}
+.note{padding:10px 14px;border-radius:12px;background:var(--warn-bg);font-size:15px;margin:0 0 16px}
+.note.x{background:var(--ko-bg)}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.tools .sp{flex:1}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:0 0 18px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.tile b{display:block;font-family:var(--display);font-size:38px;line-height:1}
+.tile small{color:var(--muted)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;user-select:none}
+th.num,td.num{text-align:right}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--bg)}
+.pill{display:inline-block;font-size:13px;font-weight:600;padding:2px 9px;border-radius:99px}
+.pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.ko{background:var(--ko-bg);color:var(--ko)}
+.nota{font-weight:700}
+.nota.s{color:var(--ko)}
+.stat{display:grid;grid-template-columns:minmax(0,1fr) 160px 54px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.stat .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stat .b{height:12px;background:var(--line);border-radius:99px;overflow:hidden}
+.stat .b i{display:block;height:100%;border-radius:99px}
+.stat .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+/* Detalle */
+.dhead{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px 16px;margin:0 0 6px}
+.dhead small{display:block;color:var(--muted);font-size:13px}
+.ans{border-top:1px solid var(--line);padding:14px 0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tag{font-size:13px;font-weight:600;padding:2px 10px;border-radius:99px;background:var(--bg);border:1px solid var(--line)}
+.tag.k{color:#fff;border:0}
+.k-test{background:#2160A8} .k-vf{background:#7A4FB5} .k-cerrada{background:#0E7C7B} .k-abierta{background:#2B7547} .k-reflexion{background:#B45309} .k-critico{background:#B93A21}
+.q{font-weight:600;margin:0 0 6px}
+.r{margin-top:6px;padding:8px 12px;border-radius:10px;background:var(--bg);white-space:pre-wrap;word-break:break-word}
+.sol{font-size:14px;color:var(--muted);margin-top:6px}
+.st{font-size:14px;font-weight:600;margin-top:6px}
+.st.ok{color:var(--ok)} .st.ko{color:var(--ko)}
+.grade{display:grid;grid-template-columns:150px 1fr;gap:12px;margin-top:10px;align-items:start}
+.grade input[type=number]{width:100%}
+@media (max-width:600px){.grade{grid-template-columns:1fr}}
+.final{position:sticky;bottom:0;background:var(--surface);border-top:2px solid var(--line);padding:12px 0;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.final .n{font-family:var(--display);font-size:34px;line-height:1}
+.prog{display:inline-flex;flex-direction:column;gap:3px;margin:4px 0;font-size:14px}
+.blk{display:inline-block;color:#fff;font-weight:600;padding:3px 10px;border-radius:7px;width:max-content;max-width:100%}
+.blk.move{background:var(--move)} .blk.turn{background:var(--turn)} .blk.loop{background:var(--loop)}
+.blk.until{background:var(--until)} .blk.if{background:var(--if)} .blk.pen{background:var(--pen)} .blk.act{background:var(--act)}
+.nest{display:flex;flex-direction:column;gap:3px;border-left:5px solid var(--c);margin-left:5px;padding:2px 0 2px 9px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:grid;place-items:center;z-index:50;padding:18px}
+.modal .card{max-width:440px;margin:0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-weight:600;z-index:60;max-width:90vw;text-align:center}
+@media print{
+  .bar,.noprint,.final .btn{display:none !important}
+  body{background:#fff;color:#000}
+  .card{border:0;padding:0}
+  .ans{break-inside:avoid}
+  .final{position:static}
+}
+</style>
+</head>
+<body>
+<header class="bar"><div class="container">
+  <a href="./"><img src="../logo-ies-palomares.png" alt=""><b>Cuestionarios · Profesor</b></a>
+  <button class="out noprint" id="bOut" type="button" hidden>Salir</button>
+</div></header>
+
+<main class="container">
+  <!-- Acceso -->
+  <section id="vLogin">
+    <h1>Resultados de los cuestionarios</h1>
+    <p class="note" id="nPrueba" hidden>Modo de prueba: los datos están solo en este navegador. Para usar tu propia contraseña y recibir las entregas de todos los ordenadores, conecta la plataforma con tu hoja de Google.</p>
+    <form class="card" id="fLogin" style="max-width:420px">
+      <label for="clave">Contraseña de profesor</label>
+      <input type="password" id="clave" autocomplete="current-password" style="width:100%" required>
+      <p class="muted" style="font-size:14px;margin:8px 0 14px">Acceso solo para el profesor. Es la misma contraseña que la de la plataforma de Tareas. La sesión se cierra sola al cerrar la pestaña o tras 20 minutos sin actividad.</p>
+      <button class="btn" id="bLogin" type="submit">Entrar</button>
+      <p class="note x" id="eLogin" hidden style="margin:14px 0 0"></p>
+    </form>
+  </section>
+
+  <!-- Resultados del grupo -->
+  <section id="vGrupo" hidden>
+    <h1>Resultados de los cuestionarios</h1>
+    <div class="card tools noprint">
+      <div><label for="sCuest">Cuestionario</label><select id="sCuest"></select></div>
+      <div><label for="sGrupo">Grupo</label><select id="sGrupo"></select></div>
+      <span class="sp"></span>
+      <button class="btn alt" id="bReload" type="button">↻ Actualizar</button>
+      <button class="btn" id="bCsv" type="button">⬇ Exportar (Excel)</button>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <div class="card">
+      <h2>Alumnado</h2>
+      <p class="muted" style="font-size:14px;margin:-6px 0 10px">Pulsa en un alumno para ver sus respuestas y corregir las preguntas abiertas. Pulsa en un título de columna para ordenar.</p>
+      <div class="tw"><table id="tabla"></table></div>
+    </div>
+    <div class="card">
+      <h2>Preguntas más falladas</h2>
+      <p class="muted" style="font-size:14px;margin:-6px 0 10px">Porcentaje de aciertos del grupo en cada pregunta de corrección automática, de menos a más. En las que corriges tú, la media de puntos de las entregas ya revisadas.</p>
+      <div id="stats"></div>
+    </div>
+  </section>
+
+  <!-- Detalle de un alumno -->
+  <section id="vAlumno" hidden>
+    <p class="noprint" style="margin:18px 0 0"><button class="btn alt" id="bBack" type="button">← Volver al grupo</button></p>
+    <h1 id="dNombre"></h1>
+    <div class="card">
+      <div class="dhead" id="dHead"></div>
+      <div id="dSal"></div>
+    </div>
+    <div class="card">
+      <div id="dList"></div>
+      <label for="dCom" style="margin-top:14px">Comentario general (solo lo ves tú y aparece en la exportación)</label>
+      <textarea id="dCom" maxlength="2000"></textarea>
+      <div class="final">
+        <div><small class="muted">Nota final</small><div class="n" id="dNota"></div></div>
+        <small class="muted" id="dPts"></small>
+        <span style="flex:1"></span>
+        <button class="btn alt" id="bPrint" type="button">🖨️ Imprimir</button>
+        <button class="btn ko" id="bDel" type="button">🗑 Borrar entrega</button>
+        <button class="btn go" id="bSave" type="button">💾 Guardar corrección</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="card">
+    <h2 id="mTitle">¿Borrar esta entrega?</h2>
+    <p id="mText" style="margin:0"></p>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px">
+      <button class="btn alt" id="mNo" type="button">Cancelar</button>
+      <button class="btn ko" id="mYes" type="button">Borrar</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="../tareas/config.js"></script>
+<script src="api.js"></script>
+<script>
+(function(){
+  'use strict';
+  /* Cuestionarios disponibles. Para añadir uno nuevo, añade aquí su id y su archivo de preguntas. */
+  var CUESTIONARIOS=[
+    {id:'1eso-robot',titulo:'1.º ESO · Prácticas del robot',src:'1ESO-cuestionario/preguntas.js'}
+  ];
+  var API=window.CuestAPI, $=function(id){return document.getElementById(id);};
+  var MOTIVO={boton:'Botón «Entregar»',tiempo:'Fin del tiempo',salidas:'Automática por salidas'};
+  var clave='', bancos={}, datos=[], cur=null, orden={col:'apellidos',dir:1};
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function txt(html){ var d=document.createElement('div'); d.innerHTML=html; return d.textContent.replace(/\s+/g,' ').trim(); }
+  function coma(n,d){ return n==null||isNaN(n)?'—':(Math.round(n*Math.pow(10,d||1))/Math.pow(10,d||1)).toString().replace('.',','); }
+  function fecha(iso){ var d=new Date(iso); return isNaN(d)?'':d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }
+  function hora(t){ return new Date(t).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }
+  function dur(s){ s=Math.round(s||0); var m=Math.floor(s/60), r=s%60; return m?m+' min'+(r?' '+r+' s':''):r+' s'; }
+  var toastT; function toast(m){ var t=$('toast'); t.textContent=m; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(function(){t.hidden=true;},3000); }
+  function vista(v){ ['vLogin','vGrupo','vAlumno'].forEach(function(x){ $(x).hidden=x!==v; }); window.scrollTo(0,0); }
+
+  /* ---------- Banco de preguntas ---------- */
+  function banco(id){
+    if(bancos[id]) return Promise.resolve(bancos[id]);
+    var c=CUESTIONARIOS.filter(function(x){return x.id===id;})[0];
+    return new Promise(function(ok,mal){
+      var s=document.createElement('script'); s.src=c.src;
+      s.onload=function(){ bancos[id]=window.CUESTIONARIO; ok(bancos[id]); };
+      s.onerror=function(){ mal(new Error('No se pudo cargar '+c.src)); };
+      document.head.appendChild(s);
+    });
+  }
+
+  /* ---------- Corrección (siempre se recalcula aquí con las respuestas guardadas) ---------- */
+  function calc(e,B){
+    var auto=0,autoMax=0,prof=0,profMax=0,bien=0,nAuto=0,pend=0, rev=e.revision||{}, pts=rev.pts||{};
+    B.preguntas.forEach(function(q){
+      var v=e.respuestas[q.id];
+      if(B.AUTO[q.k]){ nAuto++; autoMax+=q.pt; if(B.correcta(q,v)){ auto+=q.pt; bien++; } }
+      else { profMax+=q.pt; var p=pts[q.id];
+        if(p===undefined||p===null||p===''){ if(v!==undefined&&String(v).trim()!=='') pend++; }
+        else prof+=Number(p); }
+    });
+    var notaAuto=autoMax?10*auto/autoMax:0;
+    var final=e.estado==='revisada'&&e.notaFinal!=null?e.notaFinal:null;
+    return {bien:bien,nAuto:nAuto,auto:auto,autoMax:autoMax,prof:prof,profMax:profMax,pend:pend,notaAuto:notaAuto,final:final,
+      calcFinal:10*(auto+prof)/(autoMax+profMax),respondidas:Object.keys(e.respuestas).length};
+  }
+
+  /* ---------- Acceso ---------- */
+  $('nPrueba').hidden=!API.modoPrueba;
+  $('fLogin').addEventListener('submit',function(ev){
+    ev.preventDefault(); var c=$('clave').value; $('bLogin').disabled=true; $('eLogin').hidden=true;
+    API.llamar('login',{clave:c}).then(function(){
+      clave=c; actividad(); entrar();
+    },function(err){ $('eLogin').textContent=err.message; $('eLogin').hidden=false; })
+      .then(function(){ $('bLogin').disabled=false; });
+  });
+  function salir(msg){
+    try{ sessionStorage.removeItem('cuest-prof'); }catch(e){}
+    clave=''; datos=[]; cur=null; $('clave').value=''; $('bOut').hidden=true;
+    $('tabla').innerHTML=''; $('tiles').innerHTML=''; $('stats').innerHTML=''; $('dList').innerHTML='';
+    $('eLogin').textContent=msg||''; $('eLogin').hidden=!msg; vista('vLogin');
+  }
+  $('bOut').addEventListener('click',function(){ salir(); });
+  /* Cierre automático de la sesión tras 20 minutos sin actividad */
+  var INACTIVIDAD=20*60*1000, ultima=Date.now();
+  function actividad(){ ultima=Date.now(); if(clave){ try{ sessionStorage.setItem('cuest-prof',JSON.stringify({c:clave,t:ultima})); }catch(e){} } }
+  ['click','keydown','scroll','mousemove','touchstart'].forEach(function(t){ document.addEventListener(t,function(){ if(clave && Date.now()-ultima>5000) actividad(); },{passive:true}); });
+  setInterval(function(){ if(clave && Date.now()-ultima>INACTIVIDAD) salir('Sesión cerrada por inactividad. Vuelve a escribir tu contraseña.'); },15000);
+
+  function entrar(){
+    $('bOut').hidden=false;
+    $('sCuest').innerHTML=CUESTIONARIOS.map(function(c){return '<option value="'+c.id+'">'+esc(c.titulo)+'</option>';}).join('');
+    vista('vGrupo'); cargar();
+  }
+
+  /* ---------- Datos del grupo ---------- */
+  function cargar(){
+    var id=$('sCuest').value; $('bReload').disabled=true;
+    $('tabla').innerHTML='<tbody><tr><td class="empty">Cargando…</td></tr></tbody>';
+    Promise.all([banco(id),API.llamar('cuestionarios',{clave:clave,cuestionario:id})]).then(function(r){
+      datos=r[1]; var B=r[0];
+      var gs={}; B.grupos.forEach(function(g){gs[g]=1;}); datos.forEach(function(e){gs[e.grupo]=1;});
+      var sel=$('sGrupo').value;
+      $('sGrupo').innerHTML='<option value="">Todos los grupos</option>'+Object.keys(gs).sort().map(function(g){
+        var n=datos.filter(function(e){return e.grupo===g;}).length;
+        return '<option value="'+esc(g)+'">'+esc(g)+' ('+n+')</option>';}).join('');
+      if(sel && gs[sel]) $('sGrupo').value=sel;
+      else { var conDatos=Object.keys(gs).sort().filter(function(g){return datos.some(function(e){return e.grupo===g;});}); if(conDatos.length===1) $('sGrupo').value=conDatos[0]; }
+      pintar();
+    },function(err){
+      if(/contraseña/i.test(err.message)){ salir('La contraseña ya no es válida. Vuelve a entrar.'); return; }
+      $('tabla').innerHTML='<tbody><tr><td class="empty">⚠️ '+esc(err.message)+'</td></tr></tbody>';
+    }).then(function(){ $('bReload').disabled=false; });
+  }
+  function filtrados(){ var g=$('sGrupo').value; return datos.filter(function(e){return !g||e.grupo===g;}); }
+
+  function pintar(){
+    var B=bancos[$('sCuest').value], L=filtrados();
+    L.forEach(function(e){ e._c=calc(e,B); });
+    var media=function(a){ return a.length?a.reduce(function(s,x){return s+x;},0)/a.length:null; };
+    var finales=L.filter(function(e){return e._c.final!=null;}).map(function(e){return e._c.final;});
+    var pend=L.filter(function(e){return e.estado!=='revisada';}).length;
+    var sal=L.filter(function(e){return (e.salidas||[]).length;}).length;
+    var aprob=finales.filter(function(n){return n>=5;}).length;
+    $('tiles').innerHTML=[
+      [L.length,'entregas'],
+      [coma(media(L.map(function(e){return e._c.notaAuto;}))),'media de la parte automática'],
+      [coma(media(finales)),'media final ('+finales.length+' revisadas)'],
+      [finales.length?aprob+' / '+finales.length:'—','aprobados (revisadas)'],
+      [pend,'pendientes de revisar'],
+      [sal,'con salidas de pantalla']
+    ].map(function(t){return '<div class="tile"><b>'+t[0]+'</b><small>'+t[1]+'</small></div>';}).join('');
+
+    // Tabla
+    var cols=[
+      ['apellidos','Alumno/a',function(e){return '<b>'+esc(e.apellidos)+'</b>, '+esc(e.nombre)+(e.intento>1?' <span class="pill warn">Intento '+e.intento+'</span>':'');}],
+      ['grupo','Grupo',function(e){return esc(e.grupo);}],
+      ['entrega','Entrega',function(e){return fecha(e.entrega);}],
+      ['duracion','Duración',function(e){return dur(e.duracion);},1],
+      ['respondidas','Respondidas',function(e){return e._c.respondidas+' / '+B.preguntas.length;},1],
+      ['notaAuto','Automática',function(e){return e._c.bien+' / '+e._c.nAuto+' · <span class="nota'+(e._c.notaAuto<5?' s':'')+'">'+coma(e._c.notaAuto)+'</span>';},1],
+      ['final','Nota final',function(e){return e._c.final==null?'<span class="muted">—</span>':'<span class="nota'+(e._c.final<5?' s':'')+'">'+coma(e._c.final,2)+'</span>';},1],
+      ['salidas','Salidas',function(e){var n=(e.salidas||[]).length;return n?'<span class="pill ko">'+n+'</span>':'<span class="muted">0</span>';},1],
+      ['motivo','Forma',function(e){return e.motivo==='boton'?'<span class="muted">Botón</span>':e.motivo==='tiempo'?'<span class="pill warn">Tiempo</span>':'<span class="pill ko">Salidas</span>';}],
+      ['estado','Estado',function(e){return e.estado==='revisada'?'<span class="pill ok">Revisada</span>':'<span class="pill warn">Pendiente'+(e._c.pend?' ('+e._c.pend+')':'')+'</span>';}]
+    ];
+    var val=function(e,c){ return c==='notaAuto'?e._c.notaAuto:c==='final'?(e._c.final==null?-1:e._c.final):c==='respondidas'?e._c.respondidas:c==='salidas'?(e.salidas||[]).length:c==='apellidos'?(e.apellidos+' '+e.nombre).toLowerCase():e[c]; };
+    L.sort(function(a,b){ var x=val(a,orden.col), y=val(b,orden.col); return (x>y?1:x<y?-1:0)*orden.dir; });
+    var h='<thead><tr>'+cols.map(function(c){return '<th data-c="'+c[0]+'"'+(c[3]?' class="num"':'')+'>'+c[1]+(orden.col===c[0]?(orden.dir>0?' ▲':' ▼'):'')+'</th>';}).join('')+'</tr></thead><tbody>';
+    if(!L.length) h+='<tr><td colspan="'+cols.length+'" class="empty">Todavía no hay entregas'+($('sGrupo').value?' de este grupo':'')+'.</td></tr>';
+    L.forEach(function(e){ h+='<tr data-id="'+esc(e.id)+'">'+cols.map(function(c){return '<td'+(c[3]?' class="num"':'')+'>'+c[2](e)+'</td>';}).join('')+'</tr>'; });
+    $('tabla').innerHTML=h+'</tbody>';
+    $('tabla').querySelectorAll('th').forEach(function(th){ th.addEventListener('click',function(){ var c=th.dataset.c; orden.dir=orden.col===c?-orden.dir:1; orden.col=c; pintar(); }); });
+    $('tabla').querySelectorAll('tbody tr[data-id]').forEach(function(tr){ tr.addEventListener('click',function(){ abrir(tr.dataset.id); }); });
+
+    // Estadísticas por pregunta
+    var st=B.preguntas.map(function(q){
+      if(B.AUTO[q.k]){ var ok=L.filter(function(e){return B.correcta(q,e.respuestas[q.id]);}).length; return {q:q,v:L.length?ok/L.length:null,auto:true}; }
+      var rv=L.map(function(e){return ((e.revision||{}).pts||{})[q.id];}).filter(function(p){return p!==undefined&&p!==null&&p!=='';}).map(Number);
+      return {q:q,v:rv.length?media(rv)/q.pt:null,auto:false,n:rv.length};
+    });
+    st.sort(function(a,b){ return (a.v==null?2:a.v)-(b.v==null?2:b.v); });
+    $('stats').innerHTML=L.length?st.map(function(s){
+      var pc=s.v==null?null:Math.round(s.v*100), col=pc==null?'var(--line)':pc<40?'var(--ko)':pc<70?'var(--warn)':'var(--ok)';
+      return '<div class="stat"><div class="t" title="'+esc(txt(s.q.q))+'"><span class="tag k k-'+s.q.k+'" style="margin-right:6px">'+esc(B.KIND[s.q.k])+'</span>'+esc(s.q.p)+' · '+esc(txt(s.q.q))+'</div>'+
+        '<div class="b"><i style="width:'+(pc||0)+'%;background:'+col+'"></i></div><div class="v">'+(pc==null?'—':pc+'%')+'</div></div>';
+    }).join(''):'<p class="empty">Sin entregas.</p>';
+  }
+
+  $('sCuest').addEventListener('change',cargar);
+  $('sGrupo').addEventListener('change',pintar);
+  $('bReload').addEventListener('click',cargar);
+
+  /* ---------- Exportar CSV (se abre en Excel) ---------- */
+  $('bCsv').addEventListener('click',function(){
+    var B=bancos[$('sCuest').value], L=filtrados(); if(!L.length){ toast('No hay entregas que exportar.'); return; }
+    var cel=function(v){ v=String(v==null?'':v); return /[;"\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
+    var head=['Apellidos','Nombre','Grupo','Intento','Inicio','Entrega','Duración (min)','Forma de entrega','Salidas','Respondidas','Aciertos automáticos','Nota automática','Nota final','Estado','Comentario']
+      .concat(B.preguntas.map(function(q){return 'P'+q.id+' · '+B.KIND[q.k];}));
+    var rows=L.map(function(e){
+      var c=e._c||calc(e,B);
+      return [e.apellidos,e.nombre,e.grupo,e.intento,fecha(e.inicio),fecha(e.entrega),coma(e.duracion/60),MOTIVO[e.motivo]||e.motivo,(e.salidas||[]).length,c.respondidas,
+        c.bien+'/'+c.nAuto,coma(c.notaAuto),c.final==null?'':coma(c.final,2),e.estado==='revisada'?'Revisada':'Pendiente',e.comentario]
+        .concat(B.preguntas.map(function(q){ var v=e.respuestas[q.id]; if(v===undefined) return '';
+          var t=q.k==='test'?txt(q.o[v]):q.k==='vf'?(v?'Verdadero':'Falso'):v;
+          return B.AUTO[q.k]?(B.correcta(q,v)?'✔ ':'✘ ')+t:t; }));
+    });
+    var csv='﻿'+[head].concat(rows).map(function(r){return r.map(cel).join(';');}).join('\r\n');
+    var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+    a.download='cuestionario-'+$('sCuest').value+'-'+($('sGrupo').value||'todos').replace(/[^\wºª]+/g,'-')+'.csv';
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
+  });
+
+  /* ---------- Detalle y corrección ---------- */
+  function abrir(id){
+    var B=bancos[$('sCuest').value]; cur=datos.filter(function(e){return e.id===id;})[0]; if(!cur) return;
+    var e=cur, c=calc(e,B), rev=e.revision||{}, pts=rev.pts||{}, com=rev.com||{};
+    $('dNombre').textContent=e.nombre+' '+e.apellidos;
+    $('dHead').innerHTML=[
+      ['Grupo',esc(e.grupo)+(e.intento>1?' · intento '+e.intento:'')],['Inicio y entrega',fecha(e.inicio)+' – '+hora(e.entrega)],['Duración',dur(e.duracion)],
+      ['Forma de entrega',MOTIVO[e.motivo]||esc(e.motivo)],['Respondidas',c.respondidas+' de '+B.preguntas.length],
+      ['Parte automática',c.bien+' / '+c.nAuto+' aciertos · '+coma(c.notaAuto)],['Salidas de la pantalla completa',String((e.salidas||[]).length)]
+    ].map(function(x){return '<div><small>'+x[0]+'</small><b>'+x[1]+'</b></div>';}).join('');
+    $('dSal').innerHTML=(e.salidas||[]).length?'<p class="note x" style="margin:12px 0 0"><b>Registro de salidas:</b><br>'+
+      e.salidas.map(function(s){return hora(s.t)+' · '+esc(s.m)+(s.d!=null?' ('+dur(s.d)+' fuera)':'');}).join('<br>')+'</p>':'';
+    var bloq={}; (e.bloqueadas||[]).forEach(function(i){bloq[i]=1;});
+    var h='';
+    B.preguntas.forEach(function(q){
+      var v=e.respuestas[q.id], hay=v!==undefined&&String(v).trim()!=='', t;
+      if(!hay) t='<i class="muted">Sin responder</i>';
+      else if(q.k==='test') t=q.o[v]; else if(q.k==='vf') t=v?'Verdadero':'Falso'; else t=esc(v);
+      h+='<div class="ans"><div class="tags"><span class="tag">P'+q.id+'</span><span class="tag k k-'+q.k+'">'+esc(B.KIND[q.k])+'</span><span class="tag">'+esc(q.p)+'</span><span class="tag">'+q.pt+' pt</span>'+
+        (bloq[q.id]?'<span class="tag">⏱ Tiempo agotado</span>':'')+'</div><div class="q">'+q.q+'</div>'+(q.e||'')+'<div class="r">'+t+'</div>';
+      if(B.AUTO[q.k]){
+        var ok=B.correcta(q,v);
+        h+='<div class="st '+(ok?'ok':'ko')+'">'+(ok?'✅ Correcta · '+q.pt+' pt':'❌ Incorrecta · 0 pt')+'</div>';
+        if(!ok) h+='<div class="sol">Respuesta correcta: '+(q.k==='test'?q.o[q.a]:q.k==='vf'?(q.a?'Verdadero':'Falso'):esc(q.ok[0]))+'</div>';
+      } else {
+        var w=hay?(String(v).trim().match(/\S+/g)||[]).length:0;
+        h+='<div class="sol">'+w+' palabras</div><div class="grade"><div><label for="p'+q.id+'">Puntos (0 a '+q.pt+')</label>'+
+          '<input type="number" id="p'+q.id+'" data-q="'+q.id+'" data-max="'+q.pt+'" min="0" max="'+q.pt+'" step="0.25" value="'+(pts[q.id]!=null&&pts[q.id]!==''?pts[q.id]:(hay?'':0))+'"></div>'+
+          '<div><label for="c'+q.id+'">Comentario</label><textarea id="c'+q.id+'" data-c="'+q.id+'" maxlength="500" style="min-height:44px">'+esc(com[q.id]||'')+'</textarea></div></div>';
+      }
+      h+='</div>';
+    });
+    $('dList').innerHTML=h;
+    $('dCom').value=e.comentario||'';
+    $('dList').querySelectorAll('input[data-q]').forEach(function(i){ i.addEventListener('input',notaViva); });
+    notaViva(); vista('vAlumno');
+  }
+  function leerPuntos(){
+    var pts={}, faltan=0;
+    $('dList').querySelectorAll('input[data-q]').forEach(function(i){
+      if(i.value===''){ faltan++; return; }
+      pts[i.dataset.q]=Math.max(0,Math.min(Number(i.dataset.max),Number(i.value)));
+    });
+    return {pts:pts,faltan:faltan};
+  }
+  function notaViva(){
+    var B=bancos[$('sCuest').value], p=leerPuntos(), c=calc(Object.assign({},cur,{revision:{pts:p.pts}}),B);
+    $('dNota').textContent=coma(c.calcFinal,2);
+    $('dPts').textContent=coma(c.auto+c.prof,2)+' de '+(c.autoMax+c.profMax)+' puntos'+(p.faltan?' · faltan '+p.faltan+' por puntuar':'');
+  }
+  $('bSave').addEventListener('click',function(){
+    var B=bancos[$('sCuest').value], p=leerPuntos(); if(p.faltan){ toast('Puntúa todas las preguntas abiertas antes de guardar.'); return; }
+    var com={}; $('dList').querySelectorAll('textarea[data-c]').forEach(function(t){ if(t.value.trim()) com[t.dataset.c]=t.value.trim(); });
+    var c=calc(Object.assign({},cur,{revision:{pts:p.pts}}),B), nota=Math.round(c.calcFinal*100)/100;
+    $('bSave').disabled=true;
+    API.llamar('revisarCuestionario',{clave:clave,id:cur.id,revision:{pts:p.pts,com:com},notaFinal:nota,comentario:$('dCom').value.trim()}).then(function(){
+      cur.revision={pts:p.pts,com:com}; cur.notaFinal=nota; cur.estado='revisada'; cur.comentario=$('dCom').value.trim();
+      toast('✅ Corrección guardada · nota '+coma(nota,2)); vista('vGrupo'); pintar();
+    },function(err){ toast('⚠️ '+err.message); }).then(function(){ $('bSave').disabled=false; });
+  });
+  $('bBack').addEventListener('click',function(){ vista('vGrupo'); pintar(); });
+  $('bPrint').addEventListener('click',function(){ window.print(); });
+  $('bDel').addEventListener('click',function(){
+    $('mText').innerHTML='Se borrará la entrega de <b>'+esc(cur.nombre+' '+cur.apellidos)+'</b>. Úsalo, por ejemplo, para que repita el cuestionario. No se puede deshacer.';
+    $('modal').hidden=false; $('mNo').focus();
+  });
+  $('mNo').addEventListener('click',function(){ $('modal').hidden=true; });
+  $('mYes').addEventListener('click',function(){
+    $('modal').hidden=true;
+    API.llamar('borrarCuestionario',{clave:clave,id:cur.id}).then(function(){
+      datos=datos.filter(function(e){return e.id!==cur.id;}); toast('Entrega borrada.'); vista('vGrupo'); pintar();
+    },function(err){ toast('⚠️ '+err.message); });
+  });
+
+  /* Sesión guardada en esta pestaña */
+  try{
+    var s=JSON.parse(sessionStorage.getItem('cuest-prof')||'null');
+    if(s && s.c && Date.now()-s.t<INACTIVIDAD){ API.llamar('login',{clave:s.c}).then(function(){ clave=s.c; actividad(); entrar(); },function(){ salir(); }); }
+    else sessionStorage.removeItem('cuest-prof');
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

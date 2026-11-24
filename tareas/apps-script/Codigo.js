@@ -26,6 +26,10 @@ var HOJA_ENTREGAS = 'Entregas';
 var COL_TAREAS = ['id', 'grupo', 'titulo', 'descripcion', 'fechaLimite', 'visible', 'preguntas', 'creada', 'actualizada'];
 var COL_ENTREGAS = ['id', 'tareaId', 'tituloTarea', 'grupo', 'apellidos', 'nombre', 'correo', 'fecha',
   'respuestas', 'detalle', 'puntos', 'maximo', 'notaAuto', 'notaFinal', 'estado', 'comentario', 'revisada'];
+var HOJA_CUEST = 'Cuestionarios';
+var COL_CUEST = ['id', 'cuestionario', 'grupo', 'apellidos', 'nombre', 'inicio', 'entrega', 'duracion', 'motivo',
+  'respondidas', 'aciertos', 'autoTotal', 'notaAuto', 'salidas', 'respuestas', 'bloqueadas', 'revision',
+  'notaFinal', 'comentario', 'estado', 'intento', 'recibida'];
 
 /* ------------------------------------------------------------------ */
 /* Instalación                                                         */
@@ -35,9 +39,13 @@ function instalar() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   prepararHoja_(ss, HOJA_TAREAS, COL_TAREAS);
   prepararHoja_(ss, HOJA_ENTREGAS, COL_ENTREGAS);
+  prepararHoja_(ss, HOJA_CUEST, COL_CUEST);
   var props = PropertiesService.getScriptProperties();
   if (CLAVE_INICIAL === 'cambia-esta-clave') {
     throw new Error('Antes de instalar, cambia CLAVE_INICIAL por una contraseña tuya.');
+  }
+  if (String(CLAVE_INICIAL).length < 8) {
+    throw new Error('La contraseña de profesor debe tener al menos 8 caracteres.');
   }
   props.setProperty('CLAVE_PROFESOR', CLAVE_INICIAL);
   if (!props.getProperty('CARPETA_ID')) {
@@ -70,7 +78,10 @@ function doPost(e) {
       grupos: accGrupos_, tareas: accTareas_, entregar: accEntregar_, misEntregas: accMisEntregas_,
       // Profesor (necesitan clave)
       login: accLogin_, todasTareas: accTodasTareas_, guardarTarea: accGuardarTarea_,
-      borrarTarea: accBorrarTarea_, entregas: accEntregas_, revisar: accRevisar_
+      borrarTarea: accBorrarTarea_, entregas: accEntregas_, revisar: accRevisar_,
+      // Cuestionarios (entregar: alumno · el resto: profesor)
+      entregarCuestionario: accEntregarCuestionario_, cuestionarios: accCuestionarios_,
+      revisarCuestionario: accRevisarCuestionario_, borrarCuestionario: accBorrarCuestionario_
     };
     var f = acciones[req.accion];
     if (!f) throw new Error('Acción desconocida');
@@ -136,7 +147,11 @@ function nuevoId_() {
 
 function comprobarClave_(req) {
   var clave = PropertiesService.getScriptProperties().getProperty('CLAVE_PROFESOR');
-  if (!clave || req.clave !== clave) throw new Error('Contraseña de profesor incorrecta');
+  if (!clave || req.clave !== clave) {
+    // Espera antes de responder para que no se puedan probar contraseñas a toda velocidad.
+    if (typeof Utilities !== 'undefined' && Utilities.sleep) Utilities.sleep(2000);
+    throw new Error('Contraseña de profesor incorrecta');
+  }
 }
 
 function plazoCerrado_(t) {
@@ -383,4 +398,103 @@ function accRevisar_(req) {
   } finally {
     lock.releaseLock();
   }
+}
+
+/* ------------------------------------------------------------------ */
+/* Cuestionarios                                                       */
+/* Las preguntas y las soluciones están en la web; aquí se guardan las  */
+/* respuestas tal cual y el panel del profesor las vuelve a corregir.   */
+/* ------------------------------------------------------------------ */
+
+/** Crea la pestaña «Cuestionarios» si aún no existe (instalaciones anteriores). */
+function hojaCuest_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss.getSheetByName(HOJA_CUEST)) prepararHoja_(ss, HOJA_CUEST, COL_CUEST);
+}
+
+function texto_(v, max) { return String(v === undefined || v === null ? '' : v).trim().slice(0, max); }
+
+function accEntregarCuestionario_(req) {
+  hojaCuest_();
+  var nombre = texto_(req.nombre, 40), apellidos = texto_(req.apellidos, 60);
+  var grupo = texto_(req.grupo, 30), cuest = texto_(req.cuestionario, 40);
+  if (nombre.length < 2 || apellidos.length < 2) throw new Error('Faltan el nombre o los apellidos');
+  if (!grupo) throw new Error('Falta el grupo');
+  if (!/^[a-z0-9-]{3,40}$/.test(cuest)) throw new Error('Cuestionario desconocido');
+  var id = /^[a-z0-9]{8,24}$/.test(String(req.intentoId || '')) ? String(req.intentoId) : nuevoId_();
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var filas = leer_(HOJA_CUEST, COL_CUEST);
+    // Si el alumno reintenta el envío, no se duplica la entrega.
+    var ya = filas.filter(function (x) { return String(x.id) === id; })[0];
+    if (ya) return { id: id, intento: Number(ya.intento) || 1 };
+    var previas = filas.filter(function (x) {
+      return x.cuestionario === cuest && x.grupo === grupo &&
+        normalizarTexto(x.nombre) === normalizarTexto(nombre) && normalizarTexto(x.apellidos) === normalizarTexto(apellidos);
+    }).length;
+    var num = function (v, max) { v = Number(v); return isFinite(v) ? Math.max(0, Math.min(max, v)) : 0; };
+    var fecha = function (v) { var d = new Date(v); return isNaN(d) ? new Date() : d; };
+    var obj = {
+      id: id, cuestionario: cuest, grupo: grupo, apellidos: apellidos, nombre: nombre,
+      inicio: fecha(req.inicio), entrega: fecha(req.entrega), duracion: num(req.duracion, 86400),
+      motivo: texto_(req.motivo, 20), respondidas: num(req.respondidas, 500), aciertos: num(req.aciertos, 500),
+      autoTotal: num(req.autoTotal, 500), notaAuto: num(req.notaAuto, 10),
+      salidas: JSON.stringify(req.salidas || []).slice(0, 5000),
+      respuestas: JSON.stringify(req.respuestas || {}).slice(0, 45000),
+      bloqueadas: JSON.stringify(req.bloqueadas || []).slice(0, 2000),
+      revision: '', notaFinal: '', comentario: '', estado: 'pendiente', intento: previas + 1, recibida: new Date()
+    };
+    escribir_(HOJA_CUEST, COL_CUEST, obj, null);
+    return { id: id, intento: obj.intento };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function accCuestionarios_(req) {
+  comprobarClave_(req);
+  hojaCuest_();
+  return leer_(HOJA_CUEST, COL_CUEST)
+    .filter(function (x) { return !req.cuestionario || x.cuestionario === req.cuestionario; })
+    .map(function (x) {
+      var f = function (v) { return v instanceof Date ? v.toISOString() : String(v); };
+      return {
+        id: String(x.id), cuestionario: String(x.cuestionario), grupo: String(x.grupo),
+        apellidos: String(x.apellidos), nombre: String(x.nombre), inicio: f(x.inicio), entrega: f(x.entrega),
+        duracion: Number(x.duracion), motivo: String(x.motivo), salidas: parse_(x.salidas, []),
+        respuestas: parse_(x.respuestas, {}), bloqueadas: parse_(x.bloqueadas, []), revision: parse_(x.revision, {}),
+        notaFinal: x.notaFinal === '' ? null : Number(x.notaFinal), comentario: String(x.comentario || ''),
+        estado: String(x.estado), intento: Number(x.intento) || 1
+      };
+    });
+}
+
+function accRevisarCuestionario_(req) {
+  comprobarClave_(req);
+  hojaCuest_();
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var x = leer_(HOJA_CUEST, COL_CUEST).filter(function (r) { return String(r.id) === req.id; })[0];
+    if (!x) throw new Error('No existe esa entrega');
+    var nota = Number(req.notaFinal);
+    x.revision = JSON.stringify(req.revision || {}).slice(0, 20000);
+    x.notaFinal = isFinite(nota) ? redondear2(Math.max(0, Math.min(10, nota))) : '';
+    x.comentario = texto_(req.comentario, 2000);
+    x.estado = 'revisada';
+    escribir_(HOJA_CUEST, COL_CUEST, x, x._fila);
+    return { notaFinal: x.notaFinal };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function accBorrarCuestionario_(req) {
+  comprobarClave_(req);
+  hojaCuest_();
+  var x = leer_(HOJA_CUEST, COL_CUEST).filter(function (r) { return String(r.id) === req.id; })[0];
+  if (!x) throw new Error('No existe esa entrega');
+  hoja_(HOJA_CUEST).deleteRow(x._fila);
+  return { ok: true };
 }

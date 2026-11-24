@@ -55,6 +55,17 @@ Hay que volver a publicarlo: **Implementar → Gestionar implementaciones → �
 
 Edita `CLAVE_INICIAL` en `Code.gs` y vuelve a ejecutar `instalar`. Se conservan las tareas y las entregas.
 
+## Cuestionarios
+
+Los cuestionarios (`cuestionarios/`) usan **este mismo servidor**: con la misma hoja y la misma URL de `config.js` se guardan también sus entregas, en la pestaña **«Cuestionarios»**.
+
+- **Alumnado:** al empezar escribe su nombre, sus apellidos y elige su grupo. Al entregar, las respuestas se envían solas. Si falla la conexión, puede reintentar el envío.
+- **Profesor:** `cuestionarios/profesor.html`, con la **misma contraseña** que Tareas (mínimo 8 caracteres). No hay ningún enlace a esta página en la web: guárdala en tus marcadores. La sesión se cierra al cerrar la pestaña o tras 20 minutos sin actividad, y cada contraseña incorrecta tarda unos segundos en responder para dificultar que se adivine. Muestra el resumen de cada grupo, la tabla del alumnado, las preguntas más falladas y permite corregir las preguntas abiertas y exportar a Excel. Al borrar una entrega, el alumno puede repetir el cuestionario.
+- Los grupos de cada cuestionario están al principio de su archivo `preguntas.js` (por ejemplo, `cuestionarios/1ESO-cuestionario/preguntas.js`).
+- En **modo de prueba** (sin URL en `config.js`) todo se guarda solo en el navegador y la contraseña es `prueba`.
+
+**Si ya tenías Tareas instalada antes de los cuestionarios:** sustituye el código de `Code.gs` por el nuevo [`apps-script/Codigo.js`](apps-script/Codigo.js) (conservando tu `CLAVE_INICIAL`) y vuelve a publicar: **Implementar → Gestionar implementaciones → ✏️ → Versión: nueva versión → Implementar**. La pestaña «Cuestionarios» se crea sola con la primera entrega.
+
 ## Privacidad y buenas prácticas
 
 - Solo tú tienes acceso a la hoja y a la carpeta de Drive. Los archivos de los alumnos no se comparten con nadie.
