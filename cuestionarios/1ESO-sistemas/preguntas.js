@@ -3,6 +3,8 @@
  * Basado en los apuntes del tema: introducción a los sistemas de computación, partes de un ordenador
  * (hardware y software) y estructura básica de un programa informático (entrada, proceso y salida).
  * 25 preguntas, todas con el mismo valor (pt: 1 → 0,4 puntos sobre 10).
+ * Corrección: todas se corrigen solas. Las abiertas llevan una rúbrica «rb» con sus ideas clave (ver ../correccion.js);
+ * el profesor puede cambiar sus puntos en el panel.
  * Las normas del examen las pone el motor común ../examen.js (ver ../LEEME.md).
  */
 (function () {
@@ -16,13 +18,25 @@
       'px;margin:6px 0;border-radius:10px;background:#fff;padding:6px;border:1px solid var(--line)">';
   }
 
+  // Palabras para reconocer ejemplos de hardware y de software en las respuestas abiertas
+  // (expresiones regulares: \\b obliga a que la palabra empiece ahí, para que «ram» no coincida dentro de «programa»)
+  var HW = '\\b(teclado|raton|monitor|pantalla|impresora|disco duro|memoria|ram|cpu|procesador|pendrive|usb|altavo|placa|tarjeta madre|microfono|camara|torre|portatil|tablet|movil|ventilador|fuente)';
+  var SW_EJ = 'windows|linux|macos|android|word|excel|powerpoint|chrome|navegador|canva|classroom|blender|roblox|minecraft|tiktok|whatsapp|youtube|gmail|discord|juego|videojuego|aplicacion|app|sistema operativo|scratch|rayoblocks';
+  var SW = '\\b(' + SW_EJ + '|programa)', SW_SOLO_EJ = '\\b(' + SW_EJ + ')';
+
   var KIND = { test: 'Test', vf: 'Verdadero o falso', cerrada: 'Respuesta cerrada', abierta: 'Respuesta abierta', reflexion: 'Reflexión', critico: 'Pensamiento crítico' };
   var AUTO = { test: 1, vf: 1, cerrada: 1 };
   var T1 = '1 · Introducción a los sistemas de computación', T2 = '2 · Hardware y software', T3 = '3 · Estructura de un programa';
   var Q = [
     { id: 1, p: T1, k: 'test', s: 45, q: '¿Qué es la <b>informática</b>?',
       o: ['El uso automático y racional de la información por medio de ordenadores', 'El conjunto de piezas que forman un ordenador', 'Un programa para escribir textos', 'La forma de conectar un ordenador a internet'], a: 0 },
-    { id: 2, p: T2, k: 'abierta', s: 150, q: 'Explica con tus palabras la diferencia entre <b>hardware</b> y <b>software</b>. Pon dos ejemplos de cada uno.' },
+    { id: 2, p: T2, k: 'abierta', s: 150, q: 'Explica con tus palabras la diferencia entre <b>hardware</b> y <b>software</b>. Pon dos ejemplos de cada uno.',
+      rb: [
+        { t: 'Dice que el hardware es físico: se puede ver y tocar', w: ['tocar', 'tangible', 'fisic', 'material', 'pieza', 'se ve'] },
+        { t: 'Dice que el software son programas o instrucciones', w: ['programa', 'instruccion', 'aplicacion', 'app', 'sistema operativo', 'intangible', 'no se puede tocar', 'no se toca'] },
+        { t: 'Pone algún ejemplo de hardware', re: HW },
+        { t: 'Pone algún ejemplo de software', re: SW_SOLO_EJ }
+      ] },
     { id: 3, p: T1, k: 'vf', s: 30, q: 'Las palabras «ordenador» y «computadora» significan lo mismo.', a: true },
     { id: 4, p: T1, k: 'test', s: 45, q: 'La palabra <b>ordenador</b>, que es la más habitual en España, viene…',
       o: ['Del francés <i>ordinateur</i>', 'Del inglés <i>computer</i>', 'Del latín <i>ordo</i>', 'Del alemán <i>Rechner</i>'], a: 0 },
@@ -61,8 +75,20 @@
       ph: 'Escribe la palabra que falta', ok: ['salida', 'la salida'] },
     { id: 23, p: T3, k: 'test', s: 45, q: 'Usas una calculadora para sumar 5 + 3. ¿A qué parte del programa corresponde <b>la operación 5 + 3</b>?',
       o: ['Al proceso', 'A la entrada', 'A la salida', 'Al almacenamiento'], a: 0 },
-    { id: 24, p: T2, k: 'critico', s: 180, q: 'Un compañero dice: «El software no se estropea nunca, porque no se puede tocar». ¿Estás de acuerdo? Razona tu respuesta con lo que has aprendido sobre el desgaste del software.' },
-    { id: 25, p: T1, k: 'reflexion', s: 150, q: '¿Qué uso haces del ordenador en tu vida diaria? Pon un ejemplo y di qué hardware y qué software utilizas en él.' }
+    { id: 24, p: T2, k: 'critico', s: 180, q: 'Un compañero dice: «El software no se estropea nunca, porque no se puede tocar». ¿Estás de acuerdo? Razona tu respuesta con lo que has aprendido sobre el desgaste del software.',
+      rb: [
+        { t: 'No está de acuerdo, o lo matiza', w: ['no estoy de acuerdo', 'no es cierto', 'no es verdad', 'falso', 'no tiene razon', 'se equivoca', 'en parte', 'no del todo', 'pero'] },
+        { t: 'Explica que puede quedarse obsoleto o anticuado', w: ['obsolet', 'anticuad', 'desactualiz', 'viejo', 'antiguo'] },
+        { t: 'Habla de los errores (bugs)', w: ['error', 'bug', 'fallo', 'falla'] },
+        { t: 'Dice que se arregla con actualizaciones', w: ['actualiz'] }
+      ] },
+    { id: 25, p: T1, k: 'reflexion', s: 150, q: '¿Qué uso haces del ordenador en tu vida diaria? Pon un ejemplo y di qué hardware y qué software utilizas en él.',
+      rb: [
+        { t: 'Cuenta para qué usa el ordenador', w: ['uso', 'utilizo', 'sirve', 'hago', 'para jugar', 'para estudiar', 'jugar', 'estudi', 'tarea', 'deberes', 'buscar', 'trabaj', 'ver ', 'escribir', 'hablar'] },
+        { t: 'Nombra algún hardware que utiliza', re: HW },
+        { t: 'Nombra algún software que utiliza', re: SW },
+        { t: 'Lo explica con al menos 20 palabras', min: 20 }
+      ] }
   ];
   // Todas las preguntas valen igual
   Q.forEach(function (q) { q.pt = 1; });
