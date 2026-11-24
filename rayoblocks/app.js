@@ -12,7 +12,7 @@
   var UI = {
     es: {
       archivo: 'Archivo', nuevo: 'Nuevo proyecto', abrir: 'Abrir desde tu equipo', guardar: 'Guardar en tu equipo',
-      ej1: 'Ejemplo: Chispa pasea', ej2: 'Ejemplo: dibujar un polígono', ej3: 'Ejemplo: atrapa la estrella',
+      ej1: 'Ejemplo: Chispa pasea', ej2: 'Ejemplo: dibujar un polígono', ej3: 'Ejemplo: atrapa la estrella', ej4: 'Juego: RayoMan atrapa rayos',
       ayuda: 'Ayuda', volver: '← Robótica', empezar: 'Empezar', detener: 'Detener', grande: 'Escenario grande',
       objeto: 'Objeto', mostrar: 'Mostrar', tamano: 'Tamaño', direccion: 'Dirección', escenario: 'Escenario', fondos: 'Fondos',
       cerrar: 'Cerrar', elegirObjeto: 'Elegir un objeto', subir: 'Subir imagen', disfraces: 'Disfraces', elegirDisfraz: 'Elegir un disfraz',
@@ -34,7 +34,7 @@
     },
     en: {
       archivo: 'File', nuevo: 'New project', abrir: 'Load from your computer', guardar: 'Save to your computer',
-      ej1: 'Example: Chispa takes a walk', ej2: 'Example: draw a polygon', ej3: 'Example: catch the star',
+      ej1: 'Example: Chispa takes a walk', ej2: 'Example: draw a polygon', ej3: 'Example: catch the star', ej4: 'Game: RayoMan catches bolts',
       ayuda: 'Help', volver: '← Robotics', empezar: 'Go', detener: 'Stop', grande: 'Large stage',
       objeto: 'Sprite', mostrar: 'Show', tamano: 'Size', direccion: 'Direction', escenario: 'Stage', fondos: 'Backdrops',
       cerrar: 'Close', elegirObjeto: 'Choose a sprite', subir: 'Upload image', disfraces: 'Costumes', elegirDisfraz: 'Choose a costume',
@@ -55,7 +55,7 @@
       cambiarPractica: 'Start another activity? Anything you have not saved from this one will be lost.', guardaPractica: 'When you finish, save your project with File → Save to your computer.'
     }
   };
-  var NOMBRES_EN = { 'Chispa': 'Chispa', 'Robot': 'Robot', 'Pelota': 'Ball', 'Coche': 'Car', 'Pez': 'Fish', 'Estrella': 'Star', 'Flecha': 'Arrow', 'Cohete': 'Rocket', 'Bloque': 'Block',
+  var NOMBRES_EN = { 'Chispa': 'Chispa', 'Robot': 'Robot', 'Pelota': 'Ball', 'Coche': 'Car', 'Pez': 'Fish', 'Estrella': 'Star', 'Flecha': 'Arrow', 'Cohete': 'Rocket', 'Bloque': 'Block', 'Rayo': 'Bolt', 'Nubarrón': 'Storm cloud', 'RayoMan': 'RayoMan', 'Ciudad': 'City',
     'Blanco': 'White', 'Cuadrícula XY': 'XY grid', 'Cielo': 'Sky', 'Campo': 'Field', 'Mar': 'Sea', 'Espacio': 'Space', 'Pizarra': 'Chalkboard', 'Laberinto': 'Maze',
     'Pop': 'Pop', 'Campana': 'Bell', 'Tambor': 'Drum', 'Láser': 'Laser', 'Moneda': 'Coin', 'Salto': 'Jump', 'Aplausos': 'Applause', 'Fanfarria': 'Fanfare' };
   function t(k) { return (UI[RB.lang] || UI.es)[k] || UI.es[k] || k; }
@@ -628,6 +628,92 @@
               blk('control_wait_until', null, { CONDITION: { block: blk('sensing_touchingobject', { TOUCHINGOBJECTMENU: 'Chispa' }) } }),
               blk('sound_play', { SOUND: 'Moneda' }), blk('data_changevariableby', { VARIABLE: puntos }, { VALUE: n(1) })]) })])
           ]) })] };
+    },
+
+    /* Juego completo: RayoMan atrapa los rayos que caen y esquiva los nubarrones.
+       Flechas ← → para moverse · cada rayo suma 1 punto · cada nubarrón quita 1 vida · cuanto más puntos, más rápido caen. */
+    'ejemplo-rayoman': function () {
+      var en = RB.lang === 'en', L = function (es, ing) { return en ? ing : es; };
+      var puntos = { id: 'var-puntos' }, vidas = { id: 'var-vidas' }, record = { id: 'var-record' };
+      var vr = function (v) { return blk('data_variable', { VARIABLE: v }); };
+      var MSG_EMPEZAR = L('empezar', 'start'), MSG_GOLPE = L('golpe', 'hit'), MSG_FIN = L('fin', 'game over');
+      var RM = 'RayoMan';
+      var tecla = function (k, dir, dx) {
+        return blk('control_if', null, { CONDITION: { block: blk('sensing_keypressed', { KEY_OPTION: k }) }, SUBSTACK: sub([
+          blk('motion_pointindirection', null, { DIRECTION: n(dir) }), blk('motion_changexby', null, { DX: n(dx) })]) });
+      };
+      var limite = function (op, valor) {
+        return blk('control_if', null, { CONDITION: { block: blk(op, null, { OPERAND1: tx('', blk('motion_xposition')), OPERAND2: tx(valor) }) },
+          SUBSTACK: sub([blk('motion_setx', null, { X: n(valor) })]) });
+      };
+      // velocidad de caída = -(base + puntos / divisor): cuantos más puntos, más rápido
+      var caida = function (base, divisor) {
+        return n(-5, blk('operator_subtract', null, { NUM1: n(0), NUM2: n(0, blk('operator_add', null, { NUM1: n(base),
+          NUM2: n(0, blk('operator_divide', null, { NUM1: n(0, vr(puntos)), NUM2: n(divisor) })) })) }));
+      };
+      var alAzar = function (a, b) { return blk('operator_random', null, { FROM: n(a), TO: n(b) }); };
+      var finObjeto = function (y) { return programa(30, y, [blk('event_whenbroadcastreceived', { BROADCAST: MSG_FIN }), blk('looks_hide'),
+        blk('control_stop', { STOP_OPTION: 'other scripts in sprite' })]); };
+
+      var escenario = esc2(['Ciudad']);
+      escenario.bloques = estado([
+        programa(30, 30, [blk('event_whenflagclicked'), blk('looks_switchbackdropto', { BACKDROP: 'Ciudad' }),
+          blk('data_setvariableto', { VARIABLE: puntos }, { VALUE: tx(0) }), blk('data_setvariableto', { VARIABLE: vidas }, { VALUE: tx(3) })])
+      ]);
+
+      var rayoman = obj('RayoMan', { x: 0, y: -125, tam: 55, estiloRot: 'left-right', bloques: estado([
+        programa(30, 30, [blk('event_whenflagclicked'), blk('looks_switchcostumeto', { COSTUME: 'rayoman-saluda' }),
+          blk('motion_gotoxy', null, { X: n(0), Y: n(-125) }), blk('motion_pointindirection', null, { DIRECTION: n(90) }),
+          blk('looks_cleargraphiceffects'), blk('looks_show'),
+          blk('looks_sayforsecs', null, { MESSAGE: tx(L('¡Atrapa los rayos ⚡ y esquiva los nubarrones! Usa las flechas ← →', 'Catch the bolts ⚡ and dodge the storm clouds! Use the ← → arrows')), SECS: n(3) }),
+          blk('looks_switchcostumeto', { COSTUME: 'rayoman-vuela' }), blk('event_broadcast', { BROADCAST: MSG_EMPEZAR }),
+          blk('control_repeat_until', null, { CONDITION: { block: blk('operator_lt', null, { OPERAND1: tx('', vr(vidas)), OPERAND2: tx(1) }) },
+            SUBSTACK: sub([tecla('right arrow', 90, 10), tecla('left arrow', -90, -10), limite('operator_gt', 210), limite('operator_lt', -210)]) })]),
+        programa(700, 30, [blk('event_whenbroadcastreceived', { BROADCAST: MSG_GOLPE }), blk('sound_play', { SOUND: 'Tambor' }),
+          blk('control_repeat', null, { TIMES: n(4), SUBSTACK: sub([blk('looks_seteffectto', { EFFECT: 'ghost' }, { VALUE: n(70) }), blk('control_wait', null, { DURATION: n(0.1) }),
+            blk('looks_seteffectto', { EFFECT: 'ghost' }, { VALUE: n(0) }), blk('control_wait', null, { DURATION: n(0.1) })]) }),
+          blk('control_if', null, { CONDITION: { block: blk('operator_lt', null, { OPERAND1: tx('', vr(vidas)), OPERAND2: tx(1) }) },
+            SUBSTACK: sub([blk('event_broadcast', { BROADCAST: MSG_FIN })]) })]),
+        programa(700, 640, [blk('event_whenbroadcastreceived', { BROADCAST: MSG_FIN }),
+          blk('control_if', null, { CONDITION: { block: blk('operator_gt', null, { OPERAND1: tx('', vr(puntos)), OPERAND2: tx('', vr(record)) }) },
+            SUBSTACK: sub([blk('data_setvariableto', { VARIABLE: record }, { VALUE: tx(0, vr(puntos)) }), blk('sound_play', { SOUND: 'Fanfarria' })]) }),
+          blk('looks_switchcostumeto', { COSTUME: 'rayoman-saluda' }), blk('looks_cleargraphiceffects'),
+          blk('looks_sayforsecs', null, { MESSAGE: tx('', blk('operator_join', null, { STRING1: tx(L('¡Fin de la partida! Puntos: ', 'Game over! Points: ')), STRING2: tx('', vr(puntos)) })), SECS: n(3) }),
+          blk('control_stop', { STOP_OPTION: 'all' })])
+      ]) });
+
+      var rayo = obj('Rayo', { x: 0, y: 170, tam: 80, visible: false, bloques: estado([
+        programa(30, 30, [blk('event_whenflagclicked'), blk('looks_hide')]),
+        programa(30, 180, [blk('event_whenbroadcastreceived', { BROADCAST: MSG_EMPEZAR }), blk('control_forever', null, { SUBSTACK: sub([
+          blk('control_create_clone_of', { CLONE_OPTION: '_myself_' }),
+          blk('control_wait', null, { DURATION: n(1, blk('operator_divide', null, { NUM1: n(0, alAzar(6, 14)), NUM2: n(10) })) })]) })]),
+        programa(600, 30, [blk('control_start_as_clone'), blk('motion_gotoxy', null, { X: n(0, alAzar(-210, 210)), Y: n(170) }), blk('looks_show'),
+          blk('control_repeat_until', null, { CONDITION: { block: blk('operator_lt', null, { OPERAND1: tx('', blk('motion_yposition')), OPERAND2: tx(-170) }) }, SUBSTACK: sub([
+            blk('motion_changeyby', null, { DY: caida(4, 5) }),
+            blk('control_if', null, { CONDITION: { block: blk('sensing_touchingobject', { TOUCHINGOBJECTMENU: RM }) }, SUBSTACK: sub([
+              blk('sound_play', { SOUND: 'Moneda' }), blk('data_changevariableby', { VARIABLE: puntos }, { VALUE: n(1) }), blk('control_delete_this_clone')]) })]) }),
+          blk('control_delete_this_clone')]),
+        finObjeto(440)
+      ]) });
+
+      var nube = obj('Nubarrón', { x: 0, y: 170, tam: 70, visible: false, bloques: estado([
+        programa(30, 30, [blk('event_whenflagclicked'), blk('looks_hide')]),
+        programa(30, 180, [blk('event_whenbroadcastreceived', { BROADCAST: MSG_EMPEZAR }), blk('control_wait', null, { DURATION: n(3) }),
+          blk('control_forever', null, { SUBSTACK: sub([blk('control_create_clone_of', { CLONE_OPTION: '_myself_' }),
+            blk('control_wait', null, { DURATION: n(2, alAzar(2, 4)) })]) })]),
+        programa(600, 30, [blk('control_start_as_clone'), blk('motion_gotoxy', null, { X: n(0, alAzar(-200, 200)), Y: n(170) }), blk('looks_show'),
+          blk('control_repeat_until', null, { CONDITION: { block: blk('operator_lt', null, { OPERAND1: tx('', blk('motion_yposition')), OPERAND2: tx(-170) }) }, SUBSTACK: sub([
+            blk('motion_changeyby', null, { DY: caida(3, 8) }),
+            blk('control_if', null, { CONDITION: { block: blk('sensing_touchingobject', { TOUCHINGOBJECTMENU: RM }) }, SUBSTACK: sub([
+              blk('data_changevariableby', { VARIABLE: vidas }, { VALUE: n(-1) }), blk('event_broadcast', { BROADCAST: MSG_GOLPE }), blk('control_delete_this_clone')]) })]) }),
+          blk('control_delete_this_clone')]),
+        finObjeto(480)
+      ]) });
+
+      return { formato: 'rayoblocks', version: 1, mensajes: [MSG_EMPEZAR, MSG_GOLPE, MSG_FIN],
+        variables: [{ id: 'var-puntos', nombre: L('puntos', 'points'), valor: 0, monitor: true }, { id: 'var-vidas', nombre: L('vidas', 'lives'), valor: 3, monitor: true },
+          { id: 'var-record', nombre: L('récord', 'record'), valor: 0, monitor: true }],
+        objetos: [escenario, rayoman, rayo, nube] };
     }
   };
   PRACTICAS = window.RBPracticas ? window.RBPracticas({ L: function (es, en) { return RB.lang === 'en' ? en : es; }, blk: blk, n: n, tx: tx, sub: sub,

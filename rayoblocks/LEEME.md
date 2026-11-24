@@ -8,6 +8,7 @@ Autor: David Rayo Torres · IES Palomares.
 - **Idiomas:** español e inglés.
 - **10 prácticas guiadas** (botón «Prácticas»): título, enunciado, reto extra y tres ayudas (dos pistas y la solución). Las ayudas usadas quedan anotadas dentro del archivo `.rayo` que entrega el alumno.
 - **Proyectos:** se guardan y se abren como archivo `.rayo` en el equipo. RayoBlocks no guarda nada en el navegador.
+- **Juego «RayoMan atrapa rayos»** (Archivo → Juego: RayoMan atrapa rayos, o el archivo `proyectos/rayoman-atrapa-rayos.rayo`): RayoMan se mueve con las flechas ← →, atrapa los rayos que caen (+1 punto) y esquiva los nubarrones (−1 vida). Cuantos más puntos, más rápido caen. Guarda el récord de la sesión. Usa clones, mensajes, variables, sensores y operadores.
 
 ## Archivos
 
