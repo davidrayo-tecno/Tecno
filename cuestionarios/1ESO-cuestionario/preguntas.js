@@ -97,6 +97,7 @@
 
   window.CUESTIONARIO = {
     id: '1eso-robot', titulo: 'Cuestionario 1.º ESO · Prácticas del robot', grupos: GRUPOS,
+    descripcion: 'Es un cuestionario sobre las <b>24 prácticas del robot</b> de Computación y Robótica: secuencias, giros, bucles, sensores, condiciones, estado y depuración de errores. Hay preguntas de varios tipos:',
     preguntas: Q, KIND: KIND, AUTO: AUTO, correcta: correcta
   };
 })();
