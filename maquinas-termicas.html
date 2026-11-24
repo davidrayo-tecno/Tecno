@@ -133,6 +133,7 @@ code{font-family:var(--mono);font-size:.92em;background:var(--surface);border:1p
 .note{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;color:var(--muted);margin:0 0 1em;font-size:15.5px}
 figure{margin:0 0 1.3em}
 figure svg{width:100%;height:auto;display:block}
+figure img{width:100%;height:auto;display:block;border-radius:6px}
 main figure{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
 figcaption{font-size:14px;color:var(--muted);margin-top:8px}
 .strokes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 1.3em;list-style:none;padding:0}
@@ -676,6 +677,14 @@ details.prob > summary::after{margin-left:auto}
   </ul>
   <div class="f">ε<sub>f</sub> = Q₂ / W &nbsp;&nbsp;|&nbsp;&nbsp; ε<sub>bc</sub> = Q₁ / W = ε<sub>f</sub> + 1<span>Eficiencia (COP). Puede ser mayor que 1, por eso no se llama rendimiento.</span></div>
   <div class="f">ε<sub>f, Carnot</sub> = T₂ / (T₁ − T₂) &nbsp;&nbsp;|&nbsp;&nbsp; ε<sub>bc, Carnot</sub> = T₁ / (T₁ − T₂)</div>
+  <h3>Resumen en una infografía</h3>
+  <figure>
+    <a href="img/maquina-frigorifica-bomba-calor.webp" target="_blank" rel="noopener" title="Abrir la infografía a tamaño completo">
+      <img src="img/maquina-frigorifica-bomba-calor.webp" width="1230" height="1278" loading="lazy"
+        alt="Infografía «Máquina frigorífica y bomba de calor». Máquina frigorífica: su objetivo es extraer calor del foco frío (enfriar); el efecto útil es el calor absorbido Qf y su eficiencia es COPf = Qf / W. Bomba de calor: su objetivo es aportar calor al foco caliente (calentar); el efecto útil es el calor cedido Qc y su eficiencia es COPc = Qc / W. En ambas, el trabajo W entra en la máquina, que absorbe Qf del foco frío (temperatura Tf) y cede Qc al foco caliente (temperatura Tc). Eficacias de Carnot (máximas teóricas): COPf = Tf / (Tc − Tf) y COPc = Tc / (Tc − Tf). Balance de energía: Qc = Qf + W. Relación entre ambas eficacias: COPc = COPf + 1, es decir, para una misma máquina y las mismas condiciones, la eficacia como bomba de calor es una unidad mayor que como máquina frigorífica. Idea clave: el esquema es el mismo; en la frigorífica interesa el calor extraído Qf y en la bomba de calor el calor aportado Qc.">
+    </a>
+    <figcaption>Esquemas, parámetros y relación entre las eficacias. En la infografía, Q<sub>c</sub> y T<sub>c</sub> son el calor y la temperatura del foco caliente (Q₁ y T₁ en esta página), y Q<sub>f</sub> y T<sub>f</sub> los del foco frío (Q₂ y T₂). Pulsa la imagen para verla a tamaño completo.</figcaption>
+  </figure>
   <h3>Circuito frigorífico</h3>
   <figure>
     <svg viewBox="0 0 420 265" role="img"><title>Circuito de una máquina frigorífica</title><desc>El compresor envía el refrigerante al condensador, que cede calor Q1; la válvula de expansión baja su presión y en el evaporador absorbe calor Q2.</desc>
