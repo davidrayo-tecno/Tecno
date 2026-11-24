@@ -61,6 +61,9 @@ tbody tr:hover{background:var(--bg)}
 .pill{display:inline-block;font-size:13px;font-weight:600;padding:2px 9px;border-radius:99px}
 .pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.ko{background:var(--ko-bg);color:var(--ko)}
 .nota{font-weight:700}
+.rub{list-style:none;padding:0;margin:6px 0 0;font-size:14px}
+.rub li{padding:2px 0}
+.rub li.ko{color:var(--muted)}
 .nota.s{color:var(--ko)}
 .stat{display:grid;grid-template-columns:minmax(0,1fr) 160px 54px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
 .stat .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -131,12 +134,13 @@ tbody tr:hover{background:var(--bg)}
       <div><label for="sGrupo">Grupo</label><select id="sGrupo"></select></div>
       <span class="sp"></span>
       <button class="btn alt" id="bReload" type="button">↻ Actualizar</button>
+      <button class="btn go" id="bAll" type="button">🤖 Corregir todos</button>
       <button class="btn" id="bCsv" type="button">⬇ Exportar (Excel)</button>
     </div>
     <div class="tiles" id="tiles"></div>
     <div class="card">
       <h2>Alumnado</h2>
-      <p class="muted" style="font-size:14px;margin:-6px 0 10px">Pulsa en un alumno para ver sus respuestas y corregir las preguntas abiertas. Pulsa en un título de columna para ordenar.</p>
+      <p class="muted" style="font-size:14px;margin:-6px 0 10px">Todas las preguntas con rúbrica se corrigen solas y la nota final sale con centésimas. Pulsa en un alumno para ver la corrección o cambiar los puntos de una pregunta abierta; «Corregir todos» guarda las notas de todas las entregas. Pulsa en un título de columna para ordenar.</p>
       <div class="tw"><table id="tabla"></table></div>
     </div>
     <div class="card">
@@ -184,20 +188,20 @@ tbody tr:hover{background:var(--bg)}
 
 <script src="../tareas/config.js"></script>
 <script src="api.js"></script>
+<script src="correccion.js"></script>
+<script src="lista.js"></script>
 <script>
 (function(){
   'use strict';
-  /* Cuestionarios disponibles. Para añadir uno nuevo, añade aquí su id y su archivo de preguntas. */
-  var CUESTIONARIOS=[
-    {id:'1eso-robot',titulo:'1.º ESO · Prácticas del robot',src:'1ESO-cuestionario/preguntas.js'},
-    {id:'4eso-electricidad',titulo:'4.º ESO · Electricidad básica',src:'4ESO-cuestionario/preguntas.js'}
-  ];
+  /* Cuestionarios disponibles: lista.js */
+  var CUESTIONARIOS=window.LISTA_CUESTIONARIOS||[];
   var API=window.CuestAPI, $=function(id){return document.getElementById(id);};
   var MOTIVO={boton:'Botón «Entregar»',tiempo:'Fin del tiempo',salidas:'Automática por salidas'};
   var clave='', bancos={}, datos=[], cur=null, orden={col:'apellidos',dir:1};
 
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   function txt(html){ var d=document.createElement('div'); d.innerHTML=html; return d.textContent.replace(/\s+/g,' ').trim(); }
+  function dos(n){ return n==null||isNaN(n)?'—':Number(n).toFixed(2).replace('.',','); }
   function coma(n,d){ return n==null||isNaN(n)?'—':(Math.round(n*Math.pow(10,d||1))/Math.pow(10,d||1)).toString().replace('.',','); }
   function fecha(iso){ var d=new Date(iso); return isNaN(d)?'':d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }
   function hora(t){ return new Date(t).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }
@@ -217,20 +221,23 @@ tbody tr:hover{background:var(--bg)}
     });
   }
 
+  var CORR=window.Correccion;
   /* ---------- Corrección (siempre se recalcula aquí con las respuestas guardadas) ---------- */
   function calc(e,B){
-    var auto=0,autoMax=0,prof=0,profMax=0,bien=0,nAuto=0,pend=0, rev=e.revision||{}, pts=rev.pts||{};
+    var auto=0,autoMax=0,prof=0,profMax=0,bien=0,nAuto=0,pend=0,rubr=0, rev=e.revision||{}, pts=rev.pts||{};
     B.preguntas.forEach(function(q){
       var v=e.respuestas[q.id];
       if(B.AUTO[q.k]){ nAuto++; autoMax+=q.pt; if(B.correcta(q,v)){ auto+=q.pt; bien++; } }
-      else { profMax+=q.pt; var p=pts[q.id];
-        if(p===undefined||p===null||p===''){ if(v!==undefined&&String(v).trim()!=='') pend++; }
-        else prof+=Number(p); }
+      else { profMax+=q.pt; var r=CORR.puntos(B,q,v,pts[q.id]);
+        if(r.modo==='pendiente') pend++; else { prof+=r.pts; if(r.modo==='rubrica') rubr++; } }
     });
     var notaAuto=autoMax?10*auto/autoMax:0;
-    var final=e.estado==='revisada'&&e.notaFinal!=null?e.notaFinal:null;
-    return {bien:bien,nAuto:nAuto,auto:auto,autoMax:autoMax,prof:prof,profMax:profMax,pend:pend,notaAuto:notaAuto,final:final,
-      calcFinal:10*(auto+prof)/(autoMax+profMax),respondidas:Object.keys(e.respuestas).length};
+    var calcFinal=Math.round(1000*(auto+prof)/(autoMax+profMax))/100;
+    var revisada=e.estado==='revisada'&&e.notaFinal!=null;
+    // La nota final se recalcula siempre con los puntos actuales de cada pregunta. Si no queda nada por corregir a mano, sale sola.
+    var final=pend?null:calcFinal;
+    return {bien:bien,nAuto:nAuto,auto:auto,autoMax:autoMax,prof:prof,profMax:profMax,pend:pend,rubr:rubr,notaAuto:notaAuto,final:final,revisada:revisada,
+      calcFinal:calcFinal,respondidas:Object.keys(e.respuestas).length};
   }
 
   /* ---------- Acceso ---------- */
@@ -287,15 +294,15 @@ tbody tr:hover{background:var(--bg)}
     L.forEach(function(e){ e._c=calc(e,B); });
     var media=function(a){ return a.length?a.reduce(function(s,x){return s+x;},0)/a.length:null; };
     var finales=L.filter(function(e){return e._c.final!=null;}).map(function(e){return e._c.final;});
-    var pend=L.filter(function(e){return e.estado!=='revisada';}).length;
+    var pend=L.filter(function(e){return e._c.final==null;}).length;
     var sal=L.filter(function(e){return (e.salidas||[]).length;}).length;
     var aprob=finales.filter(function(n){return n>=5;}).length;
     $('tiles').innerHTML=[
       [L.length,'entregas'],
       [coma(media(L.map(function(e){return e._c.notaAuto;}))),'media de la parte automática'],
-      [coma(media(finales)),'media final ('+finales.length+' revisadas)'],
-      [finales.length?aprob+' / '+finales.length:'—','aprobados (revisadas)'],
-      [pend,'pendientes de revisar'],
+      [coma(media(finales),2),'media final ('+finales.length+' corregidas)'],
+      [finales.length?aprob+' / '+finales.length:'—','aprobados'],
+      [pend,'pendientes de corregir a mano'],
       [sal,'con salidas de pantalla']
     ].map(function(t){return '<div class="tile"><b>'+t[0]+'</b><small>'+t[1]+'</small></div>';}).join('');
 
@@ -307,10 +314,10 @@ tbody tr:hover{background:var(--bg)}
       ['duracion','Duración',function(e){return dur(e.duracion);},1],
       ['respondidas','Respondidas',function(e){return e._c.respondidas+' / '+B.preguntas.length;},1],
       ['notaAuto','Automática',function(e){return e._c.bien+' / '+e._c.nAuto+' · <span class="nota'+(e._c.notaAuto<5?' s':'')+'">'+coma(e._c.notaAuto)+'</span>';},1],
-      ['final','Nota final',function(e){return e._c.final==null?'<span class="muted">—</span>':'<span class="nota'+(e._c.final<5?' s':'')+'">'+coma(e._c.final,2)+'</span>';},1],
+      ['final','Nota final',function(e){return e._c.final==null?'<span class="muted">—</span>':'<span class="nota'+(e._c.final<5?' s':'')+'">'+dos(e._c.final)+'</span>';},1],
       ['salidas','Salidas',function(e){var n=(e.salidas||[]).length;return n?'<span class="pill ko">'+n+'</span>':'<span class="muted">0</span>';},1],
       ['motivo','Forma',function(e){return e.motivo==='boton'?'<span class="muted">Botón</span>':e.motivo==='tiempo'?'<span class="pill warn">Tiempo</span>':'<span class="pill ko">Salidas</span>';}],
-      ['estado','Estado',function(e){return e.estado==='revisada'?'<span class="pill ok">Revisada</span>':'<span class="pill warn">Pendiente'+(e._c.pend?' ('+e._c.pend+')':'')+'</span>';}]
+      ['estado','Estado',function(e){return e._c.revisada?'<span class="pill ok">Revisada</span>':e._c.final!=null?'<span class="pill ok">🤖 Corregida</span>':'<span class="pill warn">Pendiente'+(e._c.pend?' ('+e._c.pend+')':'')+'</span>';}]
     ];
     var val=function(e,c){ return c==='notaAuto'?e._c.notaAuto:c==='final'?(e._c.final==null?-1:e._c.final):c==='respondidas'?e._c.respondidas:c==='salidas'?(e.salidas||[]).length:c==='apellidos'?(e.apellidos+' '+e.nombre).toLowerCase():e[c]; };
     L.sort(function(a,b){ var x=val(a,orden.col), y=val(b,orden.col); return (x>y?1:x<y?-1:0)*orden.dir; });
@@ -324,7 +331,7 @@ tbody tr:hover{background:var(--bg)}
     // Estadísticas por pregunta
     var st=B.preguntas.map(function(q){
       if(B.AUTO[q.k]){ var ok=L.filter(function(e){return B.correcta(q,e.respuestas[q.id]);}).length; return {q:q,v:L.length?ok/L.length:null,auto:true}; }
-      var rv=L.map(function(e){return ((e.revision||{}).pts||{})[q.id];}).filter(function(p){return p!==undefined&&p!==null&&p!=='';}).map(Number);
+      var rv=L.map(function(e){return CORR.puntos(B,q,e.respuestas[q.id],((e.revision||{}).pts||{})[q.id]);}).filter(function(r){return r.modo!=='pendiente';}).map(function(r){return r.pts;});
       return {q:q,v:rv.length?media(rv)/q.pt:null,auto:false,n:rv.length};
     });
     st.sort(function(a,b){ return (a.v==null?2:a.v)-(b.v==null?2:b.v); });
@@ -334,6 +341,26 @@ tbody tr:hover{background:var(--bg)}
         '<div class="b"><i style="width:'+(pc||0)+'%;background:'+col+'"></i></div><div class="v">'+(pc==null?'—':pc+'%')+'</div></div>';
     }).join(''):'<p class="empty">Sin entregas.</p>';
   }
+
+  /* ---------- Corregir todos: guarda en la hoja la nota automática de cada entrega sin revisar ---------- */
+  $('bAll').addEventListener('click',function(){
+    var B=bancos[$('sCuest').value], L=filtrados().filter(function(e){ return !e._c.revisada; });
+    var listos=L.filter(function(e){ return e._c.pend===0; }), faltan=L.length-listos.length;
+    if(!listos.length){ toast(L.length?'Quedan '+faltan+' entregas con preguntas sin rúbrica: corrígelas a mano.':'Todas las entregas ya están corregidas.'); return; }
+    $('bAll').disabled=true; var hechas=0, err=0;
+    listos.reduce(function(p,e){ return p.then(function(){
+      var pt={}, rev=e.revision||{};
+      B.preguntas.forEach(function(q){ if(!B.AUTO[q.k]){ var r=CORR.puntos(B,q,e.respuestas[q.id],(rev.pts||{})[q.id]); pt[q.id]=r.pts; } });
+      var c=calc(Object.assign({},e,{revision:{pts:pt}}),B);
+      $('bAll').textContent='🤖 Corrigiendo '+(hechas+err+1)+' de '+listos.length+'…';
+      return API.llamar('revisarCuestionario',{clave:clave,id:e.id,revision:{pts:pt,com:rev.com||{}},notaFinal:c.calcFinal,comentario:e.comentario||''}).then(function(){
+        e.revision={pts:pt,com:rev.com||{}}; e.notaFinal=c.calcFinal; e.estado='revisada'; hechas++;
+      },function(){ err++; });
+    }); },Promise.resolve()).then(function(){
+      $('bAll').disabled=false; $('bAll').textContent='🤖 Corregir todos'; pintar();
+      toast('✅ '+hechas+' entregas corregidas y guardadas'+(err?' · ⚠️ '+err+' no se pudieron guardar':'')+(faltan?' · '+faltan+' necesitan corrección a mano':''));
+    });
+  });
 
   $('sCuest').addEventListener('change',cargar);
   $('sGrupo').addEventListener('change',pintar);
@@ -348,10 +375,11 @@ tbody tr:hover{background:var(--bg)}
     var rows=L.map(function(e){
       var c=e._c||calc(e,B);
       return [e.apellidos,e.nombre,e.grupo,e.intento,fecha(e.inicio),fecha(e.entrega),coma(e.duracion/60),MOTIVO[e.motivo]||e.motivo,(e.salidas||[]).length,c.respondidas,
-        c.bien+'/'+c.nAuto,coma(c.notaAuto),c.final==null?'':coma(c.final,2),e.estado==='revisada'?'Revisada':'Pendiente',e.comentario]
+        c.bien+'/'+c.nAuto,coma(c.notaAuto),c.final==null?'':dos(c.final),c.revisada?'Revisada':c.final!=null?'Corregida automáticamente':'Pendiente',e.comentario]
         .concat(B.preguntas.map(function(q){ var v=e.respuestas[q.id]; if(v===undefined) return '';
           var t=q.k==='test'?txt(q.o[v]):q.k==='vf'?(v?'Verdadero':'Falso'):v;
-          return B.AUTO[q.k]?(B.correcta(q,v)?'✔ ':'✘ ')+t:t; }));
+          if(B.AUTO[q.k]) return (B.correcta(q,v)?'✔ ':'✘ ')+t;
+          var r=CORR.puntos(B,q,v,((e.revision||{}).pts||{})[q.id]); return r.modo==='pendiente'?t:'['+dos(r.pts)+' pt] '+t; }));
     });
     var csv='﻿'+[head].concat(rows).map(function(r){return r.map(cel).join(';');}).join('\r\n');
     var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
@@ -384,9 +412,11 @@ tbody tr:hover{background:var(--bg)}
         h+='<div class="st '+(ok?'ok':'ko')+'">'+(ok?'✅ Correcta · '+q.pt+' pt':'❌ Incorrecta · 0 pt')+'</div>';
         if(!ok) h+='<div class="sol">Respuesta correcta: '+(q.k==='test'?q.o[q.a]:q.k==='vf'?(q.a?'Verdadero':'Falso'):esc(q.ok[0]))+'</div>';
       } else {
-        var w=hay?(String(v).trim().match(/\S+/g)||[]).length:0;
+        var w=hay?(String(v).trim().match(/\S+/g)||[]).length:0, rub=CORR.rubrica(q,v), manual=pts[q.id]!=null&&pts[q.id]!=='';
+        if(rub) h+='<div class="st '+(rub.pts>=q.pt?'ok':rub.pts>0?'prof':'ko')+'">🤖 Corrección automática: '+dos(rub.pts)+' de '+q.pt+' pt'+(manual&&Number(pts[q.id])!==rub.pts?' · has puesto '+dos(pts[q.id])+' pt':'')+'</div>'+
+          '<ul class="rub">'+rub.crit.map(function(c){return '<li class="'+(c.ok?'ok':'ko')+'">'+(c.ok?'✅ ':'❌ ')+esc(c.t)+'</li>';}).join('')+'</ul>';
         h+='<div class="sol">'+w+' palabras</div><div class="grade"><div><label for="p'+q.id+'">Puntos (0 a '+q.pt+')</label>'+
-          '<input type="number" id="p'+q.id+'" data-q="'+q.id+'" data-max="'+q.pt+'" min="0" max="'+q.pt+'" step="0.25" value="'+(pts[q.id]!=null&&pts[q.id]!==''?pts[q.id]:(hay?'':0))+'"></div>'+
+          '<input type="number" id="p'+q.id+'" data-q="'+q.id+'" data-max="'+q.pt+'" min="0" max="'+q.pt+'" step="0.01" value="'+(manual?pts[q.id]:rub?rub.pts:(hay?'':0))+'"></div>'+
           '<div><label for="c'+q.id+'">Comentario</label><textarea id="c'+q.id+'" data-c="'+q.id+'" maxlength="500" style="min-height:44px">'+esc(com[q.id]||'')+'</textarea></div></div>';
       }
       h+='</div>';
@@ -406,17 +436,17 @@ tbody tr:hover{background:var(--bg)}
   }
   function notaViva(){
     var B=bancos[$('sCuest').value], p=leerPuntos(), c=calc(Object.assign({},cur,{revision:{pts:p.pts}}),B);
-    $('dNota').textContent=coma(c.calcFinal,2);
-    $('dPts').textContent=coma(c.auto+c.prof,2)+' de '+(c.autoMax+c.profMax)+' puntos'+(p.faltan?' · faltan '+p.faltan+' por puntuar':'');
+    $('dNota').textContent=dos(c.calcFinal);
+    $('dPts').textContent=dos(c.auto+c.prof)+' de '+(c.autoMax+c.profMax)+' puntos'+(p.faltan?' · faltan '+p.faltan+' por puntuar':'');
   }
   $('bSave').addEventListener('click',function(){
     var B=bancos[$('sCuest').value], p=leerPuntos(); if(p.faltan){ toast('Puntúa todas las preguntas abiertas antes de guardar.'); return; }
     var com={}; $('dList').querySelectorAll('textarea[data-c]').forEach(function(t){ if(t.value.trim()) com[t.dataset.c]=t.value.trim(); });
-    var c=calc(Object.assign({},cur,{revision:{pts:p.pts}}),B), nota=Math.round(c.calcFinal*100)/100;
+    var c=calc(Object.assign({},cur,{revision:{pts:p.pts}}),B), nota=c.calcFinal;
     $('bSave').disabled=true;
     API.llamar('revisarCuestionario',{clave:clave,id:cur.id,revision:{pts:p.pts,com:com},notaFinal:nota,comentario:$('dCom').value.trim()}).then(function(){
       cur.revision={pts:p.pts,com:com}; cur.notaFinal=nota; cur.estado='revisada'; cur.comentario=$('dCom').value.trim();
-      toast('✅ Corrección guardada · nota '+coma(nota,2)); vista('vGrupo'); pintar();
+      toast('✅ Corrección guardada · nota '+dos(nota)); vista('vGrupo'); pintar();
     },function(err){ toast('⚠️ '+err.message); }).then(function(){ $('bSave').disabled=false; });
   });
   $('bBack').addEventListener('click',function(){ vista('vGrupo'); pintar(); });
