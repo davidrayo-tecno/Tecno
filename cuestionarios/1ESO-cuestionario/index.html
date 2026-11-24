@@ -455,6 +455,8 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
   var enviando=false;
   function estadoEnvio(){
     var e=$('eSend'); if(!e||!st) return;
+    $('eList').hidden=enviando; // las respuestas solo se muestran si el envío falla (para guardarlas en PDF)
+    if(!enviando && !st.enviado) $('eTitle').textContent='⚠️ Tus respuestas aún no se han enviado';
     if(st.enviado){ e.className='note ok'; e.innerHTML='✅ Tus respuestas han llegado al profesor.'; $('bRetry').hidden=true; }
     else if(enviando){ e.className='note'; e.innerHTML='⏳ Enviando tus respuestas al profesor…'; $('bRetry').hidden=true; }
     else { e.className='note x'; e.innerHTML='⚠️ No se han podido enviar tus respuestas'+(st.errEnvio?' ('+esc(st.errEnvio)+')':'')+'. Pulsa «Reintentar el envío». Si sigue fallando, avisa al profesor y guarda la hoja en PDF.'; $('bRetry').hidden=false; }
@@ -470,12 +472,26 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
       motivo:st.motivo, respondidas:st.order.filter(answered).length, aciertos:bien, autoTotal:aut, notaAuto:Math.round(bien/aut*100)/10,
       salidas:st.salidas||[], respuestas:resp, bloqueadas:Object.keys(st.locked).map(Number)
     }).then(function(){ st.enviado=true; st.errEnvio=''; },function(err){ st.errEnvio=err.message; })
-      .then(function(){ enviando=false; guardar(); estadoEnvio(); });
+      .then(function(){ enviando=false; if(st.enviado){ limpiar(); return; } guardar(); estadoEnvio(); });
+  }
+
+  /* Tras un envío correcto no queda ningún dato del alumno y el cuestionario vuelve a estar listo para el siguiente */
+  function limpiar(){
+    borrar();
+    try{ sessionStorage.clear(); }catch(e){}
+    st=null;
+    ['eList','eHead','eScore','qText','qExtra','qAns','map','who'].forEach(function(id){ $(id).innerHTML=''; });
+    $('nom').value=''; $('ape').value=''; $('gru').value=''; okNombre();
+    ['quiz','end'].forEach(function(id){ $(id).hidden=true; }); $('clock').hidden=true; $('modal').hidden=true;
+    $('intro').hidden=false;
+    // Sustituye la entrada del historial: «Atrás» no devuelve al cuestionario del alumno anterior
+    try{ history.replaceState(null,'',location.pathname); }catch(e){}
+    window.scrollTo(0,0);
   }
 
   function hoja(){
     $('intro').hidden=true; $('quiz').hidden=true; $('clock').hidden=true; $('modal').hidden=true; $('end').hidden=false;
-    $('eTitle').textContent=st.motivo==='tiempo'?'⏱ Se acabó el tiempo: cuestionario entregado':st.motivo==='salidas'?'🚫 Entregado automáticamente por salir '+MAX_SALIDAS+' veces de la pantalla completa':'✅ Cuestionario entregado';
+    $('eTitle').textContent=!st.enviado&&!st.errEnvio?'⏳ Enviando tus respuestas…':st.motivo==='tiempo'?'⏱ Se acabó el tiempo: cuestionario entregado':st.motivo==='salidas'?'🚫 Entregado automáticamente por salir '+MAX_SALIDAS+' veces de la pantalla completa':'✅ Cuestionario entregado';
     var usado=Math.round((st.end-st.start)/1000);
     $('eHead').innerHTML=[
       ['Alumno/a',esc(st.nom+' '+st.ape)],
