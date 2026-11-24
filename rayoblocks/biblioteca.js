@@ -92,6 +92,20 @@
     ] },
     { nombre: 'Bloque', disfraces: [
       { nombre: 'bloque', svg: svg(60, 60, '<rect x="4" y="4" width="52" height="52" rx="8" fill="#26A69A" stroke="#00695C" stroke-width="4"/>') }
+    ] },
+    // Rayo dorado para atrapar (juego «RayoMan atrapa rayos»)
+    { nombre: 'Rayo', disfraces: [
+      { nombre: 'rayo', svg: svg(52, 66,
+        '<path d="M30 3 L8 36 L23 36 L15 63 L46 25 L30 25 L40 3 Z" fill="#FFE14D" stroke="#F29A00" stroke-width="3.5" stroke-linejoin="round"/>' +
+        '<path d="M30 8 L16 31" stroke="#FFF8C8" stroke-width="3" stroke-linecap="round" opacity=".9"/>') }
+    ] },
+    // Nubarrón enfadado: el obstáculo que hay que esquivar
+    { nombre: 'Nubarrón', disfraces: [
+      { nombre: 'nubarron', svg: svg(100, 66,
+        '<path d="M20 56 Q4 56 6 42 Q8 29 22 31 Q24 12 44 14 Q57 2 71 14 Q91 12 91 33 Q99 37 95 49 Q91 58 79 56 Z" fill="#5B6378" stroke="#2F3545" stroke-width="3.5" stroke-linejoin="round"/>' +
+        '<path d="M30 22 Q36 16 44 18" stroke="#7D869C" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        ojos(42, 60, 40, 5.5) + '<path d="M34 30 l12 5 M68 30 l-12 5" stroke="#1B2140" stroke-width="3.5" stroke-linecap="round"/>' +
+        '<path d="M43 51 q8 -6 16 0" stroke="#1B2140" stroke-width="3" fill="none" stroke-linecap="round"/>') }
     ] }
   ];
 
@@ -116,6 +130,25 @@
     return s;
   }
 
+  // Ciudad de noche: cielo, luna, estrellas y edificios con ventanas encendidas (dibujo fijo)
+  function ciudad() {
+    var semilla = 11;
+    var azar = function () { semilla = (semilla * 9301 + 49297) % 233280; return semilla / 233280; };
+    var g = '<defs><linearGradient id="cn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141A3D"/><stop offset=".7" stop-color="#3B2F6B"/><stop offset="1" stop-color="#6B3F73"/></linearGradient></defs>' +
+      '<rect width="480" height="360" fill="url(#cn)"/>';
+    for (var i = 0; i < 45; i++) g += '<circle cx="' + (azar() * 480).toFixed(0) + '" cy="' + (azar() * 190).toFixed(0) + '" r="' + (azar() * 1.3 + .4).toFixed(1) + '" fill="#fff" opacity="' + (azar() * .6 + .3).toFixed(2) + '"/>';
+    g += '<circle cx="400" cy="60" r="28" fill="#FFF3C4"/><circle cx="411" cy="53" r="25" fill="#2A2558" opacity=".9"/>';
+    var x = 0, colores = ['#1E2347', '#262B55', '#1A1F3F', '#2C2F5E'];
+    while (x < 480) {
+      var w = 34 + Math.round(azar() * 40), h = 90 + Math.round(azar() * 130), y = 360 - h;
+      g += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" fill="' + colores[Math.floor(azar() * colores.length)] + '"/>';
+      for (var vy = y + 12; vy < 344; vy += 18) for (var vx = x + 7; vx < x + w - 9; vx += 13)
+        if (azar() < 0.45) g += '<rect x="' + vx + '" y="' + vy + '" width="6" height="9" fill="#FFD866" opacity="' + (azar() * .5 + .5).toFixed(2) + '"/>';
+      x += w + 3;
+    }
+    return g + '<rect y="346" width="480" height="14" fill="#121530"/>';
+  }
+
   var FONDOS = [
     { nombre: 'Blanco', svg: svg(480, 360, '<rect width="480" height="360" fill="#fff"/>') },
     { nombre: 'Cuadrícula XY', svg: svg(480, 360, cuadricula()) },
@@ -131,6 +164,8 @@
       '<rect x="0" y="0" width="480" height="12"/><rect x="0" y="348" width="480" height="12"/><rect x="0" y="0" width="12" height="360"/><rect x="468" y="0" width="12" height="360"/>' +
       '<rect x="90" y="0" width="12" height="250"/><rect x="190" y="110" width="12" height="250"/><rect x="290" y="0" width="12" height="250"/><rect x="390" y="110" width="12" height="250"/></g>' +
       '<rect x="414" y="300" width="48" height="42" fill="#22A06B"/><text x="438" y="327" font-family="sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">META</text>') }
+,
+    { nombre: 'Ciudad', svg: svg(480, 360, ciudad()) }
   ];
 
   // Sonidos sintetizados: [nombre, tipo]. motor.js sabe cómo tocar cada tipo.
