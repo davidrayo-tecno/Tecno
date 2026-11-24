@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cuestionarios · Tecnología · IES Palomares</title>
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --brand:#1B5F7E; --bg:#F4F6F7; --surface:#FFFFFF; --ink:#16232B; --muted:#55636D; --line:#D5DDE2;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --brand:#174E67; --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E; color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+.bar{background:var(--brand);color:#fff}
+.container{max-width:1000px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left))}
+.bar .container{height:64px;display:flex;align-items:center;gap:12px}
+.bar a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:12px}
+.bar img{width:42px;height:42px;border-radius:50%;background:#fff;padding:2px}
+.bar b{font-family:var(--display);font-size:22px;font-weight:600}
+h1{font-family:var(--display);font-size:clamp(34px,6vw,52px);line-height:1;margin:40px 0 8px}
+.lead{color:var(--muted);margin:0 0 28px}
+.grid{list-style:none;padding:0;margin:0 0 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.grid a{display:block;background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:12px;padding:22px;color:inherit;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
+.grid a:hover,.grid a:focus-visible{transform:translateY(-4px);box-shadow:0 12px 24px -14px rgba(0,0,0,.4)}
+.grid .e{font-size:30px}
+.grid b{display:block;font-family:var(--display);font-size:30px;line-height:1.1;margin-top:6px}
+.grid small{color:var(--muted);font-size:15px}
+@media (prefers-reduced-motion:reduce){.grid a{transition:none}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="container">
+  <a href="../" aria-label="Volver al inicio"><img src="../logo-ies-palomares.png" alt=""><b>Tecnología · IES Palomares</b></a>
+</div></header>
+<main class="container">
+  <h1>Cuestionarios</h1>
+  <p class="lead">Elige el cuestionario de tu curso.</p>
+  <ul class="grid">
+    <li><a href="1ESO-cuestionario/" style="--c:#2B7547"><span class="e" aria-hidden="true">📗</span><b>1.º ESO</b><small>Cuestionarios de Tecnología</small></a></li>
+    <li><a href="4ESO-cuestionario/" style="--c:#2160A8"><span class="e" aria-hidden="true">📘</span><b>4.º ESO</b><small>Cuestionarios de Tecnología</small></a></li>
+    <li><a href="1Bach-cuestionario/" style="--c:#B93A21"><span class="e" aria-hidden="true">📕</span><b>1.º Bachillerato</b><small>Tecnología e Ingeniería I</small></a></li>
+  </ul>
+</main>
+</body>
+</html>
