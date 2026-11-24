@@ -11,7 +11,7 @@
 <style>
 :root{
   --brand:#1B5F7E; --bg:#F4F6F7; --surface:#FFFFFF; --ink:#16232B; --muted:#55636D; --line:#D5DDE2;
-  --ok:#22A06B; --ok-bg:#E4F4EC; --ko:#D9363E; --ko-bg:#FBE9EA; --accent:#FF6B4A;
+  --ok:#22A06B; --ok-bg:#E4F4EC; --ko:#D9363E; --ko-bg:#FBE9EA; --warn:#C27803; --warn-bg:#FDF3DC; --accent:#FF6B4A;
   --move:#3B82F6; --turn:#8B5CF6; --loop:#F59E0B; --until:#EA580C; --if:#0EA5A4; --pen:#DB2777; --act:#16A34A;
   --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -19,88 +19,226 @@
 }
 @media (prefers-color-scheme: dark){:root{
   --brand:#174E67; --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E;
-  --ok-bg:#16301F; --ko-bg:#3A1C1E; color-scheme:dark}}
+  --ok-bg:#16301F; --ko-bg:#3A1C1E; --warn-bg:#3A2E14; color-scheme:dark}}
 *{box-sizing:border-box}
+[hidden]{display:none !important}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
 .bar{background:var(--brand);color:#fff}
-.container{max-width:760px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left))}
+.container{max-width:780px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left))}
 .bar .container{height:64px;display:flex;align-items:center;gap:12px}
 .bar a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:12px}
 .bar img{width:42px;height:42px;border-radius:50%;background:#fff;padding:2px}
 .bar b{font-family:var(--display);font-size:22px;font-weight:600}
 .back{display:inline-block;margin:18px 0 0;color:var(--muted);font-size:15px}
-h1{font-family:var(--display);font-size:clamp(32px,6vw,48px);line-height:1.05;margin:10px 0 6px}
-.lead{color:var(--muted);margin:0 0 20px}
+h1{font-family:var(--display);font-size:clamp(32px,6vw,48px);line-height:1.05;margin:10px 0 14px}
+h2{font-family:var(--display);font-size:28px;line-height:1.1;margin:0 0 10px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;margin:0 0 18px}
-.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 8px}
-.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s ease}
-.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:14px;margin:0 0 14px}
-.tag{display:inline-block;font-size:13px;font-weight:600;color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,transparent);padding:2px 10px;border-radius:99px;margin-bottom:8px}
-@media (prefers-color-scheme: dark){.tag{color:#8CC7E0}}
+.muted{color:var(--muted)}
+.btn{font:inherit;font-weight:600;border:0;border-radius:12px;padding:11px 20px;background:var(--brand);color:#fff;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.warn{background:var(--warn)}
+.btn.go{background:var(--ok)}
+.btn.big{font-size:19px;padding:14px 28px}
+
+/* Inicio */
+.types{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0;padding:0;list-style:none}
+.types li{font-size:14px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--bg);border:1px solid var(--line)}
+.rules{padding-left:20px;margin:8px 0 0}
+.rules li{margin:6px 0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0 0}
+.facts div{background:var(--bg);border-radius:12px;padding:10px 14px}
+.facts b{display:block;font-family:var(--display);font-size:28px;line-height:1.1}
+.facts small{color:var(--muted)}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input[type=text],textarea{width:100%;font:inherit;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:10px 12px}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--brand)}
+textarea{min-height:150px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1.4fr;gap:12px}
+@media (max-width:560px){.two{grid-template-columns:1fr}}
+
+/* Temporizadores siempre visibles */
+.clock{position:sticky;top:0;z-index:30;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:0 6px 14px -12px rgba(0,0,0,.4)}
+.clock .container{display:flex;align-items:center;gap:12px;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
+.t{display:flex;flex-direction:column;line-height:1.05}
+.t small{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.t b{font-family:var(--display);font-size:34px;font-variant-numeric:tabular-nums}
+.t.q b{font-size:28px}
+.t.low b{color:var(--ko)}
+.who{margin-left:auto;font-size:14px;color:var(--muted);text-align:right;max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qbar{height:5px;background:var(--line);width:100%}
+.qbar i{display:block;height:100%;background:var(--accent);width:100%;transition:width 1s linear}
+.qbar.low i{background:var(--ko)}
+
+/* Mapa de preguntas */
+.map{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:6px;margin:0 0 16px}
+.map button{font:inherit;font-weight:700;font-size:15px;height:40px;border-radius:9px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;position:relative}
+.map button.done{background:var(--ok-bg);border-color:var(--ok)}
+.map button.later{background:var(--warn-bg);border-color:var(--warn)}
+.map button.locked{background:var(--line);color:var(--muted);text-decoration:line-through}
+.map button.cur{outline:3px solid var(--brand);outline-offset:1px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin:-6px 0 14px}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:2px solid var(--line)}
+.legend .d::before{background:var(--ok-bg);border-color:var(--ok)} .legend .l::before{background:var(--warn-bg);border-color:var(--warn)} .legend .x::before{background:var(--line)}
+
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tag{font-size:13px;font-weight:600;padding:2px 10px;border-radius:99px;background:var(--bg);border:1px solid var(--line)}
+.tag.k{color:#fff;border:0}
+.k-test{background:#2160A8} .k-vf{background:#7A4FB5} .k-cerrada{background:#0E7C7B} .k-abierta{background:#2B7547} .k-reflexion{background:#B45309} .k-critico{background:#B93A21}
 .q{font-size:19px;font-weight:600;margin:0 0 12px}
 .opts{display:grid;gap:10px;margin:14px 0 0;padding:0;list-style:none}
+.opts.vf{grid-template-columns:1fr 1fr}
 .opts button{width:100%;text-align:left;font:inherit;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;display:flex;gap:12px;align-items:flex-start}
 .opts button:hover:not(:disabled){border-color:var(--brand)}
-.opts button:disabled{cursor:default}
+.opts button:disabled{cursor:not-allowed;opacity:.7}
 .opts .l{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--line);font-weight:700;font-size:14px}
-.opts button.ok{border-color:var(--ok);background:var(--ok-bg)} .opts button.ok .l{background:var(--ok);color:#fff}
-.opts button.ko{border-color:var(--ko);background:var(--ko-bg)} .opts button.ko .l{background:var(--ko);color:#fff}
-.fb{margin:14px 0 0;padding:12px 14px;border-radius:12px;display:none}
-.fb.show{display:block} .fb.ok{background:var(--ok-bg)} .fb.ko{background:var(--ko-bg)}
-.fb b:first-child{display:block;margin-bottom:2px}
-.nav{display:flex;justify-content:flex-end;margin-top:16px}
-.btn{font:inherit;font-weight:600;border:0;border-radius:12px;padding:11px 20px;background:var(--brand);color:#fff;cursor:pointer}
-.btn[hidden]{display:none}
-.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
-/* Programas con los bloques del robot */
+.opts button.sel{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,var(--surface))}
+.opts button.sel .l{background:var(--brand);color:#fff}
+.wc{font-size:13px;color:var(--muted);margin-top:4px}
+.note{margin:14px 0 0;padding:10px 14px;border-radius:12px;background:var(--warn-bg);font-size:15px}
+.note.x{background:var(--ko-bg)}
+.nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:center}
+.nav .sp{flex:1}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-weight:600;z-index:60;max-width:90vw;text-align:center}
+
+/* Bloques del robot */
 .prog{display:inline-flex;flex-direction:column;gap:4px;margin:4px 0;font-size:15px}
-.blk{display:inline-block;color:#fff;font-weight:600;padding:4px 12px;border-radius:8px;width:max-content}
+.blk{display:inline-block;color:#fff;font-weight:600;padding:4px 12px;border-radius:8px;width:max-content;max-width:100%}
 .blk.move{background:var(--move)} .blk.turn{background:var(--turn)} .blk.loop{background:var(--loop)}
 .blk.until{background:var(--until)} .blk.if{background:var(--if)} .blk.pen{background:var(--pen)} .blk.act{background:var(--act)}
 .nest{display:flex;flex-direction:column;gap:4px;border-left:6px solid var(--c);margin-left:6px;padding:2px 0 2px 10px}
-.score{font-family:var(--display);font-size:64px;line-height:1;margin:6px 0}
-.review{padding-left:20px;margin:8px 0 0}
-.review li{margin:4px 0}
-@media (prefers-reduced-motion:reduce){.progress i{transition:none}}
+
+/* Ventana de confirmación */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:grid;place-items:center;z-index:50;padding:18px}
+.modal .card{max-width:440px;margin:0}
+
+/* Hoja de entrega */
+.sheet-head{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px 16px;margin:10px 0 0}
+.sheet-head div small{display:block;color:var(--muted);font-size:13px}
+.score{font-family:var(--display);font-size:56px;line-height:1;margin:4px 0}
+.ans{border-top:1px solid var(--line);padding:14px 0}
+.ans .r{margin-top:6px;padding:8px 12px;border-radius:10px;background:var(--bg);white-space:pre-wrap;word-break:break-word}
+.st{font-size:14px;font-weight:600;margin-top:6px}
+.st.ok{color:var(--ok)} .st.ko{color:var(--ko)} .st.prof{color:var(--warn)}
+@media print{
+  .bar,.back,.clock,.noprint{display:none !important}
+  body{background:#fff;color:#000;font-size:12pt}
+  .card{border:0;padding:0}
+  .ans{break-inside:avoid}
+  .blk{color:#000;border:1px solid #888;background:#fff !important}
+}
+@media (prefers-reduced-motion:reduce){.qbar i{transition:none}}
 </style>
 </head>
 <body>
 <header class="bar"><div class="container">
   <a href="../../" aria-label="Volver al inicio"><img src="../../logo-ies-palomares.png" alt=""><b>Tecnología · IES Palomares</b></a>
 </div></header>
+
+<!-- Temporizadores: visibles durante todo el cuestionario -->
+<div class="clock" id="clock" hidden>
+  <div class="container">
+    <div class="t" id="tTotal"><small>Tiempo total</small><b id="total">--:--</b></div>
+    <div class="t q" id="tPreg"><small>Esta pregunta</small><b id="preg">--:--</b></div>
+    <div class="who" id="who"></div>
+  </div>
+  <div class="qbar" id="qbar"><i id="qbarI"></i></div>
+</div>
+
 <main class="container">
   <a class="back" href="../">← Cuestionarios</a>
-  <h1>Cuestionario 1.º ESO · Prácticas del robot</h1>
-  <p class="lead">24 preguntas, una por cada práctica de Computación y Robótica. Elige una respuesta y verás al momento si has acertado.</p>
 
-  <section class="card" id="quiz" aria-live="polite">
-    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
-    <div class="meta"><span id="count"></span><span id="pts"></span></div>
-    <span class="tag" id="tag"></span>
-    <div class="q" id="q"></div>
-    <div id="extra"></div>
-    <ul class="opts" id="opts"></ul>
-    <div class="fb" id="fb"></div>
-    <div class="nav"><button class="btn" id="next" hidden>Siguiente →</button></div>
+  <!-- 1. Inicio -->
+  <section id="intro">
+    <h1>Cuestionario 1.º ESO · Prácticas del robot</h1>
+    <div class="card">
+      <h2>¿En qué consiste?</h2>
+      <p style="margin:0">Es un cuestionario sobre las <b>24 prácticas del robot</b> de Computación y Robótica: secuencias, giros, bucles, sensores, condiciones, estado y depuración de errores. Hay preguntas de varios tipos:</p>
+      <ul class="types">
+        <li>Test</li><li>Verdadero o falso</li><li>Respuesta cerrada</li><li>Respuesta abierta</li><li>Reflexión</li><li>Pensamiento crítico</li>
+      </ul>
+      <div class="facts">
+        <div><b id="fN"></b><small>preguntas</small></div>
+        <div><b id="fT"></b><small>tiempo total</small></div>
+        <div><b id="fR"></b><small>tiempo por pregunta</small></div>
+      </div>
+      <h2 style="margin-top:20px">Normas</h2>
+      <ul class="rules">
+        <li>Las preguntas salen en un <b>orden distinto para cada alumno</b>, y también las opciones de cada pregunta.</li>
+        <li>Cada pregunta tiene <b>su propio tiempo</b>. Arriba verás siempre dos relojes: el <b>tiempo total</b> que te queda y el de <b>la pregunta</b> que tienes abierta.</li>
+        <li>Puedes pulsar <b>«Dejar para después»</b> y volver más tarde desde el mapa de preguntas. El tiempo de esa pregunta se para y se guarda el que le quede.</li>
+        <li>Si se acaba el tiempo de una pregunta, se <b>bloquea</b> con lo que hayas respondido hasta ese momento.</li>
+        <li>En las preguntas de respuesta abierta, reflexión y pensamiento crítico explica tus ideas con frases completas. Las corrige el profesor.</li>
+        <li>El cuestionario termina cuando pulses <b>«Entregar»</b> o cuando se acabe el <b>tiempo total</b>. Al acabar el tiempo se entrega solo.</li>
+        <li>No recargues ni cierres la página: el reloj sigue corriendo. Si sales de la página, queda registrado en tu hoja de entrega.</li>
+      </ul>
+    </div>
+    <form class="card" id="fStart" autocomplete="off">
+      <h2>Tus datos</h2>
+      <div class="two">
+        <div><label for="nom">Nombre</label><input type="text" id="nom" maxlength="40" required></div>
+        <div><label for="ape">Apellidos</label><input type="text" id="ape" maxlength="60" required></div>
+      </div>
+      <p class="muted" style="font-size:14px;margin:10px 0 16px">Escribe tu nombre y tus dos apellidos para poder empezar.</p>
+      <button class="btn go big" id="bStart" type="submit" disabled>▶ Iniciar el cuestionario</button>
+    </form>
   </section>
 
-  <section class="card" id="end" hidden>
-    <h2 style="font-family:var(--display);font-size:32px;margin:0">¡Cuestionario terminado!</h2>
-    <div class="score" id="final"></div>
-    <p id="msg" style="margin:0"></p>
-    <div id="rev"></div>
-    <div class="nav" style="justify-content:flex-start;gap:10px;flex-wrap:wrap">
-      <button class="btn" id="again">↻ Repetir el cuestionario</button>
-      <a class="btn alt" href="../../robotica/" style="text-decoration:none">🤖 Ir a las prácticas</a>
+  <!-- 2. Cuestionario -->
+  <section id="quiz" hidden>
+    <div class="card">
+      <div class="map" id="map" aria-label="Mapa de preguntas"></div>
+      <div class="legend"><span class="d">Respondida</span><span class="l">Para después</span><span class="x">Tiempo agotado</span></div>
+      <div class="tags"><span class="tag" id="qNum"></span><span class="tag k" id="qKind"></span><span class="tag" id="qPrac"></span></div>
+      <div class="q" id="qText"></div>
+      <div id="qExtra"></div>
+      <div id="qAns"></div>
+      <div id="qNote"></div>
+      <div class="nav">
+        <button class="btn alt" id="bPrev" type="button">← Anterior</button>
+        <button class="btn warn" id="bLater" type="button">⏭ Dejar para después</button>
+        <button class="btn alt" id="bNext" type="button">Siguiente →</button>
+        <span class="sp"></span>
+        <button class="btn go" id="bSend" type="button">📤 Entregar</button>
+      </div>
     </div>
   </section>
+
+  <!-- 3. Hoja de entrega -->
+  <section id="end" hidden>
+    <div class="card">
+      <h2 id="eTitle">✅ Cuestionario entregado</h2>
+      <div class="sheet-head" id="eHead"></div>
+      <p class="muted" style="margin:14px 0 0;font-size:15px">Preguntas de corrección automática (test, verdadero o falso y respuesta cerrada):</p>
+      <div class="score" id="eScore"></div>
+      <p class="muted" style="margin:0;font-size:15px">Las preguntas de respuesta abierta, reflexión y pensamiento crítico las corrige el profesor.</p>
+      <div class="nav noprint">
+        <button class="btn" id="bPrint" type="button">🖨️ Imprimir o guardar en PDF</button>
+        <button class="btn alt" id="bNew" type="button">Salir (nuevo alumno)</button>
+      </div>
+    </div>
+    <div class="card" id="eList"></div>
+  </section>
 </main>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="card">
+    <h2 id="mTitle">¿Entregar el cuestionario?</h2>
+    <p id="mText" style="margin:0"></p>
+    <div class="nav">
+      <button class="btn alt" id="mNo" type="button">Seguir respondiendo</button>
+      <button class="btn go" id="mYes" type="button">📤 Sí, entregar</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
 
 <script>
 (function(){
   'use strict';
-  /* Bloques del robot. Un programa es una lista: cadenas para bloques simples
-     y objetos {b:'...', t:'loop'|'until'|'if', c:[...]} para bloques con hueco. */
+  var CLAVE='cuestionario-1eso-robot-v2';
+
+  /* ---------- Bloques del robot ---------- */
   var B={
     fwd:['⬆ Avanzar','move'], izq:['↺ Girar izquierda','turn'], der:['↻ Girar derecha','turn'],
     pin:['🖌️ Pintar casilla','pen'], coger:['✋ Coger paquete','act'], dejar:['📦 Dejar paquete','act'],
@@ -120,142 +258,296 @@ h1{font-family:var(--display);font-size:clamp(32px,6vw,48px);line-height:1.05;ma
   var mientras=function(c){return {b:'🔁 Mientras haya camino delante',t:'until',c:c};};
   var si=function(cond,c,e){return {b:'📡 Si '+cond,t:'if',c:c,e:e};};
 
+  /* ---------- Preguntas ----------
+     k: test | vf | cerrada | abierta | reflexion | critico
+     s: segundos para responderla
+     test → o (opciones), a (índice correcto) · vf → a (true/false) · cerrada → ok (respuestas válidas) */
+  var KIND={test:'Test',vf:'Verdadero o falso',cerrada:'Respuesta cerrada',abierta:'Respuesta abierta',reflexion:'Reflexión',critico:'Pensamiento crítico'};
+  var AUTO={test:1,vf:1,cerrada:1};
   var Q=[
-    {p:1,t:'Primeros pasos',q:'¿En qué orden ejecuta el ordenador las instrucciones de un programa?',
-     o:['Una detrás de otra, de arriba abajo','Todas a la vez','De abajo arriba','En el orden que él prefiera'],a:0,
-     x:'Es la <b>secuencia</b>: el ordenador sigue las instrucciones en orden, de arriba abajo.'},
-    {p:2,t:'La esquina',q:'El robot mira hacia <b>abajo</b> de la pantalla (↓). Si ejecuta <span class="blk turn">↺ Girar izquierda</span>, ¿hacia dónde mirará?',
-     o:['Hacia la derecha de la pantalla (→)','Hacia la izquierda de la pantalla (←)','Hacia arriba (↑)','Seguirá mirando hacia abajo (↓)'],a:0,
-     x:'El robot gira según hacia dónde mira <b>él</b>. Si mira hacia abajo, su izquierda es tu derecha.'},
-    {p:3,t:'El pasillo largo',q:'Tienes que avanzar 6 casillas usando solo <b>2 bloques</b>. ¿Qué programa lo consigue?',
-     o:[prog([rep(6,['fwd'])]),prog(['fwd','fwd']),prog([rep(2,['fwd'])]),prog([rep(6,['der'])])],a:0,
-     x:'Con un <b>bucle</b> («Repetir») haces lo mismo muchas veces sin escribirlo muchas veces: 1 bloque Repetir + 1 bloque Avanzar.'},
-    {p:4,t:'La escalera',q:'Este programa sube una escalera. ¿Cómo lo escribirías con menos bloques?',
+    {id:1,p:'Práctica 1 · Primeros pasos',k:'test',s:60,q:'¿En qué orden ejecuta el ordenador las instrucciones de un programa?',
+     o:['Una detrás de otra, de arriba abajo','Todas a la vez','De abajo arriba','En el orden que él prefiera'],a:0},
+    {id:2,p:'Práctica 2 · La esquina',k:'test',s:60,q:'El robot mira hacia <b>abajo</b> de la pantalla (↓). Si ejecuta <span class="blk turn">↺ Girar izquierda</span>, ¿hacia dónde mirará?',
+     o:['Hacia la derecha de la pantalla (→)','Hacia la izquierda de la pantalla (←)','Hacia arriba (↑)','Seguirá mirando hacia abajo (↓)'],a:0},
+    {id:3,p:'Práctica 3 · El pasillo largo',k:'cerrada',s:60,q:'Quieres recorrer un pasillo de 6 casillas con solo 2 bloques: <span class="blk loop">🔁 Repetir … veces</span> y <span class="blk move">⬆ Avanzar</span>. ¿Qué número tienes que poner en el bloque Repetir?',
+     ph:'Escribe un número',ok:['6','seis']},
+    {id:4,p:'Práctica 4 · La escalera',k:'test',s:75,q:'Este programa sube una escalera. ¿Cómo lo escribirías con menos bloques?',
      e:prog(['fwd','izq','fwd','der','fwd','izq','fwd','der','fwd','izq','fwd','der']),
-     o:[prog([rep(3,['fwd','izq','fwd','der'])]),prog([rep(12,['fwd'])]),prog([rep(3,['fwd']),rep(3,['izq'])]),'No se puede escribir más corto'],a:0,
-     x:'Busca el <b>patrón</b>: «avanzar, girar izquierda, avanzar, girar derecha» se repite 3 veces.'},
-    {p:5,t:'Cazaestrellas',q:'¿Cuántas veces avanza el robot con este programa?',
-     e:prog([rep(4,[rep(3,['fwd']),'der'])]),
-     o:['12 veces','7 veces','4 veces','3 veces'],a:0,
-     x:'Son <b>bucles anidados</b>: el bucle de dentro avanza 3 veces, y el de fuera lo repite 4 veces → 4 × 3 = 12.'},
-    {p:6,t:'Atrapa al gusano 🐛',q:'¿Qué significa <b>depurar</b> un programa (en inglés, <i>debugging</i>)?',
-     o:['Buscar y corregir sus errores','Borrarlo y empezar de cero','Hacer que vaya más rápido','Copiarlo de un compañero'],a:0,
-     x:'Depurar es encontrar y corregir errores. ¡Es la mitad del trabajo de un programador!'},
-    {p:7,t:'El robot aspirador',q:'¿Por qué usamos el <b>sensor</b> en el robot aspirador?',
-     e:prog([hasta([si('hay pared delante',['der']),'fwd'])]),
-     o:['Para que el robot decida qué hacer según lo que detecta','Para que el robot vaya más rápido','Para contar las casillas del laberinto','Para pintar las paredes'],a:0,
-     x:'Con <b>sensores y condiciones</b> el robot decide por sí mismo, como un robot aspirador o un coche autónomo de verdad.'},
-    {p:8,t:'Pasillos misteriosos 🎲',q:'¿Cuál es la diferencia entre <span class="blk loop">🔁 Repetir 5 veces</span> y <span class="blk until">🔁 Mientras haya camino delante</span>?',
-     o:['«Mientras» repite sin saber de antemano cuántas veces; lo hace mientras se cumpla la condición','No hay ninguna diferencia','«Mientras» repite siempre 5 veces','«Repetir» solo funciona con giros'],a:0,
-     x:'El bucle <b>«mientras» (while)</b> repite mientras se cumple una condición. Sirve cuando no puedes contar los pasos.'},
-    {p:9,t:'Pinta la fila 🖌️',q:'El robot pinta la casilla en la que está. ¿Qué programa pinta 5 casillas seguidas?',
-     o:[prog([rep(5,['pin','fwd'])]),prog([rep(5,['fwd']),'pin']),prog(['pin',rep(5,['fwd'])]),prog([rep(5,['pin'])])],a:0,
-     x:'En cada vuelta del bucle: pinta, avanza… y otra vez. Si solo pintas sin avanzar, pintas 5 veces la misma casilla.'},
-    {p:10,t:'La letra L',q:'Para pintar una letra L (primero la parte de arriba y luego bajar), ¿qué estructura necesitas?',
-     o:['Un bucle para un tramo, un giro y otro bucle para el siguiente tramo','Un único bucle sin giros','Solo bloques de girar','Un sensor de pared'],a:0,
-     x:'Es una <b>secuencia de bucles</b>: bucle → giro → bucle.'},
-    {p:11,t:'El marco',q:'Para pintar el borde de un cuadrado, ¿qué es lo que se repite 4 veces?',
-     o:['Un lado y un giro','Solo avanzar','Solo pintar','Girar a la izquierda dos veces'],a:0,
-     x:'El marco = 4 × (lado + girar), y cada lado = 3 × (pintar + avanzar). ¡Bucles anidados otra vez!'},
-    {p:12,t:'Una sí, una no',q:'Quieres pintar una casilla sí y otra no a lo largo de una fila. ¿Qué patrón va dentro del bucle?',
-     o:[prog(['pin','fwd','fwd']),prog(['pin','fwd']),prog(['pin','pin','fwd']),prog(['fwd','izq'])],a:0,
-     x:'El trozo que se repite es: pintar, avanzar, avanzar. Así te saltas una casilla cada vez.'},
-    {p:13,t:'Pinta hasta la pared 🎲',q:'En las prácticas con 🎲 el programa se prueba en <b>3 mapas distintos</b>. ¿Por qué?',
-     o:['Para comprobar que el programa funciona aunque cambie el mapa, no solo en un caso','Para que tarde más','Porque el robot se cansa','Para que cuentes las casillas de cada mapa'],a:0,
-     x:'Un buen programa sirve en general. Por eso no puedes contar las casillas: necesitas un bucle «mientras».'},
-    {p:14,t:'El repartidor 📦',q:'El ordenador recuerda si el robot lleva un paquete o no. ¿Cómo se llama esa información?',
-     o:['El estado del robot, guardado en memoria','Un sensor de pared','Un bucle','Un error del programa'],a:0,
-     x:'El <b>estado</b> es información que el ordenador guarda en memoria, como «llevo paquete» o «no llevo paquete».'},
-    {p:15,t:'Reparto en cadena',q:'En el reparto en cadena, ¿cuántos paquetes puede llevar el robot a la vez?',
-     o:['Solo uno: coge, avanza, deja… y otra vez','Dos','Todos los que quiera','Ninguno'],a:0,
-     x:'Es un <b>patrón con estado</b>: coger, avanzar, dejar. El robot nunca lleva dos paquetes a la vez.'},
-    {p:16,t:'El paquete del fondo 🎲',q:'¿Cómo da el robot <b>media vuelta</b> para volver por donde ha venido?',
-     o:['Girando dos veces hacia el mismo lado','Girando una vez a la derecha','Avanzando hacia atrás','Girando a la izquierda y luego a la derecha'],a:0,
-     x:'Dos giros iguales = media vuelta. Girar a la izquierda y luego a la derecha te deja como estabas.'},
-    {p:17,t:'La escalera de la bandera 🎲',q:'El número de escalones cambia en cada mapa. ¿Qué bloque usas para repetir el escalón?',
-     o:['<span class="blk until">🔁 Repetir hasta llegar a la meta 🏁</span>','<span class="blk loop">🔁 Repetir 5 veces</span>','<span class="blk move">⬆ Avanzar</span> muchas veces','<span class="blk pen">🖌️ Pintar casilla</span>'],a:0,
-     x:'<b>«Repetir hasta»</b> repite el patrón del escalón hasta llegar a la meta, tenga los escalones que tenga.'},
-    {p:18,t:'La espiral al revés 🎲',q:'El robot aspirador giraba a la derecha. Si ahora la espiral gira hacia la <b>izquierda</b>, ¿qué cambias?',
-     e:prog([hasta([si('hay pared delante',['der']),'fwd'])]),
-     o:['El giro de dentro del «Si»: Girar izquierda en vez de Girar derecha','Nada, funciona igual','Quitar el sensor','Cambiar Avanzar por Girar izquierda'],a:0,
-     x:'La misma idea del sensor sirve para otro camino si cambias el giro.'},
-    {p:19,t:'El jardinero 🎲',q:'Hay que regar solo las macetas con planta 🌱. ¿Qué programa va dentro del bucle?',
-     o:[prog([si('debajo hay una planta 🌱',['regar']),'fwd']),prog(['regar','fwd']),prog([si('hay pared delante',['regar']),'fwd']),prog(['fwd','fwd'])],a:0,
-     x:'El robot mira con su sensor qué hay debajo y <b>decide</b> si regar. Si riega tierra vacía, ¡error!'},
-    {p:20,t:'El barrendero 🎲',q:'La valla 🚧 cambia de sitio en cada prueba y solo hay hojas 🍂 en algunas casillas. ¿Qué combinación de bloques necesitas?',
-     o:['Un «Mientras» (para no contar los pasos) con un «Si» dentro (para decidir si barrer)','Solo un «Repetir 6 veces»','Solo bloques de avanzar','Un «Si» sin bucle'],a:0,
-     x:'<b>Mientras + si</b>: repetir sin saber cuántas veces y decidir en cada paso.'},
-    {p:21,t:'La cosecha 🎲',q:'Con este bloque, ¿qué hace el robot si la manzana está <b>verde 🍏</b>?',
+     o:[prog([rep(3,['fwd','izq','fwd','der'])]),prog([rep(12,['fwd'])]),prog([rep(3,['fwd']),rep(3,['izq'])]),'No se puede escribir más corto'],a:0},
+    {id:5,p:'Práctica 5 · Cazaestrellas',k:'cerrada',s:90,q:'¿Cuántas veces avanza el robot en total con este programa?',
+     e:prog([rep(4,[rep(3,['fwd']),'der'])]),ph:'Escribe un número',ok:['12','doce']},
+    {id:6,p:'Práctica 6 · Atrapa al gusano 🐛',k:'reflexion',s:240,q:'En «Atrapa al gusano» tuviste que arreglar un programa escrito por otra persona. Cuenta cómo buscaste los errores. ¿Te resultó más fácil arreglar un programa ajeno o escribir uno desde cero? ¿Por qué?'},
+    {id:7,p:'Práctica 7 · El robot aspirador',k:'abierta',s:180,q:'Explica con tus palabras qué hace este programa y por qué funciona aunque el laberinto sea muy largo y solo tenga 4 bloques.',
+     e:prog([hasta([si('hay pared delante',['der']),'fwd'])])},
+    {id:8,p:'Práctica 8 · Pasillos misteriosos 🎲',k:'test',s:60,q:'¿Cuál es la diferencia entre <span class="blk loop">🔁 Repetir 5 veces</span> y <span class="blk until">🔁 Mientras haya camino delante</span>?',
+     o:['«Mientras» repite sin saber de antemano cuántas veces: lo hace mientras se cumpla la condición','No hay ninguna diferencia','«Mientras» repite siempre 5 veces','«Repetir» solo funciona con giros'],a:0},
+    {id:9,p:'Práctica 9 · Pinta la fila 🖌️',k:'test',s:60,q:'El robot pinta la casilla en la que está. ¿Qué programa pinta 5 casillas seguidas?',
+     o:[prog([rep(5,['pin','fwd'])]),prog([rep(5,['fwd']),'pin']),prog(['pin',rep(5,['fwd'])]),prog([rep(5,['pin'])])],a:0},
+    {id:10,p:'Práctica 10 · La letra L',k:'vf',s:30,q:'Para pintar la letra L basta con un único bucle, sin ningún giro.',a:false},
+    {id:11,p:'Práctica 11 · El marco',k:'cerrada',s:90,q:'Para pintar el marco, cada lado es <i>3 × (pintar + avanzar)</i> y el marco completo es <i>4 × (lado + girar)</i>. ¿Cuántas casillas pinta el robot en total?',
+     ph:'Escribe un número',ok:['12','doce']},
+    {id:12,p:'Práctica 12 · Una sí, una no',k:'test',s:60,q:'Quieres pintar una casilla sí y otra no a lo largo de una fila. ¿Qué patrón va dentro del bucle?',
+     o:[prog(['pin','fwd','fwd']),prog(['pin','fwd']),prog(['pin','pin','fwd']),prog(['fwd','izq'])],a:0},
+    {id:13,p:'Práctica 13 · Pinta hasta la pared 🎲',k:'critico',s:240,q:'Un compañero resuelve «Pinta hasta la pared» contando las casillas que ve en su pantalla y usa <span class="blk loop">🔁 Repetir 5 veces</span>. Dice que su programa está bien porque en su pantalla funciona. ¿Estás de acuerdo? Razona tu respuesta y explica qué pasaría en los 3 mapas de prueba y qué bloque le recomendarías.'},
+    {id:14,p:'Práctica 14 · El repartidor 📦',k:'vf',s:30,q:'El ordenador guarda en su memoria si el robot lleva un paquete o no (es el «estado» del robot).',a:true},
+    {id:15,p:'Práctica 15 · Reparto en cadena',k:'vf',s:30,q:'En «Reparto en cadena» el robot puede llevar dos paquetes a la vez.',a:false},
+    {id:16,p:'Práctica 16 · El paquete del fondo 🎲',k:'cerrada',s:60,q:'¿Cuántos giros hacia el mismo lado necesita el robot para dar media vuelta?',ph:'Escribe un número',ok:['2','dos']},
+    {id:17,p:'Práctica 17 · La escalera de la bandera 🎲',k:'test',s:60,q:'El número de escalones cambia en cada mapa. ¿Qué bloque usas para repetir el escalón?',
+     o:['<span class="blk until">🔁 Repetir hasta llegar a la meta 🏁</span>','<span class="blk loop">🔁 Repetir 5 veces</span>','<span class="blk move">⬆ Avanzar</span> muchas veces','<span class="blk pen">🖌️ Pintar casilla</span>'],a:0},
+    {id:18,p:'Práctica 18 · La espiral al revés 🎲',k:'abierta',s:180,q:'El programa del robot aspirador gira a la derecha cuando encuentra una pared. ¿Qué cambiarías para recorrer la espiral que gira hacia la izquierda? Explica por qué basta con ese cambio aunque la espiral cambie de tamaño.',
+     e:prog([hasta([si('hay pared delante',['der']),'fwd'])])},
+    {id:19,p:'Práctica 19 · El jardinero 🎲',k:'test',s:60,q:'Hay que regar solo las macetas con planta 🌱. ¿Qué programa va dentro del bucle?',
+     o:[prog([si('debajo hay una planta 🌱',['regar']),'fwd']),prog(['regar','fwd']),prog([si('hay pared delante',['regar']),'fwd']),prog(['fwd','fwd'])],a:0},
+    {id:20,p:'Práctica 20 · El barrendero 🎲',k:'vf',s:30,q:'En «El barrendero» se puede usar <span class="blk loop">🔁 Repetir 6 veces</span> porque la valla 🚧 siempre está en el mismo sitio.',a:false},
+    {id:21,p:'Práctica 21 · La cosecha 🎲',k:'test',s:60,q:'Con este bloque, ¿qué hace el robot si la manzana está <b>verde 🍏</b>?',
      e:prog([si('debajo hay una manzana madura 🍎',['recoger'],['regar'])]),
-     o:['La riega','La recoge','La recoge y la riega','Nada'],a:0,
-     x:'Con <b>«Si… si no»</b> siempre se hace una de las dos cosas, nunca las dos. Si no está madura → regar.'},
-    {p:22,t:'Reparto por la calle 🎲',q:'En la calle hay paquetes 📦 y casas 🏠. ¿Qué preguntas hace el robot en cada casilla?',
+     o:['La riega','La recoge','La recoge y la riega','Nada'],a:0},
+    {id:22,p:'Práctica 22 · Reparto por la calle 🎲',k:'test',s:60,q:'¿Qué hace el robot en cada casilla con este programa?',
      e:prog([si('debajo hay un paquete 📦',['coger']),si('debajo hay una casa 🏠',['dejar']),'fwd']),
-     o:['Dos preguntas seguidas: si hay paquete lo coge; si hay casa, lo deja','Solo pregunta si hay pared','Ninguna, solo avanza','Una sola pregunta que hace las dos cosas a la vez'],a:0,
-     x:'<b>Dos condiciones seguidas</b>: el robot pregunta dos cosas en cada casilla, una detrás de otra.'},
-    {p:23,t:'Arregla el repartidor 🐞🎲',q:'Este programa debería coger los paquetes y dejarlos en las casas, pero falla. ¿Dónde está el error?',
+     o:['Hace dos preguntas seguidas: si hay paquete lo coge; si hay casa, lo deja','Solo pregunta si hay pared','Nada: solo avanza','Coge y deja el paquete en la misma casilla siempre'],a:0},
+    {id:23,p:'Práctica 23 · Arregla el repartidor 🐞🎲',k:'test',s:75,q:'Este programa debería coger los paquetes y dejarlos en las casas, pero falla. ¿Dónde está el error?',
      e:prog([mientras([si('debajo hay un paquete 📦',['dejar']),si('debajo hay una casa 🏠',['dejar']),'fwd'])]),
-     o:['En el primer «Si»: debería ser Coger paquete, no Dejar paquete','En el bloque Avanzar','En el segundo «Si»','No tiene ningún error'],a:0,
-     x:'Para <b>depurar</b> lee el programa con calma: si hay un paquete hay que <b>cogerlo</b>, no dejarlo.'},
-    {p:24,t:'Gran final: el aspirador de hojas 🏆🎲',q:'Para recorrer una espiral que cambia y barrer todas las hojas, ¿qué necesitas?',
-     o:['Un bucle, un sensor para el camino y otro sensor para las hojas','Solo un bucle «Repetir 10 veces»','Solo un sensor de hojas','Muchos bloques de avanzar seguidos'],a:0,
-     x:'¡<b>Todo junto</b>! Bucle para repetir, un sensor para seguir el camino y otro para saber dónde barrer.'}
+     o:['En el primer «Si»: debería ser Coger paquete, no Dejar paquete','En el bloque Avanzar','En el segundo «Si»','No tiene ningún error'],a:0},
+    {id:24,p:'Práctica 24 · Gran final 🏆',k:'critico',s:240,q:'Los robots aspiradores de verdad usan sensores parecidos a los de la práctica final. ¿Crees que un robot con sensores toma siempre buenas decisiones? Piensa en un caso en el que el sensor podría equivocarse, qué consecuencias tendría y cómo lo mejorarías.'},
+    {id:25,p:'Reflexión final',k:'reflexion',s:240,q:'¿Qué práctica de las 24 te costó más y qué hiciste para superarla? ¿Qué has aprendido programando el robot que puedas usar fuera de la clase de Tecnología?'}
   ];
+  var TOTAL=Q.reduce(function(s,q){return s+q.s;},0);
 
+  /* ---------- Utilidades ---------- */
   var $=function(id){return document.getElementById(id);};
-  var order, i, ok, fails;
-  function shuffle(a){ for(var j=a.length-1;j>0;j--){ var r=Math.floor(Math.random()*(j+1)); var t=a[j]; a[j]=a[r]; a[r]=t; } return a; }
+  function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function shuffle(a){ a=a.slice(); for(var j=a.length-1;j>0;j--){ var r=Math.floor(Math.random()*(j+1)); var t=a[j]; a[j]=a[r]; a[r]=t; } return a; }
+  function mmss(ms){ var s=Math.max(0,Math.ceil(ms/1000)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+  function dur(s){ var m=Math.floor(s/60), r=s%60; return m+' min'+(r?' '+r+' s':''); }
+  function norm(s){ return String(s).trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[.,;:!¡¿?]/g,'').replace(/\s+/g,' '); }
+  function hora(ts){ return new Date(ts).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }
+  function words(s){ return (String(s).trim().match(/\S+/g)||[]).length; }
+  function guardar(){ try{ st.saved=Date.now(); localStorage.setItem(CLAVE,JSON.stringify(st)); }catch(e){} }
+  function leer(){ try{ return JSON.parse(localStorage.getItem(CLAVE)||'null'); }catch(e){ return null; } }
+  function borrar(){ try{ localStorage.removeItem(CLAVE); }catch(e){} }
+  var toastT;
+  function toast(msg){ var t=$('toast'); t.textContent=msg; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(function(){t.hidden=true;},3500); }
 
-  function start(){ order=Q.map(function(_,n){return n;}); i=0; ok=0; fails=[]; $('end').hidden=true; $('quiz').hidden=false; show(); }
+  /* ---------- Estado ---------- */
+  var st=null, timer=null, last=0;
+  function byId(id){ for(var i=0;i<Q.length;i++) if(Q[i].id===id) return Q[i]; }
+  function answered(id){ var v=st.ans[id]; return v!==undefined && v!==null && String(v).trim()!==''; }
+  function curQ(){ return byId(st.order[st.cur]); }
 
-  function show(){
-    var it=Q[order[i]];
-    $('bar').style.width=(i/Q.length*100)+'%';
-    $('count').textContent='Pregunta '+(i+1)+' de '+Q.length;
-    $('pts').textContent='Aciertos: '+ok;
-    $('tag').textContent='Práctica '+it.p+' · '+it.t;
-    $('q').innerHTML=it.q;
-    $('extra').innerHTML=it.e||'';
-    $('fb').className='fb'; $('fb').innerHTML='';
-    $('next').hidden=true;
-    var opts=shuffle(it.o.map(function(h,n){return {h:h,n:n};}));
-    var ul=$('opts'); ul.innerHTML='';
-    opts.forEach(function(op,n){
-      var li=document.createElement('li'), b=document.createElement('button');
-      b.type='button'; b.dataset.n=op.n;
-      b.innerHTML='<span class="l">'+'ABCD'[n]+'</span><span>'+op.h+'</span>';
-      b.addEventListener('click',function(){ answer(b,it); });
-      li.appendChild(b); ul.appendChild(li);
+  /* ---------- Inicio ---------- */
+  $('fN').textContent=Q.length;
+  $('fT').textContent=dur(TOTAL);
+  var ss=Q.map(function(q){return q.s;});
+  $('fR').textContent=dur(Math.min.apply(null,ss))+' – '+dur(Math.max.apply(null,ss));
+  function okNombre(){ $('bStart').disabled=!($('nom').value.trim().length>=2 && $('ape').value.trim().length>=3); }
+  $('nom').addEventListener('input',okNombre); $('ape').addEventListener('input',okNombre);
+  $('fStart').addEventListener('submit',function(ev){
+    ev.preventDefault(); if($('bStart').disabled) return;
+    var now=Date.now(), opt={}, rem={};
+    Q.forEach(function(q){
+      rem[q.id]=q.s*1000;
+      if(q.k==='test') opt[q.id]=shuffle(q.o.map(function(_,i){return i;}));
+    });
+    st={nom:$('nom').value.trim(),ape:$('ape').value.trim(),order:shuffle(Q.map(function(q){return q.id;})),opt:opt,
+        ans:{},later:{},locked:{},rem:rem,cur:0,start:now,deadline:now+TOTAL*1000,blur:0,ended:false};
+    guardar(); empezar();
+  });
+
+  function empezar(){
+    $('intro').hidden=true; $('end').hidden=true; $('quiz').hidden=false; $('clock').hidden=false;
+    $('who').textContent=st.nom+' '+st.ape;
+    pintarMapa(); mostrar();
+    last=Date.now(); clearInterval(timer); timer=setInterval(tick,250); tick();
+    window.scrollTo(0,0);
+  }
+
+  /* ---------- Reloj ---------- */
+  function tick(){
+    if(!st||st.ended) return;
+    var now=Date.now(), dt=now-last; last=now;
+    var q=curQ();
+    if(!st.locked[q.id]) st.rem[q.id]=Math.max(0,st.rem[q.id]-dt);
+    var g=st.deadline-now;
+    $('total').textContent=mmss(g);
+    $('tTotal').classList.toggle('low',g<=60000);
+    var r=st.rem[q.id];
+    $('preg').textContent=st.locked[q.id]?'0:00':mmss(r);
+    $('tPreg').classList.toggle('low',r<=10000);
+    $('qbar').classList.toggle('low',r<=10000);
+    $('qbarI').style.width=(r/(q.s*1000)*100)+'%';
+    if(g<=0){ entregar('tiempo'); return; }
+    if(!st.locked[q.id] && r<=0){
+      st.locked[q.id]=true; delete st.later[q.id];
+      toast('⏱ Se acabó el tiempo de esta pregunta. Tu respuesta se ha guardado.');
+      var n=siguiente(st.cur,false);
+      if(n<0){ entregar('tiempo'); return; }
+      st.cur=n; pintarMapa(); mostrar();
+    }
+    if(now-(st.saved||0)>2000) guardar();
+  }
+
+  /* Siguiente pregunta que aún se puede responder. Con «pendiente», prefiere las no respondidas. */
+  function siguiente(from,pendiente){
+    var n=st.order.length, i, id;
+    if(pendiente) for(i=1;i<=n;i++){ id=st.order[(from+i)%n]; if(!st.locked[id] && !answered(id) && !st.later[id]) return (from+i)%n; }
+    if(pendiente) for(i=1;i<=n;i++){ id=st.order[(from+i)%n]; if(!st.locked[id] && !answered(id)) return (from+i)%n; }
+    for(i=1;i<=n;i++){ id=st.order[(from+i)%n]; if(!st.locked[id]) return (from+i)%n; }
+    return st.locked[st.order[from]]?-1:from;
+  }
+  function anterior(from){
+    var n=st.order.length;
+    for(var i=1;i<n;i++){ var j=(from-i+n)%n; if(!st.locked[st.order[j]]) return j; }
+    return from;
+  }
+
+  /* ---------- Mapa y pregunta ---------- */
+  function pintarMapa(){
+    var m=$('map'); m.innerHTML='';
+    st.order.forEach(function(id,i){
+      var b=document.createElement('button'); b.type='button'; b.textContent=i+1;
+      var est=st.locked[id]?'Tiempo agotado':st.later[id]?'Para después':answered(id)?'Respondida':'Sin responder';
+      b.className=(st.locked[id]?'locked':st.later[id]?'later':answered(id)?'done':'')+(i===st.cur?' cur':'');
+      b.setAttribute('aria-label','Pregunta '+(i+1)+': '+est);
+      b.addEventListener('click',function(){ ir(i); });
+      m.appendChild(b);
     });
   }
+  function ir(i){ tick(); guardar(); st.cur=i; pintarMapa(); mostrar(); tick(); }
 
-  function answer(b,it){
-    var good=Number(b.dataset.n)===it.a;
-    $('opts').querySelectorAll('button').forEach(function(x){
-      x.disabled=true; if(Number(x.dataset.n)===it.a) x.classList.add('ok');
+  function mostrar(){
+    var q=curQ(), lock=!!st.locked[q.id], v=st.ans[q.id];
+    $('qNum').textContent='Pregunta '+(st.cur+1)+' de '+st.order.length;
+    $('qKind').textContent=KIND[q.k]; $('qKind').className='tag k k-'+q.k;
+    $('qPrac').textContent=q.p+' · '+dur(q.s);
+    $('qText').innerHTML=q.q;
+    $('qExtra').innerHTML=q.e||'';
+    var box=$('qAns'); box.innerHTML='';
+    if(q.k==='test'||q.k==='vf'){
+      var ul=document.createElement('ul'); ul.className='opts'+(q.k==='vf'?' vf':'');
+      var items=q.k==='vf'?[[true,'Verdadero'],[false,'Falso']]:st.opt[q.id].map(function(i){return [i,q.o[i]];});
+      items.forEach(function(it,n){
+        var li=document.createElement('li'), b=document.createElement('button');
+        b.type='button'; b.disabled=lock;
+        b.innerHTML='<span class="l">'+(q.k==='vf'?(it[0]?'V':'F'):'ABCD'[n])+'</span><span>'+it[1]+'</span>';
+        if(v===it[0]) b.classList.add('sel');
+        b.addEventListener('click',function(){
+          st.ans[q.id]=it[0]; delete st.later[q.id];
+          ul.querySelectorAll('button').forEach(function(x){x.classList.remove('sel');}); b.classList.add('sel');
+          guardar(); pintarMapa();
+        });
+        li.appendChild(b); ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    } else {
+      var larga=q.k!=='cerrada', f=document.createElement(larga?'textarea':'input');
+      if(!larga){ f.type='text'; f.maxLength=40; f.style.maxWidth='260px'; f.placeholder=q.ph||''; }
+      else f.placeholder='Escribe aquí tu respuesta con frases completas…';
+      f.value=v||''; f.disabled=lock; f.setAttribute('aria-label','Tu respuesta');
+      f.setAttribute('autocomplete','off'); f.spellcheck=larga;
+      var wc=document.createElement('div'); wc.className='wc';
+      var upd=function(){ if(larga) wc.textContent=words(f.value)+' palabras'; };
+      f.addEventListener('input',function(){
+        st.ans[q.id]=f.value; if(f.value.trim()) delete st.later[q.id];
+        upd(); pintarMapa(); if(Date.now()-(st.saved||0)>1500) guardar();
+      });
+      f.addEventListener('paste',function(ev){ ev.preventDefault(); toast('En este cuestionario no se puede pegar texto.'); });
+      upd(); box.appendChild(f); if(larga) box.appendChild(wc);
+      if(!lock) setTimeout(function(){ try{ f.focus({preventScroll:true}); }catch(e){} },0);
+    }
+    $('qNote').innerHTML=lock?'<div class="note x">⏱ Se acabó el tiempo de esta pregunta. Tu respuesta se guardó tal como estaba.</div>':
+      st.later[q.id]?'<div class="note">⏭ Marcaste esta pregunta para después. Cuando la respondas, desaparecerá la marca.</div>':'';
+    $('bLater').disabled=lock;
+  }
+
+  $('bNext').addEventListener('click',function(){ ir(siguiente(st.cur,false)); });
+  $('bPrev').addEventListener('click',function(){ ir(anterior(st.cur)); });
+  $('bLater').addEventListener('click',function(){
+    var q=curQ(); if(st.locked[q.id]) return;
+    st.later[q.id]=true;
+    var n=siguiente(st.cur,true);
+    if(n===st.cur) toast('No quedan otras preguntas: responde esta o entrega.');
+    ir(n);
+  });
+
+  /* ---------- Entregar ---------- */
+  $('bSend').addEventListener('click',function(){
+    var sin=st.order.filter(function(id){return !answered(id);}).length;
+    var tarde=Object.keys(st.later).length;
+    $('mText').innerHTML=(sin?'Te quedan <b>'+sin+'</b> pregunta'+(sin>1?'s':'')+' sin responder'+(tarde?' (<b>'+tarde+'</b> marcada'+(tarde>1?'s':'')+' para después)':'')+'. ':'Has respondido todas las preguntas. ')+
+      'Cuando entregues ya no podrás cambiar nada.';
+    $('modal').hidden=false; $('mNo').focus();
+  });
+  $('mNo').addEventListener('click',function(){ $('modal').hidden=true; });
+  $('mYes').addEventListener('click',function(){ $('modal').hidden=true; entregar('boton'); });
+
+  function correcta(q,v){
+    if(q.k==='test'||q.k==='vf') return v===q.a;
+    if(q.k==='cerrada') return q.ok.map(norm).indexOf(norm(v||''))>=0;
+    return null;
+  }
+
+  function entregar(motivo){
+    if(st.ended) return;
+    clearInterval(timer);
+    st.ended=true; st.end=Math.min(Date.now(),st.deadline); st.motivo=motivo;
+    guardar(); hoja();
+  }
+
+  function hoja(){
+    $('intro').hidden=true; $('quiz').hidden=true; $('clock').hidden=true; $('modal').hidden=true; $('end').hidden=false;
+    $('eTitle').textContent=st.motivo==='tiempo'?'⏱ Se acabó el tiempo: cuestionario entregado':'✅ Cuestionario entregado';
+    var usado=Math.round((st.end-st.start)/1000);
+    $('eHead').innerHTML=[
+      ['Alumno/a',esc(st.nom+' '+st.ape)],
+      ['Fecha',new Date(st.start).toLocaleDateString('es-ES')],
+      ['Inicio y entrega',hora(st.start)+' – '+hora(st.end)+' ('+dur(usado)+')'],
+      ['Forma de entrega',st.motivo==='tiempo'?'Fin del tiempo':'Botón «Entregar»'],
+      ['Respondidas',st.order.filter(answered).length+' de '+st.order.length],
+      ['Salidas de la página',String(st.blur||0)]
+    ].map(function(x){return '<div><small>'+x[0]+'</small><b>'+x[1]+'</b></div>';}).join('');
+    var aut=0, bien=0;
+    var html='<h2>Respuestas</h2>';
+    st.order.forEach(function(id,i){
+      var q=byId(id), v=st.ans[id], r=AUTO[q.k]?correcta(q,v):null, txt;
+      if(AUTO[q.k]){ aut++; if(r) bien++; }
+      if(!answered(id)) txt='<i class="muted">Sin responder</i>';
+      else if(q.k==='test') txt=q.o[v];
+      else if(q.k==='vf') txt=v?'Verdadero':'Falso';
+      else txt=esc(v);
+      var stt=AUTO[q.k]?(r?'<div class="st ok">✅ Correcta</div>':'<div class="st ko">❌ Incorrecta</div>'):'<div class="st prof">📝 La corrige el profesor</div>';
+      html+='<div class="ans"><div class="tags"><span class="tag">'+(i+1)+'</span><span class="tag k k-'+q.k+'">'+KIND[q.k]+'</span><span class="tag">'+q.p+'</span>'+
+        (st.locked[id]?'<span class="tag">⏱ Tiempo agotado</span>':'')+'</div><div class="q" style="font-size:17px">'+q.q+'</div>'+(q.e||'')+
+        '<div class="r">'+txt+'</div>'+stt+'</div>';
     });
-    if(good) ok++; else { b.classList.add('ko'); fails.push(it); }
-    $('pts').textContent='Aciertos: '+ok;
-    $('fb').className='fb show '+(good?'ok':'ko');
-    $('fb').innerHTML='<b>'+(good?'✅ ¡Correcto!':'❌ No es esa.')+'</b>'+it.x;
-    $('next').textContent=i===Q.length-1?'Ver resultado →':'Siguiente →';
-    $('next').hidden=false; $('next').focus();
+    $('eList').innerHTML=html;
+    var nota=Math.round(bien/aut*100)/10;
+    $('eScore').textContent=bien+' / '+aut+'  ·  '+String(nota).replace('.',',');
+    window.scrollTo(0,0);
   }
 
-  function finish(){
-    $('quiz').hidden=true; $('end').hidden=false;
-    var nota=Math.round(ok/Q.length*100)/10;
-    $('final').textContent=ok+' / '+Q.length;
-    $('msg').innerHTML='Tu nota: <b>'+nota.toString().replace('.',',')+'</b> sobre 10. '+
-      (ok===Q.length?'¡Perfecto! Dominas todas las prácticas 🏆':ok>=18?'¡Muy bien! Ya casi lo tienes todo 🤖':ok>=12?'Bien, pero repasa algunas prácticas 💪':'Vuelve a hacer las prácticas del robot y repite el cuestionario 🔁');
-    $('rev').innerHTML=fails.length?'<p style="margin:14px 0 0"><b>Prácticas para repasar:</b></p><ul class="review">'+
-      fails.map(function(f){return '<li>Práctica '+f.p+' · '+f.t+'</li>';}).join('')+'</ul>':'';
-    $('end').scrollIntoView({behavior:'smooth',block:'start'});
-  }
+  $('bPrint').addEventListener('click',function(){ window.print(); });
+  $('bNew').addEventListener('click',function(){
+    borrar(); st=null; $('nom').value=''; $('ape').value=''; okNombre();
+    $('end').hidden=true; $('intro').hidden=false; window.scrollTo(0,0);
+  });
 
-  $('next').addEventListener('click',function(){ if(i<Q.length-1){ i++; show(); } else finish(); });
-  $('again').addEventListener('click',start);
-  start();
+  /* Registrar si el alumno sale de la página durante el cuestionario */
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden && st && !st.ended){ st.blur=(st.blur||0)+1; guardar(); }
+  });
+
+  /* ---------- Reanudar si se recarga la página ---------- */
+  var prev=leer();
+  if(prev && prev.order && prev.order.length===Q.length){
+    st=prev;
+    if(st.ended) hoja();
+    else {
+      var cq=st.order[st.cur];
+      if(!st.locked[cq]) st.rem[cq]=Math.max(0,st.rem[cq]-(Date.now()-(st.saved||Date.now())));
+      if(Date.now()>=st.deadline){ entregar('tiempo'); }
+      else { toast('Se ha recuperado tu cuestionario. El reloj ha seguido corriendo.'); empezar(); }
+    }
+  }
 })();
 </script>
 </body>
