@@ -14,7 +14,8 @@ Cuestionarios de Tecnología en formato examen. **Todos** comparten el mismo mot
 8. **Sin copiar:** no se puede pegar texto ni usar el menú contextual o los atajos de copiar, buscar o imprimir.
 9. **Final:** el cuestionario termina cuando el alumno pulsa **«Entregar»** o cuando se acaba el **tiempo total**.
 10. **Entrega:** las respuestas se envían al panel del profesor (`profesor.html`). Después se **borran del ordenador** y vuelve a salir el inicio vacío, listo para el siguiente alumno. Si el envío falla, se conservan para reintentarlo o guardarlas en PDF.
-11. **Resultados solo para el profesor:** `profesor.html`, protegido con contraseña y sin enlaces públicos.
+11. **Corrección automática de todas las preguntas:** test, verdadero o falso y respuesta cerrada se corrigen con su solución. Las de respuesta abierta, reflexión y pensamiento crítico se corrigen con una **rúbrica de ideas clave** (`rb`, ver `correccion.js`). La nota final es sobre 10 **con centésimas**. En el panel, «🤖 Corregir todos» guarda las notas de todas las entregas, y el profesor puede cambiar los puntos de cualquier pregunta abierta.
+12. **Resultados solo para el profesor:** `profesor.html`, protegido con contraseña y sin enlaces públicos.
 
 ## Crear un cuestionario nuevo
 

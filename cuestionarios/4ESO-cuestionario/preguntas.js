@@ -1,5 +1,5 @@
 /*
- * Cuestionario de 4.º ESO · Tema 2: Electricidad básica
+ * Cuestionario «Electricidad básica» · 4.º ESO · Tema 2
  * Basado en los apuntes del alumnado: la electricidad y sus ventajas, el circuito eléctrico y sus elementos,
  * magnitudes eléctricas básicas, la ley de Ohm, circuitos en serie y en paralelo, la resistencia y el LED.
  * Banco de preguntas compartido por la página del alumno y el panel del profesor.
@@ -7,7 +7,9 @@
  * Para cambiar los grupos, edita GRUPOS.
  * Cada pregunta: k = tipo (test | vf | cerrada | abierta | reflexion | critico), s = segundos,
  * test → o (opciones) y a (índice correcto) · vf → a (true/false) · cerrada → ok (respuestas válidas).
- * Puntos: 1 en las de corrección automática y 2 en las que corrige el profesor (se puede cambiar con «pt»).
+ * Puntos: TODAS las preguntas valen lo mismo (1 punto). La nota es sobre 10, con centésimas.
+ * Corrección: todas se corrigen solas. Las abiertas llevan una rúbrica «rb» con sus ideas clave (ver ../correccion.js);
+ * el profesor puede cambiar su puntuación en el panel.
  */
 (function () {
   'use strict';
@@ -84,14 +86,46 @@
     { id: 23, p: '4 · La ley de Ohm', k: 'cerrada', s: 90, q: 'Una lámpara funciona a <b>12 V</b> y por ella circulan <b>0,5 A</b>. ¿Cuál es su resistencia? Escribe solo el número, en ohmios.',
       ph: 'Número en Ω', ok: ['24', '24 ohmios', '24ω', '24 ω', '24 ohm'] },
     { id: 24, p: '5 · Circuitos en serie y en paralelo', k: 'vf', s: 30, q: 'En un circuito en serie, si se funde una bombilla, las demás siguen encendidas.', a: false },
-    { id: 25, p: '5 · Circuitos en serie y en paralelo', k: 'abierta', s: 180, q: 'Explica la diferencia entre un circuito <b>en serie</b> y uno <b>en paralelo</b>. Pon un ejemplo de cada uno.' },
+    { id: 25, p: '5 · Circuitos en serie y en paralelo', k: 'abierta', s: 180, q: 'Explica la diferencia entre un circuito <b>en serie</b> y uno <b>en paralelo</b>. Pon un ejemplo de cada uno.',
+      rb: [
+        { t: 'En serie: los elementos van uno detrás de otro, por un solo camino', w: ['detras', 'uno tras otro', 'seguido', 'un solo camino', 'mismo camino', 'unico camino', 'misma intensidad', 'misma corriente', 'en fila', 'en linea', 'cadena'] },
+        { t: 'En paralelo: cada elemento en su propia rama o camino', w: ['rama', 'varios camino', 'distintos camino', 'diferentes camino', 'otro camino', 'cada uno&camino', 'independiente', 'misma tension', 'mismo voltaje', 'por separado'] },
+        { t: 'Si un elemento falla: en serie se apagan todos y en paralelo los demás siguen', w: ['apag', 'dejan de funcionar', 'deja de funcionar', 'dejarian de funcionar', 'siguen funcionando', 'sigue funcionando', 'siguen encendid', 'no funciona', 'se funde', 'se rompe', 'se estropea'] },
+        { t: 'Pone algún ejemplo', w: ['ejemplo', 'casa', 'vivienda', 'navidad', 'arbol', 'linterna', 'enchufe', 'farola', 'guirnalda', 'bombilla', 'lampara', 'pila', 'coche', 'aula', 'clase'] }
+      ] },
     { id: 26, p: '6 y 7 · La resistencia y el LED', k: 'abierta', s: 180, q: 'En los apuntes dibujaste una pila, un LED y una resistencia en serie. Explica cómo se conectan y para qué sirve la resistencia en ese circuito.',
-      e: CIRCUITO_LED },
-    { id: 27, p: '1 · La electricidad y sus ventajas', k: 'reflexion', s: 180, q: 'Elige un aparato eléctrico de tu casa que uses todos los días. ¿En qué forma de energía transforma la electricidad (luz, calor, movimiento o sonido)? ¿Cómo sería tu día sin él?' },
-    { id: 28, p: '4 · La ley de Ohm', k: 'critico', s: 210, q: 'Un compañero dice: «Cuanto mayor es la resistencia, más corriente pasa por el circuito». ¿Estás de acuerdo? Razónalo usando la ley de Ohm y pon un ejemplo con números.' },
-    { id: 29, p: '5 · Circuitos en serie y en paralelo', k: 'critico', s: 210, q: 'En las casas, las lámparas y los enchufes se conectan en paralelo, no en serie. ¿Por qué crees que se hace así? Piensa en qué pasaría si estuvieran en serie.' }
+      e: CIRCUITO_LED,
+      rb: [
+        { t: 'Van conectados en serie, uno detrás de otro', w: ['serie', 'detras', 'seguido', 'uno tras otro', 'un solo camino'] },
+        { t: 'Tiene en cuenta la polaridad del LED (ánodo o patilla larga al positivo)', w: ['anodo', 'catodo', 'patilla larga', 'pata larga', 'patita larga', 'positivo', 'negativo', 'polaridad', 'polo'] },
+        { t: 'La resistencia limita o reduce la corriente que pasa por el LED', w: ['limit', 'reduc', 'disminu', 'menos corriente', 'menos intensidad', 'baja&corriente', 'baja&intensidad', 'controla&corriente', 'controla&intensidad', 'regula', 'frena', 'se opone', 'oposicion'] },
+        { t: 'Así protege el LED para que no se queme o se estropee', w: ['proteg', 'quem', 'fund', 'romp', 'estrope', 'danar', 'dane', 'dana', 'danad', 'explot'] }
+      ] },
+    { id: 27, p: '1 · La electricidad y sus ventajas', k: 'reflexion', s: 180, q: 'Elige un aparato eléctrico de tu casa que uses todos los días. ¿En qué forma de energía transforma la electricidad (luz, calor, movimiento o sonido)? ¿Cómo sería tu día sin él?',
+      rb: [
+        { t: 'Nombra un aparato eléctrico', w: ['nevera', 'frigori', 'lavadora', 'lavavajillas', 'microondas', 'horno', 'movil', 'telefono', 'television', 'tele', 'ordenador', 'portatil', 'tablet', 'secador', 'ventilador', 'lampara', 'bombilla', 'tostadora', 'cargador', 'vitro', 'placa', 'plancha', 'calefac', 'radiador', 'estufa', 'router', 'consola', 'altavoz', 'aspiradora', 'batidora', 'cafetera', 'termo', 'aire acondicionado', 'despertador', 'radio', 'cepillo', 'luz', 'luces'] },
+        { t: 'Dice en qué forma de energía transforma la electricidad', w: ['luz', 'luminos', 'calor', 'termic', 'calienta', 'movimiento', 'mecanic', 'mueve', 'gira', 'sonido', 'sonora', 'frio', 'enfria', 'imagen', 'ilumina'] },
+        { t: 'Reflexiona sobre cómo sería su día sin ese aparato', w: ['sin el', 'sin ella', 'sin ese', 'sin esa', 'sin la', 'sin mi', 'no podria', 'no podr', 'dificil', 'complicad', 'tendria que', 'aburri', 'peor', 'lento', 'imposible', 'echaria', 'de menos', 'costaria', 'incomod', 'no tendria', 'habria que'] },
+        { t: 'Lo desarrolla con al menos 25 palabras', min: 25 }
+      ] },
+    { id: 28, p: '4 · La ley de Ohm', k: 'critico', s: 210, q: 'Un compañero dice: «Cuanto mayor es la resistencia, más corriente pasa por el circuito». ¿Estás de acuerdo? Razónalo usando la ley de Ohm y pon un ejemplo con números.',
+      rb: [
+        { t: 'No está de acuerdo: es al revés', w: ['no estoy de acuerdo', 'no estoy deacuerdo', 'no es cierto', 'no es verdad', 'no tiene razon', 'falso', 'incorrect', 'se equivoca', 'equivocad', 'al reves', 'desacuerdo', 'no es asi', 'mentira'] },
+        { t: 'Explica que a más resistencia, menos corriente (I = V / R)', w: ['menos corriente', 'menos intensidad', 'menor intensidad', 'menor corriente', 'menos pasa', 'pasa menos', 'disminu', 'baja', 'inversa', 'reduc', 'mas pequena'] },
+        { t: 'Usa la fórmula de la ley de Ohm', w: ['i=v/r', 'v/r', 'v=i', 'v=r', 'r=v', 'i=v', 'tension entre', 'voltaje entre', 'dividi'] },
+        { t: 'Pone un ejemplo con números', re: '\\d' }
+      ] },
+    { id: 29, p: '5 · Circuitos en serie y en paralelo', k: 'critico', s: 210, q: 'En las casas, las lámparas y los enchufes se conectan en paralelo, no en serie. ¿Por qué crees que se hace así? Piensa en qué pasaría si estuvieran en serie.',
+      rb: [
+        { t: 'En paralelo cada aparato funciona de forma independiente (se enciende o apaga solo)', w: ['independien', 'por separado', 'cada uno', 'cada aparato', 'cada lampara', 'cada enchufe', 'individual', 'sin que&otro', 'sin afectar', 'no afecta', 'los demas', 'las demas', 'el resto'] },
+        { t: 'En serie, si uno se funde o se apaga, se apagarían todos', w: ['apagar', 'apagan', 'apagaria', 'dejarian de funcionar', 'no funcionaria', 'dejaria de funcionar', 'dejan de funcionar', 'funde', 'fundi', 'rompe', 'todos&apag', 'todo&apag', 'ninguno', 'nada funcionaria'] },
+        { t: 'En paralelo todos reciben la misma tensión (230 V) y funcionan bien', w: ['misma tension', 'mismo voltaje', 'toda la tension', 'todo el voltaje', '230', '220', 'tension completa', 'misma potencia', 'menos luz', 'menos tension', 'repart', 'divid'] },
+        { t: 'Lo razona con al menos 20 palabras', min: 20 }
+      ] },
+    { id: 30, p: '5 · Circuitos en serie y en paralelo', k: 'vf', s: 30, q: 'En un circuito en paralelo, si se funde una bombilla, las demás siguen encendidas.', a: true }
   ];
-  Q.forEach(function (q) { if (q.pt === undefined) q.pt = AUTO[q.k] ? 1 : 2; });
+  // Todas las preguntas valen lo mismo: 1 punto cada una (30 en total → nota sobre 10 con centésimas)
+  Q.forEach(function (q) { q.pt = 1; });
 
   /** ¿Es correcta la respuesta v? (null si la corrige el profesor) */
   function correcta(q, v) {
@@ -102,8 +136,8 @@
   }
 
   window.CUESTIONARIO = {
-    id: '4eso-electricidad', titulo: 'Cuestionario 4.º ESO · Electricidad básica', grupos: GRUPOS,
-    descripcion: 'Es un cuestionario sobre el <b>Tema 2: Electricidad</b>: la electricidad y sus ventajas, el circuito eléctrico y sus elementos, los símbolos eléctricos, las magnitudes eléctricas, la ley de Ohm, los circuitos en serie y en paralelo, la resistencia y el LED. Hay preguntas de varios tipos:',
+    id: '4eso-electricidad', titulo: 'Electricidad básica', grupos: GRUPOS,
+    descripcion: 'Es un cuestionario sobre el <b>Tema 2: Electricidad</b>: la electricidad y sus ventajas, el circuito eléctrico y sus elementos, los símbolos eléctricos, las magnitudes eléctricas, la ley de Ohm, los circuitos en serie y en paralelo, la resistencia y el LED. Son <b>30 preguntas</b> y <b>todas valen lo mismo</b>; la nota final es sobre 10, con centésimas. Hay preguntas de varios tipos:',
     preguntas: Q, KIND: KIND, AUTO: AUTO, correcta: correcta
   };
 })();
