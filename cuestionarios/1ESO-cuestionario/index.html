@@ -51,8 +51,8 @@ h2{font-family:var(--display);font-size:28px;line-height:1.1;margin:0 0 10px}
 .facts b{display:block;font-family:var(--display);font-size:28px;line-height:1.1}
 .facts small{color:var(--muted)}
 label{display:block;font-weight:600;margin:12px 0 4px}
-input[type=text],textarea{width:100%;font:inherit;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:10px 12px}
-input[type=text]:focus,textarea:focus{outline:none;border-color:var(--brand)}
+input[type=text],textarea,select{width:100%;font:inherit;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:10px 12px}
+input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:var(--brand)}
 textarea{min-height:150px;resize:vertical}
 .two{display:grid;grid-template-columns:1fr 1.4fr;gap:12px}
 @media (max-width:560px){.two{grid-template-columns:1fr}}
@@ -97,6 +97,7 @@ textarea{min-height:150px;resize:vertical}
 .wc{font-size:13px;color:var(--muted);margin-top:4px}
 .note{margin:14px 0 0;padding:10px 14px;border-radius:12px;background:var(--warn-bg);font-size:15px}
 .note.x{background:var(--ko-bg)}
+.note.ok{background:var(--ok-bg)}
 .nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:center}
 .nav .sp{flex:1}
 .lock{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;padding:18px;overflow:auto}
@@ -187,7 +188,10 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
         <div><label for="nom">Nombre</label><input type="text" id="nom" maxlength="40" required></div>
         <div><label for="ape">Apellidos</label><input type="text" id="ape" maxlength="60" required></div>
       </div>
-      <p class="muted" style="font-size:14px;margin:10px 0 16px">Escribe tu nombre y tus dos apellidos para poder empezar.</p>
+      <label for="gru">Grupo</label>
+      <select id="gru" required><option value="">Elige tu grupo…</option></select>
+      <p class="muted" style="font-size:14px;margin:10px 0 16px">Escribe tu nombre y tus dos apellidos y elige tu grupo para poder empezar.</p>
+      <p class="note" id="prueba" hidden>Modo de prueba: las respuestas se guardan solo en este navegador hasta que el profesor conecte la plataforma con su hoja de Google.</p>
       <button class="btn go big" id="bStart" type="submit" disabled>▶ Iniciar el cuestionario</button>
     </form>
   </section>
@@ -220,7 +224,9 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
       <p class="muted" style="margin:14px 0 0;font-size:15px">Preguntas de corrección automática (test, verdadero o falso y respuesta cerrada):</p>
       <div class="score" id="eScore"></div>
       <p class="muted" style="margin:0;font-size:15px">Las preguntas de respuesta abierta, reflexión y pensamiento crítico las corrige el profesor.</p>
+      <div class="note" id="eSend"></div>
       <div class="nav noprint">
+        <button class="btn warn" id="bRetry" type="button" hidden>↻ Reintentar el envío</button>
         <button class="btn" id="bPrint" type="button">🖨️ Imprimir o guardar en PDF</button>
         <button class="btn alt" id="bNew" type="button">Salir (nuevo alumno)</button>
       </div>
@@ -251,86 +257,17 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
 </div>
 <div class="toast" id="toast" hidden></div>
 
+<script src="preguntas.js"></script>
+<script src="../../tareas/config.js"></script>
+<script src="../api.js"></script>
 <script>
 (function(){
   'use strict';
-  var CLAVE='cuestionario-1eso-robot-v2';
+  var CLAVE='cuestionario-1eso-robot-v3';
   /* Número de salidas de la pantalla completa con las que el cuestionario se entrega solo (0 = nunca). */
   var MAX_SALIDAS=3;
 
-  /* ---------- Bloques del robot ---------- */
-  var B={
-    fwd:['⬆ Avanzar','move'], izq:['↺ Girar izquierda','turn'], der:['↻ Girar derecha','turn'],
-    pin:['🖌️ Pintar casilla','pen'], coger:['✋ Coger paquete','act'], dejar:['📦 Dejar paquete','act'],
-    regar:['💧 Regar','act'], recoger:['🧺 Recoger manzana','act'], barrer:['🧹 Barrer','act']
-  };
-  var COL={loop:'var(--loop)',until:'var(--until)',if:'var(--if)'};
-  function blk(x){
-    if(typeof x==='string'){ var d=B[x]; return '<span class="blk '+d[1]+'">'+d[0]+'</span>'; }
-    var h='<span class="blk '+x.t+'">'+x.b+'</span>';
-    if(x.c) h+='<div class="nest" style="--c:'+COL[x.t]+'">'+x.c.map(blk).join('')+'</div>';
-    if(x.e) h+='<span class="blk '+x.t+'">si no</span><div class="nest" style="--c:'+COL[x.t]+'">'+x.e.map(blk).join('')+'</div>';
-    return h;
-  }
-  function prog(list){ return '<div class="prog">'+list.map(blk).join('')+'</div>'; }
-  var rep=function(n,c){return {b:'🔁 Repetir '+n+' veces',t:'loop',c:c};};
-  var hasta=function(c){return {b:'🔁 Repetir hasta llegar a la meta 🏁',t:'until',c:c};};
-  var mientras=function(c){return {b:'🔁 Mientras haya camino delante',t:'until',c:c};};
-  var si=function(cond,c,e){return {b:'📡 Si '+cond,t:'if',c:c,e:e};};
-
-  /* ---------- Preguntas ----------
-     k: test | vf | cerrada | abierta | reflexion | critico
-     s: segundos para responderla
-     test → o (opciones), a (índice correcto) · vf → a (true/false) · cerrada → ok (respuestas válidas) */
-  var KIND={test:'Test',vf:'Verdadero o falso',cerrada:'Respuesta cerrada',abierta:'Respuesta abierta',reflexion:'Reflexión',critico:'Pensamiento crítico'};
-  var AUTO={test:1,vf:1,cerrada:1};
-  var Q=[
-    {id:1,p:'Práctica 1 · Primeros pasos',k:'test',s:60,q:'¿En qué orden ejecuta el ordenador las instrucciones de un programa?',
-     o:['Una detrás de otra, de arriba abajo','Todas a la vez','De abajo arriba','En el orden que él prefiera'],a:0},
-    {id:2,p:'Práctica 2 · La esquina',k:'test',s:60,q:'El robot mira hacia <b>abajo</b> de la pantalla (↓). Si ejecuta <span class="blk turn">↺ Girar izquierda</span>, ¿hacia dónde mirará?',
-     o:['Hacia la derecha de la pantalla (→)','Hacia la izquierda de la pantalla (←)','Hacia arriba (↑)','Seguirá mirando hacia abajo (↓)'],a:0},
-    {id:3,p:'Práctica 3 · El pasillo largo',k:'cerrada',s:60,q:'Quieres recorrer un pasillo de 6 casillas con solo 2 bloques: <span class="blk loop">🔁 Repetir … veces</span> y <span class="blk move">⬆ Avanzar</span>. ¿Qué número tienes que poner en el bloque Repetir?',
-     ph:'Escribe un número',ok:['6','seis']},
-    {id:4,p:'Práctica 4 · La escalera',k:'test',s:75,q:'Este programa sube una escalera. ¿Cómo lo escribirías con menos bloques?',
-     e:prog(['fwd','izq','fwd','der','fwd','izq','fwd','der','fwd','izq','fwd','der']),
-     o:[prog([rep(3,['fwd','izq','fwd','der'])]),prog([rep(12,['fwd'])]),prog([rep(3,['fwd']),rep(3,['izq'])]),'No se puede escribir más corto'],a:0},
-    {id:5,p:'Práctica 5 · Cazaestrellas',k:'cerrada',s:90,q:'¿Cuántas veces avanza el robot en total con este programa?',
-     e:prog([rep(4,[rep(3,['fwd']),'der'])]),ph:'Escribe un número',ok:['12','doce']},
-    {id:6,p:'Práctica 6 · Atrapa al gusano 🐛',k:'reflexion',s:240,q:'En «Atrapa al gusano» tuviste que arreglar un programa escrito por otra persona. Cuenta cómo buscaste los errores. ¿Te resultó más fácil arreglar un programa ajeno o escribir uno desde cero? ¿Por qué?'},
-    {id:7,p:'Práctica 7 · El robot aspirador',k:'abierta',s:180,q:'Explica con tus palabras qué hace este programa y por qué funciona aunque el laberinto sea muy largo y solo tenga 4 bloques.',
-     e:prog([hasta([si('hay pared delante',['der']),'fwd'])])},
-    {id:8,p:'Práctica 8 · Pasillos misteriosos 🎲',k:'test',s:60,q:'¿Cuál es la diferencia entre <span class="blk loop">🔁 Repetir 5 veces</span> y <span class="blk until">🔁 Mientras haya camino delante</span>?',
-     o:['«Mientras» repite sin saber de antemano cuántas veces: lo hace mientras se cumpla la condición','No hay ninguna diferencia','«Mientras» repite siempre 5 veces','«Repetir» solo funciona con giros'],a:0},
-    {id:9,p:'Práctica 9 · Pinta la fila 🖌️',k:'test',s:60,q:'El robot pinta la casilla en la que está. ¿Qué programa pinta 5 casillas seguidas?',
-     o:[prog([rep(5,['pin','fwd'])]),prog([rep(5,['fwd']),'pin']),prog(['pin',rep(5,['fwd'])]),prog([rep(5,['pin'])])],a:0},
-    {id:10,p:'Práctica 10 · La letra L',k:'vf',s:30,q:'Para pintar la letra L basta con un único bucle, sin ningún giro.',a:false},
-    {id:11,p:'Práctica 11 · El marco',k:'cerrada',s:90,q:'Para pintar el marco, cada lado es <i>3 × (pintar + avanzar)</i> y el marco completo es <i>4 × (lado + girar)</i>. ¿Cuántas casillas pinta el robot en total?',
-     ph:'Escribe un número',ok:['12','doce']},
-    {id:12,p:'Práctica 12 · Una sí, una no',k:'test',s:60,q:'Quieres pintar una casilla sí y otra no a lo largo de una fila. ¿Qué patrón va dentro del bucle?',
-     o:[prog(['pin','fwd','fwd']),prog(['pin','fwd']),prog(['pin','pin','fwd']),prog(['fwd','izq'])],a:0},
-    {id:13,p:'Práctica 13 · Pinta hasta la pared 🎲',k:'critico',s:240,q:'Un compañero resuelve «Pinta hasta la pared» contando las casillas que ve en su pantalla y usa <span class="blk loop">🔁 Repetir 5 veces</span>. Dice que su programa está bien porque en su pantalla funciona. ¿Estás de acuerdo? Razona tu respuesta y explica qué pasaría en los 3 mapas de prueba y qué bloque le recomendarías.'},
-    {id:14,p:'Práctica 14 · El repartidor 📦',k:'vf',s:30,q:'El ordenador guarda en su memoria si el robot lleva un paquete o no (es el «estado» del robot).',a:true},
-    {id:15,p:'Práctica 15 · Reparto en cadena',k:'vf',s:30,q:'En «Reparto en cadena» el robot puede llevar dos paquetes a la vez.',a:false},
-    {id:16,p:'Práctica 16 · El paquete del fondo 🎲',k:'cerrada',s:60,q:'¿Cuántos giros hacia el mismo lado necesita el robot para dar media vuelta?',ph:'Escribe un número',ok:['2','dos']},
-    {id:17,p:'Práctica 17 · La escalera de la bandera 🎲',k:'test',s:60,q:'El número de escalones cambia en cada mapa. ¿Qué bloque usas para repetir el escalón?',
-     o:['<span class="blk until">🔁 Repetir hasta llegar a la meta 🏁</span>','<span class="blk loop">🔁 Repetir 5 veces</span>','<span class="blk move">⬆ Avanzar</span> muchas veces','<span class="blk pen">🖌️ Pintar casilla</span>'],a:0},
-    {id:18,p:'Práctica 18 · La espiral al revés 🎲',k:'abierta',s:180,q:'El programa del robot aspirador gira a la derecha cuando encuentra una pared. ¿Qué cambiarías para recorrer la espiral que gira hacia la izquierda? Explica por qué basta con ese cambio aunque la espiral cambie de tamaño.',
-     e:prog([hasta([si('hay pared delante',['der']),'fwd'])])},
-    {id:19,p:'Práctica 19 · El jardinero 🎲',k:'test',s:60,q:'Hay que regar solo las macetas con planta 🌱. ¿Qué programa va dentro del bucle?',
-     o:[prog([si('debajo hay una planta 🌱',['regar']),'fwd']),prog(['regar','fwd']),prog([si('hay pared delante',['regar']),'fwd']),prog(['fwd','fwd'])],a:0},
-    {id:20,p:'Práctica 20 · El barrendero 🎲',k:'vf',s:30,q:'En «El barrendero» se puede usar <span class="blk loop">🔁 Repetir 6 veces</span> porque la valla 🚧 siempre está en el mismo sitio.',a:false},
-    {id:21,p:'Práctica 21 · La cosecha 🎲',k:'test',s:60,q:'Con este bloque, ¿qué hace el robot si la manzana está <b>verde 🍏</b>?',
-     e:prog([si('debajo hay una manzana madura 🍎',['recoger'],['regar'])]),
-     o:['La riega','La recoge','La recoge y la riega','Nada'],a:0},
-    {id:22,p:'Práctica 22 · Reparto por la calle 🎲',k:'test',s:60,q:'¿Qué hace el robot en cada casilla con este programa?',
-     e:prog([si('debajo hay un paquete 📦',['coger']),si('debajo hay una casa 🏠',['dejar']),'fwd']),
-     o:['Hace dos preguntas seguidas: si hay paquete lo coge; si hay casa, lo deja','Solo pregunta si hay pared','Nada: solo avanza','Coge y deja el paquete en la misma casilla siempre'],a:0},
-    {id:23,p:'Práctica 23 · Arregla el repartidor 🐞🎲',k:'test',s:75,q:'Este programa debería coger los paquetes y dejarlos en las casas, pero falla. ¿Dónde está el error?',
-     e:prog([mientras([si('debajo hay un paquete 📦',['dejar']),si('debajo hay una casa 🏠',['dejar']),'fwd'])]),
-     o:['En el primer «Si»: debería ser Coger paquete, no Dejar paquete','En el bloque Avanzar','En el segundo «Si»','No tiene ningún error'],a:0},
-    {id:24,p:'Práctica 24 · Gran final 🏆',k:'critico',s:240,q:'Los robots aspiradores de verdad usan sensores parecidos a los de la práctica final. ¿Crees que un robot con sensores toma siempre buenas decisiones? Piensa en un caso en el que el sensor podría equivocarse, qué consecuencias tendría y cómo lo mejorarías.'},
-    {id:25,p:'Reflexión final',k:'reflexion',s:240,q:'¿Qué práctica de las 24 te costó más y qué hiciste para superarla? ¿Qué has aprendido programando el robot que puedas usar fuera de la clase de Tecnología?'}
-  ];
+  var C=window.CUESTIONARIO, Q=C.preguntas, KIND=C.KIND, AUTO=C.AUTO;
   var TOTAL=Q.reduce(function(s,q){return s+q.s;},0);
 
   /* ---------- Utilidades ---------- */
@@ -339,7 +276,6 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
   function shuffle(a){ a=a.slice(); for(var j=a.length-1;j>0;j--){ var r=Math.floor(Math.random()*(j+1)); var t=a[j]; a[j]=a[r]; a[r]=t; } return a; }
   function mmss(ms){ var s=Math.max(0,Math.ceil(ms/1000)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
   function dur(s){ var m=Math.floor(s/60), r=s%60; return m?m+' min'+(r?' '+r+' s':''):r+' s'; }
-  function norm(s){ return String(s).trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[.,;:!¡¿?]/g,'').replace(/\s+/g,' '); }
   function hora(ts){ return new Date(ts).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }
   function words(s){ return (String(s).trim().match(/\S+/g)||[]).length; }
   function guardar(){ try{ st.saved=Date.now(); localStorage.setItem(CLAVE,JSON.stringify(st)); }catch(e){} }
@@ -360,8 +296,10 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
   $('fT').textContent=dur(TOTAL);
   var ss=Q.map(function(q){return q.s;});
   $('fR').textContent=dur(Math.min.apply(null,ss))+' – '+dur(Math.max.apply(null,ss));
-  function okNombre(){ $('bStart').disabled=!($('nom').value.trim().length>=2 && $('ape').value.trim().length>=3); }
-  $('nom').addEventListener('input',okNombre); $('ape').addEventListener('input',okNombre);
+  C.grupos.forEach(function(g){ var o=document.createElement('option'); o.value=g; o.textContent=g; $('gru').appendChild(o); });
+  $('prueba').hidden=!window.CuestAPI.modoPrueba;
+  function okNombre(){ $('bStart').disabled=!($('nom').value.trim().length>=2 && $('ape').value.trim().length>=3 && $('gru').value); }
+  $('nom').addEventListener('input',okNombre); $('ape').addEventListener('input',okNombre); $('gru').addEventListener('change',okNombre);
   $('fStart').addEventListener('submit',function(ev){
     ev.preventDefault(); if($('bStart').disabled) return;
     pedirFS();
@@ -370,7 +308,7 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
       rem[q.id]=q.s*1000;
       if(q.k==='test') opt[q.id]=shuffle(q.o.map(function(_,i){return i;}));
     });
-    st={nom:$('nom').value.trim(),ape:$('ape').value.trim(),order:shuffle(Q.map(function(q){return q.id;})),opt:opt,
+    st={nom:$('nom').value.trim(),ape:$('ape').value.trim(),grupo:$('gru').value,intentoId:(Date.now().toString(36)+Math.random().toString(36).slice(2,10)).replace(/[^a-z0-9]/g,'').slice(0,20),order:shuffle(Q.map(function(q){return q.id;})),opt:opt,
         ans:{},later:{},locked:{},rem:rem,cur:0,start:now,deadline:now+TOTAL*1000,blur:0,ended:false};
     guardar(); empezar();
   });
@@ -378,7 +316,7 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
   function empezar(){
     $('intro').hidden=true; $('end').hidden=true; $('quiz').hidden=false; $('clock').hidden=false;
     document.body.classList.add('examen');
-    $('who').textContent=st.nom+' '+st.ape;
+    $('who').textContent=st.nom+' '+st.ape+' · '+st.grupo;
     pintarMapa(); mostrar();
     last=Date.now(); clearInterval(timer); timer=setInterval(tick,250); tick();
     window.scrollTo(0,0);
@@ -503,18 +441,36 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
   $('mNo').addEventListener('click',function(){ $('modal').hidden=true; });
   $('mYes').addEventListener('click',function(){ $('modal').hidden=true; entregar('boton'); });
 
-  function correcta(q,v){
-    if(q.k==='test'||q.k==='vf') return v===q.a;
-    if(q.k==='cerrada') return q.ok.map(norm).indexOf(norm(v||''))>=0;
-    return null;
-  }
+  var correcta=C.correcta;
 
   function entregar(motivo){
     if(st.ended) return;
     clearInterval(timer);
     st.ended=true; st.end=Math.min(Date.now(),st.deadline); st.motivo=motivo;
     if(st.fuera) cerrarSalida();
-    guardar(); document.body.classList.remove('examen'); $('lock').hidden=true; salirFS(); hoja();
+    guardar(); document.body.classList.remove('examen'); $('lock').hidden=true; salirFS(); hoja(); enviar();
+  }
+
+  /* ---------- Envío al profesor ---------- */
+  var enviando=false;
+  function estadoEnvio(){
+    var e=$('eSend'); if(!e||!st) return;
+    if(st.enviado){ e.className='note ok'; e.innerHTML='✅ Tus respuestas han llegado al profesor.'; $('bRetry').hidden=true; }
+    else if(enviando){ e.className='note'; e.innerHTML='⏳ Enviando tus respuestas al profesor…'; $('bRetry').hidden=true; }
+    else { e.className='note x'; e.innerHTML='⚠️ No se han podido enviar tus respuestas'+(st.errEnvio?' ('+esc(st.errEnvio)+')':'')+'. Pulsa «Reintentar el envío». Si sigue fallando, avisa al profesor y guarda la hoja en PDF.'; $('bRetry').hidden=false; }
+  }
+  function enviar(){
+    if(!st||!st.ended||st.enviado||enviando) return;
+    enviando=true; estadoEnvio();
+    var aut=0,bien=0,resp={};
+    Q.forEach(function(q){ if(AUTO[q.k]){ aut++; if(correcta(q,st.ans[q.id])) bien++; } if(answered(q.id)) resp[q.id]=st.ans[q.id]; });
+    window.CuestAPI.llamar('entregarCuestionario',{
+      cuestionario:C.id, intentoId:st.intentoId, grupo:st.grupo, nombre:st.nom, apellidos:st.ape,
+      inicio:new Date(st.start).toISOString(), entrega:new Date(st.end).toISOString(), duracion:Math.round((st.end-st.start)/1000),
+      motivo:st.motivo, respondidas:st.order.filter(answered).length, aciertos:bien, autoTotal:aut, notaAuto:Math.round(bien/aut*100)/10,
+      salidas:st.salidas||[], respuestas:resp, bloqueadas:Object.keys(st.locked).map(Number)
+    }).then(function(){ st.enviado=true; st.errEnvio=''; },function(err){ st.errEnvio=err.message; })
+      .then(function(){ enviando=false; guardar(); estadoEnvio(); });
   }
 
   function hoja(){
@@ -523,6 +479,7 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
     var usado=Math.round((st.end-st.start)/1000);
     $('eHead').innerHTML=[
       ['Alumno/a',esc(st.nom+' '+st.ape)],
+      ['Grupo',esc(st.grupo||'')],
       ['Fecha',new Date(st.start).toLocaleDateString('es-ES')],
       ['Inicio y entrega',hora(st.start)+' – '+hora(st.end)+' ('+dur(usado)+')'],
       ['Forma de entrega',st.motivo==='tiempo'?'Fin del tiempo':st.motivo==='salidas'?'Automática por salidas':'Botón «Entregar»'],
@@ -548,12 +505,16 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
     $('eList').innerHTML=html;
     var nota=Math.round(bien/aut*100)/10;
     $('eScore').textContent=bien+' / '+aut+'  ·  '+String(nota).replace('.',',');
+    estadoEnvio();
     window.scrollTo(0,0);
   }
 
+  $('bRetry').addEventListener('click',enviar);
   $('bPrint').addEventListener('click',function(){ window.print(); });
+  var avisoSalir=0;
   $('bNew').addEventListener('click',function(){
-    borrar(); st=null; $('nom').value=''; $('ape').value=''; okNombre();
+    if(st && !st.enviado && Date.now()-avisoSalir>4000){ avisoSalir=Date.now(); toast('Tus respuestas aún no se han enviado. Pulsa otra vez «Salir» para salir igualmente.'); return; }
+    borrar(); $('gru').value=''; st=null; $('nom').value=''; $('ape').value=''; okNombre();
     $('end').hidden=true; $('intro').hidden=false; window.scrollTo(0,0);
   });
 
@@ -609,7 +570,7 @@ body.examen textarea,body.examen input{-webkit-user-select:text;user-select:text
   var prev=leer();
   if(prev && prev.order && prev.order.length===Q.length){
     st=prev;
-    if(st.ended) hoja();
+    if(st.ended){ hoja(); enviar(); }
     else {
       var cq=st.order[st.cur];
       if(!st.locked[cq]) st.rem[cq]=Math.max(0,st.rem[cq]-(Date.now()-(st.saved||Date.now())));
