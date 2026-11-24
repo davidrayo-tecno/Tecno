@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cuestionarios 1.º ESO · Tecnología · IES Palomares</title>
+<title>Cuestionario 1.º ESO · Prácticas del robot · IES Palomares</title>
 <link rel="icon" href="../../logo-ies-palomares.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,29 +11,57 @@
 <style>
 :root{
   --brand:#1B5F7E; --bg:#F4F6F7; --surface:#FFFFFF; --ink:#16232B; --muted:#55636D; --line:#D5DDE2;
+  --ok:#22A06B; --ok-bg:#E4F4EC; --ko:#D9363E; --ko-bg:#FBE9EA; --accent:#FF6B4A;
+  --move:#3B82F6; --turn:#8B5CF6; --loop:#F59E0B; --until:#EA580C; --if:#0EA5A4; --pen:#DB2777; --act:#16A34A;
   --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root{
-  --brand:#174E67; --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E; color-scheme:dark}}
+  --brand:#174E67; --bg:#11171B; --surface:#182127; --ink:#E4EAEE; --muted:#9AA8B2; --line:#2A363E;
+  --ok-bg:#16301F; --ko-bg:#3A1C1E; color-scheme:dark}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
 .bar{background:var(--brand);color:#fff}
-.container{max-width:1000px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left))}
+.container{max-width:760px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left))}
 .bar .container{height:64px;display:flex;align-items:center;gap:12px}
 .bar a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:12px}
 .bar img{width:42px;height:42px;border-radius:50%;background:#fff;padding:2px}
 .bar b{font-family:var(--display);font-size:22px;font-weight:600}
-h1{font-family:var(--display);font-size:clamp(34px,6vw,52px);line-height:1;margin:40px 0 8px}
-.lead{color:var(--muted);margin:0 0 28px}
-.grid{list-style:none;padding:0;margin:0 0 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.grid a{display:block;background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:12px;padding:22px;color:inherit;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
-.grid a:hover,.grid a:focus-visible{transform:translateY(-4px);box-shadow:0 12px 24px -14px rgba(0,0,0,.4)}
-.grid .e{font-size:30px}
-.grid b{display:block;font-family:var(--display);font-size:30px;line-height:1.1;margin-top:6px}
-.grid small{color:var(--muted);font-size:15px}
-@media (prefers-reduced-motion:reduce){.grid a{transition:none}}
+.back{display:inline-block;margin:18px 0 0;color:var(--muted);font-size:15px}
+h1{font-family:var(--display);font-size:clamp(32px,6vw,48px);line-height:1.05;margin:10px 0 6px}
+.lead{color:var(--muted);margin:0 0 20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;margin:0 0 18px}
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 8px}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s ease}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:14px;margin:0 0 14px}
+.tag{display:inline-block;font-size:13px;font-weight:600;color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,transparent);padding:2px 10px;border-radius:99px;margin-bottom:8px}
+@media (prefers-color-scheme: dark){.tag{color:#8CC7E0}}
+.q{font-size:19px;font-weight:600;margin:0 0 12px}
+.opts{display:grid;gap:10px;margin:14px 0 0;padding:0;list-style:none}
+.opts button{width:100%;text-align:left;font:inherit;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;display:flex;gap:12px;align-items:flex-start}
+.opts button:hover:not(:disabled){border-color:var(--brand)}
+.opts button:disabled{cursor:default}
+.opts .l{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--line);font-weight:700;font-size:14px}
+.opts button.ok{border-color:var(--ok);background:var(--ok-bg)} .opts button.ok .l{background:var(--ok);color:#fff}
+.opts button.ko{border-color:var(--ko);background:var(--ko-bg)} .opts button.ko .l{background:var(--ko);color:#fff}
+.fb{margin:14px 0 0;padding:12px 14px;border-radius:12px;display:none}
+.fb.show{display:block} .fb.ok{background:var(--ok-bg)} .fb.ko{background:var(--ko-bg)}
+.fb b:first-child{display:block;margin-bottom:2px}
+.nav{display:flex;justify-content:flex-end;margin-top:16px}
+.btn{font:inherit;font-weight:600;border:0;border-radius:12px;padding:11px 20px;background:var(--brand);color:#fff;cursor:pointer}
+.btn[hidden]{display:none}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+/* Programas con los bloques del robot */
+.prog{display:inline-flex;flex-direction:column;gap:4px;margin:4px 0;font-size:15px}
+.blk{display:inline-block;color:#fff;font-weight:600;padding:4px 12px;border-radius:8px;width:max-content}
+.blk.move{background:var(--move)} .blk.turn{background:var(--turn)} .blk.loop{background:var(--loop)}
+.blk.until{background:var(--until)} .blk.if{background:var(--if)} .blk.pen{background:var(--pen)} .blk.act{background:var(--act)}
+.nest{display:flex;flex-direction:column;gap:4px;border-left:6px solid var(--c);margin-left:6px;padding:2px 0 2px 10px}
+.score{font-family:var(--display);font-size:64px;line-height:1;margin:6px 0}
+.review{padding-left:20px;margin:8px 0 0}
+.review li{margin:4px 0}
+@media (prefers-reduced-motion:reduce){.progress i{transition:none}}
 </style>
 </head>
 <body>
@@ -41,9 +69,194 @@ h1{font-family:var(--display);font-size:clamp(34px,6vw,52px);line-height:1;margi
   <a href="../../" aria-label="Volver al inicio"><img src="../../logo-ies-palomares.png" alt=""><b>Tecnología · IES Palomares</b></a>
 </div></header>
 <main class="container">
-  <h1>Cuestionarios · 1.º ESO</h1>
-  <p class="lead">Próximamente encontrarás aquí los cuestionarios de 1.º ESO.</p>
-  <p><a href="../">← Volver a Cuestionarios</a></p>
+  <a class="back" href="../">← Cuestionarios</a>
+  <h1>Cuestionario 1.º ESO · Prácticas del robot</h1>
+  <p class="lead">24 preguntas, una por cada práctica de Computación y Robótica. Elige una respuesta y verás al momento si has acertado.</p>
+
+  <section class="card" id="quiz" aria-live="polite">
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <div class="meta"><span id="count"></span><span id="pts"></span></div>
+    <span class="tag" id="tag"></span>
+    <div class="q" id="q"></div>
+    <div id="extra"></div>
+    <ul class="opts" id="opts"></ul>
+    <div class="fb" id="fb"></div>
+    <div class="nav"><button class="btn" id="next" hidden>Siguiente →</button></div>
+  </section>
+
+  <section class="card" id="end" hidden>
+    <h2 style="font-family:var(--display);font-size:32px;margin:0">¡Cuestionario terminado!</h2>
+    <div class="score" id="final"></div>
+    <p id="msg" style="margin:0"></p>
+    <div id="rev"></div>
+    <div class="nav" style="justify-content:flex-start;gap:10px;flex-wrap:wrap">
+      <button class="btn" id="again">↻ Repetir el cuestionario</button>
+      <a class="btn alt" href="../../robotica/" style="text-decoration:none">🤖 Ir a las prácticas</a>
+    </div>
+  </section>
 </main>
+
+<script>
+(function(){
+  'use strict';
+  /* Bloques del robot. Un programa es una lista: cadenas para bloques simples
+     y objetos {b:'...', t:'loop'|'until'|'if', c:[...]} para bloques con hueco. */
+  var B={
+    fwd:['⬆ Avanzar','move'], izq:['↺ Girar izquierda','turn'], der:['↻ Girar derecha','turn'],
+    pin:['🖌️ Pintar casilla','pen'], coger:['✋ Coger paquete','act'], dejar:['📦 Dejar paquete','act'],
+    regar:['💧 Regar','act'], recoger:['🧺 Recoger manzana','act'], barrer:['🧹 Barrer','act']
+  };
+  var COL={loop:'var(--loop)',until:'var(--until)',if:'var(--if)'};
+  function blk(x){
+    if(typeof x==='string'){ var d=B[x]; return '<span class="blk '+d[1]+'">'+d[0]+'</span>'; }
+    var h='<span class="blk '+x.t+'">'+x.b+'</span>';
+    if(x.c) h+='<div class="nest" style="--c:'+COL[x.t]+'">'+x.c.map(blk).join('')+'</div>';
+    if(x.e) h+='<span class="blk '+x.t+'">si no</span><div class="nest" style="--c:'+COL[x.t]+'">'+x.e.map(blk).join('')+'</div>';
+    return h;
+  }
+  function prog(list){ return '<div class="prog">'+list.map(blk).join('')+'</div>'; }
+  var rep=function(n,c){return {b:'🔁 Repetir '+n+' veces',t:'loop',c:c};};
+  var hasta=function(c){return {b:'🔁 Repetir hasta llegar a la meta 🏁',t:'until',c:c};};
+  var mientras=function(c){return {b:'🔁 Mientras haya camino delante',t:'until',c:c};};
+  var si=function(cond,c,e){return {b:'📡 Si '+cond,t:'if',c:c,e:e};};
+
+  var Q=[
+    {p:1,t:'Primeros pasos',q:'¿En qué orden ejecuta el ordenador las instrucciones de un programa?',
+     o:['Una detrás de otra, de arriba abajo','Todas a la vez','De abajo arriba','En el orden que él prefiera'],a:0,
+     x:'Es la <b>secuencia</b>: el ordenador sigue las instrucciones en orden, de arriba abajo.'},
+    {p:2,t:'La esquina',q:'El robot mira hacia <b>abajo</b> de la pantalla (↓). Si ejecuta <span class="blk turn">↺ Girar izquierda</span>, ¿hacia dónde mirará?',
+     o:['Hacia la derecha de la pantalla (→)','Hacia la izquierda de la pantalla (←)','Hacia arriba (↑)','Seguirá mirando hacia abajo (↓)'],a:0,
+     x:'El robot gira según hacia dónde mira <b>él</b>. Si mira hacia abajo, su izquierda es tu derecha.'},
+    {p:3,t:'El pasillo largo',q:'Tienes que avanzar 6 casillas usando solo <b>2 bloques</b>. ¿Qué programa lo consigue?',
+     o:[prog([rep(6,['fwd'])]),prog(['fwd','fwd']),prog([rep(2,['fwd'])]),prog([rep(6,['der'])])],a:0,
+     x:'Con un <b>bucle</b> («Repetir») haces lo mismo muchas veces sin escribirlo muchas veces: 1 bloque Repetir + 1 bloque Avanzar.'},
+    {p:4,t:'La escalera',q:'Este programa sube una escalera. ¿Cómo lo escribirías con menos bloques?',
+     e:prog(['fwd','izq','fwd','der','fwd','izq','fwd','der','fwd','izq','fwd','der']),
+     o:[prog([rep(3,['fwd','izq','fwd','der'])]),prog([rep(12,['fwd'])]),prog([rep(3,['fwd']),rep(3,['izq'])]),'No se puede escribir más corto'],a:0,
+     x:'Busca el <b>patrón</b>: «avanzar, girar izquierda, avanzar, girar derecha» se repite 3 veces.'},
+    {p:5,t:'Cazaestrellas',q:'¿Cuántas veces avanza el robot con este programa?',
+     e:prog([rep(4,[rep(3,['fwd']),'der'])]),
+     o:['12 veces','7 veces','4 veces','3 veces'],a:0,
+     x:'Son <b>bucles anidados</b>: el bucle de dentro avanza 3 veces, y el de fuera lo repite 4 veces → 4 × 3 = 12.'},
+    {p:6,t:'Atrapa al gusano 🐛',q:'¿Qué significa <b>depurar</b> un programa (en inglés, <i>debugging</i>)?',
+     o:['Buscar y corregir sus errores','Borrarlo y empezar de cero','Hacer que vaya más rápido','Copiarlo de un compañero'],a:0,
+     x:'Depurar es encontrar y corregir errores. ¡Es la mitad del trabajo de un programador!'},
+    {p:7,t:'El robot aspirador',q:'¿Por qué usamos el <b>sensor</b> en el robot aspirador?',
+     e:prog([hasta([si('hay pared delante',['der']),'fwd'])]),
+     o:['Para que el robot decida qué hacer según lo que detecta','Para que el robot vaya más rápido','Para contar las casillas del laberinto','Para pintar las paredes'],a:0,
+     x:'Con <b>sensores y condiciones</b> el robot decide por sí mismo, como un robot aspirador o un coche autónomo de verdad.'},
+    {p:8,t:'Pasillos misteriosos 🎲',q:'¿Cuál es la diferencia entre <span class="blk loop">🔁 Repetir 5 veces</span> y <span class="blk until">🔁 Mientras haya camino delante</span>?',
+     o:['«Mientras» repite sin saber de antemano cuántas veces; lo hace mientras se cumpla la condición','No hay ninguna diferencia','«Mientras» repite siempre 5 veces','«Repetir» solo funciona con giros'],a:0,
+     x:'El bucle <b>«mientras» (while)</b> repite mientras se cumple una condición. Sirve cuando no puedes contar los pasos.'},
+    {p:9,t:'Pinta la fila 🖌️',q:'El robot pinta la casilla en la que está. ¿Qué programa pinta 5 casillas seguidas?',
+     o:[prog([rep(5,['pin','fwd'])]),prog([rep(5,['fwd']),'pin']),prog(['pin',rep(5,['fwd'])]),prog([rep(5,['pin'])])],a:0,
+     x:'En cada vuelta del bucle: pinta, avanza… y otra vez. Si solo pintas sin avanzar, pintas 5 veces la misma casilla.'},
+    {p:10,t:'La letra L',q:'Para pintar una letra L (primero la parte de arriba y luego bajar), ¿qué estructura necesitas?',
+     o:['Un bucle para un tramo, un giro y otro bucle para el siguiente tramo','Un único bucle sin giros','Solo bloques de girar','Un sensor de pared'],a:0,
+     x:'Es una <b>secuencia de bucles</b>: bucle → giro → bucle.'},
+    {p:11,t:'El marco',q:'Para pintar el borde de un cuadrado, ¿qué es lo que se repite 4 veces?',
+     o:['Un lado y un giro','Solo avanzar','Solo pintar','Girar a la izquierda dos veces'],a:0,
+     x:'El marco = 4 × (lado + girar), y cada lado = 3 × (pintar + avanzar). ¡Bucles anidados otra vez!'},
+    {p:12,t:'Una sí, una no',q:'Quieres pintar una casilla sí y otra no a lo largo de una fila. ¿Qué patrón va dentro del bucle?',
+     o:[prog(['pin','fwd','fwd']),prog(['pin','fwd']),prog(['pin','pin','fwd']),prog(['fwd','izq'])],a:0,
+     x:'El trozo que se repite es: pintar, avanzar, avanzar. Así te saltas una casilla cada vez.'},
+    {p:13,t:'Pinta hasta la pared 🎲',q:'En las prácticas con 🎲 el programa se prueba en <b>3 mapas distintos</b>. ¿Por qué?',
+     o:['Para comprobar que el programa funciona aunque cambie el mapa, no solo en un caso','Para que tarde más','Porque el robot se cansa','Para que cuentes las casillas de cada mapa'],a:0,
+     x:'Un buen programa sirve en general. Por eso no puedes contar las casillas: necesitas un bucle «mientras».'},
+    {p:14,t:'El repartidor 📦',q:'El ordenador recuerda si el robot lleva un paquete o no. ¿Cómo se llama esa información?',
+     o:['El estado del robot, guardado en memoria','Un sensor de pared','Un bucle','Un error del programa'],a:0,
+     x:'El <b>estado</b> es información que el ordenador guarda en memoria, como «llevo paquete» o «no llevo paquete».'},
+    {p:15,t:'Reparto en cadena',q:'En el reparto en cadena, ¿cuántos paquetes puede llevar el robot a la vez?',
+     o:['Solo uno: coge, avanza, deja… y otra vez','Dos','Todos los que quiera','Ninguno'],a:0,
+     x:'Es un <b>patrón con estado</b>: coger, avanzar, dejar. El robot nunca lleva dos paquetes a la vez.'},
+    {p:16,t:'El paquete del fondo 🎲',q:'¿Cómo da el robot <b>media vuelta</b> para volver por donde ha venido?',
+     o:['Girando dos veces hacia el mismo lado','Girando una vez a la derecha','Avanzando hacia atrás','Girando a la izquierda y luego a la derecha'],a:0,
+     x:'Dos giros iguales = media vuelta. Girar a la izquierda y luego a la derecha te deja como estabas.'},
+    {p:17,t:'La escalera de la bandera 🎲',q:'El número de escalones cambia en cada mapa. ¿Qué bloque usas para repetir el escalón?',
+     o:['<span class="blk until">🔁 Repetir hasta llegar a la meta 🏁</span>','<span class="blk loop">🔁 Repetir 5 veces</span>','<span class="blk move">⬆ Avanzar</span> muchas veces','<span class="blk pen">🖌️ Pintar casilla</span>'],a:0,
+     x:'<b>«Repetir hasta»</b> repite el patrón del escalón hasta llegar a la meta, tenga los escalones que tenga.'},
+    {p:18,t:'La espiral al revés 🎲',q:'El robot aspirador giraba a la derecha. Si ahora la espiral gira hacia la <b>izquierda</b>, ¿qué cambias?',
+     e:prog([hasta([si('hay pared delante',['der']),'fwd'])]),
+     o:['El giro de dentro del «Si»: Girar izquierda en vez de Girar derecha','Nada, funciona igual','Quitar el sensor','Cambiar Avanzar por Girar izquierda'],a:0,
+     x:'La misma idea del sensor sirve para otro camino si cambias el giro.'},
+    {p:19,t:'El jardinero 🎲',q:'Hay que regar solo las macetas con planta 🌱. ¿Qué programa va dentro del bucle?',
+     o:[prog([si('debajo hay una planta 🌱',['regar']),'fwd']),prog(['regar','fwd']),prog([si('hay pared delante',['regar']),'fwd']),prog(['fwd','fwd'])],a:0,
+     x:'El robot mira con su sensor qué hay debajo y <b>decide</b> si regar. Si riega tierra vacía, ¡error!'},
+    {p:20,t:'El barrendero 🎲',q:'La valla 🚧 cambia de sitio en cada prueba y solo hay hojas 🍂 en algunas casillas. ¿Qué combinación de bloques necesitas?',
+     o:['Un «Mientras» (para no contar los pasos) con un «Si» dentro (para decidir si barrer)','Solo un «Repetir 6 veces»','Solo bloques de avanzar','Un «Si» sin bucle'],a:0,
+     x:'<b>Mientras + si</b>: repetir sin saber cuántas veces y decidir en cada paso.'},
+    {p:21,t:'La cosecha 🎲',q:'Con este bloque, ¿qué hace el robot si la manzana está <b>verde 🍏</b>?',
+     e:prog([si('debajo hay una manzana madura 🍎',['recoger'],['regar'])]),
+     o:['La riega','La recoge','La recoge y la riega','Nada'],a:0,
+     x:'Con <b>«Si… si no»</b> siempre se hace una de las dos cosas, nunca las dos. Si no está madura → regar.'},
+    {p:22,t:'Reparto por la calle 🎲',q:'En la calle hay paquetes 📦 y casas 🏠. ¿Qué preguntas hace el robot en cada casilla?',
+     e:prog([si('debajo hay un paquete 📦',['coger']),si('debajo hay una casa 🏠',['dejar']),'fwd']),
+     o:['Dos preguntas seguidas: si hay paquete lo coge; si hay casa, lo deja','Solo pregunta si hay pared','Ninguna, solo avanza','Una sola pregunta que hace las dos cosas a la vez'],a:0,
+     x:'<b>Dos condiciones seguidas</b>: el robot pregunta dos cosas en cada casilla, una detrás de otra.'},
+    {p:23,t:'Arregla el repartidor 🐞🎲',q:'Este programa debería coger los paquetes y dejarlos en las casas, pero falla. ¿Dónde está el error?',
+     e:prog([mientras([si('debajo hay un paquete 📦',['dejar']),si('debajo hay una casa 🏠',['dejar']),'fwd'])]),
+     o:['En el primer «Si»: debería ser Coger paquete, no Dejar paquete','En el bloque Avanzar','En el segundo «Si»','No tiene ningún error'],a:0,
+     x:'Para <b>depurar</b> lee el programa con calma: si hay un paquete hay que <b>cogerlo</b>, no dejarlo.'},
+    {p:24,t:'Gran final: el aspirador de hojas 🏆🎲',q:'Para recorrer una espiral que cambia y barrer todas las hojas, ¿qué necesitas?',
+     o:['Un bucle, un sensor para el camino y otro sensor para las hojas','Solo un bucle «Repetir 10 veces»','Solo un sensor de hojas','Muchos bloques de avanzar seguidos'],a:0,
+     x:'¡<b>Todo junto</b>! Bucle para repetir, un sensor para seguir el camino y otro para saber dónde barrer.'}
+  ];
+
+  var $=function(id){return document.getElementById(id);};
+  var order, i, ok, fails;
+  function shuffle(a){ for(var j=a.length-1;j>0;j--){ var r=Math.floor(Math.random()*(j+1)); var t=a[j]; a[j]=a[r]; a[r]=t; } return a; }
+
+  function start(){ order=Q.map(function(_,n){return n;}); i=0; ok=0; fails=[]; $('end').hidden=true; $('quiz').hidden=false; show(); }
+
+  function show(){
+    var it=Q[order[i]];
+    $('bar').style.width=(i/Q.length*100)+'%';
+    $('count').textContent='Pregunta '+(i+1)+' de '+Q.length;
+    $('pts').textContent='Aciertos: '+ok;
+    $('tag').textContent='Práctica '+it.p+' · '+it.t;
+    $('q').innerHTML=it.q;
+    $('extra').innerHTML=it.e||'';
+    $('fb').className='fb'; $('fb').innerHTML='';
+    $('next').hidden=true;
+    var opts=shuffle(it.o.map(function(h,n){return {h:h,n:n};}));
+    var ul=$('opts'); ul.innerHTML='';
+    opts.forEach(function(op,n){
+      var li=document.createElement('li'), b=document.createElement('button');
+      b.type='button'; b.dataset.n=op.n;
+      b.innerHTML='<span class="l">'+'ABCD'[n]+'</span><span>'+op.h+'</span>';
+      b.addEventListener('click',function(){ answer(b,it); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+  }
+
+  function answer(b,it){
+    var good=Number(b.dataset.n)===it.a;
+    $('opts').querySelectorAll('button').forEach(function(x){
+      x.disabled=true; if(Number(x.dataset.n)===it.a) x.classList.add('ok');
+    });
+    if(good) ok++; else { b.classList.add('ko'); fails.push(it); }
+    $('pts').textContent='Aciertos: '+ok;
+    $('fb').className='fb show '+(good?'ok':'ko');
+    $('fb').innerHTML='<b>'+(good?'✅ ¡Correcto!':'❌ No es esa.')+'</b>'+it.x;
+    $('next').textContent=i===Q.length-1?'Ver resultado →':'Siguiente →';
+    $('next').hidden=false; $('next').focus();
+  }
+
+  function finish(){
+    $('quiz').hidden=true; $('end').hidden=false;
+    var nota=Math.round(ok/Q.length*100)/10;
+    $('final').textContent=ok+' / '+Q.length;
+    $('msg').innerHTML='Tu nota: <b>'+nota.toString().replace('.',',')+'</b> sobre 10. '+
+      (ok===Q.length?'¡Perfecto! Dominas todas las prácticas 🏆':ok>=18?'¡Muy bien! Ya casi lo tienes todo 🤖':ok>=12?'Bien, pero repasa algunas prácticas 💪':'Vuelve a hacer las prácticas del robot y repite el cuestionario 🔁');
+    $('rev').innerHTML=fails.length?'<p style="margin:14px 0 0"><b>Prácticas para repasar:</b></p><ul class="review">'+
+      fails.map(function(f){return '<li>Práctica '+f.p+' · '+f.t+'</li>';}).join('')+'</ul>':'';
+    $('end').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  $('next').addEventListener('click',function(){ if(i<Q.length-1){ i++; show(); } else finish(); });
+  $('again').addEventListener('click',start);
+  start();
+})();
+</script>
 </body>
 </html>
