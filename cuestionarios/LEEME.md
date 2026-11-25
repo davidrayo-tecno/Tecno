@@ -6,7 +6,7 @@ Cuestionarios de Tecnología en formato examen. **Todos** comparten el mismo mot
 
 1. **Antes de empezar:** se explica en qué consiste el cuestionario y sus normas. El alumno escribe su **nombre y apellidos** y elige su **grupo**. Sin esos datos no puede empezar.
 2. **Orden aleatorio:** al pulsar «Iniciar», las preguntas y las opciones salen en un orden distinto para cada alumno, para que los que se sientan juntos no se copien.
-3. **Preguntas de todo tipo:** test, verdadero o falso, respuesta cerrada, respuesta abierta, reflexión y pensamiento crítico. Con el tipo `codigo`, el alumno escribe **una línea de código** y se corrige sola (no cuentan espacios ni mayúsculas, pero sí el punto y coma).
+3. **Preguntas de todo tipo:** test, verdadero o falso, respuesta cerrada, respuesta abierta, reflexión y pensamiento crítico. Con el tipo `codigo`, el alumno escribe **una línea de código** y se corrige sola (no cuentan los espacios, pero sí las mayúsculas, como en Arduino, y el punto y coma).
 4. **Tiempo por pregunta:** cada pregunta tiene su propio tiempo. Al agotarse, se bloquea con lo que haya respondido el alumno.
 5. **Dejar para después:** se puede saltar una pregunta y volver más tarde desde el mapa de preguntas. Su tiempo se guarda.
 6. **Cuenta atrás siempre visible:** arriba se ven siempre el tiempo total y el de la pregunta abierta.
