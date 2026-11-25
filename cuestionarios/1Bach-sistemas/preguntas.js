@@ -186,7 +186,7 @@
     if (q.k === 'cerrada') return q.ok.map(norm).indexOf(norm(v == null ? '' : v)) >= 0;
     if (q.k === 'codigo') {
       // Los nombres de las funciones de Arduino deben ir exactamente así (camelCase); en variables y constantes no importan las mayúsculas
-      var FUN = ['pinMode', 'digitalWrite', 'digitalRead', 'analogWrite', 'analogRead', 'delay'];
+      var FUN = ['pinMode', 'digitalWrite', 'digitalRead', 'delay'];
       var FUNmin = FUN.map(function (f) { return f.toLowerCase(); });
       var cod = function (x) {
         return String(x == null ? '' : x).replace(/\s+/g, '').replace(/[A-Za-z_]\w*/g, function (id) {
