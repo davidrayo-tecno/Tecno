@@ -351,6 +351,13 @@ svg.art{display:block;width:100%;height:auto}
 section.pfilter{border-bottom:0;margin-bottom:8px;padding-bottom:8px}
 section.pfilter + section{padding-top:8px}
 .ptags{display:inline-flex;gap:6px;margin-left:10px;flex-wrap:wrap;vertical-align:middle}
+.ptag.pau-no{background:#FBE9EA;color:#B3261E;border-color:#F1B8B4}
+.ptag.pau-par{background:#FDF3DC;color:#8A5300;border-color:#EBCB8B}
+.pau-nota{margin-top:12px!important;font-size:14.5px}
+.pau-nota.no{border-left:4px solid #D9363E}
+.pau-nota.par{border-left:4px solid #C27803}
+.pau-sw{display:flex;align-items:center;gap:8px;margin:4px 0 6px;font-size:14.5px}
+.pau-sw input{width:18px;height:18px;accent-color:var(--brand);cursor:pointer}
 .ptag{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
 .psrc{display:block;font-size:12.5px;color:var(--muted);font-weight:500;margin-top:2px}
 details.prob summary .stitle{display:block}
@@ -546,7 +553,7 @@ details.prob summary .stitle{display:block}
 <section id="problemas">
   <h2><span class="n">2</span>Problemas resueltos</h2>
   <p>112 problemas ordenados por temática, de lo más sencillo a lo más completo. Intenta resolverlos antes de abrir la solución y marca «Lo he resuelto» para seguir tu progreso.</p>
-  <nav class="temas" aria-label="Temas"><b>Temas:</b> <a href="#energia-calor">Energía, calor y trabajo</a> · <a href="#rendimiento">Rendimiento: motores eléctricos y elevadores</a> · <a href="#vehiculos">Vehículos: energía mecánica y combustible</a> · <a href="#combustible">Combustible, potencia, par y rendimiento</a> · <a href="#cilindrada">Cilindrada, relación de compresión y par</a> · <a href="#cilindrada-consumo">Cilindrada, consumo y rendimiento</a> · <a href="#carnot">Motores térmicos y ciclo de Carnot</a> · <a href="#frigorificas">Máquinas frigoríficas</a> · <a href="#bombas">Bombas de calor</a> · <a href="#reversibles">Frigorífica y bomba de calor: equipos reversibles</a> · <a href="#transformaciones">Transformaciones termodinámicas de un gas ideal</a> · <a href="#ciclo-carnot">Ciclo de Carnot: estados, calores y trabajo</a> · <a href="#ciclos-pau">Ciclos Otto, Diésel y Carnot (nivel PAU)</a></nav>
+  <nav class="temas" aria-label="Temas"><b>Temas:</b> <a href="#energia-calor">Energía, calor y trabajo</a> · <a href="#rendimiento">Rendimiento: motores eléctricos y elevadores</a> · <a href="#vehiculos">Vehículos: energía mecánica y combustible</a> · <a href="#combustible">Combustible, potencia, par y rendimiento</a> · <a href="#cilindrada">Cilindrada, relación de compresión y par</a> · <a href="#cilindrada-consumo">Cilindrada, consumo y rendimiento</a> · <a href="#carnot">Motores térmicos y ciclo de Carnot</a> · <a href="#frigorificas">Máquinas frigoríficas</a> · <a href="#bombas">Bombas de calor</a> · <a href="#reversibles">Frigorífica y bomba de calor: equipos reversibles</a> · <a href="#transformaciones">Transformaciones termodinámicas de un gas ideal</a> · <a href="#ciclo-carnot">Ciclo de Carnot: estados, calores y trabajo</a> · <a href="#ciclos-pau">Ciclos Otto, Diésel y Carnot (ampliación)</a></nav>
   <div class="filters-m" role="group" aria-label="Filtrar por tema">
     <button type="button" data-f="all" aria-pressed="true">Todos</button>
     <button type="button" data-f="energia" aria-pressed="false">Energía y potencia</button>
@@ -556,10 +563,13 @@ details.prob summary .stitle{display:block}
     <button type="button" data-f="carnot" aria-pressed="false">Carnot</button>
     <button type="button" data-f="frigorifica" aria-pressed="false">Frigorífica y bomba de calor</button>
   </div>
+  <label class="pau-sw"><input type="checkbox" id="soloPau"> Ocultar los problemas que no entran en la PAU</label>
+  <p class="note">Según las <b>orientaciones de la PAU 2026-27</b> (bloque C2), del tema se pregunta: máquinas térmicas, frigoríficas y bombas de calor y ciclo de Carnot (rendimiento, calor absorbido y cedido, trabajo), y motores (potencia, par, cilindrada, carrera, cámara de combustión, consumo y rendimiento). Los problemas marcados <span class="ptag pau-no">No entra en PAU</span> se salen de eso; los marcados <span class="ptag pau-par">PAU: en parte</span> tienen algún apartado que no entra. Siguen aquí para quien quiera practicarlos.</p>
   <p class="fcount" id="fcount" aria-live="polite">112 problemas</p>
   <h3 id="energia-calor" class="extra-h grp-h">Energía, calor y trabajo</h3>
-  <details class="prob" id="p1" data-tags="energia">
-    <summary><span class="stitle">1. Energía de una bombilla<span class="ptags"><span class="ptag">Energía</span></span></span></summary>
+  <details class="prob" id="p1" data-pau="no" data-tags="energia">
+    <summary><span class="stitle">1. Energía de una bombilla<span class="ptags"><span class="ptag">Energía</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Trata de energía eléctrica, no de máquinas térmicas.</p>
     <div class="enun"><p>Una bombilla de 20 W permanece encendida durante una hora. Calcula la energía eléctrica consumida en kWh y en julios.</p></div>
     <p class="datos"><b>Datos:</b> P = 20 W; t = 1 h = 3 600 s</p>
     <div class="ap">
@@ -572,8 +582,9 @@ details.prob summary .stitle{display:block}
     </div>
     <p class="note com">Comprobación rápida: 1 kWh = 3,6·10⁶ J, así que 0,02 kWh · 3,6·10⁶ J/kWh = 72 000 J.</p>
   </details>
-  <details class="prob" id="p2" data-tags="energia">
-    <summary><span class="stitle">2. Calentar helio a volumen constante<span class="ptags"><span class="ptag">Calor</span></span></span></summary>
+  <details class="prob" id="p2" data-pau="no" data-tags="energia">
+    <summary><span class="stitle">2. Calentar helio a volumen constante<span class="ptags"><span class="ptag">Calor</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Es calorimetría (calor específico molar).</p>
     <div class="enun"><p>¿Qué calor hay que comunicar a 3 moles de helio para calentarlos a volumen constante de 15 a 25 °C? Dato: c<sub>v</sub> = 3 cal/(K·mol).</p></div>
     <p class="datos"><b>Datos:</b> n = 3 mol; ΔT = 10 K; c<sub>v</sub> = 3 cal/(K·mol)</p>
     <div class="ap">
@@ -584,8 +595,9 @@ details.prob summary .stitle{display:block}
       <p class="res">Q = 90 cal (≈ 376 J).</p>
     </div>
   </details>
-  <details class="prob" id="p3" data-tags="energia">
-    <summary><span class="stitle">3. Del aluminio al agua<span class="ptags"><span class="ptag">Calor</span></span></span></summary>
+  <details class="prob" id="p3" data-pau="no" data-tags="energia">
+    <summary><span class="stitle">3. Del aluminio al agua<span class="ptags"><span class="ptag">Calor</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Es calorimetría (calor específico).</p>
     <div class="enun"><p>0,5 kg de aluminio pasan de 20 °C a 45 °C. Ese mismo calor se usa para calentar 500 g de agua que está a 20 °C. ¿Qué temperatura alcanza el agua? Datos: c<sub>Al</sub> = 0,214 cal/(g·°C); c<sub>agua</sub> = 1 cal/(g·°C).</p></div>
     <p class="datos"><b>Datos:</b> m<sub>Al</sub> = 500 g; ΔT<sub>Al</sub> = 25 °C; m<sub>agua</sub> = 500 g; T₀ = 20 °C</p>
     <div class="ap">
@@ -597,8 +609,9 @@ details.prob summary .stitle{display:block}
       <p class="res">T<sub>agua</sub> = 25,35 °C.</p>
     </div>
   </details>
-  <details class="prob" id="p4" data-tags="energia">
-    <summary><span class="stitle">4. Trabajo en una compresión isóbara<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p4" data-pau="no" data-tags="energia">
+    <summary><span class="stitle">4. Trabajo en una compresión isóbara<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Es trabajo de una transformación del gas, que no se pregunta.</p>
     <div class="enun"><p>Un gas ideal se comprime a presión constante de 7 bar desde 8 dm³ hasta 6 dm³. Calcula el trabajo realizado por el gas.</p></div>
     <p class="datos"><b>Datos:</b> p = 7 bar; V₁ = 8 dm³; V₂ = 6 dm³</p>
     <div class="ap">
@@ -613,8 +626,9 @@ details.prob summary .stitle{display:block}
     <p class="note com">Con 1 bar = 10⁵ Pa exactos el resultado sería −1 400 J. Las dos respuestas se dan por buenas si se indica la equivalencia usada.</p>
   </details>
   <h3 id="rendimiento" class="extra-h grp-h">Rendimiento: motores eléctricos y elevadores</h3>
-  <details class="prob" id="p5" data-tags="energia">
-    <summary><span class="stitle">5. Energía útil de un motor eléctrico<span class="ptags"><span class="ptag">Rendimiento</span></span></span></summary>
+  <details class="prob" id="p5" data-pau="no" data-tags="energia">
+    <summary><span class="stitle">5. Energía útil de un motor eléctrico<span class="ptags"><span class="ptag">Rendimiento</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Es un motor eléctrico, no térmico.</p>
     <div class="enun"><p>Un motor eléctrico de 2 000 W funciona durante 7 horas con un rendimiento del 70 %. Calcula la energía útil que produce.</p></div>
     <p class="datos"><b>Datos:</b> P = 2 000 W; t = 7 h = 25 200 s; η = 0,70</p>
     <div class="ap">
@@ -626,8 +640,9 @@ details.prob summary .stitle{display:block}
       <p class="res">E<sub>útil</sub> = 35,28·10⁶ J (9,8 kWh).</p>
     </div>
   </details>
-  <details class="prob" id="p6" data-tags="energia">
-    <summary><span class="stitle">6. Rendimiento de un elevador<span class="ptags"><span class="ptag">Rendimiento</span></span></span></summary>
+  <details class="prob" id="p6" data-pau="no" data-tags="energia">
+    <summary><span class="stitle">6. Rendimiento de un elevador<span class="ptags"><span class="ptag">Rendimiento</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Es un motor eléctrico, no térmico.</p>
     <div class="enun"><p>Un elevador sube una carga de 1 000 kg al sexto piso (3 m por piso) a velocidad constante de 2 m/s, consumiendo 25 kW. Calcula el trabajo realizado, la potencia útil y el rendimiento del motor.</p></div>
     <p class="datos"><b>Datos:</b> m = 1 000 kg; h = 6 · 3 m = 18 m; v = 2 m/s; P<sub>abs</sub> = 25 kW; g = 9,8 m/s²</p>
     <div class="ap">
@@ -639,8 +654,9 @@ details.prob summary .stitle{display:block}
       <p class="res">W = 176 400 J; P<sub>útil</sub> = 19 600 W; η = 78,4 %.</p>
     </div>
   </details>
-  <details class="prob" id="p7" data-tags="energia">
-    <summary><span class="stitle">7. Montacargas con motor de corriente continua<span class="ptags"><span class="ptag">Energía y potencia</span></span></span></summary>
+  <details class="prob" id="p7" data-pau="no" data-tags="energia">
+    <summary><span class="stitle">7. Montacargas con motor de corriente continua<span class="ptags"><span class="ptag">Energía y potencia</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Es un motor eléctrico, no térmico (usa tensión e intensidad).</p>
     <div class="enun"><p>Un montacargas con un motor eléctrico de corriente continua sube 800 kg a 10 m de altura a 1 m/s. El motor está conectado a 220 V y consume 10 kW. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La intensidad de corriente.</li><li class="q"><b>b)</b> El trabajo realizado por el montacargas.</li><li class="q"><b>c)</b> La potencia útil del motor.</li><li class="q"><b>d)</b> El rendimiento del motor.</li></ol>
     <p class="datos"><b>Datos:</b> m = 800 kg; h = 10 m; v = 1 m/s; V = 220 V; P<sub>abs</sub> = 10 000 W</p>
@@ -674,8 +690,9 @@ details.prob summary .stitle{display:block}
       <p class="res">η = 78,4 %.</p>
     </div>
   </details>
-  <details class="prob" id="p8" data-tags="energia">
-    <summary><span class="stitle">8. Elevador eléctrico: potencia y rendimiento<span class="ptags"><span class="ptag">Energía y potencia</span></span></span></summary>
+  <details class="prob" id="p8" data-pau="no" data-tags="energia">
+    <summary><span class="stitle">8. Elevador eléctrico: potencia y rendimiento<span class="ptags"><span class="ptag">Energía y potencia</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Es un motor eléctrico, no térmico (usa tensión e intensidad).</p>
     <div class="enun"><p>Un elevador con motor de corriente continua sube 800 kg a 12 m en 15 s. El motor está conectado a 220 V y la intensidad es de 32 A. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El trabajo realizado por el elevador.</li><li class="q"><b>b)</b> La energía que consume el motor por unidad de tiempo.</li><li class="q"><b>c)</b> La potencia útil desarrollada por el motor.</li><li class="q"><b>d)</b> El rendimiento del motor.</li></ol>
     <p class="datos"><b>Datos:</b> m = 800 kg; h = 12 m; t = 15 s; V = 220 V; I = 32 A</p>
@@ -1303,8 +1320,9 @@ details.prob summary .stitle{display:block}
       <p class="res">P ≈ 11,73 kW.</p>
     </div>
   </details>
-  <details class="prob" id="p30" data-tags="motores carnot">
-    <summary><span class="stitle">30. Bicilíndrico: cilindrada, par y potencia<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Carnot</span></span></span></summary>
+  <details class="prob" id="p30" data-pau="parcial" data-tags="motores carnot">
+    <summary><span class="stitle">30. Bicilíndrico: cilindrada, par y potencia<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Carnot</span><span class="ptag pau-par">PAU: en parte</span></span></span></summary>
+    <p class="note pau-nota par"><b>PAU 2026-27:</b> El apartado c) es teoría directa, y el examen no la incluye. Los apartados a) y b) sí entran.</p>
     <div class="enun"><p>Un motor de dos cilindros y cuatro tiempos tiene 80 mm de diámetro y 75 mm de carrera. Su relación de compresión es 11:1, su potencia máxima 40 kW a 7 500 rpm y su par máximo 70 N·m a 4 700 rpm. Se pide:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada total y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> La potencia a par máximo y el par a potencia máxima.</li><li class="q"><b>c)</b> Dibuja el ciclo de Carnot y describe sus transformaciones.</li></ol>
     <p class="datos"><b>Datos:</b> z = 2; D = 8 cm; L = 7,5 cm; r<sub>c</sub> = 11</p>
@@ -1609,8 +1627,9 @@ details.prob summary .stitle{display:block}
       <p class="res">M ≈ 34,0 N·m.</p>
     </div>
   </details>
-  <details class="prob" id="p43" data-tags="motores">
-    <summary><span class="stitle">43. Motor de 4 cilindros: cilindrada, compresión y rendimiento<span class="ptags"><span class="ptag">Motores</span></span></span></summary>
+  <details class="prob" id="p43" data-pau="parcial" data-tags="motores">
+    <summary><span class="stitle">43. Motor de 4 cilindros: cilindrada, compresión y rendimiento<span class="ptags"><span class="ptag">Motores</span><span class="ptag pau-par">PAU: en parte</span></span></span></summary>
+    <p class="note pau-nota par"><b>PAU 2026-27:</b> El apartado c) (rendimiento ideal del ciclo Otto con γ) es dudoso: no aparece en las orientaciones. Los apartados a) y b) sí entran.</p>
     <div class="enun"><p>Un motor Otto de 4 cilindros tiene un diámetro D = 80 mm, una carrera L = 90 mm y un volumen de la cámara de combustión V<sub>c</sub> = 50 cm³. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada unitaria y la cilindrada total.</li><li class="q"><b>b)</b> La relación de compresión.</li><li class="q"><b>c)</b> El rendimiento ideal del ciclo Otto (γ = 1,4).</li></ol>
     <p class="datos"><b>Datos:</b> z = 4; D = 80 mm = 8 cm; L = 90 mm = 9 cm; V<sub>c</sub> = 50 cm³; γ = 1,4</p>
@@ -1885,8 +1904,9 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <h3 id="frigorificas" class="extra-h grp-h">Máquinas frigoríficas</h3>
-  <details class="prob" id="p54" data-tags="frigorifica">
-    <summary><span class="stitle">54. Tiempo para enfriar agua con una frigorífica<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span></span></span></summary>
+  <details class="prob" id="p54" data-pau="parcial" data-tags="frigorifica">
+    <summary><span class="stitle">54. Tiempo para enfriar agua con una frigorífica<span class="ptags"><span class="ptag">Frigorífica y bomba de calor</span><span class="ptag pau-par">PAU: en parte</span></span></span></summary>
+    <p class="note pau-nota par"><b>PAU 2026-27:</b> Necesita calorimetría (m · c · ΔT). Podría aparecer en un problema contextualizado, pero es secundario.</p>
     <div class="enun"><p>Una máquina frigorífica con un «rendimiento» (eficiencia) del 140 % consume una potencia de 120 W. ¿Cuánto tarda en enfriar 200 g de agua de 18 °C a 12 °C? Calor específico del agua: 1 cal/(g·°C).</p></div>
     <p class="datos"><b>Datos:</b> ε = 1,4; P = 120 W; m = 200 g; ΔT = 6 °C; c = 1 cal/(g·°C); 1 cal = 4,18 J</p>
     <div class="ap">
@@ -2443,8 +2463,9 @@ details.prob summary .stitle{display:block}
   </details>
   <h3 id="transformaciones" class="extra-h grp-h">Transformaciones termodinámicas de un gas ideal</h3>
   <p><a href="maquinas-termicas-transformaciones-carnot.pdf" download>📄 Descargar la hoja de problemas de transformaciones y ciclo de Carnot (PDF)</a></p>
-  <details class="prob" id="p81" data-tags="transformaciones">
-    <summary><span class="stitle">81. Calentamiento de aire en un recipiente rígido<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p81" data-pau="no" data-tags="transformaciones">
+    <summary><span class="stitle">81. Calentamiento de aire en un recipiente rígido<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Son transformaciones del gas ideal (ΔU, c<sub>v</sub>, adiabáticas o isotermas), que no se preguntan.</p>
     <div class="enun"><p>Un depósito rígido contiene 2 mol de aire a 20 °C y 1 atm. Se calienta hasta 120 °C. Considera el aire un gas ideal diatómico. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El volumen del depósito.</li><li class="q"><b>b)</b> El trabajo, la variación de energía interna y el calor intercambiado.</li><li class="q"><b>c)</b> La presión final.</li></ol>
     <p class="datos"><b>Datos:</b> n = 2 mol; T<sub>1</sub> = 293 K; T<sub>2</sub> = 393 K; p<sub>1</sub> = 1 atm = 1,013·10⁵ Pa; c<sub>v</sub> = 5/2 · R = 20,78 J/(mol·K)</p>
@@ -2472,8 +2493,9 @@ details.prob summary .stitle{display:block}
       <p class="res">p<sub>2</sub> ≈ 1,34 atm</p>
     </div>
   </details>
-  <details class="prob" id="p82" data-tags="transformaciones">
-    <summary><span class="stitle">82. Expansión de helio a presión constante<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p82" data-pau="no" data-tags="transformaciones">
+    <summary><span class="stitle">82. Expansión de helio a presión constante<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Son transformaciones del gas ideal (ΔU, c<sub>v</sub>, adiabáticas o isotermas), que no se preguntan.</p>
     <div class="enun"><p>0,5 mol de helio (gas monoatómico) se expanden a la presión constante de 2·10⁵ Pa desde 5 L hasta 9 L. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El trabajo realizado por el gas.</li><li class="q"><b>b)</b> Las temperaturas inicial y final.</li><li class="q"><b>c)</b> La variación de energía interna y el calor absorbido.</li></ol>
     <p class="datos"><b>Datos:</b> n = 0,5 mol; p = 2·10⁵ Pa; V<sub>1</sub> = 5·10⁻³ m³; V<sub>2</sub> = 9·10⁻³ m³; c<sub>v</sub> = 3/2 · R = 12,47 J/(mol·K)</p>
@@ -2501,8 +2523,9 @@ details.prob summary .stitle{display:block}
       <p class="res">ΔU ≈ 1 200 J; Q ≈ 2 000 J</p>
     </div>
   </details>
-  <details class="prob" id="p83" data-tags="transformaciones">
-    <summary><span class="stitle">83. Expansión isoterma<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p83" data-pau="no" data-tags="transformaciones">
+    <summary><span class="stitle">83. Expansión isoterma<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Son transformaciones del gas ideal (ΔU, c<sub>v</sub>, adiabáticas o isotermas), que no se preguntan.</p>
     <div class="enun"><p>3 mol de un gas ideal se expanden de forma isoterma a 27 °C desde un volumen de 10 L hasta 30 L. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El trabajo realizado por el gas.</li><li class="q"><b>b)</b> La variación de energía interna y el calor intercambiado.</li><li class="q"><b>c)</b> Las presiones inicial y final.</li></ol>
     <p class="datos"><b>Datos:</b> n = 3 mol; T = 300 K; V<sub>1</sub> = 10 L; V<sub>2</sub> = 30 L</p>
@@ -2530,8 +2553,9 @@ details.prob summary .stitle{display:block}
       <p class="res">p<sub>1</sub> ≈ 7,48·10⁵ Pa; p<sub>2</sub> ≈ 2,49·10⁵ Pa</p>
     </div>
   </details>
-  <details class="prob" id="p84" data-tags="transformaciones">
-    <summary><span class="stitle">84. Compresión isoterma de aire<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p84" data-pau="no" data-tags="transformaciones">
+    <summary><span class="stitle">84. Compresión isoterma de aire<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Son transformaciones del gas ideal (ΔU, c<sub>v</sub>, adiabáticas o isotermas), que no se preguntan.</p>
     <div class="enun"><p>Se comprimen 20 L de aire, inicialmente a 1 atm y 20 °C, hasta 5 L manteniendo constante la temperatura. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cantidad de gas.</li><li class="q"><b>b)</b> El trabajo y el calor. Interpreta los signos.</li><li class="q"><b>c)</b> La presión final.</li></ol>
     <p class="datos"><b>Datos:</b> p<sub>1</sub> = 1,013·10⁵ Pa; V<sub>1</sub> = 2·10⁻² m³; V<sub>2</sub> = 5·10⁻³ m³; T = 293 K</p>
@@ -2558,8 +2582,9 @@ details.prob summary .stitle{display:block}
       <p class="res">p<sub>2</sub> = 4 atm</p>
     </div>
   </details>
-  <details class="prob" id="p85" data-tags="transformaciones">
-    <summary><span class="stitle">85. Expansión adiabática de aire<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p85" data-pau="no" data-tags="transformaciones">
+    <summary><span class="stitle">85. Expansión adiabática de aire<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Son transformaciones del gas ideal (ΔU, c<sub>v</sub>, adiabáticas o isotermas), que no se preguntan.</p>
     <div class="enun"><p>1 mol de aire (γ = 1,4) a 400 K y 8·10⁵ Pa se expande adiabáticamente hasta duplicar su volumen. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Los volúmenes inicial y final.</li><li class="q"><b>b)</b> La temperatura y la presión finales.</li><li class="q"><b>c)</b> El trabajo realizado y la variación de energía interna.</li></ol>
     <p class="datos"><b>Datos:</b> n = 1 mol; T<sub>1</sub> = 400 K; p<sub>1</sub> = 8·10⁵ Pa; V<sub>2</sub> = 2 · V<sub>1</sub>; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -2588,8 +2613,9 @@ details.prob summary .stitle{display:block}
       <p class="res">ΔU ≈ −2 012 J; W ≈ 2 012 J. El gas se enfría porque hace trabajo a costa de su energía interna.</p>
     </div>
   </details>
-  <details class="prob" id="p86" data-tags="transformaciones motores">
-    <summary><span class="stitle">86. Compresión en un motor diésel<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag">Motores</span></span></span></summary>
+  <details class="prob" id="p86" data-pau="no" data-tags="transformaciones motores">
+    <summary><span class="stitle">86. Compresión en un motor diésel<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag">Motores</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Son transformaciones del gas ideal (ΔU, c<sub>v</sub>, adiabáticas o isotermas), que no se preguntan.</p>
     <div class="enun"><p>En un motor diésel, el aire entra en el cilindro a 1 bar y 27 °C y se comprime adiabáticamente con una relación de compresión de 18. Considera el aire un gas ideal con γ = 1,4. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La temperatura al final de la compresión. ¿Por qué el motor diésel no necesita bujía?</li><li class="q"><b>b)</b> La presión al final de la compresión.</li><li class="q"><b>c)</b> El trabajo por cada mol de aire comprimido.</li></ol>
     <p class="datos"><b>Datos:</b> p<sub>1</sub> = 10⁵ Pa; T<sub>1</sub> = 300 K; V<sub>1</sub>/V<sub>2</sub> = 18; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -2615,8 +2641,9 @@ details.prob summary .stitle{display:block}
       <p class="res">W ≈ −13 572 J por mol (negativo: el pistón hace trabajo sobre el gas)</p>
     </div>
   </details>
-  <details class="prob" id="p87" data-tags="transformaciones">
-    <summary><span class="stitle">87. Primer principio: interpreta los signos<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p87" data-pau="no" data-tags="transformaciones">
+    <summary><span class="stitle">87. Primer principio: interpreta los signos<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Son transformaciones del gas ideal (ΔU, c<sub>v</sub>, adiabáticas o isotermas), que no se preguntan.</p>
     <div class="enun"><p>Aplica el primer principio (Q = ΔU + W, con Q &gt; 0 si el gas recibe calor y W &gt; 0 si el gas hace trabajo) en cada caso y di si la temperatura del gas sube o baja:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Un gas absorbe 800 J de calor y realiza un trabajo de 300 J.</li><li class="q"><b>b)</b> Un gas se comprime con un trabajo de 500 J mientras cede 200 J de calor.</li><li class="q"><b>c)</b> Un gas se expande adiabáticamente y realiza un trabajo de 150 J.</li></ol>
     <p class="datos"><b>Datos:</b> Q = calor recibido por el gas; W = trabajo realizado por el gas</p>
@@ -2644,8 +2671,9 @@ details.prob summary .stitle{display:block}
       <p class="res">ΔU = −150 J: el gas se enfría.</p>
     </div>
   </details>
-  <details class="prob" id="p88" data-tags="transformaciones">
-    <summary><span class="stitle">88. Calentar a volumen constante o a presión constante<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p88" data-pau="no" data-tags="transformaciones">
+    <summary><span class="stitle">88. Calentar a volumen constante o a presión constante<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Son transformaciones del gas ideal (ΔU, c<sub>v</sub>, adiabáticas o isotermas), que no se preguntan.</p>
     <div class="enun"><p>Queremos calentar 2 mol de nitrógeno (gas diatómico) desde 300 K hasta 400 K. Calcula el calor necesario, el trabajo y la variación de energía interna:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Si se calienta a volumen constante.</li><li class="q"><b>b)</b> Si se calienta a presión constante.</li><li class="q"><b>c)</b> Explica por qué hace falta más calor a presión constante.</li></ol>
     <p class="datos"><b>Datos:</b> n = 2 mol; ΔT = 100 K; c<sub>v</sub> = 5/2 · R = 20,78 J/(mol·K); c<sub>p</sub> = 7/2 · R = 29,09 J/(mol·K)</p>
@@ -2672,8 +2700,9 @@ details.prob summary .stitle{display:block}
       <p class="res">ΔU es la misma en los dos casos porque solo depende de la temperatura. A presión constante el gas se dilata y gasta parte del calor en hacer trabajo, así que hay que aportar más.</p>
     </div>
   </details>
-  <details class="prob" id="p89" data-tags="transformaciones">
-    <summary><span class="stitle">89. Proceso en dos etapas: isóbara + isócora<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p89" data-pau="no" data-tags="transformaciones">
+    <summary><span class="stitle">89. Proceso en dos etapas: isóbara + isócora<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Son transformaciones del gas ideal (ΔU, c<sub>v</sub>, adiabáticas o isotermas), que no se preguntan.</p>
     <div class="enun"><p>1 mol de aire (diatómico) se encuentra en el estado A (2·10⁵ Pa; 10 L). Primero se expande a presión constante hasta 25 L (estado B) y después se enfría a volumen constante hasta 10⁵ Pa (estado C). Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Las temperaturas de los estados A, B y C.</li><li class="q"><b>b)</b> W, Q y ΔU en cada etapa.</li><li class="q"><b>c)</b> W, Q y ΔU del proceso completo A→C.</li></ol>
     <p class="datos"><b>Datos:</b> n = 1 mol; p<sub>A</sub> = 2·10⁵ Pa; V<sub>A</sub> = 10 L; V<sub>B</sub> = V<sub>C</sub> = 25 L; p<sub>C</sub> = 10⁵ Pa; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -2704,8 +2733,9 @@ details.prob summary .stitle{display:block}
       <p class="res">W = 3 000 J; Q ≈ 4 250 J; ΔU ≈ 1 250 J</p>
     </div>
   </details>
-  <details class="prob" id="p90" data-tags="transformaciones">
-    <summary><span class="stitle">90. El trabajo depende del camino<span class="ptags"><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p90" data-pau="no" data-tags="transformaciones">
+    <summary><span class="stitle">90. El trabajo depende del camino<span class="ptags"><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Son transformaciones del gas ideal (ΔU, c<sub>v</sub>, adiabáticas o isotermas), que no se preguntan.</p>
     <div class="enun"><p>Un gas ideal pasa del estado 1 (4·10⁵ Pa; 2 L) al estado 2 (2·10⁵ Pa; 4 L). Calcula el trabajo y el calor si el proceso es:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Una isoterma (comprueba primero que es posible).</li><li class="q"><b>b)</b> Una isóbara a 4·10⁵ Pa seguida de una isócora.</li><li class="q"><b>c)</b> Una isócora seguida de una isóbara a 2·10⁵ Pa. ¿Qué conclusión sacas?</li></ol>
     <p class="datos"><b>Datos:</b> p<sub>1</sub> · V<sub>1</sub> = 4·10⁵ · 2·10⁻³ = 800 J; p<sub>2</sub> · V<sub>2</sub> = 2·10⁵ · 4·10⁻³ = 800 J</p>
@@ -2736,8 +2766,9 @@ details.prob summary .stitle{display:block}
     </div>
   </details>
   <h3 id="ciclo-carnot" class="extra-h grp-h">Ciclo de Carnot: estados, calores y trabajo</h3>
-  <details class="prob" id="p91" data-tags="carnot">
-    <summary><span class="stitle">91. Ciclo de Carnot completo: estados del gas<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+  <details class="prob" id="p91" data-pau="no" data-tags="carnot">
+    <summary><span class="stitle">91. Ciclo de Carnot completo: estados del gas<span class="ptags"><span class="ptag">Carnot</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Resuelve el ciclo de Carnot estado a estado (presiones, volúmenes, moles); en la PAU solo se usan las temperaturas de los focos.</p>
     <div class="enun"><p>1 mol de aire (γ = 1,4) describe un ciclo de Carnot entre 600 K y 300 K. En el estado 1 ocupa 2 L y, tras la expansión isoterma, ocupa 6 L (estado 2). Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La presión y el volumen de los cuatro estados.</li><li class="q"><b>b)</b> El calor absorbido, el calor cedido y el trabajo neto por ciclo.</li><li class="q"><b>c)</b> El rendimiento. Compruébalo con la fórmula de Carnot.</li><li class="q"><b>d)</b> El trabajo en cada adiabática. ¿Por qué no influyen en el trabajo neto?</li></ol>
     <p class="datos"><b>Datos:</b> n = 1 mol; T<sub>c</sub> = 600 K; T<sub>f</sub> = 300 K; V<sub>1</sub> = 2 L; V<sub>2</sub> = 6 L; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -2775,8 +2806,9 @@ details.prob summary .stitle{display:block}
       <p class="res">Son iguales y de signo contrario: se anulan. El trabajo neto sale solo de las dos isotermas.</p>
     </div>
   </details>
-  <details class="prob" id="p92" data-tags="carnot">
-    <summary><span class="stitle">92. Tabla de energías de un ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+  <details class="prob" id="p92" data-pau="no" data-tags="carnot">
+    <summary><span class="stitle">92. Tabla de energías de un ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Resuelve el ciclo de Carnot estado a estado (presiones, volúmenes, moles); en la PAU solo se usan las temperaturas de los focos.</p>
     <div class="enun"><p>2 mol de un gas monoatómico describen un ciclo de Carnot entre 500 K y 350 K. En la expansión isoterma el volumen se multiplica por 2,5. Completa una tabla con Q, W y ΔU de cada etapa y del ciclo, y calcula el rendimiento.</p></div>
     <p class="datos"><b>Datos:</b> n = 2 mol; T<sub>c</sub> = 500 K; T<sub>f</sub> = 350 K; V<sub>2</sub>/V<sub>1</sub> = V<sub>3</sub>/V<sub>4</sub> = 2,5; c<sub>v</sub> = 3/2 · R = 12,47 J/(mol·K)</p>
     <div class="ap">
@@ -2791,8 +2823,9 @@ details.prob summary .stitle{display:block}
       <div class="tbl" style="margin-top:12px"><table class='tt'><thead><tr><th>Etapa</th><th>Q (J)</th><th>W (J)</th><th>ΔU (J)</th></tr></thead><tbody><tr><td>1‑2 isoterma</td><td>7 614,4</td><td>7 614,4</td><td>0</td></tr><tr><td>2‑3 adiabática</td><td>0</td><td>3 739,5</td><td>−3 739,5</td></tr><tr><td>3‑4 isoterma</td><td>−5 330,1</td><td>−5 330,1</td><td>0</td></tr><tr><td>4‑1 adiabática</td><td>0</td><td>−3 739,5</td><td>3 739,5</td></tr><tr><td><b>Ciclo</b></td><td><b>2 284,3</b></td><td><b>2 284,3</b></td><td><b>0</b></td></tr></tbody></table></div>
     </div>
   </details>
-  <details class="prob" id="p93" data-tags="carnot">
-    <summary><span class="stitle">93. Volúmenes de un ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+  <details class="prob" id="p93" data-pau="no" data-tags="carnot">
+    <summary><span class="stitle">93. Volúmenes de un ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Resuelve el ciclo de Carnot estado a estado (presiones, volúmenes, moles); en la PAU solo se usan las temperaturas de los focos.</p>
     <div class="enun"><p>Un ciclo de Carnot con aire (γ = 1,4) trabaja entre 675 K y 300 K. En el estado 1 el gas ocupa 1 L y al final de la expansión isoterma, 3 L. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Los volúmenes de los estados 3 y 4.</li><li class="q"><b>b)</b> Comprueba que V₃/V₄ = V₂/V₁ y explica qué consecuencia tiene.</li><li class="q"><b>c)</b> El rendimiento del ciclo.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 675 K; T<sub>f</sub> = 300 K; V<sub>1</sub> = 1 L; V<sub>2</sub> = 3 L; γ − 1 = 0,4</p>
@@ -2919,8 +2952,9 @@ details.prob summary .stitle{display:block}
       <p class="res">Real: 38 kJ. Carnot: 18,75 kJ.</p>
     </div>
   </details>
-  <details class="prob" id="p98" data-tags="carnot">
-    <summary><span class="stitle">98. Relación de volúmenes a partir del calor<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+  <details class="prob" id="p98" data-pau="no" data-tags="carnot">
+    <summary><span class="stitle">98. Relación de volúmenes a partir del calor<span class="ptags"><span class="ptag">Carnot</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Resuelve el ciclo de Carnot estado a estado (presiones, volúmenes, moles); en la PAU solo se usan las temperaturas de los focos.</p>
     <div class="enun"><p>0,5 mol de un gas ideal describen un ciclo de Carnot entre 500 K y 300 K y absorben 1 000 J por ciclo del foco caliente. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Cuánto aumenta el volumen en la expansión isoterma (V₂/V₁).</li><li class="q"><b>b)</b> El rendimiento, el trabajo y el calor cedido por ciclo.</li><li class="q"><b>c)</b> Cuánto se reduce el volumen en la compresión isoterma (V₃/V₄).</li></ol>
     <p class="datos"><b>Datos:</b> n = 0,5 mol; T<sub>c</sub> = 500 K; T<sub>f</sub> = 300 K; Q<sub>c</sub> = 1 000 J</p>
@@ -2949,10 +2983,11 @@ details.prob summary .stitle{display:block}
       <p class="res">V<sub>3</sub>/V<sub>4</sub> ≈ 1,62, igual que V<sub>2</sub>/V<sub>1</sub></p>
     </div>
   </details>
-  <h3 id="ciclos-pau" class="extra-h grp-h">Ciclos Otto, Diésel y Carnot (nivel PAU)</h3>
+  <h3 id="ciclos-pau" class="extra-h grp-h">Ciclos Otto, Diésel y Carnot (ampliación)</h3>
   <p><a href="maquinas-termicas-ciclos-otto-diesel-carnot.pdf" download>📄 Descargar la hoja de problemas de ciclos Otto, Diésel y Carnot (PDF)</a></p>
-  <details class="prob" id="p99" data-tags="motores transformaciones">
-    <summary><span class="stitle">99. Ciclo Otto ideal: estados y rendimiento<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p99" data-pau="no" data-tags="motores transformaciones">
+    <summary><span class="stitle">99. Ciclo Otto ideal: estados y rendimiento<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Calcula presiones y temperaturas del ciclo Otto o Diésel ideal, que no se preguntan.</p>
     <div class="enun"><p>Un motor de gasolina sigue un ciclo Otto ideal con relación de compresión 9. El aire entra a 1 bar y 27 °C, y la temperatura máxima del ciclo es 1 800 K. Considera 1 mol de aire como gas ideal (γ = 1,4). Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La temperatura y la presión al final de la compresión.</li><li class="q"><b>b)</b> La presión máxima, y la temperatura y la presión al final de la expansión.</li><li class="q"><b>c)</b> El calor absorbido, el calor cedido y el trabajo por mol en cada ciclo.</li><li class="q"><b>d)</b> El rendimiento. Compruébalo con la fórmula del ciclo Otto.</li></ol>
     <p class="datos"><b>Datos:</b> n = 1 mol; T<sub>1</sub> = 300 K; p<sub>1</sub> = 10⁵ Pa; r = 9; T<sub>3</sub> = 1 800 K; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -2992,8 +3027,9 @@ details.prob summary .stitle{display:block}
       <p class="res">η ≈ 58,5 %: las dos formas dan lo mismo</p>
     </div>
   </details>
-  <details class="prob" id="p100" data-tags="motores transformaciones">
-    <summary><span class="stitle">100. Motor de cuatro cilindros: rendimiento ideal y potencia<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p100" data-pau="parcial" data-tags="motores transformaciones">
+    <summary><span class="stitle">100. Motor de cuatro cilindros: rendimiento ideal y potencia<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span><span class="ptag pau-par">PAU: en parte</span></span></span></summary>
+    <p class="note pau-nota par"><b>PAU 2026-27:</b> Los apartados c) y d) (moles y c<sub>v</sub>) no entran. Los apartados a) y b) sí.</p>
     <div class="enun"><p>Un motor de gasolina de cuatro tiempos y cuatro cilindros tiene 76 mm de diámetro, 88 mm de carrera y relación de compresión 10,5. El aire entra a 1 bar y 20 °C, y la temperatura máxima del ciclo es 2 200 K. Supón un ciclo Otto ideal con γ = 1,4. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada total y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> El rendimiento ideal.</li><li class="q"><b>c)</b> Los moles de aire por cilindro y ciclo, y el calor absorbido y el trabajo en cada ciclo de un cilindro.</li><li class="q"><b>d)</b> La potencia ideal del motor a 5 000 rpm.</li></ol>
     <p class="datos"><b>Datos:</b> z = 4; D = 0,076 m; L = 0,088 m; r = 10,5; p<sub>1</sub> = 10⁵ Pa; T<sub>1</sub> = 293 K; T<sub>3</sub> = 2 200 K; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -3033,8 +3069,9 @@ details.prob summary .stitle{display:block}
       <p class="res">P ≈ 55 kW (≈ 75 CV)</p>
     </div>
   </details>
-  <details class="prob" id="p101" data-tags="motores transformaciones">
-    <summary><span class="stitle">101. Relación de compresión a partir del rendimiento<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p101" data-pau="no" data-tags="motores transformaciones">
+    <summary><span class="stitle">101. Relación de compresión a partir del rendimiento<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Calcula presiones y temperaturas del ciclo Otto o Diésel ideal, que no se preguntan.</p>
     <div class="enun"><p>Un motor que sigue un ciclo Otto ideal tiene un rendimiento del 56,5 %. El aire entra a 300 K y alcanza 2 000 K tras la combustión. Considera 1 mol de aire con γ = 1,4. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La relación de compresión.</li><li class="q"><b>b)</b> Las temperaturas al final de la compresión y al final de la expansión.</li><li class="q"><b>c)</b> El calor absorbido y el trabajo por mol en cada ciclo.</li><li class="q"><b>d)</b> El rendimiento si la relación de compresión subiera a 11. ¿Por qué un motor de gasolina no puede tener relaciones de compresión tan altas como un diésel?</li></ol>
     <p class="datos"><b>Datos:</b> η = 0,565; T<sub>1</sub> = 300 K; T<sub>3</sub> = 2 000 K; γ = 1,4; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -3070,8 +3107,9 @@ details.prob summary .stitle{display:block}
       <p class="res">η ≈ 61,7 %. En el motor de gasolina se comprime la mezcla de aire y combustible: con una compresión muy alta se calienta tanto que se inflama sola antes de la chispa (detonación o picado), lo que daña el motor. El diésel solo comprime aire, así que puede llegar a r = 14 a 22.</p>
     </div>
   </details>
-  <details class="prob" id="p102" data-tags="motores transformaciones">
-    <summary><span class="stitle">102. Ciclo Otto limitado por la presión máxima<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p102" data-pau="no" data-tags="motores transformaciones">
+    <summary><span class="stitle">102. Ciclo Otto limitado por la presión máxima<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Calcula presiones y temperaturas del ciclo Otto o Diésel ideal, que no se preguntan.</p>
     <div class="enun"><p>Un cilindro de un motor que sigue un ciclo Otto ideal contiene 0,5 L de aire a 1 bar y 27 °C al empezar la compresión. La relación de compresión es 9,5 y la presión máxima del ciclo es 60 bar. Con γ = 1,4, calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> Los moles de aire, y la temperatura y la presión al final de la compresión.</li><li class="q"><b>b)</b> La temperatura máxima, y la temperatura y la presión al final de la expansión.</li><li class="q"><b>c)</b> El calor absorbido, el calor cedido, el trabajo por ciclo y el rendimiento.</li></ol>
     <p class="datos"><b>Datos:</b> V<sub>1</sub> = 5·10⁻⁴ m³; p<sub>1</sub> = 10⁵ Pa; T<sub>1</sub> = 300 K; r = 9,5; p<sub>3</sub> = 6·10⁶ Pa; c<sub>v</sub> = 20,78 J/(mol·K)</p>
@@ -3103,8 +3141,9 @@ details.prob summary .stitle{display:block}
       <p class="res">Q<sub>1</sub> ≈ 482 J; Q<sub>2</sub> ≈ 196 J; W ≈ 286 J; η ≈ 59,4 % (igual que 1 − 1/9,5<sup>0,4</sup>)</p>
     </div>
   </details>
-  <details class="prob" id="p103" data-tags="motores combustible">
-    <summary><span class="stitle">103. Rendimiento real frente al ideal en un motor de gasolina<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
+  <details class="prob" id="p103" data-pau="parcial" data-tags="motores combustible">
+    <summary><span class="stitle">103. Rendimiento real frente al ideal en un motor de gasolina<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span><span class="ptag pau-par">PAU: en parte</span></span></span></summary>
+    <p class="note pau-nota par"><b>PAU 2026-27:</b> El apartado a) (rendimiento ideal del ciclo Otto con γ) es dudoso: no aparece en las orientaciones. El resto sí entra.</p>
     <div class="enun"><p>Un motor de gasolina de cuatro tiempos, cuatro cilindros y relación de compresión 10 da 75 kW a 5 500 rpm. En esas condiciones consume 22 kg/h de gasolina, de poder calorífico 43 900 kJ/kg. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El rendimiento del ciclo Otto ideal con esa relación de compresión (γ = 1,4).</li><li class="q"><b>b)</b> El rendimiento real del motor y qué fracción del ideal consigue.</li><li class="q"><b>c)</b> El trabajo útil por ciclo en cada cilindro.</li><li class="q"><b>d)</b> El calor que se pierde en una hora. Nombra dos causas de que el rendimiento real sea menor que el ideal.</li></ol>
     <p class="datos"><b>Datos:</b> P = 75 kW; z = 4; n = 5 500 rpm; ṁ = 22 kg/h; P<sub>c</sub> = 43 900 kJ/kg; r = 10</p>
@@ -3142,8 +3181,9 @@ details.prob summary .stitle{display:block}
       <p class="res">Se pierden ≈ 6,96·10⁵ kJ por hora. Causas: el calor que se va por las paredes y la refrigeración, los gases de escape calientes, el rozamiento, la combustión que no es instantánea y el trabajo de aspirar y expulsar los gases.</p>
     </div>
   </details>
-  <details class="prob" id="p104" data-tags="motores transformaciones">
-    <summary><span class="stitle">104. Ciclo Diésel ideal: estados y rendimiento<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p104" data-pau="no" data-tags="motores transformaciones">
+    <summary><span class="stitle">104. Ciclo Diésel ideal: estados y rendimiento<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Calcula presiones y temperaturas del ciclo Otto o Diésel ideal, que no se preguntan.</p>
     <div class="enun"><p>Un motor sigue un ciclo Diésel ideal con relación de compresión 16 y relación de combustión (de corte) 2. El aire entra a 1 bar y 27 °C. Para 1 mol de aire (γ = 1,4), calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La temperatura y la presión al final de la compresión.</li><li class="q"><b>b)</b> La temperatura al final de la combustión y al final de la expansión.</li><li class="q"><b>c)</b> El calor absorbido, el calor cedido y el trabajo por mol.</li><li class="q"><b>d)</b> El rendimiento. Compruébalo con la fórmula del ciclo Diésel.</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>1</sub> = 300 K; p<sub>1</sub> = 10⁵ Pa; r = 16; α = V<sub>3</sub>/V<sub>2</sub> = 2; c<sub>v</sub> = 20,78 J/(mol·K); c<sub>p</sub> = 29,09 J/(mol·K)</p>
@@ -3182,8 +3222,9 @@ details.prob summary .stitle{display:block}
       <p class="res">η ≈ 61,4 %</p>
     </div>
   </details>
-  <details class="prob" id="p105" data-tags="motores transformaciones">
-    <summary><span class="stitle">105. Diésel con temperatura máxima: comparación con el Otto<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span></span></span></summary>
+  <details class="prob" id="p105" data-pau="no" data-tags="motores transformaciones">
+    <summary><span class="stitle">105. Diésel con temperatura máxima: comparación con el Otto<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Transformaciones</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Calcula presiones y temperaturas del ciclo Otto o Diésel ideal, que no se preguntan.</p>
     <div class="enun"><p>Un ciclo Diésel ideal tiene relación de compresión 20. El aire entra a 290 K y la temperatura máxima, al terminar la inyección, es 2 000 K (γ = 1,4). Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La temperatura al final de la compresión y la relación de combustión.</li><li class="q"><b>b)</b> El rendimiento del ciclo.</li><li class="q"><b>c)</b> El rendimiento de un ciclo Otto con la misma relación de compresión y el de un Otto con r = 9, típico de un motor de gasolina. Comenta el resultado.</li></ol>
     <p class="datos"><b>Datos:</b> r = 20; T<sub>1</sub> = 290 K; T<sub>3</sub> = 2 000 K; γ = 1,4</p>
@@ -3452,8 +3493,9 @@ details.prob summary .stitle{display:block}
       <p class="res">η<sub>ideal</sub> ≈ 60,0 %; el motor real consigue el 72 % del ideal</p>
     </div>
   </details>
-  <details class="prob" id="p107" data-tags="carnot">
-    <summary><span class="stitle">107. Ciclo de Carnot con un gas monoatómico<span class="ptags"><span class="ptag">Carnot</span></span></span></summary>
+  <details class="prob" id="p107" data-pau="no" data-tags="carnot">
+    <summary><span class="stitle">107. Ciclo de Carnot con un gas monoatómico<span class="ptags"><span class="ptag">Carnot</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Resuelve el ciclo de Carnot estado a estado (presiones, volúmenes, moles); en la PAU solo se usan las temperaturas de los focos.</p>
     <div class="enun"><p>1 mol de un gas monoatómico (γ = 5/3) describe un ciclo de Carnot entre 600 K y 300 K. Al principio de la expansión isoterma la presión es 10 bar, y en esa expansión el volumen se duplica. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El volumen y la presión en los cuatro vértices del ciclo.</li><li class="q"><b>b)</b> El calor absorbido y el calor cedido en cada ciclo.</li><li class="q"><b>c)</b> El trabajo neto y el rendimiento. Compruébalo con la fórmula de Carnot.</li><li class="q"><b>d)</b> El trabajo en la expansión adiabática.</li></ol>
     <p class="datos"><b>Datos:</b> n = 1 mol; T<sub>c</sub> = 600 K; T<sub>f</sub> = 300 K; p<sub>1</sub> = 10⁶ Pa; V<sub>2</sub> = 2 · V<sub>1</sub>; γ = 5/3; c<sub>v</sub> = 3/2 · R = 12,47 J/(mol·K)</p>
@@ -3493,8 +3535,9 @@ details.prob summary .stitle{display:block}
       <p class="res">W<sub>23</sub> ≈ 3 740 J (en la compresión 4‑1 vale −3 740 J y se anulan)</p>
     </div>
   </details>
-  <details class="prob" id="p108" data-tags="carnot combustible">
-    <summary><span class="stitle">108. Central térmica frente al ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span><span class="ptag">Combustible</span></span></span></summary>
+  <details class="prob" id="p108" data-pau="parcial" data-tags="carnot combustible">
+    <summary><span class="stitle">108. Central térmica frente al ciclo de Carnot<span class="ptags"><span class="ptag">Carnot</span><span class="ptag">Combustible</span><span class="ptag pau-par">PAU: en parte</span></span></span></summary>
+    <p class="note pau-nota par"><b>PAU 2026-27:</b> El apartado d) (caudal de agua de refrigeración) es calorimetría y no entra. El resto sí.</p>
     <div class="enun"><p>Una central térmica produce vapor a 540 °C y lo condensa a 40 °C. Da una potencia eléctrica de 600 MW con un rendimiento global del 38 %. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> El rendimiento de un ciclo de Carnot entre esas temperaturas, y qué fracción de él consigue la central.</li><li class="q"><b>b)</b> La potencia térmica que absorbe y la que cede en el condensador.</li><li class="q"><b>c)</b> El carbón que consume en una hora, si su poder calorífico es 29 MJ/kg.</li><li class="q"><b>d)</b> El caudal de agua de refrigeración si esta se calienta 8 °C (c = 4 180 J/(kg·K)).</li></ol>
     <p class="datos"><b>Datos:</b> T<sub>c</sub> = 813 K; T<sub>f</sub> = 313 K; P = 600 MW; η = 0,38; P<sub>c</sub> = 29·10⁶ J/kg; ΔT<sub>agua</sub> = 8 K</p>
@@ -3597,8 +3640,9 @@ details.prob summary .stitle{display:block}
       <p class="res">Es posible: cumple el primer principio y su rendimiento (45 %) es menor que el de Carnot (50 %).</p>
     </div>
   </details>
-  <details class="prob" id="p111" data-tags="motores combustible">
-    <summary><span class="stitle">111. Motocicleta bicilíndrica: cilindrada y rendimiento (PAU 2026)<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span></span></span></summary>
+  <details class="prob" id="p111" data-pau="no" data-tags="motores combustible">
+    <summary><span class="stitle">111. Motocicleta bicilíndrica: cilindrada y rendimiento (PAU 2026)<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
+    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Repite el problema 49.</p>
     <div class="enun"><p>Una conocida marca de motocicletas tiene un motor Otto bicilíndrico de cuatro tiempos y 4 válvulas por cilindro. Su potencia máxima es 50 kW a 8 000 rpm y su par máximo, 64 N·m a 6 700 rpm. El diámetro de los pistones es 83 mm, la carrera 60 mm y la relación de compresión 10,8:1. Para obtener el consumo, el motor funciona durante una hora en el régimen de par máximo y consume 14,3 litros de gasolina. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> El rendimiento del motor durante la prueba que se realiza para obtener el consumo.</li></ol>
     <p class="datos"><b>Datos:</b> D = 0,083 m; L = 0,060 m; r = 10,8; M = 64 N·m; n = 6 700 rpm; V = 14,3 dm³ en 1 h; ρ = 0,75 kg/dm³; PCI = 41 500 kJ/kg</p>
@@ -3829,13 +3873,17 @@ details.prob summary .stitle{display:block}
 <script>
 (function(){
   const btns=[...document.querySelectorAll('.filters-m button')],probs=[...document.querySelectorAll('details.prob')],cnt=document.getElementById('fcount'),heads=[...document.querySelectorAll('.grp-h')];
-  btns.forEach(b=>b.addEventListener('click',()=>{
-    const f=b.dataset.f;btns.forEach(x=>x.setAttribute('aria-pressed',x===b));
-    let k=0;probs.forEach(d=>{const ok=f==='all'||(d.dataset.tags||'').split(' ').includes(f);d.hidden=!ok;if(ok)k++;});
+  const sw=document.getElementById('soloPau');let f='all';
+  try{sw.checked=localStorage.getItem('mtSoloPau')==='1';}catch(e){}
+  function aplicar(){
+    let k=0;probs.forEach(d=>{const ok=(f==='all'||(d.dataset.tags||'').split(' ').includes(f))&&!(sw.checked&&d.dataset.pau==='no');d.hidden=!ok;if(ok)k++;});
     // Ocultar el título de cada bloque si no queda ningún problema visible debajo
     heads.forEach(h=>{let n=h.nextElementSibling,any=false;while(n&&!n.matches('.grp-h')){if(n.matches('details.prob')&&!n.hidden)any=true;n=n.nextElementSibling;}h.hidden=!any;});
     cnt.textContent=k+(k===1?' problema':' problemas');
-  }));
+  }
+  btns.forEach(b=>b.addEventListener('click',()=>{f=b.dataset.f;btns.forEach(x=>x.setAttribute('aria-pressed',x===b));aplicar();}));
+  sw.addEventListener('change',()=>{try{localStorage.setItem('mtSoloPau',sw.checked?'1':'0');}catch(e){}aplicar();});
+  aplicar();
 })();
 </script>
 </body>
