@@ -162,8 +162,9 @@ document.body.insertAdjacentHTML('afterbegin', "<header class=\"bar\"><div class
       });
       box.appendChild(ul);
     } else {
-      var larga=q.k!=='cerrada', f=document.createElement(larga?'textarea':'input');
-      if(!larga){ f.type='text'; f.maxLength=40; f.style.maxWidth='260px'; f.placeholder=q.ph||''; }
+      var linea=q.k==='codigo', larga=q.k!=='cerrada'&&!linea, f=document.createElement(larga?'textarea':'input');
+      if(!larga){ f.type='text'; f.maxLength=linea?80:40; f.style.maxWidth=linea?'560px':'260px'; f.placeholder=q.ph||''; }
+      if(linea){ f.style.fontFamily='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace'; f.setAttribute('autocapitalize','off'); f.setAttribute('autocorrect','off'); }
       else f.placeholder='Escribe aquí tu respuesta con frases completas…';
       f.value=v||''; f.disabled=lock; f.setAttribute('aria-label','Tu respuesta');
       f.setAttribute('autocomplete','off'); f.spellcheck=larga;
