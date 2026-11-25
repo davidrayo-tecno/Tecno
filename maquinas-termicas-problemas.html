@@ -227,6 +227,16 @@ details.prob > summary::after{margin-left:auto}
 .ap .lbl{font-size:13px;font-weight:600;color:var(--muted);margin:10px 0 4px;display:block}
 .ap ol.steps{margin-bottom:6px}
 .ap ol.steps li{margin-bottom:10px}
+/* Aclaración oculta (se abre al pulsar) */
+details.aclara{background:var(--def-bg);border:1px solid var(--line);border-left:4px solid var(--def);border-radius:10px;margin:0 0 12px}
+details.aclara summary{cursor:pointer;padding:10px 14px;font-weight:600;color:var(--def);list-style:none}
+details.aclara summary::-webkit-details-marker{display:none}
+details.aclara summary::before{content:"▸";display:inline-block;margin-right:8px;transition:transform .15s}
+details.aclara[open] summary::before{transform:rotate(90deg)}
+details.aclara .cont{padding:0 16px 12px}
+details.aclara .cont h5{font-size:16px;margin:12px 0 4px}
+details.aclara .cont p,details.aclara .cont ul{margin:4px 0}
+@media (prefers-reduced-motion:reduce){details.aclara summary::before{transition:none}}
 /* Cadena de cálculo (resolución gráfica) */
 .cadena{display:flex;flex-wrap:wrap;align-items:center;gap:6px 4px}
 .cadena .c{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-align:center;line-height:1.2;min-width:92px}
@@ -3206,6 +3216,26 @@ details.prob summary .stitle{display:block}
     </div>
     <div class="ap">
       <h4><span>b)</span>El rendimiento real.</h4>
+      <details class="aclara">
+        <summary>💡 Aclaración: ¿qué diferencia hay entre consumo y consumo específico?</summary>
+        <div class="cont">
+          <p>La diferencia es muy sencilla:</p>
+          <ul>
+            <li><b>Consumo:</b> es la cantidad total de combustible que gasta un motor.</li>
+            <li><b>Consumo específico:</b> es la cantidad de combustible que necesita un motor para producir una determinada cantidad de energía o trabajo.</li>
+          </ul>
+          <h5>1. Consumo</h5>
+          <p>Indica cuánto combustible gasta el motor en un tiempo determinado.</p>
+          <p>Por ejemplo: un camión consume 10 litros de gasóleo en una hora.</p>
+          <p>Se puede medir en:</p>
+          <ul><li>Litros/hora (L/h).</li><li>Kilogramos/hora (kg/h).</li></ul>
+          <h5>2. Consumo específico</h5>
+          <p>Indica cuánto combustible necesita el motor para producir una unidad de energía.</p>
+          <p>Por ejemplo: un motor necesita 195 gramos de gasóleo para producir 1 kWh de energía.</p>
+          <p>Se mide normalmente en <b>g/kWh</b>.</p>
+          <p>En este problema, c<sub>e</sub> = 195 g/kWh es un consumo específico: por eso se calcula la energía que aporta el combustible por cada kWh útil.</p>
+        </div>
+      </details>
       <ol class="steps">
           <li>Energía del combustible por kWh útil:<span class="eq">0,195 kg · 42 700 kJ/kg = 8 327 kJ</span></li>
           <li>Rendimiento:<span class="eq">η = 3 600 / 8 327 = 0,432</span></li>
