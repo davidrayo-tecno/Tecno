@@ -3397,6 +3397,53 @@ details.prob summary .stitle{display:block}
     </div>
     <div class="ap">
       <h4><span>d)</span>El rendimiento de un ciclo Diésel ideal con r = 17 y relación de combustión 2,5 (γ = 1,4), y qué fracción de él consigue el motor real.</h4>
+      <div class="f">η<sub>Diésel</sub> = 1 − (1 / r<sup>γ−1</sup>) · (r<sub>c</sub><sup>γ</sup> − 1) / [γ · (r<sub>c</sub> − 1)]<span>Rendimiento del ciclo Diésel ideal. r = relación de compresión, r<sub>c</sub> = relación de combustión, γ = c<sub>p</sub> / c<sub>v</sub>.</span></div>
+      <details class="aclara">
+        <summary>💡 Aclaración: ¿de dónde sale la fórmula del ciclo Diésel y cómo se usa?</summary>
+        <div class="cont">
+          <h5>1. El ciclo Diésel ideal</h5>
+          <p>Es el ciclo teórico de un motor diésel. Tiene cuatro transformaciones:</p>
+          <ul>
+            <li><b>1 → 2 · Compresión adiabática:</b> el pistón comprime el aire sin intercambiar calor. El volumen pasa de V₁ (máximo) a V₂ (mínimo).</li>
+            <li><b>2 → 3 · Combustión a presión constante:</b> se inyecta el gasóleo, que arde mientras el pistón empieza a bajar. Entra el calor <b>Q₁</b> y el volumen crece de V₂ a V₃.</li>
+            <li><b>3 → 4 · Expansión adiabática:</b> los gases empujan el pistón; es la carrera que da trabajo.</li>
+            <li><b>4 → 1 · Cesión de calor a volumen constante:</b> se abre el escape y sale el calor <b>Q₂</b>.</li>
+          </ul>
+          <figure>
+            <div class="desliza" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><svg style="min-width:440px" viewBox="0 0 500 290" role="img" aria-labelledby="d106t d106d"><title id="d106t">Diagrama p-V del ciclo Diésel ideal</title><desc id="d106d">1 a 2 compresión adiabática; 2 a 3 combustión a presión constante, entra el calor Q1; 3 a 4 expansión adiabática; 4 a 1 cesión de calor Q2 a volumen constante. V2 es el volumen mínimo, V3 el volumen al acabar la combustión y V1 el máximo.</desc><defs><marker id="d106a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker></defs><line x1="60" y1="250" x2="450" y2="250" style="stroke:var(--muted);stroke-width:1.5" marker-end="url(#d106a)"/><line x1="60" y1="250" x2="60" y2="16" style="stroke:var(--muted);stroke-width:1.5" marker-end="url(#d106a)"/><text x="448" y="268" style="fill:var(--muted);font:600 12px var(--body)">V</text><text x="40" y="24" style="fill:var(--muted);font:600 12px var(--body)">p</text><polyline points="400.0,215.8 392.0,215.3 384.0,214.8 376.0,214.2 368.0,213.6 360.0,213.0 352.0,212.4 344.0,211.7 336.0,211.0 328.0,210.3 320.0,209.5 312.0,208.7 304.0,207.9 296.0,207.0 288.0,206.0 280.0,205.0 272.0,204.0 264.0,202.8 256.0,201.6 248.0,200.3 240.0,199.0 232.0,197.5 224.0,195.9 216.0,194.2 208.0,192.3 200.0,190.2 192.0,188.0 184.0,185.5 176.0,182.7 168.0,179.6 160.0,176.1 152.0,172.1 144.0,167.5 136.0,162.2 128.0,155.8 120.0,148.0 112.0,138.4 104.0,126.0 96.0,109.3 88.0,85.2 80.0,46.3" style="fill:none;stroke:var(--cold);stroke-width:2.5"/><line x1="80.0" y1="46.3" x2="110.0" y2="46.3" style="stroke:var(--hot);stroke-width:3.5"/><polyline points="110.0,46.3 117.2,63.0 124.5,76.5 131.8,87.8 139.0,97.3 146.2,105.5 153.5,112.7 160.8,119.0 168.0,124.6 175.2,129.6 182.5,134.2 189.8,138.3 197.0,142.1 204.2,145.5 211.5,148.7 218.8,151.6 226.0,154.4 233.2,156.9 240.5,159.3 247.7,161.5 255.0,163.6 262.2,165.5 269.5,167.4 276.8,169.1 284.0,170.8 291.2,172.4 298.5,173.9 305.8,175.3 313.0,176.7 320.2,177.9 327.5,179.2 334.8,180.4 342.0,181.5 349.2,182.6 356.5,183.6 363.8,184.6 371.0,185.6 378.2,186.5 385.5,187.4 392.8,188.3 400.0,189.1" style="fill:none;stroke:var(--work);stroke-width:2.5"/><line x1="400.0" y1="189.1" x2="400.0" y2="215.8" style="stroke:var(--cold);stroke-width:3.5;stroke-dasharray:5 3"/><circle cx="400.0" cy="215.8" r="4.5" style="fill:var(--ink)"/><text x="408.0" y="229.8" style="fill:var(--ink);font:700 14px var(--body)">1</text><circle cx="80.0" cy="46.3" r="4.5" style="fill:var(--ink)"/><text x="64.0" y="40.3" style="fill:var(--ink);font:700 14px var(--body)">2</text><circle cx="110.0" cy="46.3" r="4.5" style="fill:var(--ink)"/><text x="116.0" y="38.3" style="fill:var(--ink);font:700 14px var(--body)">3</text><circle cx="400.0" cy="189.1" r="4.5" style="fill:var(--ink)"/><text x="408.0" y="185.1" style="fill:var(--ink);font:700 14px var(--body)">4</text><text x="95.0" y="34.3" text-anchor="middle" style="fill:var(--hot);font:700 13px var(--mono)">Q₁ ↓</text><text x="118.0" y="62.3" style="fill:var(--hot);font:600 10.5px var(--body)">2→3 combustión a presión constante</text><text x="414.0" y="207.5" style="fill:var(--cold);font:700 13px var(--mono)">Q₂ →</text><text x="108.0" y="209.0" style="fill:var(--cold);font:600 10.5px var(--body)">1→2 compresión adiabática</text><text x="180.0" y="120.7" style="fill:var(--work);font:600 10.5px var(--body)">3→4 expansión adiabática</text><text x="392.0" y="241.8" text-anchor="end" style="fill:var(--cold);font:600 10.5px var(--body)">4→1 a volumen constante</text><line x1="80.0" y1="250" x2="80.0" y2="255" style="stroke:var(--muted)"/><text x="80.0" y="269" text-anchor="middle" style="fill:var(--muted);font:600 11px var(--mono)">V₂</text><line x1="110.0" y1="250" x2="110.0" y2="255" style="stroke:var(--muted)"/><text x="110.0" y="269" text-anchor="middle" style="fill:var(--muted);font:600 11px var(--mono)">V₃</text><line x1="400.0" y1="250" x2="400.0" y2="255" style="stroke:var(--muted)"/><text x="400.0" y="269" text-anchor="middle" style="fill:var(--muted);font:600 11px var(--mono)">V₁</text><text x="70" y="286" style="fill:var(--muted);font:500 11px var(--body)">r = V₁ / V₂ (compresión) · r꜀ = V₃ / V₂ (combustión) · esquema, no está a escala</text></svg></div>
+            <figcaption>Diagrama p‑V del ciclo Diésel ideal. La diferencia con el ciclo Otto está en el tramo 2→3: en el Otto la combustión es a volumen constante (instantánea) y en el Diésel, a presión constante.</figcaption>
+          </figure>
+          <h5>2. Qué significa cada letra</h5>
+          <ul>
+            <li><b>r = V₁ / V₂</b> · <b>relación de compresión</b>: cuántas veces se reduce el volumen al comprimir. Aquí, r = 17.</li>
+            <li><b>r<sub>c</sub> = V₃ / V₂</b> · <b>relación de combustión</b> (o de corte de la inyección): cuánto crece el volumen mientras dura la combustión. Aquí, r<sub>c</sub> = 2,5.</li>
+            <li><b>γ = c<sub>p</sub> / c<sub>v</sub></b> · coeficiente adiabático del gas. Para el aire, γ = 1,4.</li>
+          </ul>
+          <h5>3. De dónde sale la fórmula</h5>
+          <ol class="steps">
+            <li>Rendimiento de cualquier ciclo:<span class="eq">η = 1 − Q₂ / Q₁</span></li>
+            <li>Calor que entra (2→3, presión constante) y calor que sale (4→1, volumen constante):<span class="eq">Q₁ = n · c<sub>p</sub> · (T₃ − T₂) ; Q₂ = n · c<sub>v</sub> · (T₄ − T₁)</span></li>
+            <li>Al dividir, c<sub>p</sub> / c<sub>v</sub> = γ:<span class="eq">η = 1 − (T₄ − T₁) / [γ · (T₃ − T₂)]</span></li>
+            <li>Con las ecuaciones de las adiabáticas y de la isóbara se ponen todas las temperaturas en función de T₁:<span class="eq">T₂ = T₁ · r<sup>γ−1</sup> ; T₃ = T₂ · r<sub>c</sub> ; T₄ = T₁ · r<sub>c</sub><sup>γ</sup></span></li>
+            <li>Al sustituir y simplificar T₁ queda la fórmula:<span class="eq">η = 1 − (1 / r<sup>γ−1</sup>) · (r<sub>c</sub><sup>γ</sup> − 1) / [γ · (r<sub>c</sub> − 1)]</span></li>
+          </ol>
+          <h5>4. Cómo se usa, paso a paso</h5>
+          <p>Conviene separarla en dos trozos para no equivocarse con la calculadora:</p>
+          <ol class="steps">
+            <li>El «factor del Diésel» (lo que está a la derecha):<span class="eq">(r<sub>c</sub><sup>γ</sup> − 1) / [γ · (r<sub>c</sub> − 1)] = (2,5<sup>1,4</sup> − 1) / (1,4 · 1,5) = (3,607 − 1) / 2,1 = 1,241</span></li>
+            <li>La potencia de la relación de compresión:<span class="eq">r<sup>γ−1</sup> = 17<sup>0,4</sup> = 3,106</span></li>
+            <li>Se junta todo:<span class="eq">η = 1 − 1,241 / 3,106 = 1 − 0,400 = 0,600 → 60,0 %</span></li>
+          </ol>
+          <h5>5. Para entenderla mejor</h5>
+          <ul>
+            <li>Sin el factor del Diésel, la fórmula es la del ciclo Otto: <b>η<sub>Otto</sub> = 1 − 1 / r<sup>γ−1</sup></b>. Con r = 17 daría 1 − 1 / 3,106 = 67,8 %.</li>
+            <li>El factor del Diésel siempre es mayor que 1, así que, <b>con la misma r</b>, el Diésel ideal rinde menos que el Otto. Aun así, los motores diésel rinden más en la práctica porque trabajan con relaciones de compresión mucho mayores (de 14 a 22, frente a 8–12 en gasolina).</li>
+            <li>Cuanto menor es r<sub>c</sub> (la combustión dura menos), más se acerca el factor a 1 y mejor es el rendimiento.</li>
+          </ul>
+          <h5>6. La fracción del ideal</h5>
+          <p>El motor real del apartado b) tiene η<sub>real</sub> = 43,2 %. Al dividir entre el ideal: 0,432 / 0,600 = <b>0,72</b>. El motor real aprovecha el 72 % de lo máximo que permitiría su ciclo teórico. El resto se pierde por rozamientos, calor que escapa por las paredes del cilindro, una combustión que no es perfecta y el bombeo de gases.</p>
+        </div>
+      </details>
       <ol class="steps">
           <li>Factor del Diésel:<span class="eq">(2,5<sup>1,4</sup> − 1) / (1,4 · 1,5) = (3,607 − 1) / 2,1 = 1,241</span></li>
           <li>Rendimiento ideal:<span class="eq">η = 1 − 1,241 / 17<sup>0,4</sup> = 1 − 1,241 / 3,106 = 0,600</span></li>
