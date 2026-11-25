@@ -56,6 +56,8 @@
 
   var libro = {
     getName: function () { return 'Modo de prueba'; },
+    getId: function () { return 'modo-prueba'; },
+    getUrl: function () { return ''; },
     getSheetByName: function (n) { return estado.hojas[n] ? new Hoja(n) : null; },
     insertSheet: function (n) { estado.hojas[n] = []; guardar(); return new Hoja(n); }
   };

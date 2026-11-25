@@ -46,6 +46,13 @@ textarea{width:100%;min-height:70px;resize:vertical}
 .note{padding:10px 14px;border-radius:12px;background:var(--warn-bg);font-size:15px;margin:0 0 16px}
 .note.x{background:var(--ko-bg)}
 .tools{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.tabs{display:flex;gap:8px;margin:20px 0 0;flex-wrap:wrap}
+.tabs button{font:inherit;font-weight:600;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 18px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.vivo{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin-right:5px;box-shadow:0 0 0 3px var(--ok-bg)}
+tr.sub td{background:var(--bg);white-space:normal;cursor:default}
+tr.sub table{font-size:14px;margin:4px 0}
+tr.sub th{cursor:default}
 .tools .sp{flex:1}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:0 0 18px}
 .tile{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
@@ -127,6 +134,31 @@ tbody tr:hover{background:var(--bg)}
   </section>
 
   <!-- Resultados del grupo -->
+  <nav class="tabs noprint" id="tabs" role="tablist" hidden>
+    <button type="button" role="tab" id="tabCuest" aria-selected="true">📝 Cuestionarios</button>
+    <button type="button" role="tab" id="tabJuegos" aria-selected="false">🎮 Juegos</button>
+  </nav>
+
+  <!-- Juegos: quién juega, cuándo y cuánto -->
+  <section id="vJuegos" hidden>
+    <h1>¿Quién juega a RayoMan?</h1>
+    <div class="card tools noprint">
+      <div><label for="jGrupo">Grupo</label><select id="jGrupo"></select></div>
+      <div><label for="jPeriodo">Periodo</label><select id="jPeriodo">
+        <option value="1">Hoy</option><option value="7" selected>Últimos 7 días</option><option value="30">Últimos 30 días</option><option value="0">Todo</option></select></div>
+      <div><label for="jClase" style="display:flex;gap:8px;align-items:center;margin:0 0 10px"><input type="checkbox" id="jClase" style="width:auto"> Solo en horario de clase</label></div>
+      <span class="sp"></span>
+      <button class="btn alt" id="jReload" type="button">↻ Actualizar</button>
+      <button class="btn" id="jCsv" type="button">⬇ Exportar (Excel)</button>
+    </div>
+    <div class="tiles" id="jTiles"></div>
+    <div class="card">
+      <h2>Alumnado que ha jugado</h2>
+      <p class="muted" style="font-size:14px;margin:-6px 0 10px" id="jAyuda"></p>
+      <div class="tw"><table id="jTabla"></table></div>
+    </div>
+  </section>
+
   <section id="vGrupo" hidden>
     <h1>Resultados de los cuestionarios</h1>
     <div class="card tools noprint">
@@ -207,7 +239,7 @@ tbody tr:hover{background:var(--bg)}
   function hora(t){ return new Date(t).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }
   function dur(s){ s=Math.round(s||0); var m=Math.floor(s/60), r=s%60; return m?m+' min'+(r?' '+r+' s':''):r+' s'; }
   var toastT; function toast(m){ var t=$('toast'); t.textContent=m; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(function(){t.hidden=true;},3000); }
-  function vista(v){ ['vLogin','vGrupo','vAlumno'].forEach(function(x){ $(x).hidden=x!==v; }); window.scrollTo(0,0); }
+  function vista(v){ ['vLogin','vGrupo','vAlumno','vJuegos'].forEach(function(x){ $(x).hidden=x!==v; }); $('tabs').hidden=(v==='vLogin'||v==='vAlumno'); window.scrollTo(0,0); }
 
   /* ---------- Banco de preguntas ---------- */
   function banco(id){
@@ -252,7 +284,7 @@ tbody tr:hover{background:var(--bg)}
   function salir(msg){
     try{ sessionStorage.removeItem('cuest-prof'); }catch(e){}
     clave=''; datos=[]; cur=null; $('clave').value=''; $('bOut').hidden=true;
-    $('tabla').innerHTML=''; $('tiles').innerHTML=''; $('stats').innerHTML=''; $('dList').innerHTML='';
+    $('tabla').innerHTML=''; $('tiles').innerHTML=''; $('jTabla').innerHTML=''; $('jTiles').innerHTML=''; sesiones=[]; abiertos={}; $('tabCuest').setAttribute('aria-selected','true'); $('tabJuegos').setAttribute('aria-selected','false'); $('stats').innerHTML=''; $('dList').innerHTML='';
     $('eLogin').textContent=msg||''; $('eLogin').hidden=!msg; vista('vLogin');
   }
   $('bOut').addEventListener('click',function(){ salir(); });
@@ -462,6 +494,88 @@ tbody tr:hover{background:var(--bg)}
       datos=datos.filter(function(e){return e.id!==cur.id;}); toast('Entrega borrada.'); vista('vGrupo'); pintar();
     },function(err){ toast('⚠️ '+err.message); });
   });
+
+  /* ---------- Juegos: quién juega, cuándo y cuánto ---------- */
+  /* Horario de clase: días (1 = lunes … 5 = viernes) y horas. Las sesiones que empiezan dentro se marcan «en clase». */
+  var HORARIO={dias:[1,2,3,4,5],desde:'08:15',hasta:'14:45'};
+  var JUEGO='rayoman', sesiones=[], abiertos={};
+  function minutos(h){ var p=h.split(':'); return (+p[0])*60+(+p[1]); }
+  function enClase(iso){ var d=new Date(iso); if(isNaN(d)) return false; var m=d.getHours()*60+d.getMinutes();
+    return HORARIO.dias.indexOf(d.getDay())>=0 && m>=minutos(HORARIO.desde) && m<minutos(HORARIO.hasta); }
+  // Jugando ahora: sesión sin terminar y con noticias en los últimos 75 s (la página del juego avisa cada 30 s)
+  function jugandoAhora(x){ return !x.terminada && Date.now()-new Date(x.ultimo)<75*1000; }
+  function hms(seg){ seg=Math.round(seg||0); var h=Math.floor(seg/3600), m=Math.floor(seg/60)%60, r=seg%60; return h?h+' h '+m+' min':m?m+' min'+(r?' '+r+' s':''):r+' s'; }
+  $('jAyuda').textContent='Horario de clase: de '+HORARIO.desde+' a '+HORARIO.hasta+', de lunes a viernes. Pulsa en un alumno para ver todas sus sesiones. 🟢 = jugando ahora mismo.';
+
+  function cargarJuegos(){
+    $('jReload').disabled=true; $('jTabla').innerHTML='<tbody><tr><td class="empty">Cargando…</td></tr></tbody>';
+    API.llamar('juegos',{clave:clave,juego:JUEGO}).then(function(d){
+      sesiones=d;
+      var gs={}; sesiones.forEach(function(x){ gs[x.grupo]=1; });
+      var sel=$('jGrupo').value;
+      $('jGrupo').innerHTML='<option value="">Todos los grupos</option>'+Object.keys(gs).sort().map(function(g){return '<option value="'+esc(g)+'">'+esc(g)+'</option>';}).join('');
+      if(gs[sel]) $('jGrupo').value=sel;
+      pintarJuegos();
+    },function(err){
+      if(/contraseña/i.test(err.message)){ salir('La contraseña ya no es válida. Vuelve a entrar.'); return; }
+      $('jTabla').innerHTML='<tbody><tr><td class="empty">⚠️ '+esc(err.message)+(/acci/i.test(err.message)?'<br>Actualiza el código de Apps Script (instrucciones en tareas/LEEME.md).':'')+'</td></tr></tbody>';
+    }).then(function(){ $('jReload').disabled=false; });
+  }
+  function sesionesFiltradas(){
+    var g=$('jGrupo').value, dias=+$('jPeriodo').value, soloClase=$('jClase').checked, desde=0;
+    if(dias){ var hoy=new Date(); hoy.setHours(0,0,0,0); desde=hoy.getTime()-(dias-1)*86400000; }
+    return sesiones.filter(function(x){ return (!g||x.grupo===g) && (!desde||new Date(x.inicio).getTime()>=desde) && (!soloClase||enClase(x.inicio)); });
+  }
+  function alumnos(L){
+    var m={};
+    L.forEach(function(x){
+      var k=(x.grupo+'|'+x.apellidos+'|'+x.nombre).toLowerCase();
+      var a=m[k]||(m[k]={k:k,nombre:x.nombre,apellidos:x.apellidos,grupo:x.grupo,ses:[],seg:0,segClase:0,partidas:0,mejor:0,ultimo:'',ahora:false});
+      a.ses.push(x); a.seg+=x.segundos; a.partidas+=x.partidas; a.mejor=Math.max(a.mejor,x.mejor);
+      if(enClase(x.inicio)) a.segClase+=x.segundos;
+      if(!a.ultimo||new Date(x.ultimo)>new Date(a.ultimo)) a.ultimo=x.ultimo;
+      if(jugandoAhora(x)) a.ahora=true;
+    });
+    return Object.keys(m).map(function(k){ return m[k]; }).sort(function(a,b){ return b.seg-a.seg; });
+  }
+  function pintarJuegos(){
+    var L=sesionesFiltradas(), A=alumnos(L);
+    var tot=L.reduce(function(s,x){return s+x.segundos;},0), clase=L.filter(function(x){return enClase(x.inicio);});
+    $('jTiles').innerHTML=[
+      [A.length,'alumnos han jugado'],[L.length,'sesiones de juego'],[hms(tot),'tiempo total'],
+      [hms(clase.reduce(function(s,x){return s+x.segundos;},0)),'en horario de clase ('+clase.length+' sesiones)'],
+      [A.filter(function(a){return a.ahora;}).length,'jugando ahora']
+    ].map(function(t){return '<div class="tile"><b>'+t[0]+'</b><small>'+t[1]+'</small></div>';}).join('');
+    var h='<thead><tr><th>Alumno/a</th><th>Grupo</th><th class="num">Sesiones</th><th class="num">Tiempo total</th><th class="num">En horario de clase</th><th class="num">Partidas</th><th class="num">Mejor</th><th>Última vez</th></tr></thead><tbody>';
+    if(!A.length) h+='<tr><td colspan="8" class="empty">Nadie ha jugado en este periodo.</td></tr>';
+    A.forEach(function(a){
+      h+='<tr data-k="'+esc(a.k)+'"><td>'+(a.ahora?'<span class="vivo" title="Jugando ahora"></span>':'')+'<b>'+esc(a.apellidos)+'</b>, '+esc(a.nombre)+'</td><td>'+esc(a.grupo)+'</td><td class="num">'+a.ses.length+'</td><td class="num">'+hms(a.seg)+'</td>'+
+        '<td class="num">'+(a.segClase?'<span class="pill ko">'+hms(a.segClase)+'</span>':'<span class="muted">—</span>')+'</td><td class="num">'+a.partidas+'</td><td class="num">'+a.mejor+'</td><td>'+fecha(a.ultimo)+'</td></tr>';
+      if(abiertos[a.k]){
+        h+='<tr class="sub"><td colspan="8"><table><thead><tr><th>Día y hora</th><th class="num">Duración</th><th class="num">Partidas</th><th class="num">Mejor</th><th></th></tr></thead><tbody>'+
+          a.ses.slice().sort(function(x,y){return new Date(y.inicio)-new Date(x.inicio);}).map(function(x){
+            return '<tr><td>'+fecha(x.inicio)+' – '+hora(x.ultimo)+'</td><td class="num">'+hms(x.segundos)+'</td><td class="num">'+x.partidas+'</td><td class="num">'+x.mejor+'</td><td>'+
+              (jugandoAhora(x)?'<span class="vivo"></span>Jugando ahora ':'')+(enClase(x.inicio)?'<span class="pill ko">En horario de clase</span>':'')+'</td></tr>';
+          }).join('')+'</tbody></table></td></tr>';
+      }
+    });
+    $('jTabla').innerHTML=h+'</tbody>';
+    $('jTabla').querySelectorAll('tbody tr[data-k]').forEach(function(tr){ tr.addEventListener('click',function(){ var k=tr.dataset.k; abiertos[k]=!abiertos[k]; pintarJuegos(); }); });
+  }
+  ['jGrupo','jPeriodo','jClase'].forEach(function(id){ $(id).addEventListener('change',pintarJuegos); });
+  $('jReload').addEventListener('click',cargarJuegos);
+  $('jCsv').addEventListener('click',function(){
+    var L=sesionesFiltradas(); if(!L.length){ toast('No hay sesiones que exportar.'); return; }
+    var cel=function(v){ v=String(v==null?'':v); return /[;"\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
+    var rows=[['Apellidos','Nombre','Grupo','Inicio','Última actividad','Duración (min)','Partidas','Mejor puntuación','En horario de clase']].concat(
+      L.slice().sort(function(a,b){return new Date(a.inicio)-new Date(b.inicio);}).map(function(x){
+        return [x.apellidos,x.nombre,x.grupo,fecha(x.inicio),fecha(x.ultimo),coma(x.segundos/60),x.partidas,x.mejor,enClase(x.inicio)?'Sí':'No']; }));
+    var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob(['﻿'+rows.map(function(r){return r.map(cel).join(';');}).join('\r\n')],{type:'text/csv;charset=utf-8'}));
+    a.download='juego-rayoman-'+($('jGrupo').value||'todos').replace(/[^\wºª]+/g,'-')+'.csv';
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
+  });
+  $('tabCuest').addEventListener('click',function(){ $('tabCuest').setAttribute('aria-selected','true'); $('tabJuegos').setAttribute('aria-selected','false'); vista('vGrupo'); pintar(); });
+  $('tabJuegos').addEventListener('click',function(){ $('tabJuegos').setAttribute('aria-selected','true'); $('tabCuest').setAttribute('aria-selected','false'); vista('vJuegos'); cargarJuegos(); });
 
   /* Sesión guardada en esta pestaña */
   try{

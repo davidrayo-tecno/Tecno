@@ -4,9 +4,10 @@
  * y los archivos que suben los alumnos en una carpeta de tu Google Drive.
  *
  * Instalación (detallada en LEEME.md):
- *   1. Crea una hoja de cálculo de Google → Extensiones → Apps Script.
+ *   1. Entra en script.google.com → Nuevo proyecto (o, si lo prefieres, desde una hoja: Extensiones → Apps Script).
  *   2. Pega este archivo (Codigo.js) como «Code.gs» y correccion.js como «Correccion.gs».
  *   3. Cambia CLAVE_INICIAL aquí abajo y ejecuta la función «instalar» una vez.
+ *      Si el proyecto no está dentro de una hoja, «instalar» crea la hoja «Resultados Tecnología» en tu Drive.
  *   4. Implementar → Nueva implementación → Aplicación web
  *      (Ejecutar como: yo · Quién tiene acceso: cualquier usuario).
  *   5. Copia la URL que termina en /exec en tareas/config.js de la web.
@@ -14,6 +15,9 @@
 
 // ⚠️ Cambia esta contraseña antes de ejecutar «instalar». Es la que usarás en el panel del profesor.
 var CLAVE_INICIAL = 'cambia-esta-clave';
+
+// Nombre de la hoja de cálculo que crea «instalar» si el proyecto no está dentro de una hoja.
+var NOMBRE_HOJA = 'Resultados Tecnología';
 
 // Dominios de correo admitidos para los alumnos.
 var DOMINIOS_ALUMNOS = ['g.educaand.es'];
@@ -30,16 +34,14 @@ var HOJA_CUEST = 'Cuestionarios';
 var COL_CUEST = ['id', 'cuestionario', 'grupo', 'apellidos', 'nombre', 'inicio', 'entrega', 'duracion', 'motivo',
   'respondidas', 'aciertos', 'autoTotal', 'notaAuto', 'salidas', 'respuestas', 'bloqueadas', 'revision',
   'notaFinal', 'comentario', 'estado', 'intento', 'recibida'];
+var HOJA_JUEGOS = 'Juegos';
+var COL_JUEGOS = ['id', 'juego', 'grupo', 'apellidos', 'nombre', 'inicio', 'ultimo', 'segundos', 'partidas', 'mejor', 'terminada'];
 
 /* ------------------------------------------------------------------ */
 /* Instalación                                                         */
 /* ------------------------------------------------------------------ */
 
 function instalar() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  prepararHoja_(ss, HOJA_TAREAS, COL_TAREAS);
-  prepararHoja_(ss, HOJA_ENTREGAS, COL_ENTREGAS);
-  prepararHoja_(ss, HOJA_CUEST, COL_CUEST);
   var props = PropertiesService.getScriptProperties();
   if (CLAVE_INICIAL === 'cambia-esta-clave') {
     throw new Error('Antes de instalar, cambia CLAVE_INICIAL por una contraseña tuya.');
@@ -47,12 +49,32 @@ function instalar() {
   if (String(CLAVE_INICIAL).length < 8) {
     throw new Error('La contraseña de profesor debe tener al menos 8 caracteres.');
   }
+  // Si el proyecto no está dentro de una hoja, se crea una nueva en tu Drive (solo la primera vez).
+  if (!SpreadsheetApp.getActiveSpreadsheet() && !props.getProperty('LIBRO_ID')) {
+    var nuevo = SpreadsheetApp.create(NOMBRE_HOJA);
+    props.setProperty('LIBRO_ID', nuevo.getId());
+  }
+  var ss = libro_();
+  prepararHoja_(ss, HOJA_TAREAS, COL_TAREAS);
+  prepararHoja_(ss, HOJA_ENTREGAS, COL_ENTREGAS);
+  prepararHoja_(ss, HOJA_CUEST, COL_CUEST);
+  prepararHoja_(ss, HOJA_JUEGOS, COL_JUEGOS);
   props.setProperty('CLAVE_PROFESOR', CLAVE_INICIAL);
   if (!props.getProperty('CARPETA_ID')) {
     var carpeta = DriveApp.createFolder('Entregas de alumnos · ' + ss.getName());
     props.setProperty('CARPETA_ID', carpeta.getId());
   }
-  Logger.log('Instalado. Ahora: Implementar → Nueva implementación → Aplicación web.');
+  Logger.log('Instalado. Los resultados se guardan en la hoja «' + ss.getName() + '»: ' + ss.getUrl());
+  Logger.log('Ahora: Implementar → Nueva implementación → Aplicación web.');
+}
+
+/** La hoja de cálculo de la plataforma: la que contiene el proyecto o la que creó «instalar». */
+function libro_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (ss) return ss;
+  var id = PropertiesService.getScriptProperties().getProperty('LIBRO_ID');
+  if (!id) throw new Error('Falta la hoja de cálculo. Ejecuta «instalar».');
+  return SpreadsheetApp.openById(id);
 }
 
 function prepararHoja_(ss, nombre, columnas) {
@@ -81,7 +103,9 @@ function doPost(e) {
       borrarTarea: accBorrarTarea_, entregas: accEntregas_, revisar: accRevisar_,
       // Cuestionarios (entregar: alumno · el resto: profesor)
       entregarCuestionario: accEntregarCuestionario_, cuestionarios: accCuestionarios_,
-      revisarCuestionario: accRevisarCuestionario_, borrarCuestionario: accBorrarCuestionario_
+      revisarCuestionario: accRevisarCuestionario_, borrarCuestionario: accBorrarCuestionario_,
+      // Juegos (registrar: alumno · juegos: profesor)
+      registrarJuego: accRegistrarJuego_, juegos: accJuegos_
     };
     var f = acciones[req.accion];
     if (!f) throw new Error('Acción desconocida');
@@ -100,7 +124,7 @@ function json_(obj) {
 /* ------------------------------------------------------------------ */
 
 function hoja_(nombre) {
-  var h = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(nombre);
+  var h = libro_().getSheetByName(nombre);
   if (!h) throw new Error('Falta la hoja «' + nombre + '». Ejecuta «instalar».');
   return h;
 }
@@ -408,7 +432,7 @@ function accRevisar_(req) {
 
 /** Crea la pestaña «Cuestionarios» si aún no existe (instalaciones anteriores). */
 function hojaCuest_() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = libro_();
   if (!ss.getSheetByName(HOJA_CUEST)) prepararHoja_(ss, HOJA_CUEST, COL_CUEST);
 }
 
@@ -497,4 +521,60 @@ function accBorrarCuestionario_(req) {
   if (!x) throw new Error('No existe esa entrega');
   hoja_(HOJA_CUEST).deleteRow(x._fila);
   return { ok: true };
+}
+
+/* ------------------------------------------------------------------ */
+/* Juegos: quién juega, cuándo y cuánto tiempo                         */
+/* Cada sesión de juego es una fila; la página del juego la actualiza   */
+/* cada poco con el tiempo jugado, las partidas y la mejor puntuación.  */
+/* ------------------------------------------------------------------ */
+
+function hojaJuegos_() {
+  var ss = libro_();
+  if (!ss.getSheetByName(HOJA_JUEGOS)) prepararHoja_(ss, HOJA_JUEGOS, COL_JUEGOS);
+}
+
+function accRegistrarJuego_(req) {
+  hojaJuegos_();
+  var id = String(req.id || '');
+  if (!/^[a-z0-9]{8,24}$/.test(id)) throw new Error('Sesión no válida');
+  var juego = texto_(req.juego, 30), nombre = texto_(req.nombre, 40), apellidos = texto_(req.apellidos, 60), grupo = texto_(req.grupo, 30);
+  if (!/^[a-z0-9-]{3,30}$/.test(juego)) throw new Error('Juego desconocido');
+  if (nombre.length < 2 || apellidos.length < 2 || !grupo) throw new Error('Faltan el nombre, los apellidos o el grupo');
+  var num = function (v, max) { v = Math.round(Number(v)); return isFinite(v) ? Math.max(0, Math.min(max, v)) : 0; };
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var x = leer_(HOJA_JUEGOS, COL_JUEGOS).filter(function (r) { return String(r.id) === id; })[0];
+    var ahora = new Date();
+    if (!x) {
+      x = { id: id, juego: juego, grupo: grupo, apellidos: apellidos, nombre: nombre, inicio: ahora, ultimo: ahora, segundos: 0, partidas: 0, mejor: 0, terminada: req.fin ? 'sí' : '' };
+      escribir_(HOJA_JUEGOS, COL_JUEGOS, x, null);
+      return { ok: true };
+    }
+    // Los valores solo pueden crecer: una sesión no se puede «rebajar» desde fuera
+    x.ultimo = ahora;
+    x.segundos = Math.max(Number(x.segundos) || 0, num(req.segundos, 86400));
+    x.partidas = Math.max(Number(x.partidas) || 0, num(req.partidas, 100000));
+    x.mejor = Math.max(Number(x.mejor) || 0, num(req.mejor, 1000000));
+    // «fin»: el alumno ha salido o ha cerrado la pestaña; si vuelve a la página, la sesión sigue activa
+    x.terminada = req.fin ? 'sí' : '';
+    escribir_(HOJA_JUEGOS, COL_JUEGOS, x, x._fila);
+    return { ok: true };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function accJuegos_(req) {
+  comprobarClave_(req);
+  hojaJuegos_();
+  var f = function (v) { return v instanceof Date ? v.toISOString() : String(v); };
+  return leer_(HOJA_JUEGOS, COL_JUEGOS)
+    .filter(function (x) { return !req.juego || x.juego === req.juego; })
+    .map(function (x) {
+      return { id: String(x.id), juego: String(x.juego), grupo: String(x.grupo), apellidos: String(x.apellidos), nombre: String(x.nombre),
+        inicio: f(x.inicio), ultimo: f(x.ultimo), segundos: Number(x.segundos) || 0, partidas: Number(x.partidas) || 0, mejor: Number(x.mejor) || 0,
+        terminada: String(x.terminada) === 'sí' };
+    });
 }

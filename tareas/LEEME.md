@@ -24,14 +24,14 @@ Mientras `config.js` no tenga una URL, la plataforma funciona en **modo de prueb
 
 ## Conectarla a tu hoja de Google (unos 10 minutos)
 
-1. Entra en Google Drive con la cuenta que vayas a usar (por ejemplo, la del centro) y crea una **hoja de cálculo nueva**. Llámala, por ejemplo, «Tareas Tecnología».
-2. En la hoja: **Extensiones → Apps Script**.
+1. Entra en **script.google.com** con la cuenta que vayas a usar y pulsa **Nuevo proyecto**. No hace falta crear la hoja: «instalar» la crea sola en tu Drive con el nombre «Resultados Tecnología». Desde el móvil, abre la web en el navegador con el modo «Sitio de escritorio».
+2. (Opcional) Si prefieres usar una hoja que ya tienes, ábrela y entra en **Extensiones → Apps Script** en lugar del paso 1.
 3. En el editor que se abre:
    - Borra lo que haya en `Code.gs` y pega todo el contenido de [`apps-script/Codigo.js`](apps-script/Codigo.js).
    - Pulsa **+ → Secuencia de comandos**, llámalo `Correccion` y pega el contenido de [`correccion.js`](correccion.js).
 4. En `Code.gs`, cambia la línea `var CLAVE_INICIAL = 'cambia-esta-clave';` por tu contraseña de profesor. Guarda con el icono del disquete.
 5. Arriba, elige la función **`instalar`** y pulsa **Ejecutar**. Google te pedirá permisos para la hoja y para Drive: acéptalos. Si aparece «Google no ha verificado esta aplicación», pulsa **Configuración avanzada → Ir a… (no seguro)**. Es tu propio script.
-   Esto crea las pestañas `Tareas` y `Entregas` y la carpeta «Entregas de alumnos» en tu Drive.
+   Esto crea la hoja (si no la tenías), sus pestañas `Tareas`, `Entregas` y `Cuestionarios`, y la carpeta «Entregas de alumnos» en tu Drive. En **Registro de ejecución** aparece el enlace a la hoja.
 6. Pulsa **Implementar → Nueva implementación**, elige el tipo **Aplicación web** y rellena:
    - Ejecutar como: **Yo**
    - Quién tiene acceso: **Cualquier usuario**
@@ -65,6 +65,16 @@ Los cuestionarios (`cuestionarios/`) usan **este mismo servidor**: con la misma 
 - En **modo de prueba** (sin URL en `config.js`) todo se guarda solo en el navegador y la contraseña es `prueba`.
 
 **Si ya tenías Tareas instalada antes de los cuestionarios:** sustituye el código de `Code.gs` por el nuevo [`apps-script/Codigo.js`](apps-script/Codigo.js) (conservando tu `CLAVE_INICIAL`) y vuelve a publicar: **Implementar → Gestionar implementaciones → ✏️ → Versión: nueva versión → Implementar**. La pestaña «Cuestionarios» se crea sola con la primera entrega.
+
+## Juegos (RayoMan)
+
+El juego «RayoMan atrapa rayos» se juega en `rayoblocks/rayoman.html`. La opción del menú Archivo de RayoBlocks también lleva a esa página.
+
+- **Alumnado:** escribe su nombre, sus apellidos y su grupo antes de jugar. La página le avisa de que el profesor puede ver lo que juega.
+- **Registro:** cada sesión de juego es una fila de la pestaña **«Juegos»** de la hoja, con el día y la hora, el tiempo jugado (solo cuenta con la página a la vista), las partidas y la mejor puntuación. Se actualiza cada 30 segundos y al salir.
+- **Profesor:** en `cuestionarios/profesor.html`, pestaña **🎮 Juegos**. Muestra quién juega y cuánto, quién está jugando ahora mismo y qué sesiones caen en horario de clase. Se puede filtrar por grupo y periodo y exportar a Excel. El horario de clase se cambia en `HORARIO`, dentro de `profesor.html`.
+
+**Para activarlo hay que actualizar Apps Script:** sustituye el código de `Code.gs` por el nuevo [`apps-script/Codigo.js`](apps-script/Codigo.js), vuelve a poner tu `CLAVE_INICIAL` y publica una versión nueva: **Implementar → Gestionar implementaciones → ✏️ → Versión: nueva versión → Implementar**. La URL no cambia. La pestaña «Juegos» se crea sola con la primera partida.
 
 ## Privacidad y buenas prácticas
 
