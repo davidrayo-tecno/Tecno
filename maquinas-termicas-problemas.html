@@ -356,6 +356,8 @@ section.pfilter + section{padding-top:8px}
 .pau-nota{margin-top:12px!important;font-size:14.5px}
 .pau-nota.no{border-left:4px solid #D9363E}
 .pau-nota.par{border-left:4px solid #C27803}
+.pau-nota.si{border-left:4px solid #22A06B}
+.ptag.pau-si{background:#E4F4EC;color:#1C6B47;border-color:#A7D9BF}
 .pau-sw{display:flex;align-items:center;gap:8px;margin:4px 0 6px;font-size:14.5px}
 .pau-sw input{width:18px;height:18px;accent-color:var(--brand);cursor:pointer}
 .ptag{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
@@ -1780,6 +1782,7 @@ details.prob summary .stitle{display:block}
   </details>
   <details class="prob" id="p49" data-tags="motores combustible">
     <summary><span class="stitle">49. Moto bicilíndrica de 4 válvulas: cilindrada y eficiencia<span class="ptags"><span class="ptag">Combustible</span><span class="ptag">Motores</span></span></span></summary>
+    <p class="note pau-nota si"><b>Salió en la PAU de junio de 2026</b> (problema 111, con el mismo enunciado).</p>
     <div class="enun"><p>Una marca de motocicletas desarrolla un modelo con motor Otto bicilíndrico de 4 válvulas por cilindro. Se obtiene una potencia máxima de 50 kW a 8 000 rpm y un par máximo de 64 N·m a 6 700 rpm. El diámetro de los pistones es 83 mm y su carrera 60 mm. La relación de compresión es 10,8:1. En un banco de pruebas, funcionando una hora en el régimen del par máximo, consume 14,3 litros de gasolina de poder calorífico 41 500 kJ/kg y densidad 0,75 kg/dm³. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> La eficiencia del motor durante la prueba que se realiza para obtener el consumo.</li></ol>
     <p class="datos"><b>Datos:</b> N = 2; D = 8,3 cm; C = 6 cm; RC = 10,8; M<sub>máx</sub> = 64 N·m a 6 700 rpm; V = 14,3 L en 1 h; P<sub>c</sub> = 41 500 kJ/kg; ρ = 0,75 kg/dm³</p>
@@ -3640,9 +3643,9 @@ details.prob summary .stitle{display:block}
       <p class="res">Es posible: cumple el primer principio y su rendimiento (45 %) es menor que el de Carnot (50 %).</p>
     </div>
   </details>
-  <details class="prob" id="p111" data-pau="no" data-tags="motores combustible">
-    <summary><span class="stitle">111. Motocicleta bicilíndrica: cilindrada y rendimiento (PAU 2026)<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span><span class="ptag pau-no">No entra en PAU</span></span></span></summary>
-    <p class="note pau-nota no"><b>No entra en la PAU 2026-27:</b> Repite el problema 49.</p>
+  <details class="prob" id="p111" data-tags="motores combustible">
+    <summary><span class="stitle">111. Motocicleta bicilíndrica: cilindrada y rendimiento (PAU 2026)<span class="ptags"><span class="ptag">Motores</span><span class="ptag">Combustible</span><span class="ptag pau-si">Salió en la PAU</span></span></span></summary>
+    <p class="note pau-nota si"><b>Salió en la PAU de junio de 2026.</b> Es el mismo motor que el problema 49.</p>
     <div class="enun"><p>Una conocida marca de motocicletas tiene un motor Otto bicilíndrico de cuatro tiempos y 4 válvulas por cilindro. Su potencia máxima es 50 kW a 8 000 rpm y su par máximo, 64 N·m a 6 700 rpm. El diámetro de los pistones es 83 mm, la carrera 60 mm y la relación de compresión 10,8:1. Para obtener el consumo, el motor funciona durante una hora en el régimen de par máximo y consume 14,3 litros de gasolina. Calcula:</p></div>
     <ol class="aps"><li class="q"><b>a)</b> La cilindrada del motor y el volumen de la cámara de combustión.</li><li class="q"><b>b)</b> El rendimiento del motor durante la prueba que se realiza para obtener el consumo.</li></ol>
     <p class="datos"><b>Datos:</b> D = 0,083 m; L = 0,060 m; r = 10,8; M = 64 N·m; n = 6 700 rpm; V = 14,3 dm³ en 1 h; ρ = 0,75 kg/dm³; PCI = 41 500 kJ/kg</p>
