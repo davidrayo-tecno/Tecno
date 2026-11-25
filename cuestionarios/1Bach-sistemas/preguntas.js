@@ -5,7 +5,7 @@
  * Basado en las prácticas de Tecnología e Ingeniería I:
  *   02 Secuencias de luces · 03 y 05 Iluminación con 10 LEDs en protoboard · 04 Encendido alternativo de dos LEDs
  *   06 Control de luz con pulsador · 08 Temporizador 0 a 9 · 09 Temporizador de 0 a 99 con funciones
- * Además: el LED (ánodo y cátodo), la resistencia del LED y la protoboard.
+ * Además: el LED (ánodo y cátodo), la resistencia del LED, la protoboard y las funciones pinMode, digitalWrite, digitalRead y delay.
  *
  * Para cambiar los grupos, edita GRUPOS.
  * Cada pregunta: k = tipo (test | vf | cerrada | abierta | reflexion | critico), s = segundos,
@@ -27,7 +27,7 @@
   var PL = 'El LED: ánodo y cátodo', PR = 'La resistencia del LED', PB = 'La protoboard',
       P2 = 'Práctica 02 · Secuencias de luces', P35 = 'Prácticas 03 y 05 · 10 LEDs en protoboard',
       P4 = 'Práctica 04 · Encendido alternativo', P6 = 'Práctica 06 · Control de luz con pulsador',
-      P8 = 'Práctica 08 · Temporizador 0 a 9', P9 = 'Práctica 09 · Temporizador 0 a 99 con funciones';
+      P8 = 'Práctica 08 · Temporizador 0 a 9', P9 = 'Práctica 09 · Temporizador 0 a 99 con funciones', PF = 'Funciones de Arduino';
 
   var PINES_SEG = 'int c = 7;\nint d = 8;\nint e = 9;\nint g = 10;\nint f = 11;\nint a = 12;\nint b = 13;\n';
 
@@ -129,6 +129,22 @@
         { t: 'Explica cómo avanza la cuenta (bucle, contador, delay…)', w: ['for', 'bucle', 'contador', 'cuenta', 'delay', 'segundo', 'suma', '++', 'hasta 99'] }
       ] },
 
+    /* ---------- Funciones de Arduino: pinMode, digitalWrite, digitalRead, delay ---------- */
+    { id: 37, p: PF, k: 'test', s: 50, q: '¿Qué hace la instrucción ' + c('pinMode(13, OUTPUT);') + '?',
+      o: ['Configura el pin 13 como salida, para poder encender o apagar lo que se conecte a él', 'Enciende el LED del pin 13', 'Lee el valor del pin 13', 'Espera 13 milisegundos'], a: 0 },
+    { id: 38, p: PF, k: 'test', s: 50, q: '¿Con qué modo hay que configurar el pin de un <b>pulsador</b> en ' + c('pinMode') + '?',
+      o: ['INPUT o INPUT_PULLUP, porque el pulsador es una entrada', 'OUTPUT, porque el pulsador manda la señal', 'HIGH', 'Da igual: pinMode solo se usa con LEDs'], a: 0 },
+    { id: 39, p: PF, k: 'test', s: 50, q: '¿Qué hace ' + c('digitalWrite(led, HIGH);') + '?',
+      o: ['Pone el pin del LED a 5 V, y el LED se enciende', 'Pone el pin a 0 V, y el LED se apaga', 'Lee si el LED está encendido', 'Configura el pin del LED como salida'], a: 0 },
+    { id: 40, p: PF, k: 'test', s: 50, q: '¿Qué valores puede devolver ' + c('digitalRead(pulsador)') + '?',
+      o: ['HIGH o LOW', 'Cualquier número entre 0 y 1023', 'OUTPUT o INPUT', 'Los milisegundos que se ha pulsado'], a: 0 },
+    { id: 41, p: PF, k: 'cerrada', s: 60, q: '¿Qué número escribirías en ' + c('delay( )') + ' para que el programa espere <b>medio segundo</b>? Escribe solo el número.',
+      ph: 'Escribe un número', ok: ['500', 'quinientos'] },
+    { id: 42, p: PF, k: 'vf', s: 40, q: 'Mientras se ejecuta un ' + c('delay(1000)') + ', Arduino se queda esperando y no lee el pulsador ni ejecuta otras instrucciones.', a: true },
+    { id: 43, p: PF, k: 'vf', s: 40, q: c('digitalWrite') + ' sirve para leer si un pulsador está pulsado.', a: false },
+    { id: 44, p: PF, k: 'cerrada', s: 50, q: '¿Qué función de Arduino se usa para <b>leer</b> el estado de un pulsador? Escribe solo su nombre.',
+      ph: 'Nombre de la función', ok: ['digitalread', 'digitalread()', 'digitalread( )'] },
+
     /* ---------- Reflexión y pensamiento crítico ---------- */
     { id: 35, p: P35, k: 'reflexion', s: 180, q: 'La práctica 05 es un <b>sistema de iluminación navideña</b>. Piensa en otro sistema automático de tu entorno que use luces o un display (semáforo, cartel luminoso, ascensor, microondas…). ¿Qué entradas y salidas tendría y cómo lo programarías con lo que has aprendido?',
       rb: [
@@ -145,7 +161,7 @@
         { t: 'Reconoce algún inconveniente o el caso en que no compensa (programa corto, hay que aprender…)', w: ['corto', 'sencillo', 'aprender', 'complic', 'pocas lineas', 'facil', 'al principio', 'mas dificil'] }
       ] }
   ];
-  // Todas las preguntas valen lo mismo: 1 punto cada una (36 en total → nota sobre 10 con centésimas)
+  // Todas las preguntas valen lo mismo: 1 punto cada una (44 en total → nota sobre 10 con centésimas)
   Q.forEach(function (q) { q.pt = 1; });
 
   /** ¿Es correcta la respuesta v? (null si la corrige el profesor) */
@@ -158,7 +174,7 @@
 
   window.CUESTIONARIO = {
     id: '1bach-sistemas', titulo: 'Cuestionario prácticas de sistemas automáticos', grupos: GRUPOS,
-    descripcion: 'Es un cuestionario sobre tus <b>prácticas de Arduino</b>: el LED (ánodo y cátodo), la resistencia del LED, la protoboard y el código de las prácticas (secuencias de luces, 10 LEDs en protoboard, encendido alternativo, control de luz con pulsador, temporizador de 0 a 9 y temporizador de 0 a 99 con funciones). Son <b>36 preguntas</b> y <b>todas valen lo mismo</b>; la nota final es sobre 10, con centésimas. Hay preguntas de varios tipos:',
+    descripcion: 'Es un cuestionario sobre tus <b>prácticas de Arduino</b>: el LED (ánodo y cátodo), la resistencia del LED, la protoboard y las funciones pinMode, digitalWrite, digitalRead y delay, y el código de las prácticas (secuencias de luces, 10 LEDs en protoboard, encendido alternativo, control de luz con pulsador, temporizador de 0 a 9 y temporizador de 0 a 99 con funciones). Son <b>44 preguntas</b> y <b>todas valen lo mismo</b>; la nota final es sobre 10, con centésimas. Hay preguntas de varios tipos:',
     preguntas: Q, KIND: KIND, AUTO: AUTO, correcta: correcta
   };
 })();
