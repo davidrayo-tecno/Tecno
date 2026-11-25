@@ -24,14 +24,14 @@ Mientras `config.js` no tenga una URL, la plataforma funciona en **modo de prueb
 
 ## Conectarla a tu hoja de Google (unos 10 minutos)
 
-1. Entra en Google Drive con la cuenta que vayas a usar (por ejemplo, la del centro) y crea una **hoja de cálculo nueva**. Llámala, por ejemplo, «Tareas Tecnología».
-2. En la hoja: **Extensiones → Apps Script**.
+1. Entra en **script.google.com** con la cuenta que vayas a usar y pulsa **Nuevo proyecto**. No hace falta crear la hoja: «instalar» la crea sola en tu Drive con el nombre «Resultados Tecnología». Desde el móvil, abre la web en el navegador con el modo «Sitio de escritorio».
+2. (Opcional) Si prefieres usar una hoja que ya tienes, ábrela y entra en **Extensiones → Apps Script** en lugar del paso 1.
 3. En el editor que se abre:
    - Borra lo que haya en `Code.gs` y pega todo el contenido de [`apps-script/Codigo.js`](apps-script/Codigo.js).
    - Pulsa **+ → Secuencia de comandos**, llámalo `Correccion` y pega el contenido de [`correccion.js`](correccion.js).
 4. En `Code.gs`, cambia la línea `var CLAVE_INICIAL = 'cambia-esta-clave';` por tu contraseña de profesor. Guarda con el icono del disquete.
 5. Arriba, elige la función **`instalar`** y pulsa **Ejecutar**. Google te pedirá permisos para la hoja y para Drive: acéptalos. Si aparece «Google no ha verificado esta aplicación», pulsa **Configuración avanzada → Ir a… (no seguro)**. Es tu propio script.
-   Esto crea las pestañas `Tareas` y `Entregas` y la carpeta «Entregas de alumnos» en tu Drive.
+   Esto crea la hoja (si no la tenías), sus pestañas `Tareas`, `Entregas` y `Cuestionarios`, y la carpeta «Entregas de alumnos» en tu Drive. En **Registro de ejecución** aparece el enlace a la hoja.
 6. Pulsa **Implementar → Nueva implementación**, elige el tipo **Aplicación web** y rellena:
    - Ejecutar como: **Yo**
    - Quién tiene acceso: **Cualquier usuario**
