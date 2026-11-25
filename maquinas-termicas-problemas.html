@@ -351,8 +351,17 @@ svg.art{display:block;width:100%;height:auto}
 section.pfilter{border-bottom:0;margin-bottom:8px;padding-bottom:8px}
 section.pfilter + section{padding-top:8px}
 .ptags{display:inline-flex;gap:6px;margin-left:10px;flex-wrap:wrap;vertical-align:middle}
-.ptag.pau-top{background:#FFF4CC;color:#7A5200;border-color:#E9C46A}
-details.prob[data-top]{border-left:5px solid #E9B949}
+.ptag.pau-top{background:#E9A800;color:#fff;border-color:#C98F00;font-size:12.5px;padding:3px 10px;box-shadow:0 1px 4px rgba(201,143,0,.35)}
+details.prob[data-top]{border:2px solid #E9B949;border-left:8px solid #E9A800;background:linear-gradient(90deg,rgba(255,236,170,.55),var(--surface) 60%);box-shadow:0 6px 18px -12px rgba(201,143,0,.6)}
+details.prob[data-top] > summary .stitle::before{content:"★ ";color:#E9A800}
+:root[data-theme="dark"] details.prob[data-top]{background:linear-gradient(90deg,rgba(233,168,0,.18),var(--surface) 60%)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) details.prob[data-top]{background:linear-gradient(90deg,rgba(233,168,0,.18),var(--surface) 60%)}}
+.top-box{border:2px solid #E9B949;border-left:8px solid #E9A800;border-radius:12px;padding:14px 18px;margin:0 0 14px;background:linear-gradient(90deg,rgba(255,236,170,.5),var(--surface) 70%)}
+.top-box h3{font-size:19px;margin:0 0 6px}
+.top-box p{margin:0 0 10px;font-size:15px;color:var(--muted)}
+.top-box .tl{display:flex;flex-wrap:wrap;gap:6px}
+.top-box .tl a{display:inline-block;min-width:38px;text-align:center;padding:4px 9px;border-radius:99px;background:#E9A800;color:#fff;font-weight:700;font-size:14px;text-decoration:none}
+.top-box .tl a:hover,.top-box .tl a:focus-visible{background:#C98F00}
 .ptag.pau-no{background:#FBE9EA;color:#B3261E;border-color:#F1B8B4}
 .ptag.pau-par{background:#FDF3DC;color:#8A5300;border-color:#EBCB8B}
 .pau-nota{margin-top:12px!important;font-size:14.5px}
@@ -567,6 +576,11 @@ details.prob summary .stitle{display:block}
     <button type="button" data-f="transformaciones" aria-pressed="false">Transformaciones</button>
     <button type="button" data-f="carnot" aria-pressed="false">Carnot</button>
     <button type="button" data-f="frigorifica" aria-pressed="false">Frigorífica y bomba de calor</button>
+  </div>
+  <div class="top-box">
+    <h3>★ Los 20 problemas que más se ajustan a la PAU</h3>
+    <p>Si tienes poco tiempo, empieza por estos. Pulsa un número para ir al problema.</p>
+    <div class="tl"><a href="#p16" title="Motor en banco de pruebas: consumo específico">16</a><a href="#p24" title="Embarcación: autonomía y rendimiento">24</a><a href="#p37" title="Quad bicilíndrico: carrera, cámara y trabajo en un viaje">37</a><a href="#p41" title="Cilindrada, potencias y par de un turismo">41</a><a href="#p46" title="Motor 11:1: cilindrada y energía disipada en 8 horas">46</a><a href="#p47" title="Motor de 1 200 cm³: diámetro, cámara y consumo en un trayecto">47</a><a href="#p48" title="Vehículo utilitario: cilindrada, carrera y par">48</a><a href="#p49" title="Moto bicilíndrica de 4 válvulas: cilindrada y eficiencia">49</a><a href="#p53" title="Motor de Carnot entre 460 °C y 15 °C">53</a><a href="#p57" title="Coste mensual de un congelador">57</a><a href="#p59" title="Calor extraído y cedido cada día">59</a><a href="#p68" title="Hotel en Málaga: 90 000 J por minuto">68</a><a href="#p69" title="Calefacción de 3 kW entre 2 °C y 22 °C">69</a><a href="#p71" title="Casa rural en la Alpujarra: ¿bastan 3 kW?">71</a><a href="#p76" title="Polideportivo: pista de hielo y agua caliente">76</a><a href="#p78" title="Invernadero a 25 °C todo el año">78</a><a href="#p79" title="Piscina cubierta a 28 °C">79</a><a href="#p80" title="Vivienda con equipo reversible: potencia mínima del compresor">80</a><a href="#p111" title="Motocicleta bicilíndrica: cilindrada y rendimiento (PAU 2026)">111</a><a href="#p112" title="Motor diésel de cuatro cilindros: cilindrada y rendimiento (PAU 2026)">112</a></div>
   </div>
   <label class="pau-sw"><input type="checkbox" id="soloPau"> Ocultar los problemas que no entran en la PAU</label>
   <label class="pau-sw"><input type="checkbox" id="soloTop"> Ver solo los que más se ajustan a la PAU <span class="ptag pau-top">★ Muy PAU</span></label>
