@@ -10,7 +10,7 @@
  * Para cambiar los grupos, edita GRUPOS.
  * Cada pregunta: k = tipo (test | vf | cerrada | abierta | reflexion | critico), s = segundos,
  * test → o (opciones) y a (índice correcto) · vf → a (true/false) · cerrada → ok (respuestas válidas).
- * codigo → el alumno escribe una línea de código; ok = líneas válidas (no cuentan los espacios; sí las mayúsculas, como en Arduino: camelCase, y el «;»).
+ * codigo → el alumno escribe una línea de código; ok = líneas válidas (no cuentan los espacios; las funciones van en camelCase exacto —pinMode, digitalWrite…—; en variables y constantes no importan las mayúsculas; el «;» es obligatorio).
  * Todas las preguntas valen 1 punto (nota sobre 10 con centésimas).
  */
 (function () {
@@ -184,13 +184,25 @@
     var norm = function (x) { return String(x).trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[.,;:!¡¿?]/g, '').replace(/\s+/g, ' '); };
     if (q.k === 'test' || q.k === 'vf') return v === q.a;
     if (q.k === 'cerrada') return q.ok.map(norm).indexOf(norm(v == null ? '' : v)) >= 0;
-    if (q.k === 'codigo') { var cod = function (x) { return String(x == null ? '' : x).replace(/\s+/g, ''); }; return q.ok.map(cod).indexOf(cod(v)) >= 0; }
+    if (q.k === 'codigo') {
+      // Los nombres de las funciones de Arduino deben ir exactamente así (camelCase); en variables y constantes no importan las mayúsculas
+      var FUN = ['pinMode', 'digitalWrite', 'digitalRead', 'analogWrite', 'analogRead', 'delay'];
+      var FUNmin = FUN.map(function (f) { return f.toLowerCase(); });
+      var cod = function (x) {
+        return String(x == null ? '' : x).replace(/\s+/g, '').replace(/[A-Za-z_]\w*/g, function (id) {
+          if (FUN.indexOf(id) >= 0) return id;
+          if (FUNmin.indexOf(id.toLowerCase()) >= 0) return '#mal#' + id;
+          return id.toLowerCase();
+        });
+      };
+      return q.ok.map(cod).indexOf(cod(v)) >= 0;
+    }
     return null;
   }
 
   window.CUESTIONARIO = {
     id: '1bach-sistemas', titulo: 'Cuestionario prácticas de sistemas automáticos', grupos: GRUPOS,
-    descripcion: 'Es un cuestionario sobre tus <b>prácticas de Arduino</b>: el LED (ánodo y cátodo), la resistencia del LED, la protoboard y las funciones pinMode, digitalWrite, digitalRead y delay, y el código de las prácticas (secuencias de luces, 10 LEDs en protoboard, encendido alternativo, control de luz con pulsador, temporizador de 0 a 9 y temporizador de 0 a 99 con funciones). Son <b>50 preguntas</b> y <b>todas valen lo mismo</b>; la nota final es sobre 10, con centésimas. En las preguntas de escribir código, respeta las <b>mayúsculas y minúsculas</b> (por ejemplo, <code>digitalWrite</code>, <code>OUTPUT</code>) y el <b>punto y coma</b>, como en Arduino. Hay preguntas de varios tipos:',
+    descripcion: 'Es un cuestionario sobre tus <b>prácticas de Arduino</b>: el LED (ánodo y cátodo), la resistencia del LED, la protoboard y las funciones pinMode, digitalWrite, digitalRead y delay, y el código de las prácticas (secuencias de luces, 10 LEDs en protoboard, encendido alternativo, control de luz con pulsador, temporizador de 0 a 9 y temporizador de 0 a 99 con funciones). Son <b>50 preguntas</b> y <b>todas valen lo mismo</b>; la nota final es sobre 10, con centésimas. En las preguntas de escribir código, escribe las <b>funciones</b> exactamente con sus mayúsculas (<code>pinMode</code>, <code>digitalWrite</code>, <code>digitalRead</code>…) y no olvides el <b>punto y coma</b>. Hay preguntas de varios tipos:',
     preguntas: Q, KIND: KIND, AUTO: AUTO, correcta: correcta
   };
 })();
