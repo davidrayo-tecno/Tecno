@@ -39,7 +39,7 @@
     { id: 1, p: PL, k: 'test', s: 35, q: '¿Cómo se reconoce el <b>ánodo</b> de un LED?',
       o: ['Es la patilla más larga, y se conecta al positivo', 'Es la patilla más corta, y se conecta a GND', 'Es la patilla del lado plano de la cápsula', 'Las dos patillas son iguales: no importa'], a: 0 },
     { id: 2, p: PL, k: 'test', s: 40, q: 'En tus montajes, ¿cómo se conecta un LED a Arduino?',
-      o: ['El ánodo al pin digital (a través de la resistencia) y el cátodo a GND', 'El cátodo al pin digital y el ánodo a GND', 'Las dos patillas al mismo pin', 'El ánodo a 5 V y el cátodo al pin digital, sin resistencia'], a: 0 },
+      o: ['El ánodo hacia el pin digital y el cátodo hacia GND, con una resistencia en serie', 'El cátodo al pin digital y el ánodo a GND', 'Las dos patillas al mismo pin', 'El ánodo a 5 V y el cátodo al pin digital, sin resistencia'], a: 0 },
     { id: 3, p: PL, k: 'vf', s: 25, q: 'Si se coloca un LED al revés (ánodo a GND y cátodo al pin), no se enciende, porque solo deja pasar la corriente en un sentido.', a: true },
     { id: 4, p: PL, k: 'cerrada', s: 35, q: '¿Cómo se llama la patilla <b>negativa</b> de un LED, la más corta? Escribe una palabra.',
       ph: 'Escribe una palabra', ok: ['catodo', 'el catodo', 'katodo'] },
@@ -47,15 +47,16 @@
     /* ---------- La resistencia del LED ---------- */
     { id: 5, p: PR, k: 'test', s: 35, q: '¿Por qué se pone una <b>resistencia en serie</b> con cada LED?',
       o: ['Para limitar la corriente y que no se dañe el LED ni el pin de Arduino', 'Para que el LED brille más', 'Para que el LED parpadee', 'Para que el LED funcione aunque esté al revés'], a: 0 },
-    { id: 6, p: PR, k: 'cerrada', s: 75, q: 'Un pin de Arduino da <b>5 V</b>. El LED necesita <b>2 V</b> y <b>20 mA</b>. ¿Qué resistencia hay que poner? Escribe solo el número, en ohmios.',
-      ph: 'Número en Ω', ok: ['150', '150 ohmios', '150ω', '150 ω', '150 ohm', '150 ohms'] },
-    { id: 7, p: PR, k: 'vf', s: 30, q: 'Cuanto mayor es el valor de la resistencia que se pone con el LED, más corriente pasa y más brilla.', a: false },
-    { id: 8, p: PR, k: 'abierta', s: 120, q: 'Explica qué pasaría si conectaras un LED directamente a un pin de Arduino <b>sin resistencia</b>. ¿Por qué es necesaria?',
+    { id: 6, p: PR, k: 'test', s: 45, q: '¿Qué valor de resistencia usamos con los LEDs en las prácticas con Arduino?',
+      o: ['220 Ω o 330 Ω', '2 Ω o 3 Ω', '10 kΩ o 100 kΩ', '1 MΩ'], a: 0 },
+    { id: 7, p: PR, k: 'test', s: 45, q: '¿Dónde se puede colocar la resistencia de un LED?',
+      o: ['Tanto en el ánodo como en el cátodo: al ir en serie, funciona igual', 'Solo en el ánodo', 'Solo en el cátodo', 'En paralelo con el LED, entre sus dos patillas'], a: 0 },
+    { id: 8, p: PR, k: 'abierta', s: 135, q: 'Explica qué pasaría si conectaras un LED directamente a un pin de Arduino <b>sin resistencia</b>. ¿Por qué es necesaria y de qué valor la ponemos?',
       rb: [
         { t: 'Dice que pasaría demasiada corriente', w: ['mucha corriente', 'demasiada corriente', 'mucha intensidad', 'demasiada intensidad', 'exceso', 'sin limite', 'mas corriente', 'mas intensidad', 'corriente muy alta', 'demasiado'] },
         { t: 'Dice que el LED (o el pin de Arduino) se puede quemar o estropear', w: ['quem', 'fund', 'romp', 'estrope', 'dan', 'rompe', 'averi', 'muere'] },
         { t: 'Explica que la resistencia limita o reduce la corriente', w: ['limit', 'reduc', 'disminu', 'controla', 'regula', 'se opone', 'oposicion', 'baja la corriente', 'baja la intensidad'] },
-        { t: 'Lo relaciona con la ley de Ohm o con los valores del LED (V, mA)', w: ['ohm', 'v=i', 'r=v', 'i=v', '20 ma', '20ma', 'voltio', 'tension', 'miliamperio', 'ma '] }
+        { t: 'Indica el valor de resistencia que se usa (220 Ω o 330 Ω)', w: ['220', '330'] }
       ] },
 
     /* ---------- La protoboard ---------- */
