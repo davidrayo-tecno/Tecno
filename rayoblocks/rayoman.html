@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Juega a RayoMan · IES Palomares</title>
+<link rel="icon" href="../logo-ies-palomares.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --brand:#1B5F7E; --bg:#F4F6F7; --surface:#FFFFFF; --ink:#16232B; --muted:#55636D; --line:#D5DDE2;
+  --ok:#22A06B; --warn-bg:#FDF3DC; --ko-bg:#FBE9EA; --accent:#FFB800;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{--brand:#174E67;--bg:#11171B;--surface:#182127;--ink:#E4EAEE;--muted:#9AA8B2;--line:#2A363E;--warn-bg:#3A2E14;--ko-bg:#3A1C1E;color-scheme:dark}}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+.bar{background:var(--brand);color:#fff}
+.container{max-width:760px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left))}
+.bar .container{height:64px;display:flex;align-items:center;gap:12px}
+.bar a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:12px}
+.bar img{width:42px;height:42px;border-radius:50%;background:#fff;padding:2px}
+.bar b{font-family:var(--display);font-size:22px;font-weight:600}
+h1{font-family:var(--display);font-size:clamp(34px,6vw,50px);line-height:1.05;margin:22px 0 8px}
+h2{font-family:var(--display);font-size:26px;line-height:1.1;margin:0 0 10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 18px}
+.muted{color:var(--muted)}
+.note{padding:10px 14px;border-radius:12px;background:var(--warn-bg);font-size:15px;margin:12px 0 0}
+.note.x{background:var(--ko-bg)}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select{width:100%;font:inherit;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:10px 12px}
+input:focus,select:focus{outline:none;border-color:var(--brand)}
+.two{display:grid;grid-template-columns:1fr 1.4fr;gap:12px}
+@media (max-width:560px){.two{grid-template-columns:1fr}}
+.btn{font:inherit;font-weight:600;border:0;border-radius:12px;padding:11px 20px;background:var(--brand);color:#fff;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.go{background:var(--ok)} .btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.big{font-size:19px;padding:14px 28px}
+/* Juego */
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0 10px}
+.top .who{font-weight:600}
+.top .t{font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums;margin-left:auto}
+.escena{position:relative;width:100%;aspect-ratio:4/3;background:#000;border-radius:12px;overflow:hidden;touch-action:none}
+.escena canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ctrl{display:flex;gap:10px;justify-content:space-between;margin:12px 0}
+.ctrl .flechas{display:flex;gap:10px}
+.ctrl .fl{width:78px;height:62px;font-size:28px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);user-select:none;-webkit-user-select:none;touch-action:none}
+.ctrl .fl:active{background:var(--line)}
+@media (hover:hover) and (pointer:fine){.ctrl .flechas{display:none}}
+.stats{display:flex;gap:18px;flex-wrap:wrap;font-size:15px;color:var(--muted)}
+.stats b{color:var(--ink)}
+</style>
+</head>
+<body>
+<header class="bar"><div class="container">
+  <a href="./"><img src="../logo-ies-palomares.png" alt=""><b>RayoBlocks · RayoMan</b></a>
+</div></header>
+
+<main class="container">
+  <!-- Identificación -->
+  <section id="vInicio">
+    <h1>⚡ Juega a RayoMan</h1>
+    <div class="card">
+      <h2>¿Cómo se juega?</h2>
+      <p style="margin:0">RayoMan vuela sobre la ciudad. Muévelo con las flechas <b>← →</b> para atrapar los <b>rayos</b> (+1 punto) y esquivar los <b>nubarrones</b> (−1 vida). Cuantos más puntos llevas, más rápido caen. Tienes 3 vidas.</p>
+      <p class="note">Para jugar tienes que escribir tu nombre, tus apellidos y tu grupo. <b>El profesor puede ver quién juega, cuándo, cuánto tiempo, cuántas partidas juega y su mejor puntuación.</b></p>
+      <p class="note" id="nPrueba" hidden>Modo de prueba: los datos se guardan solo en este navegador.</p>
+    </div>
+    <form class="card" id="fInicio" autocomplete="off">
+      <h2>Tus datos</h2>
+      <div class="two">
+        <div><label for="nom">Nombre</label><input type="text" id="nom" maxlength="40" required></div>
+        <div><label for="ape">Apellidos</label><input type="text" id="ape" maxlength="60" required></div>
+      </div>
+      <label for="gru">Grupo</label>
+      <select id="gru" required><option value="">Elige tu grupo…</option></select>
+      <p style="margin:16px 0 0"><button class="btn go big" id="bEmpezar" type="submit" disabled>▶ Empezar a jugar</button></p>
+      <p class="note x" id="eInicio" hidden></p>
+    </form>
+  </section>
+
+  <!-- Juego -->
+  <section id="vJuego" hidden>
+    <div class="top">
+      <span class="who" id="who"></span>
+      <span class="t" id="tiempo" title="Tiempo jugado en esta sesión">0:00</span>
+    </div>
+    <div class="escena"><canvas id="lienzo" width="480" height="360" aria-label="Juego de RayoMan"></canvas></div>
+    <div class="ctrl">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn go" id="bJugar" type="button">🏁 Jugar</button>
+        <button class="btn alt" id="bSalir" type="button">⏹ Salir</button>
+      </div>
+      <div class="flechas">
+        <button class="fl" id="bIzq" type="button" aria-label="Izquierda">←</button>
+        <button class="fl" id="bDer" type="button" aria-label="Derecha">→</button>
+      </div>
+    </div>
+    <div class="stats"><span>Partidas: <b id="sPartidas">0</b></span><span>Mejor puntuación: <b id="sMejor">0</b></span></div>
+  </section>
+</main>
+
+<script src="biblioteca.js"></script>
+<script src="motor.js"></script>
+<script src="../tareas/config.js"></script>
+<script src="../cuestionarios/api.js"></script>
+<script>
+(function () {
+  'use strict';
+  var JUEGO = 'rayoman';
+  var PROYECTO = 'proyectos/rayoman-atrapa-rayos.rayo';
+  var GRUPOS = ['1º ESO A', '1º ESO B', '1º ESO C', '1º ESO D', '2º ESO A', '2º ESO B', '2º ESO C', '2º ESO D',
+    '3º ESO A', '3º ESO B', '3º ESO C', '3º ESO D', '4º ESO A', '4º ESO B', '4º ESO C', '4º ESO D',
+    '1º Bachillerato A', '1º Bachillerato B', '2º Bachillerato A', '2º Bachillerato B'];
+  var ENVIO_CADA = 30; // segundos entre cada actualización del registro
+
+  var $ = function (id) { return document.getElementById(id); };
+  var API = window.CuestAPI, URL_SERVIDOR = String((window.TAREAS_CONFIG || {}).url || '').trim();
+  var motor = new RBMotor($('lienzo'));
+  var proyecto = null, ses = null, reloj = null;
+
+  /* ---------- Identificación ---------- */
+  GRUPOS.forEach(function (g) { var o = document.createElement('option'); o.value = g; o.textContent = g; $('gru').appendChild(o); });
+  $('nPrueba').hidden = !API.modoPrueba;
+  function okDatos() { $('bEmpezar').disabled = !($('nom').value.trim().length >= 2 && $('ape').value.trim().length >= 3 && $('gru').value); }
+  ['nom', 'ape'].forEach(function (id) { $(id).addEventListener('input', okDatos); });
+  $('gru').addEventListener('change', okDatos);
+
+  /* ---------- Proyecto del juego ---------- */
+  var n = 0;
+  function uid() { n++; return 'o' + n + Math.random().toString(36).slice(2, 7); }
+  function cargarProyecto() {
+    if (proyecto) return Promise.resolve();
+    return fetch(PROYECTO).then(function (r) { if (!r.ok) throw new Error('No se ha podido cargar el juego'); return r.json(); }).then(function (d) { proyecto = d; });
+  }
+  function prepararEscena() {
+    var objetos = proyecto.objetos.map(function (o) {
+      return { id: uid(), nombre: String(o.nombre), esEscenario: !!o.esEscenario, x: +o.x || 0, y: +o.y || 0, dir: o.dir === undefined ? 90 : +o.dir,
+        tam: +o.tam || 100, visible: o.visible !== false, estiloRot: o.estiloRot || 'all around', disfraz: +o.disfraz || 0, volumen: o.volumen === undefined ? 100 : +o.volumen,
+        disfraces: o.disfraces.map(function (d) { return { nombre: d.nombre, src: d.src, cx: d.cx, cy: d.cy, w: d.w, h: d.h }; }),
+        bloques: o.bloques, efectos: {}, lapiz: { abajo: false, color: { h: 66, s: 100, v: 100 }, tam: 1 }, decir: null };
+    });
+    objetos.sort(function (a, b) { return (b.esEscenario ? 1 : 0) - (a.esEscenario ? 1 : 0); });
+    motor.monitores = {};
+    // el récord no se guarda de una sesión a otra
+    motor.cargar(objetos, proyecto.variables.map(function (v) { return Object.assign({}, v, { valor: v.id === 'var-vidas' ? 3 : 0 }); }));
+    motor.ajustarTamano();
+  }
+  new ResizeObserver(function () { motor.ajustarTamano(); }).observe($('lienzo'));
+
+  /* ---------- Registro de la sesión ---------- */
+  function datosSesion(final) {
+    return { id: ses.id, juego: JUEGO, nombre: ses.nom, apellidos: ses.ape, grupo: ses.grupo,
+      segundos: Math.round(ses.ms / 1000), partidas: ses.partidas, mejor: ses.mejor, fin: !!final };
+  }
+  function enviar(final) {
+    if (!ses) return Promise.resolve();
+    var d = datosSesion(final);
+    // Al cerrar la página, sendBeacon garantiza que el último dato llega aunque la pestaña se cierre
+    if (final && !API.modoPrueba && URL_SERVIDOR && navigator.sendBeacon) {
+      try { if (navigator.sendBeacon(URL_SERVIDOR, new Blob([JSON.stringify(Object.assign({ accion: 'registrarJuego' }, d))], { type: 'text/plain;charset=utf-8' }))) return Promise.resolve(); } catch (e) {}
+    }
+    return API.llamar('registrarJuego', d).catch(function () {});
+  }
+  function puntosActuales() {
+    var v = motor.variables['var-puntos'];
+    if (!v) Object.keys(motor.variables).forEach(function (k) { if (/^(puntos|points)$/i.test(motor.variables[k].nombre)) v = motor.variables[k]; });
+    return v ? Math.round(Number(v.valor)) || 0 : 0;
+  }
+  function mmss(s) { s = Math.floor(s); var h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60, r = s % 60; return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(r).padStart(2, '0'); }
+
+  $('fInicio').addEventListener('submit', function (ev) {
+    ev.preventDefault(); if ($('bEmpezar').disabled) return;
+    $('bEmpezar').disabled = true; $('eInicio').hidden = true;
+    cargarProyecto().then(function () {
+      ses = { id: (Date.now().toString(36) + Math.random().toString(36).slice(2, 10)).replace(/[^a-z0-9]/g, '').slice(0, 20),
+        nom: $('nom').value.trim(), ape: $('ape').value.trim(), grupo: $('gru').value, ms: 0, partidas: 0, mejor: 0, ultimoEnvio: 0 };
+      $('who').textContent = ses.nom + ' ' + ses.ape + ' · ' + ses.grupo;
+      $('vInicio').hidden = true; $('vJuego').hidden = false;
+      prepararEscena();
+      enviar(false);
+      var ultimo = performance.now();
+      clearInterval(reloj);
+      reloj = setInterval(function () {
+        var ahora = performance.now(), dt = ahora - ultimo; ultimo = ahora;
+        // solo cuenta el tiempo con la página a la vista
+        if (document.visibilityState === 'visible') ses.ms += Math.min(dt, 5000);
+        ses.mejor = Math.max(ses.mejor, puntosActuales());
+        $('tiempo').textContent = mmss(ses.ms / 1000);
+        $('sMejor').textContent = ses.mejor;
+        if (ses.ms - ses.ultimoEnvio >= ENVIO_CADA * 1000) { ses.ultimoEnvio = ses.ms; enviar(false); }
+      }, 500);
+      $('bJugar').focus();
+    }, function (err) { $('eInicio').textContent = err.message; $('eInicio').hidden = false; okDatos(); });
+  });
+
+  $('bJugar').addEventListener('click', function () {
+    if (!ses) return;
+    ses.partidas++; $('sPartidas').textContent = ses.partidas;
+    $('bJugar').textContent = '↻ Otra partida';
+    motor.banderaVerde();
+    enviar(false);
+    $('lienzo').focus && $('bJugar').blur();
+  });
+
+  function salir() {
+    if (!ses) return;
+    clearInterval(reloj);
+    ses.mejor = Math.max(ses.mejor, puntosActuales());
+    enviar(true);
+    motor.pararTodo();
+    ses = null;
+    $('nom').value = ''; $('ape').value = ''; $('gru').value = ''; okDatos();
+    $('sPartidas').textContent = '0'; $('sMejor').textContent = '0'; $('tiempo').textContent = '0:00'; $('bJugar').textContent = '🏁 Jugar';
+    $('vJuego').hidden = true; $('vInicio').hidden = false; window.scrollTo(0, 0);
+  }
+  $('bSalir').addEventListener('click', salir);
+  window.addEventListener('pagehide', function () { if (ses) { ses.mejor = Math.max(ses.mejor, puntosActuales()); enviar(true); } });
+  document.addEventListener('visibilitychange', function () { if (ses) enviar(document.hidden); });
+
+  /* ---------- Teclado y botones táctiles ---------- */
+  document.addEventListener('keydown', function (e) {
+    if (!ses || /^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName) || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (motor.tecla(e, true) && (e.key === ' ' || /^Arrow/.test(e.key))) e.preventDefault();
+  });
+  document.addEventListener('keyup', function (e) { motor.tecla(e, false); });
+  window.addEventListener('blur', function () { motor.teclas = {}; });
+  function tactil(boton, tecla) {
+    var on = function (e) { e.preventDefault(); motor.tecla({ key: tecla }, true); };
+    var off = function (e) { e.preventDefault(); motor.tecla({ key: tecla }, false); };
+    boton.addEventListener('pointerdown', on); ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (t) { boton.addEventListener(t, off); });
+  }
+  tactil($('bIzq'), 'ArrowLeft'); tactil($('bDer'), 'ArrowRight');
+})();
+</script>
+</body>
+</html>

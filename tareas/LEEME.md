@@ -66,6 +66,16 @@ Los cuestionarios (`cuestionarios/`) usan **este mismo servidor**: con la misma 
 
 **Si ya tenías Tareas instalada antes de los cuestionarios:** sustituye el código de `Code.gs` por el nuevo [`apps-script/Codigo.js`](apps-script/Codigo.js) (conservando tu `CLAVE_INICIAL`) y vuelve a publicar: **Implementar → Gestionar implementaciones → ✏️ → Versión: nueva versión → Implementar**. La pestaña «Cuestionarios» se crea sola con la primera entrega.
 
+## Juegos (RayoMan)
+
+El juego «RayoMan atrapa rayos» se juega en `rayoblocks/rayoman.html`. La opción del menú Archivo de RayoBlocks también lleva a esa página.
+
+- **Alumnado:** escribe su nombre, sus apellidos y su grupo antes de jugar. La página le avisa de que el profesor puede ver lo que juega.
+- **Registro:** cada sesión de juego es una fila de la pestaña **«Juegos»** de la hoja, con el día y la hora, el tiempo jugado (solo cuenta con la página a la vista), las partidas y la mejor puntuación. Se actualiza cada 30 segundos y al salir.
+- **Profesor:** en `cuestionarios/profesor.html`, pestaña **🎮 Juegos**. Muestra quién juega y cuánto, quién está jugando ahora mismo y qué sesiones caen en horario de clase. Se puede filtrar por grupo y periodo y exportar a Excel. El horario de clase se cambia en `HORARIO`, dentro de `profesor.html`.
+
+**Para activarlo hay que actualizar Apps Script:** sustituye el código de `Code.gs` por el nuevo [`apps-script/Codigo.js`](apps-script/Codigo.js), vuelve a poner tu `CLAVE_INICIAL` y publica una versión nueva: **Implementar → Gestionar implementaciones → ✏️ → Versión: nueva versión → Implementar**. La URL no cambia. La pestaña «Juegos» se crea sola con la primera partida.
+
 ## Privacidad y buenas prácticas
 
 - Solo tú tienes acceso a la hoja y a la carpeta de Drive. Los archivos de los alumnos no se comparten con nadie.

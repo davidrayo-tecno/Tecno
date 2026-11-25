@@ -562,6 +562,8 @@
     var acc = b.dataset.acc;
     if (acc === 'guardar') return guardar();
     if (acc === 'abrir') return $('#f-abrir').click();
+    // El juego de RayoMan se juega en su propia página, que pide nombre y grupo y registra el tiempo de juego
+    if (acc === 'ejemplo-rayoman') { window.open('rayoman.html', '_blank'); return; }
     if (cambios && !confirm(t('confirmarNuevo'))) return;
     if (acc === 'nuevo') proyectoNuevo();
     else abrirProyecto(EJEMPLOS[acc]());
