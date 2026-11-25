@@ -35,21 +35,21 @@
   var AUTO = { test: 1, vf: 1, cerrada: 1 };
   var Q = [
     /* ---------- El LED: ánodo y cátodo ---------- */
-    { id: 1, p: PL, k: 'test', s: 45, q: '¿Cómo se reconoce el <b>ánodo</b> de un LED?',
+    { id: 1, p: PL, k: 'test', s: 35, q: '¿Cómo se reconoce el <b>ánodo</b> de un LED?',
       o: ['Es la patilla más larga, y se conecta al positivo', 'Es la patilla más corta, y se conecta a GND', 'Es la patilla del lado plano de la cápsula', 'Las dos patillas son iguales: no importa'], a: 0 },
-    { id: 2, p: PL, k: 'test', s: 50, q: 'En tus montajes, ¿cómo se conecta un LED a Arduino?',
+    { id: 2, p: PL, k: 'test', s: 40, q: 'En tus montajes, ¿cómo se conecta un LED a Arduino?',
       o: ['El ánodo al pin digital (a través de la resistencia) y el cátodo a GND', 'El cátodo al pin digital y el ánodo a GND', 'Las dos patillas al mismo pin', 'El ánodo a 5 V y el cátodo al pin digital, sin resistencia'], a: 0 },
-    { id: 3, p: PL, k: 'vf', s: 30, q: 'Si se coloca un LED al revés (ánodo a GND y cátodo al pin), no se enciende, porque solo deja pasar la corriente en un sentido.', a: true },
-    { id: 4, p: PL, k: 'cerrada', s: 45, q: '¿Cómo se llama la patilla <b>negativa</b> de un LED, la más corta? Escribe una palabra.',
+    { id: 3, p: PL, k: 'vf', s: 25, q: 'Si se coloca un LED al revés (ánodo a GND y cátodo al pin), no se enciende, porque solo deja pasar la corriente en un sentido.', a: true },
+    { id: 4, p: PL, k: 'cerrada', s: 35, q: '¿Cómo se llama la patilla <b>negativa</b> de un LED, la más corta? Escribe una palabra.',
       ph: 'Escribe una palabra', ok: ['catodo', 'el catodo', 'katodo'] },
 
     /* ---------- La resistencia del LED ---------- */
-    { id: 5, p: PR, k: 'test', s: 45, q: '¿Por qué se pone una <b>resistencia en serie</b> con cada LED?',
+    { id: 5, p: PR, k: 'test', s: 35, q: '¿Por qué se pone una <b>resistencia en serie</b> con cada LED?',
       o: ['Para limitar la corriente y que no se dañe el LED ni el pin de Arduino', 'Para que el LED brille más', 'Para que el LED parpadee', 'Para que el LED funcione aunque esté al revés'], a: 0 },
-    { id: 6, p: PR, k: 'cerrada', s: 120, q: 'Un pin de Arduino da <b>5 V</b>. El LED necesita <b>2 V</b> y <b>20 mA</b>. ¿Qué resistencia hay que poner? Escribe solo el número, en ohmios.',
+    { id: 6, p: PR, k: 'cerrada', s: 85, q: 'Un pin de Arduino da <b>5 V</b>. El LED necesita <b>2 V</b> y <b>20 mA</b>. ¿Qué resistencia hay que poner? Escribe solo el número, en ohmios.',
       ph: 'Número en Ω', ok: ['150', '150 ohmios', '150ω', '150 ω', '150 ohm', '150 ohms'] },
-    { id: 7, p: PR, k: 'vf', s: 40, q: 'Cuanto mayor es el valor de la resistencia que se pone con el LED, más corriente pasa y más brilla.', a: false },
-    { id: 8, p: PR, k: 'abierta', s: 180, q: 'Explica qué pasaría si conectaras un LED directamente a un pin de Arduino <b>sin resistencia</b>. ¿Por qué es necesaria?',
+    { id: 7, p: PR, k: 'vf', s: 30, q: 'Cuanto mayor es el valor de la resistencia que se pone con el LED, más corriente pasa y más brilla.', a: false },
+    { id: 8, p: PR, k: 'abierta', s: 130, q: 'Explica qué pasaría si conectaras un LED directamente a un pin de Arduino <b>sin resistencia</b>. ¿Por qué es necesaria?',
       rb: [
         { t: 'Dice que pasaría demasiada corriente', w: ['mucha corriente', 'demasiada corriente', 'mucha intensidad', 'demasiada intensidad', 'exceso', 'sin limite', 'mas corriente', 'mas intensidad', 'corriente muy alta', 'demasiado'] },
         { t: 'Dice que el LED (o el pin de Arduino) se puede quemar o estropear', w: ['quem', 'fund', 'romp', 'estrope', 'dan', 'rompe', 'averi', 'muere'] },
@@ -58,70 +58,70 @@
       ] },
 
     /* ---------- La protoboard ---------- */
-    { id: 9, p: PB, k: 'test', s: 45, q: '¿Para qué sirve la <b>placa protoboard</b>?',
+    { id: 9, p: PB, k: 'test', s: 35, q: '¿Para qué sirve la <b>placa protoboard</b>?',
       o: ['Para montar y probar circuitos sin soldar, y poder cambiarlos y reutilizar los componentes', 'Para programar Arduino', 'Para dar más voltaje al circuito', 'Para guardar el programa cuando se apaga Arduino'], a: 0 },
-    { id: 10, p: PB, k: 'test', s: 50, q: 'En una protoboard, ¿cómo están conectados los orificios de la zona central?',
+    { id: 10, p: PB, k: 'test', s: 40, q: 'En una protoboard, ¿cómo están conectados los orificios de la zona central?',
       o: ['En columnas de 5 orificios, y las dos mitades separadas por el canal central no están unidas', 'Todos los orificios de una misma fila larga están unidos', 'Cada orificio está aislado de los demás', 'Las dos mitades están unidas a través del canal central'], a: 0 },
-    { id: 11, p: PB, k: 'vf', s: 30, q: 'Las líneas largas de los laterales de la protoboard, marcadas con + y −, se usan para repartir la alimentación (5 V y GND).', a: true },
-    { id: 12, p: PB, k: 'vf', s: 40, q: 'Si pones las dos patillas de un LED en la misma columna de 5 orificios, el LED queda en cortocircuito y no se enciende.', a: true },
+    { id: 11, p: PB, k: 'vf', s: 25, q: 'Las líneas largas de los laterales de la protoboard, marcadas con + y −, se usan para repartir la alimentación (5 V y GND).', a: true },
+    { id: 12, p: PB, k: 'vf', s: 30, q: 'Si pones las dos patillas de un LED en la misma columna de 5 orificios, el LED queda en cortocircuito y no se enciende.', a: true },
 
     /* ---------- Práctica 02 · Secuencias de luces ---------- */
-    { id: 13, p: P2, k: 'test', s: 60, q: 'En la práctica 02, los LEDs están en los pines ' + c('led1 = 9') + ' … ' + c('led5 = 13') + ', en fila. ¿Qué LEDs se encienden en el paso <b>t = 1</b>?',
+    { id: 13, p: P2, k: 'test', s: 40, q: 'En la práctica 02, los LEDs están en los pines ' + c('led1 = 9') + ' … ' + c('led5 = 13') + ', en fila. ¿Qué LEDs se encienden en el paso <b>t = 1</b>?',
       e: cod('// t=1\ndigitalWrite(led1, HIGH);\ndigitalWrite(led2, LOW);\ndigitalWrite(led3, LOW);\ndigitalWrite(led4, LOW);\ndigitalWrite(led5, HIGH);\ndelay(1000);'),
       o: ['led1 y led5, los de los dos extremos (pines 9 y 13)', 'led1 y led2 (pines 9 y 10)', 'Solo led3, el del centro (pin 11)', 'Todos menos led1'], a: 0 },
-    { id: 14, p: P2, k: 'test', s: 60, q: 'En la práctica 02, la secuencia es: t=0 todos apagados; t=1 led1 y led5; t=2 led2 y led4; t=3 led3. ¿Qué efecto se ve?',
+    { id: 14, p: P2, k: 'test', s: 40, q: 'En la práctica 02, la secuencia es: t=0 todos apagados; t=1 led1 y led5; t=2 led2 y led4; t=3 led3. ¿Qué efecto se ve?',
       o: ['Las luces avanzan desde los extremos hacia el centro', 'Las luces avanzan de izquierda a derecha', 'Todos los LEDs parpadean a la vez', 'Las luces avanzan desde el centro hacia los extremos'], a: 0 },
-    { id: 15, p: P2, k: 'cerrada', s: 60, q: 'El ' + c('loop()') + ' de la práctica 02 tiene 4 pasos (t=0 a t=3), cada uno con ' + c('delay(1000)') + '. ¿Cuántos segundos dura una vuelta completa? Escribe solo el número.',
+    { id: 15, p: P2, k: 'cerrada', s: 45, q: 'El ' + c('loop()') + ' de la práctica 02 tiene 4 pasos (t=0 a t=3), cada uno con ' + c('delay(1000)') + '. ¿Cuántos segundos dura una vuelta completa? Escribe solo el número.',
       ph: 'Segundos', ok: ['4', 'cuatro', '4 s', '4s', '4 segundos'] },
-    { id: 16, p: P2, k: 'vf', s: 30, q: 'En todas las prácticas, el código de ' + c('setup()') + ' se ejecuta una sola vez y el de ' + c('loop()') + ' se repite sin parar.', a: true },
+    { id: 16, p: P2, k: 'vf', s: 25, q: 'En todas las prácticas, el código de ' + c('setup()') + ' se ejecuta una sola vez y el de ' + c('loop()') + ' se repite sin parar.', a: true },
 
     /* ---------- Prácticas 03 y 05 · 10 LEDs ---------- */
-    { id: 17, p: P35, k: 'test', s: 90, q: 'En las prácticas 03 y 05 se declaran así los LEDs. ¿Qué <b>pines</b> quedan en HIGH en este paso?',
+    { id: 17, p: P35, k: 'test', s: 65, q: 'En las prácticas 03 y 05 se declaran así los LEDs. ¿Qué <b>pines</b> quedan en HIGH en este paso?',
       e: cod('int led1 = 13;  int led2 = 12;  int led3 = 11;\nint led4 = 8;   int led5 = 7;   int led6 = 6;\nint led7 = 5;   int led8 = 4;   int led9 = 9;\nint led10 = 10;\n\ndigitalWrite(led1, LOW);   digitalWrite(led6, LOW);\ndigitalWrite(led2, LOW);   digitalWrite(led7, LOW);\ndigitalWrite(led3, HIGH);  digitalWrite(led8, HIGH);\ndigitalWrite(led4, HIGH);  digitalWrite(led9, HIGH);\ndigitalWrite(led5, LOW);   digitalWrite(led10, LOW);'),
       o: ['11, 8, 4 y 9', '3, 4, 8 y 9', '11, 12, 4 y 5', '13, 8, 7 y 10'], a: 0 },
-    { id: 18, p: P35, k: 'vf', s: 40, q: 'En la práctica 05, la variable ' + c('led4') + ' está conectada al pin 4.', a: false },
-    { id: 19, p: P35, k: 'cerrada', s: 60, q: 'En la práctica 05 cada paso de la secuencia escribe una línea ' + c('digitalWrite') + ' por cada uno de los 10 LEDs. Si la secuencia tuviera <b>6 pasos</b>, ¿cuántas líneas ' + c('digitalWrite') + ' tendrías que escribir?',
+    { id: 18, p: P35, k: 'vf', s: 30, q: 'En la práctica 05, la variable ' + c('led4') + ' está conectada al pin 4.', a: false },
+    { id: 19, p: P35, k: 'cerrada', s: 45, q: 'En la práctica 05 cada paso de la secuencia escribe una línea ' + c('digitalWrite') + ' por cada uno de los 10 LEDs. Si la secuencia tuviera <b>6 pasos</b>, ¿cuántas líneas ' + c('digitalWrite') + ' tendrías que escribir?',
       ph: 'Escribe un número', ok: ['60', 'sesenta'] },
-    { id: 20, p: P35, k: 'test', s: 50, q: '¿Para qué sirven las líneas ' + c('pinMode(led1, OUTPUT);') + ' … ' + c('pinMode(led10, OUTPUT);') + ' en el ' + c('setup()') + '?',
+    { id: 20, p: P35, k: 'test', s: 40, q: '¿Para qué sirven las líneas ' + c('pinMode(led1, OUTPUT);') + ' … ' + c('pinMode(led10, OUTPUT);') + ' en el ' + c('setup()') + '?',
       o: ['Configuran los pines de los LEDs como salidas', 'Encienden los 10 LEDs', 'Leen el estado de los LEDs', 'Dicen cuánto tiempo está encendido cada LED'], a: 0 },
 
     /* ---------- Práctica 04 · Encendido alternativo ---------- */
-    { id: 21, p: P4, k: 'test', s: 60, q: '¿Qué hace el programa de la práctica 04?',
+    { id: 21, p: P4, k: 'test', s: 45, q: '¿Qué hace el programa de la práctica 04?',
       e: cod('int led1 = 8;\nint led2 = 7;\n\nvoid loop() {\n  digitalWrite(led1, HIGH);\n  digitalWrite(led2, LOW);\n  delay(1000);\n\n  digitalWrite(led1, LOW);\n  digitalWrite(led2, HIGH);\n  delay(1000);\n}'),
       o: ['Los LEDs se alternan: un segundo se enciende uno y al siguiente el otro', 'Los dos LEDs se encienden y se apagan a la vez', 'El led1 se queda siempre encendido', 'Los LEDs se encienden una sola vez'], a: 0 },
-    { id: 22, p: P4, k: 'cerrada', s: 60, q: 'En la práctica 04, ¿cada cuántos segundos vuelve a encenderse el <b>led1</b>? Escribe solo el número.',
+    { id: 22, p: P4, k: 'cerrada', s: 45, q: 'En la práctica 04, ¿cada cuántos segundos vuelve a encenderse el <b>led1</b>? Escribe solo el número.',
       ph: 'Segundos', ok: ['2', 'dos', '2 s', '2s', '2 segundos'] },
 
     /* ---------- Práctica 06 · Control de luz con pulsador ---------- */
-    { id: 23, p: P6, k: 'test', s: 60, q: 'En la práctica 06, el pulsador va entre el pin 7 y GND, <b>sin resistencia</b>. ¿Por qué funciona?',
+    { id: 23, p: P6, k: 'test', s: 45, q: 'En la práctica 06, el pulsador va entre el pin 7 y GND, <b>sin resistencia</b>. ¿Por qué funciona?',
       e: cod('pinMode(led, OUTPUT);\npinMode(pulsador, INPUT_PULLUP);'),
       o: ['Porque INPUT_PULLUP activa una resistencia interna de Arduino que mantiene el pin en HIGH', 'Porque el pin 7 no necesita resistencia', 'Porque el LED hace de resistencia', 'No funciona: falta una resistencia externa'], a: 0 },
-    { id: 24, p: P6, k: 'vf', s: 40, q: 'Con ' + c('INPUT_PULLUP') + ', al pulsar el pulsador, ' + c('digitalRead(pulsador)') + ' devuelve LOW.', a: true },
-    { id: 25, p: P6, k: 'test', s: 60, q: 'Con el programa de la práctica 06, ¿qué hace el LED cuando <b>no</b> se pulsa?',
+    { id: 24, p: P6, k: 'vf', s: 30, q: 'Con ' + c('INPUT_PULLUP') + ', al pulsar el pulsador, ' + c('digitalRead(pulsador)') + ' devuelve LOW.', a: true },
+    { id: 25, p: P6, k: 'test', s: 45, q: 'Con el programa de la práctica 06, ¿qué hace el LED cuando <b>no</b> se pulsa?',
       e: cod('estadoPulsador = digitalRead(pulsador);\n\nif (estadoPulsador == LOW) {\n  digitalWrite(led, HIGH);\n} else {\n  digitalWrite(led, LOW);\n}'),
       o: ['Está apagado, porque el pin lee HIGH y se ejecuta el else', 'Está encendido, porque el pin lee LOW', 'Parpadea', 'Se queda como estuviera antes'], a: 0 },
-    { id: 26, p: P6, k: 'test', s: 60, q: 'Un compañero escribió así la condición y el LED no responde bien al pulsador. ¿Cuál es el error?',
+    { id: 26, p: P6, k: 'test', s: 45, q: 'Un compañero escribió así la condición y el LED no responde bien al pulsador. ¿Cuál es el error?',
       e: cod('if (estadoPulsador = LOW) {\n  digitalWrite(led, HIGH);\n}'),
       o: ['Usa = (asignar) en lugar de == (comparar)', 'Falta un delay dentro del if', 'LOW debe ir entre comillas', 'estadoPulsador debe declararse dentro del if'], a: 0 },
 
     /* ---------- Práctica 08 · Temporizador 0 a 9 ---------- */
-    { id: 27, p: P8, k: 'test', s: 75, q: 'En la práctica 08 los segmentos están conectados así. ¿Qué número se ve en el display con este bloque?',
+    { id: 27, p: P8, k: 'test', s: 50, q: 'En la práctica 08 los segmentos están conectados así. ¿Qué número se ve en el display con este bloque?',
       e: cod(PINES_SEG + '\ndigitalWrite(c, HIGH);\ndigitalWrite(d, LOW);\ndigitalWrite(e, LOW);\ndigitalWrite(g, LOW);\ndigitalWrite(f, LOW);\ndigitalWrite(a, HIGH);\ndigitalWrite(b, HIGH);\ndelay(1000);'),
       o: ['7', '1', '4', '3'], a: 0 },
-    { id: 28, p: P8, k: 'test', s: 50, q: 'En la práctica 08 los segmentos se encienden con <b>HIGH</b>. ¿Qué tipo de display es y a dónde va su pin común?',
+    { id: 28, p: P8, k: 'test', s: 40, q: 'En la práctica 08 los segmentos se encienden con <b>HIGH</b>. ¿Qué tipo de display es y a dónde va su pin común?',
       o: ['Cátodo común, con el común a GND', 'Ánodo común, con el común a 5 V', 'Cátodo común, con el común a 5 V', 'Ánodo común, con el común a GND'], a: 0 },
-    { id: 29, p: P8, k: 'cerrada', s: 60, q: 'En la práctica 08, ¿cuántos segmentos se ponen en HIGH para mostrar el número <b>0</b>? Escribe solo el número.',
+    { id: 29, p: P8, k: 'cerrada', s: 45, q: 'En la práctica 08, ¿cuántos segmentos se ponen en HIGH para mostrar el número <b>0</b>? Escribe solo el número.',
       ph: 'Escribe un número', ok: ['6', 'seis'] },
-    { id: 30, p: P8, k: 'vf', s: 40, q: 'Cada segmento del display es un LED, así que también necesita su resistencia.', a: true },
+    { id: 30, p: P8, k: 'vf', s: 30, q: 'Cada segmento del display es un LED, así que también necesita su resistencia.', a: true },
 
     /* ---------- Práctica 09 · Temporizador 0 a 99 con funciones ---------- */
-    { id: 31, p: P9, k: 'test', s: 50, q: 'En la práctica 09 se usan <b>funciones</b>. ¿Qué ventaja tiene escribir una función como ' + c('mostrarNumero(int n)') + '?',
+    { id: 31, p: P9, k: 'test', s: 40, q: 'En la práctica 09 se usan <b>funciones</b>. ¿Qué ventaja tiene escribir una función como ' + c('mostrarNumero(int n)') + '?',
       o: ['Se escribe una sola vez el código que enciende los segmentos y se usa con cualquier número, sin repetirlo', 'El programa se ejecuta más rápido que sin funciones', 'Sin funciones no se puede usar el display', 'Las funciones ocupan menos pines'], a: 0 },
-    { id: 32, p: P9, k: 'cerrada', s: 60, q: 'Para mostrar un número de dos cifras, si ' + c('n = 47') + ', ¿cuánto vale ' + c('n / 10') + ' con variables ' + c('int') + '? Escribe solo el número.',
+    { id: 32, p: P9, k: 'cerrada', s: 45, q: 'Para mostrar un número de dos cifras, si ' + c('n = 47') + ', ¿cuánto vale ' + c('n / 10') + ' con variables ' + c('int') + '? Escribe solo el número.',
       ph: 'Escribe un número', ok: ['4', 'cuatro'] },
-    { id: 33, p: P9, k: 'cerrada', s: 60, q: 'Si ' + c('n = 47') + ', ¿cuánto vale ' + c('n % 10') + '? Escribe solo el número.',
+    { id: 33, p: P9, k: 'cerrada', s: 45, q: 'Si ' + c('n = 47') + ', ¿cuánto vale ' + c('n % 10') + '? Escribe solo el número.',
       ph: 'Escribe un número', ok: ['7', 'siete'] },
-    { id: 34, p: P9, k: 'abierta', s: 240, q: 'Explica cómo funciona tu <b>temporizador de 0 a 99 con funciones</b> (práctica 09): qué funciones creaste, qué hace cada una y cómo consigues que la cuenta llegue hasta 99.',
+    { id: 34, p: P9, k: 'abierta', s: 175, q: 'Explica cómo funciona tu <b>temporizador de 0 a 99 con funciones</b> (práctica 09): qué funciones creaste, qué hace cada una y cómo consigues que la cuenta llegue hasta 99.',
       rb: [
         { t: 'Dice que crea una o varias funciones para mostrar los números', w: ['funcion', 'void', 'mostrar', 'llam'] },
         { t: 'Explica qué hace la función: encender los segmentos de cada cifra', w: ['segmento', 'digitalwrite', 'high', 'enciende', 'encender', 'cifra', 'digito'] },
@@ -130,30 +130,42 @@
       ] },
 
     /* ---------- Funciones de Arduino: pinMode, digitalWrite, digitalRead, delay ---------- */
-    { id: 37, p: PF, k: 'test', s: 50, q: '¿Qué hace la instrucción ' + c('pinMode(13, OUTPUT);') + '?',
+    { id: 37, p: PF, k: 'test', s: 40, q: '¿Qué hace la instrucción ' + c('pinMode(13, OUTPUT);') + '?',
       o: ['Configura el pin 13 como salida, para poder encender o apagar lo que se conecte a él', 'Enciende el LED del pin 13', 'Lee el valor del pin 13', 'Espera 13 milisegundos'], a: 0 },
-    { id: 38, p: PF, k: 'test', s: 50, q: '¿Con qué modo hay que configurar el pin de un <b>pulsador</b> en ' + c('pinMode') + '?',
+    { id: 38, p: PF, k: 'test', s: 40, q: '¿Con qué modo hay que configurar el pin de un <b>pulsador</b> en ' + c('pinMode') + '?',
       o: ['INPUT o INPUT_PULLUP, porque el pulsador es una entrada', 'OUTPUT, porque el pulsador manda la señal', 'HIGH', 'Da igual: pinMode solo se usa con LEDs'], a: 0 },
-    { id: 39, p: PF, k: 'test', s: 50, q: '¿Qué hace ' + c('digitalWrite(led, HIGH);') + '?',
+    { id: 39, p: PF, k: 'test', s: 40, q: '¿Qué hace ' + c('digitalWrite(led, HIGH);') + '?',
       o: ['Pone el pin del LED a 5 V, y el LED se enciende', 'Pone el pin a 0 V, y el LED se apaga', 'Lee si el LED está encendido', 'Configura el pin del LED como salida'], a: 0 },
-    { id: 40, p: PF, k: 'test', s: 50, q: '¿Qué valores puede devolver ' + c('digitalRead(pulsador)') + '?',
+    { id: 40, p: PF, k: 'test', s: 40, q: '¿Qué valores puede devolver ' + c('digitalRead(pulsador)') + '?',
       o: ['HIGH o LOW', 'Cualquier número entre 0 y 1023', 'OUTPUT o INPUT', 'Los milisegundos que se ha pulsado'], a: 0 },
-    { id: 41, p: PF, k: 'cerrada', s: 60, q: '¿Qué número escribirías en ' + c('delay( )') + ' para que el programa espere <b>medio segundo</b>? Escribe solo el número.',
+    { id: 41, p: PF, k: 'cerrada', s: 45, q: '¿Qué número escribirías en ' + c('delay( )') + ' para que el programa espere <b>medio segundo</b>? Escribe solo el número.',
       ph: 'Escribe un número', ok: ['500', 'quinientos'] },
-    { id: 42, p: PF, k: 'vf', s: 40, q: 'Mientras se ejecuta un ' + c('delay(1000)') + ', Arduino se queda esperando y no lee el pulsador ni ejecuta otras instrucciones.', a: true },
-    { id: 43, p: PF, k: 'vf', s: 40, q: c('digitalWrite') + ' sirve para leer si un pulsador está pulsado.', a: false },
-    { id: 44, p: PF, k: 'cerrada', s: 50, q: '¿Qué función de Arduino se usa para <b>leer</b> el estado de un pulsador? Escribe solo su nombre.',
+    { id: 42, p: PF, k: 'vf', s: 30, q: 'Mientras se ejecuta un ' + c('delay(1000)') + ', Arduino se queda esperando y no lee el pulsador ni ejecuta otras instrucciones.', a: true },
+    { id: 43, p: PF, k: 'vf', s: 30, q: c('digitalWrite') + ' sirve para leer si un pulsador está pulsado.', a: false },
+    { id: 44, p: PF, k: 'cerrada', s: 40, q: '¿Qué función de Arduino se usa para <b>leer</b> el estado de un pulsador? Escribe solo su nombre.',
       ph: 'Nombre de la función', ok: ['digitalread', 'digitalread()', 'digitalread( )'] },
 
+    /* ---------- Más sobre el código ---------- */
+    { id: 45, p: P4, k: 'test', s: 35, q: 'En la práctica 04, ¿qué es ' + c('int led1 = 8;') + '?',
+      o: ['Una variable que guarda el número del pin donde está conectado el led1', 'Una instrucción que enciende el LED 8 veces', 'Una función que configura el pin 8', 'Un comentario'], a: 0 },
+    { id: 46, p: P6, k: 'test', s: 40, q: 'En la práctica 06, ¿para qué sirve la variable ' + c('estadoPulsador') + '?',
+      o: ['Para guardar lo que lee digitalRead (HIGH o LOW) y usarlo después en el if', 'Para encender el LED', 'Para indicar el pin del pulsador', 'Para contar cuántas veces se ha pulsado'], a: 0 },
+    { id: 47, p: P8, k: 'cerrada', s: 40, q: 'En la práctica 08, ¿cuántos segmentos se ponen en HIGH para mostrar el número <b>1</b>? Escribe solo el número.',
+      ph: 'Escribe un número', ok: ['2', 'dos'] },
+    { id: 48, p: P35, k: 'test', s: 45, q: 'En la práctica 05, ¿qué pasaría si borraras el ' + c('delay(1000)') + ' del <b>último</b> paso del loop?',
+      o: ['El último paso no se llegaría a ver: el loop volvería enseguida al primer paso', 'Los LEDs se quedarían encendidos para siempre', 'El programa daría error al compilar', 'Todos los pasos irían más rápido'], a: 0 },
+    { id: 49, p: P2, k: 'vf', s: 25, q: 'Las líneas que empiezan por ' + c('//') + ', como ' + c('// t=1') + ', son comentarios: Arduino no las ejecuta.', a: true },
+    { id: 50, p: P2, k: 'vf', s: 25, q: 'En Arduino, cada instrucción debe terminar en punto y coma ' + c(';') + '.', a: true },
+
     /* ---------- Reflexión y pensamiento crítico ---------- */
-    { id: 35, p: P35, k: 'reflexion', s: 180, q: 'La práctica 05 es un <b>sistema de iluminación navideña</b>. Piensa en otro sistema automático de tu entorno que use luces o un display (semáforo, cartel luminoso, ascensor, microondas…). ¿Qué entradas y salidas tendría y cómo lo programarías con lo que has aprendido?',
+    { id: 35, p: P35, k: 'reflexion', s: 130, q: 'La práctica 05 es un <b>sistema de iluminación navideña</b>. Piensa en otro sistema automático de tu entorno que use luces o un display (semáforo, cartel luminoso, ascensor, microondas…). ¿Qué entradas y salidas tendría y cómo lo programarías con lo que has aprendido?',
       rb: [
         { t: 'Nombra un sistema real', w: ['semaforo', 'cartel', 'ascensor', 'microondas', 'reloj', 'despertador', 'horno', 'lavadora', 'marcador', 'turno', 'parking', 'cronometro', 'temporizador', 'escaparate', 'faro', 'farola', 'alarma', 'paso de peatones'] },
         { t: 'Identifica alguna entrada (pulsador, botón, sensor…)', w: ['entrada', 'pulsador', 'boton', 'sensor', 'tecla', 'interruptor'] },
         { t: 'Identifica alguna salida (LED, display, zumbador…)', w: ['salida', 'led', 'display', 'luz', 'luces', 'zumbador', 'pantalla', 'motor', 'sonido'] },
         { t: 'Lo relaciona con la programación de las prácticas', w: ['digitalwrite', 'digitalread', 'delay', 'if', 'funcion', 'loop', 'setup', 'secuencia', 'program', 'arduino', 'pinmode', 'variable'] }
       ] },
-    { id: 36, p: P8, k: 'critico', s: 210, q: 'En las prácticas 03, 05 y 08 el código repite muchísimas líneas ' + c('digitalWrite') + '. Un compañero dice: «Da igual, funciona; no hace falta usar funciones». ¿Estás de acuerdo? Razona ventajas e inconvenientes, pensando en lo que hiciste en la práctica 09.',
+    { id: 36, p: P8, k: 'critico', s: 155, q: 'En las prácticas 03, 05 y 08 el código repite muchísimas líneas ' + c('digitalWrite') + '. Un compañero dice: «Da igual, funciona; no hace falta usar funciones». ¿Estás de acuerdo? Razona ventajas e inconvenientes, pensando en lo que hiciste en la práctica 09.',
       rb: [
         { t: 'Toma postura y la razona', w: ['de acuerdo', 'no estoy', 'depende', 'no tiene razon', 'tiene razon', 'mejor', 'prefiero', 'creo que'] },
         { t: 'Señala que repetir código lo hace largo y propenso a errores', w: ['largo', 'repet', 'error', 'equivoc', 'lineas', 'copiar', 'pegar', 'lioso', 'dificil de leer'] },
@@ -161,7 +173,7 @@
         { t: 'Reconoce algún inconveniente o el caso en que no compensa (programa corto, hay que aprender…)', w: ['corto', 'sencillo', 'aprender', 'complic', 'pocas lineas', 'facil', 'al principio', 'mas dificil'] }
       ] }
   ];
-  // Todas las preguntas valen lo mismo: 1 punto cada una (44 en total → nota sobre 10 con centésimas)
+  // Todas las preguntas valen lo mismo: 1 punto cada una (50 en total → nota sobre 10 con centésimas)
   Q.forEach(function (q) { q.pt = 1; });
 
   /** ¿Es correcta la respuesta v? (null si la corrige el profesor) */
@@ -174,7 +186,7 @@
 
   window.CUESTIONARIO = {
     id: '1bach-sistemas', titulo: 'Cuestionario prácticas de sistemas automáticos', grupos: GRUPOS,
-    descripcion: 'Es un cuestionario sobre tus <b>prácticas de Arduino</b>: el LED (ánodo y cátodo), la resistencia del LED, la protoboard y las funciones pinMode, digitalWrite, digitalRead y delay, y el código de las prácticas (secuencias de luces, 10 LEDs en protoboard, encendido alternativo, control de luz con pulsador, temporizador de 0 a 9 y temporizador de 0 a 99 con funciones). Son <b>44 preguntas</b> y <b>todas valen lo mismo</b>; la nota final es sobre 10, con centésimas. Hay preguntas de varios tipos:',
+    descripcion: 'Es un cuestionario sobre tus <b>prácticas de Arduino</b>: el LED (ánodo y cátodo), la resistencia del LED, la protoboard y las funciones pinMode, digitalWrite, digitalRead y delay, y el código de las prácticas (secuencias de luces, 10 LEDs en protoboard, encendido alternativo, control de luz con pulsador, temporizador de 0 a 9 y temporizador de 0 a 99 con funciones). Son <b>50 preguntas</b> y <b>todas valen lo mismo</b>; la nota final es sobre 10, con centésimas. Hay preguntas de varios tipos:',
     preguntas: Q, KIND: KIND, AUTO: AUTO, correcta: correcta
   };
 })();
