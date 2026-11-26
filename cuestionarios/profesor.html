@@ -78,6 +78,26 @@ tbody tr:hover{background:var(--bg)}
 .stat .b i{display:block;height:100%;border-radius:99px}
 .stat .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
 .empty{padding:30px;text-align:center;color:var(--muted)}
+/* Análisis */
+.an-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:0 18px}
+.an-ayuda{font-size:14px;margin:-6px 0 12px}
+.an-obs{border-left:4px solid var(--brand);padding:2px 0 2px 14px;margin:0 0 14px}
+.an-obs b{display:block}
+.an-obs p{margin:2px 0 0}
+.an-svg{width:100%;height:auto;display:block}
+.an-svg .an-v{font-size:14px;font-weight:700;fill:var(--ink)}
+.an-svg .an-l{font-size:12px;fill:var(--muted)}
+.an-ley{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted);margin-top:6px}
+.an-ley i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.an-fila{display:grid;grid-template-columns:minmax(0,1fr) 120px 48px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.an-fila b{text-align:right;font-variant-numeric:tabular-nums}
+.an-bar{height:12px;background:var(--line);border-radius:99px;overflow:hidden}
+.an-bar i{display:block;height:100%;border-radius:99px}
+.an-t tbody tr{cursor:default}
+.an-t th{cursor:default}
+.an-p td{vertical-align:top}
+.an-q{white-space:normal;min-width:220px;max-width:340px}
+.an-w{white-space:normal;min-width:130px;max-width:200px;font-size:14px}
 /* Detalle */
 .dhead{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px 16px;margin:0 0 6px}
 .dhead small{display:block;color:var(--muted);font-size:13px}
@@ -110,6 +130,8 @@ tbody tr:hover{background:var(--bg)}
   .card{border:0;padding:0}
   .ans{break-inside:avoid}
   .final{position:static}
+  .tile,.an-obs,.an-fila,.an-p tr{break-inside:avoid}
+  .tw{overflow:visible}
 }
 </style>
 </head>
@@ -167,6 +189,7 @@ tbody tr:hover{background:var(--bg)}
       <span class="sp"></span>
       <button class="btn alt" id="bReload" type="button">↻ Actualizar</button>
       <button class="btn go" id="bAll" type="button">🤖 Corregir todos</button>
+      <button class="btn" id="bAna" type="button">📊 Análisis</button>
       <button class="btn" id="bCsv" type="button">⬇ Exportar (Excel)</button>
     </div>
     <div class="tiles" id="tiles"></div>
@@ -180,6 +203,18 @@ tbody tr:hover{background:var(--bg)}
       <p class="muted" style="font-size:14px;margin:-6px 0 10px">Porcentaje de aciertos del grupo en cada pregunta de corrección automática, de menos a más. En las que corriges tú, la media de puntos de las entregas ya revisadas.</p>
       <div id="stats"></div>
     </div>
+  </section>
+
+  <!-- Análisis de resultados del cuestionario elegido -->
+  <section id="vAnalisis" hidden>
+    <div class="tools noprint" style="margin:18px 0 0">
+      <button class="btn alt" id="bAnaBack" type="button">← Volver a los resultados</button>
+      <span class="sp"></span>
+      <button class="btn alt" id="bAnaPrint" type="button">🖨️ Imprimir o guardar en PDF</button>
+    </div>
+    <h1 id="aTit">Análisis de resultados</h1>
+    <p class="muted" id="aSub" style="margin:-6px 0 18px"></p>
+    <div id="aCont"></div>
   </section>
 
   <!-- Detalle de un alumno -->
@@ -221,6 +256,7 @@ tbody tr:hover{background:var(--bg)}
 <script src="../tareas/config.js"></script>
 <script src="api.js"></script>
 <script src="correccion.js"></script>
+<script src="analisis.js"></script>
 <script src="lista.js"></script>
 <script>
 (function(){
@@ -239,7 +275,7 @@ tbody tr:hover{background:var(--bg)}
   function hora(t){ return new Date(t).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }
   function dur(s){ s=Math.round(s||0); var m=Math.floor(s/60), r=s%60; return m?m+' min'+(r?' '+r+' s':''):r+' s'; }
   var toastT; function toast(m){ var t=$('toast'); t.textContent=m; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(function(){t.hidden=true;},3000); }
-  function vista(v){ ['vLogin','vGrupo','vAlumno','vJuegos'].forEach(function(x){ $(x).hidden=x!==v; }); $('tabs').hidden=(v==='vLogin'||v==='vAlumno'); window.scrollTo(0,0); }
+  function vista(v){ ['vLogin','vGrupo','vAlumno','vJuegos','vAnalisis'].forEach(function(x){ $(x).hidden=x!==v; }); $('tabs').hidden=(v==='vLogin'||v==='vAlumno'||v==='vAnalisis'); window.scrollTo(0,0); }
 
   /* ---------- Banco de preguntas ---------- */
   function banco(id){
@@ -284,7 +320,7 @@ tbody tr:hover{background:var(--bg)}
   function salir(msg){
     try{ sessionStorage.removeItem('cuest-prof'); }catch(e){}
     clave=''; datos=[]; cur=null; $('clave').value=''; $('bOut').hidden=true;
-    $('tabla').innerHTML=''; $('tiles').innerHTML=''; $('jTabla').innerHTML=''; $('jTiles').innerHTML=''; sesiones=[]; abiertos={}; $('tabCuest').setAttribute('aria-selected','true'); $('tabJuegos').setAttribute('aria-selected','false'); $('stats').innerHTML=''; $('dList').innerHTML='';
+    $('tabla').innerHTML=''; $('tiles').innerHTML=''; $('jTabla').innerHTML=''; $('jTiles').innerHTML=''; sesiones=[]; abiertos={}; $('tabCuest').setAttribute('aria-selected','true'); $('tabJuegos').setAttribute('aria-selected','false'); $('stats').innerHTML=''; $('dList').innerHTML=''; $('aCont').innerHTML='';
     $('eLogin').textContent=msg||''; $('eLogin').hidden=!msg; vista('vLogin');
   }
   $('bOut').addEventListener('click',function(){ salir(); });
@@ -393,6 +429,19 @@ tbody tr:hover{background:var(--bg)}
       toast('✅ '+hechas+' entregas corregidas y guardadas'+(err?' · ⚠️ '+err+' no se pudieron guardar':'')+(faltan?' · '+faltan+' necesitan corrección a mano':''));
     });
   });
+
+  /* ---------- Análisis de resultados (analisis.js) ---------- */
+  $('bAna').addEventListener('click',function(){
+    var id=$('sCuest').value, B=bancos[id], L=filtrados(); if(!B){ toast('Espera a que se carguen los resultados.'); return; }
+    L.forEach(function(e){ e._c=calc(e,B); });
+    var c=CUESTIONARIOS.filter(function(x){return x.id===id;})[0];
+    $('aTit').textContent='Análisis · '+(c?c.titulo:B.titulo);
+    $('aSub').textContent=($('sGrupo').value||'Todos los grupos')+' · '+L.length+(L.length===1?' entrega':' entregas')+' · Datos del '+new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})+', '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+    $('aCont').innerHTML=window.AnalisisCuest.html(window.AnalisisCuest.calcular(B,L,CORR,calc));
+    vista('vAnalisis');
+  });
+  $('bAnaBack').addEventListener('click',function(){ vista('vGrupo'); });
+  $('bAnaPrint').addEventListener('click',function(){ window.print(); });
 
   $('sCuest').addEventListener('change',cargar);
   $('sGrupo').addEventListener('change',pintar);
